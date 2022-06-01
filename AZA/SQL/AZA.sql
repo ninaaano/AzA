@@ -154,7 +154,44 @@ select *
 from lesson le, (select*from students_record
 		where student_id = 'student5') sr
 WHERE le.lesson_code = sr.lesson_code AND sr.student_id = 'student5';
+
+--getTotalCount
+SELECT COUNT(*)
+FROM (SELECT *FROM LESSON)
+WHERE teacher_id = 'teacher51';
 /*=================================================================*/
+
+CREATE OF REPLACE TRIGGER TR_BOOK
+	AFTER INSERT
+	ON BOOK
+	FOR EACH ROW
+BEGIN
+	INSERT INTO LESSON_BOOK VALUES()
+	
+	
+
+
+CREATE OR REPLACE TRIGGER TR_BOOK
+BEFORE INSERT ON BOOK
+FOR EACH ROW
+    BEGIN
+    IF INSERTING THEN
+        INSERT INTO LESSON_BOOK('11','새우좋아','와퍼','70000','누구지','2022/06/01','IMG');
+        VALUES (::ISBN);
+    END IF;
+END TR_STUDENT_TEST;
+
+--삭제 된 후
+
+
+CREATE OR REPLACE TRIGGER TR_BOOK
+	AFTER INSERT ON BOOK
+	FOR EACH ROW
+	BEGIN
+		
+	END 
+
+
 
 
 /* Book=================*/
@@ -200,6 +237,14 @@ VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,'teacher51',TO_CHAR(sysdate,'yyyy/mm/d
 
 (SELECT user_id FROM USERS WHERE user_id = 'teacher51'));
 
+INSERT INTO SCHEDULE VALUES (
+	seq_schedule_schedule_code.nextval,
+	(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),
+	,TO_CHAR(sysdate,'yyyy/mm/dd'),
+	TO_CHAR(sysdate,'HH24:MI:SS'),
+	'2022/06/03',null,'열심히 하는 날');
+)
+
 
 /*getLessonschedule*/
 SELECT * FROM schedule
@@ -212,6 +257,40 @@ SET schedule_Start_Date = TO_CHAR(sysdate,'yyyy/mm/dd'),
 	schedule_Start_Time = TO_CHAR(sysdate,'HH24:MI:SS'),
 	schedule_content = '화이팅하자'
 WHERE schedule_start_date ='2022/05/31' AND schedule_start_time='19:06:13' and teacher_id='teacher51';
+
+UPDATE schedule
+SET schedule_Start_Date = TO_CHAR(sysdate,'yyyy/mm/dd'),
+	schedule_End_Date = '2022/06/16',
+	schedule_Start_Time = TO_CHAR(sysdate,'HH24:MI:SS'),
+	schedule_content = '화이팅하자'
+WHERE schedule_code = 1001;
+
+/*deleteLessonSchedule*/
+DELETE 
+FROM schedule
+WHERE schedule_code = 1001;
+
+/*listLessonSchedule*/
+SELECT *
+FROM (
+	SELECT inner_table.*, ROWNUM AS row_seq
+	FROM ( SELECT * FROM schedule
+			WHERE teacher_id = 'teacher51'
+			ORDER BY schedule_start_date || schedule_start_time) inner_table
+	WHERE ROWNUM <= 3)
+WHERE row_seq BETWEEN 1 AND 3;
+
+select*from schedule
+where teacher_id = 'teacher51'
+order by schedule_start_date || schedule_start_time;
+
+
+row count
+SELECT COUNT(*)
+FROM ( SELECT *	FROM alert
+        WHERE receiver_id = 'parent12'
+) countTable
+
 
 
 
