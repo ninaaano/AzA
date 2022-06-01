@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StudentsRecordMapper">
+
+	<resultMap id="studentsRecordSelectMap" type="students">
+		<result property="recordCode" column="record_code" jdbcType="NUMERIC" />
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
+		<result property="studentName" column="student_name" jdbcType="VARCHAR" />
+		<result property="proposal" column="proposal" jdbcType="CHAR" />
+		<result property="lessonStartDate" column="lesson_start_date" jdbcType="VARCHAR" />
+		<result property="fees" column="fees" jdbcType="NUMERIC" />
+		<result property="payDueDate" column="pay_due_date" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- STUDENTS_RECORD :: INSERT -->
+	<insert id="addStudentsRecord">
+	INSERT INTO STUDENTS_RECORD
+	VALUES(
+    	seq_students_record.nextval, 
+    	#{lessonCode},
+ 		(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}),
+    	#{studentName}, 
+    	(SELECT user_name FROM users WHERE user_id = #{studentName}), 
+       	#{proposal}, 
+    	#{lessonStartDate}, 
+    	#{fees}, 
+    	#{payDueDate : CHAR}
+	)
+	</insert>
+	
+	
+	<!-- STUDENTS_RECORD :: SELECT -->
+	<select id="getStudentsRecord" parameterType="int" resultMap="studentsRecordSelectMap">
+	SELECT * FROM students_record
+	WHERE record_code = #{record_code}	
+	</select>
+
+
+	<!-- STUDENTS_RECORD :: UPDATE -->
+	<update id="updateStudentsRecord" parameterType="students">
+	UPDATE students_record
+	<set>
+		fees = #{fees}
+		pay_due_date = #{payDueDate}	
+	</set>
+	WHERE record_code = #{recordCode}
+	</update>
+	
+	
+	<!-- STUDENTS_RECORD :: Proposal -->
+	<update id="proposalStudents">
+	UPDATE students_record
+	<set>
+		proposal = '1'
+	</set>
+	WHERE record_code = #{recordCode}	
+	</update>
+	
+
+	<!-- STUDENTS_RECORD :: DELETE  -->
+	<delete id="deleteStudentsRecord">
+	DELETE students_record
+	FROM record_code = #{recordCode}
+	</delete>
+	
+		
+	<!--  STUDENT_RECORD :: LIST - 승인 요청 중 (proposal 0) -->
+	<select id="listProposalStudents" resultMap="studentsRecordSelectMap">
+	SELECT * 
+	FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+        	FROM ( SELECT * 
+                	FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
+                        	FROM students_record sr, lesson l
+                        	WHERE l.teacher_id = #{teacherId} AND sr.lesson_code = l.lesson_code)
+               		WHERE proposal = '0'        
+                	ORDER BY student_name ) inner_table
+       		WHERE ROWNUM &lt;= #{endRowNum} 		
+	)
+	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	
+	<!-- STUDENT_RECORD :: Total Count - 승인 요청 중 (proposal 0) -->
+	<select id="getProposalStudentsTotalCount" resultType="int">
+	SELECT COUNT(*) 
+	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
+            				FROM students_record sr, lesson l
+            				WHERE l.teacher_id = #{teacherId} AND sr.lesson_code = l.lesson_code) 
+    		WHERE proposal = '0') countTable	
+	</select>
+	
+	
+	<!-- STUDENT_RECORD :: LIST - 전체 학생 (proposal 2) -->
+	<select id="listStudentsRecord" resultMap="studentsRecordSelectMap">
+	SELECT * 
+	FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+        FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
+                        		FROM students_record sr, lesson l
+                        		WHERE l.teacher_id = 'teacher1' AND sr.lesson_code = l.lesson_code) v
+                WHERE v.proposal = '2'
+                <if test='searchCondition != null'>
+                    <where>
+	                    <if test="searchCondition == 0 and searchKeyword != '' ">
+	                        v.student_id LIKE '%' || #{searchKeyword} || '%'
+	                    </if>
+	                    <if test="searchCondition == 1 and searchKeyword != '' ">
+	                        v.student_name LIKE '%' || #{searchKeyword} || '%'
+	                    </if>
+	                    <if test="searchCondition == 2 and searchKeyword != '' ">
+	                        v.lesson_code LIKE '%' || #{searchKeyword} || '%'
+	                    </if>
+	                    <if test="searchCondition == 3 and searchKeyword != '' ">
+	                        lesson_name LIKE '%' || #{searchKeyword} || '%'
+	                    </if>
+                    </where>
+                </if>
+                ORDER BY v.student_name ) inner_table
+            WHERE ROWNUM &lt;= #{endRowNum} 
+   	)
+	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	
+	<!-- STUDENT_RECORD :: Total Count - 전체 학생 (proposal 2) -->
+	<select id="getStudentsRecordTotalCount" resultType="int">
+	SELECT COUNT(*)
+	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
+                       		FROM students_record sr, lesson l
+                        	WHERE l.teacher_id = 'teacher1' AND sr.lesson_code = l.lesson_code) v
+           WHERE v.proposal = '2'
+           <if test='searchCondition != null'>
+               <where>
+               <if test="searchCondition == 0 and searchKeyword != '' ">
+                   v.student_id LIKE '%' || #{searchKeyword} || '%'
+               </if>
+               <if test="searchCondition == 1 and searchKeyword != '' ">
+                   v.student_name LIKE '%' || #{searchKeyword} || '%'
+               </if>
+               <if test="searchCondition == 2 and searchKeyword != '' ">
+                   v.lesson_code LIKE '%' || #{searchKeyword} || '%'
+               </if>
+               <if test="searchCondition == 3 and searchKeyword != '' ">
+                   lesson_name LIKE '%' || #{searchKeyword} || '%'
+               </if>
+               </where>
+           </if> ) countTable
+	</select>
+</mapper>
