@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace = "BookMapper">
+	<resultMap id = "bookSelectMap" type="book">
+		<result property ="isbn" column="isbn" jdbcType="VARCHAR"/>
+		<result property ="bookTitle" column="book_title" jdbcType="VARCHAR"/>
+		<result property ="publisher" column="publisher" jdbcType="VARCHAR"/>
+		<result property ="bookPrice" column="book_price" jdbcType="VARCHAR"/>
+		<result property ="author" column="author" jdbcType="VARCHAR"/>
+		<result property ="bookYear" column="book_year" jdbcType="VARCHAR"/>
+		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>
+		
+		<!-- <association property="lessonBookSelectMap"  javaType="lessonBook">
+			<id property="BookCode" column="book_code" jdbcType="NUMERIC"/>
+			<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR"/>
+			<result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+		</association> -->
+	</resultMap>
+	
+	<insert id = "addLessonBook" parameterType="book">
+		INSERT
+		INTO BOOK
+		VALUES (#{isbn}, #{bookTitle},
+		#{publisher:VARCHAR},#{bookPrice:VARCHAR},#{author:VARCHAR},
+		#{bookYear:VARCHAR},#{bookImg:VARCHAR});
+	</insert>
+	
+	<select id = "listLessonBook" resultMap ="bookSelectMap">
+		SELECT*
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+			FROM ( SELECT * FROM lesson_book
+					WHERE lesson_code = #{lesson_code}
+					ORDER BY book_code) inner_table
+			WHERE ROWNUM &lt;= #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum};
+	</select>
+	
+	<delete id="deleteLessonBook">
+		DELETE
+		FROM LESSON_BOOK LB
+		where EXISTS(
+			SELECT *
+			FROM BOOK B
+			WHERE B.ISBN = LB.ISBN AND ISBN = #{isbn}
+		);
+	</delete>
+</mapper>
