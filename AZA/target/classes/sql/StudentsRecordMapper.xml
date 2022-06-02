@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aza.sql.StudentsRecordMapper">
 
-<mapper namespace="StudentsRecordMapper">
-
-	<resultMap id="studentsRecordSelectMap" type="students">
+	<resultMap id="studentsRecordSelectMap" type="com.aza.service.domain.Students">
 		<result property="recordCode" column="record_code" jdbcType="NUMERIC" />
 		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
 		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
@@ -43,7 +40,7 @@
 
 
 	<!-- STUDENTS_RECORD :: UPDATE -->
-	<update id="updateStudentsRecord" parameterType="students">
+	<update id="updateStudentsRecord" parameterType="com.aza.service.domain.Students">
 	UPDATE students_record
 	<set>
 		fees = #{fees}
@@ -77,7 +74,7 @@
         	FROM ( SELECT * 
                 	FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
                         	FROM students_record sr, lesson l
-                        	WHERE l.teacher_id = #{teacherId} AND sr.lesson_code = l.lesson_code)
+                        	WHERE l.teacher_id = #{searchKeyword} AND sr.lesson_code = l.lesson_code)
                		WHERE proposal = '0'        
                 	ORDER BY student_name ) inner_table
        		WHERE ROWNUM &lt;= #{endRowNum} 		
@@ -91,7 +88,7 @@
 	SELECT COUNT(*) 
 	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
             				FROM students_record sr, lesson l
-            				WHERE l.teacher_id = #{teacherId} AND sr.lesson_code = l.lesson_code) 
+            				WHERE l.teacher_id = #{searchKeyword} AND sr.lesson_code = l.lesson_code) 
     		WHERE proposal = '0') countTable	
 	</select>
 	
