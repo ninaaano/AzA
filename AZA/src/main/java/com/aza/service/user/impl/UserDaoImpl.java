@@ -2,94 +2,94 @@ package com.aza.service.user.impl;
 
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
-import com.aza.service.user.UserService;
 
-
-@Service("userServiceImpl")
-public class UserServiceImpl implements UserService {
+@Repository("userDaoImpl")
+public class UserDaoImpl implements UserDao {
 	
 	///Field
 	@Autowired
-	@Qualifier("userDaoImpl")
-	private UserDao userDao;
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
+	@Qualifier("sqlSessionTemplate")
+	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
 	}
 	
 	///Constructor
-	public UserServiceImpl() {
+	public UserDaoImpl() {
 		System.out.println(this.getClass());
 	}
 	
 	@Override
 	public void addUser(User user) throws Exception {
-		userDao.addUser(user);
+		sqlSession.insert("UserMapper.addUser", user);
 	}
 
 	@Override
 	public User getUser(String userId) throws Exception {
-		return userDao.getUser(userId);
+		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}
 
 	@Override
 	public void updateUser(User user) throws Exception {
-		userDao.updateUser(user);
+		sqlSession.update("UserMapper.updateUser", user);
 	}
 
 	@Override
 	public void deleteUser(String userId) throws Exception {
-		userDao.deleteUser(userId);
+		sqlSession.delete("UserMapper.deleteUser", userId);
 	}
 
 	@Override
 	public int checkDuplication(String userId) throws Exception {
-		return userDao.checkDuplication(userId);
+		return sqlSession.selectOne("UserMapper.checkDuplication", userId);
 	}
 
 	@Override
 	public void updateAlertState(char alertState) throws Exception {
-		userDao.updateAlertState(alertState);
+		sqlSession.update("UserMapper.updateAlertState", alertState);	
 	}
 
 	@Override
 	public void updateStopAlertStartTime(String stopAlertStartTime) throws Exception {
-		userDao.updateStopAlertStartTime(stopAlertStartTime);
+		sqlSession.update("UserMapper.updateStopAlertStartTime", stopAlertStartTime);
 	}
 
 	@Override
 	public void updateStopAlertEndTime(String stopAlertEndTime) throws Exception {
-		userDao.updateStopAlertEndTime(stopAlertEndTime);
+		sqlSession.update("UserMapper.updateStopAlertEndTime", stopAlertEndTime);
 	}
 
 	@Override
 	public void addRelation(User user) throws Exception {
-		userDao.addRelation(user);
+		sqlSession.insert("RelationMapper.addRelation", user);	
 	}
 
 	@Override
 	public void deleteRelation(int relationCode) throws Exception {
-		userDao.deleteRelation(relationCode);
+		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
 	}
 
 	@Override
-	public User getRelation(User user) throws Exception {		
-		return userDao.getRelation(user);
+	public User getRelation(User user) throws Exception {
+		return sqlSession.selectOne("RelationMapper.getRelation", user);
 	}
 
 	@Override
 	public void updateRelation(User user) throws Exception {
-		userDao.updateRelation(user);
+		sqlSession.update("RelationMapper.updateRelation", user);
 	}
 
 	@Override
 	public Map<String, Object> listRelation(String parentId) throws Exception {
-		return userDao.listRelation(parentId);
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
 }
