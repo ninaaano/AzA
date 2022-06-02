@@ -2,6 +2,9 @@ package com.aza.service.students;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
 import com.aza.common.Search;
 import com.aza.service.domain.Students;
 
@@ -36,7 +39,7 @@ public interface StudentsDao {
 	
 	
 	// ATTENDANCE :: INSERT
-	public void addAttendance(Students students) throws Exception;
+	public void addStudentsAttendance(Students students) throws Exception;
 	
 	// ATTENDANCE :: SELECT
 	public Students getStudentsAttendance(int attendanceCode) throws Exception;
