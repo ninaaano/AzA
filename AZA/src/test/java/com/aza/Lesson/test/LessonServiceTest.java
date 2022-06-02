@@ -19,10 +19,10 @@ import com.aza.service.lesson.impl.LessonService;
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
 //@WebMvcTest(EmployeeRESTController.class)
-@ContextConfiguration(locations = {"classpath:config/context-aspect.xml",
-		"classpath:config/context-common.xml",
-		"classpath:config/context-mybatis.xml",
-		"classpath:config/context-transaction.xml"})
+//@ContextConfiguration(locations = {"classpath:config/context-aspect.xml",
+//		"classpath:config/context-common.xml",
+//		"classpath:config/context-mybatis.xml",
+//		"classpath:config/context-transaction.xml"})
 @SpringBootTest
 public class LessonServiceTest {
 
@@ -31,7 +31,7 @@ public class LessonServiceTest {
 	private LessonService lessonService;
 	
 	@Test
-	@Transactional
+//	@Transactional
 	public void testAddLesson() throws Exception{
 		Lesson lesson = new Lesson();
 			

@@ -3,6 +3,7 @@ package com.aza.service.lesson.impl;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,10 @@ public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
-	private SqlSession sqlSession;
-	public void seqSqlSession(SqlSession sqlSession) {
+	private SqlSession sqlSessionTemplate;
+	public void seqSqlSession(SqlSessionTemplate sqlSession) {
 		System.out.println("Test");
-		this.sqlSession = sqlSession;
+		this.sqlSessionTemplate = sqlSession;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -32,7 +33,7 @@ public class LessonDaoImpl implements LessonDao {
 	@Override
 	public void addLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert("LessonMapper.addLesson", lesson);
+		sqlSessionTemplate.insert("LessonMapper.addLesson", lesson);
 	}
 
 	@Override

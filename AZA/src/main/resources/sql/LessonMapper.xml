@@ -20,7 +20,7 @@
 
 
 	<!-- LESSON :: INSERT -->
-<!-- - 	<insert id="addLesson" parameterType="lesson">
+- 	<insert id="addLesson" parameterType="lesson">
 		INSERT 
 		INTO LESSON		
 		VALUES (#{lessonCode},
@@ -28,8 +28,8 @@
 		 #{lessonName}, #{lessonDay}, #{lessonEndTime},
 		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
-	</insert> -->
-	<insert id="addLesson" parameterType="lesson">
+	</insert>
+<!-- 	<insert id="addLesson" parameterType="lesson">
 		INSERT 
 		INTO LESSON		
 		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
@@ -37,7 +37,7 @@
 		 #{lessonName}, #{lessonDay},
 		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
-	</insert>
+	</insert> -->
 	
 	
 	<!-- STUDENTS_RECORD :: SELECT -->
