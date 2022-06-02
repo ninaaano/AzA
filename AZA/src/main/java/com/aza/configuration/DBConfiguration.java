@@ -56,7 +56,7 @@ public class DBConfiguration {
 	
 	@Autowired
 	@Bean
-	public SqlSessionTemplate sqlSession() throws Exception {
+	public SqlSessionTemplate sqlSessionTemplate() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}
 	

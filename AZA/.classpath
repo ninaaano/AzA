@@ -28,9 +28,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ojdbc"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ojdbc6"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/junit-4.13.2"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

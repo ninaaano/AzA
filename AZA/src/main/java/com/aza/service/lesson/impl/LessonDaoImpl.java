@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.aza.common.Search;
@@ -13,15 +15,18 @@ import com.aza.service.domain.Lesson;
 import com.aza.service.domain.LessonBook;
 import com.aza.service.domain.Schedule;
 
+
+@Component
+@PropertySource("classpath:/application.properties")
 @Repository("LessonDaoImpl")
 public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
-	private SqlSession sqlSession;
+	private SqlSession sqlSessionTemplate;
 	public void seqSqlSession(SqlSession sqlSession) {
 		System.out.println("Test");
-		this.sqlSession = sqlSession;
+		this.sqlSessionTemplate = sqlSession;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -32,13 +37,12 @@ public class LessonDaoImpl implements LessonDao {
 	@Override
 	public void addLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert("LessonMapper.addLesson", lesson);
+		sqlSessionTemplate.insert("LessonMapper.addLesson", lesson);
 	}
 
 	@Override
 	public Lesson getLesson(String lessonCode) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectOne("LessonMapper.getLesson",lessonCode);
 	}
 
 	@Override
