@@ -8,11 +8,11 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-@PropertySource("application.properties")
+@PropertySource("classpath:application.properties")
 @ImportResource(value= {/*"config/context-aspect.xml",*/
-						"config/context-common.xml",
-						"config/context-mybatis.xml", 
-						"config/context-transaction.xml" })
+						"classpath:config/context-common.xml",
+						"classpath:config/context-mybatis.xml", 
+						"classpath:config/context-transaction.xml" })
 @Configuration
 public class AzaApplication {
 
