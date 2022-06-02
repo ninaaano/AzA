@@ -1,4 +1,4 @@
-package com.aza.service.lesson.impl;
+package com.aza.service.lesson;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public interface LessonService {
 	public void updateLesson(Lesson lesson) throws Exception;
 
 	// lesson : delete
-	public Lesson deleteLesson(String lessonCode) throws Exception;
+	public void deleteLesson(String lessonCode) throws Exception;
 
 	// lesson : list
 	public Map<String, Object> listLesson(Search search, String lessonName) throws Exception;
@@ -35,8 +35,14 @@ public interface LessonService {
 	public void updateLessonSchedule(Schedule schedule) throws Exception;
 
 	// schedule : delete
-	public Schedule deleteLessonSchedule(int scheudleCode) throws Exception;
+	public void deleteLessonSchedule(int scheudleCode) throws Exception;
 
 	// schedule : list
 	public Map<String, Object> listLessonSchedule(Search search) throws Exception;
+	
+	public void addLessonBook(Book book) throws Exception;
+	
+	public Map<String, Object> listLessonBook(Search search, String isbn) throws Exception;
+	
+	public LessonBook deleteLessonBook(String isbn) throws Exception;
 }

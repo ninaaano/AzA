@@ -1,4 +1,4 @@
-package com.aza.service.lesson.impl;
+package com.aza.service.lesson;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface LessonDao {
 	public void updateLesson(Lesson lesson) throws Exception;
 	
 	//lesson : delete
-	public Lesson deleteLesson(String lessonCode) throws Exception;
+	public void deleteLesson(String lessonCode) throws Exception;
 	
 	//lesson : list
 	public List<Lesson> listLesson(Search search) throws Exception;
