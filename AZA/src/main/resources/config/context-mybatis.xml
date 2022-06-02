@@ -5,13 +5,13 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 		 http://www.springframework.org/schema/beans/spring-beans.xsd">
 				
-	<bean 	id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean" >
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean" >
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:sql/mybatis-config.xml"/>
 		<!-- <property name="mapperLocations" value="classpath:sql/**/*"/> -->
 	</bean>
 	
-	<bean		id="sqlSessionTemplate"	 class="org.mybatis.spring.SqlSessionTemplate" >		
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" >		
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 
