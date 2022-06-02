@@ -17,6 +17,7 @@ import org.springframework.context.annotation.PropertySource;
 public class AzaApplication {
 
 	public static void main(String[] args) {
+		System.out.println("AzaApplication 시작");
 		SpringApplication.run(AzaApplication.class, args);
 	}
 
