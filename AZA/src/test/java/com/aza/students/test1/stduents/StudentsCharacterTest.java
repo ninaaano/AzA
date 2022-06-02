@@ -1,4 +1,4 @@
-package com.aza.students.test1;
+package com.aza.students.test1.stduents;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;

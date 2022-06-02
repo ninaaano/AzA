@@ -16,7 +16,6 @@ import com.aza.service.domain.LessonBook;
 import com.aza.service.domain.Schedule;
 import com.aza.service.lesson.LessonDao;
 
-
 @Component
 @PropertySource("classpath:/application.properties")
 @Repository("LessonDaoImpl")

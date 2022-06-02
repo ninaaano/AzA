@@ -16,18 +16,12 @@ public class StudentsTest {
 	@Autowired
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
-	
-<<<<<<< HEAD
-	
-	// STUDENTS_RECORD
-	//@Test
-=======
+
 	@Autowired
 	@Qualifier("alertServiceImpl")
 	private AlertService alertService;
 	
 //	@Test
->>>>>>> refs/heads/HM
 	public void testGetStudentsRecord() throws Exception {
 		
 		Students students = new Students();
@@ -39,26 +33,7 @@ public class StudentsTest {
 	}
 	
 	
-<<<<<<< HEAD
-	
-	
-	// ATTENDANCE
-	@Test
-	public void testGetStudentsAttendance() throws Exception {
-		
-		Students students = new Students();
-		
-		students = studentsService.getStudentsAttendance(1020);
-		
-		System.out.println(students);
-	}
-	
-	
-	//@Test
-	public void testAddStudentsAttendance() throws Exception {
-		
-	}
-=======
+
 //	@Test
 	public void testGetStudentsAttendance() throws Exception {
 		
@@ -95,10 +70,4 @@ public class StudentsTest {
 		
 		System.out.println(alert);
 	}
-	
-	
-	
-	
-	
->>>>>>> refs/heads/HM
 }

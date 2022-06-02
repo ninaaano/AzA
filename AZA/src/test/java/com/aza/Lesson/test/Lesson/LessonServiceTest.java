@@ -1,4 +1,4 @@
-package com.aza.Lesson.test;
+package com.aza.Lesson.test.Lesson;
 
 import org.junit.jupiter.api.Test;
 
