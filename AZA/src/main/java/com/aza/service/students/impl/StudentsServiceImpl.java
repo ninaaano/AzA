@@ -14,6 +14,7 @@ import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao;
 import com.aza.service.students.StudentsService;
 
+@Service("studentsServiceImpl")
 public class StudentsServiceImpl implements StudentsService {
 
 	@Autowired
@@ -23,6 +24,10 @@ public class StudentsServiceImpl implements StudentsService {
 	
 	public StudentsServiceImpl() {
 		System.out.println("[ "+this.getClass()+" ] :: start");
+	}
+	
+	public void setStudentsDao(StudentsDao studentsDao) {
+		this.studentsDao = studentsDao;
 	}
 
 	@Override
