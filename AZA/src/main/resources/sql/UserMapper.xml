@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+ 	
+ 	
+	<resultMap id="userSelectMap" type="com.aza.service.domain.User">
+		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="password" 	column="password" 		jdbcType="VARCHAR" />
+		<result property="role" 				column="role" 					jdbcType="VARCHAR" />
+		<result property="userName"	column="user_name" 		jdbcType="VARCHAR" />
+		<result property="phone" 			column="phone" 		jdbcType="VARCHAR" />
+		<result property="school" 				column="school" 					jdbcType="VARCHAR" />
+		<result property="grade" 				column="grade" 					jdbcType="CHAR" />
+		<result property="birth" 			column="birth" 				jdbcType="CHAR"  />
+		<result property="parentPhone" 		column="parent_phone" 			jdbcType="VARCHAR" />
+		<result property="alertState" 		column="alert_state" 			jdbcType="CHAR" />
+		<result property="stopAlertStartTime" 		column="stop_alert_start_time" 			jdbcType="INTEGER" />
+		<result property="stopAlertEndTime" 		column="stop_alert_end_time" 			jdbcType="INTEGER" />
+	</resultMap>
+	
+<!-- 	<resultMap id="RelationMap" type="relation">
+		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
+		<result property="studentId" 	column="student_id" 		jdbcType="VARCHAR" />
+		<result property="parentId" 				column="parent_id" 					jdbcType="VARCHAR" />
+		<result property="relationName"	column="relation_name" 		jdbcType="VARCHAR" />
+	</resultMap> -->
+	
+
+<!-- 	<insert 	id="addRelation"		parameterType="relation" >							
+		INSERT
+		INTO relation
+		VALUES (#{relationCode} , #{studentId}, #{parentId}, #{relationName})		
+	</insert>
+	
+
+	<select		id="getRelation">
+		SELECT
+		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		FROM users u, relation r
+		WHERE u.user_id = r.parent_id AND u.user_id = #{parentId} 
+		AND r.student_id = #{studentId};
+	</select>
+
+	<update		id="updateRelation" 	>
+		UPDATE relation
+		<set>
+			relation_name = #{value}
+		</set>
+		WHERE parent_Id = #{parentId} AND student_id = #{studentId}
+	</update>
+	
+
+	 <delete	id="deleteRelation"	parameterType="int" >
+		DELETE FROM relation
+		WHERE relation_code = #{relationCode};
+	 </delete>
+	 
+
+	<select id="listRelation" >
+		SELECT
+		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		FROM users u, relation r
+		WHERE u.user_id = r.parent_id AND u.user_id = #{parentId};
+	</select> -->
+	
+	
+	<!-- USERS : INSERT -->
+	<insert 	id="addUser"		parameterType="user" >							
+		INSERT
+		INTO users
+		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
+		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:VARCHAR} , #{parentPhone:VARCHAR},
+		#{alertState}, #{stopAlertStartTime:Integer}, #{stopAlertEndTime:Integer})		
+	</insert>
+	 
+	 <!-- USERS : SELECT -->
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+		SELECT *
+		<!-- user_id, password, role, user_name, phone, school, grade, birth, parent_phone, alert_state, stop_alert_start_time, stop_alert_end_time -->
+		FROM users
+		WHERE user_id = #{value}
+	 </select>
+	 
+	 <!-- USERS : UPDATE -->
+	 <update	id="updateUser"	parameterType="user" >
+	   	UPDATE users
+	   	<set>
+	   		password = #{password},
+	   		phone = #{phone},
+	   		grade = #{grade},
+	   		school = #{school},
+	   		parentPhone = #{parentPhone}
+	   	</set>
+		WHERE user_id = #{userId}
+	 </update>
+	 
+	 <!-- USERS : DELETE -->
+	 <delete	id="deleteUser"	parameterType="String" >
+	   	DELETE FROM users
+		WHERE user_id = #{userId}
+	 </delete> 
+		 
+	 <!-- USERS : CheckDuplication -->
+	 <select id="checkDuplication" parameterType="String" resultType="int">
+	 	SELECT COUNT(user_id) 
+	 	FROM users
+	 	WHERE user_id = #{userId}
+	 </select>
+	 
+ 	 <!-- USERS : UpdateAlertState -->
+	 <update	id="updateAlertState" >
+	   	UPDATE users
+	   	<set>
+	   		alert_state = '0'
+	   	</set>
+		WHERE user_id = #{userId}
+	 </update>
+	 
+  	 <!-- USERS : UpdateStopAlertStartTime -->
+	 <update	id="updateStopAlertStartTime" >
+	   	UPDATE users
+	   	<set>
+	   		stop_alert_start_time = #{stopAlertStartTime}
+	   	</set>
+		WHERE user_id = #{userId}
+	 </update>
+	 
+   	 <!-- USERS : UpdateStopAlertendTime -->
+	 <update	id="updateStopAlertEndTime" >
+	   	UPDATE users
+	   	<set>
+	   		stop_alert_end_time = #{stopAlertEndTime}
+	   	</set>
+		WHERE user_id = #{userId}
+	 </update>
+	 
+	 
+</mapper>
