@@ -90,6 +90,21 @@ public class Students {
 
 
 	public void setAttendanceState(String attendanceState) {
+		
+		switch(attendanceState) {
+		
+			case "출석" :
+				this.attendanceState = " 학생 출석했습니다💚";
+				break;
+			
+			case "도망" :
+				this.attendanceState = " 학생 도망갔네요🏃‍♀️";
+				break;
+			
+		}
+		
+		
+		
 		this.attendanceState = attendanceState;
 	}
 

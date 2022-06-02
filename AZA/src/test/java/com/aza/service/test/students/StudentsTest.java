@@ -15,16 +15,36 @@ public class StudentsTest {
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
 	
-	@Test
+	
+	// STUDENTS_RECORD
+	//@Test
 	public void testGetStudentsRecord() throws Exception {
 		
 		Students students = new Students();
 		
 		students = studentsService.getStudentsRecord(1023);
 		
-		System.out.println(students.toString());
+		System.out.println(students);
 
 	}
 	
 	
+	
+	
+	// ATTENDANCE
+	@Test
+	public void testGetStudentsAttendance() throws Exception {
+		
+		Students students = new Students();
+		
+		students = studentsService.getStudentsAttendance(1020);
+		
+		System.out.println(students);
+	}
+	
+	
+	//@Test
+	public void testAddStudentsAttendance() throws Exception {
+		
+	}
 }

@@ -14,11 +14,13 @@
 	<typeAliases>
 		<typeAlias alias="students" type="com.aza.service.domain.Students" />
 		<typeAlias alias="search" type="com.aza.common.Search" />
+		<typeAlias alias="alert" type="com.aza.service.domain.Alert"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="sql/StudentsRecordMapper.xml"/>
 		<mapper resource="sql/AttendanceMapper.xml"/>
+		<mapper resource="sql/AlertMapper.xml"/>
 	</mappers>
 
 </configuration>
