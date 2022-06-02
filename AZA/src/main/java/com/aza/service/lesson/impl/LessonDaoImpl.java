@@ -18,7 +18,7 @@ import com.aza.service.lesson.LessonDao;
 
 @Component
 @PropertySource("classpath:/application.properties")
-@Repository("LessonDaoImpl")
+@Repository("lessonDaoImpl")
 public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
