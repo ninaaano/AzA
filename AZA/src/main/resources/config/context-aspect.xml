@@ -14,7 +14,7 @@
 	 <aop:config>
 	 	<aop:aspect  ref="logAspect">
 	 		<aop:around 
-					pointcut="execution(* com.aza.service..*Impl.*(..) )"	method="invoke"/>
+					pointcut="execution(*com.aza.service..*Impl.*(..) )"	method="invoke"/>
 	 	</aop:aspect>
 	 </aop:config>
 

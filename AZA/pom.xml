@@ -89,12 +89,20 @@
 		</dependency>
 
 		
-		
-		<!--	aspect J 	-->
 		<dependency>
 			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>   	
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.8</version>
+		</dependency>
+		
+				<!--	aspect J 	-->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		    <version>1.9.8</version>
+		    <scope>runtime</scope>
+		</dependency> 
+	
 		
 		<!-- JSP -->
 		<dependency>

@@ -27,7 +27,7 @@ import com.aza.service.lesson.impl.LessonService;
 public class LessonServiceTest {
 
 	@Autowired
-	@Qualifier("LessonServiceImpl")
+	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
 	
 	@Test

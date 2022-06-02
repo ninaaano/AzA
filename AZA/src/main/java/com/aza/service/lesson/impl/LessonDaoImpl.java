@@ -13,7 +13,7 @@ import com.aza.service.domain.Lesson;
 import com.aza.service.domain.LessonBook;
 import com.aza.service.domain.Schedule;
 
-@Repository("LessonDaoImpl")
+@Repository("lessonDaoImpl")
 public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
