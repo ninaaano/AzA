@@ -31,7 +31,7 @@ public interface LessonDao {
 	public List<Book> listLessonBook(Search search) throws Exception;
 	
 	//lessonBook : delete
-	public LessonBook deleteLessonBook(String isbn) throws Exception;
+	public void deleteLessonBook(String isbn) throws Exception;
 	
 	
 	public int getTotalCount(Search search) throws Exception;

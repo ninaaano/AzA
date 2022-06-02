@@ -77,27 +77,27 @@ public class LessonDaoImpl implements LessonDao {
 	}
 	
 	@Override
-	public LessonBook deleteLessonBook(String isbn) throws Exception {
+	public void deleteLessonBook(String isbn) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		sqlSessionTemplate.delete("BookMapper.deleteLessonBook", isbn);
 	}
 
 	@Override
 	public int getTotalCount(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSessionTemplate.selectOne("lessonMapper.getTotalCount",search);
 	}
 
 	@Override
 	public void addLessonSchedule(Schedule schedule) throws Exception {
 		// TODO Auto-generated method stub
-		
+		sqlSessionTemplate.insert("ScheduleMapper.addLessonScehdule",schedule);
 	}
 
 	@Override
 	public Schedule getLessonSchedule(int scheduleCode) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonSchedule",scheduleCode);
 	}
 
 	@Override

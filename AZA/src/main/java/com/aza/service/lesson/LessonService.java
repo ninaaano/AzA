@@ -44,5 +44,5 @@ public interface LessonService {
 	
 	public Map<String, Object> listLessonBook(Search search, String isbn) throws Exception;
 	
-	public LessonBook deleteLessonBook(String isbn) throws Exception;
+	public void deleteLessonBook(String isbn) throws Exception;
 }
