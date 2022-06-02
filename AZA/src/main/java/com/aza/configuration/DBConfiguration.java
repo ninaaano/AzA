@@ -42,6 +42,7 @@ public class DBConfiguration {
 		return new HikariDataSource(hikariConfig());
 	}
 	
+	@Autowired
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
@@ -53,6 +54,7 @@ public class DBConfiguration {
 		return factoryBean.getObject();
 	}
 	
+	@Autowired
 	@Bean
 	public SqlSessionTemplate sqlSession() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
