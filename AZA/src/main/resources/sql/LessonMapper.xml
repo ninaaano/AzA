@@ -3,8 +3,9 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
 <mapper namespace="LessonMapper">
-	<resultMap id="lessonSelectMap" type="lesson">
+	<resultMap id="lessonSelectMap" type="com.aza.service.domain.Lesson">
 		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
 		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
 		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
@@ -18,9 +19,8 @@
 		<result property="lessonCreateAt" column="lesson_create_at" jdbcType="VARCHAR"/>
 	</resultMap>
 
-
 	<!-- LESSON :: INSERT -->
-- 	<insert id="addLesson" parameterType="lesson">
+<!-- - 	<insert id="addLesson" parameterType="lesson">
 		INSERT 
 		INTO LESSON		
 		VALUES (#{lessonCode},
@@ -28,8 +28,8 @@
 		 #{lessonName}, #{lessonDay}, #{lessonEndTime},
 		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
-	</insert>
-<!-- 	<insert id="addLesson" parameterType="lesson">
+	</insert> -->
+	<insert id="addLesson">
 		INSERT 
 		INTO LESSON		
 		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
@@ -37,18 +37,18 @@
 		 #{lessonName}, #{lessonDay},
 		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
-	</insert> -->
+	</insert>
 	
 	
 	<!-- STUDENTS_RECORD :: SELECT -->
-	<select id="getLesson" parameterType="string" resultMap="lessonSelectMap">
+	<select id="getLesson" parameterType="String" resultMap="lessonSelectMap">
 		SELECT * from lesson
-		where lesson_code like #{lessonCode};
+		where lesson_code = #{lessonCode}
 	</select>
 
 
 	<!-- STUDENTS_RECORD :: UPDATE -->
-	<update id="updateLesson" parameterType="lesson">
+	<update id="updateLesson">
 		UPDATE lesson
 		<set> 
 			lesson_name = #{lessonName},
@@ -58,7 +58,7 @@
 			subject = #{subject},
 			lesson_content= #{lessonContent}
 		</set>
-	WHERE lesson_code = #{lessonCode};
+		WHERE lesson_code = #{lessonCode};
 	</update>
 	
 	<delete id = "deleteLesson">
@@ -66,7 +66,7 @@
 		WHERE lesson_code = #{lessonCode};
 	</delete>
 	
-	<select id = "listLesson" parameterType="search" resultMap="lessonSelectMap">
+	<select id = "listLesson" resultMap="lessonSelectMap">
 		SELECT*
 		FROM (SELECT inner_table.*
 			FROM (SELECT * FROM lesson
@@ -84,7 +84,7 @@
 	WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59'; -->
 	
 	<!-- SQL : SELECT ROW Count -->
-	 <select id = "getTotalCount" parameterType="search" resultType="int">
+	 <select id = "getTotalCount" resultType="int">
 	 		SELECT COUNT(*)
 	 		FROM( SELECT * from lesson
 	 		<if test="searchCondition != null">

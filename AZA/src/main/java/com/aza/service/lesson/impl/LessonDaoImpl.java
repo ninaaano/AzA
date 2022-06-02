@@ -3,9 +3,10 @@ package com.aza.service.lesson.impl;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.aza.common.Search;
@@ -14,13 +15,16 @@ import com.aza.service.domain.Lesson;
 import com.aza.service.domain.LessonBook;
 import com.aza.service.domain.Schedule;
 
-@Repository("lessonDaoImpl")
+
+@Component
+@PropertySource("classpath:/application.properties")
+@Repository("LessonDaoImpl")
 public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSessionTemplate;
-	public void seqSqlSession(SqlSessionTemplate sqlSession) {
+	public void seqSqlSession(SqlSession sqlSession) {
 		System.out.println("Test");
 		this.sqlSessionTemplate = sqlSession;
 		// TODO Auto-generated constructor stub
@@ -38,8 +42,7 @@ public class LessonDaoImpl implements LessonDao {
 
 	@Override
 	public Lesson getLesson(String lessonCode) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectOne("LessonMapper.getLesson",lessonCode);
 	}
 
 	@Override

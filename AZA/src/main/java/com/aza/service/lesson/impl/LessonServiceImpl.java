@@ -10,11 +10,11 @@ import com.aza.common.Search;
 import com.aza.service.domain.Lesson;
 import com.aza.service.domain.Schedule;
 
-@Service("lessonServiceImpl")
+@Service("LessonServiceImpl")
 public class LessonServiceImpl implements LessonService {
 
 	@Autowired
-	@Qualifier("lessonDaoImpl")
+	@Qualifier("LessonDaoImpl")
 	private LessonDao lessonDao;
 	public void setLessonDao(LessonDao lessonDao) {
 		this.lessonDao = lessonDao;
@@ -35,7 +35,7 @@ public class LessonServiceImpl implements LessonService {
 	@Override
 	public Lesson getLesson(String lessonCode) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return lessonDao.getLesson(lessonCode);
 	}
 
 	@Override
