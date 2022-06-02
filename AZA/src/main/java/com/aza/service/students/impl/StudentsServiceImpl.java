@@ -6,10 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.aza.common.Search;
+import com.aza.service.alert.AlertDao;
+import com.aza.service.domain.Alert;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao;
 import com.aza.service.students.StudentsService;
@@ -20,6 +21,10 @@ public class StudentsServiceImpl implements StudentsService {
 	@Autowired
 	@Qualifier("studentsDaoImpl")
 	private StudentsDao studentsDao;
+	
+	@Autowired
+	@Qualifier("alertDaoImpl")
+	private AlertDao alertDao;
 	
 	
 	public StudentsServiceImpl() {
@@ -82,6 +87,13 @@ public class StudentsServiceImpl implements StudentsService {
 	@Override
 	public void addAttendance(Students students) throws Exception {
 		studentsDao.addStudentsAttendance(students);
+		
+		Alert alert = new Alert();
+		alert.setReceiverId(students.getStudentId());
+		alert.setLessonCode(students.getLessonCode());
+		alert.setAlertContent(students.getAttendanceState());
+		
+		alertDao.addAlert(alert);		
 	}
 
 	@Override

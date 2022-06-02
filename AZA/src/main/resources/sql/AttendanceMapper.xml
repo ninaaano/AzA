@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.aza.sql.AttendanceMapper">
+<mapper namespace="AttendanceMapper">
 
 	<resultMap id="studentsAttendanceSelectMap" type="com.aza.service.domain.Students">
-		<result property="attendaceCode" column="attendance_code" jdbcType="NUMERIC" />
+		<result property="attendanceCode" column="attendance_code" jdbcType="NUMERIC" />
 		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
-		<result property="attendaceDate" column="attendance_date" jdbcType="VARCHAR" />
+		<result property="attendanceDate" column="attendance_date" jdbcType="VARCHAR" />
 		<result property="attendanceState" column="attendance_state" jdbcType="VARCHAR" />
 	</resultMap>
 
@@ -17,7 +17,7 @@
 		seq_attendance_attendance_code.nextval, 
 		#{studentId},
 		#{lessonCode}, 
-		TO_CHAR({attendanceDate}, 'yyyy/mm/dd HH24:MI:SS'), 
+		TO_CHAR(TO_DATE(#{attendanceDate}), 'yyyy/mm/dd HH24:MI:SS'), 
 		#{attendanceState}
 	)	
 	</insert>
@@ -38,7 +38,7 @@
 
 
 	<!-- ATTENDANCE :: SELECT -->
-	<select id="getStudentsAttendance" parameterType="int">
+	<select id="getStudentsAttendance" parameterType="int" resultMap="studentsAttendanceSelectMap">
 	SELECT * FROM attendance
 	WHERE attendance_code = #{attendanceCode}
 	</select>

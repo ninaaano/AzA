@@ -90,7 +90,9 @@ public class Students {
 
 
 	public void setAttendanceState(String attendanceState) {
+		
 		this.attendanceState = attendanceState;
+		
 	}
 
 
