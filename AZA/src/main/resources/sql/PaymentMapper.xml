@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="paymentMapper">
+
+	<resultMap  id="paymentSelectMap" type="payment" >
+		<result property="payCode" 				column="pay_code" 				jdbcType="NUMERIC" />
+		<result property="studentRecordNo" 		column="student_record_no" 		jdbcType="NUMERIC" />
+		<result property="payer" 				column="payer" 					jdbcType="VARCHAR" />
+		<result property="amount" 				column="amount" 				jdbcType="NUMERIC" />
+		<result property="payDueDate" 			column="pay_due_date" 			jdbcType="NUMERIC" />
+		<result property="payDay" 				column="pay_day" 				jdbcType="DATE" />
+		<result property="checkPay" 			column="check_pay" 				jdbcType="VARCHAR" />
+		<result property="impUid" 				column="imp_uid" 				jdbcType="VARCHAR" />
+		<result property="merchantUid" 			column="merchant_uid" 			jdbcType="VARCHAR" />
+	</resultMap>	
+
+
+
+
+
+
+
+
+</mapper>
