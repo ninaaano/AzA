@@ -1,4 +1,4 @@
-package com.aza.service.user.impl;
+package com.aza.service.user;
 
 public class UserService {
 
