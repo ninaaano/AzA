@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AlertMapper">
+
+	<resultMap id="alertSelectMap" type="com.aza.service.domain.Alert">
+		<result property="alertCode" column="alert_code" jdbcType="NUMERIC" />
+		<result property="receiverId" column="receiver_id" jdbcType="VARCHAR" />
+		<result property="lessonCode" column="alert_content" jdbcType="VARCHAR" />
+		<result property="alertCreateAt" column="alert_create_at" jdbcType="VARCHAR" />
+		<result property="alertReadAt" column="alert_read_at" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- INSERT -->
+	<insert id="addAlert">
+	INSERT INTO alert VALUES (
+    	seq_alert_alert_code.nextval, 
+    	(SELECT parent_id p_id 
+    		FROM RELATION
+    		WHERE student_id = #{receiverId}), 
+    	#{lessonCode},
+    	(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{receiverId}) CONTENT
+    		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
+    						FROM LESSON l, USERS u 
+    						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{receiverId}) v), 
+    	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
+    	null)
+	</insert>
+
+
+	<!-- READ -->
+	<update id="readAlert" parameterType="int">
+	UPDATE alert 
+	SET alert_read_at = TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS')
+	WHERE alert_code = #{alertCode}
+	</update>
+	
+	
+	<!-- SELECT : get -->
+	<select id="getAlert" parameterType="int" resultMap="alertSelectMap">
+	SELECT * FROM alert
+	WHERE alert_code = #{alertCode}
+	</select>
+	
+	
+	<!-- DELETE -->
+	<delete id="deleteAlert" parameterType="int">
+	DELETE FROM alert
+	WHERE alert_code = #{alertCode}
+	</delete>
+	
+
+	<!-- LIST -->
+	<select id="listAlert">
+	SELECT * 
+	FROM (
+    		SELECT inner_table.*, ROWNUM AS row_seq
+    		FROM (  SELECT * FROM alert
+            		WHERE receiver_id = #{receiverId}
+            		ORDER BY  alert_create_at DESC ) inner_table 
+    		WHERE ROWNUM &lt;= #{endRowNum} )
+	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<!-- Total Count -->
+	<select id="getAlertTotalCount" resultType="int">
+	SELECT COUNT(*)
+	FROM ( SELECT *	FROM alert
+        	WHERE receiver_id = #{receiverId}
+			) countTable
+	
+	</select>
+</mapper>

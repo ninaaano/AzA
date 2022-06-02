@@ -14,7 +14,7 @@ public interface AlertService {
 	public void readAlert(int alertCode) throws Exception;
 	
 	public void deleteAlert(int alertCode) throws Exception;
-
+	
 	public Map<String, Object> listAlert(Search search, String receiverId) throws Exception;
 	
 }

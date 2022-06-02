@@ -17,7 +17,7 @@
 		seq_attendance_attendance_code.nextval, 
 		#{studentId},
 		#{lessonCode}, 
-		TO_CHAR({attendanceDate}, 'yyyy/mm/dd HH24:MI:SS'), 
+		TO_CHAR(TO_DATE(#{attendanceDate}), 'yyyy/mm/dd HH24:MI:SS'), 
 		#{attendanceState}
 	)	
 	</insert>

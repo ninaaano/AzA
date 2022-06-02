@@ -96,7 +96,7 @@ public class StudentsServiceImpl implements StudentsService {
 		alert.setLessonCode(students.getLessonCode());
 		alert.setAlertContent(students.getAttendanceState());
 		
-		alertDao.addAlert(alert);
+		alertDao.addAlert(alert);	
 	}
 
 	@Override

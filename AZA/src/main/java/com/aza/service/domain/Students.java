@@ -90,7 +90,6 @@ public class Students {
 
 
 	public void setAttendanceState(String attendanceState) {
-		
 		switch(attendanceState) {
 		
 			case "출석" :
@@ -102,10 +101,8 @@ public class Students {
 				break;
 			
 		}
-		
-		
-		
 		this.attendanceState = attendanceState;
+		
 	}
 
 
