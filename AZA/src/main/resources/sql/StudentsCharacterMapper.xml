@@ -16,7 +16,7 @@
 	
 	
 	<!-- SQL : addCharacter INSERT -->
-	<insert id="addStudentsCharacter" parameterType="students">
+	<insert id="addStudentsCharacter" parameterType="com.aza.service.domain.students">
 	INSERT INTO characters
 	VALUES(seq_characters_characters_code.NEXTVAL, #{studentId}, #{teacherId}, #{charactersContent})
 	</insert>
