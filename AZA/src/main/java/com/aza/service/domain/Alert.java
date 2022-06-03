@@ -42,7 +42,22 @@ public class Alert {
 
 
 	public void setAlertContent(String alertContent) {
-		this.alertContent = alertContent;
+		
+		switch(alertContent) {		
+		case "출석" :
+			this.alertContent = " 학생 출석했습니다💚";
+			break;				
+		case "도망" :
+			this.alertContent = " 학생 도망갔어요😥";
+			break;
+		case "조퇴" :
+			this.alertContent = " 학생 조퇴했습니다🏃‍♀️";
+			break;		
+		default :
+			this.alertContent = alertContent;
+			break;
+		}
+
 	}
 
 

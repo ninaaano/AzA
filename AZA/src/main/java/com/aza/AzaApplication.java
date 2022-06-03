@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 @PropertySource("classpath:application.properties")
-@ImportResource(value= {/*"config/context-aspect.xml",*/
+@ImportResource(value= {"classpath:config/context-aspect.xml",
 						"classpath:config/context-common.xml",
 						"classpath:config/context-mybatis.xml", 
 						"classpath:config/context-transaction.xml" })

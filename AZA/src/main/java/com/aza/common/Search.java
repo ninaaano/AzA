@@ -14,8 +14,8 @@ public class Search {
 	private String lessonCode;
 	private String searchStartDate;
 	private String searchEndDate;
-
-
+	private String content;
+	
 	private int endRowNum;
 	private int startRowNum;
 	
@@ -32,6 +32,16 @@ public class Search {
 		this.lessonCode = lessonCode;
 	}
 	
+	
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public String getSearchStartDate() {
 		return searchStartDate;
 	}
