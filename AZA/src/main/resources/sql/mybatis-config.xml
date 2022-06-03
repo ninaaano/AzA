@@ -28,7 +28,7 @@
 		<mapper resource="sql/LessonMapper.xml"/>
 
 		<mapper resource="sql/CharacterMapper.xml"/>
-
+		<mapper resource="sql/ExamMapper.xml"/>
 
 		<mapper resource="sql/RelationMapper.xml"/>
 	</mappers>

@@ -32,7 +32,7 @@
 	
 	
 	<!-- SQL : character UPDATE -->
-	<update id="updateStudentsCharater" parameterType="students">
+	<update id="updateStudentsCharacter" parameterType="students">
 	UPDATE characters
 	<set>
 	character_content = #{characterContent}
@@ -42,7 +42,7 @@
 	
 	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
-	DELETE FROM characters WHERE character_code = #{value};
+	DELETE FROM characters WHERE character_code = #{value}
 	</delete>
 	
 	
