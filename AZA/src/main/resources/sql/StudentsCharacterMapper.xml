@@ -1,4 +1,4 @@
-<!-- <?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -15,13 +15,13 @@
 	</resultMap>
 	
 	
-	SQL : addCharacter INSERT
+	<!-- SQL : addCharacter INSERT -->
 	<insert id="addStudentsCharacter" parameterType="com.aza.service.domain.Students">
 	INSERT INTO characters
 	VALUES(seq_characters_characters_code.NEXTVAL, #{studentId}, #{teacherId}, #{charactersContent})
 	</insert>
 
-	SQL : character SELECT ONE 	
+	<!-- SQL : character SELECT ONE --> 	
 	<select id="getStudentsCharacter" parameterType="int" resultMap="studentsCharacterSelectMap">
 	SELECT
 	student_id, character_content
@@ -30,7 +30,7 @@
 	</select>
 	
 	
-	SQL : character UPDATE
+	<!-- SQL : character UPDATE -->
 	<update id="updateStudentsCharater" parameterType="students">
 	UPDATE characters
 	<set>
@@ -39,10 +39,10 @@
 	WHERE character_code = #{characterCode}
 	</update>
 	
-	SQL : character delete
+	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
 	DELETE FROM characters WHERE characters_code = #{value};
 	</delete>
 	
 	
-</mapper> -->
+</mapper>

@@ -1,9 +1,9 @@
-<!-- <?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+		
 <mapper namespace="StudentsCharacterMapper">
 
 	<resultMap id="studentsExamSelectMap" type="com.aza.service.domain.Students">
@@ -17,13 +17,13 @@
 	</resultMap>
 	
 	
-	SQL : exam INSERT
+	<!-- SQL : exam INSERT -->
 	<insert id="addStudentsExam" parameterType="students">
 	INSERT INTO exam
 	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${score});
 	</insert>
 
-	SQL : exam SELECT ONE 	
+	<!-- SQL : exam SELECT ONE  -->	
 	<select id="getStudentsExam" parameterType="int" resultMap="studentsExamSelectMap">
 	SELECT
 	*
@@ -32,7 +32,7 @@
 	</select>
 	
 	
-	SQL : exam UPDATE
+	<!-- SQL : exam UPDATE -->
 	<update id = "updateStudentsExam" parameterType ="students">
 	UPDATE exam 
 	<set>
@@ -45,15 +45,15 @@
 	WHERE exam_code = #{examCode}
 	</update>
 	
-	SQL : exam delete
+	<!-- SQL : exam delete -->
 	<delete id="deleteStudentsExam" parameterType="int">
 	DELETE FROM exam WHERE exam_code = #{value};
 	</delete>
 	
 	
 	
-	 ====================================
-	SQL : exam SELECT list
+	<!--  ====================================
+	SQL : exam SELECT list -->
 		<select  id="listStudentsExam"  parameterType="search"	resultMap="studentsExamSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
@@ -65,4 +65,4 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	
-</mapper> -->
+</mapper>
