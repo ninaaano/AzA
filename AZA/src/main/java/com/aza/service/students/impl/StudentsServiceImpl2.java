@@ -1,14 +1,19 @@
 package com.aza.service.students.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.aza.common.Search;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao2;
 import com.aza.service.students.StudentsService2;
 
-@Service("studentsServiceImpl2")
+@Service
 public class StudentsServiceImpl2 implements StudentsService2 {
 
 	@Autowired
@@ -70,6 +75,20 @@ public class StudentsServiceImpl2 implements StudentsService2 {
 		
 		return studentsDao.getStudentsExam(examCode);
 	}
+
+	@Override
+	public Map<String, Object> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception {
+	
+		List<Students> list = studentsDao.listStudentsExam(search, searchKeyword, studentId);
+		int totalCount = studentsDao.getStudentsExamTotalCount(search, searchKeyword, studentId);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+
 
 
 }

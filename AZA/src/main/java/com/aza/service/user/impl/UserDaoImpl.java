@@ -6,11 +6,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
 
+@Component
+@PropertySource("classpath:/application.properties")
 @Repository("userDaoImpl")
 public class UserDaoImpl implements UserDao {
 	
@@ -79,7 +83,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getRelation(User user) throws Exception {
+	public User getRelation(String firstStudentId, String parentId) throws Exception {
+		User user = new User();
+		user.setFirstStudentId(firstStudentId);
+		user.setUserId(parentId);
 		return sqlSession.selectOne("RelationMapper.getRelation", user);
 	}
 
@@ -90,7 +97,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Map<String, Object> listRelation(String parentId) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

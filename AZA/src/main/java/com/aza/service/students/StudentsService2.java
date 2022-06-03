@@ -1,5 +1,6 @@
 package com.aza.service.students;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -33,8 +34,10 @@ public interface StudentsService2 {
 	// SELECT
 	public Students getStudentsExam(int examCode) throws Exception;
 	
+	// List SELECT
+	public Map<String, Object> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception;
 	
-	
+
 	
 	
 	

@@ -47,11 +47,11 @@ public class LessonServiceTest {
 		System.out.println("sql add 완료");
 	}
 	
-	//@Test
+	@Test
 	public void testGetLesson() throws Exception{
 		Lesson lesson = new Lesson();
 		
-		lesson = lessonService.getLesson("abcd1234");
+		lesson = lessonService.getLesson("agho1216");
 		
 		System.out.println(lesson);
 	}
@@ -72,7 +72,7 @@ public class LessonServiceTest {
 		lessonService.deleteLesson("abcd1234");
 	}
 	
-	@Test
+	//@Test
 	public void testlistLesson() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
