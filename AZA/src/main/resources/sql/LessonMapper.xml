@@ -5,7 +5,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		
 <mapper namespace="LessonMapper">
-	<resultMap id="lessonSelectMap" type="com.aza.service.domain.Lesson">
+	<resultMap id="lessonSelectMap" type="lesson">
 		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
 		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
 		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />

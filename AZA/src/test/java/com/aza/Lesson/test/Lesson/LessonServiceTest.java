@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.aza.service.domain.Lesson;
+import com.aza.service.domain.LessonBook;
 import com.aza.service.lesson.LessonService;
 
 //@RunWith(SpringRunner.class)
@@ -17,7 +18,7 @@ public class LessonServiceTest {
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
 	
-	@Test
+	//@Test
 	public void testGetLesson() throws Exception{
 		Lesson lesson = new Lesson();
 		
@@ -26,8 +27,13 @@ public class LessonServiceTest {
 		System.out.println(lesson);
 	}
 	
-//	@Test
-//	@Transactional
+	@Test
+	public void testlistLessonBook() throws Exception{
+		LessonBook lessonBook = new LessonBook();
+		
+	}
+	
+	//@Test
 //	public void testAddLesson() throws Exception{
 //		Lesson lesson = new Lesson();
 //			
