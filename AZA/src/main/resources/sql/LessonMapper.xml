@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="LessonMapper">
+	<resultMap id="lessonSelectMap" type="com.aza.service.domain.Lesson">
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
+		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
+		<result property="lessonDay" column="lesson_day" jdbcType="VARCHAR" />
+		<result property="lessonStartTime" column="lesson_start_time" jdbcType="VARCHAR" />
+		<result property="lessonEndTime" column="lesson_End_time" jdbcType="VARCHAR" />
+		<result property="lessonPlace" column="lesson_place" jdbcType="VARCHAR" />
+		<result property="fees" column="fees" jdbcType="NUMERIC" />
+		<result property="subject" column="subject" jdbcType="VARCHAR"/>
+		<result property="lessonContent" column="lesson_content" jdbcType="VARCHAR"/>
+		<result property="lessonCreateAt" column="lesson_create_at" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!-- LESSON :: INSERT -->
+<!-- - 	<insert id="addLesson" parameterType="lesson">
+		INSERT 
+		INTO LESSON		
+		VALUES (#{lessonCode},
+		#{teacherId}),
+		 #{lessonName}, #{lessonDay}, #{lessonEndTime},
+		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
+		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
+	</insert> -->
+	<insert id="addLesson">
+		INSERT 
+		INTO LESSON		
+		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
+		(SELECT techer_id FROM USERS WHERE user_id = #{teacherId}),
+		 #{lessonName}, #{lessonDay},
+		#{lessonStartTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
+		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
+	</insert>
+	
+	
+	<!-- STUDENTS_RECORD :: SELECT -->
+	<select id="getLesson" parameterType="String" resultMap="lessonSelectMap">
+		SELECT * from lesson
+		where lesson_code = #{lessonCode}
+	</select>
+
+
+	<!-- STUDENTS_RECORD :: UPDATE -->
+	<update id="updateLesson">
+		UPDATE lesson
+		<set> 
+			lesson_name = #{lessonName},
+			lesson_day = #{lessonDay},
+			lesson_place = #{lessonPlace},
+			fees = #{fees},
+			subject = #{subject},
+			lesson_content= #{lessonContent}
+		</set>
+		WHERE lesson_code = #{lessonCode}
+	</update>
+	
+	<delete id = "deleteLesson">
+		DELETE FROM lesson
+		WHERE lesson_code = #{lessonCode}
+	</delete>
+	
+	<select id = "listLesson" resultMap="lessonSelectMap">
+		SELECT*
+		FROM (SELECT inner_table.*
+			FROM (SELECT * FROM lesson
+				WHERE lesson_name like '%#{lessonName}%'
+				ORDER BY lesson_create_at DESC) inner_table
+			WHERE lesson_create_at &lt;= #{lessonCreateAt})
+		WHERE lesson_create_at between #{lessonCreateAt} AND #{lessonCreateAt}
+	</select>
+	<!-- SELECT*
+	FROM (SELECT inner_table.*
+		FROM (SELECT * FROM lesson
+			WHERE student_id like 'student5'
+			ORDER BY lesson_create_at DESC) inner_table
+		WHERE lesson_create_at <='20220531')
+	WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59'; -->
+	
+	<!-- SQL : SELECT ROW Count -->
+	 <select id = "getTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from lesson
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					lesson_name = #{searchKeyword}
+	 				</if>
+				    <if test="searchCondition == 1 and searchKeyword !='' ">
+	 					student_id = '%${searchKeyword}%'
+	 				</if>
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
+	
+</mapper>
+

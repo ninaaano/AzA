@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="ScheduleMapper">
+	<resultMap id="scheduleSelectMap" type="schedule">
+		<result property="scheduleCode" column="schedule_code" jdbcType="NUMERIC" />
+		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
+		<result property="scheduleStartDate" column="schedule_start_date" jdbcType="VARCHAR" />
+		<result property="scheduleStartTime" column="schedule_start_time" jdbcType="VARCHAR" />
+		<result property="scheduleEndDate" column="schedule_end_date" jdbcType="VARCHAR" />
+		<result property="scheduleEndTime" column="schedule_end_time" jdbcType="VARCHAR" />
+		<result property="scheduleContent" column="schedule_content" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id = "addLessonScehdule">
+		INSERT INTO SCHEDULE 
+		VALUES (
+			seq_schedule_schedule_code.nextval,
+			(SELECT user_id FROM USERS WHERE user_id = #{teacherId}),
+			,#{scheduleStartDate},
+			#{scheduleStartTime: VARCHAR},
+			#{scheduleEndDate},#{scheduleEndtime:VARCHAR},#{scheduleContent});
+		)
+	</insert>
+	
+	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">
+		SELECT * FROM schedule
+		WHERE schedule_code = #{scheduleCode};
+	</select>
+	
+	<update id = "updateLessonSchedule" parameterType="schedule">
+		UPDATE schedule
+		<set>
+			schedule_Start_Date = #{scheduleStartDate},
+			schedule_End_Date = #{scheduleEndDate},
+			schedule_Start_Time = #{scheduleStartTime},
+			schedule_content = #{scheduleContent}
+		</set>
+		WHERE schedule_code = #{scheduleCode} and teacher_id = #{teacherId};
+	</update>
+
+	<delete id = "deleteLessonSchedule">
+		DELETE 
+		FROM schedule
+		WHERE schedule_code = 1001;
+	</delete>
+	
+	<select id = "listLessonSchedule">
+		SELECT *
+		FROM (
+			SELECT inner_table.*, ROWNUM AS row_seq
+			FROM ( SELECT * FROM schedule
+					WHERE teacher_id = #{teacherId}
+					ORDER BY schedule_start_date || schedule_start_time) inner_table
+			WHERE ROWNUM &lt; = #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum};
+	</select>
+</mapper>
