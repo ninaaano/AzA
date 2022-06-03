@@ -78,8 +78,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getRelation(User user) throws Exception {		
-		return userDao.getRelation(user);
+	public User getRelation(String firstStudentId, String parentId) throws Exception {
+		return userDao.getRelation(firstStudentId, parentId);
 	}
 
 	@Override

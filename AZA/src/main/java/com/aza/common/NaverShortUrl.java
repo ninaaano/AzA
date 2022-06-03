@@ -13,6 +13,7 @@ import java.util.Map;
 public class NaverShortUrl {
 	
 	public String shortUrl(String originalURL) {
+
         String clientId = "PDkza_JOmqQ7CQ7Rj2C3"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "MeU0UOAC49"; //애플리케이션 클라이언트 시크릿값"
 
@@ -72,6 +73,7 @@ public class NaverShortUrl {
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+
         }
     }
 	

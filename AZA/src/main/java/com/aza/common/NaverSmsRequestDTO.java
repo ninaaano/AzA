@@ -29,10 +29,5 @@ public class NaverSmsRequestDTO {
 		this.content = content;
 		this.messages = messages;
 	}
-	
-
-	
-	
-
 
 }

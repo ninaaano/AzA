@@ -23,7 +23,7 @@ public interface LessonService {
 	public void deleteLesson(String lessonCode) throws Exception;
 
 	// lesson : list
-	public Map<String, Object> listLesson(Search search, String lessonName) throws Exception;
+	public Map<String, Object> listLesson(Search search,String lessonName,String lessonCreateAt, String teacherId) throws Exception;
 
 	// schedule : add
 	public void addLessonSchedule(Schedule schedule) throws Exception;
@@ -42,7 +42,7 @@ public interface LessonService {
 	
 	public void addLessonBook(Book book) throws Exception;
 	
-	public Map<String, Object> listLessonBook(Search search, String isbn) throws Exception;
+	public Map<String, Object> listLessonBook(Search search) throws Exception;
 	
 	public void deleteLessonBook(String isbn) throws Exception;
 }

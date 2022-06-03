@@ -19,8 +19,8 @@ public class Students {
 	private String payDueDate;
 	private int examCode;
 	private String examTerm;
-	private int examYear;
-	private int examSemester;
+	private String examYear;
+	private String examSemester;
 	private String examSubject;
 	private int examScore;
 	private int noteCode;
@@ -206,22 +206,22 @@ public class Students {
 	}
 
 
-	public int getExamYear() {
+	public String getExamYear() {
 		return examYear;
 	}
 
 
-	public void setExamYear(int examYear) {
+	public void setExamYear(String examYear) {
 		this.examYear = examYear;
 	}
 
 
-	public int getExamSemester() {
+	public String getExamSemester() {
 		return examSemester;
 	}
 
 
-	public void setExamSemester(int examSemester) {
+	public void setExamSemester(String examSemester) {
 		this.examSemester = examSemester;
 	}
 

@@ -41,11 +41,7 @@
 	
 	<delete id="deleteLessonBook">
 		DELETE
-		FROM LESSON_BOOK LB
-		where EXISTS(
-			SELECT *
-			FROM BOOK B
-			WHERE B.ISBN = LB.ISBN AND ISBN = #{isbn}
-		);
+		FROM book
+		WHERE ISBN = #{isbn};
 	</delete>
 </mapper>

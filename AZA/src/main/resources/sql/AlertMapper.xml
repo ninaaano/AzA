@@ -3,7 +3,7 @@
 
 <mapper namespace="AlertMapper">
 
-	<resultMap id="alertSelectMap" type="com.aza.service.domain.Alert">
+	<resultMap id="alertSelectMap" type="alert">
 		<result property="alertCode" column="alert_code" jdbcType="NUMERIC" />
 		<result property="receiverId" column="receiver_id" jdbcType="VARCHAR" />
 		<result property="lessonCode" column="alert_content" jdbcType="VARCHAR" />
