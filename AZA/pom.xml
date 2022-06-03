@@ -46,56 +46,89 @@
 		   <artifactId>aspectjweaver</artifactId>
 		   <version>1.6.8</version>
 		</dependency>
-      
-      <!--   mybatis      -->
-      <dependency>
-         <groupId>org.mybatis.spring.boot</groupId>
-         <artifactId>mybatis-spring-boot-starter</artifactId>
-         <version>2.2.2</version>
-      </dependency>
-      
-      <dependencty>
-         <groupId>org.mybatis</groupId>
-         <artifactId>mybatis</artifactId>
-         <version>3.5.9</version>
-      </dependencty>
-      
-      <dependencty>
-         <groupId>org.mybatis</groupId>
-         <artifactId>mybatis-spring</artifactId>
-         <version>2.0.7</version>
-      </dependencty>
-      
+
       <dependency>
          <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter</artifactId>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-jdbc</artifactId>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.slf4j</groupId>
-         <artifactId>slf4j-api</artifactId>
-      </dependency>
-      
-      
-      <!--   DB : oracle8    -->
-      <dependency>
-         <groupId>com.oracle.database.jdbc</groupId>
-         <artifactId>ojdbc8</artifactId>
+         <artifactId>spring-boot-devtools</artifactId>
          <scope>runtime</scope>
+         <optional>true</optional>
       </dependency>
       
-      <dependency>   
-         <groupId>com.zaxxer</groupId>   
-         <artifactId>HikariCP</artifactId>   
-      </dependency>
-      
-      <!--   aspect J    -->
       <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      
+		<dependency>
+		   <groupId>org.aspectj</groupId>
+		   <artifactId>aspectjweaver</artifactId>
+		   <version>1.6.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+<dependency>
+	<groupId>org.aspectj</groupId>
+	<artifactId>aspectjweaver</artifactId>
+	<version>1.6.8</version>
+</dependency>
+
+		
+		<!--	mybatis		-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		
+		<dependencty>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.9</version>
+		</dependencty>
+		
+		<dependencty>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.7</version>
+		</dependencty>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+		
+		<!--	DB : oracle8 	-->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>	
+			<groupId>com.zaxxer</groupId>	
+			<artifactId>HikariCP</artifactId>	
+		</dependency>
+
+		
+		<!--	aspect J 	-->
+		<dependency>
     <groupId>org.aspectj</groupId>
     <artifactId>aspectjrt</artifactId>
     <version>1.9.8</version>
@@ -131,7 +164,6 @@
       
       <!--비밀번호 암호화-->
       <dependency>
-
 		<groupId>commons-codec</groupId>
 		
 		<artifactId>commons-codec</artifactId>
