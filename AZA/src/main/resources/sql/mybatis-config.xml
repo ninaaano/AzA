@@ -28,6 +28,7 @@
 		<mapper resource="sql/LessonMapper.xml"/>
 		<mapper resource="sql/StudentsCharacterMapper.xml"/>
 		<mapper resource="sql/RelationMapper.xml"/>
+		<mapper resource="sql/UserMapper.xml"/>
 	</mappers>
 
 </configuration>

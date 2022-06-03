@@ -21,17 +21,10 @@ public class UserServiceTest {
 	private UserService userService;
 
 	@Test
-	public void testAddUser() throws Exception {
+	public void testgetUser() throws Exception {
 		
 		User user = new User();
-		user.setUserId("testUserId");
-		user.setUserName("testUserName");
-		user.setPassword("testPasswd");
-		user.setPhone("01011112222");
-		user.setAlertState('1');
-		
-		userService.addUser(user);
-		user = userService.getUser("testUserId");
+		user = userService.getUser("student3");
 		
 		//==> console »Æ¿Œ
 		System.out.println(user);
