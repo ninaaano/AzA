@@ -25,7 +25,7 @@
 		<mapper resource="sql/AttendanceMapper.xml"/>
 		<mapper resource="sql/AlertMapper.xml"/>
 		<mapper resource="sql/LessonMapper.xml"/>
-		<!-- <mapper resource="sql/StudentsCharacterMapper.xml"/> -->
+		<mapper resource="sql/CharacterMapper.xml"/>
 		<mapper resource="sql/RelationMapper.xml"/>
 	</mappers>
 

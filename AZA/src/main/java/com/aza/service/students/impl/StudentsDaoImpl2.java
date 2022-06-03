@@ -32,52 +32,52 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 
 	@Override
 	public void addStudentsCharacter(Students students) throws Exception {
-		sqlSession.insert("StudnetsCharacterMapper.addStudentsCharacter", students);
+		sqlSession.insert("CharacterMapper.addStudentsCharacter", students);
 	}
 
 	@Override
 	public void updateStudentsCharacter(Students students) throws Exception {
-		sqlSession.update("StudetnsCharacterMapper.updateStudentsCharacter", students);
+		sqlSession.update("CharacterMapper.updateStudentsCharacter", students);
 
 	}
 
 	@Override
 	public void deleteStudentsCharacter(int characterCode) throws Exception {
-		sqlSession.delete("StudetnsCharacterMapper.deleteStudentsCharacter", characterCode);
+		sqlSession.delete("CharacterMapper.deleteStudentsCharacter", characterCode);
 
 	}
 
 	@Override
 	public Students getStudentsCharacter(int characterCode) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("StudentsCharacterMapper.getStudentsCharacter", characterCode);
+		return sqlSession.selectOne("CharacterMapper.getStudentsCharacter", characterCode);
 	}
 
 	// exam =========================================
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
-		sqlSession.insert("StudentsExamMapper.addStudentsExam", students);
+		sqlSession.insert("ExamMapper.addStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void updateStudentsExam(Students students) throws Exception {
-		sqlSession.update("StudentsExamMapper.updateStudentsExam", students);
+		sqlSession.update("ExamMapper.updateStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void deleteStudentsExam(int examCode) throws Exception {
-		sqlSession.delete("StudentsExamMapper.deleteStudentsExam", examCode);
+		sqlSession.delete("ExamMapper.deleteStudentsExam", examCode);
 		
 	}
 
 
 	@Override
 	public Students getStudentsExam(int examCode) throws Exception {
-		return sqlSession.selectOne("StudentsExamMapper.getStudentsExam",examCode);
+		return sqlSession.selectOne("ExamMapper.getStudentsExam",examCode);
 	}
 
 
