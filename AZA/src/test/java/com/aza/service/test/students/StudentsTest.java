@@ -34,7 +34,7 @@ public class StudentsTest {
 	
 	
 
-//	@Test
+	@Test
 	public void testGetStudentsAttendance() throws Exception {
 		
 		Students students = new Students();
@@ -45,7 +45,7 @@ public class StudentsTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testAddStudentsAttendance() throws Exception {
 		
 		Students students = new Students();
