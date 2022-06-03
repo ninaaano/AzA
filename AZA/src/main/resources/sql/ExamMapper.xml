@@ -6,7 +6,7 @@
 		
 <mapper namespace="ExamMapper">
 
-	<resultMap id="studentsExamSelectMap" type="com.aza.service.domain.Students">
+	<resultMap id="studentsExamSelectMap" type="Students">
 		<result property="examCode" 			column="exam_code" 				jdbcType="NUMERIC"/>
 		<result property="studentId" 			column="student_id" 			jdbcType="VARCHAR"/>
 		<result property="examYear" 			column="exam_year"	 			jdbcType="VARCHAR"/>
