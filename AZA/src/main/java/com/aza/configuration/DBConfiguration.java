@@ -47,11 +47,8 @@ public class DBConfiguration {
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource());
-<<<<<<< HEAD
 		factoryBean.setMapperLocations(applicationContext.getResources("classpath*:/sql/**/*Mapper.xml"));
-=======
 		factoryBean.setConfigLocation(applicationContext.getResource("classpath:/sql/mybatis-config.xml"));
->>>>>>> refs/heads/HM
 		factoryBean.setTypeAliasesPackage("com.aza.service.domain");
 		
 		return factoryBean.getObject();
