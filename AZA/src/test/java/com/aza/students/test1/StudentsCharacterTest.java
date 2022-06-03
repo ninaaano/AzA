@@ -1,4 +1,4 @@
-package com.aza.students.test1.stduents;
+package com.aza.students.test1;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -47,28 +47,18 @@ public class StudentsCharacterTest {
 		
 	}
 	
-	@Test //update test OK
+	//@Test //update test OK
 	public void testUpdateCharacter() throws Exception{
 		
+		Students stu = new Students();
+		stu.setCharacterCode(1003);
+		stu.setCharacterContent("Update Test!");
 		
-		  Students stu = new Students(); 
-		  stu.setCharacterCode(1000);
-		  stu.setCharacterContent("Update Test===");
-		  
-		  studentsService.updateStudentsCharacter(stu);
-		 
-		
-		
-//		 Students stu = studentsService.getStudentsCharacter(1000);
-//		 stu.setCharacterContent("Update Test!?!?!");
-//		 studentsService.updateStudentsCharacter(stu);
-//		 
-//		  System.out.println("Test -->> "+stu);
-		 
+		studentsService.updateStudentsCharacter(stu);
 		
 	}
 	
-	//@Test // delete Test OK
+	@Test // delete Test OK
 	public void testDeleteCharacter() throws Exception{
 				
 		studentsService.deleteStudentsCharacter(1003);

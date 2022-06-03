@@ -33,7 +33,11 @@ public interface StudentsDao2 {
 	// SELECT
 	public Students getStudentsExam(int examCode) throws Exception;
 	
+	// List SELECT
+	public List<Students> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception;
 	
+	// TotalCount
+	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception;
 	
 	
 }

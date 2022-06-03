@@ -17,6 +17,11 @@
 		<typeAlias alias="alert" type="com.aza.service.domain.Alert"/>
 		<typeAlias alias="lesson" type="com.aza.service.domain.Lesson" />
 		<typeAlias alias="user" type="com.aza.service.domain.User"/>
+
+		<typeAlias alias="payment" type="com.aza.service.domain.Payment"/>
+		
+		<typeAlias alias="search" type="com.aza.common.Search" />
+
 	</typeAliases>
 	
 	<mappers>
@@ -25,7 +30,11 @@
 		<mapper resource="sql/AttendanceMapper.xml"/>
 		<mapper resource="sql/AlertMapper.xml"/>
 		<mapper resource="sql/LessonMapper.xml"/>
+
+
 		<mapper resource="sql/CharacterMapper.xml"/>
+		<mapper resource="sql/ExamMapper.xml"/>
+		<mapper resource="sql/PaymentMapper.xml"/>
 		<mapper resource="sql/RelationMapper.xml"/>
 	</mappers>
 
