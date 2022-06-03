@@ -8,7 +8,7 @@ import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao2;
 import com.aza.service.students.StudentsService2;
 
-@Service("studentsServiceImpl2")
+@Service
 public class StudentsServiceImpl2 implements StudentsService2 {
 
 	@Autowired

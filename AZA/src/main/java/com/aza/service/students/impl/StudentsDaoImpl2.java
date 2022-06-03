@@ -17,10 +17,10 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
-	private SqlSession sqlSessionTemplate;
+	private SqlSession sqlSession;
 	
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSessionTemplate = sqlSession;
+	 public void setSqlSession(SqlSession sqlSession) {
+		    this.sqlSession = sqlSession;
 	}
 	
 	
@@ -30,52 +30,52 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 
 	@Override
 	public void addStudentsCharacter(Students students) throws Exception {
-		sqlSessionTemplate.insert("StudnetsCharacterMapper.addStudentsCharacter", students);
+		sqlSession.insert("StudnetsCharacterMapper.addStudentsCharacter", students);
 	}
 
 	@Override
 	public void updateStudentsCharacter(Students students) throws Exception {
-		sqlSessionTemplate.update("StudetnsCharacterMapper.updateStudentsCharacter", students);
+		sqlSession.update("StudetnsCharacterMapper.updateStudentsCharacter", students);
 
 	}
 
 	@Override
 	public void deleteStudentsCharacter(int characterCode) throws Exception {
-		sqlSessionTemplate.delete("StudetnsCharacterMapper.deleteStudentsCharacter", characterCode);
+		sqlSession.delete("StudetnsCharacterMapper.deleteStudentsCharacter", characterCode);
 
 	}
 
 	@Override
 	public Students getStudentsCharacter(int characterCode) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("StudentsCharacterMapper.getStudentsCharacter", characterCode);
+		return sqlSession.selectOne("StudentsCharacterMapper.getStudentsCharacter", characterCode);
 	}
 
 	// exam =========================================
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
-		sqlSessionTemplate.insert("StudentsExamMapper.addStudentsExam", students);
+		sqlSession.insert("StudentsExamMapper.addStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void updateStudentsExam(Students students) throws Exception {
-		sqlSessionTemplate.update("StudentsExamMapper.updateStudentsExam", students);
+		sqlSession.update("StudentsExamMapper.updateStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void deleteStudentsExam(int examCode) throws Exception {
-		sqlSessionTemplate.delete("StudentsExamMapper.deleteStudentsExam", examCode);
+		sqlSession.delete("StudentsExamMapper.deleteStudentsExam", examCode);
 		
 	}
 
 
 	@Override
 	public Students getStudentsExam(int examCode) throws Exception {
-		return sqlSessionTemplate.selectOne("StudentsExamMapper.getStudentsExam",examCode);
+		return sqlSession.selectOne("StudentsExamMapper.getStudentsExam",examCode);
 	}
 
 

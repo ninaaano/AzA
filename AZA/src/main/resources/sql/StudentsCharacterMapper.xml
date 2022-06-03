@@ -16,9 +16,9 @@
 	
 	
 	<!-- SQL : addCharacter INSERT -->
-	<insert id="addStudentsCharacter" parameterType="com.aza.service.domain.students">
+	<insert id="addStudentsCharacter" parameterType="students">
 	INSERT INTO characters
-	VALUES(seq_characters_characters_code.NEXTVAL, #{studentId}, #{teacherId}, #{charactersContent})
+	VALUES(seq_characters_character_code.NEXTVAL, #{studentId}, #{teacherId}, #{characterContent})
 	</insert>
 
 	<!-- SQL : character SELECT ONE  -->	
@@ -26,7 +26,7 @@
 	SELECT
 	student_id, character_content
 	FROM characters 
-	WHERE characters_code = #{value}	
+	WHERE character_code = #{value}	
 	</select>
 	
 	
@@ -41,7 +41,7 @@
 	
 	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
-	DELETE FROM characters WHERE characters_code = #{value};
+	DELETE FROM characters WHERE character_code = #{value};
 	</delete>
 	
 	

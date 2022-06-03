@@ -20,13 +20,29 @@ public class StudentsCharacterTest {
 	@Qualifier("studentsServiceImpl2")
 	private StudentsService2 studentsService;
 	
-	@Test
+	//@Test
 	public void testGetCharacter() throws Exception{
 		
 		Students students = new Students();
 		
 		students = studentsService.getStudentsCharacter(1002);
 		//Assert.assertEquals("student21", students.getStudentId());
+		System.out.println(students);
+		
+	}
+	
+	@Test
+	public void testAddCharacter() throws Exception{
+		
+		Students students = new Students();
+		students.setStudentId("testStudetnsId");
+		students.setCharacterContent("Test_Content");
+		students.setTeacherId("teacherId");
+		
+		
+		
+		studentsService.addStudentsCharacter(students);
+		students = studentsService.getStudentsCharacter(1003);
 		System.out.println(students);
 		
 	}
