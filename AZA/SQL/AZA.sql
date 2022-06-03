@@ -20,6 +20,10 @@ INSERT
 INTO LESSON 
 VALUES ('abcd1234','teacher51','비트고1 자바','월수금','09:00','21:00','비트',40000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
+INSERT
+INTO LESSON 
+VALUES ('EDF43234','teacher51','비트고3 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+
 INSERT 
 INTO LESSON
 VALUES ('agho1216','teacher51','비트고3 파이썬','화목','09:00','21:00','비트',40000,'python','하이루',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
@@ -126,10 +130,11 @@ where lesson_create_at between '2022/05/30 00:00:00' AND '2022/05/31 23:59:59';
 SELECT*
 FROM (SELECT inner_table.*
 	FROM (SELECT * FROM lesson
-		WHERE lesson_name like '%비트%'
+		WHERE lesson_name like '%비트%' 
 		ORDER BY lesson_create_at DESC) inner_table
-	WHERE lesson_create_at <='20220531')
-WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59';
+	WHERE lesson_create_at <='20220531' AND teacher_id = 'teacher51')
+WHERE lesson_create_at > '2022/05/30 00:00:00';
+--WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59';
 
 /* 학생 */
 SELECT*
@@ -195,6 +200,10 @@ CREATE OR REPLACE TRIGGER TR_BOOK
 
 
 /* Book=================*/
+/*getLessonBook*/
+SELECT*
+FROM 
+
 /* listLesson Book*/
 SELECT*
 FROM ( SELECT inner_table.*, ROWNUM AS row_seq
@@ -205,6 +214,10 @@ FROM ( SELECT inner_table.*, ROWNUM AS row_seq
 WHERE row_seq BETWEEN 1 AND 3;
 
 /* deleteLessonBook*/
+delete from book
+where isbn = '99';
+
+
 DELETE
 FROM LESSON_BOOK LB
 where EXISTS(
@@ -291,6 +304,24 @@ FROM ( SELECT *	FROM alert
         WHERE receiver_id = 'parent12'
 ) countTable
 
+
+/* casecade book & lessonBook */
+ALTER TABLE lesson_book ADD CONSTRAINT lesson_book_DELETE
+FOREIGN key (isbn)
+REFERENCES book(isbn)
+on delete cascade;
+
+DROP TRIGGER after_statement_trigger;
+
+CREATE OR REPLACE TRIGGER after_statement_trigger
+	AFTER INSERT ExamData
+BEGIN
+	IF INSERTING THEN
+	INSERT INTO ExamMemo(memo) VALUES ('insert');
+END;
+
+CREATE OR  REPLACE TRIGGER TR_BOOK
+AFTER INSERT  of BOOK ON 
 
 
 

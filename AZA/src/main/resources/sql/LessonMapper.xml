@@ -20,7 +20,7 @@
 	</resultMap>
 
 	<!-- LESSON :: INSERT -->
-<!-- - 	<insert id="addLesson" parameterType="lesson">
+<!-- - 	<insert id="addLesson">
 		INSERT 
 		INTO LESSON		
 		VALUES (#{lessonCode},
@@ -31,7 +31,7 @@
 	</insert> -->
 	<insert id="addLesson">
 		INSERT 
-		INTO LESSON		
+		INTO LESSON	
 		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
 		(SELECT techer_id FROM USERS WHERE user_id = #{teacherId}),
 		 #{lessonName}, #{lessonDay},
@@ -72,9 +72,11 @@
 			FROM (SELECT * FROM lesson
 				WHERE lesson_name like '%#{lessonName}%'
 				ORDER BY lesson_create_at DESC) inner_table
-			WHERE lesson_create_at &lt;= #{lessonCreateAt})
-		WHERE lesson_create_at between #{lessonCreateAt} AND #{lessonCreateAt}
+			WHERE lesson_create_at &lt;= #{lessonCreateAt} AND teacher_id = #{teacherId})
+		WHERE lesson_create_at &lt; '2022/05/30 00:00:00';	
 	</select>
+	<!-- WHERE lesson_create_at between #{startRowNum} AND #{endRowNum} -->
+
 	<!-- SELECT*
 	FROM (SELECT inner_table.*
 		FROM (SELECT * FROM lesson
