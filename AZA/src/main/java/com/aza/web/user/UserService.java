@@ -2,8 +2,8 @@ package com.aza.web.user;
 
 import java.util.Map;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
-import com.aza.web.common.Search;
 
 public interface UserService {
 	// 회원가입

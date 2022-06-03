@@ -58,12 +58,12 @@
 			subject = #{subject},
 			lesson_content= #{lessonContent}
 		</set>
-		WHERE lesson_code = #{lessonCode};
+		WHERE lesson_code = #{lessonCode}
 	</update>
 	
 	<delete id = "deleteLesson">
 		DELETE FROM lesson
-		WHERE lesson_code = #{lessonCode};
+		WHERE lesson_code = #{lessonCode}
 	</delete>
 	
 	<select id = "listLesson" resultMap="lessonSelectMap">
@@ -73,7 +73,7 @@
 				WHERE lesson_name like '%#{lessonName}%'
 				ORDER BY lesson_create_at DESC) inner_table
 			WHERE lesson_create_at &lt;= #{lessonCreateAt})
-		WHERE lesson_create_at between #{lessonCreateAt} AND #{lessonCreateAt};
+		WHERE lesson_create_at between #{lessonCreateAt} AND #{lessonCreateAt}
 	</select>
 	<!-- SELECT*
 	FROM (SELECT inner_table.*

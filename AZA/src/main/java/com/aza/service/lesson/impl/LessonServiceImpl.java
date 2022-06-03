@@ -16,11 +16,12 @@ import com.aza.service.domain.Schedule;
 import com.aza.service.lesson.LessonDao;
 import com.aza.service.lesson.LessonService;
 
-@Service("LessonServiceImpl")
+
+@Service("lessonServiceImpl")
 public class LessonServiceImpl implements LessonService {
 
 	@Autowired
-	@Qualifier("LessonDaoImpl")
+	@Qualifier("lessonDaoImpl")
 	private LessonDao lessonDao;
 	public void setLessonDao(LessonDao lessonDao) {
 		this.lessonDao = lessonDao;
@@ -127,6 +128,7 @@ public class LessonServiceImpl implements LessonService {
 	public void deleteLessonBook(String isbn) throws Exception {
 		// TODO Auto-generated method stub
 		lessonDao.deleteLessonBook(isbn);
+
 	}
 
 }
