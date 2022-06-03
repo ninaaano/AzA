@@ -36,6 +36,7 @@
 		<mapper resource="sql/ExamMapper.xml"/>
 		<mapper resource="sql/PaymentMapper.xml"/>
 		<mapper resource="sql/RelationMapper.xml"/>
+		<mapper resource="sql/UserMapper.xml"/>
 	</mappers>
 
 </configuration>

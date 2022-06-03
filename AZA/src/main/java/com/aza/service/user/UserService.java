@@ -34,7 +34,7 @@ public interface UserService {
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
-	public User getRelation(User user) throws Exception;
+	public User getRelation(String firstStudentId, String parentId) throws Exception;
 	
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
