@@ -59,10 +59,21 @@
 		FROM (
 			    SELECT inner_table.*, ROWNUM AS row_seq
 			    FROM ( SELECT * FROM exam 
-						WHERE student_id = #{studentId} AND exam_subject = #{examSubject}
+						WHERE student_id = #{searchId} AND exam_subject = #{searchKeyword}
 				)inner_table 
 		    WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum};		
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
 	 </select>
+	
+	<!-- SQL : exam Total Count -->
+	<select id="getStudentsExamTotalCount"  parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM (  SELECT
+				*
+				FROM exam
+				WHERE student_id = #{searchId:VARCHAR} AND exam_subject = #{searchKeyword:VARCHAR}
+		) countTable
+	</select>
+	
 	
 </mapper>

@@ -1,5 +1,7 @@
 package com.aza.service.students.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.aza.common.Search;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao2;
 
@@ -78,6 +81,27 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 	@Override
 	public Students getStudentsExam(int examCode) throws Exception {
 		return sqlSession.selectOne("ExamMapper.getStudentsExam",examCode);
+	}
+
+
+	@Override
+	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(searchKeyword);
+		return sqlSession.selectOne("ExamMapper.getStudentsExamTotalCount", search);
+	}
+
+
+	@Override
+	public List<Students> listStudentsExam(Search search, String examSubject, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(examSubject);
+		return sqlSession.selectList("ExamMapper.listStudentsExam", search);
+		
+		
+		
 	}
 
 

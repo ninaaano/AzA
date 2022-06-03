@@ -1,10 +1,16 @@
 package com.aza.students.test1.stduents;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.aza.common.Search;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsService2;
 
@@ -59,8 +65,27 @@ public class StuedentsExamTest {
 		studentsService.deleteStudentsExam(1000);
 	}
 	
+	@Test
 	public void testListExam() throws Exception{
 		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);	
+		
+		System.out.println("시작=====================");
+		
+		Map<String, Object> map = studentsService.listStudentsExam(search, "수학", "student21");
+		System.out.println("listExam map ===> " + map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		assertEquals(3,list.size());
+		System.out.println("listExam check ===> " + list);
+		
+		System.out.println("listExam ====>> "+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("listExam TotalCount ====>> " + totalCount);
+		System.out.println("listExam 서치 ====>> " + search);
 		
 	}
 }
