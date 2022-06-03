@@ -3,11 +3,9 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="RelationMapper">
- 	
- 	
-	<resultMap id="RelationMap" type="com.aza.service.domain.User">
+
+	<resultMap id="RelationSelectMap" type="com.aza.service.domain.User">
 		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
 		<result property="studentId" 	column="student_id" 		jdbcType="VARCHAR" />
 		<result property="parentId" 				column="parent_id" 					jdbcType="VARCHAR" />
@@ -15,14 +13,14 @@
 	</resultMap>
 	
 		<!-- Relation : INSERT -->
-	<insert 	id="addRelation"		parameterType="relation" >							
+<!-- 	<insert 	id="addRelation"		parameterType="user" >							
 		INSERT
 		INTO relation
 		VALUES (#{relationCode} , #{studentId}, #{parentId}, #{relationName})		
-	</insert>
+	</insert> -->
 	
-	<!-- Relation : SELECT ??????????????-->
-	<select		id="getRelation">
+	<!-- Relation : SELECT ?????????????? -->
+<!-- 	<select	id="getRelation" resultMap ="RelationSelectMap">
 		SELECT
 		u.user_name, r.student_Id, r.parent_id, r.relation_name
 		FROM users u, relation r
@@ -30,8 +28,8 @@
 		AND r.student_id = #{studentId}
 	</select>
 	
-	<!-- Relation : UPDATE ???????????????-->
-	<update		id="updateRelation" 	>
+	Relation : UPDATE ???????????????
+	<update		id="updateRelation" >
 		UPDATE relation
 		<set>
 			relation_name = #{relationName}
@@ -39,18 +37,18 @@
 		WHERE parent_Id = #{parentId} AND student_id = #{studentId}
 	</update>
 	
-	<!-- Relation : DELETE -->
+	Relation : DELETE
 	 <delete	id="deleteRelation"	parameterType="int" >
 		DELETE FROM relation
 		WHERE relation_code = #{relationCode}
 	 </delete>
 	 
-	<!-- Relation : list -->
+	Relation : list
 	<select id="listRelation" >
 		SELECT
 		u.user_name, r.student_Id, r.parent_id, r.relation_name
 		FROM users u, relation r
 		WHERE u.user_id = r.parent_id AND u.user_id = #{parentId}
-	</select>	 
+	</select>	  -->
 	 
 </mapper>

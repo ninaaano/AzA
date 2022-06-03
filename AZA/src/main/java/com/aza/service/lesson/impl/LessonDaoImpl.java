@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -22,8 +23,10 @@ import com.aza.service.lesson.LessonDao;
 public class LessonDaoImpl implements LessonDao {
 
 	@Autowired
+	@Lazy
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSessionTemplate;
+	
 	public void seqSqlSession(SqlSession sqlSession) {
 		System.out.println("Test");
 		this.sqlSessionTemplate = sqlSession;
@@ -31,7 +34,7 @@ public class LessonDaoImpl implements LessonDao {
 	}
 	
 	public LessonDaoImpl() {
-		System.out.println(this.getClass());
+		System.out.println(this.getClass()+"] pleas start !!!!!!!");
 	}
 
 	@Override

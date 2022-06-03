@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -6,7 +6,7 @@
 
 <mapper namespace="StudentsCharacterMapper">
 
-	<resultMap id="studentsSelectMap" type="students">
+	<resultMap id="studentsExamSelectMap" type="com.aza.service.domain.Students">
 		<result property="examCode" 			column="exam_code" 				jdbcType="NUMERIC"/>
 		<result property="studentId" 			column="student_id" 			jdbcType="VARCHAR"/>
 		<result property="examYear" 			column="exam_year"	 			jdbcType="CHAR"/>
@@ -17,14 +17,14 @@
 	</resultMap>
 	
 	
-	<!-- SQL : exam INSERT -->
+	SQL : exam INSERT
 	<insert id="addStudentsExam" parameterType="students">
 	INSERT INTO exam
 	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${score});
 	</insert>
 
-	<!-- SQL : exam SELECT ONE  -->	
-	<select id="getStudentsExam" parameterType="int" resultMap="studentsSelectMap">
+	SQL : exam SELECT ONE 	
+	<select id="getStudentsExam" parameterType="int" resultMap="studentsExamSelectMap">
 	SELECT
 	*
 	FROM exam 
@@ -32,8 +32,8 @@
 	</select>
 	
 	
-	<!-- SQL : exam UPDATE -->
-	<update id = "updateStudentsExam" parameterType ="exam">
+	SQL : exam UPDATE
+	<update id = "updateStudentsExam" parameterType ="students">
 	UPDATE exam 
 	<set>
 	exam_year = #{examYear}, 
@@ -45,16 +45,16 @@
 	WHERE exam_code = #{examCode}
 	</update>
 	
-	<!-- SQL : exam delete -->
+	SQL : exam delete
 	<delete id="deleteStudentsExam" parameterType="int">
 	DELETE FROM exam WHERE exam_code = #{value};
 	</delete>
 	
 	
 	
-	<!--  ==================================== -->
-	<!-- SQL : exam SELECT list -->
-		<select  id="listStudentsExam"  parameterType="search"	resultMap="studentsSelectMap">
+	 ====================================
+	SQL : exam SELECT list
+		<select  id="listStudentsExam"  parameterType="search"	resultMap="studentsExamSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  			FROM	( SELECT
@@ -65,4 +65,4 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	
-</mapper>
+</mapper> -->

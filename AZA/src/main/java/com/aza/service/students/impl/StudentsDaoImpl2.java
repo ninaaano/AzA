@@ -3,6 +3,7 @@ package com.aza.service.students.impl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import com.aza.service.students.StudentsDao2;
 public class StudentsDaoImpl2 implements StudentsDao2 {
 
 	@Autowired
+	@Lazy
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSessionTemplate;
 	
