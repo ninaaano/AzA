@@ -22,7 +22,7 @@ public interface LessonDao {
 	public void deleteLesson(String lessonCode) throws Exception;
 	
 	//lesson : list
-	public List<Lesson> listLesson(Search search) throws Exception;
+	public List<Lesson> listLesson(Search search,String lessonName,String lessonCreateAt, String teacherId) throws Exception;
 	
 	//lessonBook : insert
 	public void addLessonBook(Book book) throws Exception;

@@ -13,8 +13,9 @@ import java.util.Map;
 public class NaverShortUrl {
 	
 	public String shortUrl(String originalURL) {
-        String clientId = "PDkza_JOmqQ7CQ7Rj2C3"; //¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª"
-        String clientSecret = "MeU0UOAC49"; //¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª"
+
+        String clientId = "PDkza_JOmqQ7CQ7Rj2C3"; //ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’"
+        String clientSecret = "MeU0UOAC49"; //ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì‹œí¬ë¦¿ê°’"
 
         String apiURL = "https://openapi.naver.com/v1/util/shorturl?url="+originalURL;
 
@@ -35,13 +36,13 @@ public class NaverShortUrl {
             }
 
             int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // Á¤»ó È£Ãâ
+            if (responseCode == HttpURLConnection.HTTP_OK) { // ì •ìƒ í˜¸ì¶œ
                 return readBody(con.getInputStream());
-            } else { // ¿¡·¯ ¹ß»ı
+            } else { // ì—ëŸ¬ ë°œìƒ
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
-            throw new RuntimeException("API ¿äÃ»°ú ÀÀ´ä ½ÇÆĞ", e);
+            throw new RuntimeException("API ìš”ì²­ê³¼ ì‘ë‹µ ì‹¤íŒ¨", e);
         } finally {
             con.disconnect();
         }
@@ -52,9 +53,9 @@ public class NaverShortUrl {
             URL url = new URL(apiUrl);
             return (HttpURLConnection)url.openConnection();
         } catch (MalformedURLException e) {
-            throw new RuntimeException("API URLÀÌ Àß¸øµÇ¾ú½À´Ï´Ù. : " + apiUrl, e);
+            throw new RuntimeException("API URLì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤. : " + apiUrl, e);
         } catch (IOException e) {
-            throw new RuntimeException("¿¬°áÀÌ ½ÇÆĞÇß½À´Ï´Ù. : " + apiUrl, e);
+            throw new RuntimeException("ì—°ê²°ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. : " + apiUrl, e);
         }
     }
 
@@ -71,7 +72,8 @@ public class NaverShortUrl {
 
             return responseBody.toString();
         } catch (IOException e) {
-            throw new RuntimeException("API ÀÀ´äÀ» ÀĞ´Âµ¥ ½ÇÆĞÇß½À´Ï´Ù.", e);
+            throw new RuntimeException("API ì‘ë‹µì„ ì½ëŠ”ë° ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.", e);
+
         }
     }
 	

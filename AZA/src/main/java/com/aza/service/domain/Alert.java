@@ -52,7 +52,16 @@ public class Alert {
 			break;
 		case "조퇴" :
 			this.alertContent = " 학생 조퇴했습니다🏃‍♀️";
-			break;		
+			break;
+		case "7일전" : 
+			this.alertContent = " 학생 수납일 7일 전입니다🙏";
+			break;
+		case "1일전" :
+			this.alertContent = " 학생 수납일 1일 전입니다🙏";
+			break;
+		case "미수납" :
+			this.alertContent = " 학생 수납일이 지났습니다👀";
+			break;
 		default :
 			this.alertContent = alertContent;
 			break;

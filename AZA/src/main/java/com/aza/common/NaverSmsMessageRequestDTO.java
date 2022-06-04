@@ -16,5 +16,15 @@ import lombok.NoArgsConstructor;
 public class NaverSmsMessageRequestDTO {
 	private String to; 
 	private String content;
+	
+	public NaverSmsMessageRequestDTO() {
+		
+	}
+
+	public NaverSmsMessageRequestDTO(String to, String content) {
+		
+		this.to = to;
+		this.content = content;
+	}
 
 }

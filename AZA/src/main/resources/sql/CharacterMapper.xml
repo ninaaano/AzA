@@ -43,6 +43,7 @@
 	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
 	DELETE FROM characters WHERE character_code = #{value}
+
 	</delete>
 	
 	

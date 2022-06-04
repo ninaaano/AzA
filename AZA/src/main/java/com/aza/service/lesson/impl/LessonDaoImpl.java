@@ -1,6 +1,8 @@
 package com.aza.service.lesson.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +64,16 @@ public class LessonDaoImpl implements LessonDao {
 	}
 
 	@Override
-	public List<Lesson> listLesson(Search search) throws Exception {
+	public List<Lesson> listLesson(Search search,String lessonName,String lessonCreateAt, String teacherId) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList("LessonMapper.listLesson",search);
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("lessonName", lessonName);
+		map.put("lessonCreateAt",lessonCreateAt);
+		map.put("teacherId", teacherId);
+		map.put("endRowNum", search.getEndRowNum()+"");
+		map.put("startRowNum", search.getStartRowNum()+"");
+		return sqlSessionTemplate.selectList("LessonMapper.listLesson",map);
 	}
 
 	@Override
@@ -102,7 +111,7 @@ public class LessonDaoImpl implements LessonDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonSchedule",scheduleCode);
 
-	}
+ 	}
 
 	@Override
 	public void updateLessonSchedule(Schedule schedule) throws Exception {
