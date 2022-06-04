@@ -6,20 +6,37 @@
 	<resultMap id="alertSelectMap" type="alert">
 		<result property="alertCode" column="alert_code" jdbcType="NUMERIC" />
 		<result property="receiverId" column="receiver_id" jdbcType="VARCHAR" />
-		<result property="lessonCode" column="alert_content" jdbcType="VARCHAR" />
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="alertContent" column="alert_content" jdbcType="VARCHAR" />
 		<result property="alertCreateAt" column="alert_create_at" jdbcType="VARCHAR" />
 		<result property="alertReadAt" column="alert_read_at" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<!-- INSERT -->
+	<!-- INSERT : Basic -->
 	<insert id="addAlert">
+	INSERT INTO alert VALUES (
+		seq_alert_alert_code.nextval,
+		#{receiverId},
+		#{lessonCode},
+		(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{alertContent}) CONTENT
+    		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
+    						FROM LESSON l, USERS u 
+    						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{receiverId}) v), 
+		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
+    	null
+	)	
+	</insert>
+
+
+	<!-- INSERT : Attendance-->
+	<insert id="addAlertAttendance">
 	INSERT INTO alert VALUES (
     	seq_alert_alert_code.nextval, 
     	(SELECT parent_id p_id 
     		FROM RELATION
     		WHERE student_id = #{receiverId}), 
     	#{lessonCode},
-    	(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{receiverId}) CONTENT
+    	(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{alertContent}) CONTENT
     		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
     						FROM LESSON l, USERS u 
     						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{receiverId}) v), 
@@ -51,12 +68,12 @@
 	
 
 	<!-- LIST -->
-	<select id="listAlert">
+	<select id="listAlert" parameterType="search" resultMap="alertSelectMap">
 	SELECT * 
 	FROM (
     		SELECT inner_table.*, ROWNUM AS row_seq
     		FROM (  SELECT * FROM alert
-            		WHERE receiver_id = #{receiverId}
+            		WHERE receiver_id = #{searchId}
             		ORDER BY  alert_create_at DESC ) inner_table 
     		WHERE ROWNUM &lt;= #{endRowNum} )
 	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
@@ -66,7 +83,7 @@
 	<select id="getAlertTotalCount" resultType="int">
 	SELECT COUNT(*)
 	FROM ( SELECT *	FROM alert
-        	WHERE receiver_id = #{receiverId}
+        	WHERE receiver_id = #{searchId}
 			) countTable
 	
 	</select>
