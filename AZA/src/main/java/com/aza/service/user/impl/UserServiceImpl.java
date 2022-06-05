@@ -1,6 +1,7 @@
 package com.aza.service.user.impl;
 
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -90,6 +91,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> listRelation(String parentId) throws Exception {
 		return userDao.listRelation(parentId);
+	}
+
+	@Override
+	public int phoneAuth() throws Exception {
+		Random num  = new Random();
+    	num.setSeed(System.currentTimeMillis());  	
+    	int num1 = (num.nextInt(1000000) % 1000000);
+    	return num1;
+		
 	}
 	
 }

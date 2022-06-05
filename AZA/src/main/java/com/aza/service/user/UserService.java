@@ -6,7 +6,7 @@ import com.aza.service.domain.User;
 
 public interface UserService {
 	
-	//User :: INSERT È¸¿ø°¡ÀÔ
+	//User :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void addUser(User user) throws Exception;
 	
 	//User :: SELECT
@@ -30,7 +30,7 @@ public interface UserService {
 	//User :: updateStopAlertEndTime
 	public void updateStopAlertEndTime(String stopAlertEndTime) throws Exception;
 	
-	//Relation :: INSERT È¸¿ø°¡ÀÔ, °ü°èÃß°¡
+	//Relation :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
@@ -45,5 +45,8 @@ public interface UserService {
 	//Relation :: LIST
 	public Map<String, Object> listRelation(String parentId) throws Exception;
 	
+	// private phoneAuth
+	public int phoneAuth() throws Exception;
+
 
 }
