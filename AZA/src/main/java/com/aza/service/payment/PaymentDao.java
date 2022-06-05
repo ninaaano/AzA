@@ -16,6 +16,9 @@ public interface PaymentDao {
 	// ADD
 	public void addPayment(Payment payment) throws Exception;
 	
+	// DELETE
+	public void deletePayment(int paycode) throws Exception;
+	
 	// LIST
 	public List<Payment> listPayment(Search search) throws Exception;
 	
@@ -23,6 +26,6 @@ public interface PaymentDao {
 	public void addPaymentProcedure(Payment payment) throws Exception;
 	
 	// totalCount
-	public void totalPaymentCount(Search search) throws Exception;
+	public int totalPaymentCount(Search search) throws Exception;
 	
 }

@@ -22,6 +22,10 @@ VALUES ('abcd1234','teacher51','비트고1 자바','월수금','09:00','21:00','
 
 INSERT
 INTO LESSON 
+VALUES ('','teacher51','자바 타이핑','월수금','09:00','21:00','비트',40000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+
+INSERT
+INTO LESSON 
 VALUES ('EDF43234','teacher51','비트고3 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT 
@@ -44,6 +48,24 @@ VALUES('12312312355487','논어','어디지','20000','공자','2010-01=01','IMG'
 INSERT
 INTO BOOK 
 VALUES('99','국가론','여기','20000','플라톤','2010/03/01','IMG');
+
+
+-- test lesson delete and book --
+
+INSERT
+INTO BOOK 
+VALUES('99','국가론','여기','20000','플라톤','2010/03/01','IMG');
+INSERT
+INTO LESSON_BOOK
+VALUES(
+SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
+(SELECT lesson_code FROM lesson WHERE lesson_code='11111111'),
+(SELECT isbn FROM BOOK WHERE ISBN = '1111'));
+
+INSERT
+INTO BOOK 
+VALUES('1111','누가 내 치즈 훔침?','애기','10000','경호','2015/03/01','IMG');
+
 
 --lesson_book
 INSERT
@@ -136,7 +158,38 @@ FROM (SELECT inner_table.*
 WHERE lesson_create_at > '2022/05/30 00:00:00';
 --WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59';
 
-/* 학생 */
+SELECT L.lesson_name, L.teacher_id, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code
+		FROM LESSON L, USERS U 
+		WHERE L.teacher_id = U.user_id and L.teacher_id = 'teacher51'
+		ORDER BY L.lesson_create_at desc;
+		
+/*선생님 다시 한거*/
+SELECT*
+FROM (SELECT inner_table.*, ROWNUM AS row_seq
+	FROM (SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code
+		FROM LESSON L, USERS U 
+		WHERE L.teacher_id = U.user_id  AND teacher_id = 'teacher51'
+		ORDER BY L.lesson_create_at desc) inner_table
+		WHERE ROWnUM <= 3)
+	WHERE row_seq BETWEEN 1 and 3;
+
+/*학생 다시 한거*/
+SELECT L.lesson_name,  U.user_name, SR.proposal
+FROM LESSON L, STUDENTS_RECORD SR, USERS U
+WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id ='student5';
+
+select*from lesson l, students_record sr where l.lesson_code = sr.lesson_code and sr.student_id ='student5';
+
+SELECT*
+FROM (SELECT inner_table.*, ROWNUM AS row_seq
+	FROM(SELECT L.lesson_name,  U.user_name, SR.proposal
+		FROM LESSON L, STUDENTS_RECORD SR, USERS U
+		WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id ='student5'
+		ORDER BY L.lesson_create_at desc) inner_table
+		WHERE ROWNUM <=3)
+	WHERE row_seq BETWEEN 1 AND 3;
+
+
 SELECT*
 FROM (SELECT inner_table.*
 	FROM (SELECT * FROM lesson
@@ -149,6 +202,8 @@ WHERE lesson_create_at between '2022/05/30 00:00:00' AND '20220531 23:59:59';
 select*from lesson le, students_record sr
 where le.lesson_code = sr.lesson_code AND student_id = 'student5'
 order by lesson_create_at desc;
+
+
 
 /* 둘이 같은 코드*/
 select*from lesson le, students_record sr
@@ -197,71 +252,66 @@ CREATE OR REPLACE TRIGGER TR_BOOK
 	END 
 
 
-
+--테이블 제약조건 검색
+SELECT CONSTRAINT_NAME, STATUS
+FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME='LESSON_BOOK';
+--제약조건 삭제
+ALTER TABLE LESSON_BOOK DROP CONSTRAINT lESSON_BOOK_DELETE;
 
 /* Book=================*/
-/*getLessonBook*/
-SELECT*
-FROM 
+/* add book*/
+INSERT ALL
+	INTO BOOK VALUES('19981216','안경호','자서전','1000000','안경호','2030/12/16','IMG')
+	INTO LESSON_BOOK VALUES(SEQ_LESSON_BOOK_BOOK_CODE.nextVal,'agho1216','19981216')
+	SELECT*FROM DUAL;
+(SELECT lesson_code FROM lesson WHERE lesson_code='11111111'),
+(SELECT isbn FROM BOOK WHERE ISBN = '1111'));
 
 /* listLesson Book*/
-SELECT*
-FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-	FROM ( SELECT * FROM lesson_book
-			WHERE lesson_code ='abcd4321'
-			ORDER BY book_code) inner_table
-	WHERE ROWNUM <= 3)
-WHERE row_seq BETWEEN 1 AND 3;
+select *
+from (select inner_table.*, ROWNUM AS row_seq
+	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+		FROM BOOK B, LESSON_BOOK LB, LESSON L
+		WHERE B.ISBN=LB.ISBN AND LB.lesson_code = L.lesson_code and L.teacher_id = 'teacher51') inner_table
+		WHERE rownum<3)
+WHERE ROW_SEQ BETWEEN 1 AND 3;		
+
+and L.lesson_code = 'agho1216';
+
 
 /* deleteLessonBook*/
-delete from book
-where isbn = '99';
+delete from lesson_book
+where isbn = '987654321';
 
-
-DELETE
-FROM LESSON_BOOK LB
-where EXISTS(
-	SELECT *
-	FROM BOOK B
-	WHERE B.ISBN = LB.ISBN AND ISBN ='99'
-);
-
-DELETE
-FROM (
-	SELECT *
-	FROM LESSON_BOOK LB, BOOK B
-	WHERE LB.ISBN = B.ISBN)
-WHERE 
-
-DELETE FROM 
-	(SELECT*
-	FROM BOOK B, LESSON_BOOK LB
-	WHERE B.ISBN=LB.ISBN AND B.ISBN = '99' AND LB.ISBN='99');
+--DELETE
+--FROM book B
+--where EXISTS(
+--	SELECT *
+--	FROM lesson_BOOK LB
+--	WHERE B.ISBN = LB.ISBN AND B.ISBN ='1111' and LB.isbn='1111'
+--);
 	
 /*addlessonschedule*/
 INSERT
 INTO schedule
-VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,'teacher51',TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'휴가');
-	
-
-INSERT
-INTO schedule
-VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,'teacher51',TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/06/03',null,'열심히 하는 날');
+VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,'teacher51',TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'공부');
 
 (SELECT user_id FROM USERS WHERE user_id = 'teacher51'));
 
-INSERT INTO SCHEDULE VALUES (
-	seq_schedule_schedule_code.nextval,
-	(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),
-	,TO_CHAR(sysdate,'yyyy/mm/dd'),
-	TO_CHAR(sysdate,'HH24:MI:SS'),
-	'2022/06/03',null,'열심히 하는 날');
-)
-
+INSERT INTO schedule 
+		VALUES (seq_schedule_schedule_code.nextval,
+		#{teacherId},#{scheduleStartDate},#{scheduleStartTime:VARCHAR},
+		#{scheduleEndDate},#{scheduleEndTime:VARCHAR},#{scheduleContent})
 
 /*getLessonschedule*/
 SELECT * FROM schedule
-WHERE schedule_start_date = '2022/05/31';
+WHERE schedule_code = 1021;
+
+SELECT L.lesson_name, S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
+FROM schedule S, users U, lesson L
+WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id AND S.teacher_id = 'teacher53' AND S.schedule_code=1021;
+
 
 /*udpateLessonSchedule*/
 UPDATE schedule
@@ -272,30 +322,43 @@ SET schedule_Start_Date = TO_CHAR(sysdate,'yyyy/mm/dd'),
 WHERE schedule_start_date ='2022/05/31' AND schedule_start_time='19:06:13' and teacher_id='teacher51';
 
 UPDATE schedule
-SET schedule_Start_Date = TO_CHAR(sysdate,'yyyy/mm/dd'),
-	schedule_End_Date = '2022/06/16',
+SET schedule_Start_Date ='2022/06/04',
+	schedule_End_Date = '2022/06/05',
 	schedule_Start_Time = TO_CHAR(sysdate,'HH24:MI:SS'),
-	schedule_content = '화이팅하자'
-WHERE schedule_code = 1001;
+	schedule_content = 'why can not change'
+WHERE schedule_code = 1021 and teacher_id = 'teacher53';
+
 
 /*deleteLessonSchedule*/
 DELETE 
 FROM schedule
-WHERE schedule_code = 1001;
+WHERE schedule_code = 1021;
 
 /*listLessonSchedule*/
 SELECT *
 FROM (
 	SELECT inner_table.*, ROWNUM AS row_seq
-	FROM ( SELECT * FROM schedule
-			WHERE teacher_id = 'teacher51'
+	FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
+			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and teacher_id = 'teacher51'
 			ORDER BY schedule_start_date || schedule_start_time) inner_table
 	WHERE ROWNUM <= 3)
 WHERE row_seq BETWEEN 1 AND 3;
 
+SELECT *
+FROM (
+	SELECT inner_table.*, ROWNUM AS row_seq
+	FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
+			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and S.teacher_id = 'teacher51'
+			ORDER BY S.schedule_code desc) inner_table
+	WHERE ROWNUM <= 3)
+WHERE row_seq BETWEEN 1 AND 3;
+
+
 select*from schedule
 where teacher_id = 'teacher51'
 order by schedule_start_date || schedule_start_time;
+
+select 
 
 
 row count

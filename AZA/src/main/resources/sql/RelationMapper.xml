@@ -9,16 +9,21 @@
  	
 	<resultMap id="RelationSelectMap" type="user">
 		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
-		<result property="studentId" 	column="student_id" 		jdbcType="VARCHAR" />
-		<result property="parentId" 				column="parent_id" 					jdbcType="VARCHAR" />
-		<result property="relationName"	column="relation_name" 		jdbcType="VARCHAR" />
+		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
+		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
+		<result property="relationName"				column="relation_name" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 		<!-- Relation : INSERT -->
 	<insert 	id="addRelation" >							
 		INSERT
 		INTO relation
-		VALUES (#{relationCode} , #{firstStudentId}, #{userId}, #{relationName})		
+		VALUES (
+				seq_relation_relation_code.NEXTVAL,
+				#{firstStudentId},
+				#{userId},
+				#{relationName}
+			)		
 	</insert>
 	
 	<!-- Relation : SELECT ??????????????-->
@@ -40,9 +45,9 @@
 	</update>
 	
 	<!-- Relation : DELETE -->
-	 <delete	id="deleteRelation"	parameterType="int" >
+	 <delete	id="deleteRelation"	parameterType="String" >
 		DELETE FROM relation
-		WHERE relation_code = #{relationCode}
+		WHERE student_id = #{userId} OR parent_id = #{userId}
 	 </delete>
 	 
 	<!-- Relation : list -->

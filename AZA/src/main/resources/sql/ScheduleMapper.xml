@@ -14,47 +14,67 @@
 		<result property="scheduleContent" column="schedule_content" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<insert id = "addLessonScehdule">
-		INSERT INTO SCHEDULE 
-		VALUES (
-			seq_schedule_schedule_code.nextval,
-			(SELECT user_id FROM USERS WHERE user_id = #{teacherId}),
-			,#{scheduleStartDate},
-			#{scheduleStartTime: VARCHAR},
-			#{scheduleEndDate},#{scheduleEndtime:VARCHAR},#{scheduleContent});
-		)
+	<insert id = "addLessonSchedule">
+		INSERT INTO schedule 
+		VALUES (seq_schedule_schedule_code.nextval,
+		#{teacherId},#{scheduleStartDate},#{scheduleStartTime:VARCHAR},
+		#{scheduleEndDate},#{scheduleEndTime:VARCHAR},#{scheduleContent})
 	</insert>
+	<!-- (SELECT user_id FROM USERS WHERE user_id = #{teacherId}) -->
 	
 	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">
-		SELECT * FROM schedule
-		WHERE schedule_code = #{scheduleCode};
+		SELECT L.lesson_name, S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
+		FROM schedule S, users U, lesson L
+		WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id AND S.teacher_id = 'teacher53'<!-- #{teacherId} --> AND S.schedule_code=#{scheduleCode}
 	</select>
 	
-	<update id = "updateLessonSchedule" parameterType="schedule">
+	
+	<update id = "updateLessonSchedule">
 		UPDATE schedule
 		<set>
-			schedule_Start_Date = #{scheduleStartDate},
-			schedule_End_Date = #{scheduleEndDate},
-			schedule_Start_Time = #{scheduleStartTime},
-			schedule_content = #{scheduleContent}
+			schedule_Start_Date = #{scheduleStartDate:VARCHAR},
+			schedule_End_Date = #{scheduleEndDate:VARCHAR},
+			schedule_Start_Time = #{scheduleStartTime:VARCHAR},
+			schedule_end_time = #{scheduleEndTime:VARCHAR},
+			schedule_content = #{scheduleContent:VARCHAR}
 		</set>
-		WHERE schedule_code = #{scheduleCode} and teacher_id = #{teacherId};
+		WHERE schedule_code = #{scheduleCode} AND teacher_id = 'teacher53' <!-- #{teacherId} -->
 	</update>
+	
 
 	<delete id = "deleteLessonSchedule">
 		DELETE 
 		FROM schedule
-		WHERE schedule_code = 1001;
+		WHERE schedule_code = #{scheduleCode}
 	</delete>
 	
-	<select id = "listLessonSchedule">
+<!-- 	<select id ="listLessonSchedule" resultMap="scheduleSelectMap">
+			SELECT *
+			FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM ( SELECT *	FROM schedule 
+					WHERE teacher_id = #{teacherId}
+					ORDER BY schedule_start_date || schedule_start_time
+					Order by schedule_code DESC) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	<select id = "listLessonSchedule" resultMap="scheduleSelectMap">
 		SELECT *
 		FROM (
 			SELECT inner_table.*, ROWNUM AS row_seq
-			FROM ( SELECT * FROM schedule
-					WHERE teacher_id = #{teacherId}
-					ORDER BY schedule_start_date || schedule_start_time) inner_table
-			WHERE ROWNUM &lt; = #{endRowNum})
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum};
+			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
+					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and S.teacher_id = #{teacherId}
+					ORDER BY S.schedule_code desc) inner_table
+			WHERE ROWNUM &lt;= #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+
 	</select>
+	
+	
+	<select id = "getLessonTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from schedule
+	 				where teacher_id ='teacher51'
+	 			) countTable
+	 </select>
 </mapper>

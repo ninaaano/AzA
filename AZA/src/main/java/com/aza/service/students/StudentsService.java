@@ -42,6 +42,6 @@ public interface StudentsService {
 	public void deleteStudentsAttendance(int attendanceCode) throws Exception;
 
 	// ATTENDANCE :: LIST
-	public Map<String, Object> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception;
+	public Map<String, Object> listStudentsAttendance(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception;
 
 }

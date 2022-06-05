@@ -6,7 +6,7 @@ import com.aza.service.domain.User;
 
 public interface UserService {
 	
-	//User :: INSERT È¸¿ø°¡ÀÔ
+	//User :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void addUser(User user) throws Exception;
 	
 	//User :: SELECT
@@ -22,15 +22,18 @@ public interface UserService {
 	public int checkDuplication(String userId) throws Exception;
 	
 	//User :: updateAlertState
-	public void updateAlertState(char alertState) throws Exception;
+	public void updateAlertState(User user) throws Exception;
 	
 	//User :: updateStopAlertStartTime
-	public void updateStopAlertStartTime(String stopAlertStartTime) throws Exception;
+	public void updateStopAlertStartTime(User user) throws Exception;
 	
 	//User :: updateStopAlertEndTime
-	public void updateStopAlertEndTime(String stopAlertEndTime) throws Exception;
+	public void updateStopAlertEndTime(User user) throws Exception;
 	
-	//Relation :: INSERT È¸¿ø°¡ÀÔ, °ü°èÃß°¡
+	//User :: updateCheck
+	public void updateCheck(User user) throws Exception;
+	
+	//Relation :: INSERT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
@@ -40,10 +43,13 @@ public interface UserService {
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-	public void deleteRelation(int relationCode) throws Exception;
+	public void deleteRelation(String userId) throws Exception;
 	
 	//Relation :: LIST
-	public Map<String, Object> listRelation(String parentId) throws Exception;
+	public Map<String, Object> listRelation(String userId) throws Exception;
 	
+	// private phoneAuth
+	public int phoneAuth() throws Exception;
+
 
 }

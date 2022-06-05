@@ -41,7 +41,7 @@ public class StudentsDaoImpl implements StudentsDao {
 
 	@Override
 	public void addStudentsRecord(Students students) throws Exception {
-		sqlSessionTemplate.insert("StudentsRecordMapper.addStduentsRecord", students);
+		sqlSessionTemplate.insert("StudentsRecordMapper.addStudentsRecord", students);
 	}
 
 	@Override
@@ -51,17 +51,22 @@ public class StudentsDaoImpl implements StudentsDao {
 
 	@Override
 	public void updateStudentsRecord(Students students) throws Exception {
-		sqlSessionTemplate.update("StudentsRecordMapper.updateStduentsRecord", students);
+		sqlSessionTemplate.update("StudentsRecordMapper.updateStudentsRecord", students);
 	}
 
 	@Override
 	public void proposalStudents(int recordCode, char proposal) throws Exception {
-		sqlSessionTemplate.update("StudentsRecordMapper.propsalStudents");
+		
+		Students students = new Students();
+		students.setRecordCode(recordCode);
+		students.setProposal(proposal);
+		
+		sqlSessionTemplate.update("StudentsRecordMapper.proposalStudents", students);
 	}
 
 	@Override
 	public void deleteStudentsRecord(int recordCode) throws Exception {
-		sqlSessionTemplate.delete("StudentsRecordMapper.deleteStduentsRecord", recordCode);
+		sqlSessionTemplate.delete("StudentsRecordMapper.deleteStudentsRecord", recordCode);
 	}
 
 	@Override
@@ -73,18 +78,20 @@ public class StudentsDaoImpl implements StudentsDao {
 	@Override
 	public int getProposalStudentsTotalCount(Search search, String teacherId) throws Exception {
 		search.setSearchId(teacherId);
-		return sqlSessionTemplate.selectOne("StudentsRecordMapper.getProposalStudentsTotalCount");
+		return sqlSessionTemplate.selectOne("StudentsRecordMapper.getProposalStudentsTotalCount", search);
 	}
 
 	@Override
 	public List<Students> listStudentsRecord(Search search, String teacherId) throws Exception {
 		search.setSearchId(teacherId);
+		System.out.println(search);
 		return sqlSessionTemplate.selectList("StudentsRecordMapper.listStudentsRecord", search);
 	}
 
 	@Override
 	public int getStudentsRecordTotalCount(Search search, String teacherId) throws Exception {
 		search.setSearchId(teacherId);
+		System.out.println(search);
 		return sqlSessionTemplate.selectOne("StudentsRecordMapper.getStudentsRecordTotalCount", search);
 	}
 
@@ -109,14 +116,18 @@ public class StudentsDaoImpl implements StudentsDao {
 	}
 
 	@Override
-	public List<Students> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception {
+	public List<Students> listStudentsAttendance(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception {
+		search.setLessonCode(lessonCode);
+		search.setSearchId(studentId);
 		search.setSearchStartDate(startMonth);
 		search.setSearchEndDate(endMonth);
 		return sqlSessionTemplate.selectList("AttendanceMapper.listStudentsAttendance", search);
 	}
 
 	@Override
-	public int getStudentsAttendanceTotalCount(Search search, String startMonth, String endMonth) throws Exception {
+	public int getStudentsAttendanceTotalCount(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception {	
+		search.setLessonCode(lessonCode);
+		search.setSearchId(studentId);
 		search.setSearchStartDate(startMonth);
 		search.setSearchEndDate(endMonth);
 		return sqlSessionTemplate.selectOne("AttendanceMapper.getStudentsAttendanceTotalCount", search);
