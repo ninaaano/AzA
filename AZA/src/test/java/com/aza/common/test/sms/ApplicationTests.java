@@ -1,42 +1,35 @@
 package com.aza.common.test.sms;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 //
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.aza.common.NaverSmsService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-//
-import org.springframework.expression.ParseException;
+import com.aza.common.web.NaverServiceImpl;
 
 @SpringBootTest
 class ApplicationTests {
-    @Autowired
-    private NaverSmsService NaverSmsService;
+  
+	@Autowired
+    private NaverServiceImpl naverServiceImpl;
 
+    
     @Test
-    void sendSms() throws JsonProcessingException, ParseException, UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException {
-    	NaverSmsService.sendSms("01049660466","오예");
+    void naver() 	{
+    	
+    	String phone = "01032030796";
+    	Random num  = new Random();
+    	num.setSeed(System.currentTimeMillis());
+    	
+    	int num1 = (num.nextInt(1000000) % 1000000);
+    	String message = "인증번호는 ["+num1+"] 입니다";
+    	
+    	
+    	naverServiceImpl.sendSMS(phone, message);
+    	
+   
     }
 }
 
-
-
-//@RestController
-//@RequiredArgsConstructor
-//public class ApplicationTests {
-//
-//	private NaverSmsService smsService;
-//
-//    @PostMapping("/user/sms")
-//    public ResponseEntity<NaverSmsResponseDTO> test(@RequestBody Request request) throws NoSuchAlgorithmException, URISyntaxException, UnsupportedEncodingException, InvalidKeyException, JsonProcessingException {
-//    	NaverSmsResponseDTO data = smsService.sendSms(request.getRecipientPhoneNumber(), request.getContent());
-//        return ResponseEntity.ok().body(data);
-//    }
-//}
