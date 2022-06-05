@@ -1,6 +1,7 @@
 package com.aza.service.payment;
 
 import java.util.List;
+import java.util.Map;
 
 import com.aza.common.Search;
 import com.aza.service.domain.Payment;
@@ -15,7 +16,10 @@ public interface PaymentService {
 	// ADD
 	public void addPayment(Payment payment) throws Exception;
 	
+	// DELETE
+	public void deletePayment(int payCode) throws Exception;
+	
 	// LIST
-	public List<Payment> listPayment(Search search) throws Exception;
+	public Map<String, Object> listPayment(Search search) throws Exception;
 
 }

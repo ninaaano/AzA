@@ -4,16 +4,58 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		
-<mapper namespace="PaymentMappr">
+<mapper namespace="PaymentMapper">
 
 	<resultMap type="Payment" id="PaymentSelectMap">
 		<result property="payCode"			 column="pay_code" 				jdbcType="NUMERIC" />
 		<result property="studentRecordNo" 	 column="student_record_no" 	jdbcType="NUMERIC" />
+		<result property="studentId" 		 column="student_id" 			jdbcType="VARCHAR" />
+		<result property="studentName" 		 column="student_name" 			jdbcType="VARCHAR" />
 		<result property="payer" 			 column="payer" 				jdbcType="VARCHAR" />
 		<result property="amount" 		  	 column="amount" 				jdbcType="NUMERIC" />
-		<result property="payDueDate" 		  	 column="amount" 			jdbcType="VARCHAR" />
-			
+		<result property="payDueDate" 		 column="pay_due_date" 			jdbcType="VARCHAR" />
+		<result property="payDay" 			 column="pay_day" 				jdbcType="DATE" />
+		<result property="checkPay" 		 column="check_pay" 			jdbcType="CHAR" />
+		<result property="impUid" 			 column="imp_Uid" 				jdbcType="VARCHAR" />
+		<result property="merchantUid" 		 column="merchant_Uid" 			jdbcType="VARCHAR" />			
 	</resultMap>
 
+	<!-- SQL : payment SELECT ONE -->
+	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
+	SELECT
+	sr.lesson_name, p.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
+	FROM payment p, students_record sr
+	WHERE sr.RECORD_code = p.STUDENT_RECORD_NO AND p.pay_code = #{payCode}
+	</select>
 
+	<!-- SQL : payment INSERT -->
+	<insert id="addPayment" parameterType="payment">
+	INSERT INTO payment
+	VALUES(seq_payment_pay_code.NEXTVAL, #{studentRecordNo}, #{studentId},  
+	(SELECT user_name FROM users WHERE user_id = #{studentId}), #{payer:VARCHAR},#{amount}, 
+	(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
+	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR}, #{merchantUid:VARCHAR})	 
+	 </insert>
+	 
+	<!-- SQL : payment UPDATE -->
+	<!-- 안됨.. -->
+	<update id="updatePayment">
+	UPDATE payment SET
+	<set>
+		<if test="checkPay == 'N'">
+		check_pay = 'Y',
+		pay_day = SYSDATE
+		</if>
+		<if test="checkPay == 'Y'">
+		check_pay = 'N'
+		</if>	
+	</set>
+	WHERE pay_code = #{payCode}
+	</update>
+	
+	<!-- SQL : payment DELETE -->
+	<delete id="deletePayment" parameterType="int">
+	DELETE FROM payment WHERE pay_code = #{value}
+	</delete>
+	
 </mapper>
