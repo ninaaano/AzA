@@ -51,9 +51,9 @@ public interface StudentsDao {
 	public void deleteStudentsAttendance(int attendanceCode) throws Exception;
 	
 	// ATTENDANCE :: LIST
-	public List<Students> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception;
+	public List<Students> listStudentsAttendance(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception;
 	
 	// ATTENDANCE :: Total Count
-	public int getStudentsAttendanceTotalCount(Search search, String startMonth, String endMonth) throws Exception;
+	public int getStudentsAttendanceTotalCount(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception;
 	
 }

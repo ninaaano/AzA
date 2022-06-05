@@ -9,6 +9,8 @@ public interface AlertService {
 
 	public void addAlert(Alert alert) throws Exception;
 	
+	public void addAlertAttendance(Alert alert) throws Exception;
+	
 	public Alert getAlert(int alertCode) throws Exception;
 	
 	public void readAlert(int alertCode) throws Exception;

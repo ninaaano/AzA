@@ -60,7 +60,7 @@ public class StudentsServiceImpl implements StudentsService {
 
 	@Override
 	public void deleteStudentsRecord(int recordCode) throws Exception {
-		studentsDao.deleteStudentsAttendance(recordCode);
+		studentsDao.deleteStudentsRecord(recordCode);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class StudentsServiceImpl implements StudentsService {
 	@Override
 	public Map<String, Object> listStudentsRecord(Search search, String teacherId) throws Exception {
 		List<Students> list = studentsDao.listStudentsRecord(search, teacherId);
-		int totalCount = studentsDao.getProposalStudentsTotalCount(search, teacherId);
+		int totalCount = studentsDao.getStudentsRecordTotalCount(search, teacherId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
@@ -116,9 +116,9 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 	
 	@Override
-	public Map<String, Object> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception {
-		List<Students> list = studentsDao.listStudentsAttendance(search, startMonth, endMonth);
-		int totalCount = studentsDao.getStudentsAttendanceTotalCount(search, startMonth, endMonth);
+	public Map<String, Object> listStudentsAttendance(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception {
+		List<Students> list = studentsDao.listStudentsAttendance(search, studentId, lessonCode, startMonth, endMonth);
+		int totalCount = studentsDao.getStudentsAttendanceTotalCount(search, studentId, lessonCode, startMonth, endMonth);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );

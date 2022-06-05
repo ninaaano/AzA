@@ -8,6 +8,7 @@
 
 	<settings>
 		<setting name="callSettersOnNulls" value="false"/>
+	<!-- 	<setting name="jdbcTypeForNull" value="NULL" /> -->
 	</settings>	
 	
 
@@ -26,7 +27,6 @@
 	</typeAliases>
 	
 	<mappers>
-
 		<mapper resource="sql/StudentsRecordMapper.xml"/>
 		<mapper resource="sql/AttendanceMapper.xml"/>
 		<mapper resource="sql/AlertMapper.xml"/>
