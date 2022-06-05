@@ -7,7 +7,7 @@
 <mapper namespace="RelationMapper">
  	
  	
-	<resultMap id="RelationSelectMap" type="user">
+	<resultMap id="relationSelectMap" type="user">
 		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
 		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
 		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
@@ -26,16 +26,29 @@
 			)		
 	</insert>
 	
-	<!-- Relation : SELECT ??????????????-->
-	<select		id="getRelation" resultMap="RelationSelectMap">
+	<!-- Relation : SELECT (select parent by studentId student기준으로 관계있는 부모 불러오기-->
+	<select		id="getRelation" resultMap="relationSelectMap">
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
-		FROM users u, relation r
-		WHERE u.user_id = r.parent_id AND u.user_id = #{userId} 
-		AND r.student_id = #{firstStudentId}
+		rr.student_id, rr.parent_id, rr.parent_name, rr.relation_name
+		FROM users uu, (SELECT
+				u.user_name, r.student_id, (SELECT user_name FROM users WHERE user_id = r.parent_id) parent_name, r.parent_id, r.relation_name
+				FROM users u, relation r
+				WHERE u.user_id = r.student_id AND r.student_id = #{firstStudentId}) rr
+		WHERE rr.student_id = uu.user_id AND rr.parent_id = #{userId}
 	</select>
 	
-	<!-- Relation : UPDATE ???????????????-->
+		<!-- Relation : SELECT (select student by parentId 부모기준으로 관계있는 학생 불러오기-->
+	<select		id="getRelation2" resultMap="relationSelectMap">
+		SELECT
+		*
+		FROM users uu, (SELECT
+				u.user_name, r.student_id, (SELECT user_name FROM users WHERE user_id = r.student_id) student_name, r.parent_id, r.relation_name
+				FROM users u, relation r
+				WHERE u.user_id = r.parent_id AND r.parent_id = #{userId}) rr
+		WHERE rr.student_name = uu.user_name AND rr.student_id = #{firstStudentId}
+	</select>
+	
+	<!-- Relation : UPDATE -->
 	<update		id="updateRelation" >
 		UPDATE relation
 		<set>
@@ -51,11 +64,11 @@
 	 </delete>
 	 
 	<!-- Relation : list -->
-	<select id="listRelation" >
+	<select id="listRelation" resultMap="relationSelectMap">
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		u.user_name, (SELECT user_name FROM users WHERE user_id = r.student_id) student_name, r.parent_id, r.relation_name
 		FROM users u, relation r
-		WHERE u.user_id = r.parent_id AND u.user_id = #{userId}
+		WHERE u.user_id = r.parent_id AND r.parent_id = #{userId}
 	</select>	 
 	 
 </mapper>

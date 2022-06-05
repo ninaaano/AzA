@@ -1,6 +1,9 @@
 package com.aza.service.user.test;
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,14 +37,14 @@ public class UserServiceTest {
 //		user.setBirth("20020303");
 //		user.setParentPhone("01033331111");
 		
-		user.setUserId("parent333");
-		user.setPassword("parent333");
+		user.setUserId("parent34");
+		user.setPassword("parent34");
 		user.setRole("parent");
-		user.setUserName("학부모333");
-		user.setPhone("01088889999");
+		user.setUserName("학부모34");
+		user.setPhone("01044445555");
 		user.setAlertState('0');
 		user.setFirstStudentId("student33");
-		user.setRelationName("아버지");
+		user.setRelationName("어머니");
 		
 		userService.addUser(user);
 	}
@@ -142,14 +145,20 @@ public class UserServiceTest {
 		User user = new User();
 		user.setUserId("parent3");
 		
-		userService.listRelation(user.getUserId());
+		Map<String,Object> map = userService.listRelation(user.getUserId());
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("====================="+list);
 		
 	}
 	
 	//@Test
 	public void testGetRelation() throws Exception {
 		User user = new User();
+		user.setUserId("parent33");
+		user.setFirstStudentId("student33");
 		
-		userService.getRelation(null, null);
+		userService.getRelation(user.getFirstStudentId(), user.getUserId());
 	}
 }

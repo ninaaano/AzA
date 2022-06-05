@@ -103,7 +103,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> listRelation(String userId) throws Exception {
-		return sqlSession.selectList(userId);
+		return sqlSession.selectList("RelationMapper.listRelation",userId);
 	}
 
 	@Override

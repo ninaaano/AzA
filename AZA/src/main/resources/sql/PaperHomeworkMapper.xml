@@ -80,11 +80,10 @@
 	
 	<!-- HOMEWORKLIST :: TOTALCOUNT -->
 	<select id="getPaperHomeworkTotalCount" resultType="int">
-	SELECT COUNT(*) 
-	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
-            				FROM students_record sr, lesson l
-            				WHERE l.teacher_id = #{searchKeyword} AND sr.lesson_code = l.lesson_code) 
-    		WHERE proposal = '0') countTable	
+		SELECT COUNT(*) 
+		FROM ( SELECT * FROM homework
+	            WHERE lesson_code = #{lessonCode} AND student_id = #{studentId}
+	            ORDER BY  homework_create_at DESC ) countTable	
 	</select>
 	
 	
