@@ -108,7 +108,7 @@ public class StudentsTest {
 	}
 
 
-//	@Test // :: listProposal (1 : 승인 요청완료)
+	@Test // :: listProposal (1 : 승인 요청완료)
 	public void testListStudentsRecord() throws Exception {
 
 		Search search = new Search();
