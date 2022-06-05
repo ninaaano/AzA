@@ -1,13 +1,12 @@
 package com.aza.Lesson.test;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.aza.service.domain.Lesson;
-import com.aza.service.lesson.impl.LessonService;
+import com.aza.service.lesson.LessonService;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest

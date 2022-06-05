@@ -13,8 +13,26 @@ public class Payment {
 	private String merchantUid; // 아임포트 번호
 	private int payOption; // 결제수단
 	private String receiver; // 결제받는 사람
+	private String studentId; // 수납 대상자(?) ID
+	private String studentName; // 수납 대상자 이름
 	
 	
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
 	public Payment() {
 		
 	}

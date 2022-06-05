@@ -3,7 +3,7 @@
 
 <mapper namespace="StudentsRecordMapper">
 
-	<resultMap id="studentsRecordSelectMap" type="com.aza.service.domain.Students">
+	<resultMap id="studentsRecordSelectMap" type="students">
 		<result property="recordCode" column="record_code" jdbcType="NUMERIC" />
 		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
 		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
@@ -22,9 +22,9 @@
     	seq_students_record.nextval, 
     	#{lessonCode},
  		(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}),
-    	#{studentName}, 
-    	(SELECT user_name FROM users WHERE user_id = #{studentName}), 
-       	#{proposal}, 
+    	#{studentId}, 
+    	(SELECT user_name FROM users WHERE user_id = #{studentId}), 
+       	'0', 
     	#{lessonStartDate}, 
     	#{fees}, 
     	#{payDueDate : CHAR}
@@ -35,15 +35,15 @@
 	<!-- STUDENTS_RECORD :: SELECT -->
 	<select id="getStudentsRecord" parameterType="int" resultMap="studentsRecordSelectMap">
 	SELECT * FROM students_record
-	WHERE record_code = #{record_code}	
+	WHERE record_code = #{recordCode}	
 	</select>
 
 
 	<!-- STUDENTS_RECORD :: UPDATE -->
-	<update id="updateStudentsRecord" parameterType="com.aza.service.domain.Students">
+	<update id="updateStudentsRecord" parameterType="students">
 	UPDATE students_record
 	<set>
-		fees = #{fees}
+		fees = #{fees},
 		pay_due_date = #{payDueDate}	
 	</set>
 	WHERE record_code = #{recordCode}
@@ -54,16 +54,16 @@
 	<update id="proposalStudents">
 	UPDATE students_record
 	<set>
-		proposal = '1'
+		proposal = #{proposal: CHAR}
 	</set>
 	WHERE record_code = #{recordCode}	
 	</update>
 	
 
 	<!-- STUDENTS_RECORD :: DELETE  -->
-	<delete id="deleteStudentsRecord">
-	DELETE students_record
-	FROM record_code = #{recordCode}
+	<delete id="deleteStudentsRecord" parameterType="int">
+	DELETE FROM students_record
+	WHERE record_code = #{recordCode}
 	</delete>
 	
 		
@@ -74,7 +74,7 @@
         	FROM ( SELECT * 
                 	FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
                         	FROM students_record sr, lesson l
-                        	WHERE l.teacher_id = #{searchKeyword} AND sr.lesson_code = l.lesson_code)
+                        	WHERE l.teacher_id = #{searchId} AND sr.lesson_code = l.lesson_code)
                		WHERE proposal = '0'        
                 	ORDER BY student_name ) inner_table
        		WHERE ROWNUM &lt;= #{endRowNum} 		
@@ -84,23 +84,24 @@
 	
 	
 	<!-- STUDENT_RECORD :: Total Count - 승인 요청 중 (proposal 0) -->
-	<select id="getProposalStudentsTotalCount" resultType="int">
+	<select id="getProposalStudentsTotalCount"  parameterType="search" resultType="int">
 	SELECT COUNT(*) 
 	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
             				FROM students_record sr, lesson l
-            				WHERE l.teacher_id = #{searchKeyword} AND sr.lesson_code = l.lesson_code) 
+            				WHERE l.teacher_id = #{searchId: VARCHAR} AND sr.lesson_code = l.lesson_code) 
     		WHERE proposal = '0') countTable	
 	</select>
 	
 	
 	<!-- STUDENT_RECORD :: LIST - 전체 학생 (proposal 2) -->
-	<select id="listStudentsRecord" resultMap="studentsRecordSelectMap">
+	<select id="listStudentsRecord" parameterType="search" resultMap="studentsRecordSelectMap">
 	SELECT * 
 	FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-        FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
+        	FROM ( SELECT * 
+        			FROM ( SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
                         		FROM students_record sr, lesson l
-                        		WHERE l.teacher_id = 'teacher1' AND sr.lesson_code = l.lesson_code) v
-                WHERE v.proposal = '2'
+                        		WHERE l.teacher_id = #{searchId} AND sr.lesson_code = l.lesson_code) v
+                WHERE v.proposal = '1'
                 <if test='searchCondition != null'>
                     <where>
 	                    <if test="searchCondition == 0 and searchKeyword != '' ">
@@ -113,24 +114,24 @@
 	                        v.lesson_code LIKE '%' || #{searchKeyword} || '%'
 	                    </if>
 	                    <if test="searchCondition == 3 and searchKeyword != '' ">
-	                        lesson_name LIKE '%' || #{searchKeyword} || '%'
+	                        v.lesson_name LIKE '%' || #{searchKeyword} || '%'
 	                    </if>
                     </where>
                 </if>
                 ORDER BY v.student_name ) inner_table
-            WHERE ROWNUM &lt;= #{endRowNum} 
-   	)
+            WHERE ROWNUM &lt;= #{endRowNum} 	
+            )
 	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
 	
 	<!-- STUDENT_RECORD :: Total Count - 전체 학생 (proposal 2) -->
-	<select id="getStudentsRecordTotalCount" resultType="int">
+	<select id="getStudentsRecordTotalCount" parameterType="search" resultType="int">
 	SELECT COUNT(*)
 	FROM ( SELECT * FROM (SELECT sr.record_code, sr.lesson_code, sr.lesson_name, sr.student_id, sr.student_name, sr.proposal, sr.lesson_start_date, sr.fees, sr.pay_due_date
                        		FROM students_record sr, lesson l
-                        	WHERE l.teacher_id = 'teacher1' AND sr.lesson_code = l.lesson_code) v
-           WHERE v.proposal = '2'
+                        	WHERE l.teacher_id = #{searchId} AND sr.lesson_code = l.lesson_code) v
+           WHERE v.proposal = '1'
            <if test='searchCondition != null'>
                <where>
                <if test="searchCondition == 0 and searchKeyword != '' ">
@@ -143,9 +144,10 @@
                    v.lesson_code LIKE '%' || #{searchKeyword} || '%'
                </if>
                <if test="searchCondition == 3 and searchKeyword != '' ">
-                   lesson_name LIKE '%' || #{searchKeyword} || '%'
+                   v.lesson_name LIKE '%' || #{searchKeyword} || '%'
                </if>
                </where>
-           </if> ) countTable
+           </if> 
+      ) countTable
 	</select>
 </mapper>

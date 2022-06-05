@@ -1,5 +1,7 @@
 package com.aza.service.students.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.aza.common.Search;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsDao2;
 
@@ -19,10 +22,10 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 	@Autowired
 	@Lazy
 	@Qualifier("sqlSessionTemplate")
-	private SqlSession sqlSessionTemplate;
+	private SqlSession sqlSession;
 	
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSessionTemplate = sqlSession;
+	 public void setSqlSession(SqlSession sqlSession) {
+		    this.sqlSession = sqlSession;
 	}
 	
 	
@@ -32,52 +35,73 @@ public class StudentsDaoImpl2 implements StudentsDao2 {
 
 	@Override
 	public void addStudentsCharacter(Students students) throws Exception {
-		sqlSessionTemplate.insert("StudnetsCharacterMapper.addStudentsCharacter", students);
+		sqlSession.insert("CharacterMapper.addStudentsCharacter", students);
 	}
 
 	@Override
 	public void updateStudentsCharacter(Students students) throws Exception {
-		sqlSessionTemplate.update("StudetnsCharacterMapper.updateStudentsCharacter", students);
+		sqlSession.update("CharacterMapper.updateStudentsCharacter", students);
 
 	}
 
 	@Override
 	public void deleteStudentsCharacter(int characterCode) throws Exception {
-		sqlSessionTemplate.delete("StudetnsCharacterMapper.deleteStudentsCharacter", characterCode);
+		sqlSession.delete("CharacterMapper.deleteStudentsCharacter", characterCode);
 
 	}
 
 	@Override
 	public Students getStudentsCharacter(int characterCode) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("StudentsCharacterMapper.getStudentsCharacter", characterCode);
+		return sqlSession.selectOne("CharacterMapper.getStudentsCharacter", characterCode);
 	}
 
 	// exam =========================================
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
-		sqlSessionTemplate.insert("StudentsExamMapper.addStudentsExam", students);
+		sqlSession.insert("ExamMapper.addStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void updateStudentsExam(Students students) throws Exception {
-		sqlSessionTemplate.update("StudentsExamMapper.updateStudentsExam", students);
+		sqlSession.update("ExamMapper.updateStudentsExam", students);
 		
 	}
 
 
 	@Override
 	public void deleteStudentsExam(int examCode) throws Exception {
-		sqlSessionTemplate.delete("StudentsExamMapper.deleteStudentsExam", examCode);
+		sqlSession.delete("ExamMapper.deleteStudentsExam", examCode);
 		
 	}
 
 
 	@Override
 	public Students getStudentsExam(int examCode) throws Exception {
-		return sqlSessionTemplate.selectOne("StudentsExamMapper.getStudentsExam",examCode);
+		return sqlSession.selectOne("ExamMapper.getStudentsExam",examCode);
+	}
+
+
+	@Override
+	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(searchKeyword);
+		return sqlSession.selectOne("ExamMapper.getStudentsExamTotalCount", search);
+	}
+
+
+	@Override
+	public List<Students> listStudentsExam(Search search, String examSubject, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(examSubject);
+		return sqlSession.selectList("ExamMapper.listStudentsExam", search);
+		
+		
+		
 	}
 
 

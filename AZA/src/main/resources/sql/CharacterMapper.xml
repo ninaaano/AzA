@@ -4,7 +4,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="StudentsCharacterMapper">
+<mapper namespace="CharacterMapper">
 
 	<resultMap id="studentsCharacterSelectMap" type="students">
 		<result property="characterCode" 		column="character_code" 		jdbcType="NUMERIC"/>
@@ -15,10 +15,11 @@
 	</resultMap>
 	
 	
+
 	<!-- SQL : addCharacter INSERT -->
-	<insert id="addStudentsCharacter" parameterType="com.aza.service.domain.Students">
+	<insert id="addStudentsCharacter" parameterType="students">
 	INSERT INTO characters
-	VALUES(seq_characters_characters_code.NEXTVAL, #{studentId}, #{teacherId}, #{charactersContent})
+	VALUES(seq_characters_character_code.NEXTVAL, #{studentId}, #{teacherId}, #{characterContent})
 	</insert>
 
 	<!-- SQL : character SELECT ONE --> 	
@@ -26,12 +27,12 @@
 	SELECT
 	student_id, character_content
 	FROM characters 
-	WHERE characters_code = #{value}	
+	WHERE character_code = #{value}	
 	</select>
 	
 	
 	<!-- SQL : character UPDATE -->
-	<update id="updateStudentsCharater" parameterType="students">
+	<update id="updateStudentsCharacter" parameterType="students">
 	UPDATE characters
 	<set>
 	character_content = #{characterContent}
@@ -41,7 +42,8 @@
 	
 	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
-	DELETE FROM characters WHERE characters_code = #{value};
+	DELETE FROM characters WHERE character_code = #{value}
+
 	</delete>
 	
 	

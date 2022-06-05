@@ -2,8 +2,8 @@ package com.aza.service.domain;
 
 public class Schedule {
 
+	private int scheduleCode;
     private String scheduleStartDate;
-    private int scheduleCode;
     private String scheduleStartTime;
     private String scheduleEndTime;
     private String scheduleEndDate;
@@ -64,5 +64,11 @@ public class Schedule {
 
     public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
+    }
+    
+    public String toString() {
+    	return "schedule [scheduleCode="+scheduleCode+"teacherId ="+teacherId+"sceduleStartDate= "+scheduleStartDate+
+    			"scheduleEndDate= "+scheduleEndDate+"scheduleStarttime"+scheduleStartTime+"scheduleEndtime"+scheduleEndTime
+    			+"schedulecContent= "+scheduleContent+"]";
     }
 }

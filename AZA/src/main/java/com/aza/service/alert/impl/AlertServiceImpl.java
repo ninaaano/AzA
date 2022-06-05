@@ -32,6 +32,11 @@ public class AlertServiceImpl implements AlertService {
 	public void addAlert(Alert alert) throws Exception {
 		alertDao.addAlert(alert);
 	}
+	
+	@Override
+	public void addAlertAttendance(Alert alert) throws Exception {
+		alertDao.addAlertAttendance(alert);
+	}
 
 	@Override
 	public Alert getAlert(int alertCode) throws Exception {
