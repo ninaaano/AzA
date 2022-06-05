@@ -20,7 +20,7 @@ public class StudentsCharacterTest {
 	@Qualifier("studentsServiceImpl2")
 	private StudentsService2 studentsService;
 	
-	@Test
+	// @Test //get Test OK
 	public void testGetCharacter() throws Exception{
 		
 		Students students = new Students();
@@ -29,5 +29,48 @@ public class StudentsCharacterTest {
 		//Assert.assertEquals("student21", students.getStudentId());
 		System.out.println(students);
 		
+	}
+	
+	//@Test // add Test OK
+	public void testAddCharacter() throws Exception{
+		
+		Students students = new Students();
+		students.setStudentId("studetns21");
+		students.setTeacherId("teacher2");
+		students.setCharacterContent("Test_Content!!");
+		
+		
+		
+		
+		studentsService.addStudentsCharacter(students);
+		System.out.println(students);
+		
+	}
+	
+	@Test //update test OK
+	public void testUpdateCharacter() throws Exception{
+		
+		
+		  Students stu = new Students(); 
+		  stu.setCharacterCode(1000);
+		  stu.setCharacterContent("Update Test===");
+		  
+		  studentsService.updateStudentsCharacter(stu);
+		 
+		
+		
+//		 Students stu = studentsService.getStudentsCharacter(1000);
+//		 stu.setCharacterContent("Update Test!?!?!");
+//		 studentsService.updateStudentsCharacter(stu);
+//		 
+//		  System.out.println("Test -->> "+stu);
+		 
+		
+	}
+	
+	//@Test // delete Test OK
+	public void testDeleteCharacter() throws Exception{
+				
+		studentsService.deleteStudentsCharacter(1003);
 	}
 }

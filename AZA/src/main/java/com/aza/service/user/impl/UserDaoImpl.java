@@ -1,16 +1,21 @@
 package com.aza.service.user.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
 
+@Component
+@PropertySource("classpath:/application.properties")
 @Repository("userDaoImpl")
 public class UserDaoImpl implements UserDao {
 	
@@ -54,18 +59,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateAlertState(char alertState) throws Exception {
-		sqlSession.update("UserMapper.updateAlertState", alertState);	
+	public void updateAlertState(User user) throws Exception {	
+		sqlSession.update("UserMapper.updateAlertState", user);	
 	}
 
 	@Override
-	public void updateStopAlertStartTime(String stopAlertStartTime) throws Exception {
-		sqlSession.update("UserMapper.updateStopAlertStartTime", stopAlertStartTime);
+	public void updateStopAlertStartTime(User user) throws Exception {
+		sqlSession.update("UserMapper.updateStopAlertStartTime", user);
 	}
 
 	@Override
-	public void updateStopAlertEndTime(String stopAlertEndTime) throws Exception {
-		sqlSession.update("UserMapper.updateStopAlertEndTime", stopAlertEndTime);
+	public void updateStopAlertEndTime(User user) throws Exception {
+		sqlSession.update("UserMapper.updateStopAlertEndTime", user);
 	}
 
 	@Override
@@ -73,13 +78,21 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.insert("RelationMapper.addRelation", user);	
 	}
 
+//	@Override
+//	public void deleteRelation(int relationCode) throws Exception {
+//		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
+//	}
+	
 	@Override
-	public void deleteRelation(int relationCode) throws Exception {
-		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
+	public void deleteRelation(String userId) throws Exception {
+		sqlSession.delete("RelationMapper.deleteRelation", userId);	
 	}
 
 	@Override
-	public User getRelation(User user) throws Exception {
+	public User getRelation(String firstStudentId, String parentId) throws Exception {
+		User user = new User();
+		user.setFirstStudentId(firstStudentId);
+		user.setUserId(parentId);
 		return sqlSession.selectOne("RelationMapper.getRelation", user);
 	}
 
@@ -89,9 +102,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Map<String, Object> listRelation(String parentId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> listRelation(String userId) throws Exception {
+		return sqlSession.selectList(userId);
+	}
+
+	@Override
+	public void updateCheck(User user) throws Exception {
+		sqlSession.update("UserMapper.updateCheck", user);
 	}
 
 }

@@ -4,14 +4,15 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		
-<mapper namespace="StudentsCharacterMapper">
 
-	<resultMap id="studentsExamSelectMap" type="com.aza.service.domain.Students">
+<mapper namespace="ExamMapper">
+
+	<resultMap id="studentsExamSelectMap" type="Students">
 		<result property="examCode" 			column="exam_code" 				jdbcType="NUMERIC"/>
 		<result property="studentId" 			column="student_id" 			jdbcType="VARCHAR"/>
-		<result property="examYear" 			column="exam_year"	 			jdbcType="CHAR"/>
-		<result property="examSemester" 		column="exam_semester" 			jdbcType="CHAR"/>
-		<result property="examTerm" 			column="exam_term" 				jdbcType="CHAR"/>
+		<result property="examYear" 			column="exam_year"	 			jdbcType="VARCHAR"/>
+		<result property="examSemester" 		column="exam_semester" 			jdbcType="VARCHAR"/>
+		<result property="examTerm" 			column="exam_term" 				jdbcType="VARCHAR"/>
 		<result property="examSubject" 			column="exam_subject" 			jdbcType="VARCHAR"/>
 		<result property="examScore" 			column="exam_score" 			jdbcType="VARCHAR"/>
 	</resultMap>
@@ -20,7 +21,7 @@
 	<!-- SQL : exam INSERT -->
 	<insert id="addStudentsExam" parameterType="students">
 	INSERT INTO exam
-	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${score});
+	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${examScore})
 	</insert>
 
 	<!-- SQL : exam SELECT ONE  -->	
@@ -33,21 +34,21 @@
 	
 	
 	<!-- SQL : exam UPDATE -->
-	<update id = "updateStudentsExam" parameterType ="students">
+	<update id = "updateStudentsExam" parameterType ="students" >
 	UPDATE exam 
 	<set>
-	exam_year = #{examYear}, 
-	exam_semester = #{examSemester} , 
-	exam_term = #{examTerm}, 
-	exam_subject = #{examSubject}, 
-	score = #{subject}
+	exam_year = #{examYear:VARCHAR}, 
+	exam_semester = #{examSemester:VARCHAR} , 
+	exam_term = #{examTerm:VARCHAR}, 
+	exam_subject = #{examSubject:VARCHAR}, 
+	exam_score = #{examScore:VARCHAR}
 	</set>
 	WHERE exam_code = #{examCode}
 	</update>
 	
 	<!-- SQL : exam delete -->
 	<delete id="deleteStudentsExam" parameterType="int">
-	DELETE FROM exam WHERE exam_code = #{value};
+	DELETE FROM exam WHERE exam_code = #{value}
 	</delete>
 	
 	
@@ -55,14 +56,25 @@
 	<!--  ====================================
 	SQL : exam SELECT list -->
 		<select  id="listStudentsExam"  parameterType="search"	resultMap="studentsExamSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  			FROM	( SELECT
-				sr.lesson_name, sr.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
-				FROM payment p, students_record sr
-				WHERE sr.RECORD_code = p.STUDENT_RECORD_NO) inner_table
-			WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+		SELECT * 
+		FROM (
+			    SELECT inner_table.*, ROWNUM AS row_seq
+			    FROM ( SELECT * FROM exam 
+						WHERE student_id = #{searchId} AND exam_subject = #{searchKeyword}
+				)inner_table 
+		    WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
 	 </select>
+	
+	<!-- SQL : exam Total Count -->
+	<select id="getStudentsExamTotalCount"  parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM (  SELECT
+				*
+				FROM exam
+				WHERE student_id = #{searchId:VARCHAR} AND exam_subject = #{searchKeyword:VARCHAR}
+		) countTable
+	</select>
+	
 	
 </mapper>

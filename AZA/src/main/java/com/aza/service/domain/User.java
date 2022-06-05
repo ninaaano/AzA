@@ -11,12 +11,13 @@ public class User {
 	private String birth;
 	private String parentPhone;
 	private String password;
-	private int stopAlertStartTime; // 알림금지 시작시간
-	private int stopAlertEndTime; // 알림금지 종료시간
-	private char alertState; // 알림상태
-	private String firstStudentId; // 첫번째 자녀 - 학부모용
-	private int relationCode; // 관계번호 - 학부모용
-	private String relationName; // 자녀관계 - 학부모
+	private String stopAlertStartTime;
+	private String stopAlertEndTime;
+	private char alertState;
+	private String firstStudentId;
+	private int relationCode;
+	private String relationName;
+	private char check;
 	
 	
 	public User() {
@@ -95,19 +96,19 @@ public class User {
 		this.password = password;
 	}
 
-	public int getStopAlertStartTime() {
+	public String getStopAlertStartTime() {
 		return stopAlertStartTime;
 	}
 
-	public void setStopAlertStartTime(int stopAlertStartTime) {
+	public void setStopAlertStartTime(String stopAlertStartTime) {
 		this.stopAlertStartTime = stopAlertStartTime;
 	}
 
-	public int getStopAlertEndTime() {
+	public String getStopAlertEndTime() {
 		return stopAlertEndTime;
 	}
 
-	public void setStopAlertEndTime(int stopAlertEndTime) {
+	public void setStopAlertEndTime(String stopAlertEndTime) {
 		this.stopAlertEndTime = stopAlertEndTime;
 	}
 
@@ -142,6 +143,14 @@ public class User {
 
 	public void setRelationName(String relationName) {
 		this.relationName = relationName;
+	}
+
+	public char getCheck() {
+		return check;
+	}
+
+	public void setCheck(char check) {
+		this.check = check;
 	}
 
 	@Override
