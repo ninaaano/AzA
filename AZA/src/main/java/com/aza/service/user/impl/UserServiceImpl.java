@@ -1,5 +1,7 @@
 package com.aza.service.user.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
+		userDao.addRelation(user);
 	}
 
 	@Override
@@ -46,6 +49,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(String userId) throws Exception {
 		userDao.deleteUser(userId);
+		userDao.deleteRelation(userId);
 	}
 
 	@Override
@@ -54,18 +58,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateAlertState(char alertState) throws Exception {
-		userDao.updateAlertState(alertState);
+	public void updateAlertState(User user) throws Exception {
+		userDao.updateAlertState(user);
 	}
 
 	@Override
-	public void updateStopAlertStartTime(String stopAlertStartTime) throws Exception {
-		userDao.updateStopAlertStartTime(stopAlertStartTime);
+	public void updateStopAlertStartTime(User user) throws Exception {
+		userDao.updateStopAlertStartTime(user);
 	}
 
 	@Override
-	public void updateStopAlertEndTime(String stopAlertEndTime) throws Exception {
-		userDao.updateStopAlertEndTime(stopAlertEndTime);
+	public void updateStopAlertEndTime(User user) throws Exception {
+		userDao.updateStopAlertEndTime(user);
 	}
 
 	@Override
@@ -74,8 +78,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteRelation(int relationCode) throws Exception {
-		userDao.deleteRelation(relationCode);
+	public void deleteRelation(String userId) throws Exception {
+		userDao.deleteRelation(userId);
 	}
 
 	@Override
@@ -89,8 +93,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> listRelation(String parentId) throws Exception {
-		return userDao.listRelation(parentId);
+	public Map<String, Object> listRelation(String userId) throws Exception {
+		List<User> list = userDao.listRelation(userId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		
+		
+		return map;
+	}
+
+	@Override
+	public void updateCheck(User user) throws Exception {
+		userDao.updateCheck(user);
 	}
 
 	@Override

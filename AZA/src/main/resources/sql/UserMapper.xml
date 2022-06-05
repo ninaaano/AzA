@@ -18,80 +18,89 @@
 		<result property="birth" 			column="birth" 				jdbcType="CHAR"  />
 		<result property="parentPhone" 		column="parent_phone" 			jdbcType="VARCHAR" />
 		<result property="alertState" 		column="alert_state" 			jdbcType="CHAR" />
-		<result property="stopAlertStartTime" 		column="stop_alert_start_time" 			jdbcType="INTEGER" />
-		<result property="stopAlertEndTime" 		column="stop_alert_end_time" 			jdbcType="INTEGER" />
+		<result property="stopAlertStartTime" 		column="stop_alert_start_time" 			jdbcType="VARCHAR" />
+		<result property="stopAlertEndTime" 		column="stop_alert_end_time" 			jdbcType="VARCHAR" />
+		<result property="check" 		column="user_check" 			jdbcType="CHAR" />
 	</resultMap>
 	
 	
 	<!-- USERS : INSERT -->
-<!-- 	<insert 	id="addUser"		parameterType="user" >							
+	<insert 	id="addUser"		parameterType="user" >							
 		INSERT
 		INTO users
 		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
 		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:VARCHAR} , #{parentPhone:VARCHAR},
-		#{alertState}, #{stopAlertStartTime:Integer}, #{stopAlertEndTime:Integer})		
-	</insert> -->
+		#{alertState}, #{stopAlertStartTime:VARCHAR}, #{stopAlertEndTime:VARCHAR}, #{check:CHAR})		
+	</insert>
 	 
 	 <!-- USERS : SELECT -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
 		SELECT *
-		<!-- user_id, password, role, user_name, phone, school, grade, birth, parent_phone, alert_state, stop_alert_start_time, stop_alert_end_time -->
 		FROM users
 		WHERE user_id = #{value}
 	 </select>
 	 
 	 <!-- USERS : UPDATE -->
-<!-- 	 <update	id="updateUser"	parameterType="user" >
+  	 <update	id="updateUser"	parameterType="user" >
 	   	UPDATE users
 	   	<set>
 	   		password = #{password},
 	   		phone = #{phone},
 	   		grade = #{grade},
 	   		school = #{school},
-	   		parentPhone = #{parentPhone}
+	   		parent_Phone = #{parentPhone}
 	   	</set>
 		WHERE user_id = #{userId}
-	 </update> -->
+	 </update>
 	 
 	 <!-- USERS : DELETE -->
-<!-- 	 <delete	id="deleteUser"	parameterType="String" >
+ 	 <delete	id="deleteUser"	parameterType="String" >
 	   	DELETE FROM users
 		WHERE user_id = #{userId}
-	 </delete>  -->
+	 </delete>
 		 
 	 <!-- USERS : CheckDuplication -->
-<!-- 	 <select id="checkDuplication" parameterType="String" resultType="int">
+  	 <select id="checkDuplication" parameterType="String" resultType="int">
 	 	SELECT COUNT(user_id) 
 	 	FROM users
 	 	WHERE user_id = #{userId}
-	 </select> -->
+	 </select>
 	 
  	 <!-- USERS : UpdateAlertState -->
-<!-- 	 <update	id="updateAlertState" >
+  	 <update	id="updateAlertState" >
 	   	UPDATE users
 	   	<set>
-	   		alert_state = '0'
+	   		alert_state = #{alertState}
 	   	</set>
 		WHERE user_id = #{userId}
-	 </update> -->
+	 </update>
 	 
   	 <!-- USERS : UpdateStopAlertStartTime -->
-<!-- 	 <update	id="updateStopAlertStartTime" >
+  	 <update	id="updateStopAlertStartTime" >
 	   	UPDATE users
 	   	<set>
 	   		stop_alert_start_time = #{stopAlertStartTime}
 	   	</set>
 		WHERE user_id = #{userId}
-	 </update> -->
+	 </update>
 	 
    	 <!-- USERS : UpdateStopAlertendTime -->
-<!-- 	 <update	id="updateStopAlertEndTime" >
+  	 <update	id="updateStopAlertEndTime" >
 	   	UPDATE users
 	   	<set>
 	   		stop_alert_end_time = #{stopAlertEndTime}
 	   	</set>
 		WHERE user_id = #{userId}
-	 </update> -->
+	 </update>
+	 
+	 <!-- USERS : UpdateCheck -->
+  	 <update	id="updateCheck" >
+	   	UPDATE users
+	   	<set>
+	   		user_check = #{check}
+	   	</set>
+		WHERE user_id = #{userId}
+	 </update>
 	 
 	 
 </mapper>
