@@ -137,12 +137,19 @@ public class UserServiceTest {
 		userService.updateRelation(user);
 	}
 	
-	@Test
+	//@Test
 	public void testListRelation() throws Exception {
 		User user = new User();
 		user.setUserId("parent3");
 		
 		userService.listRelation(user.getUserId());
 		System.out.println("========"+user);
+	}
+	
+	//@Test
+	public void testGetRelation() throws Exception {
+		User user = new User();
+		
+		userService.getRelation(null, null);
 	}
 }
