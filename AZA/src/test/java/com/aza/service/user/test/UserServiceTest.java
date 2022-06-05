@@ -143,7 +143,7 @@ public class UserServiceTest {
 		user.setUserId("parent3");
 		
 		userService.listRelation(user.getUserId());
-		System.out.println("========"+user);
+		
 	}
 	
 	//@Test
