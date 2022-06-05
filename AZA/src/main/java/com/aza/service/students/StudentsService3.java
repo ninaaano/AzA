@@ -7,19 +7,19 @@ import com.aza.service.domain.Students;
 
 public interface StudentsService3 {
 
-	// ATTENDANCE :: INSERT
-	public void addAttendance(Students students) throws Exception;
+	// StudentsNote :: INSERT
+	public void addStudentsNote(Students students) throws Exception;
 
-	// ATTENDANCE :: SELECT
-	public Students getStudentsAttendance(int attendanceCode) throws Exception;
+	// StudentsNote :: SELECT
+	public Students getStudentsNote(int noteCode) throws Exception;
 
-	// ATTENDANCE :: UPDATE
-	public void updateStudentsAttendance(Students students) throws Exception;
+	// StudentsNote :: UPDATE
+	public void updateStudentsNote(Students students) throws Exception;
 
-	// ATTENDANCE :: DELETE
-	public void deleteStudentsAttendance(int attendanceCode) throws Exception;
+	// StudentsNote :: DELETE
+	public void deleteStudentsNote(int noteCode) throws Exception;
 
-	// ATTENDANCE :: LIST
-	public Map<String, Object> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception;
+	// StudentsNote :: LIST
+	public Map<String, Object> listStudentsNote(Search search, String studentId) throws Exception;
 
 }

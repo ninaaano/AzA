@@ -20,7 +20,7 @@
 			#{studentId},
 			#{noteTitle},
 			#{noteContent},
-			#{noteCreateAt}
+			TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS')
 		)
 	</insert>
 	
@@ -28,8 +28,8 @@
 	<!-- NOTE :: SELECT -->
 	<select id="getStudentsNote" parameterType="int" resultMap="studentsNoteSelectMap">
 		SELECT *
-		FROM NOTE
-		WHERE note_code = #{noteCode};
+		FROM note
+		WHERE note_code = #{noteCode}
 	</select>
 
 
@@ -52,13 +52,14 @@
 	
 		
 	<!--  STUDENT_RECORD :: LIST - 승인 요청 중 (proposal 0) -->
-	<select id="listProposalStudents" resultMap="studentsRecordSelectMap">
+	<select id="listStudentsNote" resultMap="studentsNoteSelectMap">
 		SELECT * 
 		FROM (
 		    SELECT inner_table.*, ROWNUM AS row_seq
-		    FROM (  SELECT * FROM note
-		            WHERE student_id = #{studentId}
-		            ORDER BY  note_create_at DESC ) inner_table 
+		    FROM (  SELECT *
+					FROM note
+					WHERE student_id = (SELECT user_name FROM users WHERE user_id = #{searchId})
+					ORDER BY note_create_at DESC ) inner_table 
 		    WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -68,7 +69,7 @@
 	<select id="getStudentsNoteTotalCount" resultType="int">
 		SELECT COUNT(*)
 		FROM ( SELECT *	FROM note
-		        WHERE student_id = 'student3'
+		        WHERE student_id = (SELECT user_name FROM users WHERE user_id = #{searchId})
 		) countTable
 	</select>
 	

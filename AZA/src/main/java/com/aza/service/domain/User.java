@@ -11,13 +11,13 @@ public class User {
 	private String birth;
 	private String parentPhone;
 	private String password;
-	private int stopAlertStartTime;
-	private int stopAlertEndTime;
+	private String stopAlertStartTime;
+	private String stopAlertEndTime;
 	private char alertState;
 	private String firstStudentId;
 	private int relationCode;
 	private String relationName;
-	private int check;
+	private char check;
 	
 	
 	public User() {
@@ -96,19 +96,19 @@ public class User {
 		this.password = password;
 	}
 
-	public int getStopAlertStartTime() {
+	public String getStopAlertStartTime() {
 		return stopAlertStartTime;
 	}
 
-	public void setStopAlertStartTime(int stopAlertStartTime) {
+	public void setStopAlertStartTime(String stopAlertStartTime) {
 		this.stopAlertStartTime = stopAlertStartTime;
 	}
 
-	public int getStopAlertEndTime() {
+	public String getStopAlertEndTime() {
 		return stopAlertEndTime;
 	}
 
-	public void setStopAlertEndTime(int stopAlertEndTime) {
+	public void setStopAlertEndTime(String stopAlertEndTime) {
 		this.stopAlertEndTime = stopAlertEndTime;
 	}
 
@@ -145,11 +145,11 @@ public class User {
 		this.relationName = relationName;
 	}
 
-	public int getCheck() {
+	public char getCheck() {
 		return check;
 	}
 
-	public void setCheck(int check) {
+	public void setCheck(char check) {
 		this.check = check;
 	}
 

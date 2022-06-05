@@ -10,22 +10,22 @@ import com.aza.service.domain.Students;
 
 public interface StudentsDao3 {
 
-	// ATTENDANCE :: INSERT
-	public void addStudentsAttendance(Students students) throws Exception;
+	// StudentsNote :: INSERT
+	public void addStudentsNote(Students students) throws Exception;
 	
-	// ATTENDANCE :: SELECT
-	public Students getStudentsAttendance(int attendanceCode) throws Exception;
+	// StudentsNote :: SELECT
+	public Students getStudentsNote(int noteCode) throws Exception;
 	
-	// ATTENDANCE :: UPDATE
-	public void updateStudentsAttendance(Students students) throws Exception;
+	// StudentsNote :: UPDATE
+	public void updateStudentsNote(Students students) throws Exception;
 	
-	// ATTENDANCE :: DELETE
-	public void deleteStudentsAttendance(int attendanceCode) throws Exception;
+	// StudentsNote :: DELETE
+	public void deleteStudentsNote(int noteCode) throws Exception;
 	
-	// ATTENDANCE :: LIST
-	public List<Students> listStudentsAttendance(Search search, String startMonth, String endMonth) throws Exception;
+	// StudentsNote :: LIST
+	public List<Students> listStudentsNote(Search search, String studentId) throws Exception;
 	
-	// ATTENDANCE :: Total Count
-	public int getStudentsAttendanceTotalCount(Search search, String startMonth, String endMonth) throws Exception;
+	// StudentsNote :: Total Count
+	public int getStudentsNoteTotalCount(Search search, String studentId) throws Exception;
 	
 }

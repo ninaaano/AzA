@@ -29,6 +29,7 @@
 		<mapper resource="sql/StudentsCharacterMapper.xml"/>
 		<mapper resource="sql/RelationMapper.xml"/>
 		<mapper resource="sql/UserMapper.xml"/>
+		<mapper resource="sql/StudentsNoteMapper.xml"/>
 	</mappers>
 
 </configuration>
