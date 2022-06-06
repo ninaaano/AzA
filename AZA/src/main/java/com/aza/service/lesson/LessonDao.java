@@ -55,6 +55,6 @@ public interface LessonDao {
 	//schedule : list
 	public List<Schedule> listLessonSchedule(Search search, String teacherId) throws Exception;
 	
-	public int getLessonScheduleTotalCount(Search search, String teacherId) throws Exception;
+	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 }
 

@@ -157,7 +157,7 @@ public class LessonServiceTest {
 	}
 		
 	//OK
-	@Test
+	//@Test
 	public void testgetLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
