@@ -3,6 +3,7 @@ package com.aza.service.user;
 import java.util.List;
 import java.util.Map;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 
 public interface UserDao {
@@ -45,9 +46,15 @@ public interface UserDao {
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-//	public void deleteRelation(int relationCode) throws Exception;
-	public void deleteRelation(String userId) throws Exception;
+	public void deleteRelation(int relationCode) throws Exception;
+//	public void deleteRelation(String userId) throws Exception;
 	
-	//Relation :: LIST
-	public List<User> listRelation(String userId) throws Exception;
+	//Relation :: LIST By Student
+	public List<User> listRelationByStudent(Search search, String studentId) throws Exception;
+	
+	//Relation :: LIST By Parent
+	public List<User> listRelationByParent(Search search, String parentId) throws Exception;
+	
+	//Relation :: Total Count
+	public int getListRelationTotalCount(Search search, String studentId) throws Exception;
 }

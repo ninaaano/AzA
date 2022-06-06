@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
+import com.aza.service.user.UserDao;
 import com.aza.service.user.UserService;
 
 
@@ -142,23 +144,35 @@ public class UserServiceTest {
 	
 	//@Test
 	public void testListRelation() throws Exception {
-		User user = new User();
-		user.setUserId("parent3");
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
 		
-		Map<String,Object> map = userService.listRelation(user.getUserId());
+		Map<String,Object> map = userService.listRelationByStudent(search, "student33");
 		
 		List<Object> list = (List<Object>)map.get("list");
 		
 		System.out.println("====================="+list);
 		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("===================="+totalCount);
+		
 	}
+	
+	//@Test
+//	public void testGetRelation() throws Exception {
+//		User user = new User();
+//		user.setUserId("parent33");
+//		user.setFirstStudentId("student33");
+//		
+//		userService.getRelation(user.getFirstStudentId(), user.getUserId());
+//	}
 	
 	//@Test
 	public void testGetRelation() throws Exception {
 		User user = new User();
-		user.setUserId("parent33");
-		user.setFirstStudentId("student33");
+		user.setRelationCode(1006);
 		
-		userService.getRelation(user.getFirstStudentId(), user.getUserId());
+		userService.getRelation(user.getRelationCode());
 	}
 }

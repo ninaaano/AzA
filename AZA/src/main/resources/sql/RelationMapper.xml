@@ -59,17 +59,17 @@
 		<set>
 			relation_name = #{relationName}
 		</set>
-		WHERE parent_Id = #{userId} AND student_id = #{firstStudentId}
+		WHERE relation_code = #{relationCode}
 	</update>
 	
 	<!-- Relation : DELETE -->
 	 <delete	id="deleteRelation"	parameterType="String" >
 		DELETE FROM relation
-		WHERE student_id = #{userId} OR parent_id = #{userId}
+		WHERE relation_code = #{relationCode}
 	 </delete>
 	 
 	<!-- Relation : list -student와 관계있는 parent 찾기-->	
-	<select id = "listRelationByStudent" resultMap="relationSelectMap">
+	<select id = "listRelationByStudent" parameterType="search" resultMap="relationSelectMap">
 		SELECT*
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 			FROM (			
@@ -79,22 +79,20 @@
 				parent_id, relation_name
 				FROM relation
 				where student_id = #{searchId}
-		 		<if test="searchCondition != null">
-					<where>
-						<if test="searchCondition == 0 and searchKeyword !='' ">
-		 					student_id = {searchKeyword}
-		 				</if>
+				<if test="searchCondition != null">
+					<where>	
 						<if test="searchCondition == 6 and searchKeyword !='' ">
-		 					parent_id = {searchKeyword}
+		 					parent_id = #{searchKeyword}
 		 				</if>				    
 		 			</where>
-		 		</if>							
+		 		</if>					
 			 )inner_table
 				WHERE ROWNUM &lt; = #{endRowNum})
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
+	
 	<!-- Relation : list -parent와 관계있는 student 찾기-->
-	<select id = "listRelationByParent" resultMap="relationSelectMap">
+	<select id = "listRelationByParent" parameterType="search" resultMap="relationSelectMap">
 		SELECT*
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 			FROM (			
@@ -103,26 +101,33 @@
 				(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
 				parent_id, relation_name
 				FROM relation
-				where parent_id = #{searchId}			
+				where parent_id = #{searchId}
+				<if test="searchCondition != null">
+					<where>	
+						<if test="searchCondition == 0 and searchKeyword !='' ">
+		 					student_id = #{searchKeyword}
+		 				</if>				    
+		 			</where>
+		 		</if>			
 			 )inner_table
 				WHERE ROWNUM &lt; = #{endRowNum})
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>	 
 	
-	<select id = "getlistRelationTotalCount" resultType="int">
+	<select id = "getListRelationTotalCount" resultType="int">
 	 		SELECT COUNT(*)
 	 		FROM( SELECT
-					student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
+					relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
 					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
 					parent_id, relation_name
 					FROM relation
 	 		<if test="searchCondition != null">
 				<where>
 					<if test="searchCondition == 0 and searchKeyword !='' ">
-	 					student_id = {searchKeyword}
+	 					student_id = #{searchKeyword}
 	 				</if>
 					<if test="searchCondition == 6 and searchKeyword !='' ">
-	 					parent_id = {searchKeyword}
+	 					parent_id = #{searchKeyword}
 	 				</if>				    
 	 			</where>
 	 		</if> 	) countTable
