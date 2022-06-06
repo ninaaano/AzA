@@ -16,5 +16,6 @@ public interface PaperService2 {
 	
 	public void deletePaperQuiz(int quizCode) throws Exception;
 	
-	public Map<String, Object> listPaperQuiz(Search search) throws Exception;
+	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception;
+	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception;
 }

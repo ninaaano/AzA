@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.aza.common.Search;
 import com.aza.service.domain.Paper;
+import com.aza.service.domain.User;
 import com.aza.service.paper.PaperService2;
+import com.aza.service.user.UserService;
 
 
 
@@ -20,13 +22,17 @@ public class PaperQuizTest {
 	@Autowired
 	@Qualifier("paperServiceImpl2")
 	private PaperService2 paperService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 
 	//@Test // add test OK
 	void testAddQuiz() throws Exception{
 		Paper paper = new Paper();
 		paper.setLessonCode("ABCD1234");
-		paper.setStudentId("student21");
-		paper.setQuizTitle("C//쪽지시험 title");
+		paper.setStudentId("student22");
+		paper.setQuizTitle("list Test 용");
 		
 		
 		System.out.println("==>> "+paper);
@@ -56,20 +62,49 @@ public class PaperQuizTest {
 		
 	}
 	
-	@Test // list Test OK
-	void testListPaperQuiz() throws Exception{
+	// 선생님 list
+	//@Test // list Test OK // totalCount OK
+	void testListPaperQuizT() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);	
 		search.setSearchKeyword("ABCD1234");
 		
+//		User user = userService.getUser("teacher2");
+//		System.out.println("role!! ==>> " + user.getRole());
+//		if(user.getRole() != "teacher" ) {
+//		search.setSearchCondition(user.getRole());
+//		search.setSearchId("student22"); 
+//		}else {
+//			search.setSearchCondition(null);
+//		}
+		
 		System.out.println("search ==> " + search);
 		
-		Map<String, Object> map = paperService.listPaperQuiz(search);
+		Map<String, Object> map = paperService.listPaperQuizTeacher(search);
 		List<Object> list = (List<Object>)map.get("list");
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println("Quiz TotalCount ====>> " + totalCount);
-		System.out.println("Quiz List ==>> " + list); // OK
+		System.out.println("Quiz List ==>> " + list);
 		
+	}
+	
+	//학생 list
+	@Test
+	void testListPaperQuizS() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);	
+		search.setSearchKeyword("ABCD1234");
+		search.setSearchId("student21");
+		
+		Map<String, Object> map = paperService.listPaperQuizTeacher(search);
+		List<Object> list = (List<Object>)map.get("list");
+		Integer totalCount = (Integer)map.get("totalCount");
+		
+		System.out.println("Quiz학생 list========== ");
+		System.out.println(" SearchId====>> " + search.getSearchId());
+		System.out.println("Quiz TotalCount ====>> " + totalCount);
+		System.out.println("Quiz List ==>> " + list);
 	}
 }

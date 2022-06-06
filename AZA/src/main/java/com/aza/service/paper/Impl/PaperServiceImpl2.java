@@ -14,6 +14,7 @@ import com.aza.service.paper.PaperDao2;
 import com.aza.service.paper.PaperService2;
 
 
+
 @Service
 public class PaperServiceImpl2 implements PaperService2 {
 
@@ -23,6 +24,8 @@ public class PaperServiceImpl2 implements PaperService2 {
 	public void setPaperDao(PaperDao2 paperDao) {
 		this.paperDao = paperDao;
 	}
+	
+	
 	
 	public PaperServiceImpl2() {
 		System.out.println(this.getClass());
@@ -52,12 +55,28 @@ public class PaperServiceImpl2 implements PaperService2 {
 		
 	}
 
+//	@Override
+//	public Map<String, Object> listPaperQuiz(Search search) throws Exception {
+//		
+//		
+//		List<Paper> list = paperDao.listPaperQuizTeacher(search);
+//		int totalCount = paperDao.getPaperQuizTotalCount(search);
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("list", list);
+//		map.put("totalCount", new Integer(totalCount));
+//		
+//		
+//		return map;
+//		// 수정해야함 ~.~
+//	}
+
+
+
 	@Override
-	public Map<String, Object> listPaperQuiz(Search search) throws Exception {
-		
-		
-		List<Paper> list = paperDao.listPaperQuiz(search);
-		int totalCount = paperDao.getPaperQuizTotalCount(search);
+	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception {
+		List<Paper> list = paperDao.listPaperQuizTeacher(search);
+		int totalCount = paperDao.getPaperQuizTotalCountTeacher(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -65,7 +84,22 @@ public class PaperServiceImpl2 implements PaperService2 {
 		
 		
 		return map;
-		// 수정해야함 ~.~
+	}
+
+
+
+	@Override
+	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuizStudent(search);
+		int totalCount = paperDao.getPaperQuizTotalCountStudent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		
+		return map;
 	}
 
 	

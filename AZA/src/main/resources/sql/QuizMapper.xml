@@ -46,7 +46,7 @@
 	</delete>
 	
 	<!-- SQL : LIST  -->
-	<select id="listPaperQuiz" parameterType="search" resultMap="quizSelectMap">
+	<select id="listPaperQuizTeacher" parameterType="search" resultMap="quizSelectMap">
 	SELECT * 
 	FROM (
     SELECT inner_table.*, ROWNUM AS row_seq
@@ -54,21 +54,45 @@
 			quiz_code, (SELECT lesson_name FROM lesson WHERE lesson_code = #{searchKeyword}) lessonName,
 			student_id, quiz_create_at, quiz_submit_date, quiz_score
 			FROM quiz
-			WHERE lesson_code = #{searchKeyword}
+			WHERE lesson_code = #{searchKeyword} 
+			ORDER BY quiz_create_at DESC ) inner_table 
+		WHERE ROWNUM &lt;= #{endRowNum} )
+	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="listPaperQuizStudent" parameterType="search" resultMap="quizSelectMap">
+	SELECT * 
+	FROM (
+    SELECT inner_table.*, ROWNUM AS row_seq
+    FROM ( SELECT
+			quiz_code, (SELECT lesson_name FROM lesson WHERE lesson_code = #{searchKeyword}) lessonName,
+			student_id, quiz_create_at, quiz_submit_date, quiz_score
+			FROM quiz
+			WHERE lesson_code = #{searchKeyword} 
+			AND student_id = #{searchId:VARCHAR}
 			ORDER BY quiz_create_at DESC ) inner_table 
 		WHERE ROWNUM &lt;= #{endRowNum} )
 	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
 	<!--  SQL : TOTAL COUNT	 -->
-	<select id="getPaperQuizTotalCount"  parameterType="search" resultType="int">
+	<select id="getPaperQuizTotalCountTeacher"  parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM (  SELECT
+				*
+				FROM quiz
+				WHERE lesson_code = #{searchKeyword}				
+		) countTable
+	</select>
+
+	<select id="getPaperQuizTotalCountStudent"  parameterType="search" resultType="int">
 		SELECT COUNT(*)
 		FROM (  SELECT
 				*
 				FROM quiz
 				WHERE lesson_code = #{searchKeyword}
+				AND student_id = #{searchId:VARCHAR}
 		) countTable
 	</select>
-
 
 </mapper>
