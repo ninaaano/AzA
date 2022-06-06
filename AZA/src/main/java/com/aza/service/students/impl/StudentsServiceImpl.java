@@ -21,19 +21,19 @@ public class StudentsServiceImpl implements StudentsService {
 	@Autowired
 	@Qualifier("studentsDaoImpl")
 	private StudentsDao studentsDao;
-	
+
 	@Autowired
 	@Qualifier("alertDaoImpl")
 	private AlertDao alertDao;
-	
+
 	public StudentsServiceImpl() {
 		System.out.println("[ "+this.getClass()+" ] :: start");
 	}
-	
+
 	public void setStudentsDao(StudentsDao studentsDao) {
 		this.studentsDao = studentsDao;
 	}
-	
+
 	public void setAlertDao(AlertDao alertDao) {
 		this.alertDao = alertDao;
 	}
@@ -67,11 +67,11 @@ public class StudentsServiceImpl implements StudentsService {
 	public Map<String, Object> listProposalStudents(Search search, String teacherId) throws Exception {
 		List<Students> list = studentsDao.listProposalStudents(search, teacherId);
 		int totalCount = studentsDao.getProposalStudentsTotalCount(search, teacherId);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
 		map.put("totalCount", new Integer(totalCount));
-		
+
 		return map;
 	}
 
@@ -79,24 +79,34 @@ public class StudentsServiceImpl implements StudentsService {
 	public Map<String, Object> listStudentsRecord(Search search, String teacherId) throws Exception {
 		List<Students> list = studentsDao.listStudentsRecord(search, teacherId);
 		int totalCount = studentsDao.getStudentsRecordTotalCount(search, teacherId);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
 		map.put("totalCount", new Integer(totalCount));
-		
+
 		return map;
 	}
 
 	@Override
 	public void addAttendance(Students students) throws Exception {
 		studentsDao.addStudentsAttendance(students);
-		
-		Alert alert = new Alert();
-		alert.setReceiverId(students.getStudentId());
-		alert.setLessonCode(students.getLessonCode());
-		alert.setAlertContent(students.getAttendanceState());
-		
-		alertDao.addAlert(alert);	
+
+		String attendanceState = students.getAttendanceState();
+
+		if(attendanceState.equals("출석")) {
+			
+			//User user = userService.getUser("student11");
+			
+			
+			
+			
+			Alert alert = new Alert();
+			alert.setReceiverId(students.getStudentId());
+			alert.setLessonCode(students.getLessonCode());
+			alert.setAlertContent(students.getAttendanceState());
+
+			alertDao.addAlert(alert);				
+		}
 	}
 
 	@Override
@@ -104,9 +114,20 @@ public class StudentsServiceImpl implements StudentsService {
 		return studentsDao.getStudentsAttendance(attendanceCode);
 	}
 
-	@Override
+//	@Override
 	public void updateStudentsAttendance(Students students) throws Exception {
 		studentsDao.updateStudentsAttendance(students);
+
+		String attendanceState = students.getAttendanceState();
+
+		if(attendanceState.equals("도망") || attendanceState.equals("조퇴")) {
+			Alert alert = new Alert();
+			alert.setReceiverId(students.getStudentId());
+			alert.setLessonCode(students.getLessonCode());
+			alert.setAlertContent(students.getAttendanceState());
+
+			alertDao.addAlert(alert);				
+		}
 	}
 
 	@Override
@@ -114,16 +135,16 @@ public class StudentsServiceImpl implements StudentsService {
 		studentsDao.deleteStudentsAttendance(attendanceCode);
 
 	}
-	
+
 	@Override
 	public Map<String, Object> listStudentsAttendance(Search search, String studentId, String lessonCode, String startMonth, String endMonth) throws Exception {
 		List<Students> list = studentsDao.listStudentsAttendance(search, studentId, lessonCode, startMonth, endMonth);
 		int totalCount = studentsDao.getStudentsAttendanceTotalCount(search, studentId, lessonCode, startMonth, endMonth);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
 		map.put("totalCount", new Integer(totalCount));
-		
+
 		return map;
 	}
 }

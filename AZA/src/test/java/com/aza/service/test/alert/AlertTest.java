@@ -19,7 +19,7 @@ public class AlertTest {
 	@Qualifier("alertServiceImpl")
 	private AlertService alertService;
 
-	//@Test
+//	@Test
 	public void testGetAlert() throws Exception {
 
 		Alert alert = new Alert();

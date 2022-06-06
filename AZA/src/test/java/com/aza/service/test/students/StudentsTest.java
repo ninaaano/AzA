@@ -40,7 +40,7 @@ public class StudentsTest {
 	}
 
 
-	//	@Test // :: add
+//		@Test // :: add
 	public void testAddStudentsRecord() throws Exception {
 
 		Students students = new Students();
@@ -48,7 +48,7 @@ public class StudentsTest {
 		students.setLessonCode("ABCD1234");
 		students.setStudentId("student12");
 		students.setLessonStartDate("2022/06/05"); //이거 통일시켜야할듯
-		students.setFees(4000000);
+		students.setFees(10000);
 		students.setPayDueDate("30");
 
 		System.out.println(students);
@@ -108,7 +108,7 @@ public class StudentsTest {
 	}
 
 
-	@Test // :: listProposal (1 : 승인 요청완료)
+//	@Test // :: listProposal (1 : 승인 요청완료)
 	public void testListStudentsRecord() throws Exception {
 
 		Search search = new Search();
@@ -158,15 +158,15 @@ public class StudentsTest {
 
 	}
 
-	//	@Test
+	@Test
 	public void testUpdateStudentsAttendance() throws Exception {
 
-		Students students = studentsService.getStudentsAttendance(1023);
-		students.setAttendanceState("출석");
+		Students students = studentsService.getStudentsAttendance(1024);
+		students.setAttendanceState("도망");
 
 		studentsService.updateStudentsAttendance(students);
 
-		System.out.println(studentsService.getStudentsAttendance(1023));
+		System.out.println(studentsService.getStudentsAttendance(1024));
 
 	}
 
@@ -179,7 +179,7 @@ public class StudentsTest {
 	}
 
 
-	//	@Test
+//		@Test
 	public void testListStudentsAttendance() throws Exception {
 
 		Search search = new Search();
