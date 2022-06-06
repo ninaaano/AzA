@@ -27,7 +27,7 @@ public class PaymentTest {
 		
 	}
 	
-	//@Test // Add Test ok
+	@Test // Add Test ok
 	void testAddPayment() throws Exception {
 		Payment pay = new Payment();
 		pay.setStudentRecordNo(1008);

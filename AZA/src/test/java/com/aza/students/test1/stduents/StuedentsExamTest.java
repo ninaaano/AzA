@@ -35,13 +35,14 @@ public class StuedentsExamTest {
 	//@Test // add test Ok
 	public void testAddExam() throws Exception{
 		
+		
 		Students stu = new Students();
-		stu.setStudentId("students21");
-		stu.setExamYear("1111");
-		stu.setExamSemester("2");
-		stu.setExamTerm("2");
-		stu.setExamSubject("테스트");
-		stu.setExamScore(50);
+		stu.setStudentId("student21");
+		stu.setExamYear("1");
+		stu.setExamSemester("1");
+		stu.setExamTerm("1");
+		stu.setExamSubject("434");
+		stu.setExamScore(1);
 		
 		studentsService.addStudentsExam(stu);
 		System.out.println(stu);
