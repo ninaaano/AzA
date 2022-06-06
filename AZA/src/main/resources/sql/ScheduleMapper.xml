@@ -38,7 +38,7 @@
 			schedule_end_time = #{scheduleEndTime:VARCHAR},
 			schedule_content = #{scheduleContent:VARCHAR}
 		</set>
-		WHERE schedule_code = #{scheduleCode} AND teacher_id = 'teacher53' <!-- #{teacherId} -->
+		WHERE schedule_code = #{scheduleCode} AND teacher_id = #{teacherId} <!-- #{teacherId} -->
 	</update>
 	
 

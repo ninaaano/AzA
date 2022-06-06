@@ -28,8 +28,8 @@ public class StudentsTest3 {
 		Students students = new Students();
 		
 		students.setStudentId("student3");
-		students.setNoteTitle("¹ÌÀûºÐ");
-		students.setNoteContent("¹ÌºÐµµ ¾î·Æ°í ÀûºÐµµ ¾î·Æ´Ù");
+		students.setNoteTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		students.setNoteContent("ï¿½ÌºÐµï¿½ ï¿½ï¿½Æ°ï¿½ ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½Æ´ï¿½");
 		
 		studentsService3.addStudentsNote(students);
 		System.out.println(students);
@@ -44,7 +44,7 @@ public class StudentsTest3 {
 		Students students = new Students();
 		
 		students = studentsService3.getStudentsNote(1001);
-		
+		 
 		System.out.println(students);
 		
 	}
@@ -54,8 +54,8 @@ public class StudentsTest3 {
 		
 		Students students = new Students();
 		
-		students.setNoteTitle("¹ÌºÐ°úÀûºÐ");
-		students.setNoteContent("¹ÌºÐÀº ¾î·Æ°í ÀûºÐµµ ¾î·Æ´ç");
+		students.setNoteTitle("ï¿½ÌºÐ°ï¿½ï¿½ï¿½ï¿½ï¿½");
+		students.setNoteContent("ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½Æ´ï¿½");
 		students.setNoteCode(1003);
 		
 		studentsService3.updateStudentsNote(students);

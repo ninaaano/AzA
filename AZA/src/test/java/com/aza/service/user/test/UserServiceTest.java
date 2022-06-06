@@ -15,7 +15,7 @@ import com.aza.service.user.UserService;
 //@WebAppConfiguration
 public class UserServiceTest {
 	
-	//==>@RunWith,@ContextConfiguration ÀÌ¿ë Wiring, Test ÇÒ instance DI
+	//==>@RunWith,@ContextConfiguration ï¿½Ì¿ï¿½ Wiring, Test ï¿½ï¿½ instance DI
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
@@ -27,9 +27,9 @@ public class UserServiceTest {
 //		user.setUserId("student333");
 //		user.setPassword("student333");
 //		user.setRole("student");
-//		user.setUserName("ÇÐ»ý333");
+//		user.setUserName("ï¿½Ð»ï¿½333");
 //		user.setPhone("01066667777");
-//		user.setSchool("°¡ÀÚ°í");
+//		user.setSchool("ï¿½ï¿½ï¿½Ú°ï¿½");
 //		user.setGrade('3');
 //		user.setBirth("20020303");
 //		user.setParentPhone("01033331111");
@@ -37,11 +37,11 @@ public class UserServiceTest {
 		user.setUserId("parent333");
 		user.setPassword("parent333");
 		user.setRole("parent");
-		user.setUserName("ÇÐºÎ¸ð333");
+		user.setUserName("í•™ë¶€ëª¨333");
 		user.setPhone("01088889999");
 		user.setAlertState('0');
-		user.setFirstStudentId("student33");
-		user.setRelationName("¾Æ¹öÁö");
+		user.setFirstStudentId("student3");
+		user.setRelationName("ì•„ë²„ì§€");
 		
 		userService.addUser(user);
 	}
@@ -51,7 +51,7 @@ public class UserServiceTest {
 		User user = new User();
 		user.setUserId("parent3");
 		user.setFirstStudentId("student33");
-		user.setRelationName("¾î¸Ó´Ï");
+		user.setRelationName("ï¿½ï¿½Ó´ï¿½");
 		
 		userService.addRelation(user);
 	}
@@ -62,7 +62,7 @@ public class UserServiceTest {
 		User user = new User();
 		user = userService.getUser("student3");
 		
-		//==> console È®ÀÎ
+		//==> console È®ï¿½ï¿½
 		System.out.println(user);
 
 	}
@@ -73,7 +73,7 @@ public class UserServiceTest {
 		user.setUserId("parent333");
 		user.setPassword("parent12333");
 		user.setPhone("01066667777");
-		user.setSchool("°¡ÀÚ°í");
+		user.setSchool("ï¿½ï¿½ï¿½Ú°ï¿½");
 		user.setGrade('3');
 		user.setParentPhone("01077778888");
 		
@@ -130,14 +130,14 @@ public class UserServiceTest {
 	//@Test
 	public void testUpdateRelation() throws Exception {
 		User user = new User();
-		user.setRelationName("¾Æ¹öÁö");
+		user.setRelationName("ï¿½Æ¹ï¿½ï¿½ï¿½");
 		user.setUserId("parent3");
 		user.setFirstStudentId("student31");
 		
 		userService.updateRelation(user);
 	}
 	
-	@Test
+	//@Test
 	public void testListRelation() throws Exception {
 		User user = new User();
 		user.setUserId("parent3");
