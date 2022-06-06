@@ -55,17 +55,7 @@ public class StudentsCharacterTest {
 		  stu.setCharacterCode(1000);
 		  stu.setCharacterContent("Update Test===");
 		  
-		  studentsService.updateStudentsCharacter(stu);
-		 
-		
-		
-//		 Students stu = studentsService.getStudentsCharacter(1000);
-//		 stu.setCharacterContent("Update Test!?!?!");
-//		 studentsService.updateStudentsCharacter(stu);
-//		 
-//		  System.out.println("Test -->> "+stu);
-		 
-		
+		  studentsService.updateStudentsCharacter(stu);	
 	}
 	
 	//@Test // delete Test OK

@@ -114,7 +114,7 @@ public class StudentsServiceImpl implements StudentsService {
 		return studentsDao.getStudentsAttendance(attendanceCode);
 	}
 
-//	@Override
+	@Override
 	public void updateStudentsAttendance(Students students) throws Exception {
 		studentsDao.updateStudentsAttendance(students);
 
@@ -145,6 +145,99 @@ public class StudentsServiceImpl implements StudentsService {
 		map.put("list", list );
 		map.put("totalCount", new Integer(totalCount));
 
+		return map;
+	}
+	
+	@Override
+	public void addStudentsCharacter(Students students) throws Exception {
+		studentsDao.addStudentsCharacter(students);
+
+	}
+
+	@Override
+	public void updateStudentsCharacter(Students students) throws Exception {
+		studentsDao.updateStudentsCharacter(students);
+
+	}
+
+	@Override
+	public void deleteStudentsCharacter(int characterCode) throws Exception {
+		studentsDao.deleteStudentsCharacter(characterCode);
+
+	}
+
+	@Override
+	public Students getStudentsCharacter(int characterCode) throws Exception {
+		// TODO Auto-generated method stub
+		return studentsDao.getStudentsCharacter(characterCode);
+	}
+
+	@Override
+	public void addStudentsExam(Students students) throws Exception {
+		studentsDao.addStudentsExam(students);
+		
+	}
+
+	@Override
+	public void updateStudentsExam(Students students) throws Exception {
+		studentsDao.updateStudentsExam(students);
+		
+	}
+
+	@Override
+	public void deleteStudentsExam(int examCode) throws Exception {
+		// TODO Auto-generated method stub
+		studentsDao.deleteStudentsExam(examCode);
+		
+	}
+
+	@Override
+	public Students getStudentsExam(int examCode) throws Exception {
+		
+		return studentsDao.getStudentsExam(examCode);
+	}
+
+	@Override
+	public Map<String, Object> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception {
+	
+		List<Students> list = studentsDao.listStudentsExam(search, searchKeyword, studentId);
+		int totalCount = studentsDao.getStudentsExamTotalCount(search, searchKeyword, studentId);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	
+	@Override
+	public void addStudentsNote(Students students) throws Exception {
+		studentsDao.addStudentsNote(students);
+	}
+
+	@Override
+	public Students getStudentsNote(int noteCode) throws Exception {
+		return studentsDao.getStudentsNote(noteCode);
+	}
+
+	@Override
+	public void updateStudentsNote(Students students) throws Exception {
+		studentsDao.updateStudentsNote(students);
+	}
+
+	@Override
+	public void deleteStudentsNote(int noteCode) throws Exception {
+		studentsDao.deleteStudentsNote(noteCode);
+	}
+
+	@Override
+	public Map<String, Object> listStudentsNote(Search search, String studentId) throws Exception {
+		List<Students> list = studentsDao.listStudentsNote(search, studentId);
+		int totalCount = studentsDao.getStudentsNoteTotalCount(search, studentId);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list",list);
+		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
 }
