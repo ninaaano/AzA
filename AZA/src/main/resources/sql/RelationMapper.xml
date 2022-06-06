@@ -35,12 +35,12 @@
 		AND r.student_id = #{firstStudentId}
 	</select> -->
 	
-	<!-- MJ dao,service에 학생추가하기-->
+	<!-- MJ -->
 	<select		id="getRelation" resultMap="RelationSelectMap">
 		SELECT
 		*
 		FROM relation
-		WHERE student_id = #{userId} OR parent_id = #{userId}
+		WHERE relation_code = #{relationCode}
 	</select>
 	
 	<!-- Relation : UPDATE ???????????????-->
@@ -69,7 +69,7 @@
 	
 	<!-- MJ 리스트에서 값이 안넘어오는 문제 해결해야함....-->
 	<select id="listRelation" resultMap="RelationSelectMap">
-	  	SELECT *
+<!-- 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT u.user_name, r.*
 											FROM users u, relation r
@@ -77,14 +77,39 @@
 										 	ORDER BY r.relation_code desc ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+		 -->
+		
+		SELECT *
+		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
+				FROM	(SELECT u.user_name, r.*
+						 FROM relation r, users u
+  							<where>
+								r.parent_id = u.user_id
+								AND r.parent_id = #{parentId}
+								AND r.student_id = #{userId}
+								
+								<!-- 	AND r.student_id LIKE ('%'||#{searchKeyword}||'%')	 -->							
+							
+							</where>							
+							ORDER BY r.relation_code desc )inner_table
+				WHERE ROWNUM &lt;= #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	
 	 </select>
 	 
 	 <select id = "getRelationTotalCount" resultType="int">
 	 		SELECT COUNT(*)
 	 		FROM( SELECT * from relation
-	 				where parent_id ='parent5'
-	 			) countTable
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					parent_id = '%${searchKeyword}%'
+	 				</if>
+					<if test="searchCondition == 1 and searchKeyword !='' ">
+	 					student_id like '%${searchKeyword}%'
+	 				</if>				    
+	 			</where>
+	 		</if> 	) countTable
 	 </select>
 
 	 
