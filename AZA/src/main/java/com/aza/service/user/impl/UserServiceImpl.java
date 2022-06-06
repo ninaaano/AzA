@@ -82,9 +82,14 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteRelation(userId);
 	}
 
+//	@Override
+//	public User getRelation(String firstStudentId, String parentId) throws Exception {
+//		return userDao.getRelation(firstStudentId, parentId);
+//	}
+	
 	@Override
-	public User getRelation(String firstStudentId, String parentId) throws Exception {
-		return userDao.getRelation(firstStudentId, parentId);
+	public User getRelation(int relationCode) throws Exception {
+		return userDao.getRelation(relationCode);
 	}
 
 	@Override

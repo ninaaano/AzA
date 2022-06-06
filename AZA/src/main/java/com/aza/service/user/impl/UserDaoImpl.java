@@ -88,12 +88,17 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.delete("RelationMapper.deleteRelation", userId);	
 	}
 
+//	@Override
+//	public User getRelation(String firstStudentId, String parentId) throws Exception {
+//		User user = new User();
+//		user.setFirstStudentId(firstStudentId);
+//		user.setUserId(parentId);
+//		return sqlSession.selectOne("RelationMapper.getRelation", user);
+//	}
+	
 	@Override
-	public User getRelation(String firstStudentId, String parentId) throws Exception {
-		User user = new User();
-		user.setFirstStudentId(firstStudentId);
-		user.setUserId(parentId);
-		return sqlSession.selectOne("RelationMapper.getRelation", user);
+	public User getRelation(int relationCode) throws Exception {
+		return sqlSession.selectOne("RelationMapper.getRelation", relationCode);
 	}
 
 	@Override

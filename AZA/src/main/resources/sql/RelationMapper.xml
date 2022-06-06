@@ -27,7 +27,7 @@
 	</insert>
 	
 	<!-- Relation : SELECT (select parent by studentId student기준으로 관계있는 부모 불러오기-->
-	<select		id="getRelation" resultMap="relationSelectMap">
+<!-- 	<select		id="getRelation" resultMap="relationSelectMap">
 		SELECT
 		rr.student_id, rr.parent_id, rr.parent_name, rr.relation_name
 		FROM users uu, (SELECT
@@ -35,10 +35,10 @@
 				FROM users u, relation r
 				WHERE u.user_id = r.student_id AND r.student_id = #{firstStudentId}) rr
 		WHERE rr.student_id = uu.user_id AND rr.parent_id = #{userId}
-	</select>
+	</select> -->
 	
 		<!-- Relation : SELECT (select student by parentId 부모기준으로 관계있는 학생 불러오기-->
-	<select		id="getRelation2" resultMap="relationSelectMap">
+<!-- 	<select		id="getRelation2" resultMap="relationSelectMap">
 		SELECT
 		*
 		FROM users uu, (SELECT
@@ -46,6 +46,11 @@
 				FROM users u, relation r
 				WHERE u.user_id = r.parent_id AND r.parent_id = #{userId}) rr
 		WHERE rr.student_name = uu.user_name AND rr.student_id = #{firstStudentId}
+	</select> -->
+	
+	<select		id="getRelation" resultMap="relationSelectMap">
+		SELECT * FROM relation
+		WHERE relation_code = #{relationCode}
 	</select>
 	
 	<!-- Relation : UPDATE -->
@@ -63,12 +68,64 @@
 		WHERE student_id = #{userId} OR parent_id = #{userId}
 	 </delete>
 	 
-	<!-- Relation : list -->
-	<select id="listRelation" resultMap="relationSelectMap">
-		SELECT
-		u.user_name, (SELECT user_name FROM users WHERE user_id = r.student_id) student_name, r.parent_id, r.relation_name
-		FROM users u, relation r
-		WHERE u.user_id = r.parent_id AND r.parent_id = #{userId}
+	<!-- Relation : list -student와 관계있는 parent 찾기-->	
+	<select id = "listRelationByStudent" resultMap="relationSelectMap">
+		SELECT*
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+			FROM (			
+				SELECT
+				relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
+				(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
+				parent_id, relation_name
+				FROM relation
+				where student_id = #{searchId}
+		 		<if test="searchCondition != null">
+					<where>
+						<if test="searchCondition == 0 and searchKeyword !='' ">
+		 					student_id = {searchKeyword}
+		 				</if>
+						<if test="searchCondition == 6 and searchKeyword !='' ">
+		 					parent_id = {searchKeyword}
+		 				</if>				    
+		 			</where>
+		 		</if>							
+			 )inner_table
+				WHERE ROWNUM &lt; = #{endRowNum})
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
+	<!-- Relation : list -parent와 관계있는 student 찾기-->
+	<select id = "listRelationByParent" resultMap="relationSelectMap">
+		SELECT*
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+			FROM (			
+				SELECT
+				relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
+				(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
+				parent_id, relation_name
+				FROM relation
+				where parent_id = #{searchId}			
+			 )inner_table
+				WHERE ROWNUM &lt; = #{endRowNum})
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>	 
+	
+	<select id = "getlistRelationTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT
+					student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
+					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
+					parent_id, relation_name
+					FROM relation
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					student_id = {searchKeyword}
+	 				</if>
+					<if test="searchCondition == 6 and searchKeyword !='' ">
+	 					parent_id = {searchKeyword}
+	 				</if>				    
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
 	 
 </mapper>

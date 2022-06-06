@@ -64,7 +64,7 @@ public interface PaperDao {
 		public void deletePaperHomework(int homeworkCode) throws Exception;
 	
 		//PaperHomework :: LIST
-		public List<Paper> listPaperHomework(Search search, String studentId) throws Exception;
+		public List<Paper> listPaperHomework(Search search, String lessonCode, String studentId) throws Exception;
 	
 		//PaperHomework :: TOTAL COUNT
 		public int getPaperHomeworkTotalCount(Search search, String studentId) throws Exception;

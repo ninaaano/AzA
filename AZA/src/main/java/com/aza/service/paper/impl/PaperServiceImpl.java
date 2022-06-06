@@ -50,9 +50,9 @@ public class PaperServiceImpl implements PaperService {
 	}
 
 	@Override
-	public Map<String, Object> listPaperHomework(Search search, String StudentId) throws Exception {
+	public Map<String, Object> listPaperHomework(Search search, String lessonCode, String StudentId) throws Exception {
 		
-		List<Paper> list = paperDao.listPaperHomework(search, StudentId);
+		List<Paper> list = paperDao.listPaperHomework(search, lessonCode, StudentId);
 		int totalCount = paperDao.getPaperHomeworkTotalCount(search, StudentId);
 		
 		Map<String,Object> map = new HashMap<String,Object>();

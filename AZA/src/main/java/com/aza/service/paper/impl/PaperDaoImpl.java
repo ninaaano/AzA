@@ -1,6 +1,8 @@
 package com.aza.service.paper.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +57,13 @@ public class PaperDaoImpl implements PaperDao {
 	}
 
 	@Override
-	public List<Paper> listPaperHomework(Search search, String studentId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Paper> listPaperHomework(Search search, String lessonCode, String studentId) throws Exception {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lessonCode", search.getLessonCode());
+		map.put("studentId", studentId);
+		
+		return sqlSession.selectList("PaperHomeworkMapper.listPaperHomework", map);
 	}
 
 	@Override
