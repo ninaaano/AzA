@@ -10,7 +10,7 @@
 	<resultMap id="RelationSelectMap" type="user">
 		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
 		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
-		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
+		<result property="parentId" 					column="parent_id" 				jdbcType="VARCHAR" />
 		<result property="relationName"				column="relation_name" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -21,7 +21,7 @@
 		VALUES (
 				seq_relation_relation_code.NEXTVAL,
 				#{firstStudentId},
-				#{userId},
+				#{parentId},
 				#{relationName}
 			)		
 	</insert>
@@ -47,15 +47,17 @@
 	<update		id="updateRelation" >
 		UPDATE relation
 		<set>
+			<if test="firstStudentId != null"> student_id = #{firstStudentId} , </if>
+			<if test="parentId != null"> parentId = #{parentId} , </if>
 			relation_name = #{relationName}
 		</set>
-		WHERE parent_Id = #{userId} AND student_id = #{firstStudentId}
+		WHERE relation_code = #{relationCode}
 	</update>
 	
 	<!-- Relation : DELETE -->
 	 <delete	id="deleteRelation"	parameterType="String" >
 		DELETE FROM relation
-		WHERE student_id = #{userId} OR parent_id = #{userId}
+		WHERE relation_code = #{relationCode}
 	 </delete>
 	 
 	<!-- Relation : list -->
@@ -86,7 +88,7 @@
   							<where>
 								r.parent_id = u.user_id
 								AND r.parent_id = #{parentId}
-								AND r.student_id = #{userId}
+								AND r.student_id = #{firstStudentId}
 								
 								<!-- 	AND r.student_id LIKE ('%'||#{searchKeyword}||'%')	 -->							
 							
@@ -106,7 +108,7 @@
 	 					parent_id = '%${searchKeyword}%'
 	 				</if>
 					<if test="searchCondition == 1 and searchKeyword !='' ">
-	 					student_id like '%${searchKeyword}%'
+	 					student_id = '%${searchKeyword}%'
 	 				</if>				    
 	 			</where>
 	 		</if> 	) countTable

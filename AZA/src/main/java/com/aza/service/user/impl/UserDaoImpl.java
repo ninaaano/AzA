@@ -85,9 +85,9 @@ public class UserDaoImpl implements UserDao {
 //		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
 //	}
 	
-	@Override
-	public void deleteRelation(String userId) throws Exception {
-		sqlSession.delete("RelationMapper.deleteRelation", userId);	
+	
+	public void deleteRelation(int relationCode) throws Exception {
+		sqlSession.selectOne("RelationMapper.deleteRelation", relationCode);	
 	}
 
 /*	@Override
@@ -99,11 +99,9 @@ public class UserDaoImpl implements UserDao {
 	}*/
 	
 	@Override
-	public User getRelation(String parentId) throws Exception {
-		User user = new User();
-		//user.setFirstStudentId(firstStudentId);
-		user.setUserId(parentId);
-		return sqlSession.selectOne("RelationMapper.getRelation", user);
+	public User getRelation(int relationCode) throws Exception {
+		
+		return sqlSession.selectOne("RelationMapper.getRelation", relationCode);
 	}
 
 	@Override
@@ -129,7 +127,7 @@ public class UserDaoImpl implements UserDao {
 	
 	public int getRelationTotalCount(Search search, String searchKeyword) throws Exception{
 		search.setSearchKeyword(searchKeyword);
-		return sqlSession.selectOne("LessonMapper.getLessonTotalCount",search);
+		return sqlSession.selectOne("RelationMapper.getRelationTotalCount",search);
 	}
 	
 	

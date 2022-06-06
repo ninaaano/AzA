@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(String userId) throws Exception {
 		userDao.deleteUser(userId);
-		userDao.deleteRelation(userId);
 	}
 
 	@Override
@@ -78,9 +77,9 @@ public class UserServiceImpl implements UserService {
 		userDao.addRelation(user);
 	}
 
-	@Override
-	public void deleteRelation(String userId) throws Exception {
-		userDao.deleteRelation(userId);
+	
+	public void deleteRelation(int relationCode) throws Exception {
+		userDao.deleteRelation(relationCode);
 	}
 
 /*	@Override
@@ -88,9 +87,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.getRelation(firstStudentId, parentId);
 	} */
 	
-	@Override
-	public User getRelation(String parentId) throws Exception {
-		return userDao.getRelation(parentId);
+	
+	public User getRelation(int relationCode) throws Exception {
+		return userDao.getRelation(relationCode);
 	}
 
 	@Override

@@ -39,18 +39,20 @@ public interface UserDao {
 	
 	//Relation :: SELECT
 	//public User getRelation(String firstStudentId, String parentId) throws Exception;
-	public User getRelation(String parentId) throws Exception; // MJ
+	public User getRelation(int relationCode) throws Exception; // MJ
 	
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-//	public void deleteRelation(int relationCode) throws Exception;
-	public void deleteRelation(String userId) throws Exception;
+	public void deleteRelation(int relationCode) throws Exception;
+	
 	
 	//Relation :: LIST
 //	public List<User> listRelation(String userId) throws Exception;
 	public List<User> listRelation(Search search, String parentId) throws Exception; // MJ
 	
 	public int getRelationTotalCount(Search search, String searchKeyword) throws Exception;
+
+	
 }

@@ -39,13 +39,13 @@ public interface UserService {
 	
 	//Relation :: SELECT
 //	public User getRelation(String firstStudentId, String parentId) throws Exception;
-	public User getRelation(String parentId) throws Exception;
+	public User getRelation(int relationCode) throws Exception;
 
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-	public void deleteRelation(String userId) throws Exception;
+	public void deleteRelation(int relationCode) throws Exception;
 	
 	//Relation :: LIST
 //	public Map<String, Object> listRelation(String userId) throws Exception;

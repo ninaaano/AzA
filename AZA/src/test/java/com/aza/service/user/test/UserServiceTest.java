@@ -4,6 +4,7 @@ package com.aza.service.user.test;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -133,12 +134,13 @@ public class UserServiceTest {
 	
 	//@Test
 	public void testUpdateRelation() throws Exception {
-		User user = new User();
-		user.setRelationName("�ƹ���");
-		user.setUserId("parent3");
-		user.setFirstStudentId("student31");
+		User user = userService.getRelation(1004);
+		user.setRelationName("삼촌");
+		user.setUserId("parent4");
+		user.setFirstStudentId("student44");
 		
 		userService.updateRelation(user);
+		System.out.println("수정 : " +user);
 	}
 	
 	//@Test
@@ -151,17 +153,112 @@ public class UserServiceTest {
 	}
 	*/
 	
+	//@Test
+		public void testgetRelation() throws Exception {
+			User user = new User();
+			userService.getRelation(1004);
+			System.out.println("get : "+user);
+		}
+	
 	@Test
 	public void testListRelation() throws Exception {
 //		User user = new User();
 //		user.setUserId("parent3");
 		
 		Search search = new Search();
+		search.setCurrentPage(1);
+	 	search.setPageSize(3);
 		Map<String, Object> map = userService.listRelation(search,"parent5");
+		
 		List<Object> list = (List<Object>)map.get("list");
+		Assert.assertEquals(3, list.size());
 		System.out.println("========"+list);
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);	
+		
+		System.out.println("=======================================");
+	 	
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("");
+	 	map = userService.listRelation(search, "parent5");
+	 	
+	 	list = (List<Object>)map.get("list");
+	 	Assert.assertEquals(3, list.size());
+	 	
+	 	totalCount = (Integer)map.get("totalCount");
+	 	System.out.println(totalCount);
 	}
+	
+	//@Test
+		 public void testGetUserListByUserId() throws Exception{
+			 
+		 	Search search = new Search();
+		 	search.setCurrentPage(1);
+		 	search.setPageSize(3);
+		 	search.setSearchCondition("0");
+		 	search.setSearchKeyword("admin");
+		 	Map<String,Object> map = userService.getUserList(search);
+		 	
+		 	List<Object> list = (List<Object>)map.get("list");
+		 	Assert.assertEquals(1, list.size());
+		 	
+			//==> console 확인
+		 	//System.out.println(list);
+		 	
+		 	Integer totalCount = (Integer)map.get("totalCount");
+		 	System.out.println(totalCount);
+		 	
+		 	System.out.println("=======================================");
+		 	
+		 	search.setSearchCondition("0");
+		 	search.setSearchKeyword(""+System.currentTimeMillis());
+		 	map = userService.getUserList(search);
+		 	
+		 	list = (List<Object>)map.get("list");
+		 	Assert.assertEquals(0, list.size());
+		 	
+			//==> console 확인
+		 	//System.out.println(list);
+		 	
+		 	totalCount = (Integer)map.get("totalCount");
+		 	System.out.println(totalCount);
+		 }
+		 
+		 //@Test
+		 public void testGetUserListByUserName() throws Exception{
+			 
+		 	Search search = new Search();
+		 	search.setCurrentPage(1);
+		 	search.setPageSize(3);
+		 	search.setSearchCondition("1");
+		 	search.setSearchKeyword("SCOTT");
+		 	Map<String,Object> map = userService.getUserList(search);
+		 	
+		 	List<Object> list = (List<Object>)map.get("list");
+		 	Assert.assertEquals(3, list.size());
+		 	
+			//==> console 확인
+		 	//System.out.println(list);
+		 	
+		 	Integer totalCount = (Integer)map.get("totalCount");
+		 	System.out.println(totalCount);
+		 	
+		 	System.out.println("=======================================");
+		 	
+		 	search.setSearchCondition("1");
+		 	search.setSearchKeyword(""+System.currentTimeMillis());
+		 	map = userService.getUserList(search);
+		 	
+		 	list = (List<Object>)map.get("list");
+		 	Assert.assertEquals(0, list.size());
+		 	
+			//==> console 확인
+		 	//System.out.println(list);
+		 	
+		 	totalCount = (Integer)map.get("totalCount");
+		 	System.out.println(totalCount);
+		 }	 
 }
