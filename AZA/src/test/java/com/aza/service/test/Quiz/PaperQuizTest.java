@@ -69,6 +69,7 @@ public class PaperQuizTest {
 		search.setCurrentPage(1);
 		search.setPageSize(3);	
 		search.setSearchKeyword("ABCD1234");
+		search.setSearchId("student22");
 		
 //		User user = userService.getUser("teacher2");
 //		System.out.println("role!! ==>> " + user.getRole());
@@ -96,9 +97,9 @@ public class PaperQuizTest {
 		search.setCurrentPage(1);
 		search.setPageSize(3);	
 		search.setSearchKeyword("ABCD1234");
-		search.setSearchId("student21");
+		search.setSearchId("student22");
 		
-		Map<String, Object> map = paperService.listPaperQuizTeacher(search);
+		Map<String, Object> map = paperService.listPaperQuizStudent(search);
 		List<Object> list = (List<Object>)map.get("list");
 		Integer totalCount = (Integer)map.get("totalCount");
 		
