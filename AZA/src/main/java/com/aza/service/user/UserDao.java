@@ -1,13 +1,13 @@
 package com.aza.service.user;
 
 import java.util.List;
-import java.util.Map;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 
 public interface UserDao {
 
-	//User :: INSERT È¸¿ø°¡ÀÔ
+	//User :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void addUser(User user) throws Exception;
 	
 	//User :: SELECT
@@ -34,11 +34,12 @@ public interface UserDao {
 	//User :: updateCheck
 	public void updateCheck(User user) throws Exception;
 	
-	//Relation :: INSERT È¸¿ø°¡ÀÔ, °ü°èÃß°¡
+	//Relation :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
-	public User getRelation(String firstStudentId, String parentId) throws Exception;
+	//public User getRelation(String firstStudentId, String parentId) throws Exception;
+	public User getRelation(String parentId) throws Exception; // MJ
 	
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
@@ -48,5 +49,8 @@ public interface UserDao {
 	public void deleteRelation(String userId) throws Exception;
 	
 	//Relation :: LIST
-	public List<User> listRelation(String userId) throws Exception;
+//	public List<User> listRelation(String userId) throws Exception;
+	public List<User> listRelation(Search search, String parentId) throws Exception; // MJ
+	
+	public int getRelationTotalCount(Search search, String searchKeyword) throws Exception;
 }

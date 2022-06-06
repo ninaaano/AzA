@@ -1,5 +1,6 @@
 package com.aza.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
 
@@ -88,10 +90,18 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.delete("RelationMapper.deleteRelation", userId);	
 	}
 
-	@Override
+/*	@Override
 	public User getRelation(String firstStudentId, String parentId) throws Exception {
 		User user = new User();
 		user.setFirstStudentId(firstStudentId);
+		user.setUserId(parentId);
+		return sqlSession.selectOne("RelationMapper.getRelation", user);
+	}*/
+	
+	@Override
+	public User getRelation(String parentId) throws Exception {
+		User user = new User();
+		//user.setFirstStudentId(firstStudentId);
 		user.setUserId(parentId);
 		return sqlSession.selectOne("RelationMapper.getRelation", user);
 	}
@@ -101,10 +111,28 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("RelationMapper.updateRelation", user);
 	}
 
-	@Override
+/*	@Override
 	public List<User> listRelation(String userId) throws Exception {
 		return sqlSession.selectList(userId);
+	} */
+	
+	@Override
+	public List<User> listRelation(Search search, String parentId) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("parentId", parentId);
+		map.put("endRowNum", search.getEndRowNum()+"");
+		map.put("startRowNum", search.getStartRowNum()+"");
+		
+		return sqlSession.selectList("RelationMapper.listRelation",map);
+			
 	}
+	
+	public int getRelationTotalCount(Search search, String searchKeyword) throws Exception{
+		search.setSearchKeyword(searchKeyword);
+		return sqlSession.selectOne("LessonMapper.getLessonTotalCount",search);
+	}
+	
+	
 
 	@Override
 	public void updateCheck(User user) throws Exception {

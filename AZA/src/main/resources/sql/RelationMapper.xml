@@ -27,12 +27,20 @@
 	</insert>
 	
 	<!-- Relation : SELECT ??????????????-->
-	<select		id="getRelation" resultMap="RelationSelectMap">
+<!-- 	<select		id="getRelation" resultMap="RelationSelectMap">
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		u.user_name, r.student_id, r.parent_id, r.relation_name
 		FROM users u, relation r
 		WHERE u.user_id = r.parent_id AND u.user_id = #{userId} 
 		AND r.student_id = #{firstStudentId}
+	</select> -->
+	
+	<!-- MJ dao,service에 학생추가하기-->
+	<select		id="getRelation" resultMap="RelationSelectMap">
+		SELECT
+		*
+		FROM relation
+		WHERE student_id = #{userId} OR parent_id = #{userId}
 	</select>
 	
 	<!-- Relation : UPDATE ???????????????-->
@@ -51,11 +59,33 @@
 	 </delete>
 	 
 	<!-- Relation : list -->
-	<select id="listRelation" >
+	<!-- <select id="listRelation" >
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		u.user_name, r.student_id, r.parent_id, r.relation_name
 		FROM users u, relation r
 		WHERE u.user_id = r.parent_id AND u.user_id = #{userId}
-	</select>	 
+		
+	</select>	 --> 
+	
+	<!-- MJ 리스트에서 값이 안넘어오는 문제 해결해야함....-->
+	<select id="listRelation" resultMap="RelationSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT u.user_name, r.*
+											FROM users u, relation r
+											WHERE u.user_id = r.parent_id AND r.parent_id = #{parentId}
+										 	ORDER BY r.relation_code desc ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	
+	 </select>
+	 
+	 <select id = "getRelationTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from relation
+	 				where parent_id ='parent5'
+	 			) countTable
+	 </select>
+
 	 
 </mapper>
