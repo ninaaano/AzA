@@ -52,24 +52,53 @@ public class LessonServiceImpl implements LessonService {
 		lessonDao.updateLesson(lesson);
 	}
 
-	@Override
 	public void deleteLesson(String lessonCode) throws Exception {
 		// TODO Auto-generated method stub
 		lessonDao.deleteLesson(lessonCode);
 	}
 
 	@Override
-	public Map<String, Object> listLesson(Search search, String lessonName) throws Exception {
-		// TODO Auto-generated method stub
-		List<Lesson> list = lessonDao.listLesson(search);
-		int totalCount = lessonDao.getTotalCount(search);
+	public Map<String, Object> listLesson(Search search,String teacherId) throws Exception {
+		// TODO Auto-generated method stub 
+		
+		List<Lesson> list = lessonDao.listLesson(search, teacherId);
+		int totalCount = lessonDao.getLessonTotalCount(search, teacherId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
-		return null;
+		
+		return map;
+	}
+	//=================================================
+	
+	@Override
+	public void addLessonBook(Lesson lesson) throws Exception {
+		// TODO Auto-generated method stub
+		lessonDao.addLessonBook(lesson);
 	}
 
+	@Override
+	public Map<String, Object> listLessonBook(Search search, String teacherId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Lesson> list =  lessonDao.listLessonBook(search,teacherId);
+		int totalCount = lessonDao.getLeesonBookTotalCount(search,teacherId);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+
+	@Override
+	public void deleteLessonBook(String isbn) throws Exception {
+		// TODO Auto-generated method stub
+		lessonDao.deleteLessonBook(isbn);
+	}
+
+	//=================================================	
+	
 	@Override
 	public void addLessonSchedule(Schedule schedule) throws Exception {
 		// TODO Auto-generated method stub
@@ -89,16 +118,16 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public void deleteLessonSchedule(int scheudleCode) throws Exception {
+	public void deleteLessonSchedule(int scheduleCode) throws Exception {
 		// TODO Auto-generated method stub
-		lessonDao.deleteLessonSchedule(scheudleCode);
+		lessonDao.deleteLessonSchedule(scheduleCode);
 	}
 
 	@Override
-	public Map<String, Object> listLessonSchedule(Search search) throws Exception {
+	public Map<String, Object> listLessonSchedule(Search search, String teacherId) throws Exception {
 		// TODO Auto-generated method stub
-		List<Schedule> list = lessonDao.listLessonSchedule(search);
-		int totalCount = lessonDao.getTotalCount(search);
+		List<Schedule> list = lessonDao.listLessonSchedule(search, teacherId);
+		int totalCount = lessonDao.getLessonScheduleTotalCount(search,teacherId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -107,29 +136,6 @@ public class LessonServiceImpl implements LessonService {
 		return map;
 	}
 
-	@Override
-	public void addLessonBook(Book book) throws Exception {
-		// TODO Auto-generated method stub
-		lessonDao.addLessonBook(book);
-	}
 
-	@Override
-	public Map<String, Object> listLessonBook(Search search, String isbn) throws Exception {
-		// TODO Auto-generated method stub
-		List<Book> list =  lessonDao.listLessonBook(search);
-		int totalCount = lessonDao.getTotalCount(search);
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
-		return null;
-	}
-
-	@Override
-	public void deleteLessonBook(String isbn) throws Exception {
-		// TODO Auto-generated method stub
-		lessonDao.deleteLessonBook(isbn);
-
-	}
 
 }

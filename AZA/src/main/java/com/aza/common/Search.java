@@ -1,5 +1,7 @@
 package com.aza.common;
 
+import org.apache.ibatis.type.MappedTypes;
+
 import lombok.Data;
 
 public class Search {
@@ -94,11 +96,10 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query �� ROWNUM ������ �� 
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
 	}
-	//==> Select Query �� ROWNUM ���� ��
+
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}

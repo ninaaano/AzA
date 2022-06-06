@@ -47,7 +47,7 @@ public class StudentsCharacterTest {
 		
 	}
 	
-	@Test //update test OK
+	//@Test //update test OK
 	public void testUpdateCharacter() throws Exception{
 		
 		

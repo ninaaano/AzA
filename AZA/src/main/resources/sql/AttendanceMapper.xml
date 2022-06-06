@@ -17,7 +17,7 @@
 		seq_attendance_attendance_code.nextval, 
 		#{studentId},
 		#{lessonCode}, 
-		TO_CHAR(TO_DATE(#{attendanceDate}), 'yyyy/mm/dd HH24:MI:SS'), 
+		TO_CHAR(TO_DATE(#{attendanceDate}), 'yyyy/mm/dd'), 
 		#{attendanceState}
 	)	
 	</insert>
@@ -45,13 +45,13 @@
 
 
 	<!-- ATTENDANCE :: LIST -->
-	<select id="listStudentsAttendance">
+	<select id="listStudentsAttendance" parameterType="search" resultMap="studentsAttendanceSelectMap">
 	SELECT * 
 	FROM (
     SELECT inner_table.*, ROWNUM AS row_seq
     FROM (  SELECT * FROM attendance
             WHERE student_id = #{searchId}
-            AND attendance_date BETWEEN #{searchStartDate} || '%' AND #{searchEndDate} '%'
+            AND attendance_date BETWEEN #{searchStartDate} || '%' AND #{searchEndDate} || '%'
             AND lesson_code = #{lessonCode}
             ) inner_table 
     WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
@@ -60,11 +60,11 @@
 	
 	
 	<!-- ATTENDACE :: totalCount -->
-	<select id="getStudentsAttendanceTotalCount" resultType="int">
+	<select id="getStudentsAttendanceTotalCount" parameterType="search" resultType="int">
 	SELECT COUNT(*)
 	FROM ( SELECT * FROM attendance
 	      	WHERE student_id = #{searchId}
-	       	AND attendance_date BETWEEN #{searchStartDate} || '%' AND #{searchEndDate} '%'
+	       	AND attendance_date BETWEEN #{searchStartDate} || '%' AND #{searchEndDate} || '%'
 	        AND lesson_code = #{lessonCode}
 	) countTable	
 	</select>

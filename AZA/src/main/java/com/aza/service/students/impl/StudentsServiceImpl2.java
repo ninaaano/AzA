@@ -19,7 +19,7 @@ public class StudentsServiceImpl2 implements StudentsService2 {
 	@Autowired
 	@Qualifier("studentsDaoImpl2")
 	private StudentsDao2 studentsDao ;
-	public void setProductDao(StudentsDao2 studentsDao) {
+	public void setStudentsDao(StudentsDao2 studentsDao) {
 		this.studentsDao = studentsDao;
 	}
 	
