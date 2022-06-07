@@ -14,7 +14,6 @@ import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
 import com.aza.service.user.UserService;
 
-
 //@RunWith(SpringRunner.class)
 @SpringBootTest
 //@WebAppConfiguration
@@ -42,11 +41,15 @@ public class UserServiceTest {
 		user.setUserId("parent34");
 		user.setPassword("parent34");
 		user.setRole("parent");
+
 		user.setUserName("�кθ�34");
+
 		user.setPhone("01044445555");
 		user.setAlertState('0');
 		user.setFirstStudentId("student33");
+
 		user.setRelationName("��Ӵ�");
+
 		
 		userService.addUser(user);
 	}

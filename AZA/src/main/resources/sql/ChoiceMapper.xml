@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ChoiceMapper">
+
+	<resultMap id="ChoiceSelectMap" type="paper">
+		<result property="choiceCode" column="choice_code" jdbcType="NUMERIC" />
+		<result property="questionCode" column="question_code" jdbcType="NUMERIC" />
+		<result property="choiceNo" column="choice_no" jdbcType="CHAR" />
+		<result property="choiceContent" column="choice_content" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<!-- PaperChoice :: INSERT -->
+	<insert id="addPaperChoice">
+	INSERT INTO STUDENTS_RECORD
+	VALUES(
+		
+	)
+	</insert>
+	
+	<!-- PaperChoice :: SELECT-->
+	<select id="getPaperChoice">
+		
+	</select>
+	
+	<!-- PaperChoice :: UPDATE-->
+	<update id="updatePaperChoice">
+	
+	</update>
+	
+	<delete id="deletePaperChoice">
+	
+	</delete>
+	
+</mapper>
