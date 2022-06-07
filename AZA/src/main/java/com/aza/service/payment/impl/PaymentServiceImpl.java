@@ -13,7 +13,7 @@ import com.aza.service.domain.Payment;
 import com.aza.service.payment.PaymentDao;
 import com.aza.service.payment.PaymentService;
 
-@Service
+@Service("paymentServiceImpl")
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
@@ -57,9 +57,11 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public Map<String, Object> listPayment(Search search) throws Exception {
 		List<Payment> list = paymentDao.listPayment(search);
+		int totalCount = paymentDao.totalPaymentCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
 		
 		return map;
 	}

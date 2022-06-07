@@ -39,8 +39,8 @@
 	 
 	<!-- SQL : payment UPDATE -->
 	<!-- 안됨.. -->
-<!-- 	<update id="updatePayment">
-	UPDATE payment SET
+	<update id="updatePayment">
+	UPDATE payment
 	<set>
 		<if test="checkPay == 'N'">
 		check_pay = 'Y',
@@ -51,11 +51,57 @@
 		</if>	
 	</set>
 	WHERE pay_code = #{payCode}
-	</update> -->
+	</update>
 	
 	<!-- SQL : payment DELETE -->
 	<delete id="deletePayment" parameterType="int">
 	DELETE FROM payment WHERE pay_code = #{value}
 	</delete>
 	
+	
+	<select id="listPayment" parameterType="search" resultMap="PaymentSelectMap">
+		SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT * FROM payment
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				student_name = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+                  										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				check_pay = #{searchKeyword}
+													</if>
+												</where>
+											</if>
+											ORDER BY pay_code ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	
+	</select>
+	
+	
+	<select id="totalPaymentCount" parameterType="search"	 resultType="int">
+		SELECT COUNT(*)
+	  	FROM( SELECT * FROM payment
+	  	<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				student_name = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+                  										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				check_pay = #{searchKeyword}
+													</if>				    
+	 			</where>
+	 		</if> 	) countTable
+
+	</select>
+
 </mapper>

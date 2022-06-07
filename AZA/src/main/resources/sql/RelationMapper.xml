@@ -10,7 +10,7 @@
 	<resultMap id="RelationSelectMap" type="user">
 		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
 		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
-		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
+		<result property="parentId" 					column="parent_id" 				jdbcType="VARCHAR" />
 		<result property="relationName"				column="relation_name" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -21,41 +21,98 @@
 		VALUES (
 				seq_relation_relation_code.NEXTVAL,
 				#{firstStudentId},
-				#{userId},
+				#{parentId},
 				#{relationName}
 			)		
 	</insert>
 	
 	<!-- Relation : SELECT ??????????????-->
-	<select		id="getRelation" resultMap="RelationSelectMap">
+<!-- 	<select		id="getRelation" resultMap="RelationSelectMap">
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		u.user_name, r.student_id, r.parent_id, r.relation_name
 		FROM users u, relation r
 		WHERE u.user_id = r.parent_id AND u.user_id = #{userId} 
 		AND r.student_id = #{firstStudentId}
+	</select> -->
+	
+	<!-- MJ -->
+	<select		id="getRelation" resultMap="RelationSelectMap">
+		SELECT
+		*
+		FROM relation
+		WHERE relation_code = #{relationCode}
 	</select>
 	
 	<!-- Relation : UPDATE ???????????????-->
 	<update		id="updateRelation" >
 		UPDATE relation
 		<set>
+			<if test="firstStudentId != null"> student_id = #{firstStudentId} , </if>
+			<if test="parentId != null"> parentId = #{parentId} , </if>
 			relation_name = #{relationName}
 		</set>
-		WHERE parent_Id = #{userId} AND student_id = #{firstStudentId}
+		WHERE relation_code = #{relationCode}
 	</update>
 	
 	<!-- Relation : DELETE -->
 	 <delete	id="deleteRelation"	parameterType="String" >
 		DELETE FROM relation
-		WHERE student_id = #{userId} OR parent_id = #{userId}
+		WHERE relation_code = #{relationCode}
 	 </delete>
 	 
 	<!-- Relation : list -->
-	<select id="listRelation" >
+	<!-- <select id="listRelation" >
 		SELECT
-		u.user_name, r.student_Id, r.parent_id, r.relation_name
+		u.user_name, r.student_id, r.parent_id, r.relation_name
 		FROM users u, relation r
 		WHERE u.user_id = r.parent_id AND u.user_id = #{userId}
-	</select>	 
+		
+	</select>	 --> 
+	
+	<!-- MJ 리스트에서 값이 안넘어오는 문제 해결해야함....-->
+	<select id="listRelation" resultMap="RelationSelectMap">
+<!-- 	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT u.user_name, r.*
+											FROM users u, relation r
+											WHERE u.user_id = r.parent_id AND r.parent_id = #{parentId}
+										 	ORDER BY r.relation_code desc ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+		 -->
+		
+		SELECT *
+		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
+				FROM	(SELECT u.user_name, r.*
+						 FROM relation r, users u
+  							<where>
+								r.parent_id = u.user_id
+								AND r.parent_id = #{parentId}
+								AND r.student_id = #{firstStudentId}
+								
+								<!-- 	AND r.student_id LIKE ('%'||#{searchKeyword}||'%')	 -->							
+							
+							</where>							
+							ORDER BY r.relation_code desc )inner_table
+				WHERE ROWNUM &lt;= #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	
+	 </select>
+	 
+	 <select id = "getRelationTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from relation
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					parent_id = '%${searchKeyword}%'
+	 				</if>
+					<if test="searchCondition == 1 and searchKeyword !='' ">
+	 					student_id = '%${searchKeyword}%'
+	 				</if>				    
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
+
 	 
 </mapper>

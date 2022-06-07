@@ -2,6 +2,7 @@ package com.aza.service.user;
 
 import java.util.Map;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 
 public interface UserService {
@@ -37,17 +38,19 @@ public interface UserService {
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
-	public User getRelation(String firstStudentId, String parentId) throws Exception;
-	
+//	public User getRelation(String firstStudentId, String parentId) throws Exception;
+	public User getRelation(int relationCode) throws Exception;
+
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-	public void deleteRelation(String userId) throws Exception;
+	public void deleteRelation(int relationCode) throws Exception;
 	
 	//Relation :: LIST
-	public Map<String, Object> listRelation(String userId) throws Exception;
-	
+//	public Map<String, Object> listRelation(String userId) throws Exception;
+	public Map<String, Object> listRelation(Search search,String parentId) throws Exception; // MJ
+
 	// private phoneAuth
 	public int phoneAuth() throws Exception;
 
