@@ -64,11 +64,17 @@ public interface PaperDao {
 		public void deletePaperHomework(int homeworkCode) throws Exception;
 	
 		//PaperHomework :: LIST
-		public List<Paper> listPaperHomework(Search search, String lessonCode, String studentId) throws Exception;
+		public List<Paper> listPaperHomeworkByStudent(Search search, String lessonCode, String studentId) throws Exception;
+		
+		//PaperHomework :: LIST
+		public List<Paper> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception;
 	
 		//PaperHomework :: TOTAL COUNT
-		public int getPaperHomeworkTotalCount(Search search, String studentId) throws Exception;
-	
+		public int getListPaperHomeworkByStudentTotalCount(Search search, String lessonCode, String studentId) throws Exception;
+
+		//PaperHomework :: TOTAL COUNT
+		public int getListPaperHomeworkByTeacherTotalCount(Search search, String studentId) throws Exception;
+		
 		//PaperHomeworkCheck :: UPDATE
 		public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;
 }

@@ -66,14 +66,14 @@ public class StudentsTest3 {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(3);
+		search.setPageSize(3); 
 		search.setSearchId("student3");
 		
 		Map<String,Object> map = studentsService3.listStudentsNote(search, search.getSearchId());
 		
 		List<Object> list = (List<Object>)map.get("list");
 		
-		System.out.println(list);
+		System.out.println("==========="+list);
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);

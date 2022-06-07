@@ -61,7 +61,10 @@ public interface PaperService {
 	public void deletePaperHomework(int homeworkCode) throws Exception;
 	
 	//PaperHomework :: LIST
-	public Map<String, Object> listPaperHomework(Search search, String LessonCode, String StudentId) throws Exception;
+	public Map<String, Object> listPaperHomeworkByStudent(Search search, String LessonCode, String StudentId) throws Exception;
+	
+	//PaperHomework :: LIST
+	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String LessonCode) throws Exception;
 	
 	//PaperHomeworkCheck :: UPDATE
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;

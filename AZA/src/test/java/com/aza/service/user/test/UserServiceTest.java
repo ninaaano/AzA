@@ -143,12 +143,29 @@ public class UserServiceTest {
 	}
 	
 	//@Test
-	public void testListRelation() throws Exception {
+	public void testListRelationByStudent() throws Exception {
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
 		
 		Map<String,Object> map = userService.listRelationByStudent(search, "student33");
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("====================="+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("===================="+totalCount);
+		
+	}
+	
+	//@Test
+	public void testListRelationByParent() throws Exception {
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
+		
+		Map<String,Object> map = userService.listRelationByParent(search, "parent3");
 		
 		List<Object> list = (List<Object>)map.get("list");
 		

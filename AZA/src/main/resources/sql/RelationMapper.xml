@@ -114,21 +114,36 @@
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>	 
 	
-	<select id = "getListRelationTotalCount" resultType="int">
+	<select id = "getListRelationTotalCountByStudent" resultType="int">
 	 		SELECT COUNT(*)
 	 		FROM( SELECT
 					relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
 					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
 					parent_id, relation_name
 					FROM relation
+					where student_id = #{searchId}
 	 		<if test="searchCondition != null">
 				<where>
 					<if test="searchCondition == 0 and searchKeyword !='' ">
-	 					student_id = #{searchKeyword}
-	 				</if>
-					<if test="searchCondition == 6 and searchKeyword !='' ">
 	 					parent_id = #{searchKeyword}
-	 				</if>				    
+	 				</if>		    
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
+	 
+	 <select id = "getListRelationTotalCountByParent" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT
+					relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
+					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
+					parent_id, relation_name
+					FROM relation
+					where parent_id = #{searchId}
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 6 and searchKeyword !='' ">
+	 					student_id = #{searchKeyword}
+	 				</if>		    
 	 			</where>
 	 		</if> 	) countTable
 	 </select>

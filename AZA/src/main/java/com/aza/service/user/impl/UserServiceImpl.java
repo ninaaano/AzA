@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> listRelationByStudent(Search search, String studentId) throws Exception {
 		List<User> list = userDao.listRelationByStudent(search, studentId);
-		int totalCount = userDao.getListRelationTotalCount(search, studentId);
+		int totalCount = userDao.getListRelationTotalCountByStudent(search, studentId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> listRelationByParent(Search search, String parentId) throws Exception {
 		List<User> list = userDao.listRelationByParent(search, parentId);
-		int totalCount = userDao.getListRelationTotalCount(search, parentId);
+		int totalCount = userDao.getListRelationTotalCountByParent(search, parentId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );

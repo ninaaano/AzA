@@ -118,13 +118,19 @@ public class UserDaoImpl implements UserDao {
 	public List<User> listRelationByParent(Search search, String parentId) throws Exception {
 		search.setSearchId(parentId);
 		
-		return sqlSession.selectList("RelationMapper.listRelationByStudent", search);
+		return sqlSession.selectList("RelationMapper.listRelationByParent", search);
 	}
 	
 	@Override
-	public int getListRelationTotalCount(Search search, String searchKeyword) throws Exception {
+	public int getListRelationTotalCountByStudent(Search search, String searchKeyword) throws Exception {
 		search.setSearchId(searchKeyword);
-		return  sqlSession.selectOne("RelationMapper.getListRelationTotalCount", search);
+		return  sqlSession.selectOne("RelationMapper.getListRelationTotalCountByStudent", search);
+	}
+	
+	@Override
+	public int getListRelationTotalCountByParent(Search search, String searchKeyword) throws Exception {
+		search.setSearchId(searchKeyword);
+		return  sqlSession.selectOne("RelationMapper.getListRelationTotalCountByParent", search);
 	}
 
 	@Override

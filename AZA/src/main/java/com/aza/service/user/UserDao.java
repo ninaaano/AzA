@@ -56,5 +56,8 @@ public interface UserDao {
 	public List<User> listRelationByParent(Search search, String parentId) throws Exception;
 	
 	//Relation :: Total Count
-	public int getListRelationTotalCount(Search search, String studentId) throws Exception;
+	public int getListRelationTotalCountByStudent(Search search, String studentId) throws Exception;
+	
+	//Relation :: Total Count
+	public int getListRelationTotalCountByParent(Search search, String parentId) throws Exception;
 }

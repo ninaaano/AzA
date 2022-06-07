@@ -38,43 +38,58 @@ public class PaperDaoImpl implements PaperDao {
 
 	@Override
 	public void addPaperHomework(Paper paper) throws Exception {
-		sqlSession.insert("PaperHomeworkMapper.addPaperHomework",paper);
+		sqlSession.insert("HomeworkMapper.addPaperHomework",paper);
 	}
 
 	@Override
 	public Paper getPaperHomework(int homeworkCode) throws Exception {
-		return sqlSession.selectOne("PaperHomeworkMapper.getPaperHomework", homeworkCode);
+		return sqlSession.selectOne("HomeworkMapper.getPaperHomework", homeworkCode);
 	}
 
 	@Override
 	public void updatePaperHomework(Paper paper) throws Exception {
-		sqlSession.update("PaperHomeworkMapper.updatePaperHomework", paper);
+		sqlSession.update("HomeworkMapper.updatePaperHomework", paper);
 	}
 
 	@Override
 	public void deletePaperHomework(int homeworkCode) throws Exception {
-		sqlSession.delete("PaperHomeworkMapper.deletePaperHomework", homeworkCode);
+		sqlSession.delete("HomeworkMapper.deletePaperHomework", homeworkCode);
 	}
 
 	@Override
-	public List<Paper> listPaperHomework(Search search, String lessonCode, String studentId) throws Exception {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("lessonCode", search.getLessonCode());
-		map.put("studentId", studentId);
+	public List<Paper> listPaperHomeworkByStudent(Search search, String lessonCode, String studentId) throws Exception {
+		search.setLessonCode(lessonCode);
+		search.setSearchId(studentId);
 		
-		return sqlSession.selectList("PaperHomeworkMapper.listPaperHomework", map);
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByStudent", search);
 	}
 
-	@Override
-	public int getPaperHomeworkTotalCount(Search search, String studentId) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception {
-		sqlSession.update("PaperHomeworkMapper.updatePaperHomework",homeworkCode);
+		sqlSession.update("HomeworkMapper.updatePaperHomeworkCheck",homeworkCode);
 		
+	}
+
+	@Override
+	public List<Paper> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
+		search.setLessonCode(lessonCode);
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByTeacher",search);
+	}
+
+	@Override
+	public int getListPaperHomeworkByStudentTotalCount(Search search, String lessonCode, String studentId) throws Exception {
+		search.setLessonCode(lessonCode);
+		search.setSearchId(studentId);
+		
+		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByStudentTotalCount", search);
+	}
+
+	@Override
+	public int getListPaperHomeworkByTeacherTotalCount(Search search, String lessonCode) throws Exception {
+		search.setLessonCode(lessonCode);
+		
+		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
 	}
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QuestionMapper">
+
+	<resultMap id="QuestionSelectMap" type="paper">
+		<result property="questionCode" column="question_code" jdbcType="NUMERIC" />
+		<result property="quizCode" column="quiz_code" jdbcType="NUMERIC" />
+		<result property="choiceCode" column="choice_code" jdbcType="NUMERIC" />
+		<result property="questionNo" column="question_no" jdbcType="NUMERIC" />
+		<result property="questionContent" column="question_content" jdbcType="VARCHAR" />
+		<result property="teacherAnswer" column="teacher_answer" jdbcType="CHAR" />
+		<result property="studentAnswer" column="student_answer" jdbcType="VARCHAR" />
+		<result property="feedbackContent" column="feedback_content" jdbcType="VARCHAR" />
+		<result property="answerCheck" column="answer_check" jdbcType="CHAR" />
+	</resultMap>
+
+
+	<!-- PaperQuestion :: INSERT -->
+	<insert id="addPaperQuestion">
+	INSERT INTO STUDENTS_RECORD
+	VALUES(
+		seq_question_question_code.NEXTVAL,
+		#{quizCode},
+		#{questionNo},
+		#{questionContent},
+		#{teacherAnswer},
+		#{studentAnswer},
+		#{feedbackContent},
+		#{answerCheck}
+	)
+	</insert>
+	
+	<!-- PaperQuestion :: SELECT -->
+	<select id="getPaperQuestion">
+		
+	</select>
+	
+	<!-- PaperQuestion :: UPDATE -->
+	<update id="updatePaperQuestion">
+	
+	</update>
+	
+	<!-- PaperQuestion :: DELETE -->
+	<delete id="deletePaperQuestion">
+	
+	</delete>
+	
+	
+	
+	
+	
+</mapper>
