@@ -7,10 +7,12 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -72,6 +74,16 @@ public class PaymentServiceImpl implements PaymentService {
 		return map;
 	}
 
+//======================================================================================
+	
+	@Override
+	@Scheduled(cron="0 0 0 * * *") // 매일 00시 마다 실행
+	@Bean
+	public void addPaymentProcedure() throws Exception {
+		paymentDao.addPaymentProcedure();		
+	}	
+	
+//======================================================================================	
 	@Override
 	public void requestPay(String impUid) throws Exception {
 		// TODO Auto-generated method stub
@@ -93,6 +105,8 @@ public class PaymentServiceImpl implements PaymentService {
 		ResponseEntity<JSONObject> token  = restTemplate.postForEntity(url, entity, JSONObject.class);
 	
 	}
+
+
 
 
 }

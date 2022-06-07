@@ -23,5 +23,8 @@ public interface PaymentService {
 	public Map<String, Object> listPayment(Search search) throws Exception;
 	
 	public void requestPay(String impUid) throws Exception;
+	
+	// 자동 add
+	public void addPaymentProcedure() throws Exception;
 
 }
