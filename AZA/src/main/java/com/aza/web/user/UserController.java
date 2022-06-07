@@ -54,7 +54,7 @@ public class UserController {
 	@RequestMapping( value="login")
 	public @ResponseBody ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		
-		System.out.println("/user/login : POST");
+		System.out.println("/user/login");
 		
 		ModelAndView mv= new ModelAndView();
 	

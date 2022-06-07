@@ -27,13 +27,13 @@ public class UserRestController {
 			System.out.println(this.getClass());
 		}
 		
-		@RequestMapping(value="json/addUser", method=RequestMethod.POST)
+		@RequestMapping(value="rest/addUser", method=RequestMethod.POST)
 		public User addUser(@RequestBody User user) throws Exception {
 			userService.addUser(user);
 			return user;
 		}
 		
-		@RequestMapping( value="json/checkDuplication/{userId}", method=RequestMethod.POST )
+		@RequestMapping( value="rest/checkDuplication/{userId}", method=RequestMethod.POST )
 		public int checkDuplication(@RequestParam("id") String userId) throws Exception{
 			
 			System.out.println("/user/checkDuplication : POST");
@@ -45,7 +45,7 @@ public class UserRestController {
 	        return cnt;
 		}
 		
-
+	
 	
 	}
 

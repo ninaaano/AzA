@@ -99,13 +99,12 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		if(attendanceState.equals("출석")) {
 			Search search = new Search();
-			search.setCurrentPage(1);
-			search.setPageSize(3);
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
-			
-			System.out.println(totalCount);
+
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
 			
 			if(totalCount != 0) {
 				for(User parent : parents) {
@@ -138,12 +137,12 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		if(attendanceState.equals("조퇴") || attendanceState.equals("도망")) {
 			Search search = new Search();
-			search.setCurrentPage(1);
-			search.setPageSize(3);
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
-			
+
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
 			System.out.println(totalCount);
 			
 			if(totalCount != 0) {
