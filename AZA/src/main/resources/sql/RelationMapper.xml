@@ -5,7 +5,6 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="RelationMapper">
-<<<<<<< HEAD
 
 
 	<resultMap id="relationSelectMap" type="user">
@@ -16,15 +15,6 @@
 		<result property="userId" column="parent_id" jdbcType="VARCHAR" />
 		<result property="relationName" column="relation_name"
 			jdbcType="VARCHAR" />
-=======
- 	
- 	
-	<resultMap id="relationSelectMap" type="user">
-		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
-		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
-		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
-		<result property="relationName"				column="relation_name" 			jdbcType="VARCHAR" />
->>>>>>> refs/heads/YS
 	</resultMap>
 
 	<!-- Relation : INSERT -->
@@ -38,50 +28,15 @@
 		#{relationName}
 		)
 	</insert>
-<<<<<<< HEAD
 
 	<select id="getRelation" resultMap="relationSelectMap">
 		SELECT * FROM relation
 		WHERE
 		relation_code = #{relationCode}
-=======
-	
-	<!-- Relation : SELECT (select parent by studentId student기준으로 관계있는 부모 불러오기-->
-<!-- 	<select		id="getRelation" resultMap="relationSelectMap">
-		SELECT
-		rr.student_id, rr.parent_id, rr.parent_name, rr.relation_name
-		FROM users uu, (SELECT
-				u.user_name, r.student_id, (SELECT user_name FROM users WHERE user_id = r.parent_id) parent_name, r.parent_id, r.relation_name
-				FROM users u, relation r
-				WHERE u.user_id = r.student_id AND r.student_id = #{firstStudentId}) rr
-		WHERE rr.student_id = uu.user_id AND rr.parent_id = #{userId}
-	</select> -->
-	
-		<!-- Relation : SELECT (select student by parentId 부모기준으로 관계있는 학생 불러오기-->
-<!-- 	<select		id="getRelation2" resultMap="relationSelectMap">
-		SELECT
-		*
-		FROM users uu, (SELECT
-				u.user_name, r.student_id, (SELECT user_name FROM users WHERE user_id = r.student_id) student_name, r.parent_id, r.relation_name
-				FROM users u, relation r
-				WHERE u.user_id = r.parent_id AND r.parent_id = #{userId}) rr
-		WHERE rr.student_name = uu.user_name AND rr.student_id = #{firstStudentId}
-	</select> -->
-	
-	<select		id="getRelation" resultMap="relationSelectMap">
-		SELECT * FROM relation
-		WHERE relation_code = #{relationCode}
->>>>>>> refs/heads/YS
-	</select>
-<<<<<<< HEAD
 
+	</select>
 	<!-- Relation : UPDATE -->
 	<update id="updateRelation">
-=======
-	
-	<!-- Relation : UPDATE -->
-	<update		id="updateRelation" >
->>>>>>> refs/heads/YS
 		UPDATE relation
 		<set>
 			<if test="firstStudentId != null"> student_id = #{firstStudentId} , </if>
@@ -92,7 +47,7 @@
 	</update>
 
 	<!-- Relation : DELETE -->
-<<<<<<< HEAD
+
 	<delete id="deleteRelation" parameterType="String">
 		DELETE FROM
 		relation
@@ -164,91 +119,4 @@
 		</if>) countTable
 	</select>
 
-=======
-	 <delete	id="deleteRelation"	parameterType="String" >
-		DELETE FROM relation
-		WHERE relation_code = #{relationCode}
-	 </delete>
-	 
-	<!-- Relation : list -student와 관계있는 parent 찾기-->	
-	<select id = "listRelationByStudent" parameterType="search" resultMap="relationSelectMap">
-		SELECT*
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM (			
-				SELECT
-				relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
-				(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
-				parent_id, relation_name
-				FROM relation
-				where student_id = #{searchId}
-				<if test="searchCondition != null">
-					<where>	
-						<if test="searchCondition == 6 and searchKeyword !='' ">
-		 					parent_id = #{searchKeyword}
-		 				</if>				    
-		 			</where>
-		 		</if>					
-			 )inner_table
-				WHERE ROWNUM &lt; = #{endRowNum})
-			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
-	</select>
-	
-	<!-- Relation : list -parent와 관계있는 student 찾기-->
-	<select id = "listRelationByParent" parameterType="search" resultMap="relationSelectMap">
-		SELECT*
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM (			
-				SELECT
-				relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
-				(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
-				parent_id, relation_name
-				FROM relation
-				where parent_id = #{searchId}
-				<if test="searchCondition != null">
-					<where>	
-						<if test="searchCondition == 0 and searchKeyword !='' ">
-		 					student_id = #{searchKeyword}
-		 				</if>				    
-		 			</where>
-		 		</if>			
-			 )inner_table
-				WHERE ROWNUM &lt; = #{endRowNum})
-			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
-	</select>	 
-	
-	<select id = "getListRelationTotalCountByStudent" resultType="int">
-	 		SELECT COUNT(*)
-	 		FROM( SELECT
-					relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
-					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
-					parent_id, relation_name
-					FROM relation
-					where student_id = #{searchId}
-	 		<if test="searchCondition != null">
-				<where>
-					<if test="searchCondition == 0 and searchKeyword !='' ">
-	 					parent_id = #{searchKeyword}
-	 				</if>		    
-	 			</where>
-	 		</if> 	) countTable
-	 </select>
-	 
-	 <select id = "getListRelationTotalCountByParent" resultType="int">
-	 		SELECT COUNT(*)
-	 		FROM( SELECT
-					relation_code, student_id,(SELECT user_name FROM users WHERE user_id = student_id) student_name,
-					(SELECT user_name FROM users WHERE user_id = parent_id) parent_name,
-					parent_id, relation_name
-					FROM relation
-					where parent_id = #{searchId}
-	 		<if test="searchCondition != null">
-				<where>
-					<if test="searchCondition == 6 and searchKeyword !='' ">
-	 					student_id = #{searchKeyword}
-	 				</if>		    
-	 			</where>
-	 		</if> 	) countTable
-	 </select>
-	 
->>>>>>> refs/heads/YS
 </mapper>
