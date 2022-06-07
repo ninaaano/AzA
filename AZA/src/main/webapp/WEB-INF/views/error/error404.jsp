@@ -43,9 +43,8 @@
 	                    		</svg>
 							</div>
 							<div class="text">
-								<img alt="" src="../common/asserts/astronaut.gif" />
 								<h1>페이지가 없어욥</h1>
-								<p>HOME</p>
+								<a href="/common/main">HOME</p>
 							</div>
 						</div>
 					</div>

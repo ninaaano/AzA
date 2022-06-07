@@ -16,7 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 						"classpath:config/context-mybatis.xml", 
 						"classpath:config/context-transaction.xml" })
 @Configuration
-public class AzaApplication extends SpringBootServletInitializer {
+public class AzaApplication extends SpringBootServletInitializer/*extends WebMvcConfigurerAdapter*/ {
 
 	public static void main(String[] args) {
 		System.out.println("AzaApplication 시작");
@@ -27,5 +27,9 @@ public class AzaApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(AzaApplication.class);
 	}
-
+	/*
+	 * @Override public void addViewControllers(ViewControllerRegistry registry) {
+	 * registry.addViewController("/").setViewName("/login");
+	 * registry.addViewController("/index").setViewName("/index"); }
+	 */
 }
