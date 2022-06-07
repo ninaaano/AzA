@@ -34,8 +34,8 @@ public class StudentsDaoImpl implements StudentsDao {
 	
 	
 	// method
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSessionTemplate = sqlSession;
+	public void setSqlSession(SqlSession sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 	
 
@@ -133,4 +133,109 @@ public class StudentsDaoImpl implements StudentsDao {
 		return sqlSessionTemplate.selectOne("AttendanceMapper.getStudentsAttendanceTotalCount", search);
 	}
 
+	@Override
+	public void addStudentsCharacter(Students students) throws Exception {
+		sqlSessionTemplate.insert("CharacterMapper.addStudentsCharacter", students);
+	}
+
+	@Override
+	public void updateStudentsCharacter(Students students) throws Exception {
+		sqlSessionTemplate.update("CharacterMapper.updateStudentsCharacter", students);
+
+	}
+
+	@Override
+	public void deleteStudentsCharacter(int characterCode) throws Exception {
+		sqlSessionTemplate.delete("CharacterMapper.deleteStudentsCharacter", characterCode);
+
+	}
+
+	@Override
+	public Students getStudentsCharacter(int characterCode) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("CharacterMapper.getStudentsCharacter", characterCode);
+	}
+
+	// exam =========================================
+	@Override
+	public void addStudentsExam(Students students) throws Exception {
+		sqlSessionTemplate.insert("ExamMapper.addStudentsExam", students);
+		
+	}
+
+
+	@Override
+	public void updateStudentsExam(Students students) throws Exception {
+		sqlSessionTemplate.update("ExamMapper.updateStudentsExam", students);
+		
+	}
+
+
+	@Override
+	public void deleteStudentsExam(int examCode) throws Exception {
+		sqlSessionTemplate.delete("ExamMapper.deleteStudentsExam", examCode);
+		
+	}
+
+
+	@Override
+	public Students getStudentsExam(int examCode) throws Exception {
+		return sqlSessionTemplate.selectOne("ExamMapper.getStudentsExam",examCode);
+	}
+
+
+	@Override
+	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(searchKeyword);
+		return sqlSessionTemplate.selectOne("ExamMapper.getStudentsExamTotalCount", search);
+	}
+
+
+	@Override
+	public List<Students> listStudentsExam(Search search, String examSubject, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		search.setSearchKeyword(examSubject);
+		return sqlSessionTemplate.selectList("ExamMapper.listStudentsExam", search);
+	}
+	
+	@Override
+	public void addStudentsNote(Students students) throws Exception {
+		sqlSessionTemplate.insert("StudentsNoteMapper.addStudentsNote", students);
+	}
+
+
+	@Override
+	public Students getStudentsNote(int noteCode) throws Exception {
+		return sqlSessionTemplate.selectOne("StudentsNoteMapper.getStudentsNote", noteCode);
+	}
+
+
+	@Override
+	public void updateStudentsNote(Students students) throws Exception {
+		sqlSessionTemplate.update("StudentsNoteMapper.updateStudentsNote", students);
+	}
+
+
+	@Override
+	public void deleteStudentsNote(int noteCode) throws Exception {
+		sqlSessionTemplate.delete("StudentsNoteMapper.deleteStudentsNote", noteCode);
+	}
+
+
+	@Override
+	public List<Students> listStudentsNote(Search search, String studentId) throws Exception {
+		search.setSearchId(studentId);
+		return sqlSessionTemplate.selectList("StudentsNoteMapper.listStudentsNote", search);
+	}
+
+
+	@Override
+	public int getStudentsNoteTotalCount(Search search, String studentId) throws Exception {
+		search.setSearchId(studentId);
+		return sqlSessionTemplate.selectOne("StudentsNoteMapper.getStudentsNoteTotalCount", search);
+	}
+	
 }

@@ -3,11 +3,12 @@ package com.aza.service.user;
 import java.util.List;
 import java.util.Map;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 
 public interface UserDao {
 
-	//User :: INSERT È¸¿ø°¡ÀÔ
+	//User :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void addUser(User user) throws Exception;
 	
 	//User :: SELECT
@@ -34,19 +35,28 @@ public interface UserDao {
 	//User :: updateCheck
 	public void updateCheck(User user) throws Exception;
 	
-	//Relation :: INSERT È¸¿ø°¡ÀÔ, °ü°èÃß°¡
+	//Relation :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
-	public User getRelation(String firstStudentId, String parentId) throws Exception;
+//	public User getRelation(String firstStudentId, String parentId) throws Exception;
+	public User getRelation(int relationCode) throws Exception;
 	
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
 	
 	//Relation :: DELETE
-//	public void deleteRelation(int relationCode) throws Exception;
-	public void deleteRelation(String userId) throws Exception;
+	public void deleteRelation(int relationCode) throws Exception;
+//	public void deleteRelation(String userId) throws Exception;
 	
-	//Relation :: LIST
-	public List<User> listRelation(String userId) throws Exception;
+	//Relation :: LIST By Student
+	public List<User> listRelationByStudent(Search search, String studentId) throws Exception;
+	
+	//Relation :: LIST By Parent
+	public List<User> listRelationByParent(Search search, String parentId) throws Exception;
+	
+	//Relation :: Total Count
+	public int getListRelationByStudentTotalCount(Search search, String studentId) throws Exception;
+	
+	public int getListRelationByParentTotalCount(Search search, String parentId) throws Exception;
 }
