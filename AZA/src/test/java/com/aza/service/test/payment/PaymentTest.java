@@ -26,12 +26,12 @@ public class PaymentTest {
 		
 		Payment pay = new Payment();
 		
-		pay = paymentService.getPayment(1019);
+		pay = paymentService.getPayment(1026);
 		System.out.println("getPay TEST === >> "+pay);
 		
 	}
 	
-	@Test // Add Test ok
+	//@Test // Add Test ok
 	void testAddPayment() throws Exception {
 		Payment pay = new Payment();
 		pay.setStudentRecordNo(1008);
@@ -49,14 +49,18 @@ public class PaymentTest {
 		 * pay_due_date 
 		 * */
 	}
-	//@Test
+	@Test // 용승이가 OK..!! 안되면 용승이탓!
 	void testUpdatePayment() throws Exception {
 		
-		Payment payment = paymentService.getPayment(1009);
+		Payment payment = new Payment();//paymentService.getPayment(1021);
+		payment.setPayCode(1021);
+		payment.setCheckPay('N');
+		System.out.println(payment);
 		//payment.setPayCode(1009);
 //		System.out.println(payment);
 		paymentService.updatePayment(payment);
-		assertEquals("Y", payment.getCheckPay());
+		System.out.println("2===>"+payment);
+		assertEquals('N', payment.getCheckPay());
 	}
 	
 	//@Test //OK
@@ -64,7 +68,7 @@ public class PaymentTest {
 		paymentService.deletePayment(1023);
 	}
 	
-	@Test // okok 근데 값이 이게 맞나
+	//@Test // okok 근데 값이 이게 맞나
 	public void testListPayment() throws Exception{
 		
 		Search search = new Search();
