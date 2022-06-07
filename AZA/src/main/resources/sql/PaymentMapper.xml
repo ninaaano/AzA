@@ -6,7 +6,7 @@
 		
 <mapper namespace="PaymentMapper">
 
-	<resultMap type="Payment" id="PaymentSelectMap">
+	<resultMap type="payment" id="PaymentSelectMap">
 		<result property="payCode"			 column="pay_code" 				jdbcType="NUMERIC" />
 		<result property="studentRecordNo" 	 column="student_record_no" 	jdbcType="NUMERIC" />
 		<result property="studentId" 		 column="student_id" 			jdbcType="VARCHAR" />
@@ -23,9 +23,10 @@
 	<!-- SQL : payment SELECT ONE -->
 	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
 	SELECT
-	sr.lesson_name, p.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
-	FROM payment p, students_record sr
-	WHERE sr.RECORD_code = p.STUDENT_RECORD_NO AND p.pay_code = #{payCode}
+	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no), 
+	student_name, amount, pay_due_date, pay_day, check_pay
+	FROM payment
+	WHERE pay_code = #{value}
 	</select>
 
 	<!-- SQL : payment INSERT -->
@@ -39,17 +40,18 @@
 	 
 	<!-- SQL : payment UPDATE -->
 	<!-- 안됨.. -->
-	<update id="updatePayment">
-	UPDATE payment
-	<set>
-		<if test="checkPay == 'N'">
-		check_pay = 'Y',
+	<update id="updatePayment" parameterType="payment">
+	UPDATE payment 
+ 	<set>
+ 	  <if test="checkPay != 'N'">
+		check_pay = #{checkPay},
 		pay_day = SYSDATE
-		</if>
-		<if test="checkPay == 'Y'">
-		check_pay = 'N'
-		</if>	
-	</set>
+	  </if>	
+	  <if test="checkPay == 'N'">
+		check_pay = #{checkPay},
+		pay_day = NULL
+	  </if>	
+	</set> 
 	WHERE pay_code = #{payCode}
 	</update>
 	
@@ -90,15 +92,15 @@
 	  	<if test="searchCondition != null">
 				<where>
 					<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				student_name = #{searchKeyword}
-													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
-                  										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				check_pay = #{searchKeyword}
-													</if>				    
+		 				student_name = #{searchKeyword}
+					</if>
+					<if test="searchCondition == 1 and searchKeyword !='' ">
+		 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+          										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
+					</if>
+					<if test="searchCondition == 2 and searchKeyword !='' ">
+		 				check_pay = #{searchKeyword}
+					</if>				    
 	 			</where>
 	 		</if> 	) countTable
 

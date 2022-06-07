@@ -1,5 +1,7 @@
 package com.aza.service.domain;
 
+import java.util.Date;
+
 public class Paper {
 	
 	private int quizCode;
