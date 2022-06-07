@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserDao;
 
@@ -78,22 +79,27 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.insert("RelationMapper.addRelation", user);	
 	}
 
+	@Override
+	public void deleteRelation(int relationCode) throws Exception {
+		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
+	}
+	
 //	@Override
-//	public void deleteRelation(int relationCode) throws Exception {
-//		sqlSession.delete("RelationMapper.deleteRelation", relationCode);	
+//	public void deleteRelation(String userId) throws Exception {
+//		sqlSession.delete("RelationMapper.deleteRelation", userId);	
+//	}
+
+//	@Override
+//	public User getRelation(String firstStudentId, String parentId) throws Exception {
+//		User user = new User();
+//		user.setFirstStudentId(firstStudentId);
+//		user.setUserId(parentId);
+//		return sqlSession.selectOne("RelationMapper.getRelation", user);
 //	}
 	
 	@Override
-	public void deleteRelation(String userId) throws Exception {
-		sqlSession.delete("RelationMapper.deleteRelation", userId);	
-	}
-
-	@Override
-	public User getRelation(String firstStudentId, String parentId) throws Exception {
-		User user = new User();
-		user.setFirstStudentId(firstStudentId);
-		user.setUserId(parentId);
-		return sqlSession.selectOne("RelationMapper.getRelation", user);
+	public User getRelation(int relationCode) throws Exception {
+		return sqlSession.selectOne("RelationMapper.getRelation", relationCode);
 	}
 
 	@Override
@@ -102,13 +108,35 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> listRelation(String userId) throws Exception {
-		return sqlSession.selectList(userId);
+	public List<User> listRelationByStudent(Search search, String studentId) throws Exception {
+		search.setSearchId(studentId);
+		
+		return sqlSession.selectList("RelationMapper.listRelationByStudent", search);
+	}
+	
+	@Override
+	public List<User> listRelationByParent(Search search, String parentId) throws Exception {
+		search.setSearchId(parentId);		
+		return sqlSession.selectList("RelationMapper.listRelationByParent", search);
+	}
+	
+	@Override
+	public int getListRelationByStudentTotalCount(Search search, String studentId) throws Exception {
+		search.setSearchId(studentId);
+		return  sqlSession.selectOne("RelationMapper.getListRelationByStudentTotalCount", search);
+	}
+	
+	@Override
+	public int getListRelationByParentTotalCount(Search search, String parentId) throws Exception {
+		search.setSearchId(parentId);
+		return  sqlSession.selectOne("RelationMapper.getListRelationByParentTotalCount", search);
 	}
 
 	@Override
 	public void updateCheck(User user) throws Exception {
 		sqlSession.update("UserMapper.updateCheck", user);
 	}
+
+
 
 }

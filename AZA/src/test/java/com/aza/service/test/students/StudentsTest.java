@@ -145,14 +145,14 @@ public class StudentsTest {
 
 	}
 
-	//	@Test
+		@Test
 	public void testAddStudentsAttendance() throws Exception {
 
 		Students students = new Students();
 		students.setStudentId("student11");
 		students.setLessonCode("ABCD1234");
 		students.setAttendanceDate("20220604");
-		students.setAttendanceState("조퇴");
+		students.setAttendanceState("출석");
 
 		System.out.println(students);
 

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.aza.common.Search;
-import com.aza.service.alert.AlertDao;
+import com.aza.service.alert.AlertService;
 import com.aza.service.domain.Alert;
 import com.aza.service.domain.Students;
+import com.aza.service.domain.User;
 import com.aza.service.students.StudentsDao;
 import com.aza.service.students.StudentsService;
+import com.aza.service.user.UserService;
 
 @Service("studentsServiceImpl")
 public class StudentsServiceImpl implements StudentsService {
@@ -23,8 +25,12 @@ public class StudentsServiceImpl implements StudentsService {
 	private StudentsDao studentsDao;
 
 	@Autowired
-	@Qualifier("alertDaoImpl")
-	private AlertDao alertDao;
+	@Qualifier("alertServiceImpl")
+	private AlertService alertService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 
 	public StudentsServiceImpl() {
 		System.out.println("[ "+this.getClass()+" ] :: start");
@@ -32,10 +38,6 @@ public class StudentsServiceImpl implements StudentsService {
 
 	public void setStudentsDao(StudentsDao studentsDao) {
 		this.studentsDao = studentsDao;
-	}
-
-	public void setAlertDao(AlertDao alertDao) {
-		this.alertDao = alertDao;
 	}
 
 	@Override
@@ -92,20 +94,27 @@ public class StudentsServiceImpl implements StudentsService {
 		studentsDao.addStudentsAttendance(students);
 
 		String attendanceState = students.getAttendanceState();
-
+		String studentId = students.getStudentId();
+		Search search = new Search();
+		Alert alert = new Alert();
+		
 		if(attendanceState.equals("출석")) {
 			
-			//User user = userService.getUser("student11");
+			System.out.println(userService.listRelationByStudent(search, studentId).get("list"));
+			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			
-			
-			
-			
-			Alert alert = new Alert();
-			alert.setReceiverId(students.getStudentId());
-			alert.setLessonCode(students.getLessonCode());
-			alert.setAlertContent(students.getAttendanceState());
-
-			alertDao.addAlert(alert);				
+		
+			for(User parent : parents) {
+				
+				String parentId = parent.getUserId();
+				
+				alert.setReceiverId(parentId);
+				alert.setStudentId(studentId);
+				alert.setLessonCode(students.getLessonCode());
+				alert.setAlertContent(students.getAttendanceState());				
+			}
+		
+			alertService.addAlertAttendance(alert);
 		}
 	}
 
@@ -126,7 +135,7 @@ public class StudentsServiceImpl implements StudentsService {
 			alert.setLessonCode(students.getLessonCode());
 			alert.setAlertContent(students.getAttendanceState());
 
-			alertDao.addAlert(alert);				
+			//alertDao.addAlert(alert);				
 		}
 	}
 

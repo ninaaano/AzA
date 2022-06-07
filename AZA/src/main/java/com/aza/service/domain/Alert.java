@@ -5,6 +5,7 @@ public class Alert {
 	// field
 	private int alertCode;
 	private String receiverId;
+	private String studentId;
 	private String alertContent;
 	private String alertCreateAt;
 	private String alertReadAt;
@@ -33,6 +34,16 @@ public class Alert {
 
 	public void setReceiverId(String receiverId) {
 		this.receiverId = receiverId;
+	}
+
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 
 
@@ -102,9 +113,9 @@ public class Alert {
 
 	@Override
 	public String toString() {
-		return "Alert [alertCode=" + alertCode + ", receiverId=" + receiverId + ", alertContent=" + alertContent
-				+ ", alertCreateAt=" + alertCreateAt + ", alertReadAt=" + alertReadAt + ", lessonCode=" + lessonCode
-				+ "]";
+		return "Alert [alertCode=" + alertCode + ", receiverId=" + receiverId + ", studentId=" + studentId
+				+ ", alertContent=" + alertContent + ", alertCreateAt=" + alertCreateAt + ", alertReadAt=" + alertReadAt
+				+ ", lessonCode=" + lessonCode + "]";
 	}
 
 }

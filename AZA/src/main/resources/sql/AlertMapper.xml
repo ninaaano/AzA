@@ -29,7 +29,7 @@
 
 
 	<!-- INSERT : Attendance-->
-	<insert id="addAlertAttendance">
+<!-- 	<insert id="addAlertAttendance">
 	INSERT INTO alert VALUES (
     	seq_alert_alert_code.nextval, 
     	(SELECT parent_id p_id 
@@ -40,6 +40,18 @@
     		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
     						FROM LESSON l, USERS u 
     						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{receiverId}) v), 
+    	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
+    	null)
+	</insert> -->
+	<insert id="addAlertAttendance">
+	INSERT INTO alert VALUES (
+    	seq_alert_alert_code.nextval, 
+		#{receiverId},
+    	#{lessonCode},
+    	(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{alertContent}) CONTENT
+    		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
+    						FROM LESSON l, USERS u 
+    						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{studentId}) v), 
     	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
     	null)
 	</insert>
