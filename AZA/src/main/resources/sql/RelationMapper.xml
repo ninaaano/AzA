@@ -39,6 +39,8 @@
 	<update id="updateRelation">
 		UPDATE relation
 		<set>
+			<if test="firstStudentId != null"> student_id = #{firstStudentId} , </if>
+			<if test="parentId != null"> parentId = #{parentId} , </if>
 			relation_name = #{relationName}
 		</set>
 		WHERE relation_code = #{relationCode}
@@ -115,7 +117,5 @@
 			</where>
 		</if>) countTable
 	</select>
-
-
 
 </mapper>

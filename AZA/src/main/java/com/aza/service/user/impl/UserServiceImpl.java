@@ -18,6 +18,7 @@ import com.aza.service.user.UserService;
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 	
+	
 	///Field
 	@Autowired
 	@Qualifier("userDaoImpl")
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(String userId) throws Exception {
 		userDao.deleteUser(userId);
-//		userDao.deleteRelation(userId);
+
 	}
 
 	@Override
@@ -82,8 +83,6 @@ public class UserServiceImpl implements UserService {
 //	public void deleteRelation(String userId) throws Exception {
 //		userDao.deleteRelation(userId);
 //	}
-	
-	@Override
 	public void deleteRelation(int relationCode) throws Exception {
 		userDao.deleteRelation(relationCode);
 	}
@@ -107,6 +106,8 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> listRelationByStudent(Search search, String studentId) throws Exception {
 		List<User> list = userDao.listRelationByStudent(search, studentId);
 		int totalCount = userDao.getListRelationByStudentTotalCount(search, studentId);
+
+
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
@@ -126,12 +127,15 @@ public class UserServiceImpl implements UserService {
 		
 		return map;
 	}
+	
+
 
 	@Override
 	public void updateCheck(User user) throws Exception {
 		userDao.updateCheck(user);
 	}
 
+	
 	@Override
 	public int phoneAuth() throws Exception {
 		Random num  = new Random();

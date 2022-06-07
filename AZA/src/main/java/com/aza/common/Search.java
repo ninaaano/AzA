@@ -1,9 +1,5 @@
 package com.aza.common;
 
-import org.apache.ibatis.type.MappedTypes;
-
-import lombok.Data;
-
 public class Search {
 	
 	///Field
@@ -17,6 +13,8 @@ public class Search {
 	private String searchStartDate;
 	private String searchEndDate;
 	private String content;
+	
+	private int relationCode;
 	
 	private int endRowNum;
 	private int startRowNum;
@@ -32,6 +30,14 @@ public class Search {
 	
 	public void setLessonCode(String lessonCode) {
 		this.lessonCode = lessonCode;
+	}
+	
+	public int getRelationCode() {
+		return relationCode;
+	}
+	
+	public void setRelationCode(int relationCode) {
+		this.relationCode = relationCode;
 	}
 	
 	

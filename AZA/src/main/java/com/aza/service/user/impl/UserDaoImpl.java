@@ -1,5 +1,6 @@
 package com.aza.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,6 +100,7 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public User getRelation(int relationCode) throws Exception {
+
 		return sqlSession.selectOne("RelationMapper.getRelation", relationCode);
 	}
 
@@ -106,7 +108,7 @@ public class UserDaoImpl implements UserDao {
 	public void updateRelation(User user) throws Exception {
 		sqlSession.update("RelationMapper.updateRelation", user);
 	}
-
+	
 	@Override
 	public List<User> listRelationByStudent(Search search, String studentId) throws Exception {
 		search.setSearchId(studentId);
@@ -130,7 +132,15 @@ public class UserDaoImpl implements UserDao {
 	public int getListRelationByParentTotalCount(Search search, String parentId) throws Exception {
 		search.setSearchId(parentId);
 		return  sqlSession.selectOne("RelationMapper.getListRelationByParentTotalCount", search);
+
 	}
+	
+	public int getRelationTotalCount(Search search, String searchKeyword) throws Exception{
+		search.setSearchKeyword(searchKeyword);
+		return sqlSession.selectOne("RelationMapper.getRelationTotalCount",search);
+	}
+	
+	
 
 	@Override
 	public void updateCheck(User user) throws Exception {
