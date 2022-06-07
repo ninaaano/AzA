@@ -1,7 +1,9 @@
 package com.aza.service.test.payment;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -91,4 +93,56 @@ public class PaymentTest {
 		System.out.println("수납 서치 ====>> " + search);
 		
 	}
+	
+	// @Test 
+	// 수정해서 사용
+	    public void testPaymentByImpUid() {
+	    	
+	        String test_imp_uid = "imp15771574";
+	        try {
+	            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
+
+	            assertNotNull(payment_response.getResponse());
+	            assertEquals(test_imp_uid, payment_response.getResponse().getImpUid());
+	        } catch (IamportResponseException e) {
+	            System.out.println(e.getMessage());
+
+	            switch (e.getHttpStatusCode()) {
+	                case 401:
+	                    //TODO
+	                    break;
+	                case 500:
+	                    //TODO
+	                    break;
+	            }
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+
+	        String test_imp_uid_cancelled = "imp15771574";
+	        try {
+	            IamportResponse<Payment> cancelled_response = client.paymentByImpUid(test_imp_uid_cancelled);
+
+	            Payment cancelled = cancelled_response.getResponse();
+	            PaymentCancelDetail[] cancelDetail = cancelled.getCancelHistory();
+
+	            assertEquals(cancelDetail.length, 1);
+	            assertNotNull(cancelDetail[0].getPgTid());
+	        } catch (IamportResponseException e) {
+	            System.out.println(e.getMessage());
+
+	            switch (e.getHttpStatusCode()) {
+	                case 401:
+	                    //TODO
+	                    break;
+	                case 500:
+	                    //TODO
+	                    break;
+	            }
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+	    }
 }

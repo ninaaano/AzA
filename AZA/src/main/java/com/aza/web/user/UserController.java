@@ -4,10 +4,12 @@ package com.aza.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
@@ -21,6 +23,12 @@ public class UserController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	//setter Method 구현 않음
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
+
 		
 	public UserController(){
 		System.out.println(this.getClass());
@@ -28,21 +36,24 @@ public class UserController {
 	
 	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
-	public String addUser() throws Exception{
-	
+	public ModelAndView addUser() throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+
 		System.out.println("/user/addUser : GET");
 		
-		return "redirect:/user/addUserView.jsp";
+		//return "redirect:/user/addUserView.jsp";
+		return modelAndView;
 	}
 	
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
-	public String addUser( @ModelAttribute("user") User user ) throws Exception{
+	public ModelAndView addUser( @ModelAttribute("user") User user ) throws Exception{
 	
 		System.out.println("/user/addUser : POST");
 		userService.addUser(user);
 		
-		return "redirect:/user/join.jsp";
+		return new ModelAndView("redirect:/user/join.jsp");
 	}	
 
 	

@@ -21,5 +21,7 @@ public interface PaymentService {
 	
 	// LIST
 	public Map<String, Object> listPayment(Search search) throws Exception;
+	
+	public void requestPay(String impUid) throws Exception;
 
 }
