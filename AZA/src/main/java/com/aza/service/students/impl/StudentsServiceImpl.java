@@ -91,30 +91,36 @@ public class StudentsServiceImpl implements StudentsService {
 
 	@Override
 	public void addAttendance(Students students) throws Exception {
+		
 		studentsDao.addStudentsAttendance(students);
-
+		
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
-		Search search = new Search();
-		Alert alert = new Alert();
 		
 		if(attendanceState.equals("출석")) {
+			Search search = new Search();
+			search.setCurrentPage(1);
+			search.setPageSize(3);
 			
-			System.out.println(userService.listRelationByStudent(search, studentId).get("list"));
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
+			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
 			
-		
-			for(User parent : parents) {
-				
-				String parentId = parent.getUserId();
-				
-				alert.setReceiverId(parentId);
-				alert.setStudentId(studentId);
-				alert.setLessonCode(students.getLessonCode());
-				alert.setAlertContent(students.getAttendanceState());				
+			System.out.println(totalCount);
+			
+			if(totalCount != 0) {
+				for(User parent : parents) {
+					Alert alert = new Alert();
+					
+					String parentId = parent.getUserId();
+					System.out.println(parent);
+					
+					alert.setReceiverId(parentId);
+					alert.setStudentId(studentId);
+					alert.setLessonCode(students.getLessonCode());
+					alert.setAlertContent(students.getAttendanceState());				
+					alertService.addAlertAttendance(alert);
+				}
 			}
-		
-			alertService.addAlertAttendance(alert);
 		}
 	}
 
@@ -128,14 +134,32 @@ public class StudentsServiceImpl implements StudentsService {
 		studentsDao.updateStudentsAttendance(students);
 
 		String attendanceState = students.getAttendanceState();
-
-		if(attendanceState.equals("도망") || attendanceState.equals("조퇴")) {
-			Alert alert = new Alert();
-			alert.setReceiverId(students.getStudentId());
-			alert.setLessonCode(students.getLessonCode());
-			alert.setAlertContent(students.getAttendanceState());
-
-			//alertDao.addAlert(alert);				
+		String studentId = students.getStudentId();
+		
+		if(attendanceState.equals("조퇴") || attendanceState.equals("도망")) {
+			Search search = new Search();
+			search.setCurrentPage(1);
+			search.setPageSize(3);
+			
+			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
+			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
+			
+			System.out.println(totalCount);
+			
+			if(totalCount != 0) {
+				for(User parent : parents) {
+					Alert alert = new Alert();
+					
+					String parentId = parent.getUserId();
+					System.out.println(parent);
+					
+					alert.setReceiverId(parentId);
+					alert.setStudentId(studentId);
+					alert.setLessonCode(students.getLessonCode());
+					alert.setAlertContent(students.getAttendanceState());				
+					alertService.addAlertAttendance(alert);
+				}
+			}
 		}
 	}
 

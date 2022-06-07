@@ -142,7 +142,7 @@ public class UserServiceTest {
 		userService.updateRelation(user);
 	}
 	
-	@Test
+	//@Test
 	public void testListRelationByStudent() throws Exception {
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -159,7 +159,7 @@ public class UserServiceTest {
 		
 	}
 	
-//	@Test
+	@Test
 	public void testListRelationByParent() throws Exception {
 		Search search = new Search();
 		search.setCurrentPage(1);

@@ -145,7 +145,7 @@ public class StudentsTest {
 
 	}
 
-		@Test
+//		@Test
 	public void testAddStudentsAttendance() throws Exception {
 
 		Students students = new Students();
@@ -160,15 +160,17 @@ public class StudentsTest {
 
 	}
 
-//	@Test
+	@Test
 	public void testUpdateStudentsAttendance() throws Exception {
 
-		Students students = studentsService.getStudentsAttendance(1024);
-		students.setAttendanceState("도망");
-
+		Students students = studentsService.getStudentsAttendance(1065);
+		
+		System.out.println("test :"+students);
+		
+		
 		studentsService.updateStudentsAttendance(students);
 
-		System.out.println(studentsService.getStudentsAttendance(1024));
+		System.out.println(studentsService.getStudentsAttendance(1065));
 
 	}
 
@@ -242,7 +244,7 @@ public class StudentsTest {
 			studentsService.updateStudentsNote(students);
 		}
 		
-		@Test
+//		@Test
 		public void testGetStudentsNoteListByStudentId() throws Exception {
 			
 			Search search = new Search();

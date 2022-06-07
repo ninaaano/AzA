@@ -6,6 +6,7 @@
 	<resultMap id="studentsAttendanceSelectMap" type="com.aza.service.domain.Students">
 		<result property="attendanceCode" column="attendance_code" jdbcType="NUMERIC" />
 		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
 		<result property="attendanceDate" column="attendance_date" jdbcType="VARCHAR" />
 		<result property="attendanceState" column="attendance_state" jdbcType="VARCHAR" />
 	</resultMap>

@@ -29,22 +29,6 @@
 		)
 	</insert>
 
-	<!-- Relation : SELECT (select parent by studentId student기준으로 관계있는 부모 불러오기 -->
-	<!-- <select id="getRelation" resultMap="relationSelectMap"> SELECT rr.student_id, 
-		rr.parent_id, rr.parent_name, rr.relation_name FROM users uu, (SELECT u.user_name, 
-		r.student_id, (SELECT user_name FROM users WHERE user_id = r.parent_id) parent_name, 
-		r.parent_id, r.relation_name FROM users u, relation r WHERE u.user_id = r.student_id 
-		AND r.student_id = #{firstStudentId}) rr WHERE rr.student_id = uu.user_id 
-		AND rr.parent_id = #{userId} </select> -->
-
-	<!-- Relation : SELECT (select student by parentId 부모기준으로 관계있는 학생 불러오기 -->
-	<!-- <select id="getRelation2" resultMap="relationSelectMap"> SELECT * FROM 
-		users uu, (SELECT u.user_name, r.student_id, (SELECT user_name FROM users 
-		WHERE user_id = r.student_id) student_name, r.parent_id, r.relation_name 
-		FROM users u, relation r WHERE u.user_id = r.parent_id AND r.parent_id = 
-		#{userId}) rr WHERE rr.student_name = uu.user_name AND rr.student_id = #{firstStudentId} 
-		</select> -->
-
 	<select id="getRelation" resultMap="relationSelectMap">
 		SELECT * FROM relation
 		WHERE
@@ -116,8 +100,7 @@
 					parent_id = #{searchKeyword}
 				</if>
 			</where>
-		</if>
-		) countTable
+		</if> ) countTable
 	</select>
 
 	<select id="getListRelationByParentTotalCount" resultType="int">
@@ -131,11 +114,6 @@
 				</if>
 			</where>
 		</if>) countTable
-
-
-
-
-
 	</select>
 
 
