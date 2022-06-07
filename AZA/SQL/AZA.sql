@@ -387,4 +387,15 @@ CREATE OR  REPLACE TRIGGER TR_BOOK
 AFTER INSERT  of BOOK ON 
 
 
+--listchat
+SELECT *
+FROM (
+	SELECT inner_table.*, ROWNUM AS row_seq
+	FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
+			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and teacher_id = 'teacher51'
+			ORDER BY schedule_start_date || schedule_start_time) inner_table
+	WHERE ROWNUM <= 3)
+WHERE row_seq BETWEEN 1 AND 3;
+
+
 

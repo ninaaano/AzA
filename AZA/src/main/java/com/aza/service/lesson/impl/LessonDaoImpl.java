@@ -72,6 +72,7 @@ public class LessonDaoImpl implements LessonDao {
 		map.put("teacherId", teacherId);
 		map.put("endRowNum", search.getEndRowNum()+"");
 		map.put("startRowNum", search.getStartRowNum()+"");
+		
 //		if usre.role = teacher
 		return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",map);
 //		else user.role = students
