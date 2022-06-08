@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.aza.common.Search;
@@ -36,6 +38,14 @@ public class AlertServiceImpl implements AlertService {
 	@Override
 	public void addAlertAttendance(Alert alert) throws Exception {
 		alertDao.addAlertAttendance(alert);
+	}
+	
+	@Override
+	@Scheduled(cron="0 0 0 * * *") // 매일 00시 마다 실행
+	@Bean
+	public void addAlertPayment() throws Exception {
+		alertDao.addAlertPayment();
+		System.out.println("돌아가라 수납알림");
 	}
 
 	@Override

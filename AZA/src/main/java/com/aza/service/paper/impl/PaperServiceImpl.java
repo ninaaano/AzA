@@ -79,6 +79,120 @@ public class PaperServiceImpl implements PaperService {
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception {
 		paperDao.updatePaperHomeworkCheck(homeworkCode);
 	}
-	
+
+	@Override
+	public void addPaperQuestion(Paper paper) throws Exception {
+		paperDao.addPaperQuestion(paper);
+	}
+
+	@Override
+	public Paper getPaperQuestion(int questionCode) throws Exception {
+		return paperDao.getPaperQuestion(questionCode);
+	}
+
+	@Override
+	public void updatePaperQuestion(Paper paper) throws Exception {
+		paperDao.updatePaperQuestion(paper);
+	}
+
+	@Override
+	public void deletePaperQuestion(int questionCode) throws Exception {
+		paperDao.deletePaperQuestion(questionCode);
+	}
+
+	@Override
+	public Map<String, Object> listPaperQuestion(int quizCode) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuestion(quizCode);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+//=========================== Choice
+	@Override
+	public void addPaperChoice(Paper paper) throws Exception {
+		paperDao.addPaperChoice(paper);
+	}
+
+	@Override
+	public Paper getPaperChoice(int choiceCode) throws Exception {
+		return paperDao.getPaperChoice(choiceCode);
+	}
+
+	@Override
+	public void updatePaperChoice(Paper paper) throws Exception {
+		paperDao.updatePaperChoice(paper);
+	}
+
+	@Override
+	public void deletePaperChoice(int choiceCode) throws Exception {
+		paperDao.deletePaperChoice(choiceCode);
+	}
+
+	@Override
+	public Map<String, Object> listPaperChoice(int questionCode) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuestion(questionCode);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+
+	//== 미연 Quiz 추가
+	@Override
+	public void addPaperQuiz(Paper paper) throws Exception {
+		paperDao.addPaperQiuz(paper);
+		
+	}
+
+	@Override
+	public Paper getPaperQuiz(int quizCode) throws Exception {
+		// TODO Auto-generated method stub
+		return paperDao.getPaperQiuz(quizCode);
+	}
+
+	@Override
+	public void updatePaperQuiz(Paper paper) throws Exception {
+		// TODO Auto-generated method stub
+		paperDao.updatePaperQuiz(paper);
+	}
+
+	@Override
+	public void deletePaperQuiz(int quizCode) throws Exception {
+		paperDao.deletePaperQuiz(quizCode);
+		
+	}
+
+	@Override
+	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception {
+		List<Paper> list = paperDao.listPaperQuizTeacher(search);
+		int totalCount = paperDao.getPaperQuizTotalCountTeacher(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		
+		return map;
+	}
+
+
+	@Override
+	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuizStudent(search);
+		int totalCount = paperDao.getPaperQuizTotalCountStudent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		
+		return map;
+	}
 	
 }

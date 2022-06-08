@@ -64,7 +64,7 @@
 	<!-- HOMEWORK :: DELETE  -->
 	<delete id="deletePaperHomework">
 	DELETE homework
-	FROM homework_code = #{homeworkCode}
+	WHERE homework_code = #{homeworkCode}
 	</delete>
 	
 		

@@ -53,7 +53,23 @@
     						FROM LESSON l, USERS u 
     						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{studentId}) v), 
     	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
-    	null)
+    	null,
+    	)
+	</insert>
+	
+	
+	<insert id="addAlertPayment">
+	INSERT 
+	WHEN TRUNC(SYSDATE-TO_DATE(pay_due_date,'yyyy/mm/dd'),1) = 7 THEN
+	INTO alert VALUES(seq_alert_alert_code.NEXTVAL, 
+	receiver_id , 
+	lesson_code, 
+	(SELECT ('[ ' || subject   || ' ] ' || lesson_name  || ' 수납일 7일전 입니다.') CONTENT
+    		FROM LESSON),
+	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'),
+    null    
+	) 
+	SELECT * FROM alert, payment
 	</insert>
 
 

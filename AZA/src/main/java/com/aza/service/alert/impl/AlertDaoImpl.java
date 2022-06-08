@@ -47,6 +47,11 @@ public class AlertDaoImpl implements AlertDao {
 	public void addAlertAttendance(Alert alert) throws Exception {
 		sqlSessionTemplate.insert("AlertMapper.addAlertAttendance", alert);
 	}
+	
+	@Override
+	public void addAlertPayment() throws Exception {
+		sqlSessionTemplate.insert("AlertMapper.addAlertPayment");		
+	}
 
 	@Override
 	public Alert getAlert(int alertCode) throws Exception {

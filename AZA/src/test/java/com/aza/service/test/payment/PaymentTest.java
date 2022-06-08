@@ -33,7 +33,7 @@ public class PaymentTest {
 		
 	}
 	
-	//@Test // Add Test ok
+	@Test // Add Test ok
 	void testAddPayment() throws Exception {
 		Payment pay = new Payment();
 		pay.setStudentRecordNo(1008);
@@ -51,7 +51,7 @@ public class PaymentTest {
 		 * pay_due_date 
 		 * */
 	}
-	@Test // 용승이가 OK..!! 안되면 용승이탓!
+	//@Test // 용승이가 OK..!! 안되면 용승이탓!
 	void testUpdatePayment() throws Exception {
 		
 		Payment payment = new Payment();//paymentService.getPayment(1021);
@@ -100,53 +100,53 @@ public class PaymentTest {
 	
 	// @Test 
 	// 수정해서 사용
-	    public void testPaymentByImpUid() {
-	    	
-	        String test_imp_uid = "imp15771574";
-	        try {
-	            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
-
-	            assertNotNull(payment_response.getResponse());
-	            assertEquals(test_imp_uid, payment_response.getResponse().getImpUid());
-	        } catch (IamportResponseException e) {
-	            System.out.println(e.getMessage());
-
-	            switch (e.getHttpStatusCode()) {
-	                case 401:
-	                    //TODO
-	                    break;
-	                case 500:
-	                    //TODO
-	                    break;
-	            }
-	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-
-	        String test_imp_uid_cancelled = "imp15771574";
-	        try {
-	            IamportResponse<Payment> cancelled_response = client.paymentByImpUid(test_imp_uid_cancelled);
-
-	            Payment cancelled = cancelled_response.getResponse();
-	            PaymentCancelDetail[] cancelDetail = cancelled.getCancelHistory();
-
-	            assertEquals(cancelDetail.length, 1);
-	            assertNotNull(cancelDetail[0].getPgTid());
-	        } catch (IamportResponseException e) {
-	            System.out.println(e.getMessage());
-
-	            switch (e.getHttpStatusCode()) {
-	                case 401:
-	                    //TODO
-	                    break;
-	                case 500:
-	                    //TODO
-	                    break;
-	            }
-	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	    }
+//	    public void testPaymentByImpUid() {
+//	    	
+//	        String test_imp_uid = "imp15771574";
+//	        try {
+//	            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
+//
+//	            assertNotNull(payment_response.getResponse());
+//	            assertEquals(test_imp_uid, payment_response.getResponse().getImpUid());
+//	        } catch (IamportResponseException e) {
+//	            System.out.println(e.getMessage());
+//
+//	            switch (e.getHttpStatusCode()) {
+//	                case 401:
+//	                    //TODO
+//	                    break;
+//	                case 500:
+//	                    //TODO
+//	                    break;
+//	            }
+//	        } catch (IOException e) {
+//	            // TODO Auto-generated catch block
+//	            e.printStackTrace();
+//	        }
+//
+//	        String test_imp_uid_cancelled = "imp15771574";
+//	        try {
+//	            IamportResponse<Payment> cancelled_response = client.paymentByImpUid(test_imp_uid_cancelled);
+//
+//	            Payment cancelled = cancelled_response.getResponse();
+//	            PaymentCancelDetail[] cancelDetail = cancelled.getCancelHistory();
+//
+//	            assertEquals(cancelDetail.length, 1);
+//	            assertNotNull(cancelDetail[0].getPgTid());
+//	        } catch (IamportResponseException e) {
+//	            System.out.println(e.getMessage());
+//
+//	            switch (e.getHttpStatusCode()) {
+//	                case 401:
+//	                    //TODO
+//	                    break;
+//	                case 500:
+//	                    //TODO
+//	                    break;
+//	            }
+//	        } catch (IOException e) {
+//	            // TODO Auto-generated catch block
+//	            e.printStackTrace();
+//	        }
+//	    }
 }

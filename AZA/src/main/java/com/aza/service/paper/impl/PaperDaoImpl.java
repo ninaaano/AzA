@@ -92,4 +92,112 @@ public class PaperDaoImpl implements PaperDao {
 		
 		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
 	}
+
+
+	@Override
+	public void addPaperQuestion(Paper paper) throws Exception {
+		sqlSession.insert("QuestionMapper.addPaperQuestion", paper);
+	}
+
+	@Override
+	public Paper getPaperQuestion(int questionCode) throws Exception {
+		return sqlSession.selectOne("QuestionMapper.getPaperQuestion",questionCode);
+	}
+
+	@Override
+	public void updatePaperQuestion(Paper paper) throws Exception {
+		sqlSession.update("QuestionMapper.updatePaperQuestion",paper);
+	}
+
+	@Override
+	public void deletePaperQuestion(int questionCode) throws Exception {
+		sqlSession.delete("QuestionMapper.deletePaperQuestion",questionCode);
+	}
+
+	@Override
+	public List<Paper> listPaperQuestion(int quizCode) throws Exception {
+		return sqlSession.selectList("QuestionMapper.listPaperQuestion",quizCode);
+	}
+
+	@Override
+	public void addPaperChoice(Paper paper) throws Exception {
+		sqlSession.insert("ChoiceMapper.addPaperChoice", paper);
+	}
+
+	@Override
+	public Paper getPaperChoice(int choiceCode) throws Exception {
+		return sqlSession.selectOne("ChoiceMapper.getPaperChoice", choiceCode);
+	}
+
+	@Override
+	public void updatePaperChoice(Paper paper) throws Exception {
+		sqlSession.update("ChoiceMapper.updatePaperChoice",paper);
+	}
+
+	@Override
+	public void deletePaperChoice(int choiceCode) throws Exception {
+		sqlSession.delete("ChoiceMapper.deletePaperChoice", choiceCode);
+	}
+
+	@Override
+	public List<Paper> listPaperChoice(int questionCode) throws Exception {
+		return sqlSession.selectList("ChoiceMapper.listPaperChoice",questionCode);
+	}
+	//== 미연 Quiz 추가
+	@Override
+	public Paper getPaperQiuz(int quizCode) throws Exception {
+		
+		return sqlSession.selectOne("QuizMapper.getPaperQuiz",quizCode);
+	}
+
+	@Override
+	public void addPaperQiuz(Paper paper) throws Exception {
+		sqlSession.insert("QuizMapper.addPaperQuiz", paper);
+
+	}
+
+	@Override
+	public void updatePaperQuiz(Paper paper) throws Exception {
+		sqlSession.update("QuizMapper.updatePaperQuiz", paper);
+
+	}
+
+	@Override
+	public void deletePaperQuiz(int quizCode) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("QuizMapper.deletePaperQuiz",quizCode);
+
+	}
+//====================================================================
+//	@Override
+//	public List<Paper> listPaperQuiz(Search search) throws Exception {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList("QuizMapper.listPaperQuiz", search);
+//	}
+
+
+	@Override
+	public List<Paper> listPaperQuizTeacher(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("QuizMapper.listPaperQuizTeacher", search);
+	}
+
+	@Override
+	public List<Paper> listPaperQuizStudent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("QuizMapper.listPaperQuizStudent", search);
+	}
+
+	@Override
+	public int getPaperQuizTotalCountStudent(Search serch) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountStudent",serch);
+	}
+	
+	
+	@Override
+	public int getPaperQuizTotalCountTeacher(Search serch) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountTeacher",serch);
+	}
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.aza.common.Search;
 import com.aza.service.domain.Paper;
 import com.aza.service.domain.User;
-import com.aza.service.paper.PaperService2;
+import com.aza.service.paper.PaperService;
 import com.aza.service.user.UserService;
 
 
@@ -20,8 +20,8 @@ import com.aza.service.user.UserService;
 @SpringBootTest
 public class PaperQuizTest {
 	@Autowired
-	@Qualifier("paperServiceImpl2")
-	private PaperService2 paperService;
+	@Qualifier("paperServiceImpl")
+	private PaperService paperService;
 	
 	@Autowired
 	@Qualifier("userServiceImpl")
@@ -31,8 +31,8 @@ public class PaperQuizTest {
 	void testAddQuiz() throws Exception{
 		Paper paper = new Paper();
 		paper.setLessonCode("ABCD1234");
-		paper.setStudentId("student22");
-		paper.setQuizTitle("list Test 용");
+		paper.setStudentId("student21");
+		paper.setQuizTitle("합친 것 Test 용");
 		
 		
 		System.out.println("==>> "+paper);
@@ -47,10 +47,10 @@ public class PaperQuizTest {
 	
 	//@Test // update test OK
 	void testUpdateQuiz() throws Exception{
-		Paper paper = paperService.getPaperQuiz(1001);
+		Paper paper = paperService.getPaperQuiz(1008);
 		
-		paper.setQuizSubmitDate("2022/06/10");
-		//paper.setQuizScore(50);
+		paper.setQuizSubmitDate("2022/06/08");
+		paper.setQuizScore(50);
 		
 		paperService.updatePaperQuiz(paper);
 		// 제출일, 점수
@@ -58,7 +58,7 @@ public class PaperQuizTest {
 	}
 	//@Test // delete test OK
 	void testDeleteQuiz() throws Exception{
-		paperService.deletePaperQuiz(1006);
+		paperService.deletePaperQuiz(1008);
 		
 	}
 	
@@ -91,7 +91,7 @@ public class PaperQuizTest {
 	}
 	
 	//학생 list
-	@Test
+	//@Test
 	void testListPaperQuizS() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -107,5 +107,200 @@ public class PaperQuizTest {
 		System.out.println(" SearchId====>> " + search.getSearchId());
 		System.out.println("Quiz TotalCount ====>> " + totalCount);
 		System.out.println("Quiz List ==>> " + list);
+	}
+	
+	//=== 용승===================================================================
+	//@Test
+	public void testAddQuestion() throws Exception{
+		Paper paper = new Paper();
+		paper.setQuizCode(1001);
+		paper.setQuestionNo(3);
+		paper.setQuestionContent("123+321 =???");
+		paper.setTeacherAnswer("list Test용");
+		paper.setAnswerCheck('0');
+		
+		System.out.println("==>> "+paper);
+		
+		paperService.addPaperQuestion(paper);
+	}
+	
+	//@Test
+	public void testGetQuestion() throws Exception {
+		Paper paper = new Paper();
+		paper.setQuestionCode(1000);
+		
+		paperService.getPaperQuestion(paper.getQuestionCode());
+		System.out.println();
+	}
+	
+	//@Test
+	public void testUpdateQuestion() throws Exception {
+		Paper paper = new Paper();
+		paper.setQuestionContent("111+111 =???");
+		paper.setTeacherAnswer("Test update");
+		paper.setStudentAnswer("333");
+		paper.setAnswerCheck('0');
+		paper.setFeedBackContent("Ʋ�Ƚ��ϴ�. �����ϼ���");
+		paper.setQuestionCode(1002);
+		
+		paperService.updatePaperQuestion(paper);
+		
+	}
+	
+	//@Test
+	public void testDeleteQuestion() throws Exception {
+		Paper paper = new Paper();
+		paper.setQuestionCode(1002);
+		
+		paperService.deletePaperQuestion(paper.getQuestionCode());
+	}
+	
+///	@Test
+	public void testListPaperQuestion() throws Exception{
+//		Paper paper = new Paper();
+//		paper.setQuizCode(1000);
+
+		Map<String, Object> map = paperService.listPaperQuestion(1001);
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println("Test list ==> " + list);
+//		paperService.listPaperQuestion(paper.getQuizCode());
+//		System.out.println(paper);
+	}
+	
+	//@Test
+	public void testAddPaperChoice() throws Exception{
+		Paper paper = new Paper();
+		paper.setQuestionCode(1001);
+		paper.setChoiceNo(2);
+		paper.setChoiceContent("2");
+		
+		paperService.addPaperChoice(paper);
+	}
+	
+	//@Test
+	public void testGetPaperChoice() throws Exception{
+		Paper paper = new Paper();
+		paper.setChoiceCode(1001);
+		
+		paperService.getPaperChoice(paper.getChoiceCode());
+	}
+	
+	//@Test
+	public void testUpdatePaperChoice() throws Exception {
+		Paper paper = new Paper();
+		paper.setChoiceCode(1001);
+		paper.setChoiceContent("TEST update");
+		
+		paperService.updatePaperChoice(paper);
+	}
+	
+	//@Test
+	public void testDeletePaperChoice() throws Exception {
+		Paper paper = new Paper();
+		paper.setChoiceCode(1000);
+		
+		paperService.deletePaperChoice(paper.getChoiceCode());
+	}
+	
+//	@Test
+	public void testListPaperChoice() throws Exception {
+//		Paper paper = new Paper();
+//		paper.setQuestionCode(1001);
+		
+		Map<String, Object> map = paperService.listPaperChoice(1001);
+		List<Object> list = (List<Object>)map.get("list");
+		
+//		paperService.listPaperChoice(paper.getQuestionCode());
+		System.out.println("Test list ======= " + list);
+	}
+	
+	//========================= HomeWork
+	//@Test
+	public void testAddHomework() throws Exception {
+		Paper paper = new Paper();
+		
+		paper.setStudentId("student31");
+		paper.setLessonCode("abcd1234");
+		paper.setHomeworkTitle("Test01");
+		paper.setHomeworkContent("test_content");
+		paper.setHomeworkDueDate("2022/06/08");
+		paper.setHomeworkCheck('0');
+		
+		System.out.println("HomeWork==>"+paper);
+		paperService.addPaperHomework(paper);
+		
+	}
+	
+	//@Test
+	public  void testGetHomework() throws Exception {
+//		Paper paper = new Paper();
+//		paper.setHomeworkCode(1004);
+		
+		
+		Paper paper = paperService.getPaperHomework(1004);
+		System.out.println("homework_test ==>"+paper.getHomeworkContent());
+	}
+	
+	//@Test
+	public void testUpdateHomework() throws Exception {
+		Paper paper = new Paper();
+		
+		paper.setHomeworkCode(1004);
+		paper.setHomeworkTitle("updateTest");
+		paper.setHomeworkContent("updateTest");
+		paper.setHomeworkDueDate("2022/06/10");
+
+		paperService.updatePaperHomework(paper);
+	}
+	
+	//@Test
+	public void testUpdateHomeworkCheck() throws Exception {
+		Paper paper = new Paper();
+		
+		paper.setHomeworkCode(1004);
+		
+		paperService.updatePaperHomeworkCheck(paper.getHomeworkCode());
+	}
+	
+	//@Test
+	public void testDeleteHomework() throws Exception {
+		Paper paper = new Paper();
+		paper.setHomeworkCode(1004);
+		
+		paperService.deletePaperHomework(paper.getHomeworkCode());
+	}
+	//@Test
+	public void testListHomeworkByStudent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3); 
+		search.setSearchId("student31");
+		search.setLessonCode("abcd1234");
+		
+		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search, search.getLessonCode(),search.getSearchId());
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("==========="+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("==="+totalCount);
+	}
+	
+	//@Test
+	public void testListHomeworkByTeacher() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3); 
+		search.setLessonCode("abcd1234");
+		
+		Map<String,Object> map = paperService.listPaperHomeworkByTeacher(search, search.getLessonCode());
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("==========="+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("==="+totalCount);
 	}
 }

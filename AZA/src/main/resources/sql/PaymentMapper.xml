@@ -34,7 +34,7 @@
 	INSERT INTO payment
 	VALUES(seq_payment_pay_code.NEXTVAL, #{studentRecordNo}, #{studentId},  
 	(SELECT user_name FROM users WHERE user_id = #{studentId}), #{payer:VARCHAR},#{amount}, 
-	(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
+	TO_CHAR(SYSDATE,'yyyy/mm')||'/'||(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
 	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR}, #{merchantUid:VARCHAR})	 
 	 </insert>
 	 
@@ -105,5 +105,22 @@
 	 		</if> 	) countTable
 
 	</select>
+	
+	<insert id="addPaymentProcedure">
+	INSERT 
+	WHEN TRUNC(SYSDATE-TO_DATE(pay_due_date,'yyyy/mm/dd'),1) = 10 THEN
+	INTO payment VALUES(seq_payment_pay_code.NEXTVAL, 
+	student_record_no, 
+	student_id, 
+	student_name,
+	null,
+	amount,
+	TO_CHAR(TO_DATE(pay_due_date, 'yyyy/mm/dd') + INTERVAL '1' MONTH, 'yyyy/mm/dd') ,
+	null , 
+	'N', 
+	null, 
+	null) 
+	SELECT student_record_no,student_id,student_name,amount,pay_due_date FROM payment
+	</insert>
 
 </mapper>
