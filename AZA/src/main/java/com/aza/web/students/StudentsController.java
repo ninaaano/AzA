@@ -31,10 +31,10 @@ public class StudentsController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("${pagetUnit}")
+	@Value("${pageUnit}")
 	int pageUnit;
 
-	@Value("${{pageSize}")
+	@Value("${pageSize}")
 	int pageSize;
 	
 	
@@ -80,7 +80,7 @@ public class StudentsController {
 		studentsService.addStudentsRecord(students);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/students/listStudentsRecord");
+		mv.setViewName("redirect:/lesson/listLesson");
 		
 		return mv;
 	}
