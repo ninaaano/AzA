@@ -79,7 +79,7 @@ public class QuestionTest {
 	public void testAddPaperChoice() throws Exception{
 		Paper paper = new Paper();
 		paper.setQuestionCode(1001);
-		paper.setChoiceNo('1');
+		paper.setChoiceNo(1);
 		paper.setChoiceContent("1");
 		
 		paperService.addPaperChoice(paper);
@@ -88,7 +88,7 @@ public class QuestionTest {
 	//@Test
 	public void testGetPaperChoice() throws Exception{
 		Paper paper = new Paper();
-		paper.setChoiceCode(1000);
+		paper.setChoiceCode(1007);
 		
 		paperService.getPaperChoice(paper.getChoiceCode());
 	}
@@ -96,7 +96,7 @@ public class QuestionTest {
 	//@Test
 	public void testUpdatePaperChoice() throws Exception {
 		Paper paper = new Paper();
-		paper.setChoiceCode(1000);
+		paper.setChoiceCode(1007);
 		paper.setChoiceContent("333");
 		
 		paperService.updatePaperChoice(paper);
@@ -105,7 +105,7 @@ public class QuestionTest {
 	//@Test
 	public void testDeletePaperChoice() throws Exception {
 		Paper paper = new Paper();
-		paper.setChoiceCode(1004);
+		paper.setChoiceCode(1007);
 		
 		paperService.deletePaperChoice(paper.getChoiceCode());
 	}

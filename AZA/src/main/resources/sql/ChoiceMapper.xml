@@ -14,7 +14,7 @@
 
 	<!-- PaperChoice :: INSERT -->
 	<insert id="addPaperChoice">
-	INSERT INTO STUDENTS_RECORD
+	INSERT INTO choice
 	VALUES(
 		seq_choice_choice_code.NEXTVAL,
 		#{questionCode},
@@ -24,7 +24,7 @@
 	</insert>
 	
 	<!-- PaperChoice :: SELECT-->
-	<select id="getPaperChoice">
+	<select id="getPaperChoice" parameterType="int" resultMap="choiceSelectMap">
 		SELECT
 		*
 		FROM choice
@@ -41,14 +41,14 @@
 	</update>
 	
 	<!-- PaperChoice :: DELETE -->
-	<delete id="deletePaperChoice">
+	<delete id="deletePaperChoice" parameterType="int">
 		DELETE FROM choice
 		WHERE choice_code = #{choiceCode}
 		<!-- WHERE question_code = #{questionCode} -->
 	</delete>
 	
 	<!-- PaperChoice :: LIST -->
-	<select id="listPaperChoice">
+	<select id="listPaperChoice" resultMap="choiceSelectMap">
 		select
 		*
 		FROM choice
