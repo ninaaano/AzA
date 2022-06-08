@@ -22,8 +22,8 @@ import java.util.Date;
 @Controller
 public class ChatBotController {
 
-    private static String secretKey = "cFhWbVpxR1VyRmN3YmVOcU54WU9NVEhTd3VCTHhZWlY=";
-    private static String apiUrl = "https://8q678tcxd8.apigw.ntruss.com/custom/v1/7113/0a0431753e61f1c94bc2b9bc9ad659c8cca4367c72771840a1e8dca560c191a2";
+    private static String secretKey = "=";
+    private static String apiUrl = "";
 
 //    @MessageMapping("/sendMessage")
     @MessageMapping("/sendMessage")
