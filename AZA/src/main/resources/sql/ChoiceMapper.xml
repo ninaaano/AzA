@@ -3,7 +3,7 @@
 
 <mapper namespace="ChoiceMapper">
 
-	<resultMap id="ChoiceSelectMap" type="paper">
+	<resultMap id="choiceSelectMap" type="paper">
 		<result property="choiceCode" column="choice_code" jdbcType="NUMERIC" />
 		<result property="questionCode" column="question_code" jdbcType="NUMERIC" />
 		<result property="choiceNo" column="choice_no" jdbcType="CHAR" />
@@ -16,22 +16,45 @@
 	<insert id="addPaperChoice">
 	INSERT INTO STUDENTS_RECORD
 	VALUES(
-		
+		seq_choice_choice_code.NEXTVAL,
+		#{questionCode},
+		#{choiceNo:CHAR},
+		#{choiceContent:VARCHAR}
 	)
 	</insert>
 	
 	<!-- PaperChoice :: SELECT-->
 	<select id="getPaperChoice">
-		
+		SELECT
+		*
+		FROM choice
+		WHERE choice_code = #{choiceCode}
 	</select>
 	
 	<!-- PaperChoice :: UPDATE-->
 	<update id="updatePaperChoice">
-	
+		UPDATE choice
+		<set>
+			choice_content = #{choiceContent}
+		</set>
+		WHERE choice_code = #{choiceCode}
 	</update>
 	
+	<!-- PaperChoice :: DELETE -->
 	<delete id="deletePaperChoice">
-	
+		DELETE FROM choice
+		WHERE choice_code = #{choiceCode}
+		<!-- WHERE question_code = #{questionCode} -->
 	</delete>
+	
+	<!-- PaperChoice :: LIST -->
+	<select id="listPaperChoice">
+		select
+		*
+		FROM choice
+		WHERE question_code = #{questionCode}	
+	</select>
+	
+	
 	
 </mapper>

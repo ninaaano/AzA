@@ -1,4 +1,4 @@
-package com.aza.service.paper.Impl;
+package com.aza.service.paper.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +68,7 @@ public class PaperServiceImpl2 implements PaperService2 {
 //		
 //		
 //		return map;
-//		// ìˆ˜ì •í•´ì•¼í•¨ ~.~
+//		// ?????´ì?¼í?? ~.~
 //	}
 
 

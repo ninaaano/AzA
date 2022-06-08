@@ -22,28 +22,41 @@ public interface PaperService {
 	//PaperQuiz :: LIST 
 	
 	
-	//PaperQuestion :: SELECT
+	//PaperQuestion :: INSERT
+	public void addPaperQuestion(Paper paper) throws Exception;
 	
+	//PaperQuestion :: SELECT
+	public Paper getPaperQuestion(int questionCode) throws Exception;
 	
 	//PaperQuestion :: UPDATE
-	
+	public void updatePaperQuestion(Paper paper) throws Exception;
 	
 	//PaperQuestion :: DELETE
+	public void deletePaperQuestion(int questionCode) throws Exception;
 	
+	//PaperQuestion :: LIST
+	public Map<String,Object> listPaperQuestion(int quizCode) throws Exception;
 	
 	//PaperFeedBack :: INSERT
 	
-	
 	//PaperFeedBack :: DELETE
 	
-	
 	//PaperFeedBack :: UPDATE
-	
-	
-	//PaperSubmitAnswer :: UPDATE
-	
+
+	//PaperSubmitAnswer :: UPDATE	
 	
 	//PaperAnswerCheck :: UPDATE
+	
+	//Choice :: INSERT
+	public void addPaperChoice(Paper paper) throws Exception;
+	//Choice :: SELECT
+	public Paper getPaperChoice(int choiceCode) throws Exception;
+	//Choice :: UPDATE
+	public void updatePaperChoice(Paper paper) throws Exception;
+	//Choice :: DELETE
+	public void deletePaperChoice(int choiceCode) throws Exception;
+	//Choice :: LIST
+	public Map<String,Object> listPaperChoice(int questionCode) throws Exception;
 	
 	
 	//========================================

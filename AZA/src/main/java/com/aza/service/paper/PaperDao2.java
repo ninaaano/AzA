@@ -15,12 +15,12 @@ public interface PaperDao2 {
 	
 	public void deletePaperQuiz(int quizCode) throws Exception;
 	
-	// 선생님 list
 	public List<Paper> listPaperQuizTeacher(Search search) throws Exception;
-	// 학부모, 학생 list
+	
 	public List<Paper> listPaperQuizStudent(Search search) throws Exception;
 
 	public int getPaperQuizTotalCountTeacher(Search serch)throws Exception;
 	public int getPaperQuizTotalCountStudent(Search serch)throws Exception;
+	
 	
 }
