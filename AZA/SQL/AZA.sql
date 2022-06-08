@@ -26,7 +26,7 @@ VALUES ('','teacher51','자바 타이핑','월수금','09:00','21:00','비트',4
 
 INSERT
 INTO LESSON 
-VALUES ('EDF43234','teacher51','비트고3 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),'teacher51','비트2 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT 
 INTO LESSON

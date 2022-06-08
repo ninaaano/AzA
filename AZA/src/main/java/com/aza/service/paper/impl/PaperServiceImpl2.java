@@ -1,4 +1,4 @@
-package com.aza.service.paper.Impl;
+package com.aza.service.paper.impl;
 
 import java.util.HashMap;
 import java.util.List;
