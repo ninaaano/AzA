@@ -55,14 +55,16 @@ public class PaymentDaoImpl implements PaymentDao {
 	@Override
 	public List<Payment> listPayment(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("PaymentMapper.listPaayment", search);
+		return sqlSession.selectList("PaymentMapper.listPayment", search);
 	}
 
+	
+	//test
+	//=============================================================================
 	@Override
-	public void addPaymentProcedure(Payment payment) throws Exception {
+	public void addPaymentProcedure() throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert("PaymentMapper.addPaymentProcedure", payment);
-		
+		sqlSession.insert("PaymentMapper.addPaymentProcedure");	
 	}
 
 	@Override

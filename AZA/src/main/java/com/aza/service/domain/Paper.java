@@ -1,8 +1,12 @@
 package com.aza.service.domain;
 
+import java.util.Date;
+
 public class Paper {
 	
 	private int quizCode;
+	private int questionCode;
+	private int choiceCode;
 	private String lessonCode;
 	private String studentId;
 	private String quizTitle;
@@ -38,6 +42,26 @@ public class Paper {
 
 	public void setQuizCode(int quizCode) {
 		this.quizCode = quizCode;
+	}
+
+
+	public int getQuestionCode() {
+		return questionCode;
+	}
+
+
+	public void setQuestionCode(int questionCode) {
+		this.questionCode = questionCode;
+	}
+
+
+	public int getChoiceCode() {
+		return choiceCode;
+	}
+
+
+	public void setChoiceCode(int choiceCode) {
+		this.choiceCode = choiceCode;
 	}
 
 
@@ -243,15 +267,19 @@ public class Paper {
 
 	@Override
 	public String toString() {
-		return "Paper [quizCode=" + quizCode + ", lessonCode=" + lessonCode + ", studentId=" + studentId
-				+ ", quizTitle=" + quizTitle + ", quizScore=" + quizScore + ", quizCreateAt=" + quizCreateAt
-				+ ", quizSubmitDate=" + quizSubmitDate + ", questionNo=" + questionNo + ", questionContent="
-				+ questionContent + ", teacherAnswer=" + teacherAnswer + ", studentAnswer=" + studentAnswer
-				+ ", feedBackContent=" + feedBackContent + ", answerCheck=" + answerCheck + ", choiceNo=" + choiceNo
-				+ ", choiceContent=" + choiceContent + ", homeworkCheck=" + homeworkCheck + ", homeworkTitle="
-				+ homeworkTitle + ", homeworkContent=" + homeworkContent + ", homeworkCreateAt=" + homeworkCreateAt
-				+ ", homeworkDueDate=" + homeworkDueDate + ", homeworkCode=" + homeworkCode + "]";
+		return "Paper [quizCode=" + quizCode + ", questionCode=" + questionCode + ", choiceCode=" + choiceCode
+				+ ", lessonCode=" + lessonCode + ", studentId=" + studentId + ", quizTitle=" + quizTitle
+				+ ", quizScore=" + quizScore + ", quizCreateAt=" + quizCreateAt + ", quizSubmitDate=" + quizSubmitDate
+				+ ", questionNo=" + questionNo + ", questionContent=" + questionContent + ", teacherAnswer="
+				+ teacherAnswer + ", studentAnswer=" + studentAnswer + ", feedBackContent=" + feedBackContent
+				+ ", answerCheck=" + answerCheck + ", choiceNo=" + choiceNo + ", choiceContent=" + choiceContent
+				+ ", homeworkCheck=" + homeworkCheck + ", homeworkTitle=" + homeworkTitle + ", homeworkContent="
+				+ homeworkContent + ", homeworkCreateAt=" + homeworkCreateAt + ", homeworkDueDate=" + homeworkDueDate
+				+ ", homeworkCode=" + homeworkCode + "]";
 	}
+
+
+
 	
 	
 }

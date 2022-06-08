@@ -79,7 +79,7 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	//@Test
+	@Test
 	public void testlistLesson() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -157,7 +157,7 @@ public class LessonServiceTest {
 	}
 		
 	//OK
-	@Test
+	//@Test
 	public void testgetLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		

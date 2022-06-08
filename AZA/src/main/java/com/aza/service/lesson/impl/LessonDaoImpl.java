@@ -72,6 +72,7 @@ public class LessonDaoImpl implements LessonDao {
 		map.put("teacherId", teacherId);
 		map.put("endRowNum", search.getEndRowNum()+"");
 		map.put("startRowNum", search.getStartRowNum()+"");
+		
 //		if usre.role = teacher
 		return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",map);
 //		else user.role = students
@@ -162,6 +163,4 @@ public class LessonDaoImpl implements LessonDao {
 		search.setSearchKeyword(searchKeyword);
 		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonTotalCount",search);
 	}
-
-
 }

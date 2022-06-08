@@ -34,9 +34,9 @@ public class AlertTest {
 
 		Alert alert = new Alert();
 
-		alert.setReceiverId("student12");
-		alert.setLessonCode("ABCD1234");
-		alert.setAlertContent("7일전");
+		alert.setReceiverId("student5");
+		alert.setLessonCode("X1LXRV7M");
+		alert.setAlertContent("수납일 7일전 입니다.");
 
 		alertService.addAlert(alert);
 
@@ -54,6 +54,7 @@ public class AlertTest {
 		alertService.addAlertAttendance(alert);
 	
 	}
+
 
 	
 //	@Test

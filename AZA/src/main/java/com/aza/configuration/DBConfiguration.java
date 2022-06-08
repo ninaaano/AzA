@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+
 @Configuration
 @PropertySource("classpath:/application.properties")
 @Component

@@ -40,7 +40,7 @@ public interface UserService {
 	//Relation :: SELECT
 //	public User getRelation(String firstStudentId, String parentId) throws Exception;
 	public User getRelation(int relationCode) throws Exception;
-	
+
 	//Relation :: UPDATE
 	public void updateRelation(User user) throws Exception;
 	

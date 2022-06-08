@@ -6,15 +6,12 @@
 
 <mapper namespace="RelationMapper">
 
-
+  	
 	<resultMap id="relationSelectMap" type="user">
-		<result property="relationCode" column="relation_code"
-			jdbcType="INTEGER" />
-		<result property="firstStudentId" column="student_id"
-			jdbcType="VARCHAR" />
-		<result property="userId" column="parent_id" jdbcType="VARCHAR" />
-		<result property="relationName" column="relation_name"
-			jdbcType="VARCHAR" />
+		<result property="relationCode" 			column="relation_code" 			jdbcType="INTEGER"/>
+		<result property="firstStudentId" 			column="student_id" 			jdbcType="VARCHAR" />
+		<result property="userId" 					column="parent_id" 				jdbcType="VARCHAR" />
+		<result property="relationName"				column="relation_name" 			jdbcType="VARCHAR" />
 	</resultMap>
 
 	<!-- Relation : INSERT -->
@@ -29,16 +26,19 @@
 		)
 	</insert>
 
+
 	<select id="getRelation" resultMap="relationSelectMap">
 		SELECT * FROM relation
 		WHERE
 		relation_code = #{relationCode}
 	</select>
-
 	<!-- Relation : UPDATE -->
 	<update id="updateRelation">
+
 		UPDATE relation
 		<set>
+			<if test="firstStudentId != null"> student_id = #{firstStudentId} , </if>
+			<if test="parentId != null"> parentId = #{parentId} , </if>
 			relation_name = #{relationName}
 		</set>
 		WHERE relation_code = #{relationCode}
@@ -115,7 +115,5 @@
 			</where>
 		</if>) countTable
 	</select>
-
-
 
 </mapper>

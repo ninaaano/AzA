@@ -2,6 +2,8 @@ package com.aza.service.payment;
 
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
 import com.aza.common.Search;
 import com.aza.service.domain.Payment;
 
@@ -23,7 +25,7 @@ public interface PaymentDao {
 	public List<Payment> listPayment(Search search) throws Exception;
 	
 	// 자동 add
-	public void addPaymentProcedure(Payment payment) throws Exception;
+	public void addPaymentProcedure() throws Exception;
 	
 	// totalCount
 	public int totalPaymentCount(Search search) throws Exception;

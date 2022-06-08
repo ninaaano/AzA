@@ -26,7 +26,7 @@ VALUES ('','teacher51','자바 타이핑','월수금','09:00','21:00','비트',4
 
 INSERT
 INTO LESSON 
-VALUES ('EDF43234','teacher51','비트고3 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),'teacher51','비트2 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT 
 INTO LESSON
@@ -385,6 +385,17 @@ END;
 
 CREATE OR  REPLACE TRIGGER TR_BOOK
 AFTER INSERT  of BOOK ON 
+
+
+--listchat
+SELECT *
+FROM (
+	SELECT inner_table.*, ROWNUM AS row_seq
+	FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
+			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and teacher_id = 'teacher51'
+			ORDER BY schedule_start_date || schedule_start_time) inner_table
+	WHERE ROWNUM <= 3)
+WHERE row_seq BETWEEN 1 AND 3;
 
 
 

@@ -20,10 +20,13 @@
 		<typeAlias alias="user" type="com.aza.service.domain.User"/>
 
 		<typeAlias alias="payment" type="com.aza.service.domain.Payment"/>
+		<typeAlias alias="paper" type="com.aza.service.domain.Paper"/>
 		
 		<typeAlias alias="search" type="com.aza.common.Search" />
 
 		<typeAlias alias="schedule" type="com.aza.service.domain.Schedule"/>
+		
+		<typeAlias alias="paper" type="com.aza.service.domain.Paper"/>
 	</typeAliases>
 	
 	<mappers>
@@ -40,6 +43,13 @@
 		<mapper resource="sql/UserMapper.xml"/>
 		<mapper resource="sql/ScheduleMapper.xml"/>
 		<mapper resource="sql/StudentsNoteMapper.xml"/>
+		<mapper resource="sql/QuizMapper.xml"/>
+		<mapper resource="sql/HomeworkMapper.xml"/>
+		<mapper resource="sql/QuestionMapper.xml"/>
+
+
+		<mapper resource="sql/ChoiceMapper.xml"/>
+
 	</mappers>
 
 </configuration>

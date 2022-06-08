@@ -8,7 +8,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 @PropertySource("classpath:application.properties")
 @ImportResource(value= {"classpath:config/context-aspect.xml",

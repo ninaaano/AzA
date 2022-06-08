@@ -16,6 +16,8 @@ public class Payment {
 	private String studentId; // 수납 대상자(?) ID
 	private String studentName; // 수납 대상자 이름
 	
+	private String imp_key;
+	private String imp_secret;
 	
 	public String getStudentName() {
 		return studentName;

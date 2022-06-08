@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0; https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<!-- 미연추가 -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+xmlns:context="http://www.springframework.org/schema/context"
+
+xmlns:task="http://www.springframework.org/schema/task"
+
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+ 
+
+<task:annotation-driven />    
+
+    <context:component-scan base-package="com.aza..*">
+
+    </context:component-scan>
+
+</beans>
+<!-- 미연추가 -->
+   
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <groupId>org.springframework.boot</groupId>
@@ -27,6 +52,25 @@
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
       </dependency>
+      
+      <!-- websocket -->
+      <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<!-- RabbitMQ Starter Dependency (Not required if you're using the simple in-memory broker for STOMP) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<!-- Following dependency is required for Full Featured STOMP Broker Relay -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-reactor-netty</artifactId>
+		</dependency>
+		
+		
+		
 
       <dependency>
          <groupId>org.springframework.boot</groupId>
@@ -94,17 +138,17 @@
 			<version>2.2.2</version>
 		</dependency>
 		
-		<dependencty>
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.5.9</version>
-		</dependencty>
+		</dependency>
 		
-		<dependencty>
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.7</version>
-		</dependencty>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -151,11 +195,11 @@
 		
 		<!--	aspect J 	-->
 		<dependency>
-    <groupId>org.aspectj</groupId>
-    <artifactId>aspectjrt</artifactId>
-    <version>1.9.8</version>
-    <scope>runtime</scope>
-</dependency>     
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		    <version>1.9.8</version>
+		    <scope>runtime</scope>
+		</dependency>     
       
       <!-- JSP -->
       <dependency>
@@ -183,17 +227,17 @@
           <version>4.0</version>
           <scope>test</scope>
       </dependency>
-      
-      <!--비밀번호 암호화-->
-      <dependency>
-		<groupId>commons-codec</groupId>
 		
-		<artifactId>commons-codec</artifactId>
+		<dependency>
+
+		    <groupId>commons-codec</groupId>
 		
-		<version>1.10</version>
+		    <artifactId>commons-codec</artifactId>
+		
+		    <version>1.15</version>
 		
 		</dependency>
-      
+		      
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -208,6 +252,44 @@
          <artifactId>spring-boot-configuration-processor</artifactId>
          <optional>true</optional>
       </dependency>
+      
+
+      
+      <!--chatbot dependency-->
+      <dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>webjars-locator-core</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>sockjs-client</artifactId>
+		  <version>1.0.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>stomp-websocket</artifactId>
+		  <version>2.3.3</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>bootstrap</artifactId>
+		  <version>3.3.7</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>jquery</artifactId>
+		  <version>3.1.1-1</version>
+		</dependency>
+		<!--chatbot dependency-->
+      
+
+      <!--  미연 추가 iamport -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			 <artifactId>gson</artifactId>
+			 <version>2.8.0</version>
+		</dependency>	
+      <!--  미연 추가 iamport -->
    </dependencies>
 
    <build>
@@ -230,7 +312,86 @@
                 <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-jar-plugin</artifactId>
             </plugin>
-
+            
+            <!--chatbot-->
+           	<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.12</version>
+				<configuration>
+					<repository>ncp_chatbot</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--chatbot-->
+            
+            <plugin>
+            
+            <!-- fe :: node modules-->
+		        <groupId>com.github.eirslett</groupId>
+		        <artifactId>frontend-maven-plugin</artifactId>
+		        <!-- Use the latest released version:
+		        https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+		          <configuration>
+		        <workingDirectory>src/main/resources/static</workingDirectory>
+		    <configuration>
+		        <installDirectory>src/main/resources/static</installDirectory>
+		    </configuration> 
+		    </configuration>
+		        
+		        <version>LATEST_VERSION</version>
+		    </plugin>
+		            <executions>
+		        <execution>
+		            <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
+		            <id>install node and npm</id>
+		            <goals>
+		                <goal>install-node-and-npm</goal>
+		            </goals>
+		            <!-- optional: default phase is "generate-resources" -->
+		            <phase>generate-resources</phase>
+		        </execution>
+		    </executions>
+		    <configuration>
+		        <nodeVersion>v4.6.0</nodeVersion>
+		
+		        <!-- optional: with node version greater than 4.0.0 will use npm provided by node distribution -->
+		        <npmVersion>2.15.9</npmVersion>
+		        
+		        <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
+		        <downloadRoot>http://myproxy.example.org/nodejs/</downloadRoot>
+		    </configuration>
+		    
+		<execution>
+		    <id>npm install</id>
+		    <goals>
+		        <goal>npm</goal>
+		    </goals>
+		
+		    <!-- optional: default phase is "generate-resources" -->
+		    <phase>generate-resources</phase>
+		
+		    <configuration>
+		        <!-- optional: The default argument is actually
+		        "install", so unless you need to run some other npm command,
+		        you can remove this whole <configuration> section.
+		        -->
+		        <arguments>install</arguments>
+		    </configuration>
+		</execution>
       </plugins>
    </build>
 <!---->
