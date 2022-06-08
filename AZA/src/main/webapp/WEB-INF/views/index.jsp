@@ -26,6 +26,12 @@
                         if(result) {
                         	console.log(result);
                         	
+                        	sessionStorage.setItem('userId', result[0].userId);
+                        	
+                        	result.shift();
+                        	
+                        	console.log(result);
+                        	
                         	var listOtherView = "";
                         	
                         	result.map((other,i) => {
