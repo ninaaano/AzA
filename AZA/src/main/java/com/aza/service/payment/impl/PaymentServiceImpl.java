@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.catalina.connector.Response;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -165,8 +166,28 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public int paymentInfo(String imp_uid, String access_token) {
-		// TODO Auto-generated method stub
+//		  HttpsURLConnection conn = null;
+//		  
+//		    URL url = new URL("https://api.iamport.kr/payments/" + imp_uid);
+//		 
+//		    conn = (HttpsURLConnection) url.openConnection();
+//		 
+//		    conn.setRequestMethod("GET");
+//		    conn.setRequestProperty("Authorization", access_token);
+//		    conn.setDoOutput(true);
+//		 
+//		    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+//		    
+//		    Gson gson = new Gson();
+//		    
+//		    Response response = gson.fromJson(br.readLine(), Response.class);
+//		    
+//		    br.close();
+//		    conn.disconnect();
+//		    
+//		    return response.getResponse().getAmount();
 		return 0;
+		   
 	}
 
 	@Override
