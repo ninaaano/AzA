@@ -1,12 +1,21 @@
 package com.aza.service.payment.impl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,10 +29,19 @@ import com.aza.common.Search;
 import com.aza.service.domain.Payment;
 import com.aza.service.payment.PaymentDao;
 import com.aza.service.payment.PaymentService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 
 @Service("paymentServiceImpl")
 public class PaymentServiceImpl implements PaymentService {
+	
 
+	private String impKey="1382659815177138";
+
+
+	private String impSecret="b4ed387e2dddc2215f36f73dd4d5d629989345453969f937d7cec4792813c76ef9459616ca548ef3";
+	
 	@Autowired
 	@Qualifier("paymentDaoImpl")
 	private PaymentDao paymentDao;
@@ -104,6 +122,57 @@ public class PaymentServiceImpl implements PaymentService {
 		HttpEntity<JSONObject>entity = new HttpEntity<>(body,headers);
 		ResponseEntity<JSONObject> token  = restTemplate.postForEntity(url, entity, JSONObject.class);
 	
+	}
+// 아임포트 API method
+	@Override
+	public String getToken() throws IOException {
+		HttpsURLConnection conn = null;
+		 
+		URL url = new URL("https://api.iamport.kr/users/getToken");
+
+		conn = (HttpsURLConnection) url.openConnection();
+
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setDoOutput(true);
+		JsonObject json = new JsonObject();
+
+		json.addProperty("imp_key", impKey);
+		json.addProperty("imp_secret", impSecret);
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		
+		bw.write(json.toString());
+		bw.flush();
+		bw.close();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
+		Gson gson = new Gson();
+
+		String response = gson.fromJson(br.readLine(), Map.class).get("response").toString();
+		
+		System.out.println(response);
+
+		String token = gson.fromJson(response, Map.class).get("access_token").toString();
+
+		br.close();
+		conn.disconnect();
+
+		return token;
+	}
+
+	@Override
+	public int paymentInfo(String imp_uid, String access_token) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void payMentCancle(String access_token, String imp_uid, String amount, String reason) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -1,5 +1,6 @@
 package com.aza.service.payment;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +27,11 @@ public interface PaymentService {
 	
 	// 자동 add
 	public void addPaymentProcedure() throws Exception;
-
+	
+	//아임포트..
+	public String getToken() throws IOException;
+	
+	public int paymentInfo(String imp_uid, String access_token);
+	
+	public void payMentCancle(String access_token, String imp_uid, String amount, String reason);
 }
