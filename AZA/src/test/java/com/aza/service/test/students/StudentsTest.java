@@ -48,8 +48,8 @@ public class StudentsTest {
 		Students students = new Students();
 
 		students.setLessonCode("ABCD1234");
-		students.setStudentId("student12");
-		students.setLessonStartDate("2022/06/05"); //이거 통일시켜야할듯
+		students.setStudentId("student11");
+		students.setLessonStartDate("2022/06/08"); //이거 통일시켜야할듯
 		students.setFees(10000);
 		students.setPayDueDate("30");
 
@@ -74,12 +74,12 @@ public class StudentsTest {
 	}
 
 
-	//	@Test // :: proposal
+		@Test // :: proposal
 	public void testProposalStudents() throws Exception {
 
-		studentsService.proposalStudents(1041, '1'); // 승인
+		studentsService.proposalStudents(1050, '1'); // 승인
 
-		System.out.println(studentsService.getStudentsRecord(1041));
+		System.out.println(studentsService.getStudentsRecord(1080));
 	}
 
 
@@ -160,7 +160,7 @@ public class StudentsTest {
 
 	}
 
-	@Test
+//	@Test
 	public void testUpdateStudentsAttendance() throws Exception {
 
 		Students students = studentsService.getStudentsAttendance(1065);

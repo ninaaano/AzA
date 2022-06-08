@@ -77,6 +77,8 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 		}
 		
+		System.out.println(session.getAttribute("user"));
+		
 		mv.setViewName("/index");
 		
 		return mv;
