@@ -34,7 +34,7 @@
 	INSERT INTO payment
 	VALUES(seq_payment_pay_code.NEXTVAL, #{studentRecordNo}, #{studentId},  
 	(SELECT user_name FROM users WHERE user_id = #{studentId}), #{payer:VARCHAR},#{amount}, 
-	(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
+	TO_CHAR(SYSDATE,'yyyy/mm')||'/'||(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
 	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR}, #{merchantUid:VARCHAR})	 
 	 </insert>
 	 
