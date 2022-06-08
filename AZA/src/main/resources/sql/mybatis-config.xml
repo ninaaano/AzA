@@ -43,13 +43,9 @@
 		<mapper resource="sql/UserMapper.xml"/>
 		<mapper resource="sql/ScheduleMapper.xml"/>
 		<mapper resource="sql/StudentsNoteMapper.xml"/>
-<<<<<<< HEAD
 		<mapper resource="sql/QuizMapper.xml"/>
-=======
 		<mapper resource="sql/HomeworkMapper.xml"/>
 		<mapper resource="sql/QuestionMapper.xml"/>
-		
->>>>>>> refs/heads/YS
 	</mappers>
 
 </configuration>

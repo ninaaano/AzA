@@ -186,7 +186,7 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	@Test
+	//@Test
 	public void listLessonSchedule() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
