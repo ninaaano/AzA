@@ -3,50 +3,98 @@
 
 <mapper namespace="QuestionMapper">
 
-	<resultMap id="QuestionSelectMap" type="paper">
+	<resultMap id="questionSelectMap" type="paper">
 		<result property="questionCode" column="question_code" jdbcType="NUMERIC" />
 		<result property="quizCode" column="quiz_code" jdbcType="NUMERIC" />
-		<result property="choiceCode" column="choice_code" jdbcType="NUMERIC" />
 		<result property="questionNo" column="question_no" jdbcType="NUMERIC" />
 		<result property="questionContent" column="question_content" jdbcType="VARCHAR" />
-		<result property="teacherAnswer" column="teacher_answer" jdbcType="CHAR" />
+		<result property="teacherAnswer" column="teacher_answer" jdbcType="VARCHAR" />
 		<result property="studentAnswer" column="student_answer" jdbcType="VARCHAR" />
-		<result property="feedbackContent" column="feedback_content" jdbcType="VARCHAR" />
+		<result property="feedBackContent" column="feedback_content" jdbcType="VARCHAR" />
 		<result property="answerCheck" column="answer_check" jdbcType="CHAR" />
 	</resultMap>
 
 
 	<!-- PaperQuestion :: INSERT -->
 	<insert id="addPaperQuestion">
-	INSERT INTO STUDENTS_RECORD
+	INSERT INTO question
 	VALUES(
 		seq_question_question_code.NEXTVAL,
 		#{quizCode},
 		#{questionNo},
 		#{questionContent},
-		#{teacherAnswer},
-		#{studentAnswer},
-		#{feedbackContent},
-		#{answerCheck}
+		#{teacherAnswer:VARCHAR},
+		#{studentAnswer:VARCHAR},
+		#{feedBackContent:VARCHAR},
+		#{answerCheck:CHAR}
 	)
 	</insert>
 	
 	<!-- PaperQuestion :: SELECT -->
-	<select id="getPaperQuestion">
-		
+	<select id="getPaperQuestion" parameterType="int" resultMap="questionSelectMap">
+		SELECT
+		*
+		FROM question
+		WHERE question_code = #{questionCode}
 	</select>
 	
 	<!-- PaperQuestion :: UPDATE -->
-	<update id="updatePaperQuestion">
-	
+	<update id="updatePaperQuestion" parameterType="paper">
+		UPDATE question
+		<set>
+			question_content = #{questionContent},
+			teacher_answer = #{teacherAnswer},
+			student_answer = #{studentAnswer},
+			answer_check = #{answerCheck},
+			feedback_content = #{feedBackContent}
+		</set>
+		WHERE question_code = #{questionCode}
+		
 	</update>
 	
 	<!-- PaperQuestion :: DELETE -->
-	<delete id="deletePaperQuestion">
-	
+	<delete id="deletePaperQuestion" parameterType="int">
+		DELETE FROM question
+		WHERE question_code = #{questionCode}
 	</delete>
 	
+	<!-- PaperQuestion :: LIST -->
+	<select id="listPaperQuestion" resultMap="questionSelectMap">
+		SELECT
+		*
+		FROM question
+		WHERE quiz_code = #{quizCode}
+	</select>
 	
+	
+	
+	
+	<!-- FeedBack :: UPDATE -->
+	<update	id="updateFeedback">
+		UPDATE question
+		<set>
+			feedback_content = #{feedBackContent}
+		</set>
+		WHERE question_code = #{questionCode}
+	</update>
+	
+	<!-- answerCheck :: UPDATE -->
+	<update	id="updateAnswerCheck">
+		UPDATE question
+		<set>
+			answer_check = #{answerCheck}
+		</set>
+		WHERE question_code = #{questionCode}
+	</update>
+	
+	<!-- answerCheck :: UPDATE -->
+	<update	id="updateStudentAnswer">
+		UPDATE question
+		<set>
+			student_answer = #{answerCheck}
+		</set>
+		WHERE question_code = #{questionCode}
+	</update>		
 	
 	
 	

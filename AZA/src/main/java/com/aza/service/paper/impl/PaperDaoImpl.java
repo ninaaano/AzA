@@ -92,4 +92,55 @@ public class PaperDaoImpl implements PaperDao {
 		
 		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
 	}
+
+	@Override
+	public void addPaperQuestion(Paper paper) throws Exception {
+		sqlSession.insert("QuestionMapper.addPaperQuestion", paper);
+	}
+
+	@Override
+	public Paper getPaperQuestion(int questionCode) throws Exception {
+		return sqlSession.selectOne("QuestionMapper.getPaperQuestion",questionCode);
+	}
+
+	@Override
+	public void updatePaperQuestion(Paper paper) throws Exception {
+		sqlSession.update("QuestionMapper.updatePaperQuestion",paper);
+	}
+
+	@Override
+	public void deletePaperQuestion(int questionCode) throws Exception {
+		sqlSession.delete("QuestionMapper.deletePaperQuestion",questionCode);
+	}
+
+	@Override
+	public List<Paper> listPaperQuestion(int quizCode) throws Exception {
+		return sqlSession.selectList("QuestionMapper.listPaperQuestion",quizCode);
+	}
+
+	@Override
+	public void addPaperChoice(Paper paper) throws Exception {
+		sqlSession.insert("ChoiceMapper.addPaperChoice", paper);
+	}
+
+	@Override
+	public Paper getPaperChoice(int choiceCode) throws Exception {
+		return sqlSession.selectOne("ChoiceMapper.getPaperChoice", choiceCode);
+	}
+
+	@Override
+	public void updatePaperChoice(Paper paper) throws Exception {
+		sqlSession.update("ChoiceMapper.updatePaperChoice",paper);
+	}
+
+	@Override
+	public void deletePaperChoice(int choiceCode) throws Exception {
+		sqlSession.delete("ChoiceMapper.deletePaperChoice", choiceCode);
+	}
+
+	@Override
+	public List<Paper> listPaperChoice(int questionCode) throws Exception {
+		return sqlSession.selectList("ChoiceMapper.listPaperChoice",questionCode);
+	}
+
 }

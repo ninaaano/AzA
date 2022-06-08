@@ -79,6 +79,69 @@ public class PaperServiceImpl implements PaperService {
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception {
 		paperDao.updatePaperHomeworkCheck(homeworkCode);
 	}
+
+	@Override
+	public void addPaperQuestion(Paper paper) throws Exception {
+		paperDao.addPaperQuestion(paper);
+	}
+
+	@Override
+	public Paper getPaperQuestion(int questionCode) throws Exception {
+		return paperDao.getPaperQuestion(questionCode);
+	}
+
+	@Override
+	public void updatePaperQuestion(Paper paper) throws Exception {
+		paperDao.updatePaperQuestion(paper);
+	}
+
+	@Override
+	public void deletePaperQuestion(int questionCode) throws Exception {
+		paperDao.deletePaperQuestion(questionCode);
+	}
+
+	@Override
+	public Map<String, Object> listPaperQuestion(int quizCode) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuestion(quizCode);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+
+	@Override
+	public void addPaperChoice(Paper paper) throws Exception {
+		paperDao.addPaperChoice(paper);
+	}
+
+	@Override
+	public Paper getPaperChoice(int choiceCode) throws Exception {
+		return paperDao.getPaperChoice(choiceCode);
+	}
+
+	@Override
+	public void updatePaperChoice(Paper paper) throws Exception {
+		paperDao.updatePaperChoice(paper);
+	}
+
+	@Override
+	public void deletePaperChoice(int choiceCode) throws Exception {
+		paperDao.deletePaperChoice(choiceCode);
+	}
+
+	@Override
+	public Map<String, Object> listPaperChoice(int questionCode) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuestion(questionCode);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+
 	
 	
 }

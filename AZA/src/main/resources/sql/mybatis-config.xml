@@ -46,6 +46,10 @@
 		<mapper resource="sql/QuizMapper.xml"/>
 		<mapper resource="sql/HomeworkMapper.xml"/>
 		<mapper resource="sql/QuestionMapper.xml"/>
+
+		<mapper resource="sql/ChoiceMapper.xml"/>
+
+
 	</mappers>
 
 </configuration>
