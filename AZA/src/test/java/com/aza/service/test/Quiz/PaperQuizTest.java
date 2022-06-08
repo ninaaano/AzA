@@ -113,7 +113,7 @@ public class PaperQuizTest {
 	//@Test
 	public void testAddQuestion() throws Exception{
 		Paper paper = new Paper();
-		paper.setQuizCode(1000);
+		paper.setQuizCode(1001);
 		paper.setQuestionNo(3);
 		paper.setQuestionContent("123+321 =???");
 		paper.setTeacherAnswer("list Test용");
@@ -155,13 +155,16 @@ public class PaperQuizTest {
 		paperService.deletePaperQuestion(paper.getQuestionCode());
 	}
 	
-	@Test
+///	@Test
 	public void testListPaperQuestion() throws Exception{
-		Paper paper = new Paper();
-		paper.setQuizCode(1000);
-		
-		paperService.listPaperQuestion(paper.getQuizCode());
-		System.out.println(paper);
+//		Paper paper = new Paper();
+//		paper.setQuizCode(1000);
+
+		Map<String, Object> map = paperService.listPaperQuestion(1001);
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println("Test list ==> " + list);
+//		paperService.listPaperQuestion(paper.getQuizCode());
+//		System.out.println(paper);
 	}
 	
 	//@Test
@@ -182,7 +185,7 @@ public class PaperQuizTest {
 		paperService.getPaperChoice(paper.getChoiceCode());
 	}
 	
-	@Test
+	//@Test
 	public void testUpdatePaperChoice() throws Exception {
 		Paper paper = new Paper();
 		paper.setChoiceCode(1001);
@@ -199,14 +202,105 @@ public class PaperQuizTest {
 		paperService.deletePaperChoice(paper.getChoiceCode());
 	}
 	
-	//@Test
+//	@Test
 	public void testListPaperChoice() throws Exception {
+//		Paper paper = new Paper();
+//		paper.setQuestionCode(1001);
+		
+		Map<String, Object> map = paperService.listPaperChoice(1001);
+		List<Object> list = (List<Object>)map.get("list");
+		
+//		paperService.listPaperChoice(paper.getQuestionCode());
+		System.out.println("Test list ======= " + list);
+	}
+	
+	//========================= HomeWork
+	//@Test
+	public void testAddHomework() throws Exception {
 		Paper paper = new Paper();
-		paper.setQuestionCode(1001);
 		
-		//Map<String, Object> map = paperService.listPaperChoice(1001);
-		//List<Object> list = (List<Object>)map.get("list");
+		paper.setStudentId("student31");
+		paper.setLessonCode("abcd1234");
+		paper.setHomeworkTitle("Test01");
+		paper.setHomeworkContent("test_content");
+		paper.setHomeworkDueDate("2022/06/08");
+		paper.setHomeworkCheck('0');
 		
-		paperService.listPaperChoice(paper.getQuestionCode());
+		System.out.println("HomeWork==>"+paper);
+		paperService.addPaperHomework(paper);
+		
+	}
+	
+	//@Test
+	public  void testGetHomework() throws Exception {
+//		Paper paper = new Paper();
+//		paper.setHomeworkCode(1004);
+		
+		
+		Paper paper = paperService.getPaperHomework(1004);
+		System.out.println("homework_test ==>"+paper.getHomeworkContent());
+	}
+	
+	//@Test
+	public void testUpdateHomework() throws Exception {
+		Paper paper = new Paper();
+		
+		paper.setHomeworkCode(1004);
+		paper.setHomeworkTitle("updateTest");
+		paper.setHomeworkContent("updateTest");
+		paper.setHomeworkDueDate("2022/06/10");
+
+		paperService.updatePaperHomework(paper);
+	}
+	
+	//@Test
+	public void testUpdateHomeworkCheck() throws Exception {
+		Paper paper = new Paper();
+		
+		paper.setHomeworkCode(1004);
+		
+		paperService.updatePaperHomeworkCheck(paper.getHomeworkCode());
+	}
+	
+	//@Test
+	public void testDeleteHomework() throws Exception {
+		Paper paper = new Paper();
+		paper.setHomeworkCode(1004);
+		
+		paperService.deletePaperHomework(paper.getHomeworkCode());
+	}
+	//@Test
+	public void testListHomeworkByStudent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3); 
+		search.setSearchId("student31");
+		search.setLessonCode("abcd1234");
+		
+		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search, search.getLessonCode(),search.getSearchId());
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("==========="+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("==="+totalCount);
+	}
+	
+	//@Test
+	public void testListHomeworkByTeacher() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3); 
+		search.setLessonCode("abcd1234");
+		
+		Map<String,Object> map = paperService.listPaperHomeworkByTeacher(search, search.getLessonCode());
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println("==========="+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("==="+totalCount);
 	}
 }
