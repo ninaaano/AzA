@@ -108,7 +108,7 @@
 	
 	<insert id="addPaymentProcedure">
 	INSERT 
-	WHEN ROUND(SYSDATE-TO_DATE(pay_due_date,'yyyy/mm/dd'),1) >= 20 THEN
+	WHEN TRUNC(SYSDATE-TO_DATE(pay_due_date,'yyyy/mm/dd'),1) = 10 THEN
 	INTO payment VALUES(seq_payment_pay_code.NEXTVAL, 
 	student_record_no, 
 	student_id, 
