@@ -89,7 +89,7 @@ public class PaymentServiceImpl implements PaymentService {
 		// TODO Auto-generated method stub
 		
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "https://api.iamport.kr/users/getToken?_token=69bbd19d4356e54e8f6a1df7f276e2a223438730";
+		String url = "https://api.iamport.kr/users/getToken";
 		String imp_key = "1382659815177138";
 		String imp_secret = "b4ed387e2dddc2215f36f73dd4d5d629989345453969f937d7cec4792813c76ef9459616ca548ef3";
 		
