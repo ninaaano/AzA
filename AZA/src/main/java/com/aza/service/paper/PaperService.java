@@ -8,19 +8,21 @@ import com.aza.service.domain.Paper;
 public interface PaperService {
 	
 	//PaperQuiz :: INSERT
-	
+	public void addPaperQuiz(Paper paper) throws Exception;
 	
 	//PaperQuiz :: SELECT
-	
+	public Paper getPaperQuiz(int quizCode) throws Exception;
 	
 	//PaperQuiz :: UPDATE
-	
+	public void updatePaperQuiz(Paper paper) throws Exception;
 	
 	//PaperQuiz :: DELETE
-	
+	public void deletePaperQuiz(int quizCode) throws Exception;
 	
 	//PaperQuiz :: LIST 
-	
+	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception;
+	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception;
+
 	
 	//PaperQuestion :: INSERT
 	public void addPaperQuestion(Paper paper) throws Exception;

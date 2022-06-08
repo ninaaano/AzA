@@ -142,5 +142,63 @@ public class PaperDaoImpl implements PaperDao {
 	public List<Paper> listPaperChoice(int questionCode) throws Exception {
 		return sqlSession.selectList("ChoiceMapper.listPaperChoice",questionCode);
 	}
+	//== 미연 Quiz 추가
+	@Override
+	public Paper getPaperQiuz(int quizCode) throws Exception {
+		
+		return sqlSession.selectOne("QuizMapper.getPaperQuiz",quizCode);
+	}
+
+	@Override
+	public void addPaperQiuz(Paper paper) throws Exception {
+		sqlSession.insert("QuizMapper.addPaperQuiz", paper);
+
+	}
+
+	@Override
+	public void updatePaperQuiz(Paper paper) throws Exception {
+		sqlSession.update("QuizMapper.updatePaperQuiz", paper);
+
+	}
+
+	@Override
+	public void deletePaperQuiz(int quizCode) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("QuizMapper.deletePaperQuiz",quizCode);
+
+	}
+//====================================================================
+//	@Override
+//	public List<Paper> listPaperQuiz(Search search) throws Exception {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList("QuizMapper.listPaperQuiz", search);
+//	}
+
+
+	@Override
+	public List<Paper> listPaperQuizTeacher(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("QuizMapper.listPaperQuizTeacher", search);
+	}
+
+	@Override
+	public List<Paper> listPaperQuizStudent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("QuizMapper.listPaperQuizStudent", search);
+	}
+
+	@Override
+	public int getPaperQuizTotalCountStudent(Search serch) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountStudent",serch);
+	}
+	
+	
+	@Override
+	public int getPaperQuizTotalCountTeacher(Search serch) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountTeacher",serch);
+	}
+
 
 }

@@ -110,7 +110,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		return map;
 	}
-
+//=========================== Choice
 	@Override
 	public void addPaperChoice(Paper paper) throws Exception {
 		paperDao.addPaperChoice(paper);
@@ -142,6 +142,57 @@ public class PaperServiceImpl implements PaperService {
 		return map;
 	}
 
-	
+	//== 미연 Quiz 추가
+	@Override
+	public void addPaperQuiz(Paper paper) throws Exception {
+		paperDao.addPaperQiuz(paper);
+		
+	}
+
+	@Override
+	public Paper getPaperQuiz(int quizCode) throws Exception {
+		// TODO Auto-generated method stub
+		return paperDao.getPaperQiuz(quizCode);
+	}
+
+	@Override
+	public void updatePaperQuiz(Paper paper) throws Exception {
+		// TODO Auto-generated method stub
+		paperDao.updatePaperQuiz(paper);
+	}
+
+	@Override
+	public void deletePaperQuiz(int quizCode) throws Exception {
+		paperDao.deletePaperQuiz(quizCode);
+		
+	}
+
+	@Override
+	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception {
+		List<Paper> list = paperDao.listPaperQuizTeacher(search);
+		int totalCount = paperDao.getPaperQuizTotalCountTeacher(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		
+		return map;
+	}
+
+
+	@Override
+	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperQuizStudent(search);
+		int totalCount = paperDao.getPaperQuizTotalCountStudent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		
+		return map;
+	}
 	
 }

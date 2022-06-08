@@ -27,14 +27,14 @@ import com.aza.service.payment.PaymentService;
 public class PaymentController {
 	
 	//Field
-	@Autowired
-	@Qualifier("paymentServiceImpl")
-	private PaymentService paymentService;
-	
-	@Value("#{commonProperties['pageUnit']}")
-	int pageUnit;
-	@Value("#{commonProperties['pageSize']}")
-	int pageSize;	
+//	@Autowired
+//	@Qualifier("paymentServiceImpl")
+//	private PaymentService paymentService;
+//	
+//	@Value("#{commonProperties['pageUnit']}")
+//	int pageUnit;
+//	@Value("#{commonProperties['pageSize']}")
+//	int pageSize;	
 
 	public PaymentController() {
 		// TODO Auto-generated constructor stub
@@ -42,12 +42,13 @@ public class PaymentController {
 	}
 	
 	//== TEST
-	@RequestMapping("/1")
+	//mapping Test OK
+	@RequestMapping("1")
 	public @ResponseBody ModelAndView paymentControllerTest() {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("/payment");
+		mv.setViewName("/payment/payment");
 		
 		return mv;
 	}		

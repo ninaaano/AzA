@@ -8,22 +8,27 @@ import com.aza.service.domain.Paper;
 
 public interface PaperDao {
 		//PaperQuiz :: INSERT
-	
+		public void addPaperQiuz(Paper paper) throws Exception;
 	
 		//PaperQuiz :: SELECT
-		
+		public Paper getPaperQiuz(int quizCode) throws Exception; 
 	
 		//PaperQuiz :: UPDATE
-	
+		public void updatePaperQuiz(Paper paper) throws Exception;	
 	
 		//PaperQuiz :: DELETE
-	
+		public void deletePaperQuiz(int quizCode) throws Exception;	
 	
 		//PaperQuiz :: LIST
+		public List<Paper> listPaperQuizTeacher(Search search) throws Exception;
+		
+		public List<Paper> listPaperQuizStudent(Search search) throws Exception;
 	
 	
 		//PaperQuiz :: TOTAL COUNT
-	
+		public int getPaperQuizTotalCountTeacher(Search serch)throws Exception;
+		public int getPaperQuizTotalCountStudent(Search serch)throws Exception;
+			
 	
 		//PaperQuestion :: INSERT
 		public void addPaperQuestion(Paper paper) throws Exception;
