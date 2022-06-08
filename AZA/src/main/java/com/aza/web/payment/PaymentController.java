@@ -3,6 +3,7 @@ package com.aza.web.payment;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,9 +28,11 @@ import com.aza.service.payment.PaymentService;
 public class PaymentController {
 	
 	//Field
-//	@Autowired
-//	@Qualifier("paymentServiceImpl")
-//	private PaymentService paymentService;
+	@Autowired
+	@Qualifier("paymentServiceImpl")
+	private PaymentService paymentService;
+	
+	
 //	
 //	@Value("#{commonProperties['pageUnit']}")
 //	int pageUnit;
@@ -46,12 +49,24 @@ public class PaymentController {
 	@RequestMapping("1")
 	public @ResponseBody ModelAndView paymentControllerTest() {
 		
+		try {
+
+			String token = paymentService.getToken();
+			System.out.println("토큰 ==> " + token);
+
+			} catch (IOException e) {
+
+			 System.out.println ("exception");
+
+			}
+		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("/payment/payment");
 		
 		return mv;
-	}		
+	}
+	
 	//== TEST
 	
 //	@RequestMapping(value = "/getPayment", method = RequestMethod.GET)

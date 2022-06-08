@@ -303,4 +303,13 @@ public class PaperQuizTest {
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println("==="+totalCount);
 	}
+	
+	//================================================================
+	//@Test
+	void testAdd() throws Exception {
+		
+		Paper paper = new Paper();
+
+		
+	}
 }
