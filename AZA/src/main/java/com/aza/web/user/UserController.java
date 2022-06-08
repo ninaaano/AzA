@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -82,6 +83,11 @@ public class UserController {
 		mv.setViewName("/index");
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="getUser",method=RequestMethod.GET)
+	public ModelAndView getUser (@RequestParam("userId")String userId) throws Exception{
+		return new ModelAndView("/user/getUser","user",userService.getUser(userId));
 	}
 	
 }
