@@ -181,14 +181,16 @@ WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student
 select*from lesson l, students_record sr where l.lesson_code = sr.lesson_code and sr.student_id ='student5';
 
 SELECT*
-FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	FROM(SELECT L.lesson_name,  U.user_name, SR.proposal
-		FROM LESSON L, STUDENTS_RECORD SR, USERS U
-		WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id ='student5'
-		ORDER BY L.lesson_create_at desc) inner_table
-		WHERE ROWNUM <=3)
-	WHERE row_seq BETWEEN 1 AND 3;
-
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
+			FROM(
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal
+				FROM LESSON L, STUDENTS_RECORD SR, USERS U
+				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = 'student5'
+				ORDER BY L.lesson_create_at desc			
+			 )inner_table
+				WHERE ROWNUM < = 3)
+			WHERE row_seq BETWEEN 1 and 3;
+/*====================================*/
 
 SELECT*
 FROM (SELECT inner_table.*

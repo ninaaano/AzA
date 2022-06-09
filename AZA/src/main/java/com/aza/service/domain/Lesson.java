@@ -24,6 +24,9 @@ public class Lesson {
     
     private int bookCode;
     
+    private Students studentId;
+    private Students proposal;
+    private User userName;
     
     public Lesson() {
     }
@@ -120,7 +123,7 @@ public class Lesson {
     	return "Lesson [lessonCode="+lessonCode+", lesson_name= "+lessonName+", lessonDay= "+lessonDay+
     			", lessonStartTime= "+lessonStartTime+", lessonEndTime= "+lessonEndTime+", lessonPlace= "+lessonPlace+
     			",fees = "+fees+", subject= "+subject+", teacherId= "+teacherId+", lessonContent= "+lessonContent+
-    			"lessonCreateAt= "+lessonCreateAt+"]"+
+    			", lessonCreateAt= "+lessonCreateAt+"]"+"userName= "+userName+
     			"Book [isbn= "+isbn+", bookTitle= "+bookTitle+"publisher= "+publisher+
     			"bookPrice= "+bookPrice+", author= "+author+", bookYear= "+bookYear+
     			"bookImg= "+bookImg+"]";
@@ -189,5 +192,29 @@ public class Lesson {
 
 	public void setBookCode(int bookCode) {
 		this.bookCode = bookCode;
+	}
+
+	public Students getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Students studentId) {
+		this.studentId = studentId;
+	}
+
+	public User getUserName() {
+		return userName;
+	}
+
+	public void setUserName(User userName) {
+		this.userName = userName;
+	}
+
+	public Students getProposal() {
+		return proposal;
+	}
+
+	public void setProposal(Students proposal) {
+		this.proposal = proposal;
 	}
 }

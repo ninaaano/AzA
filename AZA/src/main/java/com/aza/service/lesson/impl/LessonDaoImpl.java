@@ -65,19 +65,34 @@ public class LessonDaoImpl implements LessonDao {
 	}
 
 	@Override
-	public List<Lesson> listLesson(Search search, String teacherId) throws Exception {
+	public List<Lesson> listLesson(Search search, String userID) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
 		
-		map.put("teacherId", teacherId);
+		map.put("teacherId", userID);
+//		map.put("studentId", userID);
 		map.put("endRowNum", search.getEndRowNum()+"");
 		map.put("startRowNum", search.getStartRowNum()+"");
 		
 //		if usre.role = teacher
 		return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",map);
+		
+//		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",map);
 //		else user.role = students
 //			return lessonMapper.listLesosnStuents .fsdafjsdpam):	
 	}
+
+//	@Override
+//	public List<Lesson> listLessonStudent(Search search, String studnetId) throws Exception {
+//		// TODO Auto-generated method stub
+//		Map<String, String> map = new HashMap<String, String>();
+//		
+//		map.put("studentId", studnetId);
+//		map.put("endRowNum", search.getEndRowNum()+"");
+//		map.put("startRowNum", search.getStartRowNum()+"");
+//		
+//		return sqlSessionTemplate.select;
+//	}
 	
 //	==================================
 
@@ -163,4 +178,5 @@ public class LessonDaoImpl implements LessonDao {
 		search.setSearchKeyword(searchKeyword);
 		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonTotalCount",search);
 	}
+
 }

@@ -20,7 +20,6 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 <task:annotation-driven />    
 
     <context:component-scan base-package="com.aza..*">
-
     </context:component-scan>
 
 </beans>
@@ -111,6 +110,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
          <artifactId>spring-boot-starter-test</artifactId>
          <scope>test</scope>
       </dependency>
+      
       
 		<dependency>
 		   <groupId>org.aspectj</groupId>
