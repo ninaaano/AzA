@@ -9,10 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import com.aza.common.Search;
 import com.aza.service.alert.AlertService;
 import com.aza.service.domain.Alert;
+import com.aza.service.domain.Message;
 import com.aza.service.domain.Students;
 import com.aza.service.students.StudentsService;
 
@@ -26,7 +30,29 @@ public class StudentsTest {
 	@Autowired
 	@Qualifier("alertServiceImpl")
 	private AlertService alertService;
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;
+	
 
+	
+	@Test
+	public void testInsert() {
+		Message message = new Message("teacher1","student12","test1","2022-06-09 19:44:44");
+		mongoTemplate.insert(message);
+		System.out.println(message);
+	}
+	
+	@Test
+public void deleteMessage() throws Exception {
+		
+		Criteria criteria = new Criteria("_id");
+		criteria.is("62a1b6a6ebde4458dade0781");
+
+		Query qr = new Query(criteria);
+		
+		mongoTemplate.remove(qr, "message");
+	}
 
 	// STUDNETS_RECORD
 

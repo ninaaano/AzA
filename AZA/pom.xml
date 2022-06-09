@@ -47,6 +47,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
    <repositories>
    </repositories>
    
+   
    <dependencies>
       <dependency>
          <groupId>org.springframework.boot</groupId>
@@ -280,6 +281,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		  <artifactId>jquery</artifactId>
 		  <version>3.1.1-1</version>
 		</dependency>
+		
 		<!--chatbot dependency-->
       
 
@@ -290,6 +292,36 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 			 <version>2.8.0</version>
 		</dependency>	
       <!--  미연 추가 iamport -->
+      
+      <!-- 2022/06/09 HM -->
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-mongodb</artifactId>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-mongodb</artifactId>
+</dependency>
+
+      
+      
+      
+      
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
    </dependencies>
 
    <build>

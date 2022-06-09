@@ -1,45 +1,4 @@
-const messagePopupBtn = $("#open-messagePopup");
-const messagePopup =  $("#messagePopup");
-const otherListBtn = $("#otherListBtn");
-const getMessageBtn = $("#getMessageBtn");
-const otherListContainer = $("#otherListContainer");
-const getMessageContainer = $("#getMessageContainer");
-
-messagePopupBtn.on("click", popupHandler);
-otherListBtn.on("click", getMessageHandler);
-getMessageBtn.on("click", otherListHandler);
-
-function popupHandler() {
-	messagePopup.removeClass("hidden");
-	messagePopup.addClass("show");
-	connect();
-	console.log("눌림");
-}
-
-function getMessageHandler() {
-	//console.log(e.target.dataset.id)
-	otherListContainer.removeClass("hidden");
-	getMessageContainer.addClass("hidden");
-}
-
-function otherListHandler() {	
-	//console.log(et.dataset.id);
-	getMessageContainer.removeClass("hidden");
-	otherListContainer.addClass("hidden");
-}
-
-function getOtherMessage(id) {	
-	otherListHandler();
-
-	
-}
-
-$(document).mouseup(function (e){
-	if(messagePopup.has(e.target).length === 0){
-		messagePopup.removeClass("show");
-	}
-});
-
+var stompClient =""
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
@@ -56,7 +15,7 @@ function setConnected(connected) {
 function connect() {
 	console.log("connect11");
 	
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('gs-guide-websocket');
     console.log(socket);
     stompClient = Stomp.over(socket);
     console.log("connect");
@@ -96,5 +55,3 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
 });
-
-

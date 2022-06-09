@@ -34,7 +34,7 @@ public class StudentsController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("${pagetUnit}")
+	@Value("${pageUnit}")
 	int pageUnit;
 
 	@Value("${pageSize}")

@@ -30,7 +30,7 @@ public class StudentsRestController {
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
 	
-	@Value("${pagetUnit}")
+	@Value("${pageUnit}")
 	int pageUnit;
 
 	@Value("${pageSize}")
