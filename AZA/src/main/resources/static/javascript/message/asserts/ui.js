@@ -41,6 +41,8 @@ $(document).mouseup(function (e){
 });
 
 
+var stompClient =""
+
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
@@ -80,8 +82,7 @@ function disconnect() {
 function sendName() {
 	console.log(stompClient);
 	console.log("/app/hello",  JSON.stringify({'name': $("#name").val()}));
-    stompClient.send("/app/hello", {"Accept" : "application/json",
-                            "Content-Type" : "application/json",       }, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
 function showGreeting(message) {
@@ -96,5 +97,3 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
 });
-
-
