@@ -9,16 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-=======
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
->>>>>>> refs/heads/HM
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.common.Page;
@@ -46,35 +42,7 @@ public class StudentsController {
 	int pageSize;
 	
 	
-<<<<<<< HEAD
-	@RequestMapping(value="listStudentsRecord")
-	public ModelAndView listStudentsRecord(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
-		
-		System.out.println("/students/listStudentsRecord");
-		
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		
-		if(search.getCurrentPage() == 0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		
-		Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
-		
-		// 승인완료 1 list
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/students/listStudentsRecord");
-		mv.addObject("listStudentsRecord", listMap.get("list"));
-		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);
-		
-		// 승인요청 0 list
-		search.setPageSize(50);
-		search.setCurrentPage(1);		
-=======
+
 	
 	// STUDENTS_RECORD
 	@RequestMapping(value="listStudentsRecord")
@@ -103,7 +71,6 @@ public class StudentsController {
 		
 		// 승인요청 0 list
 		search.setPageSize(50);	
->>>>>>> refs/heads/HM
 		Map<String, Object> proposalMap = studentsService.listProposalStudents(search, teacherId);
 		mv.addObject("listStudentsRecord", proposalMap.get("list"));
 		
@@ -124,8 +91,6 @@ public class StudentsController {
 		return mv;
 	}
 	
-<<<<<<< HEAD
-=======
 	@RequestMapping(value="updateStudentsRecord", method=RequestMethod.POST)
 	public ModelAndView updateStudentsRecord(@ModelAttribute("students") Students students) throws Exception {
 		
@@ -229,8 +194,6 @@ public class StudentsController {
 		return studentsService.getStudentsAttendance(attendanceCode);
 	}
 	
-	
-	
 	// CHARACTER
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacterView() throws Exception {
@@ -242,11 +205,4 @@ public class StudentsController {
 		
 		return mv;		
 	}
-	
-	
-	
-	// NOTE
-	
-	
->>>>>>> refs/heads/HM
 }

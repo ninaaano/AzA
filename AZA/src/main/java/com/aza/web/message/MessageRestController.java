@@ -31,141 +31,122 @@ public class MessageRestController {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-		
+
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
-	
+
 	@Autowired
 	@Qualifier("userDaoImpl")
 	private UserDao userDao;
-	
+
 	@Autowired
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
-	
+
 	@Autowired
 	@Qualifier("studentsDaoImpl")
 	private StudentsDao studentsDao;
-	
-	
+
 	public MessageRestController() {
 		System.out.println(this.getClass());
 	}
 
-	
 	@RequestMapping("addMessage")
-	public void addMessage(String senderId, String receiverId, String messageContent, String messageCreateAt) throws Exception {
-		
+	public void addMessage(String senderId, String receiverId, String messageContent, String messageCreateAt)
+			throws Exception {
+
 		System.out.println("addMessage : start");
-		
+
 		Message message = new Message(senderId, receiverId, messageContent, messageCreateAt);
 		mongoTemplate.insert(message);
-		
+
 		System.out.println(message);
 	}
-	
+
 	@RequestMapping("deleteMessage")
 	public void deleteMessage(String messageId) throws Exception {
-		
+
 		Criteria criteria = new Criteria("._id");
 		criteria.is(messageId);
 
 		Query qr = new Query(criteria);
-		
+
 		mongoTemplate.remove(qr, "message");
 	}
-	
+
 	@RequestMapping("readMessage")
 	public void readMessage(String receiverId, String senderId, String messageReadAt) throws Exception {
-		
-		Criteria criteria = Criteria.where("receiverId").is(receiverId)
-				.and("senderId").is(senderId)
+
+		Criteria criteria = Criteria.where("receiverId").is(receiverId).and("senderId").is(senderId)
 				.and("messageReadAt").exists(false);
 		Query qr = new Query(criteria);
 		Update update = new Update();
 		update.set("messageReadAt", messageReadAt);
-		
+
 		mongoTemplate.updateMulti(qr, update, "message");
-				
+
 	}
 
 	@RequestMapping("listMessage")
 	public List listMessage(HttpSession session) throws Exception {
-		
+
 		System.out.println("/message/rest/listMessage");
-		
+
 		List others = new ArrayList<>();
-		
+
 		User dbUser = (User) session.getAttribute("user");
-		
-		others.add(dbUser);	
-		
-		if(dbUser.getRole().equals("teacher")) {
-			
+
+		others.add(dbUser);
+
+		if (dbUser.getRole().equals("teacher")) {
+
 			String teacherId = dbUser.getUserId();
-			
+
 			Search search = new Search();
 			int totalCount = (int) studentsService.listStudentsRecord(search, teacherId).get("totalCount");
 			search.setCurrentPage(1);
 			search.setPageSize(totalCount);
-			
-			//others.add(teacherId);
-			
+
+			// others.add(teacherId);
+
 			List<Students> studentsList = (List<Students>) studentsService.listStudentsRecord(search, teacherId).get("list");
-						
-			for(Students student : studentsList) {				
-				
+
+			for (Students student : studentsList) {
+
 				System.out.println(student + ": forStudent");
 				String studentId = student.getStudentId();
-				
+
 				others.add(student);
-				
-				//search = new Search();
+
+				// search = new Search();
 				totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
-				//search.setCurrentPage(1);
+				// search.setCurrentPage(1);
 				search.setPageSize(totalCount);
-				
+
 				List<User> parentList = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
-				
-				
-				for(User parent : parentList) {
+
+				for (User parent : parentList) {
 
 					User parentInfo = userService.getUser(parent.getUserId());
-					parentInfo.setRelationName(parent.getRelationName()); 
+					parentInfo.setRelationName(parent.getRelationName());
 					parentInfo.setFirstStudentId(studentId);
-					
-					others.add(parentInfo);				
+
+					others.add(parentInfo);
 				}
 			}
-			
-			
-					
-			
-			
-			
-			
-		} 
-		
-		else if(dbUser.getRole().equals("student")) {
-			
-			
-			
-			
-		} 
-		
-		else if(dbUser.getRole().equals("parent")) {
-			
+
 		}
-		
-		
-		
-		
-	
-	
-	
-	
-	return others;
+
+		else if (dbUser.getRole().equals("student")) {
+
+		}
+
+		else if (dbUser.getRole().equals("parent")) {
+
+		}
+
+		return others;
 	}
 
 }
