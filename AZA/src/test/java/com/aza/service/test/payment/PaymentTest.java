@@ -33,7 +33,7 @@ public class PaymentTest {
 		
 	}
 	
-	@Test // Add Test ok
+	//@Test // Add Test ok
 	void testAddPayment() throws Exception {
 		Payment pay = new Payment();
 		pay.setStudentRecordNo(1008);
@@ -70,14 +70,14 @@ public class PaymentTest {
 		paymentService.deletePayment(1023);
 	}
 	
-	//@Test // okok 근데 값이 이게 맞나
+	@Test // okok 근데 값이 이게 맞나
 	public void testListPayment() throws Exception{
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);	
-		search.setSearchCondition("2");
-		search.setSearchKeyword("N");
+//		search.setSearchCondition("2");
+//		search.setSearchKeyword("N");
 	//	search.setSearchStartDate("2022/05/01");
 	//	search.setSearchEndDate("2022/05/30");
 		

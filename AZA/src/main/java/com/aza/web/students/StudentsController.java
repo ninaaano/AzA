@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class StudentsController {
 	int pageSize;
 	
 	
+
 	
 	// STUDENTS_RECORD
 	@RequestMapping(value="listStudentsRecord")
@@ -192,8 +194,6 @@ public class StudentsController {
 		return studentsService.getStudentsAttendance(attendanceCode);
 	}
 	
-	
-	
 	// CHARACTER
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacterView() throws Exception {
@@ -205,10 +205,4 @@ public class StudentsController {
 		
 		return mv;		
 	}
-	
-	
-	
-	// NOTE
-	
-	
 }

@@ -100,7 +100,6 @@
         <h2>메인페이지</h2>
         <h3 class="">임시 채팅 모달 -> get만 진행</h3>
         <button class="open-messagePopup" id="open-messagePopup" >Chat</button>
-        
         <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>

@@ -39,7 +39,7 @@ public class PaperQuizTest {
 		paperService.addPaperQuiz(paper);
 		
 	}
-	//@Test // get test OK
+	@Test // get test OK
 	void testGetQuiz() throws Exception{
 		Paper paper = paperService.getPaperQuiz(1000);
 		System.out.println(paper);
@@ -287,7 +287,7 @@ public class PaperQuizTest {
 		System.out.println("==="+totalCount);
 	}
 	
-	//@Test
+	@Test
 	public void testListHomeworkByTeacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);

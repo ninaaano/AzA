@@ -113,6 +113,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
          <scope>test</scope>
       </dependency>
       
+      
 		<dependency>
 		   <groupId>org.aspectj</groupId>
 		   <artifactId>aspectjweaver</artifactId>
@@ -220,6 +221,14 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
          <artifactId>lombok</artifactId>
          <scope>provided</scope>
       </dependency>
+      <!-- lombok 미연 추가 -->
+      <dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <optional>true</optional>
+		</dependency>
+      <!-- lombok 미연 추가 -->
+      
       
       <!-- JUnit -->
       <dependency>
@@ -281,6 +290,18 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		  <artifactId>jquery</artifactId>
 		  <version>3.1.1-1</version>
 		</dependency>
+
+		<!--chatbot dependency-->
+      
+
+      <!--  미연 추가 iamport -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			 <artifactId>gson</artifactId>
+			 <version>2.8.0</version>
+		</dependency>	
+      <!--  미연 추가 iamport -->
+
 		
 		<!--chatbot dependency-->
       
@@ -303,9 +324,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 <dependency>
     <groupId>org.springframework.data</groupId>
     <artifactId>spring-data-mongodb</artifactId>
-</dependency>
+</dependency>  
 
-<!---->      
       
       
       
