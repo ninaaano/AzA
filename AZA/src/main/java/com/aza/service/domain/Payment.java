@@ -16,6 +16,40 @@ public class Payment {
 	private String studentId; // 수납 대상자(?) ID
 	private String studentName; // 수납 대상자 이름
 	
+	private Lesson payLessonName; // 수업명
+	
+	public Payment() {
+		
+	}
+
+	public Lesson getPayLessonName() {
+		return payLessonName;
+	}
+
+
+
+	public void setPayLessonName(Lesson payLessonName) {
+		this.payLessonName = payLessonName;
+	}
+
+
+
+	public String getImp_key() {
+		return imp_key;
+	}
+
+	public void setImp_key(String imp_key) {
+		this.imp_key = imp_key;
+	}
+
+	public String getImp_secret() {
+		return imp_secret;
+	}
+
+	public void setImp_secret(String imp_secret) {
+		this.imp_secret = imp_secret;
+	}
+
 	private String imp_key;
 	private String imp_secret;
 	
@@ -35,9 +69,7 @@ public class Payment {
 		this.studentId = studentId;
 	}
 
-	public Payment() {
-		
-	}
+
 
 	public int getPayCode() {
 		return payCode;
@@ -133,8 +165,11 @@ public class Payment {
 		return "Payment [payCode=" + payCode + ", studentRecordNo=" + studentRecordNo + ", checkPay=" + checkPay
 				+ ", amount=" + amount + ", payDay=" + payDay + ", payer=" + payer + ", payDueDate=" + payDueDate
 				+ ", impUid=" + impUid + ", merchantUid=" + merchantUid + ", payOption=" + payOption + ", receiver="
-				+ receiver + "]";
+				+ receiver + ", studentId=" + studentId + ", studentName=" + studentName + ", payLessonName=" + payLessonName
+				+ ", imp_key=" + imp_key + ", imp_secret=" + imp_secret + "]";
 	}
+
+	
 	
 	
 

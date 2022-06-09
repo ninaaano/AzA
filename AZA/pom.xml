@@ -221,6 +221,14 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
          <artifactId>lombok</artifactId>
          <scope>provided</scope>
       </dependency>
+      <!-- lombok 미연 추가 -->
+      <dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <optional>true</optional>
+		</dependency>
+      <!-- lombok 미연 추가 -->
+      
       
       <!-- JUnit -->
       <dependency>
