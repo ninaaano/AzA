@@ -156,7 +156,7 @@ public class StudentsTest {
 
 		System.out.println(students);
 
-		studentsService.addAttendance(students);
+		studentsService.addStudentsAttendance(students);
 
 	}
 
