@@ -33,19 +33,35 @@ import com.aza.service.payment.PaymentService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import lombok.Getter;
+import lombok.ToString;
+
+
+
 
 @Service("paymentServiceImpl")
 public class PaymentServiceImpl implements PaymentService {
 	
-
-	private String impKey="1382659815177138";
-
-
-	private String impSecret="b4ed387e2dddc2215f36f73dd4d5d629989345453969f937d7cec4792813c76ef9459616ca548ef3";
-	
 	@Autowired
 	@Qualifier("paymentDaoImpl")
 	private PaymentDao paymentDao;
+
+	private String impKey="1382659815177138";
+	private String impSecret="b4ed387e2dddc2215f36f73dd4d5d629989345453969f937d7cec4792813c76ef9459616ca548ef3";
+	
+	@ToString
+	@Getter
+	private class Response{
+		private PaymentInfo response;
+	}
+	
+	@ToString
+	@Getter
+	private class PaymentInfo{
+		private int amount;
+	}
+	
+
 	
 	public void setPaymentDao(PaymentDao paymentDao) {
 		this.paymentDao = paymentDao;
@@ -165,34 +181,68 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int paymentInfo(String imp_uid, String access_token) {
-//		  HttpsURLConnection conn = null;
-//		  
-//		    URL url = new URL("https://api.iamport.kr/payments/" + imp_uid);
-//		 
-//		    conn = (HttpsURLConnection) url.openConnection();
-//		 
-//		    conn.setRequestMethod("GET");
-//		    conn.setRequestProperty("Authorization", access_token);
-//		    conn.setDoOutput(true);
-//		 
-//		    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-//		    
-//		    Gson gson = new Gson();
-//		    
-//		    Response response = gson.fromJson(br.readLine(), Response.class);
-//		    
-//		    br.close();
-//		    conn.disconnect();
-//		    
-//		    return response.getResponse().getAmount();
-		return 0;
+	public int paymentInfo(String imp_uid, String access_token) throws Exception{
+		  HttpsURLConnection conn = null;
+		  
+		    URL url = new URL("https://api.iamport.kr/payments/" + imp_uid);
+		 
+		    conn = (HttpsURLConnection) url.openConnection();
+		 
+		    conn.setRequestMethod("GET");
+		    conn.setRequestProperty("Authorization", access_token);
+		    conn.setDoOutput(true);
+		 
+		    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+		    
+		    Gson gson = new Gson();
+		    
+		    Response response = gson.fromJson(br.readLine(), Response.class);
+		    
+		    br.close();
+		    conn.disconnect();
+		    
+		    return response.getResponse().getAmount();
+
 		   
 	}
 
 	@Override
-	public void payMentCancle(String access_token, String imp_uid, String amount, String reason) {
-		// TODO Auto-generated method stub
+	public void payMentCancle(String access_token, String imp_uid, String amount, String reason) throws Exception{
+		
+		System.out.println("===== payMentCancle() Start ======");
+//		System.out.println(access_token); // 토큰
+//		System.out.println(imp_uid); // key값
+		
+		HttpsURLConnection conn = null;
+		URL url = new URL("https://api.iamport.kr/payments/cancel");
+ 
+		conn = (HttpsURLConnection) url.openConnection();
+ 
+		conn.setRequestMethod("POST");
+ 
+		conn.setRequestProperty("Content-type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setRequestProperty("Authorization", access_token);
+ 
+		conn.setDoOutput(true);
+		
+		JsonObject json = new JsonObject();
+ 
+		json.addProperty("reason", reason); // 환불사유
+		json.addProperty("imp_uid", imp_uid); 
+		json.addProperty("amount", amount); // 환불 금액
+		json.addProperty("checksum", amount); // 환불 가능 금액
+ 
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+ 
+		bw.write(json.toString());
+		bw.flush();
+		bw.close();
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+ 
+		br.close();
+		conn.disconnect();
 		
 	}
 
