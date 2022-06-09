@@ -5,69 +5,6 @@
 <head>
 <meta charset="EUC-KR">
 <title>Aza : main</title>       
-<<<<<<< HEAD
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
-        <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-        <script defer src="/resources/javascript/message/client.js"></script>
-        <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-
-            $(function() {   
-                               
-                $.ajax({
-                    url: "http://localhost:8080/message/rest/listMessage",
-                    type: "GET",
-                    headers : {
-                            "Accept" : "application/json",
-                            "Content-Type" : "application/json",                                    
-                        },
-                    success: function(result) {
-                        if(result) {
-                        	console.log(result);
-                        	
-                        	sessionStorage.setItem('userId', result[0].userId);
-                        	
-                        	result.shift();
-                        	
-                        	console.log(result);
-                        	
-                        	var listOtherView = "";
-                        	
-                        	result.map((other,i) => {
-                       			
-                        		let studentId = other.studentId ? other.studentId : other.firstStudentId;
-                        		let studentName = other.studentId ? other.studentName : "학생이룸";
-                        		let relationName = other.relationName ? other.relationName : "";
-                        		let userId = other.userId ? other.userId : studentId;
-                        		//console.log(i, studentId);
-                        		
-                        		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`')">                                    <li class='p-2 border-bottom' data-id=`+userId+`>
-                                    	<a class="d-flex justify-content-between">
-	                                        <div class="d-flex flex-row">
-	                                            <div class="pt-1">
-	                                                <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
-	                                                <p class="small text-muted">최근메시지</p>
-	                                            </div>
-	                                        </div>
-                                    	</a>
-                                	</li>
-                            	</ul>`;
-                        	});
-                        	
-                        	$('ul').remove();
-                        	$('#listOther').append(listOtherView);
-
-                        } else {
-                            console.log("실패");
-                        }
-                    } 
-                })
-            }); 
-
-
-=======
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -134,7 +71,6 @@
                     } 
                 })
             }); 
->>>>>>> refs/heads/HM
 
 
         </script>
@@ -164,66 +100,6 @@
         <h2>메인페이지</h2>
         <h3 class="">임시 채팅 모달 -> get만 진행</h3>
         <button class="open-messagePopup" id="open-messagePopup" >Chat</button>
-        
-<<<<<<< HEAD
-        <div class="messagePopup hidden" id="messagePopup">
-            <section style="background-color: #eee;">
-                
-                <!-- list -->
-                <div id="otherListContainer" class="container py-5">          
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">         
-                        <div class="card" id="chat2">
-                            <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <h5 class="mb-0">상대목록</h5>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                  </div>
-                                <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
-                            </div>
-
-                            
-
-
-                          
-                            
-                            <div id="listOther" class="card-body scroll" style="position: relative; height: 400px">
-                               <!-- <ul class="list-unstyled mb-0">
-                                    <li class="p-2 border-bottom">
-                                        <a href="#!" class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row">
-                                                <div class="pt-1">
-                                                    <p class="fw-bold mb-0">상대방이름</p>
-                                                    <p class="small text-muted">최근메시지</p>
-                                                </div>
-                                            </div>
-                                            <div class="pt-1">
-                                                <p class="small text-muted mb-1">시간</p>
-                                                <span class="badge bg-danger rounded-pill float-end">몇개</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>  -->
-                                 
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <form id="">
-                                <div class="d-flex justify-content-around"> 
-                                </div>     
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- message -->
-=======
         <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
@@ -325,7 +201,6 @@
                 </div>
 
                <!--  message -->
->>>>>>> refs/heads/HM
                 <div id="getMessageContainer" class="container py-5 hidden">          
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-6">         
