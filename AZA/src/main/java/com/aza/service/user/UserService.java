@@ -8,19 +8,19 @@ import com.aza.service.domain.User;
 public interface UserService {
 	
 	//User :: INSERT È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	public void addUser(User user) throws Exception;
+	public void addUser(User user) throws Exception; //
 	
 	//User :: SELECT
-	public User getUser(String userId) throws Exception;
+	public User getUser(String userId) throws Exception; //
 	
 	//User :: UPDATE
-	public void updateUser(User user) throws Exception;
+	public void updateUser(User user) throws Exception; //
 	
 	//User :: DELETE
-	public void deleteUser(String userId) throws Exception;
+	public void deleteUser(String userId) throws Exception; //
 	
 	//User :: CheckDuplication
-	public int checkDuplication(String userId) throws Exception;
+	public int checkDuplication(String userId) throws Exception; //
 	
 	//User :: updateAlertState
 	public void updateAlertState(User user) throws Exception;
@@ -32,13 +32,12 @@ public interface UserService {
 	public void updateStopAlertEndTime(User user) throws Exception;
 	
 	//User :: updateCheck
-	public void updateCheck(User user) throws Exception;
+	public void updateCheck(User user) throws Exception; // ÀÚµ¿·Î±×ÀÎ. login¿¡ ºÙÀÌ±â
 	
 	//Relation :: INSERT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT
-//	public User getRelation(String firstStudentId, String parentId) throws Exception;
 	public User getRelation(int relationCode) throws Exception;
 
 	//Relation :: UPDATE
