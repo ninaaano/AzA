@@ -178,5 +178,4 @@ public class LessonDaoImpl implements LessonDao {
 		search.setSearchKeyword(searchKeyword);
 		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonTotalCount",search);
 	}
-
 }

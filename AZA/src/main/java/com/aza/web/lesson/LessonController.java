@@ -25,6 +25,7 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @Controller
 @RequestMapping("/lesson/*")
 public class LessonController {
@@ -116,6 +117,4 @@ public class LessonController {
 		model.setViewName("redirect:/lesson/getLesson");
 		return model;
 	}
-	
-	
 }

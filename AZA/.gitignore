@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/resources/static/javascript/message/node_modules
 
 ### STS ###
 .apt_generated
@@ -33,3 +33,7 @@ build/
 ### VS Code ###
 .vscode/
 /target/
+<<<<<<< HEAD
+=======
+*/node_modules/*
+>>>>>>> refs/heads/HM
