@@ -1,10 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- ë‚ ì§œ í¬ë§· lib-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8"> 
 <title>listPayment</title>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -15,6 +18,24 @@
 <body>
 <script type="text/javascript">
 
+function fncGetList(currentPage) {
+	$("#currentPage").val(currentPage);
+	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
+}
+
+	//ê²€ìƒ‰
+		$(function() {
+		 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+		 $( '#searchPayment' ).on("click" , function() {
+
+			alert("hi!");
+			fncGetList(1);
+
+			});
+		 
+		});
+
+/* í…ŒìŠ¤íŠ¸ */
 $(function() {
 	$('#payName').on("click" , function() {
 		alert("hi!");
@@ -30,9 +51,9 @@ $(function() {
 					success : function(JSONData , status){
 						
 						alert("JSONData : \n"+JSONData);
-						alert("JSONData ÀÌ¸§ : \n"+JSONData.studentName);
+						alert("JSONData ì´ë¦„ : \n"+JSONData.studentName);
 						
-						var displayValue = "<h3>" +"ÇĞ»ı ÀÌ¸§: "+JSONData.studentName+"<br/>";
+						var displayValue = "<h3>" +"í•™ìƒ ì´ë¦„: "+JSONData.studentName+"<br/>";
 						$("h3").remove();
 						$( "#"+payName+"" ).html(displayValue);
 						
@@ -49,14 +70,14 @@ function requestPay(){
 
     var IMP = window.IMP;
     IMP.init('imp15771574');
-    // °áÁ¦Ã¢ È£Ãâ
+    // ê²°ì œì°½ í˜¸ì¶œ
     IMP.request_pay({
         pg : 'html5_inicis',
         pay_method : 'card',
-        merchant_uid : 'merchant_' + new Date().getTime(), // ÁÖ¹® ¹øÈ£
-        name : '»óÇ°¸í',
+        merchant_uid : 'merchant_' + new Date().getTime(), // ì£¼ë¬¸ ë²ˆí˜¸
+        name : 'ìƒí’ˆëª…',
         //amount : this.order.amount,
-        amount : 100,
+        amount : 1000,
         buyer_tel : '010-1111-1111',
     }, function(rsp) {
         if ( rsp.success ) {
@@ -74,17 +95,41 @@ function requestPay(){
 
 <h3>PAYMENT LIST</h3>
 
+<form>				
+				
+				<table>
+				<tr>
+					<td align="right">
+						<select name="searchCondition" class="ct_input_g" style="width: 80px">
+							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>í•™ìƒì´ë¦„</option>
+							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>ê¸°ê°„</option>
+							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>ìˆ˜ë‚©ì—¬ë¶€</option>
+						
+					</select> 
+
+						<input 	type="text" name="searchKeyword" 
+								value="${! empty search.searchKeyword ? search.searchKeyword : "" }" 
+						 class="ct_input_g"	style="width:200px; height:20px" > 
+						 </td>
+
+					<td align="right" width="70">
+					<button type="submit" id="searchPayment">ê²€ìƒ‰</button>
+				</td>
+				
+				</tr>
+				</table>
+				
 				<table border="1" cellspacing = "0" cellpadding = "10px">
 
 			  	<tr>
 			  			<td>No</td>
-			  			<td>¼ö¾÷¸í</td>
-			  			<td>ÇĞ»ı ÀÌ¸§</td>
-			  			<td>¼ö³³·á</td>
-			  			<td>¼ö³³¿¹Á¤ÀÏ</td>
-			  			<td>¼ö³³¿Ï·áÀÏ</td>
-			  			<td>¼ö³³¿©ºÎ</td>
-			  			<td>³³ºÎÇÏ±â</td>
+			  			<td>ìˆ˜ì—…ëª…</td>
+			  			<td>í•™ìƒ ì´ë¦„</td>
+			  			<td>ìˆ˜ë‚©ë£Œ</td>
+			  			<td>ìˆ˜ë‚©ì˜ˆì •ì¼</td>
+			  			<td>ìˆ˜ë‚©ì™„ë£Œì¼</td>
+			  			<td>ìˆ˜ë‚©ì—¬ë¶€</td>
+			  			<td>ë‚©ë¶€í•˜ê¸°</td>
 			  	</tr>
 		  			  <c:set var="i" value="0" />
  	 				  <c:forEach var="payment" items="${list}">
@@ -96,10 +141,15 @@ function requestPay(){
 							<td align="center" id="payName">${payment.studentName} </td>
 							<td align="center">${payment.amount} </td>
 							<td align="center">${payment.payDueDate} </td>
-							<td align="center" type="date">${payment.payDay} </td>
+							<td>
+							
+ 							<fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${payDay}" pattern="yyyy/MM/dd" /> 
+							${payday}
+							</td>
 							<td align="center">${payment.checkPay} </td>
 							
-							<td align="center"><button onclick="requestPay()">°áÁ¦ÇÏ±â</button></td>				 
+							<td align="center"><button onclick="requestPay()">ê²°ì œí•˜ê¸°</button></td>				 
 					
 				 </tr>
 				  </c:forEach>
@@ -108,6 +158,6 @@ function requestPay(){
 				
 <!--  -->			
        
-
+</form>
 </body>
 </html>
