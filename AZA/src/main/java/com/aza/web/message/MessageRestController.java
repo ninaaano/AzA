@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -51,43 +52,7 @@ public class MessageRestController {
 	public MessageRestController() {
 		System.out.println(this.getClass());
 	}
-
-	@RequestMapping("addMessage")
-	public void addMessage(String senderId, String receiverId, String messageContent, String messageCreateAt)
-			throws Exception {
-
-		System.out.println("addMessage : start");
-
-		Message message = new Message(senderId, receiverId, messageContent, messageCreateAt);
-		mongoTemplate.insert(message);
-
-		System.out.println(message);
-	}
-
-	@RequestMapping("deleteMessage")
-	public void deleteMessage(String messageId) throws Exception {
-
-		Criteria criteria = new Criteria("._id");
-		criteria.is(messageId);
-
-		Query qr = new Query(criteria);
-
-		mongoTemplate.remove(qr, "message");
-	}
-
-	@RequestMapping("readMessage")
-	public void readMessage(String receiverId, String senderId, String messageReadAt) throws Exception {
-
-		Criteria criteria = Criteria.where("receiverId").is(receiverId).and("senderId").is(senderId)
-				.and("messageReadAt").exists(false);
-		Query qr = new Query(criteria);
-		Update update = new Update();
-		update.set("messageReadAt", messageReadAt);
-
-		mongoTemplate.updateMulti(qr, update, "message");
-
-	}
-
+	
 	@RequestMapping("listMessage")
 	public List listMessage(HttpSession session) throws Exception {
 
