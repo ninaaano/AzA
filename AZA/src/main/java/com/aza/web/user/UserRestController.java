@@ -52,6 +52,27 @@ public class UserRestController {
 	        return cnt;
 		}
 		
+		@RequestMapping( value="/login", method=RequestMethod.POST )
+		public User login(	@RequestBody User user,
+										HttpSession session ) throws Exception{
+		
+			System.out.println("/user/login : POST");
+			//Business Logic
+			System.out.println("::"+user);
+			User dbUser=userService.getUser(user.getUserId());
+			
+			if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
+					session.setAttribute("user", dbUser);
+					// 메인화면이동
+					return dbUser;
+			}else {
+				return dbUser;
+			}
+			
+		//	return dbUser;
+		}
+
+		
 		
 		/////for Msg
 		@RequestMapping("listRelationByStudent/{studentId}")
@@ -66,8 +87,55 @@ public class UserRestController {
 			
 			return userService.listRelationByStudent(search, studentId);
 		}
+		
+		@RequestMapping("listRelationByParent/{parentId}")
+		public Map<String, Object> listRelationByParent(@PathVariable("parentId") String parentId, HttpSession session) throws Exception { 
+		
+			System.out.println("/user/rest/listRelationByParent/{parentId}");
+			
+			Search search = new Search();
+			int totalCount = (int) userService.listRelationByParent(search, parentId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			return userService.listRelationByParent(search, parentId);
+		}
+		
+		
+		@RequestMapping(value = "getUser/{userId}", method = RequestMethod.GET)
+		public User getUser (@PathVariable String userId) throws Exception {
+			
+			return userService.getUser(userId);
+		}
+		
+		@RequestMapping(value="updateUser", method = RequestMethod.POST)
+		public User updateUser (@RequestBody User user, HttpSession session) throws Exception {
+			
+			User userId = userService.getUser(user.getUserId());
+			
+			if(user.getUserId()==userId.getUserId()){
+				session.setAttribute("user", userId);
+			}
+			
+			return user;
+		}
+		
+		
+		@RequestMapping(value = "deleteUser/{userId}",method = RequestMethod.POST)
+		public User deletePurchase(@RequestBody User user, @PathVariable String userId) throws Exception {
+			
+			userService.deleteUser(userId);
+			
+			return user;
+		}
 
-
+		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
+		public User deleteRelation(@RequestBody User user, @PathVariable int relationCode) throws Exception {
+			
+			userService.deleteRelation(relationCode);
+			
+			return user;
+		}
 		
 		
 	

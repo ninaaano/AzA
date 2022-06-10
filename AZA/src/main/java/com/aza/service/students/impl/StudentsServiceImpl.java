@@ -90,7 +90,7 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 
 	@Override
-	public void addAttendance(Students students) throws Exception {
+	public void addStudentsAttendance(Students students) throws Exception {
 		
 		studentsDao.addStudentsAttendance(students);
 		

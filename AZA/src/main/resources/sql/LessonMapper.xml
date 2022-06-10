@@ -17,7 +17,6 @@
 		<result property="subject" column="subject" jdbcType="VARCHAR"/>
 		<result property="lessonContent" column="lesson_content" jdbcType="VARCHAR"/>
 		<result property="lessonCreateAt" column="lesson_create_at" jdbcType="VARCHAR"/>
-		
 	</resultMap>
 	
 	<resultMap id = "lessonBookSelectMap" type="lesson">
@@ -28,11 +27,16 @@
 		<result property ="author" column="author" jdbcType="VARCHAR"/>
 		<result property ="bookYear" column="book_year" jdbcType="VARCHAR"/>
 		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>
-		<!-- <result property ="lessonCode" column="lesson_code" jdbcType="VARCHAR"/>
-		<result property ="teacherId" column="teacher_id" jdbcType="VARCHAR"/> -->
-	</resultMap>
-	
-	
+		
+		<association property="studentId"  javaType="students">
+			<id property="studentId" column="student_id" jdbcType="VARCHAR"/>
+			<result property="proposal" column="proposal" jdbcType="CHAR"/>
+		</association>
+		
+		<association property = "userName" javaType="user">
+			<id property = "userName" column="user_name" jdbcType="VARCHAR"/>
+		</association>
+	</resultMap>	
 
 	<!-- LESSON :: INSERT -->
 <!-- - 	<insert id="addLesson">
@@ -87,30 +91,41 @@
 		SELECT*
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 			FROM (
-			<!-- <if test = "user.role == teacher5"> -->
 				SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code
 				FROM LESSON L, USERS U 
-				WHERE L.teacher_id = U.user_id  AND teacher_id = #{teacherId}
-				ORDER BY L.lesson_create_at desc	
-				<!-- </if> -->
+				WHERE L.teacher_id = U.user_id AND teacher_id = #{teacherId}
+				ORDER BY L.lesson_create_at desc
 			 )inner_table
 				WHERE ROWnUM &lt; = #{endRowNum})
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
 
-	<select id = "listLessonStuents" resultMap="lessonSelectMap">
-		SELECT*
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM (			
-				FROM(SELECT L.lesson_name,  U.user_name, SR.proposal
+	<select id = "listLessonStuents" resultMap="lessonSelectMap">			
+		SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
+			FROM(
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal
 				FROM LESSON L, STUDENTS_RECORD SR, USERS U
 				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{studentId}
 				ORDER BY L.lesson_create_at desc			
 			 )inner_table
-				WHERE ROWNUM &lt; = #{endRowNum})
+				WHERE ROWNUM &lt; = #{endRowNum} )
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
 
+<!-- 	<select id = "listLessonStuents" resultMap="studentsRecordSelectMap,lessonSelectMap,userSelectMap">			
+		SELECT*
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
+			FROM(
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal
+				FROM LESSON L join STUDENTS_RECORD SR join USERS U
+				ON SR.student_id = #{studentId}
+				ORDER BY L.lesson_create_at desc	
+			 )inner_table
+				WHERE ROWNUM &lt; = #{endRowNum})
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select> -->
+	
 	
 	<!-- SQL : SELECT ROW Count -->
 	 <select id = "getLessonTotalCount" resultType="int">

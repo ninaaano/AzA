@@ -1,6 +1,5 @@
 package com.aza.common;
 
-
 //==> PageNavigation �� ���� Bean
 public class Page {
 	
