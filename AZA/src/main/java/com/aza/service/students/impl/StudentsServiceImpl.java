@@ -97,7 +97,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("ì¶œì„")) {
+		if(attendanceState.equals("Ãâ¼®")) {
 			Search search = new Search();
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
@@ -135,7 +135,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("ì¡°í‡´") || attendanceState.equals("ë„ë§")) {
+		if(attendanceState.equals("Á¶Åğ") || attendanceState.equals("µµ¸Á")) {
 			Search search = new Search();
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
