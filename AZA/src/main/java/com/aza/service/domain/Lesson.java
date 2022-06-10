@@ -2,7 +2,18 @@ package com.aza.service.domain;
 
 public class Lesson {
 
-    private String lessonCode;
+    @Override
+	public String toString() {
+		return "Lesson [lessonCode=" + lessonCode + ", lessonName=" + lessonName + ", lessonDay=" + lessonDay
+				+ ", lessonStartTime=" + lessonStartTime + ", lessonEndTime=" + lessonEndTime + ", lessonPlace="
+				+ lessonPlace + ", fees=" + fees + ", subject=" + subject + ", teacherId=" + teacherId
+				+ ", lessonContent=" + lessonContent + ", lessonCreateAt=" + lessonCreateAt + ", isbn=" + isbn
+				+ ", bookTitle=" + bookTitle + ", publisher=" + publisher + ", bookPrice=" + bookPrice + ", author="
+				+ author + ", bookYear=" + bookYear + ", bookImg=" + bookImg + ", bookCode=" + bookCode + ", studentId="
+				+ studentId + ", proposal=" + proposal + ", teacherName=" + teacherName + "]";
+	}
+
+	private String lessonCode;
     private String lessonName;
     private String lessonDay;
     private String lessonStartTime;
@@ -24,11 +35,19 @@ public class Lesson {
     
     private int bookCode;
     
+    private User teacherName;
+    
     private Students studentId;
     private Students proposal;
-    private User userName;
     
     public Lesson() {
+    }
+    
+    public User getTeacherName() {
+    	return teacherName;
+    }
+    public void setTeacherName(User teacherName) {
+    	this.teacherName = teacherName;
     }
     
     public String getLessonCode() {
@@ -118,17 +137,6 @@ public class Lesson {
     public void setLessonCreateAt(String lessonCreateAt) {
         this.lessonCreateAt = lessonCreateAt;
     }
-    
-    public String toString() {
-    	return "Lesson [lessonCode="+lessonCode+", lesson_name= "+lessonName+", lessonDay= "+lessonDay+
-    			", lessonStartTime= "+lessonStartTime+", lessonEndTime= "+lessonEndTime+", lessonPlace= "+lessonPlace+
-    			",fees = "+fees+", subject= "+subject+", teacherId= "+teacherId+", lessonContent= "+lessonContent+
-    			", lessonCreateAt= "+lessonCreateAt+"]"+"userName= "+userName+
-    			"Book [isbn= "+isbn+", bookTitle= "+bookTitle+"publisher= "+publisher+
-    			"bookPrice= "+bookPrice+", author= "+author+", bookYear= "+bookYear+
-    			"bookImg= "+bookImg+"]";
-    	
-    }
 
 	public String getBookTitle() {
 		return bookTitle;
@@ -202,13 +210,6 @@ public class Lesson {
 		this.studentId = studentId;
 	}
 
-	public User getUserName() {
-		return userName;
-	}
-
-	public void setUserName(User userName) {
-		this.userName = userName;
-	}
 
 	public Students getProposal() {
 		return proposal;

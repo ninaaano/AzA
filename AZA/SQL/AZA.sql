@@ -92,7 +92,15 @@ SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
 --//STUDENTS_RECORD
 INSERT
 INTO STUDENTS_RECORD
-VALUES(seq_students_record.nextVal,'abcd1234','student5',0,TO_CHAR(sysdate),40000,0);
+VALUES(seq_students_record.nextVal,'80RNVO0J',(SELECT lesson_name FROM lesson WHERE lesson_code = '80RNVO0J'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+
+INSERT
+INTO STUDENTS_RECORD
+VALUES(seq_students_record.nextVal,'agho4567',(SELECT lesson_name FROM lesson WHERE lesson_code = 'agho4567'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+
+INSERT
+INTO STUDENTS_RECORD
+VALUES(seq_students_record.nextVal,'80RNVO0J',(SELECT lesson_name FROM lesson WHERE lesson_code = '80RNVO0J'),'student5','student',1,TO_CHAR(sysdate),40000,0);
 
 INSERT
 INTO STUDENTS_RECORD
@@ -163,14 +171,25 @@ SELECT L.lesson_name, L.teacher_id, U.user_name, L.lesson_day, L.lesson_start_ti
 		WHERE L.teacher_id = U.user_id and L.teacher_id = 'teacher51'
 		ORDER BY L.lesson_create_at desc;
 		
+		
+select user_name from users where user_id='teacher52')
+--insert
+INSERT 
+INTO LESSON	
+VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
+		(SELECT techer_id FROM USERS WHERE user_id = 'teacher52'),
+		(select user_name from users where user_id='teacher52'),
+ 		#{lessonName}, #{lessonDay},
+		#{lessonStartTime},#{lessonEndTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
+		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
 /*선생님 다시 한거*/
 SELECT*
 FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	FROM (SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code
+	FROM (SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time,L.lesson_place, L.subject, L.lesson_code
 		FROM LESSON L, USERS U 
-		WHERE L.teacher_id = U.user_id  AND teacher_id = 'teacher51'
+		WHERE L.teacher_id = U.user_id  AND teacher_id = 'teacher52'
 		ORDER BY L.lesson_create_at desc) inner_table
-		WHERE ROWnUM <= 3)
+		WHERE ROWnUM <= 3) inner_table
 	WHERE row_seq BETWEEN 1 and 3;
 
 /*학생 다시 한거*/
@@ -183,7 +202,7 @@ select*from lesson l, students_record sr where l.lesson_code = sr.lesson_code an
 SELECT*
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
 			FROM(
-				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal, L.lesson_place
 				FROM LESSON L, STUDENTS_RECORD SR, USERS U
 				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = 'student5'
 				ORDER BY L.lesson_create_at desc			
@@ -399,5 +418,6 @@ FROM (
 	WHERE ROWNUM <= 3)
 WHERE row_seq BETWEEN 1 AND 3;
 
-
+--컬럼 삭제
+ALTER TABLE emp DROP COLUMN email;
 

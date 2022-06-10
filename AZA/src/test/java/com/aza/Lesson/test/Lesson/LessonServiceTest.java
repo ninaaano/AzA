@@ -62,13 +62,21 @@ public class LessonServiceTest {
 	//ok
 	//@Test
 	public void updateLesson() throws Exception{
-		Lesson lesson = lessonService.getLesson("QE8OWXXL");
-		
-		lesson.setLessonName("MongoDB");
-		
+		Lesson lesson = new Lesson();
+		lesson = lessonService.getLesson("QE8OWXXL");
+//		lesson.setLessonCode("QE8OWXXL");
+		lesson.setLessonName("WebSocket");
 		lessonService.updateLesson(lesson);
-		lesson = lessonService.getLesson("abcd1234");
-		System.out.println(lesson);		
+		
+		System.out.println(lesson);
+//		Lesson lesson = lessonService.getLesson("QE8OWXXL");
+//		
+//		lesson.setLessonName("MongoDB");
+//		
+//		lessonService.updateLesson(lesson);
+//		lesson = lessonService.getLesson("abcd1234");
+//		System.out.println(lesson);	
+		
 	}
 	
 	//OK....? 연관된거 delete...
@@ -79,13 +87,31 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	@Test
+	//@Test
 	public void testlistLesson() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-//		Map<String, Object> map = lessonService.listLesson(search,"teacher51");
-		Map<String, Object> map = lessonService.listLesson(search,"student5");
+		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher52");
+//		Map<String, Object> map = lessonService.listLesson(search,"student5");
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+//		assertEquals(3, list.size());
+		
+		System.out.println(list);
+				
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);	
+	}
+	//OK
+	//@Test
+	public void testlistLessonStudent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
+		Map<String, Object> map = lessonService.listLessonStudent(search,"student5");
+//		Map<String, Object> map = lessonService.listLesson(search,"student5");
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");

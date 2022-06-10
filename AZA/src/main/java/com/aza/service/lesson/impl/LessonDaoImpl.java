@@ -65,34 +65,29 @@ public class LessonDaoImpl implements LessonDao {
 	}
 
 	@Override
-	public List<Lesson> listLesson(Search search, String userID) throws Exception {
+	public List<Lesson> listLessonTeacher(Search search, String userID) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
+		search.setSearchId(userID);
 		
-		map.put("teacherId", userID);
-//		map.put("studentId", userID);
-		map.put("endRowNum", search.getEndRowNum()+"");
-		map.put("startRowNum", search.getStartRowNum()+"");
-		
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",search);
+
 //		if usre.role = teacher
-		return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",map);
-		
+//		if(search.getSearchId().equals("teacher52") ) {
+//			return sqlSessionTemplate.selectList("LessonMapper.listLessonTeacher",search);
+//		}else {
+//			return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",search);
+//		}		
 //		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",map);
 //		else user.role = students
-//			return lessonMapper.listLesosnStuents .fsdafjsdpam):	
+//				
 	}
-
-//	@Override
-//	public List<Lesson> listLessonStudent(Search search, String studnetId) throws Exception {
-//		// TODO Auto-generated method stub
-//		Map<String, String> map = new HashMap<String, String>();
-//		
-//		map.put("studentId", studnetId);
-//		map.put("endRowNum", search.getEndRowNum()+"");
-//		map.put("startRowNum", search.getStartRowNum()+"");
-//		
-//		return sqlSessionTemplate.select;
-//	}
+	@Override
+	public List<Lesson> listLessonStudent(Search search, String userID) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(userID);
+		
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",search);
+	}
 	
 //	==================================
 

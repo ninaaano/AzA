@@ -23,9 +23,9 @@ public interface LessonService {
 	public void deleteLesson(String lessonCode) throws Exception;
 
 	// lesson : list
-	public Map<String, Object> listLesson(Search search,String userID) throws Exception;
+	public Map<String, Object> listLessonTeacher(Search search,String userID) throws Exception;
 	
-//	public Map<String, Object> listLessonStudent(Search search, String studentId) throws Exception;
+	public Map<String, Object> listLessonStudent(Search search, String userID) throws Exception;
 	
 //	==============================================
 	
