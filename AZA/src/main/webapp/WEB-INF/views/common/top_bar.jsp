@@ -1,44 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
-    <link href="/resources/css/message.css" rel="stylesheet">
-    <!-- Load Favicon-->
-    <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <!-- Load Material Icons from Google Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    <!-- Load Simple DataTables Stylesheet-->
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
-    <!-- Roboto and Roboto Mono fonts from Google Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
-    <!-- Load main stylesheet-->
-    <link href="/resources/css/styles.css" rel="stylesheet">
-    
-        
-        
-        
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
-        <style>
-
-            </style>
-</head>
-<header class="nav-fixed bg-light">
-<!-- Top app bar navigation menu-->
+        <meta charset="EUC-KR">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>AZA : Main</title>
+    </head>
+    <body class="nav-fixed bg-light">
+        <!-- Top app bar navigation menu-->
         <nav class="top-app-bar navbar navbar-expand navbar-dark bg-dark">
             <div class="container-fluid px-4">
                 <!-- Drawer toggle button-->
@@ -178,7 +151,6 @@
                 </div>
             </div>
         </nav>
-       
         <!-- Layout wrapper-->
         <div id="layoutDrawer">
             <!-- Layout navigation-->
@@ -428,71 +400,38 @@
                     </div>
                 </nav>
             </div>
-            </div>
-  </header>   
-    <body class="nav-fixed bg-light">
- 
             <!-- Layout content-->
             <div id="layoutDrawer_content">
                 <!-- Main page content-->
                 <main>
-                    <div class="main">
-    			
-    				<!-- 여기에 jsp 넣기 -->
-    			
-    				</div>
+                    
                 </main>
-            </div>
                 <!-- Footer-->
-                <footer>
-                <jsp:include page="/WEB-INF/views/common/home.jsp"/>
-                </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.2/sass.js" integrity="sha512-qN7eI/gyKBObAOLw/VOd8eDV4eR/Mp9gebkx0IqCpV5p7LYz0RCQHJahUwR+UB5W+BaphKRDz3eeqL11mGgIrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script> 
-<script src="/resources/javascript/message/asserts/ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js" crossorigin="anonymous"></script>
-<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-<script src="/resources/javascript/common/prism.js"></script>
-<script src="/resources/javascript/common/material.js"></script>
-<script src="/resources/javascript/common/scripts.js"></script>
-<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script>
-<script type="text/javascript">
- 	// <![CDATA[  <-- For SVG support
-/*  	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}  */
-	// ]]>
-</script>
+                <!-- Min-height is set inline to match the height of the drawer footer-->
+                <!-- <footer class="py-4 mt-auto border-top" style="min-height: 74px">
+                    <div class="container-xl px-5">
+                        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-sm-between small">
+                            <div class="me-sm-2">Copyright &copy; Your Website 2021</div>
+                            <div class="d-flex ms-sm-2">
+                                <a class="text-decoration-none" href="#!">Privacy Policy</a>
+                                <div class="mx-1">&middot;</div>
+                                <a class="text-decoration-none" href="#!">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> -->
+            </div>
+        </div>
+<!-- Load Bootstrap JS bundle-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Load global scripts-->
+        <script type="module" src="/resources/javascript/common/material.js"></script>
+        <script src="/resources/javascript/common/scripts.js"></script>
+        <!-- Load Chart.js via CDN-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js" crossorigin="anonymous"></script>
+        <!-- Load Chart.js customized defaults-->
+        <script src="/resources/javascript/common/charts/chart-defaults.js"></script>
+        <!-- Load chart demos for this page-->
+        <script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script>
 </body>
 </html>
