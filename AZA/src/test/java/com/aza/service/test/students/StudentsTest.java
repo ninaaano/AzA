@@ -75,7 +75,7 @@ public void deleteMessage() throws Exception {
 
 		students.setLessonCode("ABCD1234");
 		students.setStudentId("student11");
-		students.setLessonStartDate("2022/06/08"); //ì´ê±° í†µì¼ì‹œì¼œì•¼í• ë“¯
+		students.setLessonStartDate("2022/06/08"); //ÀÌ°Å ÅëÀÏ½ÃÄÑ¾ßÇÒµí
 		students.setFees(10000);
 		students.setPayDueDate("30");
 
@@ -103,7 +103,7 @@ public void deleteMessage() throws Exception {
 		@Test // :: proposal
 	public void testProposalStudents() throws Exception {
 
-		studentsService.proposalStudents(1050, '1'); // ìŠ¹ì¸
+		studentsService.proposalStudents(1050, '1'); // ½ÂÀÎ
 
 		System.out.println(studentsService.getStudentsRecord(1080));
 	}
@@ -118,7 +118,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-	//	@Test // :: listProposal (0 : ìŠ¹ì¸ ìš”ì²­ì¤‘)
+	//	@Test // :: listProposal (0 : ½ÂÀÎ ¿äÃ»Áß)
 	public void testListProposalStudents() throws Exception {
 
 		Search search = new Search();
@@ -136,7 +136,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-//	@Test // :: listProposal (1 : ìŠ¹ì¸ ìš”ì²­ì™„ë£Œ)
+//	@Test // :: listProposal (1 : ½ÂÀÎ ¿äÃ»¿Ï·á)
 	public void testListStudentsRecord() throws Exception {
 
 		Search search = new Search();
@@ -178,7 +178,7 @@ public void deleteMessage() throws Exception {
 		students.setStudentId("student11");
 		students.setLessonCode("ABCD1234");
 		students.setAttendanceDate("20220604");
-		students.setAttendanceState("ì¶œì„");
+		students.setAttendanceState("Ãâ¼®");
 
 		System.out.println(students);
 
@@ -217,7 +217,7 @@ public void deleteMessage() throws Exception {
 		search.setPageSize(3);
 		Map<String,Object> map = studentsService.listStudentsAttendance(search, "student11", "ABCD1234", "2022/06/03", "2022/06/05");
 
-		// between and => ì´ˆê³¼ ~ ì´í•˜
+		// between and => ÃÊ°ú ~ ÀÌÇÏ
 
 		List<Object> list = (List<Object>)map.get("list");
 
@@ -238,7 +238,7 @@ public void deleteMessage() throws Exception {
 			
 			students.setStudentId("student11");
 			students.setNoteTitle("123");
-			students.setNoteContent("ë¯¸ë¶„ë„ ì–´ë µê³  ì ë¶„ë„ ì–´ë µë‹¤");
+			students.setNoteContent("¹ÌºĞµµ ¾î·Æ°í ÀûºĞµµ ¾î·Æ´Ù");
 			
 			studentsService.addStudentsNote(students);
 			System.out.println(students);
@@ -263,8 +263,8 @@ public void deleteMessage() throws Exception {
 			
 			Students students = new Students();
 			
-			students.setNoteTitle("ë¯¸ë¶„ê³¼ì ë¶„");
-			students.setNoteContent("ë©”ë¡±");
+			students.setNoteTitle("¹ÌºĞ°úÀûºĞ");
+			students.setNoteContent("¸Ş·Õ");
 			students.setNoteCode(1002);
 			
 			studentsService.updateStudentsNote(students);
@@ -354,7 +354,7 @@ public void deleteMessage() throws Exception {
 			stu.setExamYear("1111");
 			stu.setExamSemester("2");
 			stu.setExamTerm("2");
-			stu.setExamSubject("í…ŒìŠ¤íŠ¸");
+			stu.setExamSubject("Å×½ºÆ®");
 			stu.setExamScore(50);
 			
 			studentsService.addStudentsExam(stu);
@@ -367,7 +367,7 @@ public void deleteMessage() throws Exception {
 			
 			Students stu = studentsService.getStudentsExam(1000);
 			System.out.println("Code : 1000 Exam ==>> " + stu);
-			stu.setExamSubject("!..update í…ŒìŠ¤íŠ¸..!");
+			stu.setExamSubject("!..update Å×½ºÆ®..!");
 			stu.setExamScore(50);
 			
 			studentsService.updateStudentsExam(stu);
@@ -386,9 +386,9 @@ public void deleteMessage() throws Exception {
 			search.setCurrentPage(1);
 			search.setPageSize(3);	
 			
-			System.out.println("ì‹œì‘=====================");
+			System.out.println("½ÃÀÛ=====================");
 			
-			Map<String, Object> map = studentsService.listStudentsExam(search, "ìˆ˜í•™", "student21");
+			Map<String, Object> map = studentsService.listStudentsExam(search, "¼öÇĞ", "student21");
 			System.out.println("listExam map ===> " + map);
 			
 			List<Object> list = (List<Object>)map.get("list");
@@ -399,7 +399,7 @@ public void deleteMessage() throws Exception {
 			
 			Integer totalCount = (Integer)map.get("totalCount");
 			System.out.println("listExam TotalCount ====>> " + totalCount);
-			System.out.println("listExam ì„œì¹˜ ====>> " + search);
+			System.out.println("listExam ¼­Ä¡ ====>> " + search);
 			
 		}
 
