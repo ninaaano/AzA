@@ -62,14 +62,14 @@ public class StudentsController {
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		// 승인완료 1 list
+		//  1 list
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/students/listStudentsRecord");
 		mv.addObject("listStudentsRecord", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
 		
-		// 승인요청 0 list
+		//  0 list
 		search.setPageSize(50);	
 		Map<String, Object> proposalMap = studentsService.listProposalStudents(search, teacherId);
 		mv.addObject("listStudentsRecord", proposalMap.get("list"));
@@ -204,5 +204,103 @@ public class StudentsController {
 		mv.setViewName("redirect:/lesson/listStudentsRecord");
 		
 		return mv;		
+	}
+	
+	
+	//========================>Note
+	@RequestMapping("1")
+	public ModelAndView testNote() {
+		
+		ModelAndView mv = new ModelAndView();
+	      
+	      mv.setViewName("/students/addStudentsNote");
+	      
+	      return mv;
+	}
+	
+	@RequestMapping(value="/addStudentsNote", method=RequestMethod.POST)
+	public ModelAndView addStudentsNote(@ModelAttribute("students") Students students) throws Exception {
+	
+		System.out.println("/students/addStudentsNote : POST");
+
+		studentsService.addStudentsNote(students);
+		
+		System.out.println("==="+students);
+		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("redirect:/students/listStudentsNote");		
+		modelAndView.setViewName("redirect:/students/listStudentsNote");		
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/updateStudentsNote", method=RequestMethod.POST)
+	public ModelAndView updateStudentsNote(@ModelAttribute("students") Students students) throws Exception {
+		
+		System.out.println("/studentst/updateStudentsNote : POST");
+		// Business Logic
+		studentsService.updateStudentsNote(students);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/studentst/getStudentsNote?NoteCode="+students.getNoteCode());
+		
+		return modelAndView;
+						
+	}
+	
+	@RequestMapping(value="/getStudentsNote/{noteCode}", method=RequestMethod.GET)
+	public ModelAndView getStudentsNote(@RequestParam("noteCode") int noteCode) throws Exception {
+
+		System.out.println("/getStudentsNote");
+		
+		Students students = studentsService.getStudentsNote(noteCode);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/students/getStudentsNote");
+		modelAndView.addObject("students", students);
+		
+		System.out.println("===="+students);
+ 
+		return modelAndView;
+
+	}
+	
+	@RequestMapping(value="/deleteStudentsNote")
+	public ModelAndView deleteStudentsNote(@RequestParam("noteCode") int noteCode, HttpSession session) throws Exception {
+		
+		System.out.println("/deleteStudentsNote");
+		String studentId = ((User) session.getAttribute("user")).getUserId();
+		
+		studentsService.deleteStudentsNote(noteCode);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/studentst/listStudentsNote");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="listStudentsNote")
+	public ModelAndView listStudentsNote(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
+		
+		System.out.println("/students/listStudentsNote");
+		
+		String studentId = ((User) session.getAttribute("user")).getUserId();
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> listMap = studentsService.listStudentsNote(search, studentId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/students/listStudentsNote");
+		mv.addObject("list", listMap.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);		
+		
+		return mv;			
 	}
 }

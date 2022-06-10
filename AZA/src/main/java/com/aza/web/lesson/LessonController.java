@@ -72,22 +72,36 @@ public class LessonController {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		String role = ((User) session.getAttribute("user")).getRole();
 		
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		System.out.println(teacherId);
+		if(role.equals("teacher")) {
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonTeacher(search, teacherId);
+			
+			Page resultPage = new Page(search.getCurrentPage(),
+					((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/listLesson");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
 		
-		Map<String, Object> map = lessonService.listLesson(search, teacherId);
+			return model;
+		} else {
+			String userId = ((User) session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonStudent(search, userId);
+			
+			Page resultPage = new Page(search.getCurrentPage(),
+					((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/listLesson");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
 		
-		Page resultPage = new Page(search.getCurrentPage(),
-				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
-		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("/lesson/listLesson");
-		model.addObject("listLesson",map.get("list"));
-		model.addObject("resultPage",resultPage);
-		model.addObject("search",search);
-	
-		return model;
+			return model;
+		}
 	}
 	
 	@RequestMapping(value="getLesson")

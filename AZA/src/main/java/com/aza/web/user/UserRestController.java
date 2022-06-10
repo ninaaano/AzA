@@ -137,6 +137,10 @@ public class UserRestController {
 			return user;
 		}
 		
+		@RequestMapping(value="sendSMS")
+		public void phoneAuth(UserService naverServiceImpl) throws Exception{
+			naverServiceImpl.phoneAuth();
+		}
 		
 	
 	

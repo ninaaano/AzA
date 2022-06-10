@@ -22,9 +22,9 @@ public interface LessonDao {
 	public void deleteLesson(String lessonCode) throws Exception;
 	
 	//lesson : list
-	public List<Lesson> listLesson(Search search, String userID) throws Exception;
+	public List<Lesson> listLessonTeacher(Search search, String userID) throws Exception;
 	
-//	public List<Lesson> listLessonStudent(Search search, String studnetId) throws Exception;
+	public List<Lesson> listLessonStudent(Search search, String userID) throws Exception;
 	
 	public int getLessonTotalCount(Search search, String searchKeyword) throws Exception;
 	

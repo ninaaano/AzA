@@ -75,14 +75,14 @@
 												<where>
 													sr.record_code = p.student_record_no
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				 student_name = #{searchKeyword}
+										 				AND p.student_name = #{searchKeyword}
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				 pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+										 				 p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
                   										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				check_pay = #{searchKeyword}
+										 				p.check_pay = #{searchKeyword}
 													</if>
 												</where>
 
@@ -101,14 +101,14 @@
 				<where>
 					sr.record_code = p.student_record_no
 					<if test="searchCondition == 0 and searchKeyword !='' ">
-		 				student_name = #{searchKeyword}
+		 				AND p.student_name = #{searchKeyword}
 					</if>
 					<if test="searchCondition == 1 and searchKeyword !='' ">
-		 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+		 				AND p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
           										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 					</if>
 					<if test="searchCondition == 2 and searchKeyword !='' ">
-		 				check_pay = #{searchKeyword}
+		 				AND p.check_pay = #{searchKeyword}
 					</if>				    
 	 			</where>
 	 		 	) countTable
