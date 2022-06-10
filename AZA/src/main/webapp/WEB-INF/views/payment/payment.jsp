@@ -23,9 +23,9 @@ function requestPay(){
         pg : 'html5_inicis',
         pay_method : 'card',
         merchant_uid : 'merchant_' + new Date().getTime(), // 주문 번호
-        name : '상품명',
+        name : data.lessonName,
         //amount : this.order.amount,
-        amount : 100,
+        amount : data.amount,
         buyer_tel : '010-1111-1111',
     }, function(rsp) {
         if ( rsp.success ) {

@@ -35,11 +35,11 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	
-//	
-//	@Value("#{commonProperties['pageUnit']}")
-//	int pageUnit;
-//	@Value("#{commonProperties['pageSize']}")
-//	int pageSize;	
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;	
 
 	public PaymentController() {
 		// TODO Auto-generated constructor stub
@@ -75,14 +75,19 @@ public class PaymentController {
 		
 		System.out.println("listPayment Start...");
 
-		search.setCurrentPage(1);
-		search.setPageSize(3);	
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);	
 		
 		Map<String, Object> map =paymentService.listPayment(search);
 		
+		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", map.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
 		mv.setViewName("/payment/listPayment");
 		
 		return mv;
