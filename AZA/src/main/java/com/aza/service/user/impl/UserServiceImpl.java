@@ -69,7 +69,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int checkDuplication(String userId) throws Exception {
-		return userDao.checkDuplication(userId);
+		int cnt = userDao.checkDuplication(userId);
+		return cnt;
 	}
 
 	@Override

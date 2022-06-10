@@ -40,11 +40,9 @@ public class UserRestController {
 			return user;
 		}
 		
-		@RequestMapping( value="checkDuplication/{userId}", method=RequestMethod.POST )
+		@RequestMapping( value="/checkDuplication")
 		public int checkDuplication(@RequestParam("id") String userId) throws Exception{
-			
-			System.out.println("/user/checkDuplication : POST");
-			
+						
 			System.out.println("==userIdCheck start==");
 	        System.out.println("전달받은 id:"+userId);
 	        int cnt = userService.checkDuplication(userId);
