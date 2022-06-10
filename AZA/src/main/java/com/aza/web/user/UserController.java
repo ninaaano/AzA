@@ -44,12 +44,12 @@ public class UserController {
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
 	public ModelAndView addUser() throws Exception{
 		
-		ModelAndView modelAndView = new ModelAndView();
-	//	modelAndView.addObject("user", session.getAttribute("user"));
-		
 		System.out.println("/user/addUser : GET");
+
+		ModelAndView mv= new ModelAndView();
+		mv.setViewName("/join");
 		
-		return modelAndView;
+		return mv;
 	}
 	
 	
@@ -64,7 +64,7 @@ public class UserController {
 		
 		System.out.println("/user/addUser : POST");
 				
-		return new ModelAndView("redirect:/user/join.jsp");
+		return new ModelAndView("/main");
 	}	
 
 	
@@ -84,11 +84,39 @@ public class UserController {
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 			System.out.println(session.getAttribute("user"));
+			System.out.println("로그인 성공이시다");
 			return mv; // 일치하면 메인
 		} else {
-			return new ModelAndView("redirect:login.jsp"); // 틀리면 로그인화면
+			System.out.println("안돼 로그인 시켜줄 생각없어 돌아가");
+			return new ModelAndView("/login"); // 틀리면 로그인화면
 		}
 	}
+	
+
+		
+	
+	
+	
+//	// test : login
+//	@RequestMapping( value="login")
+//	public @ResponseBody ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+//		
+//		System.out.println("/user/login");
+//		
+//		ModelAndView mv= new ModelAndView();
+//	
+//		//Business Logic
+//		User dbUser=userService.getUser(user.getUserId());
+//		System.out.println(dbUser);
+//		
+//		if(user.getPassword().equals(dbUser.getPassword())){
+//			session.setAttribute("user", dbUser);
+//			mv.setViewName("/index");
+//		} 
+//		
+//		System.out.println(session.getAttribute("user"));
+//		return mv;
+//	}
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public ModelAndView logout(HttpSession session ) throws Exception{

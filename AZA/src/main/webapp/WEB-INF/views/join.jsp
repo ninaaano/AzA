@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>회원가입</title>
 </head>
 <body>
 
@@ -29,12 +29,12 @@
             <div class="join_content">
                 <!-- 아이디, 비밀번호 입력 -->
                 <div class="row_group">
+                    
                     <div class="join_row">
                         <h3 class="join_title"><label for="id">아이디</label></h3>
                         <span class="ps_box int_id">
 							<input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
                            </span>
-                        <span class="error_next_box" id="idMsg" style="" aria-live="assertive">이미 사용중이거나 탈퇴한 아이디입니다.</span>
                     </div>
 
                     <div class="join_row">
@@ -392,7 +392,7 @@ function checkDuplication(){
       }
 
       function sendSmsButton() {
-          var nationNo = $("#nationNo").val();
+          
           var phoneNo = $("#phoneNo").val();
           var key = $("#token_sjoin").val();
           var oMsg = $("#phoneNoMsg");
@@ -404,13 +404,13 @@ function checkDuplication(){
           authFlag = false;
 
           $("#authNoMsg").hide();
-          if(nationNo == "82" && !isCellPhone(phoneNo)) {
+          if(!isCellPhone(phoneNo)) {
               showErrorMsg(oMsg,"형식에 맞지 않는 번호입니다.");
               return false;
           }
           $.ajax({
               type:"GET",
-              url: "/user2/joinAjax?m=sendAuthno&nationNo=" + nationNo + "&mobno=" + phoneNo + "&lang=" + lang + "&key=" + key + "&id=" + id,
+              url: "" + "&mobno=" + phoneNo  + "&key=" + key + "&id=" + id,
               success : function(data) {
                   var result = data.substr(4);
                   if (result == "S") {
@@ -482,6 +482,13 @@ function checkDuplication(){
           });
           return true;
       }
+      
+      $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "button.btn.btn-primary" ).on("click" , function() {
+				fncAddUser();
+			});
+		});	
       
     
 
