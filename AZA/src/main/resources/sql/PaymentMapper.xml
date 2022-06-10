@@ -17,8 +17,13 @@
 		<result property="payDay" 			 column="pay_day" 				jdbcType="DATE" />
 		<result property="checkPay" 		 column="check_pay" 			jdbcType="CHAR" />
 		<result property="impUid" 			 column="imp_Uid" 				jdbcType="VARCHAR" />
-		<result property="merchantUid" 		 column="merchant_Uid" 			jdbcType="VARCHAR" />			
+		<result property="merchantUid" 		 column="merchant_Uid" 			jdbcType="VARCHAR" />	
+		
+		<association property="payLessonName"  javaType="lesson">
+			<id property="lessonName" column="lesson_name" jdbcType="VARCHAR"/>
+		</association>
 	</resultMap>
+
 
 	<!-- SQL : payment SELECT ONE -->
 	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
@@ -39,8 +44,7 @@
 	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR}, #{merchantUid:VARCHAR})	 
 	 </insert>
 	 
-	<!-- SQL : payment UPDATE -->
-	<!-- 안됨.. -->
+
 	<update id="updatePayment" parameterType="payment">
 	UPDATE payment 
  	<set>
@@ -65,23 +69,25 @@
 	<select id="listPayment" parameterType="search" resultMap="PaymentSelectMap">
 		SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT * FROM payment
-											<if test="searchCondition != null">
+	  					FROM		(	 SELECT
+										sr.lesson_name, sr.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay, p.pay_code
+										FROM payment p, students_record sr
 												<where>
+													sr.record_code = p.student_record_no
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				student_name = #{searchKeyword}
+										 				 student_name = #{searchKeyword}
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+										 				 pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
                   										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
 										 				check_pay = #{searchKeyword}
 													</if>
 												</where>
-											</if>
-											ORDER BY pay_code ) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
+
+											ORDER BY pay_code DESC) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	
 	</select>
@@ -89,9 +95,11 @@
 	
 	<select id="totalPaymentCount" parameterType="search"	 resultType="int">
 		SELECT COUNT(*)
-	  	FROM( SELECT * FROM payment
-	  	<if test="searchCondition != null">
+	  	FROM( SELECT
+				sr.lesson_name, sr.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
+				FROM payment p, students_record sr
 				<where>
+					sr.record_code = p.student_record_no
 					<if test="searchCondition == 0 and searchKeyword !='' ">
 		 				student_name = #{searchKeyword}
 					</if>
@@ -103,7 +111,7 @@
 		 				check_pay = #{searchKeyword}
 					</if>				    
 	 			</where>
-	 		</if> 	) countTable
+	 		 	) countTable
 
 	</select>
 	

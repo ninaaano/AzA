@@ -30,7 +30,7 @@ public interface StudentsService {
 
 
 	// ATTENDANCE :: INSERT
-	public void addAttendance(Students students) throws Exception;
+	public void addStudentsAttendance(Students students) throws Exception;
 
 	// ATTENDANCE :: SELECT
 	public Students getStudentsAttendance(int attendanceCode) throws Exception;

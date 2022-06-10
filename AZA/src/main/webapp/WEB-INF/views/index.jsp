@@ -5,15 +5,22 @@
 <head>
 <meta charset="EUC-KR">
 <title>Aza : main</title>       
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
-        <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-        <script defer src="/resources/javascript/message/client.js"></script>
-        <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/resources/javascript/message/test.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+    <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
+<!--     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="/resources/css/message.css" rel="stylesheet">
+    <!-- <script src="/webjars/jquery/jquery.min.js"></script> -->
+        
+        
+        
         <script type="text/javascript">
 
-            $(function() {   
+          $(function() {   
                                
                 $.ajax({
                     url: "http://localhost:8080/message/rest/listMessage",
@@ -66,8 +73,6 @@
             }); 
 
 
-
-
         </script>
 
 
@@ -95,6 +100,49 @@
         <h2>메인페이지</h2>
         <h3 class="">임시 채팅 모달 -> get만 진행</h3>
         <button class="open-messagePopup" id="open-messagePopup" >Chat</button>
+        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>
+                </div>
+            </form>
+        </div>
+         <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">What is your name?</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                </div>
+                <button id="send" class="btn btn-default" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+        
+        
+        
         
         <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
@@ -123,7 +171,7 @@
                           
                             
                             <div id="listOther" class="card-body scroll" style="position: relative; height: 400px">
-                               <!-- <ul class="list-unstyled mb-0">
+                               <ul class="list-unstyled mb-0">
                                     <li class="p-2 border-bottom">
                                         <a href="#!" class="d-flex justify-content-between">
                                             <div class="d-flex flex-row">
@@ -138,7 +186,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                </ul>  -->
+                                </ul> 
                                  
                             </div>
                         </div>
@@ -152,7 +200,7 @@
                 </div>
                 </div>
 
-                <!-- message -->
+               <!--  message -->
                 <div id="getMessageContainer" class="container py-5 hidden">          
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-6">         

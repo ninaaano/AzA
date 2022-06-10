@@ -58,11 +58,11 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public Map<String, Object> listLesson(Search search,String teacherId) throws Exception {
+	public Map<String, Object> listLesson(Search search,String userID) throws Exception {
 		// TODO Auto-generated method stub 
 		
-		List<Lesson> list = lessonDao.listLesson(search, teacherId);
-		int totalCount = lessonDao.getLessonTotalCount(search, teacherId);
+		List<Lesson> list = lessonDao.listLesson(search, userID);
+		int totalCount = lessonDao.getLessonTotalCount(search, userID);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
