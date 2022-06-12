@@ -1,146 +1,294 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page pageEncoding="EUC-KR"%>
+
+
 <!DOCTYPE html>
-<html>
+
+<html lang="ko">
+	
 <head>
-<meta charset="EUC-KR">
-<title>회원가입</title>
+	<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	 <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+        <!-- Roboto and Roboto Mono fonts from Google Fonts-->
+     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
+        <!-- Load main stylesheet-->
+     <link href="/resources//css/template.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+       body > div.container{
+        	border: 3px solid #D6CDB7;
+            margin-top: 10px;
+        }
+        
+        .id_ok{color:#6A82FB; display: none;}
+        .id_already{color:red; display: none;}
+    </style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	
+
+        
+		//아이디 체크
+		const checkDuplication = _.debounce(async (id) => {
+			//var userId = $('#userId').val(); // id값이 userId인 인력란의 값 저장
+			var id = $("#userId").val();
+			
+			
+			var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
+      		  if (!isID.test(id)) {
+					alert("5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.");
+					return false;
+      		  }			
+      		  
+			
+			$.ajax({
+				url:'/user/rest/checkDuplication',
+				type:'post',
+				data:{id},
+				success:function(cnt){ //컨트롤러에서 넘어온 cnt값 받기
+					if(cnt == 0) { //0이면 사용가능 아이디
+						$('.id_ok').css("display","inline-block");
+						$('.id_already').css("display", "none");
+						}else{
+						$('.id_ok').css("display","none");
+						$('.id_already').css("display", "inline-block");
+					}
+				},
+				error:function(){
+					alert("에러입니다");
+				}
+			});
+		},1000);
+	
+		//============= "가입"  Event 연결 =============
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "button.btn.btn-primary" ).on("click" , function() {
+				fncAddUser();
+			});
+		});	
+		
+		
+
+		$(function(){
+			$('#password2').blur(function(){
+				if($('#password').val() != $('#password2').val()){
+					if($('#password2').val() != ''){
+						alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+						$('#password2').val('');
+						$('#password2').focus();
+					}
+				}
+			})
+		});
+		
+		$(function() {
+			$( "button.btn.btn-sendsms" ).on("click" , function() {
+				// 서버로 보내서 인증 -> 아래 창 활성화
+			});
+		});	
+		
+		
+
+		
+		//============= "취소"  Event 처리 및  연결 =============
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[href='#' ]").on("click" , function() {
+				$("form")[0].reset();
+			});
+		});	
+	
+		
+		function fncAddUser() {
+			
+			var id=$("input[name='userId']").val();
+			var pw=$("input[name='password']").val();
+			var pw_confirm=$("input[name='password2']").val();
+			var name=$("input[name='userName']").val();
+			
+			
+			if(id == null || id.length <1){
+				alert("아이디는 반드시 입력하셔야 합니다.");
+				return;
+			}
+			if(pw == null || pw.length <1){
+				alert("패스워드는  반드시 입력하셔야 합니다.");
+				return;
+			}
+			if(pw_confirm == null || pw_confirm.length <1){
+				alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+				return;
+			}
+			if(name == null || name.length <1){
+				alert("이름은  반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if( pw != pw_confirm ) {				
+				alert("비밀번호 확인이 일치하지 않습니다.");
+				$("input:text[name='password2']").focus();
+				return;
+			}
+				
+			var value = "";	
+			if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
+				var value = $("option:selected").val() + "-" 
+									+ $("input[name='phone2']").val() + "-" 
+									+ $("input[name='phone3']").val();
+			}
+
+			$("input:hidden[name='phone']").val( value );
+			
+			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+		}
+		
+		
+			$('#setDisplay').on('change', function(){
+				if($(this).val()=='option1')){
+				$(".student").css('display','none');
+				$(".parents").css('display','none');
+				} else if ($(this).val()=='option2'){
+				$(".student").css('display','block');
+				$(".parents").css('display','none');
+				}else{
+				$(".student").css('display','none');
+				$(".parents").css('display','block');
+
+				
+				}
+			});
+	
+		
+		
+		
+	   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   //==> 주민번호 유효성 check 는 이해정도로....
+		function checkSsn() {
+			var ssn1, ssn2; 
+			var nByear, nTyear; 
+			var today; 
+	
+			ssn = document.detailForm.ssn.value;
+			// 유효한 주민번호 형식인 경우만 나이 계산 진행, PortalJuminCheck 함수는 CommonScript.js 의 공통 주민번호 체크 함수임 
+			if(!PortalJuminCheck(ssn)) {
+				alert("잘못된 주민번호입니다.");
+				return false;
+			}
+		}
+	
+		function PortalJuminCheck(fieldValue){
+		    var pattern = /^([0-9]{6})-?([0-9]{7})$/; 
+			var num = fieldValue;
+		    if (!pattern.test(num)) return false; 
+		    num = RegExp.$1 + RegExp.$2;
+	
+			var sum = 0;
+			var last = num.charCodeAt(12) - 0x30;
+			var bases = "234567892345";
+			for (var i=0; i<12; i++) {
+				if (isNaN(num.substring(i,i+1))) return false;
+				sum += (num.charCodeAt(i) - 0x30) * (bases.charCodeAt(i) - 0x30);
+			}
+			var mod = sum % 11;
+			return ((11 - mod) % 10 == last) ? true : false;
+		}
+		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		 
+		//==>"ID중복확인" Event 처리 및 연결
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			 $("button.btn.btn-info").on("click" , function() {
+				popWin 
+				= window.open("/user/checkDuplication.jsp",
+											"popWin", 
+											"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
+											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+			});
+		});	
+
+	</script>		
+    
 </head>
+
 <body>
 
-<div id="wrap">
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<div class="navbar  navbar-default">
+        <div class="container">
+        	<a class="navbar-brand" href="/index.jsp">회원가입</a>
+   		</div>
+   	</div>
+   	<!-- ToolBar End /////////////////////////////////////-->
 
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
+	
+		<h1 class="bg-primary text-center">회 원 가 입</h1>
+		
+		<!-- form Start /////////////////////////////////////-->
+		<form class="form-horizontal">
 
+	
+	<select name = "setDisplay" id = "setDisplay">
+		<option value ="option1"> 선생님 </option>
+		<option value ="option2"> 학생 </option>
+		<option value ="option3"> 학부모 </option>
+      </select>
+		  
+		  <div class="form-group">
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" oninput="checkDuplication()" />
+		      <span class="id_ok">사용 가능한 아이디입니다.</span>
+		      <span class="id_already">사용중인 아이디 입니다.</span>
+		    </div>
+		  </div>		  
+		  
+		  <div class="form-group">
+		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
+		    <div class="col-sm-4">
+		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
+		    <div class="col-sm-4">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="userName" name="userName" placeholder="이름">
+		    </div>
+		  </div>
 
-<form id="join_form" method="post" action="/user/Join?m=end">
-    <input type="hidden" id="token_sjoin" name="token_sjoin" value="ER0JbsPMApzwM5F0">
-    <input type="hidden" id="encPswd" name="encPswd" value="">
-    <input type="hidden" id="encKey" name="encKey" value="">
-    <input type="hidden" id="birthday" name="birthday" value="">
-    <input type="hidden" id="joinMode" name="joinMode" value="unreal">
-    <input type="hidden" id="pbirthday" name="pbirthday" value="">
-    <input type="hidden" id="nid_kb2" name="nid_kb2" value="">
-
-    <!-- container -->
-    <div id="container" role="main">
-        <div id="content">
-            <!-- tg-text=title -->
-            <h2 class="blind">회원가입</h2>
-            <div class="join_content">
-                <!-- 아이디, 비밀번호 입력 -->
-                <div class="row_group">
-                    
-                    <div class="join_row">
-                        <h3 class="join_title"><label for="id">아이디</label></h3>
-                        <span class="ps_box int_id">
-							<input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
-                           </span>
-                    </div>
-
-                    <div class="join_row">
-                        <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
-                        <span class="ps_box int_pass_step1" id="pswd1Img">
-							<input type="password" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20" aria-autocomplete="list">
-                            <span class="lbl"><span id="pswd1Span" class="step_txt txt_red">사용불가</span></span>
-						</span>
-                        <span class="error_next_box" id="pswd1Msg" style="display: block;" aria-live="assertive">필수 정보입니다.</span>
-
-                        <h3 class="join_title"><label for="pswd2">비밀번호 재확인</label></h3>
-                        <span class="ps_box int_pass_check" id="pswd2Img">
-							<input type="password" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind" maxlength="20">
-							<span id="pswd2Blind" class="wa_blind">설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.</span>
-						</span>
-                        <span class="error_next_box" id="pswd2Msg" style="" aria-live="assertive">필수 정보입니다.</span>
-                    </div>
-                </div>
-                <!-- // 아이디, 비밀번호 입력 -->
-
-                <!-- 이름, 생년월일 입력 -->
-                <div class="row_group">
-
-                    <!-- lang = ko_KR -->
-                    <div class="join_row">
-                        <h3 class="join_title"><label for="name">이름</label></h3>
-                        <span class="ps_box box_right_space">
-							<input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
-						</span>
-                        <span class="error_next_box" id="nameMsg" style="" aria-live="assertive">필수 정보입니다.</span>
-                    </div>
-                    <!-- lang = ko_KR -->
-
-                    <div class="join_row join_birthday">
-                        <h3 class="join_title"><label for="yy">생년월일</label></h3>
-                        <div class="bir_wrap">
-                            <div class="bir_yy">
-								<span class="ps_box">
-									<input type="text" id="yy" placeholder="생년월일" aria-label="생년월일" class="int" maxlength="8">
-								</span>
-                            </div>
-                            
-                           
-                        </div>
-                        <span class="error_next_box" id="birthdayMsg" style="display:none" aria-live="assertive"></span>
-                    </div>
-                <!-- // 이름, 생년월일 입력 -->
-
-                <!-- 휴대전화 번호, 인증번호 입력 -->
-                <div class="join_row join_mobile" id="mobDiv">
-                    <h3 class="join_title"><label for="phoneNo">휴대전화</label></h3>
-                                                           
-                    </div>
-                    <div class="int_mobile_area">
-						<span class="ps_box int_mobile">
-							<input type="tel" id="phoneNo" name="phoneNo" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16">
-							<label for="phoneNo" class="lbl"></label>
-						</span>
-                        <a href="#" class="btn_verify btn_primary" id="btnSend" role="button">
-                            <span class="">인증번호 받기</span>
-                        </a>
-                    </div>
-                    <div class="ps_box_disable box_right_space" id="authNoBox">
-                        <input type="tel" id="authNo" name="authNo" placeholder="인증번호 입력하세요" aria-label="인증번호 입력하세요" aria-describedby="wa_verify" class="int" disabled="" maxlength="4">
-                        <label id="wa_verify" for="authNo" class="lbl">
-                            <span class="wa_blind">인증받은 후 인증번호를 입력해야 합니다.</span>
-                            <span class="input_code" id="authNoCode" style="display:none;"></span>
-                        </label>
-                    </div>
-
-                    <span class="error_next_box" id="phoneNoMsg" style="display:none" aria-live="assertive"></span>
-                    <span class="error_next_box" id="authNoMsg" style="display:none" aria-live="assertive"></span>
-                    <span class="error_next_box" id="joinMsg" style="display:none" aria-live="assertive"></span>
-                </div>
-                <!-- // 휴대전화 번호, 인증번호 입력 -->
-
-                <!-- tg-display=>{"보호자 모바일 인증": [], "오류 메시지": []} -->
-                <div class="join_minor tab" id="pmobDiv" style="display:none">
-                    <ul class="tab_m" role="tablist">
-                        <li class="m1" role="presentation"><a href="#" onclick="return false;" class="on" role="tab" aria-selected="true" aria-controls="wa_tab_phone">휴대전화인증</a></li>
-                    </ul>
-                    <div id="wa_tab_phone" role="tabpanel">
-                        <div class="agree_check_wrap">
-                            
-                            <span class="error_next_box" id="pagreeMsg" style="display:none" aria-live="assertive">필수 정보입니다.</span>
-                        </div>
-                        <div class="row_group">
-                            <div class="join_row">
-                                <h3 class="join_title"><label for="pname">보호자 이름</label></h3>
-                                <span class="ps_box box_right_space">
-                                    <input type="text" id="pname" name="pname" title="보호자 이름" class="int" maxlength="40">
-                                </span>
-                                <span class="error_next_box" id="pnameMsg" style="display:none" aria-live="assertive">필수 정보입니다.</span>
-                            </div>
-                           
-                        </div>
-                       
-                        <div class="join_row join_mobile">
-                            <h3 class="join_title"><label for="pphoneNo">휴대전화</label></h3>
-                            <div class="int_mobile_area">
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">휴대전화</label>
+		    <input type="hidden" name="phone"  />
+		  </div>
+		     <div class="int_mobile_area">
                                 <span class="ps_box int_mobile">
                                     <input type="tel" id="pphoneNo" name="pphoneNo" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16">
                                 </span>
-                                <a href="#" class="btn_verify btn_primary" id="btnPrtsSend" role="button">
-                                    <span class="">인증번호 받기</span>
-                                </a>
+                                <button type="button" class="btn btn-sendsms">
+                                   인증번호 받기
+                                </button>
                             </div>
                             <div class="ps_box_disable box_right_space" id="pauthNoBox">
                                 <input type="tel" id="pauthNo" name="pauthNo" placeholder="인증번호 입력하세요" aria-label="인증번호 입력하세요" aria-describedby="pwa_verify" class="int" disabled="" maxlength="6">
@@ -148,354 +296,57 @@
                                     <span class="wa_blind">인증받은 후 인증번호를 입력해야 합니다.</span>
                                     <span class="input_code" id="pauthNoCode" style="display:none;"></span>
                                 </label>
+             
+             
                             </div>
-                            <span class="error_next_box" id="pphoneNoMsg" style="display:none" aria-live="assertive">필수 정보입니다.</span>
-                            <span class="error_next_box" id="pauthNoMsg" style="display:none" aria-live="assertive">필수 정보입니다.</span>
-                            <span class="error_next_box" id="pjoinMsg" style="display:none" aria-live="assertive">필수 정보입니다.</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- tg-display -->
-
-    
-
-                <div class="btn_area">
-                    <button type="button" id="btnJoin" class="btn_type btn_primary"><span>가입하기</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- // container -->
-</form>
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-<script type="text/JavaScript">
-
-function checkDuplication(){
-         
-		idFlag = false;
-         $.ajax({
-            url:'/user/json/checkDuplication',
-            type:'post',
-            data:{id:$('#userId').val()},
-            success:function(cnt){ 
-               if(cnt == 0) { 
-                  $('.id_ok').css("display","inline-block");
-                  $('.id_already').css("display", "none");
-                  if (event == "first") {
-                      showSuccessMsg(oMsg, "멋진 아이디네요!");
-                  } else {
-                      hideMsg(oMsg);
-                  }
-                  idFlag = true;
-               }else{
-                  $('.id_ok').css("display","none");
-                  $('.id_already').css("display", "inline-block");
-                  showErrorMsg(oMsg, "이미 사용중인 아이디입니다.");
-                  setFocusToInputObject(oInput);
-               }
-            },
-            error:function(){
-               alert("에러입니다");
-            }
-         });
-         return true;
-      };
-      
-      function checkPswd1() {
-          if(pwFlag) return true;
-
-          var id = $("#id").val();
-          var pw = $("#pswd1").val();
-          var oImg = $("#pswd1Img");
-          var oSpan = $("#pswd1Span");
-          var oMsg = $("#pswd1Msg");
-          var oInput = $("#pswd1");
-
-          if (pw == "") {
-              showErrorMsg(oMsg,"필수 정보입니다.");
-              setFocusToInputObject(oInput);
-              return false;
-          }
-          if (isValidPasswd(pw) != true) {
-              showPasswd1ImgByStep(oImg, oSpan, 1);
-              showErrorMsg(oMsg,"8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
-              setFocusToInputObject(oInput);
-              return false;
-          }
-
-          pwFlag = false;
-          $.ajax({
-              type:"GET",
-              url: "/user2/joinAjax?m=checkPswd&id=" + escape(encodeURIComponent(id)) + "&pw=" + escape(encodeURIComponent(pw)) ,
-              success : function(data) {
-                  var result = data.substr(4);
-                  if (result == 1) {
-                      showPasswd1ImgByStep(oImg, oSpan, 1);
-                      showErrorMsg(oMsg,"8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
-                      setFocusToInputObject(oInput);
-                      return false;
-                  } else if (result == 2) {
-                      showPasswd1ImgByStep(oImg, oSpan, 2);
-                      showErrorMsg(oMsg,"8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
-                      setFocusToInputObject(oInput);
-                  } else if (result == 3) {
-                      showPasswd1ImgByStep(oImg, oSpan, 3);
-                      oMsg.hide();
-                  } else if (result == 4) {
-                      showPasswd1ImgByStep(oImg, oSpan, 4);
-                      oMsg.hide();
-                  } else {
-                      showPasswd1ImgByStep(oImg, oSpan, 0);
-                      oMsg.hide();
-                  }
-                  pwFlag = true;
-                  createRsaKey();
-              }
-          });
-          return true;
-      }
-
-      function checkPswd2() {
-          var pswd1 = $("#pswd1");
-          var pswd2 = $("#pswd2");
-          var oMsg = $("#pswd2Msg");
-          var oImg = $("#pswd2Img");
-          var oBlind = $("#pswd2Blind");
-          var oInput = $("#pswd2");
-
-          if (pswd2.val() == "") {
-              showPasswd2ImgByDiff(oImg, false);
-              showErrorMsg(oMsg,"필수 정보입니다.");
-              oBlind.html("설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.");
-              setFocusToInputObject(oInput);
-              return false;
-          }
-          if (pswd1.val() != pswd2.val()) {
-              showPasswd2ImgByDiff(oImg, false);
-              showErrorMsg(oMsg,"비밀번호가 일치하지 않습니다.");
-              oBlind.html("설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.");
-              setFocusToInputObject(oInput);
-              return false;
-          } else {
-              showPasswd2ImgByDiff(oImg, true);
-              oBlind.html("일치합니다");
-              hideMsg(oMsg);
-              return true;
-          }
-
-          return true;
-      }
-      
-      function checkBirthday() {
-          var birthday;
-          var yy = $("#yy").val();
-          var mm = $("#mm option:selected").val();
-          var dd = $("#dd").val();
-          var oMsg = $("#birthdayMsg");
-          var lang = "ko_KR";
-
-          var oyy = $("#yy");
-          var omm = $("#mm");
-          var odd = $("#dd");
-
-          if (yy == "" && mm == "" && dd == "") {
-              showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-              setFocusToInputObject(oyy);
-              return false;
-          }
-
-          if (mm.length == 1) {
-              mm = "0" + mm;
-          }
-          if (dd.length == 1) {
-              dd = "0" + dd;
-          }
-
-          if(yy == "") {
-              showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-              setFocusToInputObject(oyy);
-              return false;
-          }
-          if(yy.length != 4 || yy.indexOf('e') != -1 || yy.indexOf('E') != -1) {
-              showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-              setFocusToInputObject(oyy);
-              return false;
-          }
-          if(mm == "") {
-              showErrorMsg(oMsg,"태어난 월을 선택하세요.");
-              setFocusToInputObject(omm);
-              return false;
-          }
-          if(dd == "") {
-              showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
-              setFocusToInputObject(odd);
-              return false;
-          }
-          if(dd.length != 2 || dd.indexOf('e') != -1 || dd.indexOf('E') != -1) {
-              showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
-              setFocusToInputObject(odd);
-              return false;
-          }
-
-          birthday = yy + mm + dd;
-          if (!isValidDate(birthday)) {
-              showErrorMsg(oMsg,"생년월일을 다시 확인해주세요.");
-              setFocusToInputObject(oyy);
-              return false;
-          }
-          $("#birthday").val(birthday);
-
-          var age = calcAge(birthday);
-          if (age < 0) {
-              showErrorMsg(oMsg,"미래에서 오셨군요. ^^");
-              setFocusToInputObject(oyy);
-              return false;
-          } else if (age >= 100) {
-              showErrorMsg(oMsg,"정말이세요?");
-              setFocusToInputObject(oyy);
-              return false;
-          } else if (age < 14) {
-              showErrorMsg(oMsg,"만 14세 미만의 어린이는 보호자 동의가 필요합니다.");
-              if(lang == "ko_KR") {
-                  if ($("#joinMode").val() == "unreal") {
-                      showJuniverMobileTab();
-                  }
-                  return true;
-              } else {
-                  hideJuniverTab();
-                  return false;
-              }
-          } else {
-              hideMsg(oMsg);
-              hideJuniverTab();
-              return true;
-          }
-          return true;
-      }
-      
-      function checkPhoneNo() {
-          var phoneNo = $("#phoneNo").val();
-          var oMsg = $("#phoneNoMsg");
-          var oInput = $("#phoneNo");
-
-          if (phoneNo == "") {
-              showErrorMsg(oMsg,"필수 정보입니다.");
-              setFocusToInputObject(oInput);
-              return false;
-          }
-
-          hideMsg(oMsg);
-          return true;
-      }
-
-      function sendSmsButton() {
+         <div class = "student" style = "display:none;">
+		    <label for="birth" class="col-sm-offset-1 col-sm-3 control-label">생년월일</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="birth" name="birth" placeholder="앞자리 8자리">
+		    </div>
+		  </div>
           
-          var phoneNo = $("#phoneNo").val();
-          var key = $("#token_sjoin").val();
-          var oMsg = $("#phoneNoMsg");
-          var lang = "ko_KR";
-          var id = $("#id").val();
+                            
+         <div class = "student" style = "display:none;">
+		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">학교</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="school" name="school" placeholder="학교 이름">
+		    </div>
+		  </div>
+         
+         <div class = "student" style = "display:none;">
+		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">학년</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="grade" name="grade" placeholder="숫자만 입력하세요">
+		    </div>
+		  </div>
+         
+         <div class = "student" style = "display:none;">
+		    <label for="parentsPhone" class="col-sm-offset-1 col-sm-3 control-label">부모님 핸드폰번호</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="parentsPhone" name="parentsPhone" placeholder="숫자만 입력하세요">
+		    </div>
+		  </div>
+         
+         <div class="parents" style = "display:none;">
+		    <label for="studentId" class="col-sm-offset-1 col-sm-3 control-label">자녀아이디</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="studentId" name="studentId" placeholder="자녀 아이디">
+		    </div>
+		  </div>
 
-          phoneNo = phoneNo.replace(/ /gi, "").replace(/-/gi, "");
-          $("#phoneNo").val(phoneNo);
-          authFlag = false;
-
-          $("#authNoMsg").hide();
-          if(!isCellPhone(phoneNo)) {
-              showErrorMsg(oMsg,"형식에 맞지 않는 번호입니다.");
-              return false;
-          }
-          $.ajax({
-              type:"GET",
-              url: "" + "&mobno=" + phoneNo  + "&key=" + key + "&id=" + id,
-              success : function(data) {
-                  var result = data.substr(4);
-                  if (result == "S") {
-                      showSuccessMsg(oMsg,"인증번호를 발송했습니다.(유효시간 30분)<br>인증번호가 오지 않으면 입력하신 정보가 정확한지 확인하여 주세요.<br>이미 가입된 번호이거나, 가상전화번호는 인증번호를 받을 수 없습니다.");
-                      $("#authNo").attr("disabled", false);
-                      var oBox = $("#authNoBox");
-                      var oCode = $("#authNoCode");
-                      showAuthDefaultBox(oBox, oCode);
-                  } else {
-                      showErrorMsg(oMsg,"전화번호를 다시 확인해주세요.");
-                  }
-              }
-          });
-          return false;
-      }
-
-      function checkAuthNo() {
-          var authNo = $("#authNo").val();
-          var oMsg = $("#authNoMsg");
-          var oBox = $("#authNoBox");
-          var oCode = $("#authNoCode");
-          var oInput = $("#authNo");
-
-          if (authNo == "") {
-              showErrorMsg(oMsg,"인증이 필요합니다.");
-              setFocusToInputObject(oInput);
-              return false;
-          }
-
-          if(authFlag) {
-              showSuccessMsg(oMsg,"인증이 성공했습니다.");
-              showAuthSuccessBox(oBox, oCode, "일치");
-              $("#phoneNoMsg").hide();
-              return true;
-          } else {
-              checkAuthnoByAjax();
-          }
-          return true;
-      }
-
-      function checkAuthnoByAjax() {
-          var authNo = $("#authNo").val();
-          var key = $("#token_sjoin").val();
-          var oMsg = $("#authNoMsg");
-          var oBox = $("#authNoBox");
-          var oCode = $("#authNoCode");
-          var oInput = $("#authNo");
-
-          $.ajax({
-              type:"GET",
-              url: "/user2/joinAjax?m=checkAuthno&authno=" + authNo + "&key=" + key ,
-              success : function(data) {
-                  var result = data.substr(4);
-                  if (result == "S") {
-                      showSuccessMsg(oMsg,"인증이 성공했습니다.");
-                      showAuthSuccessBox(oBox, oCode, "일치");
-                      $("#phoneNoMsg").hide();
-                      authFlag = true;
-                  } else if (result == "Cnt") {
-                      showErrorMsg(oMsg,"인증을 다시 진행해주세요.");
-                      showAuthErrorBox(oBox, oCode, "불일치");
-                      setFocusToInputObject(oInput);
-                  } else {
-                      showErrorMsg(oMsg,"인증번호를 다시 확인해주세요.");
-                      showAuthErrorBox(oBox, oCode, "불일치");
-                      setFocusToInputObject(oInput);
-                  }
-              }
-          });
-          return true;
-      }
-      
-      $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncAddUser();
-			});
-		});	
-      
-    
-
-
-</script>
-
-
-</div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		      <button type="button" class="btn btn-primary"  >가 &nbsp;입</button>
+			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		    </div>
+		  </div>
+		</form>
+		<!-- form Start /////////////////////////////////////-->
+		
+ 	</div>
+	<!--  화면구성 div end /////////////////////////////////////-->
+	
 </body>
+
 </html>

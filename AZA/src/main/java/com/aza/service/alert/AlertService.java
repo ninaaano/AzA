@@ -1,5 +1,6 @@
 package com.aza.service.alert;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -20,5 +21,9 @@ public interface AlertService {
 	public void deleteAlert(int alertCode) throws Exception;
 	
 	public Map<String, Object> listAlert(Search search, String receiverId) throws Exception;
+
+	List<Alert> getAlertPayment(Search search, String receiverId) throws Exception;
+
+	List<Alert> getAlertByDate(Search search) throws Exception;
 	
 }

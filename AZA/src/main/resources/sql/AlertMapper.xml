@@ -71,6 +71,18 @@
 	) 
 	SELECT * FROM alert, payment
 	</insert>
+	
+	<select id="getAlertPayment">
+	SELECT * FROM alert
+	WHERE receiver_id = #{receiver_id}
+	</select>
+	
+	<select id="getAlertByDate">
+	<![CDATA[ SELECT * FROM alert
+	WHERE TO_DATE(sysdate, 'YYYY/MM/DD') -  
+       TO_DATE(alert_create_at, 'YYYY/MM/DD') < 8
+       ]]>
+	</select>
 
 
 	<!-- READ -->
