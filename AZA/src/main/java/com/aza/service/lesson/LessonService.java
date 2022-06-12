@@ -55,4 +55,8 @@ public interface LessonService {
 	// schedule : list
 	public Map<String, Object> listLessonSchedule(Search search, String teacherId) throws Exception;
 
+	public List<Schedule> getSchedule() throws Exception;
+	
+	
+
 }

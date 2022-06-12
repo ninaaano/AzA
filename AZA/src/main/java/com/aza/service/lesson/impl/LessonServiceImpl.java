@@ -148,6 +148,9 @@ public class LessonServiceImpl implements LessonService {
 		return map;
 	}
 
-
+	@Override
+	public List<Schedule> getSchedule() throws Exception{
+		return lessonDao.getCalendar();
+	}
 
 }

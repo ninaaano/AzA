@@ -2,6 +2,9 @@ package com.aza.service.lesson;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.aza.common.Search;
 import com.aza.service.domain.Book;
 import com.aza.service.domain.Lesson;
@@ -58,5 +61,7 @@ public interface LessonDao {
 	public List<Schedule> listLessonSchedule(Search search, String teacherId) throws Exception;
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public List<Schedule> getCalendar() throws Exception;
 }
 

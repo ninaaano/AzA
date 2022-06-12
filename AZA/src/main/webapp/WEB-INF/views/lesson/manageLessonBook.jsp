@@ -1,19 +1,28 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
-<%@ page pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="EUC-KR">
-<title>수업 목록 조회</title>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>manageLessonBook</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<meta charset="EUC-KR">
-
+<script type ="text/javascript">
+	function fncAddLessonBook(){
+		$("form").attr("method","post").attr("action","/").submit();
+	}
+</script>
 </head>
 <body>
-	<h1>Hello world!!!!!!!</h1>
+<form class="d-flex" action="{% url 'api_book_search' %}" method="GET">
+	책 검색(isbn 입력)
+	<input name="q" class="form-control me-2" type="search" placeholder="isbn 입력" aria-label="Search">
+	<button class="btn btn-outline-success" type="submit">검색</button>
+</form>
+
 	<table border="1" cellspacing = "0" cellpadding = "10px">
 		<thead>
 			<tr>
@@ -48,21 +57,21 @@
 				<tr class="ct_list_pop">
 					<td align="center">${i}</td>
 					
-					<td align="left">${lesson.lessonName}</td>
+					<td align="left">${lesson.isbn}</td>
 					
-					<td align="left">${lesson.teacherName.getUserName()}</td>
+					<td align="left">${lesson.bookTitle}</td>
 					
-					<td align="left">${lesson.lessonDay}</td>
+					<td align="left">${lesson.publisher}</td>
 					
-					<td align="left">${lesson.lessonStartTime}</td>
+					<td align="left">${lesson.bookPrice}</td>
 					
-					<td align="left">${lesson.lessonEndTime}</td>
+					<td align="left">${lesson.author}</td>
 					
-					<td align="left">${lesson.lessonPlace}</td>
+					<td align="left">${lesson.bookYear}</td>
 					
-					<td align="left">${lesson.subject}</td>
+					<td align="left">${lesson.bookImg}</td>
 					
-					<td align="left">${lesson.lessonCode}</td>
+					<td align="left">${lesson.bookCode}</td>
 					
 					<c:if test="${param.menu eq 'student'}">
 				    	<td class="left">hello</td>
@@ -71,4 +80,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
+</body>
 </html>

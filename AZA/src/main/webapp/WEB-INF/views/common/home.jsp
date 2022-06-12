@@ -72,7 +72,7 @@
 
 
 <body>
-  
+  		<br><br><br><br>
         <h2>메인페이지</h2>
         <h3 class="">임시 채팅 모달 -> get만 진행</h3>
         <button class="open-messagePopup" id="open-messagePopup" >Chat</button>
@@ -114,6 +114,15 @@
             </table>
         </div>
     </div>
+            <footer class="footer" align="right">
+            <h1>
+           <!--  <link href="https://cdn-icons-png.flaticon.com/512/2353/2353678.png" rel="icon"  type="image/x-icon"> -->
+            chatbot
+            
+            <%-- <jsp:forward page="chatbot/chatbot.jsp"> --%>
+            </h1>
+            <button onclick="location=windows.open('/chatbot/chatbot.jsp')">chatbot</button>
+            </footer>
 </div>
 
         

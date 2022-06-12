@@ -9,6 +9,7 @@ public class Schedule {
     private String scheduleEndDate;
     private String scheduleContent;
     private String teacherId;
+    private String scheduleTitle;
 
     public String getScheduleStartDate() {
         return scheduleStartDate;
@@ -65,10 +66,22 @@ public class Schedule {
     public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
+
+	public String getScheduleTitle() {
+		return scheduleTitle;
+	}
+
+	public void setScheduleTitle(String scheduleTitle) {
+		this.scheduleTitle = scheduleTitle;
+	}
+
+	@Override
+	public String toString() {
+		return "Schedule [scheduleCode=" + scheduleCode + ", scheduleStartDate=" + scheduleStartDate
+				+ ", scheduleStartTime=" + scheduleStartTime + ", scheduleEndTime=" + scheduleEndTime
+				+ ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent + ", teacherId="
+				+ teacherId + ", scheduleTitle=" + scheduleTitle + "]";
+	}
     
-    public String toString() {
-    	return "schedule [scheduleCode="+scheduleCode+"teacherId ="+teacherId+"sceduleStartDate= "+scheduleStartDate+
-    			"scheduleEndDate= "+scheduleEndDate+"scheduleStarttime"+scheduleStartTime+"scheduleEndtime"+scheduleEndTime
-    			+"schedulecContent= "+scheduleContent+"]";
-    }
+
 }

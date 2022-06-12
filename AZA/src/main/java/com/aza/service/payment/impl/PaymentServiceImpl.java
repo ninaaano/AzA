@@ -202,8 +202,6 @@ public class PaymentServiceImpl implements PaymentService {
 		    conn.disconnect();
 		    
 		    return response.getResponse().getAmount();
-
-		   
 	}
 
 	@Override
@@ -242,11 +240,7 @@ public class PaymentServiceImpl implements PaymentService {
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
  
 		br.close();
-		conn.disconnect();
-		
+		conn.disconnect();		
 	}
-
-
-
 
 }

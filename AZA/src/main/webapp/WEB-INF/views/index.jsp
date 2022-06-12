@@ -206,7 +206,7 @@
                             <!-- Drawer link (Overview)-->
                             <a class="nav-link" href="index.html">
                                 <div class="nav-link-icon"><i class="material-icons">language</i></div>
-                                Overview
+                                OverView
                             </a>
                             <!-- Drawer link (Dashboards)-->
                             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
