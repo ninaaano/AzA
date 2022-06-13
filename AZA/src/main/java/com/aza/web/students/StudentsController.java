@@ -31,18 +31,16 @@ public class StudentsController {
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
 
-	public StudentsController() {
-		System.out.println(this.getClass());
-	}
-	
 	@Value("${pageUnit}")
 	int pageUnit;
-
+	
 	@Value("${pageSize}")
 	int pageSize;
 	
 	
-
+	public StudentsController() {
+		System.out.println(this.getClass());
+	}
 	
 	// STUDENTS_RECORD
 	@RequestMapping(value="listStudentsRecord")

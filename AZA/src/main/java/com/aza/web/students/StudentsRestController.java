@@ -76,7 +76,7 @@ public class StudentsRestController {
 		System.out.println(resultPage);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/students/listAttendance");
+		mv.setViewName("/students/rest/listAttendance");
 		mv.addObject("list", map.get("list"));
 		mv.addObject("resultPage", resultPage);
 		
