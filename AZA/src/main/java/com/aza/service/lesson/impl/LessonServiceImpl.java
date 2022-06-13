@@ -1,6 +1,7 @@
 package com.aza.service.lesson.impl;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,10 +148,4 @@ public class LessonServiceImpl implements LessonService {
 		
 		return map;
 	}
-
-	@Override
-	public List<Schedule> getSchedule() throws Exception{
-		return lessonDao.getCalendar();
-	}
-
 }

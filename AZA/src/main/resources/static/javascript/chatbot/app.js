@@ -52,3 +52,15 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
 });
+
+const chatbotPop = $("#chatbot-pop");
+chatbotPop.on("click",popupHandler);
+function chatbotPopHandler(){
+	chatbotPop.addClass("show");
+}
+function openPop() {
+	    document.getElementById("popup_layer").style.display = "block";
+	    }
+function closePop() {
+	    document.getElementById("popup_layer").style.display = "none";
+	    }

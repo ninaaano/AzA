@@ -116,13 +116,17 @@
     </div>
             <footer class="footer" align="right">
             <h1>
-           <!--  <link href="https://cdn-icons-png.flaticon.com/512/2353/2353678.png" rel="icon"  type="image/x-icon"> -->
             chatbot
-            
-            <%-- <jsp:forward page="chatbot/chatbot.jsp"> --%>
             </h1>
-            <button onclick="location=windows.open('/chatbot/chatbot.jsp')">chatbot</button>
+            <button class="chatbot-pop" id="chatbot-pop">chatbot</button>
             </footer>
+            <br>
+            <a href="javascript:openPop()">
+		    <div  align="right">
+		        ÆË¾÷¿ÀÇÂ!
+		    </div>
+			</a>
+            
 </div>
 
         

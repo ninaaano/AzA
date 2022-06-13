@@ -23,10 +23,10 @@
 	</insert>
 	<!-- (SELECT user_id FROM USERS WHERE user_id = #{teacherId}) -->
 	
-	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">
-		SELECT L.lesson_name, S.schedule_title, S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
-		FROM schedule S, users U, lesson L
-		WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id AND S.teacher_id = 'teacher53'<!-- #{teacherId} --> AND S.schedule_code=#{scheduleCode}
+	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">		
+		SELECT S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
+		FROM schedule S, users U
+		WHERE S.teacher_id = u.user_id AND S.schedule_code = #{scheduleCode}
 	</select>
 	
 	

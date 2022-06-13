@@ -1,17 +1,25 @@
 package com.aza.web.schedule;
 
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,18 +50,20 @@ public class ScheduleController {
 		return model; 
 	}
 
-	@RequestMapping(value="/calendar", method=RequestMethod.GET)
-	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
-		String viewpage = "calendar";
-		List<Schedule> schedule = null;
-		try {
-			schedule = lessonService.getSchedule();
-			request.setAttribute("calendarList", schedule);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		mv.setViewName(viewpage);
-		return mv;
-	}
+
+//	@RequestMapping(value="/calendar", method=RequestMethod.GET)
+//	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
+////		String viewpage = "calendar";
+//		String viewpage = "/schedule/manageLessonSchedule";
+//		List<Schedule> schedule = null;
+//		try {
+//			schedule = lessonService.getSchedule();
+//			request.setAttribute("calendarList", schedule);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		mv.setViewName(viewpage);
+//		return mv;
+//	}
 	
 }

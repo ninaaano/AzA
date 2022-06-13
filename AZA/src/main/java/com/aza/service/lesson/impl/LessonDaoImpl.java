@@ -1,5 +1,6 @@
 package com.aza.service.lesson.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,14 +152,14 @@ public class LessonDaoImpl implements LessonDao {
 		map.put("startRowNum", search.getStartRowNum()+"");
 		return sqlSessionTemplate.selectList("ScheduleMapper.listLessonSchedule",map);	
 	}
-	
-	@Override
-	public List<Schedule> getCalendar() throws Exception{
-		List<Schedule> calendar = null;
-		
-		calendar = sqlSessionTemplate.selectList("ScheduleMapper.listLessonSchedule");
-		return calendar;
-	}
+
+//	@Override
+//	public List<Schedule> getCalendar() throws Exception{
+//		List<Schedule> calendar = null;
+//		
+//		calendar = sqlSessionTemplate.selectList("ScheduleMapper.getLessonSchedule");
+//		return calendar;
+//	}
 	
 //	==================================	
 

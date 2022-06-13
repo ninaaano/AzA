@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.List" %>
-<%@page import="com.aza.service.domain.Schedule" %>
+<%-- <%@page import="java.util.List" %>
+<%@page import="com.aza.service.domain.Schedule" %> --%>
 
 <!DOCTYPE html>
 <html lang='en'>
@@ -20,14 +20,13 @@
       //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-
+		//new FullCalendar.Calendar(대상 DOM 객체,(속성: 속성값, 속성2: 속성값2..))
         var calendar = new FullCalendar.Calendar(calendarEl, {
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridDay'
           },
-
           initialView: 'dayGridMonth',
           locale: 'ko',   //한글설정 나머지 영어빼고 지움
           buttonIcons: false, //이전달 다음달로 보임 <> == true
@@ -36,36 +35,81 @@
           editable: true,
           selectable: true, //날짜 선택시 표시
           dayMaxEvents: true, //이벤트가 많을 시 +표시로 보여줌 ㅎㅎ
-          selectMirror: true, 
+          selectMirror: true,
+          eventAdd: function(){//이벤트가 추가되면 발생하는 이벤트
+        	  console.log()
+          },
+          
           select: function(arg){
             var title = prompt('일정 등록: ');
+            //title값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
             if(title){
               calendar.addEvent({
                 title: title,
                 start: arg.start,
                 end: arg.end,
-                allDay: arg.allDay
+                allDay: arg.allDay,
+                backgroundColor:"yellow",
+                textColor:"blue",
               })
+            } 
+           /*  var allEvent = calendar.getEvents(); //.getEvents()함수로 모든 이벤트를 Array형식으로 가져온다.
+            var events = new Array(); //Json 데이터를 받기 위한 배열 선언
+            for (var i = 0; i < allEvent.length; i++) {
+                var obj = new Object();     // Json 을 담기 위해 Object 선언
+                // alert(allEvent[i]._def.title); // 이벤트 명칭 알람
+                obj.title = allEvent[i]._def.title; // 이벤트 명칭  ConsoleLog 로 확인 가능.
+                obj.start = allEvent[i]._instance.range.start; // 시작
+                obj.end = allEvent[i]._instance.range.end; // 끝
+                events.push(obj);
             }
+            var jsondata = JSON.stringify(events);
+            console.log(jsondata);
+            
+            $(function saveData(jsonData) {
+            	$.ajax({
+            		url: "/full-calendar/calendar-admin-update",
+            		method:"POST",
+            		dataType: "json",
+            		data: JSON.stringify(events),
+            		contentType: 'application/json',
+            	})
+            	.done(function (result){
+            		//alert(result);
+            	})
+            	.fail(function (request, status, error){
+            		alert("에러 발생"+error);
+            	});
+            	 
+            }); */
             calendar.unselect()
           },
           eventClick: function(arg){
-            if(confirm('이벤트를 지우겠습니까?')){
-              arg.event.remove()
-            }
+            	arg.event.remove()
+              
           },
           aditable: true,
+          //ajax데이터를 불러올 부분
             events: [
-            	<%List<Schedule> calendarList = (List<Schedule>)request.getAttribute("calendarList");%>
-          	  	<% if(calendarList !=null){ %>
-          	  	<% for(Schedule vo : calendarList){ %>
-              {            	  
-                 title:'<%=vo.getScheduleTitle()%>',
-                 start:'<%=vo.getScheduleStartTime()%>',
-                 constraint:'fullCalendar',  //정의되어지는것
-                 color: '#257e4a'
-              },
-              <%} }%>
+              $.ajax({
+            	  url:"/schedule/rest/manageLessonSchedule",
+            	 method:"GET",
+            	 dataType:"json",
+            	 headers:{
+					"Accept":"application/json",
+					"Content-Type":"application/json"
+            	 },            	  
+            	  success: function(response){
+            		  result = response.result
+            		  for(i=0; i<result.length; i++){
+            			  calendar.addEvent({
+            				  title: result[i]['title'],
+            				  start: result[i]['start'],
+            				  end: result[i]['end']
+            			  })
+            		  }
+            	  }
+              }),
               {
                title: '일정 api 제작',
                start: '2022-06-06T13:00:00',

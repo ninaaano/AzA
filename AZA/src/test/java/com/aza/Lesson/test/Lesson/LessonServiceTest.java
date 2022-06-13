@@ -188,7 +188,7 @@ public class LessonServiceTest {
 	public void testgetLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
-		schedule = lessonService.getLessonSchedule(1022);
+		schedule = lessonService.getLessonSchedule(1002);
 		
 		System.out.println(schedule);
 	}

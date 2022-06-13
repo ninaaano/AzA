@@ -39,9 +39,10 @@ public class ScheduleRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping("manageLessonSchedule")
+	@RequestMapping(value="manageLessonSchedule")
 	public Map<String, Object> manageLessonSchedule(HttpSession session) throws Exception{
 		User user = (User)session.getAttribute("user");
+		
 		String teacherId = user.getUserId();
 		Search search = new Search();
 		int totalCount= (int) lessonService.listLessonSchedule(search, teacherId).get("totalCount");

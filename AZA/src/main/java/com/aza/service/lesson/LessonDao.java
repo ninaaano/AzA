@@ -1,5 +1,6 @@
 package com.aza.service.lesson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -61,7 +62,6 @@ public interface LessonDao {
 	public List<Schedule> listLessonSchedule(Search search, String teacherId) throws Exception;
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
-	
-	public List<Schedule> getCalendar() throws Exception;
+
 }
 
