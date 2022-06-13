@@ -29,7 +29,7 @@
 	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
 	SELECT
 	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no) lesson_name, 
-	student_name, amount, pay_due_date, pay_day, check_pay
+	student_name, amount, pay_due_date, pay_day, check_pay, pay_code
 	FROM payment
 	WHERE pay_code = #{value}
 	</select>

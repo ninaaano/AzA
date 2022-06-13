@@ -47,7 +47,7 @@
 <!--  -->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -60,23 +60,38 @@ function fncGetList(currentPage) {
 
 	//검색
 		$(function() {
-		 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-		 $( "button.btn.btn-raised-light").on("click" , function() {
+		 	$( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
 
 			});
 		 
 		});
+	
+	
+		 $(function() {
 
-/* 테스트 */
+			 	$("td:contains('상세보기')").on("click" , function() {
+					
+					 var payCode = $(this).attr("payCode");
+					 alert("payCode ==> "+payCode);
+					 
+					 
+			 		self.location ="/payment/getPayment/"+payCode;
+
+				}); 
+			 });				
+
+/* 테스트 
 $(function() {
 	$("td:nth-child(3)").on("click" , function() {
 		alert("hi!");
 
-/* 		var payCode = $(this).attr("payCode"); */
 		var payCode = $(this).attr("payCode");
 		alert(payCode);
+		
+	    var amonut = $("#amount").text().trim();
+	    alert("test 금액 => " + amonut);
 
 		$.ajax(
 			{
@@ -90,11 +105,13 @@ $(function() {
 					success : function(JSONData , status){
 						
 						//alert("JSONData : \n"+JSONData);
-						alert("JSONData 이름 : \n"+JSONData.studentName);
-						alert("JSONData 수업명 : \n"+(String)JSONObejct.get("lessonName");
-						alert("JSONData 금액 : \n"+JSONData.amount);
+						//alert("JSONData 이름 : \n"+JSONData.studentName);
+						//alert("JSONData 수업명 : \n"+(String)JSONObejct.get("lessonName");
+						//alert("JSONData 금액 : \n"+JSONData.amount);
 						//
-						
+						var name = JSONData.studentName
+						var amount = JSONData.amount
+						//alert("amount?" + amount);
 						
 							//payLessonName.getJSONArray("payLessonName");
 						//getJSONObject("payLessonName").get("lessonName");
@@ -104,85 +121,11 @@ $(function() {
 
 	});
 });
-
+ */
 
 </script>
 </head>
 <body>
-<script type="text/javascript">
-//iamport
-$(function() {
-	$("#realPayment").on("click" , function() {
-	
-	var payCode = $('#payCode').next().val();
-	alert(payCode);
-
-	$.ajax(
-		{
-			url: "/payment/rest/getPayment/"+payCode,
-			method : "GET",
-			dataType : "JSON",
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				success : function(JSONData , status){
-					
-					//alert("JSONData : \n"+JSONData);
-					var name = JSONData.studentName;
-					var realAmount = JSONData.amount;
-					alert(realAmount);
-				
-				}
-				
-		});
-
-});
-	
-});
-
-
-function requestPay(){
-
-    var IMP = window.IMP;
-    IMP.init('imp15771574');
-    // 결제창 호출
-    IMP.request_pay({
-        pg : 'html5_inicis',
-        pay_method : 'card',
-        merchant_uid : 'merchant_' + new Date().getTime(), // 주문 번호
-         name : '555',
-        amount : 111,
-        buyer_tel : '010-1111-1111' 
-
-    }, function(rsp) {
-        /*======================================================*/
-        console.log(rsp);
-        if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-                // jQuery로 HTTP 요청
-                 jQuery.ajax({
-                    url: "https://www.aza.com/payment/complete", // 예: https://www.myservice.com/payments/complete
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    data: {
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid
-                    }
-                }).done(function (data) {
-                  // 가맹점 서버 결제 API 성공시 로직
-                	alert("success!!");
-                }); 
-
-                /*======================================================*/
-        } else {
-			System.out.println("11");
-        }
-    
-
-    
-    });
-};
-</script>
 
 
 
@@ -222,9 +165,11 @@ function requestPay(){
 
 							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
 							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
-
+					<td>
+					
+					<td>
 							<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" name="searchKeyword" 
-									value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
+							value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
 									
 						
 						 </td>
@@ -290,10 +235,10 @@ function requestPay(){
 				${ i }
 				<input type="hidden" id="payCode" value="${payment.payCode}">
 				</td>
-				<td align="center"  id="lessonName" value="${payment.payLessonName.getLessonName()}" >${payment.payLessonName.getLessonName()}</td>
-				<td align="center" id="studentName" payCode="${payment.payCode}">${payment.studentName}</td>
+				<td align="center">${payment.payLessonName.getLessonName()}</td>
+				<td align="center">${payment.studentName}</td>
 				
-				<td align="center" value="${payment.amount}" id="amount" >
+				<td align="center" id="amount" >
 					<fmt:formatNumber value="${payment.amount}" pattern="#,###" />원
 				</td>
 				
@@ -305,8 +250,11 @@ function requestPay(){
 				</td>
 				
 				<td align="center">${payment.checkPay }</td>
-				<td align="center">
-				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" style="width:70%;height:35px;">결제하기　</button>			
+				
+				<td align="center" payCode="${payment.payCode}">
+				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
+						상세보기
+			　</button>			
 				</td>
 
 				</tr>
