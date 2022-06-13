@@ -11,16 +11,12 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/b209e29beb.js"
-	crossorigin="anonymous"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-bson/1.1.6/bson.min.js" integrity="sha512-8+21h7jMS7dicfP+QFVJxgK/ZVQQ0bdDyK26+3hUokQxfUEwO8llARr7Ak2UYbX9eD6okB6Q5unSO1CDZKWOsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
- <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-<link href="/resources/css/message.css" rel="stylesheet">
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<script defer src="/resources/javascript/alert/alertUI.js"></script>
+<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
 <link href="assets/img/favicon.ico" rel="shortcut icon"
 	type="image/x-icon">
@@ -37,9 +33,8 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
 	rel="stylesheet">
-
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <!-- Load main stylesheet-->
-<link href="/resources/css/styles.css" rel="stylesheet">
 
 
 
@@ -54,78 +49,283 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="/resources/css/message.css" />
 <style>
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
 </style>
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
 <script type="text/javascript">
-$(function() {
-	
-	$('#dropdownMenuNotifications').on('click', function() {
-		console.log("알림 버튼 눌림");
-	
-		$.ajax({
-			url:"http://localhost:8080/alert/rest/listAlert",
-			type:"GET",
-			headers : {
-                    "Accept" : "application/json",
-                    "Content-Type" : "application/json",                                    
-                },
-            success: function(result) {
+
+function deleteAlert(alertCode) {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
             	
+            	console.log("deleteAlert");
             	
-                if(result) {
-                	console.log(result.list);
-                	
-            	var listAlertView = "";
-                var list = result.list
-                	
-                	list.map(alert => {
-                		
-                		let alertCode = alert.alertCode;
-                		let alertContent = alert.alertContent;
-                		let alertCreateAt = alert.alertCreateAt;
-                		let alertReadAt = alert.alertReadAt;
-                		
-						listAlertView += `<li><a class="dropdown-item unread" href="#!">
-						<i	class="material-icons leading-icon">assessment</i>
-						<input type="hidden" value="`+alertCode+`"/>
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(!alertReadAt) {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">읽음</p>
+            			</div>
 						<div class="dropdown-item-content me-2">
 							<div class="dropdown-item-content-text">`+alertContent+`</div>
 							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
 						</div>
-				</a></li>`;
-                		
-                		
-                		
-                		
-                		
-                		
-                	})
-                	
-                	$('li').remove();
-                	$("#alertDropDown").append(`<li><h6
-        					class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
-        					<li><hr class="dropdown-divider my-0" /></li>`);
-                	$("#alertDropDown").append(listAlertView);
-                	
-                	
-                	
-                	
-                	
-                	
-                } else {
-                	console.log("faile");
-                }
-           }
-		})
-	
-	
-	
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
+						<p class="text-danger">삭제</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}              		
+            	})
+            	
+            	$('.alertLi').remove();
+	        	$("#alertDropDown").html("");
+	        	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
+						<li><hr class="dropdown-divider my-0" /></li>`);
+	        	$("#alertDropDown").append(listAlertView);
+	        	$("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
+
+            } else {
+            	console.log("faile");
+            }
+       }
 	})
 	
 	
 	
 	
+}
+
+
+
+function listAlert() {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/listAlert",
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
+            	
+            	console.log("listAlert");
+            	
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(!alertReadAt) {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">읽음</p>
+            			</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
+						<p class="text-danger">삭제</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}              		
+            	})
+            	
+            	$('.alertLi').remove();
+            	$("#alertDropDown").html("");
+            	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
+    					<li><hr class="dropdown-divider my-0" /></li>`);
+            	$("#alertDropDown").append(listAlertView);
+
+            } else {
+            	console.log("faile");
+            }
+       }
+	})
+	
+}
+
+function readAlert(alertCode) {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
+            	
+            	console.log("readAlert");
+            	
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(alertReadAt == "") {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">읽음</p>
+            			</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger">delete</span>
+						<p class="text-danger">삭제</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}
+            		
+            		
+            		
+            	})
+            	
+            	$('.alertLi').remove();
+            	$("#alertDropDown").html("");
+            	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
+    					<li><hr class="dropdown-divider my-0" /></li>`);
+            	$("#alertDropDown").append(listAlertView);
+            	$("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
+            	
+            } else {
+            	console.log("faile");
+            }
+       }
+	})
+}
+
+
+
+$(function() {
+
+	// Alert
+	 $('#dropdownMenuNotifications').on('click', function() {
+		console.log("알림 버튼 눌림");
+		listAlert();
+
+	})
+	
+	
+	
+	// Message
+	$("#open-messagePopup").on("click", function() {
+		console.log("메시지 버튼 눌림");
+		
+        $.ajax({
+            url: "http://localhost:8080/message/rest/listMessage",
+            type: "GET",
+            headers : {
+                    "Accept" : "application/json",
+                    "Content-Type" : "application/json",                                    
+                },
+            success: function(result) {
+                if(result) {
+                	console.log(result);
+                	
+                	sessionStorage.setItem('userId', result[0].userId);
+                	
+                	result.shift();
+                	
+                	console.log(result);
+                	
+                	var listOtherView = "";
+                	
+                	result.map((other,i) => {
+               			
+                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
+                		let studentName = other.studentId ? other.studentName : "학생이룸";
+                		let relationName = other.relationName ? other.relationName : "";
+                		let userId = other.userId ? other.userId : studentId;
+                		let userName = studentName + " " + relationName;
+                		//console.log(i, studentId);
+                		
+                		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
+                		<li class='p-2 border-bottom' data-id=`+userId+`>
+                            	<a class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
+                                            <p class="small text-muted">최근메시지</p>
+                                        </div>
+                                    </div>
+                            	</a>
+                        	</li>
+                    	</ul>`;
+                	});
+                	
+                	$('#getOtherMessage').remove();
+                	$('#listOther').append(listOtherView);
+
+                } else {
+                    console.log("실패");
+                }
+            } 
+        })
+		
+	})
+
 })
 	
 
@@ -138,7 +338,9 @@ $(function() {
 
 
 </head>
-<header class="nav-fixed bg-light">
+
+<body class="nav-fixed bg-light">
+<div class="nav-fixed bg-light">
 	<!-- Top app bar navigation menu-->
 	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-dark">
 		<div class="container-fluid px-4">
@@ -148,8 +350,8 @@ $(function() {
 				<i class="material-icons">menu</i>
 			</button>
 			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="index.html"><div
-					class="text-uppercase font-monospace">Material Admin Pro</div></a>
+			<a class="navbar-brand me-auto" href="index.html">
+			<div class="text-uppercase">AZA : 학생관리프로그램</div></a>
 			<!-- Navbar items-->
 			<div class="d-flex align-items-center mx-3 me-lg-0">
 				<!-- Navbar-->
@@ -168,7 +370,9 @@ $(function() {
 							aria-expanded="false">
 							<i class="material-icons">mail_outline</i>
 						</button>
-						<ul
+					</div>
+			
+<!-- 						<ul
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
 							aria-labelledby="dropdownMenuMessages">
 							<li><h6
@@ -218,7 +422,11 @@ $(function() {
 									</div>
 							</a></li>
 						</ul>
-					</div>
+					</div> -->
+					
+					
+					
+					
 					<!-- Notifications and alerts dropdown-->
 					<div class="dropdown dropdown-notifications d-none d-sm-block">
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
@@ -226,15 +434,13 @@ $(function() {
 							data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="material-icons">notifications</i>
 						</button>
-						
-						<!-- 알림  -->
-						
 						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
 							aria-labelledby="dropdownMenuNotifications">
-							
 						</ul>
 					</div>
+					
+					
 					<!-- User profile dropdown-->
 					<div class="dropdown">
 						<button class="btn btn-lg btn-icon dropdown-toggle"
@@ -460,59 +666,143 @@ $(function() {
 						<div class="drawer-menu-divider"></div>
 				<!-- Drawer footer        -->
 				<div class="drawer-footer border-top">
-					<div class="d-flex align-items-center">
-						<i class="material-icons text-muted">account_circle</i>
-						<div class="ms-3">
-							<div class="caption">Logged in as:</div>
-							<div class="small fw-500">Start Bootstrap</div>
-						</div>
+					<div class="d-flex justify-content-center">
+						<form class="d-flex align-items-center">
+							<button type="submit" class="btn btn-text-secondary btn-icon btn-lg me-3"><i class="material-icons text-secondary">add_circle_outline</i></button>
+							<div class="">
+							    <label for="inputLessonCod" class="form-label text-secondary">수업 추가</label>
+							    <input type="text" class="form-control pl-2" id="inputLessonCode" placeholder="수업코드를 입력하세요:D"/>
+							</div>
+						</form>					
+						
+					</div>
 					</div>
 				</div>
 			</nav>
 		</div>
 	</div>
-</header>
-<body class="nav-fixed bg-light">
-
+</div>
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
+	
 		<!-- Main page content-->
 		<main class="mt-12">
-			<div class="main">
+			<header class="main-header">
+				<!-- page header -->
+				<div class="row justify-content-center gx-5">
+                      <div class="col-md-8 col-lg-6">
+                          <div class="text-center py-10">
+                              <!-- Example brand image (inline SVG image)-->
+                              <svg class="mb-3" viewBox="0 0 527 527" style="enable-background: new 0 0 527 527; height: 2.5rem; width: 2.5rem" xml:space="preserve">
+                                  <style type="text/css">
+                                      .st0 {
+                                          fill: none;
+                                          stroke: currentColor;
+                                          stroke-width: 15;
+                                          stroke-miterlimit: 10;
+                                          enable-background: new;
+                                      }
+                                  </style>
+                                  <rect class="st0" x="7.5" y="7.5" width="512" height="512"></rect>
+                                  <g>
+                                      <polygon class="st0" points="317.5,207.6 317.5,430.3 428.5,430.3 428.5,96.7"></polygon>
+                                      <polygon class="st0" points="209.5,207.6 209.5,430.3 98.5,430.3 98.5,96.7"></polygon>
+                                  </g>
+                              </svg>
+                              <!-- Masthead content-->
+                              <h1 class="masthead-heading mb-3 display-5">Build beautiful products, fast.</h1>
+                              <p>Build high-quality digital experiences with the world's most intuitive union between Bootstrap 5 and Material Design.</p>
+                              <a class="btn btn-masthead" href="#scrollTarget">Explore Demos</a>
+                          </div>
+                      </div>
+                  </div>
 				<!-- 여기에 jsp 넣기 -->
 
+			</header>
+			<div class="container-xl px-5">
+			
 			</div>
+		        <div class="messagePopup hidden" id="messagePopup">
+            <section style="background-color: #eee;">
+                
+                <!-- list -->
+                <div id="otherListContainer" class="container py-5">          
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-6">         
+                        <div class="card" id="chat2">
+                            <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <h5 class="mb-0">상대목록</h5>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                                <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
+                            </div>
+
+                            <div id="listOther" class="card-body scroll" style="height: 500px;">
+
+                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+               <!--  message -->
+                <div id="getMessageContainer" class="container py-5 hidden">          
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-6">         
+                        <div class="card py-10" id="chat2">
+                            <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                <div id="otherInfo">
+                                    <h5 class="mb-0">otherName</h5>
+                                    <h6 class="mb-0">otherDetail</h6>
+                                </div>
+                                <button id="otherListBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">목록</button>
+                            </div>
+                            
+                            <div id="messages" class="card-body scroll" style="position: relative; height: 400px">
+                                
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <form id="msgForm">
+                                <div class="d-flex justify-content-around">
+                                <input type="text" id="messageContent"  class="form-control form-control-lg" placeholder="메시지 입력">
+                                <button id="sendBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>   
+                            </div>     
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
 		</main>
 	<!-- Footer-->
 	<footer>
+		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
 		<%-- <jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.2/sass.js"
-		integrity="sha512-qN7eI/gyKBObAOLw/VOd8eDV4eR/Mp9gebkx0IqCpV5p7LYz0RCQHJahUwR+UB5W+BaphKRDz3eeqL11mGgIrQ=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-		integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-		integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-		crossorigin="anonymous"></script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
 	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
-	<!-- <script src="/resources/javascript/common/material.js"></script> -->
+	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
  	// <![CDATA[  <-- For SVG support
-/* /*  	if ('WebSocket' in window) {
+/*   	if ('WebSocket' in window) {
 		(function () {
 			function refreshCSS() {
 				var sheets = [].slice.call(document.getElementsByTagName("link"));

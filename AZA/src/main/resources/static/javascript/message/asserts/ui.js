@@ -99,7 +99,6 @@ function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
     }
-    setConnected(false);
     console.log("연결 끝 : Disconnected");
 }
 
