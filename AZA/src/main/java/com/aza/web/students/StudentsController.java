@@ -211,6 +211,8 @@ public class StudentsController {
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
+		
+		
 		System.out.println("/students/addStudentsNote : GET");
 		
 		ModelAndView modelAndView = new ModelAndView();
