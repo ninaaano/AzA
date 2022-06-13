@@ -65,6 +65,9 @@ public class AlertServiceImpl implements AlertService {
 
 	@Override
 	public Map<String, Object> listAlert(Search search, String receiverId) throws Exception {
+		search.setSearchId(receiverId);
+		
+		
 		List<Alert> list = alertDao.listAlert(search, receiverId);
 		int totalCount = alertDao.getAlertTotalCount(search, receiverId);
 		

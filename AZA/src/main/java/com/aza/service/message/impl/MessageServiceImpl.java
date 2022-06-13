@@ -2,6 +2,9 @@ package com.aza.service.message.impl;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
@@ -10,7 +13,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aza.service.domain.Message;
 import com.aza.service.students.StudentsDao;
@@ -50,7 +52,7 @@ public class MessageServiceImpl {
 		Criteria criteria = new Criteria();
 		criteria.orOperator(Criteria.where("receiverId").is(userId).and("senderId").is(otherId), Criteria.where("senderId").is(userId).and("receiverId").is(otherId));
 		Query qr = new Query(criteria);
-		qr.with(Sort.by("messageCreateAt").descending());
+		qr.with(Sort.by("messageCreateAt").ascending());
 		
 		List list = mongoTemplate.find(qr, Message.class);
 		
@@ -59,26 +61,31 @@ public class MessageServiceImpl {
 		return list;
 	}
 
-	public void addMessage(String senderId, String receiverId, String messageContent, String messageCreateAt)
+	public void addMessage(String receiverId, String senderId, String messageContent, String messageCreateAt)
 			throws Exception {
 
 		System.out.println("addMessage : start");
 
-		Message message = new Message(senderId, receiverId, messageContent, messageCreateAt);
+		Message message = new Message(receiverId, senderId, messageContent, messageCreateAt);
 		mongoTemplate.insert(message);
 
 		System.out.println(message);
 	}
 
-	public void deleteMessage(String messageId) throws Exception {
+	public void deleteMessage(String _id) throws Exception {
 
-		Criteria criteria = new Criteria("_id");
-		criteria.is(messageId);
+		System.out.println("delete"+_id);
+
+
+		
+		Criteria criteria = Criteria.where("_id").is(_id);
+		//criteria.is(new ObjectId(_id));
 
 		Query qr = new Query(criteria);
 
-		mongoTemplate.remove(qr, "message");
+		System.out.println(mongoTemplate.exists(qr, Message.class));
 	}
+
 
 	public void readMessage(String receiverId, String senderId, String messageReadAt) throws Exception {
 

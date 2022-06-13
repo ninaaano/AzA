@@ -5,6 +5,10 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script defer src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script defer src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
 </head>
 <script type="text/javascript">
 
@@ -35,9 +39,11 @@
                         		let studentName = other.studentId ? other.studentName : "학생이룸";
                         		let relationName = other.relationName ? other.relationName : "";
                         		let userId = other.userId ? other.userId : studentId;
+                        		let userName = studentName + " " + relationName;
                         		//console.log(i, studentId);
                         		
-                        		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`')">                                    <li class='p-2 border-bottom' data-id=`+userId+`>
+                        		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
+                        		<li class='p-2 border-bottom' data-id=`+userId+`>
                                     	<a class="d-flex justify-content-between">
 	                                        <div class="d-flex flex-row">
 	                                            <div class="pt-1">
@@ -73,53 +79,9 @@
 
 <body>
   
-        <h2>메인페이지</h2>
-        <h3 class="">임시 채팅 모달 -> get만 진행</h3>
-        <button class="open-messagePopup" id="open-messagePopup" >Chat</button>
-        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
-                </div>
-            </form>
-        </div>
-         <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                </div>
-                <button id="send" class="btn btn-default" type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Greetings</th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-        
-        
-        
-        
+        <h2>채팅</h2>
+        <h3 class="">채팅페이지</h3>
+        <button class="open-messagePopup" id="open-messagePopup" >Chat</button>        
         <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
@@ -141,11 +103,6 @@
                                 <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
                             </div>
 
-                            
-
-
-                          
-                            
                             <div id="listOther" class="card-body scroll" style="position: relative; height: 400px">
                                <ul class="list-unstyled mb-0">
                                     <li class="p-2 border-bottom">
@@ -182,7 +139,7 @@
                     <div class="col-md-10 col-lg-8 col-xl-6">         
                         <div class="card" id="chat2">
                             <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div>
+                                <div id="otherInfo">
                                     <h5 class="mb-0">otherName</h5>
                                     <h6 class="mb-0">otherDetail</h6>
                                 </div>
@@ -196,8 +153,8 @@
                         <div class="card-footer text-muted">
                             <form id="msgForm">
                                 <div class="d-flex justify-content-around">
-                                <input type="text" id="input" name="messageContent"  class="form-control form-control-lg" placeholder="메시지 입력">
-                                <button class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i></button>   
+                                <input type="text" id="messageContent"  class="form-control form-control-lg" placeholder="메시지 입력">
+                                <button id="sendBtn" class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i></button>   
                             </div>     
                             </form>
                         </div>
@@ -206,5 +163,6 @@
                 </div>
             </section>
         </div>
+
 </body>
 </html>

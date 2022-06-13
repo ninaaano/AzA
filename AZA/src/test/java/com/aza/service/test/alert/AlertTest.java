@@ -71,13 +71,13 @@ public class AlertTest {
 	}
 
 
-//	@Test
+	@Test
 	public void testListAlert() throws Exception {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-		Map<String,Object> map = alertService.listAlert(search, "student12");
+		Map<String,Object> map = alertService.listAlert(search, "parent11");
 
 		List<Object> list = (List<Object>)map.get("list");
 

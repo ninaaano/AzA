@@ -98,8 +98,7 @@
 	<!-- LIST -->
 	<select id="listAlert" parameterType="search" resultMap="alertSelectMap">
 	SELECT * 
-	FROM (
-    		SELECT inner_table.*, ROWNUM AS row_seq
+	FROM ( SELECT inner_table.*, ROWNUM AS row_seq
     		FROM (  SELECT * FROM alert
             		WHERE receiver_id = #{searchId}
             		ORDER BY  alert_create_at DESC ) inner_table 
@@ -112,6 +111,7 @@
 	SELECT COUNT(*)
 	FROM ( SELECT *	FROM alert
         	WHERE receiver_id = #{searchId}
+        	ORDER BY  alert_create_at DESC
 			) countTable
 	
 	</select>

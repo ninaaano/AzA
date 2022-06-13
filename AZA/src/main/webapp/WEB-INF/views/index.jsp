@@ -16,6 +16,10 @@
 	crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/b209e29beb.js"
 	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-bson/1.1.6/bson.min.js" integrity="sha512-8+21h7jMS7dicfP+QFVJxgK/ZVQQ0bdDyK26+3hUokQxfUEwO8llARr7Ak2UYbX9eD6okB6Q5unSO1CDZKWOsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+ <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <link href="/resources/css/message.css" rel="stylesheet">
 <!-- Load Favicon-->
 <link href="assets/img/favicon.ico" rel="shortcut icon"
@@ -33,6 +37,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
 	rel="stylesheet">
+
 <!-- Load main stylesheet-->
 <link href="/resources/css/styles.css" rel="stylesheet">
 
@@ -52,6 +57,86 @@
 <link rel="stylesheet" href="/resources/css/message.css" />
 <style>
 </style>
+<script type="text/javascript">
+$(function() {
+	
+	$('#dropdownMenuNotifications').on('click', function() {
+		console.log("알림 버튼 눌림");
+	
+		$.ajax({
+			url:"http://localhost:8080/alert/rest/listAlert",
+			type:"GET",
+			headers : {
+                    "Accept" : "application/json",
+                    "Content-Type" : "application/json",                                    
+                },
+            success: function(result) {
+            	
+            	
+                if(result) {
+                	console.log(result.list);
+                	
+            	var listAlertView = "";
+                var list = result.list
+                	
+                	list.map(alert => {
+                		
+                		let alertCode = alert.alertCode;
+                		let alertContent = alert.alertContent;
+                		let alertCreateAt = alert.alertCreateAt;
+                		let alertReadAt = alert.alertReadAt;
+                		
+						listAlertView += `<li><a class="dropdown-item unread" href="#!">
+						<i	class="material-icons leading-icon">assessment</i>
+						<input type="hidden" value="`+alertCode+`"/>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+				</a></li>`;
+                		
+                		
+                		
+                		
+                		
+                		
+                	})
+                	
+                	$('li').remove();
+                	$("#alertDropDown").append(`<li><h6
+        					class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
+        					<li><hr class="dropdown-divider my-0" /></li>`);
+                	$("#alertDropDown").append(listAlertView);
+                	
+                	
+                	
+                	
+                	
+                	
+                } else {
+                	console.log("faile");
+                }
+           }
+		})
+	
+	
+	
+	})
+	
+	
+	
+	
+})
+	
+
+
+
+
+
+</script>
+
+
+
 </head>
 <header class="nav-fixed bg-light">
 	<!-- Top app bar navigation menu-->
@@ -69,7 +154,7 @@
 			<div class="d-flex align-items-center mx-3 me-lg-0">
 				<!-- Navbar-->
 				<ul class="navbar-nav d-none d-lg-flex">
-					<li class="nav-item"><a class="nav-link" href="index.html">Overview</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="https://docs.startbootstrap.com/material-admin-pro"
 						target="_blank">Documentation</a></li>
@@ -127,8 +212,7 @@
 							</a></li>
 							<li><hr class="dropdown-divider my-0" /></li>
 							<li><a class="dropdown-item py-3" href="#!">
-									<div
-										class="d-flex align-items-center w-100 justify-content-end text-primary">
+									<div class="d-flex align-items-center w-100 justify-content-end text-primary">
 										<div class="fst-button small">View all</div>
 										<i class="material-icons icon-sm ms-1">chevron_right</i>
 									</div>
@@ -142,48 +226,13 @@
 							data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="material-icons">notifications</i>
 						</button>
-						<ul
+						
+						<!-- 알림  -->
+						
+						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
 							aria-labelledby="dropdownMenuNotifications">
-							<li><h6
-									class="dropdown-header bg-primary text-white fw-500 py-3">Alerts</h6></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item unread" href="#!"> <i
-									class="material-icons leading-icon">assessment</i>
-									<div class="dropdown-item-content me-2">
-										<div class="dropdown-item-content-text">Your March
-											performance report is ready to view.</div>
-										<div class="dropdown-item-content-subtext">Mar 12, 2021
-											&middot; Performance</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">check_circle</i>
-									<div class="dropdown-item-content me-2">
-										<div class="dropdown-item-content-text">Tracking codes
-											successfully updated.</div>
-										<div class="dropdown-item-content-subtext">Mar 12, 2021
-											&middot; Coverage</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">warning</i>
-									<div class="dropdown-item-content me-2">
-										<div class="dropdown-item-content-text">Tracking codes
-											have changed and require manual action.</div>
-										<div class="dropdown-item-content-subtext">Mar 8, 2021
-											&middot; Coverage</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item py-3" href="#!">
-									<div class="d-flex align-items-center w-100 justify-content-end text-primary">
-										<div class="fst-button small">View all</div>
-										<i class="material-icons icon-sm ms-1">chevron_right</i>
-									</div>
-							</a></li>
+							
 						</ul>
 					</div>
 					<!-- User profile dropdown-->
@@ -398,143 +447,17 @@
 									aria-labelledby="headingOne"
 									data-bs-parent="#drawerAccordionPages">
 									<nav class="drawer-menu-nested nav">
-										<a class="nav-link" href="app-knowledgebase-home.html">Home</a>
-										<a class="nav-link" href="app-knowledgebase-categories.html">Categories</a>
-										<a class="nav-link" href="app-knowledgebase-article.html">Article</a>
+										<a class="nav-link" href="#">Home</a>
+										<a class="nav-link" href="#">Categories</a>
+										<a class="nav-link" href="#">Article</a>
 									</nav>
 								</div>
 								<!-- Drawer link (Pages -> Pricing)-->
-								<a class="nav-link" href="app-pricing.html">Pricing</a>
+								<a class="nav-link" href="#">Pricing</a>
 							</nav>
 						</div>
 						<!-- Divider-->
 						<div class="drawer-menu-divider"></div>
-						<!-- Drawer section heading (UI Toolkit)-->
-						<div class="drawer-menu-heading">UI Toolkit</div>
-						<!-- Drawer link (Components)-->
-						<a class="nav-link collapsed" href="javascript:void(0);"
-							data-bs-toggle="collapse" data-bs-target="#collapseComponents"
-							aria-expanded="false" aria-controls="collapseComponents">
-							<div class="nav-link-icon">
-								<i class="material-icons">widgets</i>
-							</div> Components
-							<div class="drawer-collapse-arrow">
-								<i class="material-icons">expand_more</i>
-							</div>
-						</a>
-						<!-- Nested drawer nav (Components)-->
-						<div class="collapse" id="collapseComponents"
-							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
-							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="components-alerts.html">Alerts</a> <a
-									class="nav-link" href="components-badges.html">Badges</a> <a
-									class="nav-link" href="components-buttons.html">Buttons</a> <a
-									class="nav-link" href="components-cards.html">Cards</a> <a
-									class="nav-link" href="components-chips.html">Chips</a> <a
-									class="nav-link" href="components-dropdowns.html">Dropdowns</a>
-								<a class="nav-link" href="components-icon-buttons.html">Icon
-									Buttons</a> <a class="nav-link" href="components-modals.html">Modals</a>
-								<a class="nav-link" href="components-navigation.html">Navigation</a>
-								<a class="nav-link" href="components-progress.html">Progress</a>
-								<a class="nav-link" href="components-spinners.html">Spinners</a>
-								<a class="nav-link" href="components-tooltips.html">Tooltips</a>
-							</nav>
-						</div>
-						<!-- Drawer link (Content)-->
-						<a class="nav-link collapsed" href="javascript:void(0);"
-							data-bs-toggle="collapse" data-bs-target="#collapseContent"
-							aria-expanded="false" aria-controls="collapseContent">
-							<div class="nav-link-icon">
-								<i class="material-icons">amp_stories</i>
-							</div> Content
-							<div class="drawer-collapse-arrow">
-								<i class="material-icons">expand_more</i>
-							</div>
-						</a>
-						<!-- Nested drawer nav (Content)-->
-						<div class="collapse" id="collapseContent"
-							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
-							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="content-icons.html">Icons</a> <a
-									class="nav-link" href="content-tables.html">Tables</a> <a
-									class="nav-link" href="content-typography.html">Typography</a>
-							</nav>
-						</div>
-						<!-- Drawer link (Forms)-->
-						<a class="nav-link collapsed" href="javascript:void(0);"
-							data-bs-toggle="collapse" data-bs-target="#collapseForms"
-							aria-expanded="false" aria-controls="collapseForms">
-							<div class="nav-link-icon">
-								<i class="material-icons">description</i>
-							</div> Forms
-							<div class="drawer-collapse-arrow">
-								<i class="material-icons">expand_more</i>
-							</div>
-						</a>
-						<!-- Nested drawer nav (Forms)-->
-						<div class="collapse" id="collapseForms"
-							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
-							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="forms-inputs.html">Inputs</a> <a
-									class="nav-link" href="forms-checks-and-radios.html">Checks
-									&amp; Radio</a> <a class="nav-link" href="forms-input-groups.html">Input
-									Groups</a> <a class="nav-link" href="forms-range.html">Range</a> <a
-									class="nav-link" href="forms-select.html">Select</a>
-							</nav>
-						</div>
-						<!-- Drawer link (Utilities)-->
-						<a class="nav-link collapsed" href="javascript:void(0);"
-							data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
-							aria-expanded="false" aria-controls="collapseUtilities">
-							<div class="nav-link-icon">
-								<i class="material-icons">build</i>
-							</div> Utilities
-							<div class="drawer-collapse-arrow">
-								<i class="material-icons">expand_more</i>
-							</div>
-						</a>
-						<!-- Nested drawer nav (Utilities)-->
-						<div class="collapse" id="collapseUtilities"
-							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
-							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="utilities-background.html">Background</a>
-								<a class="nav-link" href="utilities-borders.html">Borders</a> <a
-									class="nav-link" href="utilities-ripples.html">Ripples</a> <a
-									class="nav-link" href="utilities-shadows.html">Shadows</a> <a
-									class="nav-link" href="utilities-text.html">Text</a> <a
-									class="nav-link" href="utilities-transforms.html">Transforms</a>
-							</nav>
-						</div>
-						<!-- Divider-->
-						<div class="drawer-menu-divider"></div>
-						<!-- Drawer section heading (Plugins)-->
-						<div class="drawer-menu-heading">Plugins</div>
-						<!-- Drawer link (Charts)-->
-						<a class="nav-link" href="plugins-charts.html">
-							<div class="nav-link-icon">
-								<i class="material-icons">bar_chart</i>
-							</div> Charts
-						</a>
-						<!-- Drawer link (Code Blocks)-->
-						<a class="nav-link" href="plugins-code-blocks.html">
-							<div class="nav-link-icon">
-								<i class="material-icons">code</i>
-							</div> Code Blocks
-						</a>
-						<!-- Drawer link (Data Tables)-->
-						<a class="nav-link" href="plugins-data-tables.html">
-							<div class="nav-link-icon">
-								<i class="material-icons">filter_alt</i>
-							</div> Data Tables
-						</a>
-						<!-- Drawer link (Date Picker)-->
-						<a class="nav-link" href="plugins-date-picker.html">
-							<div class="nav-link-icon">
-								<i class="material-icons">date_range</i>
-							</div> Date Picker
-						</a>
-					</div>
-				</div>
 				<!-- Drawer footer        -->
 				<div class="drawer-footer border-top">
 					<div class="d-flex align-items-center">
@@ -554,18 +477,19 @@
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
 		<!-- Main page content-->
-		<main>
+		<main class="mt-12">
 			<div class="main">
-걀걀
 				<!-- 여기에 jsp 넣기 -->
 
 			</div>
 		</main>
 	<!-- Footer-->
 	<footer>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" />
+		<%-- <jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
+	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.2/sass.js"
 		integrity="sha512-qN7eI/gyKBObAOLw/VOd8eDV4eR/Mp9gebkx0IqCpV5p7LYz0RCQHJahUwR+UB5W+BaphKRDz3eeqL11mGgIrQ=="
@@ -578,19 +502,17 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
 		integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
 		crossorigin="anonymous"></script>
-	<script src="/resources/javascript/message/asserts/ui.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
 	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
-	<script src="/resources/javascript/common/material.js"></script>
+	<!-- <script src="/resources/javascript/common/material.js"></script> -->
 	<script src="/resources/javascript/common/scripts.js"></script>
-	<script
-		src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script>
+<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
  	// <![CDATA[  <-- For SVG support
-/*  	if ('WebSocket' in window) {
+/* /*  	if ('WebSocket' in window) {
 		(function () {
 			function refreshCSS() {
 				var sheets = [].slice.call(document.getElementsByTagName("link"));
@@ -622,7 +544,7 @@
 	}
 	else {
 		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}  */
+	}   */
 	// ]]>
 </script>
 </body>
