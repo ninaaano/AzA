@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -93,12 +95,38 @@ public class PaymentController {
 		return mv;
 	}
 	
-	//== TEST
+	@RequestMapping("complete")
+	public ResponseEntity<String> realPayment
+	(@RequestParam("payCode") int payCode,HttpSession session, Payment payment)throws Exception{
+		String token = paymentService.getToken();
+		System.out.println("토큰 ==> " + token);
+		
+		payment = paymentService.getPayment(payCode);
+		int amount = paymentService.paymentInfo(payment.getImpUid(), token);
+		
+		//실결제 금액과 일치하는지 확인.
+		int checkAmount = payment.getAmount();
+		//일치하지 않을 때 결제 취소
+		try {
+			if(checkAmount != amount) {
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "결제 금액 오류");
+			 return new ResponseEntity<String>("결제 금액 오류, 결제 취소", HttpStatus.BAD_REQUEST);
+		}else {
+			//결제 성공시 수납완료로 상태 변경
+			payment.setCheckPay('Y');
+			paymentService.updatePayment(payment);
+		}
+			
+		}catch (Exception e) {
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "결제 오류");
+			 return new ResponseEntity<String>("결제 에러", HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
-//	@RequestMapping(value = "/getPayment", method = RequestMethod.GET)
-//	public ModelAndView getPayment (@RequestParam("payCode")int payCode)throws Exception{
-//		return new ModelAndView(); // 값 넣어야함
-//	}
+	
+	//== TEST
 	
 //	@RequestMapping(value = "/updatePayment", method = RequestMethod.POST)
 //	public ModelAndView updatePayment (@ModelAttribute("payment") Payment payment ,@RequestParam("payCode")int payCode)throws Exception{

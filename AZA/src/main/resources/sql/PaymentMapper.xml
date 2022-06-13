@@ -28,7 +28,7 @@
 	<!-- SQL : payment SELECT ONE -->
 	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
 	SELECT
-	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no), 
+	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no) lesson_name, 
 	student_name, amount, pay_due_date, pay_day, check_pay
 	FROM payment
 	WHERE pay_code = #{value}
@@ -70,23 +70,26 @@
 		SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	 SELECT
-										sr.lesson_name, sr.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay, p.pay_code
+										sr.lesson_name, p.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay, p.pay_code
 										FROM payment p, students_record sr
 												<where>
 													sr.record_code = p.student_record_no
+												<if test="searchCondition != null">	
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				AND p.student_name = #{searchKeyword}
+										 				AND p.student_name LIKE INITCAP('%${searchKeyword}%')
 													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				 p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
-                  										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
+													<if test="searchCondition == 1 and searchStartDate !='' and searchEndDate != ''
+																and searchStartDate != null and searchEndDate != null">
+										 				AND p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
+                  											AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				p.check_pay = #{searchKeyword}
+										 				AND	p.check_pay LIKE INITCAP('%${searchKeyword}%')
 													</if>
+												</if>
 												</where>
-
-											ORDER BY pay_code DESC) inner_table
+											
+											ORDER BY pay_due_date DESC) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	
@@ -96,20 +99,22 @@
 	<select id="totalPaymentCount" parameterType="search"	 resultType="int">
 		SELECT COUNT(*)
 	  	FROM( SELECT
-				sr.lesson_name, sr.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
+				sr.lesson_name, p.student_name, p.amount, p.pay_due_date,p.pay_day, p.check_pay
 				FROM payment p, students_record sr
 				<where>
 					sr.record_code = p.student_record_no
+				<if test="searchCondition != null">	
 					<if test="searchCondition == 0 and searchKeyword !='' ">
-		 				AND p.student_name = #{searchKeyword}
+		 				AND p.student_name LIKE INITCAP('%${searchKeyword}%')
 					</if>
 					<if test="searchCondition == 1 and searchKeyword !='' ">
 		 				AND p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
           										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 					</if>
 					<if test="searchCondition == 2 and searchKeyword !='' ">
-		 				AND p.check_pay = #{searchKeyword}
-					</if>				    
+		 				AND p.check_pay LIKE INITCAP('%${searchKeyword}%')
+					</if>	
+				</if>			    
 	 			</where>
 	 		 	) countTable
 
