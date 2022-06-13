@@ -56,13 +56,6 @@ public class PaperDaoImpl implements PaperDao {
 		sqlSession.delete("HomeworkMapper.deletePaperHomework", homeworkCode);
 	}
 
-	@Override
-	public List<Paper> listPaperHomeworkByStudent(Search search, String lessonCode, String studentId) throws Exception {
-		search.setLessonCode(lessonCode);
-		search.setSearchId(studentId);
-		
-		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByStudent", search);
-	}
 
 
 
@@ -71,24 +64,64 @@ public class PaperDaoImpl implements PaperDao {
 		sqlSession.update("HomeworkMapper.updatePaperHomeworkCheck",homeworkCode);
 		
 	}
-
+	
+//	@Override
+//	public List<Paper> listPaperHomeworkByStudent(Search search, String lessonCode, String studentId) throws Exception {
+//		search.setLessonCode(lessonCode);
+//		search.setSearchId(studentId);
+//		
+//		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByStudent", search);
+//	}
+//
+//	@Override
+//	public List<Paper> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
+//		search.setLessonCode(lessonCode);
+//		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByTeacher",search);
+//	}
+//
+//	@Override
+//	public int getListPaperHomeworkByStudentTotalCount(Search search, String lessonCode, String studentId) throws Exception {
+//		search.setLessonCode(lessonCode);
+//		search.setSearchId(studentId);
+//		
+//		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByStudentTotalCount", search);
+//	}
+//
+//	@Override
+//	public int getListPaperHomeworkByTeacherTotalCount(Search search, String lessonCode) throws Exception {
+//		search.setLessonCode(lessonCode);
+//		
+//		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
+//	}
+	
 	@Override
-	public List<Paper> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
-		search.setLessonCode(lessonCode);
-		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByTeacher",search);
+	public List<Paper> listPaperHomeworkByStudent(Search search, String studentId) throws Exception {
+		
+		search.setSearchId(studentId);
+
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByStudent", search);
 	}
 
 	@Override
-	public int getListPaperHomeworkByStudentTotalCount(Search search, String lessonCode, String studentId) throws Exception {
-		search.setLessonCode(lessonCode);
+	public List<Paper> listPaperHomeworkByTeacher(Search search, String teacherId) throws Exception {
+
+		search.setSearchId(teacherId);
+		
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByTeacher", search);
+	}
+
+	@Override
+	public int getListPaperHomeworkByStudentTotalCount(Search search, String studentId) throws Exception {
+
 		search.setSearchId(studentId);
 		
 		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByStudentTotalCount", search);
 	}
 
 	@Override
-	public int getListPaperHomeworkByTeacherTotalCount(Search search, String lessonCode) throws Exception {
-		search.setLessonCode(lessonCode);
+	public int getListPaperHomeworkByTeacherTotalCount(Search search, String teacherId) throws Exception {
+
+		search.setSearchId(teacherId);
 		
 		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
 	}
@@ -143,7 +176,7 @@ public class PaperDaoImpl implements PaperDao {
 	public List<Paper> listPaperChoice(int questionCode) throws Exception {
 		return sqlSession.selectList("ChoiceMapper.listPaperChoice",questionCode);
 	}
-	//== 미연 Quiz 추가
+	//== 
 	@Override
 	public Paper getPaperQiuz(int quizCode) throws Exception {
 		
@@ -200,4 +233,6 @@ public class PaperDaoImpl implements PaperDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountTeacher",serch);
 	}
+
+
 }

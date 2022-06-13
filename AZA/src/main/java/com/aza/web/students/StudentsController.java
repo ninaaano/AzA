@@ -208,17 +208,20 @@ public class StudentsController {
 	
 	
 	//========================>Note
-	@RequestMapping("1")
-	public ModelAndView testNote() {
+	@RequestMapping( value="addStudentsNote", method=RequestMethod.GET )
+	public ModelAndView addStudentsNote(HttpSession session) throws Exception{
 		
-		ModelAndView mv = new ModelAndView();
-	      
-	      mv.setViewName("/students/addStudentsNote");
-	      
-	      return mv;
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
+		System.out.println("/students/addStudentsNote : GET");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/students/addStudentsNote");
+		
+		return modelAndView;
 	}
 	
-	@RequestMapping(value="/addStudentsNote", method=RequestMethod.POST)
+	@RequestMapping(value="addStudentsNote", method=RequestMethod.POST)
 	public ModelAndView addStudentsNote(@ModelAttribute("students") Students students) throws Exception {
 	
 		System.out.println("/students/addStudentsNote : POST");
@@ -226,14 +229,13 @@ public class StudentsController {
 		studentsService.addStudentsNote(students);
 		
 		System.out.println("==="+students);
-		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("redirect:/students/listStudentsNote");		
+		ModelAndView modelAndView = new ModelAndView();	
 		modelAndView.setViewName("redirect:/students/listStudentsNote");		
 
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/updateStudentsNote", method=RequestMethod.POST)
+	@RequestMapping(value="updateStudentsNote", method=RequestMethod.POST)
 	public ModelAndView updateStudentsNote(@ModelAttribute("students") Students students) throws Exception {
 		
 		System.out.println("/studentst/updateStudentsNote : POST");
@@ -241,21 +243,22 @@ public class StudentsController {
 		studentsService.updateStudentsNote(students);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/studentst/getStudentsNote?NoteCode="+students.getNoteCode());
+//		modelAndView.setViewName("redirect:/students/getStudentsNote?NoteCode="+students.getNoteCode());
+		modelAndView.setViewName("redirect:/students/listStudentsNote");
 		
 		return modelAndView;
 						
 	}
 	
-	@RequestMapping(value="/getStudentsNote/{noteCode}", method=RequestMethod.GET)
+	@RequestMapping(value="getStudentsNote", method=RequestMethod.GET)
 	public ModelAndView getStudentsNote(@RequestParam("noteCode") int noteCode) throws Exception {
 
-		System.out.println("/getStudentsNote");
+		System.out.println("students/getStudentsNote : GET");
 		
 		Students students = studentsService.getStudentsNote(noteCode);
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/students/getStudentsNote");
+		modelAndView.setViewName("students/getStudentsNote");
 		modelAndView.addObject("students", students);
 		
 		System.out.println("===="+students);
@@ -264,7 +267,7 @@ public class StudentsController {
 
 	}
 	
-	@RequestMapping(value="/deleteStudentsNote")
+	@RequestMapping(value="deleteStudentsNote")
 	public ModelAndView deleteStudentsNote(@RequestParam("noteCode") int noteCode, HttpSession session) throws Exception {
 		
 		System.out.println("/deleteStudentsNote");
@@ -273,7 +276,7 @@ public class StudentsController {
 		studentsService.deleteStudentsNote(noteCode);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/studentst/listStudentsNote");
+		modelAndView.setViewName("redirect:/students/listStudentsNote");
 		
 		return modelAndView;
 	}

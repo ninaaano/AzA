@@ -24,34 +24,38 @@
 		return; 
 	} */
 
-    function submitPost() {
+    function updateBtn() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
 		  //스마트 에디터 값을 텍스트컨텐츠로 전달
-		  let content = document.getElementById("noteContent").value
+		  let noteContent = document.getElementById("noteContent").value
 		  let noteTitle = document.getElementById("noteTitle").value
+		  let noteCode = document.getElementById("noteCode").value
 		  // 값을 불러올 땐 document.get으로 받아오기
-		  if(content == '' || noteTitle == '') {
+		  if(noteContent == '' || noteTitle == '') {
 		    alert("제목과 내용을 입력해주세요.")
 		    oEditors.getById["noteContent"].exec("FOCUS")
 		    return
 		  } else {
 			/* alert(document.getElementById("noteContent").value) */
-		    console.log(content)
-		    document.noteForm.action='/students/addStudentsNote';
-		    document.noteForm.submit();
-		    /* $("form").attr("method" , "POST").attr("action" , "/students/addStudentsNote").submit(); */
+		    console.log(noteContent)
+/* 		    document.noteForm.action='students/updateStudentsNote';
+		    document.noteForm.submit(); */
+		    $("form").attr("method" , "POST").attr("action" , "/students/updateStudentsNote").submit();
 		  }
 		  
 		  
 	}
 	
+	function deleteBtn() {
+		$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+	}
+	
 	$(function() {
 		
-		$( "button.btn.btn-primary:contains('취소')").on("click" , function() {
+		$( "button.btn.btn-primary:contains('뒤로')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
-	
 	
 	</script>
 	
@@ -61,20 +65,36 @@
 </head>
 <body>
 
-	<form name="noteForm" action="addStudentsNote" method="post">
+<%-- 	<form name="noteForm" action="updateStudentsNote" method="post">
 	      <div id="smarteditor">
 	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="제목을 입력해주세요"></input>
-	      	<div name="studentId" id="studentId" value="${students.studentId}">${user.userId }</div>
+	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="학생 이름"></input>
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
 	                  placeholder="내용을 입력해주세요"
 	                  style="width: 100%"></textarea>
+
 	      </div>
-      <input type="button" onclick="submitPost();" value="작성"/>
-	      <div id="CalcelBtn">
-			  			<!-- <button type="button" class="btn btn-primary">수정</button> -->
-			  			<button type="button" class="btn btn-primary">취소</button>
-		  </div>
+      <input type="button" onclick="updateBtn();" value="확인"/>
+      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">취소</button>
+
+    </form> --%>
+    
+    
+    <form>
+    	<div id="smarteditor">
+    		<span> 제목 : </span>
+ 		    <input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 1000px"/><%-- ${students.noteTitle}</input> --%>
+	      	<div name="studentId" id="studentId" value="${students.studentId}">${students.studentId}</div>
+	      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
+	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
+			           rows="30" cols="10" 
+			           style="width: 100%" readonly>${students.noteContent}</textarea>
+        </div>
+              <input type="button" onclick="updateBtn();" value="수정"/>
+              <button id="backBtn" type="button" class="btn btn-primary">뒤로</button>
+              <input type="button" onclick="deleteBtn();" value="삭제"/>
+
     </form>
     
     <script>

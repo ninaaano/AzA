@@ -49,11 +49,24 @@ public class PaperServiceImpl implements PaperService {
 		paperDao.deletePaperHomework(homeworkCode);
 	}
 
+//	@Override
+//	public Map<String, Object> listPaperHomeworkByStudent(Search search, String lessonCode, String StudentId) throws Exception {
+//		
+//		List<Paper> list = paperDao.listPaperHomeworkByStudent(search, lessonCode, StudentId);
+//		int totalCount = paperDao.getListPaperHomeworkByStudentTotalCount(search, lessonCode, StudentId);
+//		
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("list", list);
+//		map.put("totalCount", new Integer(totalCount));
+//		
+//		return map;
+//	}
+	
 	@Override
-	public Map<String, Object> listPaperHomeworkByStudent(Search search, String lessonCode, String StudentId) throws Exception {
+	public Map<String, Object> listPaperHomeworkByStudent(Search search, String studentId) throws Exception {
 		
-		List<Paper> list = paperDao.listPaperHomeworkByStudent(search, lessonCode, StudentId);
-		int totalCount = paperDao.getListPaperHomeworkByStudentTotalCount(search, lessonCode, StudentId);
+		List<Paper> list = paperDao.listPaperHomeworkByStudent(search, studentId);
+		int totalCount = paperDao.getListPaperHomeworkByStudentTotalCount(search, studentId);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
@@ -62,11 +75,25 @@ public class PaperServiceImpl implements PaperService {
 		return map;
 	}
 	
+//	@Override
+//	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
+//		
+//		List<Paper> list = paperDao.listPaperHomeworkByTeacher(search, lessonCode);
+//		int totalCount = paperDao.getListPaperHomeworkByTeacherTotalCount(search, lessonCode);
+//		
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("list", list);
+//		map.put("totalCount", new Integer(totalCount));
+//		
+//		return map;
+//	}
+	
+
 	@Override
-	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
-		
-		List<Paper> list = paperDao.listPaperHomeworkByTeacher(search, lessonCode);
-		int totalCount = paperDao.getListPaperHomeworkByTeacherTotalCount(search, lessonCode);
+	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String teacherId) throws Exception {
+
+		List<Paper> list = paperDao.listPaperHomeworkByTeacher(search, teacherId);
+		int totalCount = paperDao.getListPaperHomeworkByTeacherTotalCount(search, teacherId);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
@@ -142,7 +169,7 @@ public class PaperServiceImpl implements PaperService {
 		return map;
 	}
 
-	//== 미연 Quiz 추가
+	//== 
 	@Override
 	public void addPaperQuiz(Paper paper) throws Exception {
 		paperDao.addPaperQiuz(paper);
@@ -194,5 +221,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		return map;
 	}
+
+
 	
 }

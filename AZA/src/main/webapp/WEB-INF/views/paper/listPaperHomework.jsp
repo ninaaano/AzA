@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>강의 노트</title>
+<title>수업 과제</title>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -15,24 +15,18 @@
 <body>
 <script type="text/javascript">
 
-/* $(function(){
-	$('#noteTitlee').on("click", function(){
-		self.location ="/students/getStudentsNote?noteCode="+$(this).attr('noteCode');
+$(function(){
+	$('#lessonNamee').on("click", function(){
+		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
-}); */
+});
+
 
 $(function(){
 	$("td:nth-child(2)").on("click", function() {
-		self.location ="/students/getStudentsNote?noteCode="+$(this).attr('noteCode');
+		self.location ="/"
 	})
 })
-
-
-$(function() {	
-	$( "button.btn.btn-primary:contains('작성')").on("click" , function() {
-		self.location = "/students/addStudentsNote";
-	});
-});	
 
 </script>
 
@@ -43,27 +37,33 @@ $(function() {
 		<thead>
 			<tr>
 				<td class="ct_list_b" width="100">No.</td>
-				<td class="ct_list_b" width="100">제목</td>
-				<td class="ct_list_b" width="100">작성 날짜</td>
+				<td class="ct_list_b" width="100">수업명</td>
+				<td class="ct_list_b" width="100">과제 제목</td>
+				<td class="ct_list_b" width="100">학생 이름</td>
+				<td class="ct_list_b" width="100">등록 날짜</td>
+				<td class="ct_list_b" width="100">마감 날짜</td>
+				<td class="ct_list_b" width="100">과제 제출</td>
 
 			</tr>
 		</thead>
 		
 		<tbody>
 			<c:set var="i" value="0"/>			
-			<c:forEach var="students" items="${list}">			
+			<c:forEach var="paper" items="${list}">			
 				<c:set var="i" value="${i+1}" />
 				<tr class="ct_list_pop">
 					<td align="center">${i}</td>
-					<td align="left" id="noteTitlee" noteCode="${students.noteCode }">${students.noteTitle}</td>
-					<td align="left">${students.noteCreateAt}</td>
+					<td align="left" id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName.getLessonName()}</td>
+					<td align="left" >${paper.homeworkTitle}</td>
+					<td align="left">${paper.studentName.getStudentName()}</td>
+					<td align="left">${paper.homeworkCreateAt}</td>
+					<td align="left">${paper.homeworkDueDate}</td>
+					<td align="left">${paper.homeworkCheck}</td>
 
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<!-- <input type="button" onclick="addBtn();" value="작성"/> -->
-	<button id="addBtn" type="button" class="btn btn-primary">작성</button>
 	
 	
        

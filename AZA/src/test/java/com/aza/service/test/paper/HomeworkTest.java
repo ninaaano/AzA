@@ -82,9 +82,8 @@ public class HomeworkTest {
 		search.setCurrentPage(1);
 		search.setPageSize(3); 
 		search.setSearchId("student3");
-		search.setLessonCode("abcd1234");
 		
-		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search, search.getLessonCode(),search.getSearchId());
+		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search,search.getSearchId());
 		
 		List<Object> list = (List<Object>)map.get("list");
 		
