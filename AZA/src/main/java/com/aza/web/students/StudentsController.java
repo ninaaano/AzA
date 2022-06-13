@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -192,17 +193,7 @@ public class StudentsController {
 		return studentsService.getStudentsAttendance(attendanceCode);
 	}
 	
-	// CHARACTER
-	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
-	public ModelAndView addStudentsCharacterView() throws Exception {
-		
-		System.out.println("/students/addStudentsCharacter");
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/lesson/listStudentsRecord");
-		
-		return mv;		
-	}
+
 	
 	
 	//========================>Note
@@ -306,4 +297,82 @@ public class StudentsController {
 		
 		return mv;			
 	}
+	
+	// CHARACTER => id값 받아야함. test후 수정 ===================================
+	// 단순 view연결
+	@RequestMapping(value="addStudentsCharacterView")
+	public ModelAndView addStudentsCharacterView(ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/addStudentsCharacter");
+		
+
+		mv.setViewName("/students/addStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	// character add!
+	@RequestMapping(value="addStudentsCharacter")
+	public ModelAndView addStudentsCharacter(Students students,ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/addStudentsCharacter");
+		
+		studentsService.addStudentsCharacter(students);
+
+		mv.setViewName("/students/getStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	@RequestMapping(value="updateStudentsCharacter")
+	public ModelAndView updateStudentsCharacter(Students students,ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/updateStudentsCharacter");
+		
+		studentsService.updateStudentsCharacter(students);
+
+		mv.setViewName("/students/updateStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	@RequestMapping(value="deleteStudentsCharacter")
+	public ModelAndView deleteStudentsCharacter(@RequestParam("chaeacterCode") int chaeacterCode,ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/updateStudentsCharacter");
+		
+		studentsService.deleteStudentsCharacter(chaeacterCode);
+
+		mv.setViewName("/students/getStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	// Exam
+	@RequestMapping(value="	manageStudentsExam")
+	public ModelAndView listStudentsExam
+	( @ModelAttribute("search") Search search, Model model, ModelAndView mv) throws Exception{
+		System.out.println("listStudentsExam Start...");
+
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);	
+		
+		Map<String, Object> map = studentsService.listStudentsExam(search);
+		
+		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		
+		mv.addObject("list", map.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
+		mv.setViewName("/students/manageStudentsExam");
+		
+		return mv;
+	}
+
+	
+	
+	
 }

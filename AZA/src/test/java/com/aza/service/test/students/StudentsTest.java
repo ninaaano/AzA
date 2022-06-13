@@ -75,7 +75,7 @@ public void deleteMessage() throws Exception {
 
 		students.setLessonCode("ABCD1234");
 		students.setStudentId("student11");
-		students.setLessonStartDate("2022/06/08"); //ÀÌ°Å ÅëÀÏ½ÃÄÑ¾ßÇÒµí
+		students.setLessonStartDate("2022/06/08"); //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ï½ï¿½ï¿½Ñ¾ï¿½ï¿½Òµï¿½
 		students.setFees(10000);
 		students.setPayDueDate("30");
 
@@ -103,7 +103,7 @@ public void deleteMessage() throws Exception {
 		@Test // :: proposal
 	public void testProposalStudents() throws Exception {
 
-		studentsService.proposalStudents(1050, '1'); // ½ÂÀÎ
+		studentsService.proposalStudents(1050, '1'); // ï¿½ï¿½ï¿½ï¿½
 
 		System.out.println(studentsService.getStudentsRecord(1080));
 	}
@@ -118,7 +118,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-	//	@Test // :: listProposal (0 : ½ÂÀÎ ¿äÃ»Áß)
+	//	@Test // :: listProposal (0 : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½)
 	public void testListProposalStudents() throws Exception {
 
 		Search search = new Search();
@@ -136,7 +136,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-//	@Test // :: listProposal (1 : ½ÂÀÎ ¿äÃ»¿Ï·á)
+//	@Test // :: listProposal (1 : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï·ï¿½)
 	public void testListStudentsRecord() throws Exception {
 
 		Search search = new Search();
@@ -178,7 +178,7 @@ public void deleteMessage() throws Exception {
 		students.setStudentId("student11");
 		students.setLessonCode("ABCD1234");
 		students.setAttendanceDate("20220604");
-		students.setAttendanceState("Ãâ¼®");
+		students.setAttendanceState("ï¿½â¼®");
 
 		System.out.println(students);
 
@@ -217,7 +217,7 @@ public void deleteMessage() throws Exception {
 		search.setPageSize(3);
 		Map<String,Object> map = studentsService.listStudentsAttendance(search, "student11", "ABCD1234", "2022/06/03", "2022/06/05");
 
-		// between and => ÃÊ°ú ~ ÀÌÇÏ
+		// between and => ï¿½Ê°ï¿½ ~ ï¿½ï¿½ï¿½ï¿½
 
 		List<Object> list = (List<Object>)map.get("list");
 
@@ -238,7 +238,7 @@ public void deleteMessage() throws Exception {
 			
 			students.setStudentId("student11");
 			students.setNoteTitle("123");
-			students.setNoteContent("¹ÌºÐµµ ¾î·Æ°í ÀûºÐµµ ¾î·Æ´Ù");
+			students.setNoteContent("ï¿½ÌºÐµï¿½ ï¿½ï¿½Æ°ï¿½ ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½Æ´ï¿½");
 			
 			studentsService.addStudentsNote(students);
 			System.out.println(students);
@@ -263,8 +263,8 @@ public void deleteMessage() throws Exception {
 			
 			Students students = new Students();
 			
-			students.setNoteTitle("¹ÌºÐ°úÀûºÐ");
-			students.setNoteContent("¸Þ·Õ");
+			students.setNoteTitle("ï¿½ÌºÐ°ï¿½ï¿½ï¿½ï¿½ï¿½");
+			students.setNoteContent("ï¿½Þ·ï¿½");
 			students.setNoteCode(1002);
 			
 			studentsService.updateStudentsNote(students);
@@ -354,7 +354,7 @@ public void deleteMessage() throws Exception {
 			stu.setExamYear("1111");
 			stu.setExamSemester("2");
 			stu.setExamTerm("2");
-			stu.setExamSubject("Å×½ºÆ®");
+			stu.setExamSubject("ï¿½×½ï¿½Æ®");
 			stu.setExamScore(50);
 			
 			studentsService.addStudentsExam(stu);
@@ -367,7 +367,7 @@ public void deleteMessage() throws Exception {
 			
 			Students stu = studentsService.getStudentsExam(1000);
 			System.out.println("Code : 1000 Exam ==>> " + stu);
-			stu.setExamSubject("!..update Å×½ºÆ®..!");
+			stu.setExamSubject("!..update ï¿½×½ï¿½Æ®..!");
 			stu.setExamScore(50);
 			
 			studentsService.updateStudentsExam(stu);
@@ -379,27 +379,30 @@ public void deleteMessage() throws Exception {
 			studentsService.deleteStudentsExam(1000);
 		}
 		
-//		@Test
+		@Test
 		public void testListExam() throws Exception{
 			
 			Search search = new Search();
 			search.setCurrentPage(1);
 			search.setPageSize(3);	
+			search.setSearchId("student21");	
+			search.setSearchKeyword("ìˆ˜í•™");	
 			
-			System.out.println("½ÃÀÛ=====================");
 			
-			Map<String, Object> map = studentsService.listStudentsExam(search, "¼öÇÐ", "student21");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½=====================");
+			
+			Map<String, Object> map = studentsService.listStudentsExam(search);
 			System.out.println("listExam map ===> " + map);
 			
 			List<Object> list = (List<Object>)map.get("list");
-			assertEquals(3,list.size());
+			assertEquals(1,list.size());
 			System.out.println("listExam check ===> " + list);
 			
 			System.out.println("listExam ====>> "+list);
 			
 			Integer totalCount = (Integer)map.get("totalCount");
 			System.out.println("listExam TotalCount ====>> " + totalCount);
-			System.out.println("listExam ¼­Ä¡ ====>> " + search);
+			System.out.println("listExam ì„œì¹˜ ====>> " + search);
 			
 		}
 

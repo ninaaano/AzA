@@ -97,7 +97,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("Ãâ¼®")) {
+		if(attendanceState.equals("ï¿½â¼®")) {
 			Search search = new Search();
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
@@ -135,7 +135,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("Á¶Åð") || attendanceState.equals("µµ¸Á")) {
+		if(attendanceState.equals("ï¿½ï¿½ï¿½ï¿½") || attendanceState.equals("ï¿½ï¿½ï¿½ï¿½")) {
 			Search search = new Search();
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
@@ -230,10 +230,10 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 
 	@Override
-	public Map<String, Object> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception {
+	public Map<String, Object> listStudentsExam(Search search) throws Exception {
 	
-		List<Students> list = studentsDao.listStudentsExam(search, searchKeyword, studentId);
-		int totalCount = studentsDao.getStudentsExamTotalCount(search, searchKeyword, studentId);
+		List<Students> list = studentsDao.listStudentsExam(search);
+		int totalCount = studentsDao.getStudentsExamTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("list", list);

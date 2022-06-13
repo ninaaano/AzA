@@ -3,10 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
-<title>addCharacter</title>
-
-
+<meta charset="EUC-KR">
+<title>Insert title here</title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,24 +38,15 @@
         <link rel="stylesheet" href="/resources/css/message.css"/>
         
 <!--  -->
-
-
-<style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
-}
-</style>
-
 </head>
 <body>
-Hello World!
 
-<div>
-	<input class="dataTable-input" placeholder="특징을 작성해주세요 :)" type="text" style="width:600px;height:500px;">
-	<br/>
-	<button class="btn btn-info" type="button">등록</button>
-	<button class="btn btn-danger" type="button">취소</button>
+<h1> Rest 싫어요 :( </h1>
+
+<div class="card-body pt-4">
+<canvas id="dashboardAreaChart" width="637" height="255" style="display: block; box-sizing: border-box; width: 510.391px; height: 204px;"></canvas>
 </div>
+
+
 </body>
 </html>

@@ -185,19 +185,15 @@ public class StudentsDaoImpl implements StudentsDao {
 
 
 	@Override
-	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception {
+	public int getStudentsExamTotalCount(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		search.setSearchId(studentId);
-		search.setSearchKeyword(searchKeyword);
 		return sqlSessionTemplate.selectOne("ExamMapper.getStudentsExamTotalCount", search);
 	}
 
 
 	@Override
-	public List<Students> listStudentsExam(Search search, String examSubject, String studentId) throws Exception {
+	public List<Students> listStudentsExam(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		search.setSearchId(studentId);
-		search.setSearchKeyword(examSubject);
 		return sqlSessionTemplate.selectList("ExamMapper.listStudentsExam", search);
 	}
 	

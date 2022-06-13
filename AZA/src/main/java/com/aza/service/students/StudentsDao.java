@@ -84,10 +84,10 @@ public interface StudentsDao {
 	public Students getStudentsExam(int examCode) throws Exception;
 
 	// List SELECT
-	public List<Students> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception;
+	public List<Students> listStudentsExam(Search search) throws Exception;
 
 	// TotalCount
-	public int getStudentsExamTotalCount(Search search, String searchKeyword, String studentId) throws Exception;
+	public int getStudentsExamTotalCount(Search search) throws Exception;
 
 	
 	//// Note
