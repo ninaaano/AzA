@@ -29,6 +29,9 @@ public class Paper {
 	private String homeworkDueDate;
 	private int homeworkCode;
 	
+	private Lesson lessonName;
+	private Lesson teacherId;
+	private Students studentName;
 	
 	public Paper() {
 		
@@ -265,6 +268,36 @@ public class Paper {
 	}
 
 
+	public Lesson getLessonName() {
+		return lessonName;
+	}
+
+
+	public void setLessonName(Lesson lessonName) {
+		this.lessonName = lessonName;
+	}
+
+
+	public Lesson getTeacherId() {
+		return teacherId;
+	}
+
+
+	public void setTeacherId(Lesson teacherId) {
+		this.teacherId = teacherId;
+	}
+
+
+	public Students getStudentName() {
+		return studentName;
+	}
+
+
+	public void setStudentName(Students studentName) {
+		this.studentName = studentName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Paper [quizCode=" + quizCode + ", questionCode=" + questionCode + ", choiceCode=" + choiceCode
@@ -275,8 +308,17 @@ public class Paper {
 				+ ", answerCheck=" + answerCheck + ", choiceNo=" + choiceNo + ", choiceContent=" + choiceContent
 				+ ", homeworkCheck=" + homeworkCheck + ", homeworkTitle=" + homeworkTitle + ", homeworkContent="
 				+ homeworkContent + ", homeworkCreateAt=" + homeworkCreateAt + ", homeworkDueDate=" + homeworkDueDate
-				+ ", homeworkCode=" + homeworkCode + "]";
+				+ ", homeworkCode=" + homeworkCode + ", lessonName=" + lessonName + ", teacherId=" + teacherId
+				+ ", studentName=" + studentName + "]";
 	}
+
+	
+
+
+	
+	
+
+	
 
 
 
