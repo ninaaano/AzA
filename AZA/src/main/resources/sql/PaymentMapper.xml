@@ -28,7 +28,7 @@
 	<!-- SQL : payment SELECT ONE -->
 	<select id="getPayment" parameterType="int" resultMap="PaymentSelectMap">
 	SELECT
-	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no), 
+	(SELECT lesson_name FROM students_record WHERE record_code = student_record_no) lesson_name, 
 	student_name, amount, pay_due_date, pay_day, check_pay
 	FROM payment
 	WHERE pay_code = #{value}
@@ -74,6 +74,7 @@
 										FROM payment p, students_record sr
 												<where>
 													sr.record_code = p.student_record_no
+												<if test="searchCondition != null">	
 													<if test="searchCondition == 0 and searchKeyword !='' ">
 										 				AND p.student_name LIKE INITCAP('%${searchKeyword}%')
 													</if>
@@ -83,10 +84,11 @@
                   											AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				AND	p.check_pay LIKE #{searchKeyword}
+										 				AND	p.check_pay LIKE INITCAP('%${searchKeyword}%')
 													</if>
+												</if>
 												</where>
-
+											
 											ORDER BY pay_due_date DESC) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -101,6 +103,7 @@
 				FROM payment p, students_record sr
 				<where>
 					sr.record_code = p.student_record_no
+				<if test="searchCondition != null">	
 					<if test="searchCondition == 0 and searchKeyword !='' ">
 		 				AND p.student_name LIKE INITCAP('%${searchKeyword}%')
 					</if>
@@ -109,8 +112,9 @@
           										AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 					</if>
 					<if test="searchCondition == 2 and searchKeyword !='' ">
-		 				AND p.check_pay LIKE #{searchKeyword}
-					</if>				    
+		 				AND p.check_pay LIKE INITCAP('%${searchKeyword}%')
+					</if>	
+				</if>			    
 	 			</where>
 	 		 	) countTable
 

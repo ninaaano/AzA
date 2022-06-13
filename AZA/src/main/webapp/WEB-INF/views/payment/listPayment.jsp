@@ -62,15 +62,7 @@ function fncGetList(currentPage) {
 		$(function() {
 		 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 		 $( "button.btn.btn-raised-light").on("click" , function() {
-			
-			 var searchKeyword = $("input[name=searchKeyword]").val();
-			 var endRowNum = $("input[name=endRowNum]").val();
-			
-/* 			 if(searchKeyword == null || searchKeyword.length <1 || endRowNum == null){
-				 alert("검색어가 없으면 검색할 수 없어요.😥😥");
-				 return;
-			 }
-			  */
+			  
 			fncGetList(1);
 
 			});
@@ -79,11 +71,11 @@ function fncGetList(currentPage) {
 
 /* 테스트 */
 $(function() {
-	$("#studentName").on("click" , function() {
+	$("td:nth-child(3)").on("click" , function() {
 		alert("hi!");
 
 /* 		var payCode = $(this).attr("payCode"); */
-		var payCode = $('#payCode').next().val();
+		var payCode = $(this).attr("payCode");
 		alert(payCode);
 
 		$.ajax(
@@ -99,9 +91,13 @@ $(function() {
 						
 						//alert("JSONData : \n"+JSONData);
 						alert("JSONData 이름 : \n"+JSONData.studentName);
+						alert("JSONData 수업명 : \n"+(String)JSONObejct.get("lessonName");
 						alert("JSONData 금액 : \n"+JSONData.amount);
+						//
 						
 						
+							//payLessonName.getJSONArray("payLessonName");
+						//getJSONObject("payLessonName").get("lessonName");
 					}
 				
 			});
@@ -216,7 +212,7 @@ function requestPay(){
 	               
 					<td align="right">
 						<select name="searchCondition" class="btn btn-raised-primary dropdown-toggle" style="width: 120px">
-							<option value="0"> 검색 조건 </option>
+							<option value="404"> 검색 조건 </option>
 							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>학생이름</option>
 							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>기간</option>
 							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>수납여부</option>
