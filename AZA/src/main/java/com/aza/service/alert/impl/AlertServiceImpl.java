@@ -77,5 +77,18 @@ public class AlertServiceImpl implements AlertService {
 		
 		return map;
 	}
+	
+	@Override
+	public List<Alert> getAlertPayment(Search search,String receiverId)throws Exception {
+		return alertDao.getAlertPayment(search,receiverId);
+	}
+	
+	
+	
+	@Override
+	public List<Alert> getAlertByDate(Search search)throws Exception{
+		return alertDao.getAlertByDate(search);
+		
+	}
 
 }
