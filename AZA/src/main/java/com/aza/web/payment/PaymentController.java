@@ -123,9 +123,7 @@ public class PaymentController {
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-	
+	}	
 	//== TEST
 	
 //	@RequestMapping(value = "/updatePayment", method = RequestMethod.POST)
