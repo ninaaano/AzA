@@ -95,7 +95,7 @@ public class PaymentController {
 		return mv;
 	}
 	
-	@RequestMapping("/payment/realPayment")
+	@RequestMapping("complete")
 	public ResponseEntity<String> realPayment
 	(@RequestParam("payCode") int payCode,HttpSession session, Payment payment)throws Exception{
 		String token = paymentService.getToken();

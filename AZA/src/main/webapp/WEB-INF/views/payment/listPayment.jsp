@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- 날짜 포맷 lib-->
+<!--  날짜 ,금액 포맷 lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 
 <!DOCTYPE html>
 <html>
@@ -50,13 +51,8 @@
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<script>
-body {
 
-    padding-top : 50px;
-    
-	}
-	
+<script type="text/javascript">
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
@@ -65,9 +61,16 @@ function fncGetList(currentPage) {
 	//검색
 		$(function() {
 		 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-		 $( "test").on("click" , function() {
-
-			alert("hi!");
+		 $( "button.btn.btn-raised-light").on("click" , function() {
+			
+			 var searchKeyword = $("input[name=searchKeyword]").val();
+			 var endRowNum = $("input[name=endRowNum]").val();
+			
+/* 			 if(searchKeyword == null || searchKeyword.length <1 || endRowNum == null){
+				 alert("검색어가 없으면 검색할 수 없어요.😥😥");
+				 return;
+			 }
+			  */
 			fncGetList(1);
 
 			});
@@ -76,15 +79,16 @@ function fncGetList(currentPage) {
 
 /* 테스트 */
 $(function() {
-	$("test").on("click" , function() {
+	$("#studentName").on("click" , function() {
 		alert("hi!");
-		
-		var payCode = $(this).next().val();
+
+/* 		var payCode = $(this).attr("payCode"); */
+		var payCode = $('#payCode').next().val();
 		alert(payCode);
 
 		$.ajax(
 			{
-				url: "/payment/rest/getPayment"+payCode,
+				url: "/payment/rest/getPayment/"+payCode,
 				method : "GET",
 				dataType : "JSON",
 					headers : {
@@ -93,12 +97,9 @@ $(function() {
 					},
 					success : function(JSONData , status){
 						
-						alert("JSONData : \n"+JSONData);
+						//alert("JSONData : \n"+JSONData);
 						alert("JSONData 이름 : \n"+JSONData.studentName);
-						
-/* 						var displayValue = "<h3>" +"학생 이름: "+JSONData.studentName+"<br/>";
-						$("h3").remove();
-						$( "#"+payName+"" ).html(displayValue); */
+						alert("JSONData 금액 : \n"+JSONData.amount);
 						
 						
 					}
@@ -114,6 +115,37 @@ $(function() {
 <body>
 <script type="text/javascript">
 //iamport
+$(function() {
+	$("#realPayment").on("click" , function() {
+	
+	var payCode = $('#payCode').next().val();
+	alert(payCode);
+
+	$.ajax(
+		{
+			url: "/payment/rest/getPayment/"+payCode,
+			method : "GET",
+			dataType : "JSON",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status){
+					
+					//alert("JSONData : \n"+JSONData);
+					var name = JSONData.studentName;
+					var realAmount = JSONData.amount;
+					alert(realAmount);
+				
+				}
+				
+		});
+
+});
+	
+});
+
+
 function requestPay(){
 
     var IMP = window.IMP;
@@ -123,16 +155,17 @@ function requestPay(){
         pg : 'html5_inicis',
         pay_method : 'card',
         merchant_uid : 'merchant_' + new Date().getTime(), // 주문 번호
-        name : '상품명',
-        amount : 1000,
-        buyer_tel : '010-1111-1111',
+         name : '555',
+        amount : 111,
+        buyer_tel : '010-1111-1111' 
+
     }, function(rsp) {
         /*======================================================*/
         console.log(rsp);
         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                 // jQuery로 HTTP 요청
-/*                 jQuery.ajax({
-                    url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
+                 jQuery.ajax({
+                    url: "https://www.aza.com/payment/complete", // 예: https://www.myservice.com/payments/complete
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     data: {
@@ -142,13 +175,15 @@ function requestPay(){
                 }).done(function (data) {
                   // 가맹점 서버 결제 API 성공시 로직
                 	alert("success!!");
-                }); */
+                }); 
 
                 /*======================================================*/
         } else {
 			System.out.println("11");
         }
+    
 
+    
     });
 };
 </script>
@@ -163,33 +198,39 @@ function requestPay(){
 				<table>
 				<tr>
 				
-				<td>
+<!-- 				<td>
 				  <div class="dropdown">
 				  <button class="btn btn-raised-primary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 	                    검색 조건
 	                    <i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i>
 	              </button>
-	                    
+	                    수정해야함.
              	           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-             	           <a class="dropdown-item" href="#!">Action</a>
                            <li><a class="dropdown-item" href="#!">학생이름</a></li>
                            <li><a class="dropdown-item" href="#!">기간</a></li>
                            <li><a class="dropdown-item" href="#!">수납여부</a></li>
                        </ul>
 
                    </div>
-	               </td>
+	               </td> -->
 	               
 					<td align="right">
-						<select name="searchCondition" class="ct_input_g" style="width: 90px">
+						<select name="searchCondition" class="btn btn-raised-primary dropdown-toggle" style="width: 120px">
+							<option value="0"> 검색 조건 </option>
 							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>학생이름</option>
 							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>기간</option>
 							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>수납여부</option>
 					</select> 
 					</td>
 					<td>
-						<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" type="text" name="searchKeyword" 
-								value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
+
+							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
+							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
+
+							<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" name="searchKeyword" 
+									value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
+									
+						
 						 </td>
 
 					<td align="right" width="70">
@@ -199,51 +240,7 @@ function requestPay(){
 				</tr>
 				<tr> <td height="20"></td> </tr>
 				</table>
-				
-<%-- 				</table>
-				
-				<table border="1" cellspacing = "0" cellpadding = "10px">
 
-			  	<tr>
-			  			<td>No</td>
-			  			<td>수업명</td>
-			  			<td>학생 이름</td>
-			  			<td>수납료</td>
-			  			<td>수납예정일</td>
-			  			<td>수납완료일</td>
-			  			<td>수납여부</td>
-			  			<td>납부하기</td>
-			  	</tr>
-		  			  <c:set var="i" value="0" />
- 	 				  <c:forEach var="payment" items="${list}">
-					  <c:set var="i" value="${ i+1 }" />
-			  	 <tr>
-							<td align="center">${ i } </td>
-		
-							<td align="center" >${payment.payLessonName.getLessonName()}</td>
-							
-							<td align="center">
-								<i  id= "${payment.payCode}" >
-								<input type="hidden"value="${payment.payCode}"> </i>
-								${payment.studentName}
-							</td>
-							
-							<td align="center">${payment.amount} </td>
-							<td align="center">${payment.payDueDate} </td>
-							<td>
-							<fmt:parseDate value="${payment.payDay}" var="payDay" pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${payDay}" pattern="yyyy/MM/dd" />
-							</td>
-							<td align="center">${payment.checkPay} </td>
-							
-							<td align="center"><button onclick="requestPay()" id="realPayment">결제하기</button></td>				 
-					
-				 </tr>
-				  </c:forEach>
-
-				</table> --%>
-				
-<!--  -->		
 
 
 <table id="datatablesSimple" class="dataTable-table">
@@ -268,8 +265,12 @@ function requestPay(){
 		<a href="#" class="dataTable-sorter" align="center">수납료</a>
 		</th>
 		
-		<th data-sortable="" style="width: 15%;">
+		<th data-sortable="" style="width: 13%;">
 		<a href="#" class="dataTable-sorter" align="center">수납예정일</a>
+		</th>
+		
+		<th data-sortable="" style="width: 13%;">
+		<a href="#" class="dataTable-sorter" align="center">수납완료일</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
@@ -288,16 +289,30 @@ function requestPay(){
 	  <c:forEach var="payment" items="${list}">
  	  <c:set var="i" value="${ i+1 }" />
 					  
-				<tr>
-				<td align="center">${ i }</td>
-				<td align="center">${payment.payLessonName.getLessonName()}</td>
-				<td align="center">${payment.studentName}</td>
-				<td align="center">${payment.amount }</td>
+				<tr>				
+				<td align="center">
+				${ i }
+				<input type="hidden" id="payCode" value="${payment.payCode}">
+				</td>
+				<td align="center"  id="lessonName" value="${payment.payLessonName.getLessonName()}" >${payment.payLessonName.getLessonName()}</td>
+				<td align="center" id="studentName" payCode="${payment.payCode}">${payment.studentName}</td>
+				
+				<td align="center" value="${payment.amount}" id="amount" >
+					<fmt:formatNumber value="${payment.amount}" pattern="#,###" />원
+				</td>
+				
 				<td align="center">${payment.payDueDate }</td>
+				
+				<td align="center">
+					<fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
+					<fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 		
+				</td>
+				
 				<td align="center">${payment.checkPay }</td>
 				<td align="center">
-				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment">결제하기</button>
+				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" style="width:70%;height:35px;">결제하기　</button>			
 				</td>
+
 				</tr>
 	 </c:forEach>
 </table>	

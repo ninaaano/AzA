@@ -77,7 +77,8 @@
 													<if test="searchCondition == 0 and searchKeyword !='' ">
 										 				AND p.student_name LIKE INITCAP('%${searchKeyword}%')
 													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
+													<if test="searchCondition == 1 and searchStartDate !='' and searchEndDate != ''
+																and searchStartDate != null and searchEndDate != null">
 										 				AND p.pay_due_date BETWEEN TO_DATE(#{searchStartDate}, 'YYYY-MM-DD') 
                   											AND TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')
 													</if>
