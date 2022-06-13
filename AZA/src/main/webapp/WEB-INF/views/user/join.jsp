@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
+	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
@@ -17,7 +17,7 @@
      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
      <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
         <!-- Load main stylesheet-->
-     <link href="/resources//css/template.css" rel="stylesheet" />
+     <link href="/resources/css/template.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -40,58 +40,58 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/login">È¸¿ø°¡ÀÔ</a>
+        	<a class="navbar-brand" href="/login">íšŒì›ê°€ì…</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
 
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
 	<div class="container">
 	
-		<h1 class="bg-primary text-center">È¸ ¿ø °¡ ÀÔ</h1>
+		<h1 class="bg-primary text-center">íšŒ ì› ê°€ ì…</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 
 	
 	<select name = "role" id = "role">
-		<option value ="teacher"> ¼±»ı´Ô </option>
-		<option value ="student"> ÇĞ»ı </option>
-		<option value ="parents"> ÇĞºÎ¸ğ </option>
+		<option value ="teacher"> ì„ ìƒë‹˜ </option>
+		<option value ="student"> í•™ìƒ </option>
+		<option value ="parents"> í•™ë¶€ëª¨ </option>
       </select>
 		  
 		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">¾Æ ÀÌ µğ</label>
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">ì•„ ì´ ë””</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä" oninput="checkDuplication()" />
-		      <span class="id_ok">»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.</span>
-		      <span class="id_already">»ç¿ëÁßÀÎ ¾ÆÀÌµğ ÀÔ´Ï´Ù.</span>
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”" oninput="checkDuplication()" />
+		      <span class="id_ok">ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.</span>
+		      <span class="id_already">ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë”” ì…ë‹ˆë‹¤.</span>
 		    </div>
 		  </div>		  
 		  
 		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£</label>
+		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ë¹„ë°€ë²ˆí˜¸</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="ºñ¹Ğ¹øÈ£">
+		      <input type="password" class="form-control" id="password" name="password" placeholder="ë¹„ë°€ë²ˆí˜¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£ È®ÀÎ</label>
+		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="ºñ¹Ğ¹øÈ£ È®ÀÎ">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="ë¹„ë°€ë²ˆí˜¸ í™•ì¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">ÀÌ¸§</label>
+		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">ì´ë¦„</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userName" name="userName" placeholder="ÀÌ¸§">
+		      <input type="text" class="form-control" id="userName" name="userName" placeholder="ì´ë¦„">
 		    </div>
 		  </div>
 
 								<div class="form-group">
-									<label for="phone">ÈŞ´ëÀüÈ­ ('-' ¾øÀÌ ¹øÈ£¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä) </label>
+									<label for="phone">íœ´ëŒ€ì „í™” ('-' ì—†ì´ ë²ˆí˜¸ë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”) </label>
 								</div>
 		
 								<div class="form-row">
@@ -101,19 +101,19 @@
 									</div>
 		
 									<div class="form-group col-md-4">
-										<button type="button" class="genric-btn danger radius" onclick="cert();">ÀÎÁõ¹øÈ£ ¹Ş±â</button>
+										<button type="button" class="genric-btn danger radius" onclick="cert();">ì¸ì¦ë²ˆí˜¸ ë°›ê¸°</button>
 									</div>
 		
 								</div>
 								
 								<div class="form-row">
 									<div class="form-group col-md-8">
-										<input type="text" class="form-control" id="certification"  placeholder="ÀÎÁõ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä" required>
+										<input type="text" class="form-control" id="certification"  placeholder="ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" required>
 										<div class="form-group" id="certCheck"></div>	
 									</div>
 		
 									<div class="form-group col-md-4">
-										<button type="button" class="genric-btn danger radius" id="sms_AuthBtn" onclick="smsAuthBtn();">È®ÀÎ</button>
+										<button type="button" class="genric-btn danger radius" id="sms_AuthBtn" onclick="smsAuthBtn();">í™•ì¸</button>
 									</div>
 				
 								
@@ -123,9 +123,9 @@
                             
                             
          <div class = "student" style = "display:none;" id="student">
-		    <label for="birth" class="col-sm-offset-1 col-sm-3 control-label">»ı³â¿ùÀÏ</label>
+		    <label for="birth" class="col-sm-offset-1 col-sm-3 control-label">ìƒë…„ì›”ì¼</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="birth" name="birth" placeholder="¾ÕÀÚ¸® 8ÀÚ¸®">
+		      <input type="text" class="form-control" id="birth" name="birth" placeholder="ì•ìë¦¬ 8ìë¦¬">
 		    	<span id="helpBlock" class="help-block">
 		      	 <strong class="text-danger">ex) 20001010 </strong>
 		      </span>
@@ -134,70 +134,84 @@
           
                             
          <div class = "student" style = "display:none;">
-		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ±³</label>
+		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">í•™êµ</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="school" name="school" placeholder="ÇĞ±³ ÀÌ¸§">
+		      <input type="text" class="form-control" id="school" name="school" placeholder="í•™êµ ì´ë¦„">
 		    </div>
 		  </div>
          
          <div class = "student" style = "display:none;">
-		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ³â</label>
+		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">í•™ë…„</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="grade" name="grade" placeholder="¼ıÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä">
+		      <input type="text" class="form-control" id="grade" name="grade" placeholder="ìˆ«ìë§Œ ì…ë ¥í•˜ì„¸ìš”">
 		    </div>
 		  </div>
          
          <div class = "student" style = "display:none;">
-		    <label for="parentsPhone" class="col-sm-offset-1 col-sm-4 control-label">ºÎ¸ğ´Ô ÇÚµåÆù¹øÈ£</label>
+		    <label for="parentPhone" class="col-sm-offset-1 col-sm-4 control-label">ë¶€ëª¨ë‹˜ í•¸ë“œí°ë²ˆí˜¸</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="parentsPhone" name="parentsPhone" placeholder="¼ıÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä">
+		      <input type="text" class="form-control" id="parentPhone" name="parentPhone" placeholder="ìˆ«ìë§Œ ì…ë ¥í•˜ì„¸ìš”">
 		    </div>
 		  </div>
          
          <div class="parents" style = "display:none;">
-		    <label for="studentId" class="col-sm-offset-1 col-sm-3 control-label">ÀÚ³à¾ÆÀÌµğ</label>
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">ìë…€ì•„ì´ë””</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="studentId" name="studentId" placeholder="ÀÚ³à ¾ÆÀÌµğ">
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="ìë…€ ì•„ì´ë””">
 		    </div>
 		  </div>
 
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >°¡ &nbsp;ÀÔ</button>
-			  <a class="btn btn-primary btn" href="#" role="button">Ãë&nbsp;¼Ò</a>
+		      <button type="button" class="btn btn-primary"  >ê°€ &nbsp;ì…</button>
+			  <a class="btn btn-primary btn" href="#" role="button">ì·¨&nbsp;ì†Œ</a>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 		
  	</div>
-	<!--  È­¸é±¸¼º div end /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div end /////////////////////////////////////-->
 	
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+       body > div.container{
+        	border: 3px solid #D6CDB7;
+            margin-top: 10px;
+        }
+        
+        .id_ok{color:#6A82FB; display: none;}
+        .id_already{color:red; display: none;}
+    </style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript">
 	
 
         
-		//¾ÆÀÌµğ Ã¼Å©
+		//ì•„ì´ë”” ì²´í¬
 		const checkDuplication = _.debounce(async (id) => {
-			//var userId = $('#userId').val(); // id°ªÀÌ userIdÀÎ ÀÎ·Â¶õÀÇ °ª ÀúÀå
+			//var userId = $('#userId').val(); // idê°’ì´ userIdì¸ ì¸ë ¥ë€ì˜ ê°’ ì €ì¥
 			var id = $("#userId").val();
 			
 			
 			var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
       		  if (!isID.test(id)) {
-					alert("5~20ÀÚÀÇ ¿µ¹® ¼Ò¹®ÀÚ, ¼ıÀÚ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.");
+					alert("5~20ìì˜ ì˜ë¬¸ ì†Œë¬¸ì, ìˆ«ìë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 					return false;
       		  }			
       		  
 			
 			$.ajax({
+			//	header :
+			//	url:'localhost:8080/user/rest/checkDuplication',
 				url:'/user/rest/checkDuplication',
 				type:'post',
 				data:{id},
-				success:function(cnt){ //ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ¾î¿Â cnt°ª ¹Ş±â
-					if(cnt == 0) { //0ÀÌ¸é »ç¿ë°¡´É ¾ÆÀÌµğ
+				success:function(cnt){ //ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë„˜ì–´ì˜¨ cntê°’ ë°›ê¸°
+					if(cnt == 0) { //0ì´ë©´ ì‚¬ìš©ê°€ëŠ¥ ì•„ì´ë””
 						$('.id_ok').css("display","inline-block");
 						$('.id_already').css("display", "none");
 						}else{
@@ -206,14 +220,14 @@
 					}
 				},
 				error:function(){
-					alert("¿¡·¯ÀÔ´Ï´Ù");
+					alert("ì—ëŸ¬ì…ë‹ˆë‹¤");
 				}
 			});
 		},1000);
 	
-		//============= "°¡ÀÔ"  Event ¿¬°á =============
+		//============= "ê°€ì…"  Event ì—°ê²° =============
 		 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
 				fncAddUser();
 			});
@@ -225,7 +239,7 @@
 			$('#password2').blur(function(){
 				if($('#password').val() != $('#password2').val()){
 					if($('#password2').val() != ''){
-						alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä");
+						alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”");
 						$('#password2').val('');
 						$('#password2').focus();
 					}
@@ -234,9 +248,9 @@
 		});
 		
 	
-		//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+		//============= "ì·¨ì†Œ"  Event ì²˜ë¦¬ ë°  ì—°ê²° =============
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("a[href='#' ]").on("click" , function() {
 				$("form")[0].reset();
 			});
@@ -252,30 +266,30 @@
 			var phone=$("input[name='phone']").val();
 			
 			if(id == null || id.length <1){
-				alert("¾ÆÀÌµğ´Â ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ì•„ì´ë””ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(pw == null || pw.length <1){
-				alert("ÆĞ½º¿öµå´Â  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("íŒ¨ìŠ¤ì›Œë“œëŠ”  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(pw_confirm == null || pw_confirm.length <1){
-				alert("ÆĞ½º¿öµå È®ÀÎÀº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(name == null || name.length <1){
-				alert("ÀÌ¸§Àº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ì´ë¦„ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			
 			if( pw != pw_confirm ) {				
-				alert("ºñ¹Ğ¹øÈ£ È®ÀÎÀÌ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				alert("ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì´ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 				$("input:text[name='password2']").focus();
 				return;
 			}
 			
 			if(phone == null || phone.length <1){
-				alert("ÇÚµåÆù ÀÎÁõÀº ÇÊ¼öÀÔ´Ï´Ù.");
+				alert("í•¸ë“œí° ì¸ì¦ì€ í•„ìˆ˜ì…ë‹ˆë‹¤.");
 				return;
 			}
 				
@@ -304,16 +318,16 @@
 		
 		
 	   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	   //==> ÁÖ¹Î¹øÈ£ À¯È¿¼º check ´Â ÀÌÇØÁ¤µµ·Î....
+	   //==> ì£¼ë¯¼ë²ˆí˜¸ ìœ íš¨ì„± check ëŠ” ì´í•´ì •ë„ë¡œ....
 		function checkSsn() {
 			var ssn1, ssn2; 
 			var nByear, nTyear; 
 			var today; 
 	
 			ssn = document.detailForm.ssn.value;
-			// À¯È¿ÇÑ ÁÖ¹Î¹øÈ£ Çü½ÄÀÎ °æ¿ì¸¸ ³ªÀÌ °è»ê ÁøÇà, PortalJuminCheck ÇÔ¼ö´Â CommonScript.js ÀÇ °øÅë ÁÖ¹Î¹øÈ£ Ã¼Å© ÇÔ¼öÀÓ 
+			// ìœ íš¨í•œ ì£¼ë¯¼ë²ˆí˜¸ í˜•ì‹ì¸ ê²½ìš°ë§Œ ë‚˜ì´ ê³„ì‚° ì§„í–‰, PortalJuminCheck í•¨ìˆ˜ëŠ” CommonScript.js ì˜ ê³µí†µ ì£¼ë¯¼ë²ˆí˜¸ ì²´í¬ í•¨ìˆ˜ì„ 
 			if(!PortalJuminCheck(ssn)) {
-				alert("Àß¸øµÈ ÁÖ¹Î¹øÈ£ÀÔ´Ï´Ù.");
+				alert("ì˜ëª»ëœ ì£¼ë¯¼ë²ˆí˜¸ì…ë‹ˆë‹¤.");
 				return false;
 			}
 		}
@@ -341,7 +355,7 @@
 
 	</script>
 	
-	<!--ÈŞ´ëÆù ÀÎÁõ / SMS SENS API -->
+	<!--íœ´ëŒ€í° ì¸ì¦ / SMS SENS API -->
 <script type="text/javascript">
 	function cert() {
 		 var random = Math.floor(Math.random() * 1000000)+"";
@@ -352,13 +366,13 @@
 					"type" : "SMS",
 					"contentType" : "COMM",
 					"from" : "01032030796",
-					"subject" : "º»ÀÎÀÎÁõ ¹®ÀÚÀÔ´Ï´Ù",
+					"subject" : "ë³¸ì¸ì¸ì¦ ë¬¸ìì…ë‹ˆë‹¤",
 					"countryCode" : "82",
 					"content" : random,
 					"message" : [ {
 						"to" : phone,
-						"subject" : "ÀÎÁõ ¹®ÀÚ",
-						"content" : "ÀÎÁõ¹øÈ£ [" + random +"]¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
+						"subject" : "ì¸ì¦ ë¬¸ì",
+						"content" : "ì¸ì¦ë²ˆí˜¸ [" + random +"]ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
 					} ]
 				};
 			
@@ -370,11 +384,11 @@
 				contentType: "application/json",
 				success : function(data) {
 					if(data.statusName == "success"){
-						$('#certCheck').text("ÀÎÁõ ¹øÈ£°¡ Àü¼ÛµÇ¾ú½À´Ï´Ù.");
+						$('#certCheck').text("ì¸ì¦ ë²ˆí˜¸ê°€ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 						$('#certCheck').css('color','blue');
 						$("#signup_btn").attr("disabled",true);
 					}else {
-						$('#certCheck').text("ÀÔ·ÂÇÑ ¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.");
+						$('#certCheck').text("ì…ë ¥í•œ ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”.");
 						$('#certCheck').css('color','red');
 						$("#signup_btn").attr("disabled",true);
 					}
@@ -388,11 +402,11 @@
 		var certVal = $('#randomVal').val();
 	
 			if(userVal == certVal){
-				$('#certCheck').text("ÀÎÁõÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+				$('#certCheck').text("ì¸ì¦ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				$('#certCheck').css('color','blue');	
 				$("#signup_btn").attr("disabled",false);
 			}else{
-				$('#certCheck').text("ÀÎÁõ¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä");
+				$('#certCheck').text("ì¸ì¦ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”");
 				$('#certCheck').css('color','red');
 				$("#signup_btn").attr("disabled",true);
 			}
