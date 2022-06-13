@@ -53,7 +53,9 @@ public interface UserService {
 	public Map<String, Object> listRelationByParent(Search search, String parentId) throws Exception;
 	
 	// private phoneAuth
-	public int phoneAuth() throws Exception;
+	public void sendSMS(String phone,String message) throws Exception;
+
+	int phoneAuth() throws Exception;
 
 
 }
