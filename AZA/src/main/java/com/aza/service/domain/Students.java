@@ -1,7 +1,6 @@
 package com.aza.service.domain;
 
 public class Students {
-
 	// field
 	private String lessonCode;
 	private String lessonName;
