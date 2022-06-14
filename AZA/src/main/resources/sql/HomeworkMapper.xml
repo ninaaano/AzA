@@ -109,18 +109,17 @@
 						h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
 						h.homework_create_at, h.homework_due_date, h.homework_check
 						FROM homework h, students_record sr, lesson l
-						WHERE h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code
-						AND l.teacher_id = #{searchId}
-							<if test='searchCondition != null'>
-								<where>
+							<where>
+							h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code AND l.teacher_id = #{searchId} 
+								<if test='searchCondition != null'>
 									<if test="searchCondition == 0 and searchKeyword != '' ">
-										sr.student_name LIKE '%' || #{searchKeyword} || '%'
+										AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
 									</if>
 									<if test="searchCondition == 1 and searchKeyword != '' ">
-										sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+										AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
 									</if>
-								</where>
-							</if>
+								</if>	
+							</where>
 						ORDER BY h.homework_create_at desc ) inner_table
 					WHERE ROWNUM &lt;= #{endRowNum}
 				)			
@@ -159,15 +158,15 @@
 				FROM (	SELECT
 						h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
 						h.homework_create_at, h.homework_due_date, h.homework_check
-						FROM homework h, students_record sr
-						WHERE h.student_id = sr.student_id AND sr.student_id = #{searchId}
-							<if test='searchCondition != null'>
-								<where>
-									<if test="searchCondition == 1 and searchKeyword != '' ">
-										sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+						FROM homework h, students_record sr						
+							<where>
+							h.student_id = sr.student_id AND sr.student_id = #{searchId}
+								<if test='searchCondition != null'>
+									<if test="searchCondition == 0 and searchKeyword != '' ">
+										AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
 									</if>
-								</where>
-							</if>
+								</if>
+							</where>
 						ORDER BY h.homework_create_at desc ) inner_table
 					WHERE ROWNUM &lt;= #{endRowNum}
 				)			
@@ -202,18 +201,18 @@
 					h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
 					h.homework_create_at, h.homework_due_date, h.homework_check
 					FROM homework h, students_record sr, lesson l
-					WHERE h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code
-					AND l.teacher_id = #{searchId}
-						<if test='searchCondition != null'>
-							<where>
+						<where>
+							h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code
+							AND l.teacher_id = #{searchId}
+							<if test='searchCondition != null'>
 								<if test="searchCondition == 0 and searchKeyword != '' ">
-									sr.student_name LIKE '%' || #{searchKeyword} || '%'
+									AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword != '' ">
-									sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+									AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
 								</if>
-							</where>
-						</if>
+							</if>
+						</where>
 					ORDER BY h.homework_create_at desc ) countTable	
 	</select>
 	
@@ -246,14 +245,14 @@
 				h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
 				h.homework_create_at, h.homework_due_date, h.homework_check
 				FROM homework h, students_record sr
-				WHERE h.student_id = sr.student_id AND sr.student_id = #{searchId}
-					<if test='searchCondition != null'>
-						<where>
-							<if test="searchCondition == 1 and searchKeyword != '' ">
-								sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+					<where>
+					h.student_id = sr.student_id AND sr.student_id = #{searchId}
+						<if test='searchCondition != null'>
+							<if test="searchCondition == 0 and searchKeyword != '' ">
+								AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
 							</if>
-						</where>
-					</if>
+						</if>
+					</where>
 				ORDER BY h.homework_create_at desc ) countTable	
 	</select>
 	

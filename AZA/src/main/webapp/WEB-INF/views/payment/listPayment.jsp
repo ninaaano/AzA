@@ -57,27 +57,22 @@ function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
 }
-
 	//검색
 		$(function() {
 		 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 		 $( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
-
 			});
 		 
 		});
-
 /* 테스트 */
 $(function() {
 	$("td:nth-child(3)").on("click" , function() {
 		alert("hi!");
-
 /* 		var payCode = $(this).attr("payCode"); */
 		var payCode = $(this).attr("payCode");
 		alert(payCode);
-
 		$.ajax(
 			{
 				url: "/payment/rest/getPayment/"+payCode,
@@ -101,11 +96,8 @@ $(function() {
 					}
 				
 			});
-
 	});
 });
-
-
 </script>
 </head>
 <body>
@@ -116,7 +108,6 @@ $(function() {
 	
 	var payCode = $('#payCode').next().val();
 	alert(payCode);
-
 	$.ajax(
 		{
 			url: "/payment/rest/getPayment/"+payCode,
@@ -136,14 +127,10 @@ $(function() {
 				}
 				
 		});
-
 });
 	
 });
-
-
 function requestPay(){
-
     var IMP = window.IMP;
     IMP.init('imp15771574');
     // 결제창 호출
@@ -154,7 +141,6 @@ function requestPay(){
          name : '555',
         amount : 111,
         buyer_tel : '010-1111-1111' 
-
     }, function(rsp) {
         /*======================================================*/
         console.log(rsp);
@@ -172,23 +158,16 @@ function requestPay(){
                   // 가맹점 서버 결제 API 성공시 로직
                 	alert("success!!");
                 }); 
-
                 /*======================================================*/
         } else {
 			System.out.println("11");
         }
     
-
     
     });
 };
 </script>
-
-
-
-
 <h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> ✔ </a> </h3> 
-
 <form>				
 				
 				<table>
@@ -206,7 +185,6 @@ function requestPay(){
                            <li><a class="dropdown-item" href="#!">기간</a></li>
                            <li><a class="dropdown-item" href="#!">수납여부</a></li>
                        </ul>
-
                    </div>
 	               </td> -->
 	               
@@ -219,16 +197,13 @@ function requestPay(){
 					</select> 
 					</td>
 					<td>
-
 							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
 							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
-
 							<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" name="searchKeyword" 
 									value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
 									
 						
 						 </td>
-
 					<td align="right" width="70">
 					<button class="btn btn-raised-light" type="submit" id="searchPayment">검색</button>
 				</td>
@@ -236,9 +211,6 @@ function requestPay(){
 				</tr>
 				<tr> <td height="20"></td> </tr>
 				</table>
-
-
-
 <table id="datatablesSimple" class="dataTable-table">
 	
 	
@@ -308,7 +280,6 @@ function requestPay(){
 				<td align="center">
 				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" style="width:70%;height:35px;">결제하기　</button>			
 				</td>
-
 				</tr>
 	 </c:forEach>
 </table>	

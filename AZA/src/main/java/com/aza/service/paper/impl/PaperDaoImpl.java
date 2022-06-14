@@ -210,28 +210,36 @@ public class PaperDaoImpl implements PaperDao {
 
 
 	@Override
-	public List<Paper> listPaperQuizTeacher(Search search) throws Exception {
-		// TODO Auto-generated method stub
+	public List<Paper> listPaperQuizTeacher(Search search, String teacherId) throws Exception {
+
+		search.setSearchId(teacherId);
+		
 		return sqlSession.selectList("QuizMapper.listPaperQuizTeacher", search);
 	}
 
 	@Override
-	public List<Paper> listPaperQuizStudent(Search search) throws Exception {
-		// TODO Auto-generated method stub
+	public List<Paper> listPaperQuizStudent(Search search, String studentId) throws Exception {
+
+		search.setSearchId(studentId);
+		
 		return sqlSession.selectList("QuizMapper.listPaperQuizStudent", search);
 	}
 
 	@Override
-	public int getPaperQuizTotalCountStudent(Search serch) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountStudent",serch);
+	public int getPaperQuizTotalCountStudent(Search search, String studentId) throws Exception {
+
+		search.setSearchId(studentId);
+		
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountStudent",search);
 	}
 	
 	
 	@Override
-	public int getPaperQuizTotalCountTeacher(Search serch) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountTeacher",serch);
+	public int getPaperQuizTotalCountTeacher(Search search, String teacherId) throws Exception {
+
+		search.setSearchId(teacherId);
+		
+		return sqlSession.selectOne("QuizMapper.getPaperQuizTotalCountTeacher",search);
 	}
 
 

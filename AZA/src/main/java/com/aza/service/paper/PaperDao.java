@@ -20,14 +20,14 @@ public interface PaperDao {
 		public void deletePaperQuiz(int quizCode) throws Exception;	
 	
 		//PaperQuiz :: LIST
-		public List<Paper> listPaperQuizTeacher(Search search) throws Exception;
+		public List<Paper> listPaperQuizTeacher(Search search, String teacherId) throws Exception;
 		
-		public List<Paper> listPaperQuizStudent(Search search) throws Exception;
+		public List<Paper> listPaperQuizStudent(Search search, String studentId) throws Exception;
 	
 	
 		//PaperQuiz :: TOTAL COUNT
-		public int getPaperQuizTotalCountTeacher(Search serch)throws Exception;
-		public int getPaperQuizTotalCountStudent(Search serch)throws Exception;
+		public int getPaperQuizTotalCountTeacher(Search search, String teacherId) throws Exception;
+		public int getPaperQuizTotalCountStudent(Search search, String studentId) throws Exception;
 			
 	
 		//PaperQuestion :: INSERT
