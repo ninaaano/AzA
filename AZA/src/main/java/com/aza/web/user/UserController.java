@@ -22,7 +22,6 @@ import com.aza.service.user.UserService;
 @RequestMapping("/user/*")
 public class UserController {
 
-	
 	///Field
 	@Autowired
 	@Qualifier("userServiceImpl")
