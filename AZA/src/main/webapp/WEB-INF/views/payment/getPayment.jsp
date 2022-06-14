@@ -57,8 +57,8 @@
 
 function requestPay(){
 	
-	var amount = $("td:nth-child(4)").text().trim();
-	alert("amount ==> " + amount);
+	var price = $("td:nth-child(4)").text().trim();
+	alert("amount ==> " + price);
 	var lessonName = $("td:nth-child(2)").text().trim();
 	
 	var payCode = $("td:nth-child(1)").text().trim();
@@ -72,10 +72,10 @@ function requestPay(){
     IMP.request_pay({
         pg : 'html5_inicis',
         pay_method : 'card',
-        merchant_uid : 'merchant_' + new Date().getTime(), // 주문 번호
-		//
+        merchant_uid : payCode, // 주문 번호
 		name : lessonName,
-		amount : amount
+		amount : price,
+		buyer_tel : '010-1111-2222'
 		
 
     }, function(rsp) {
@@ -84,7 +84,7 @@ function requestPay(){
         if (rsp.success) { // 결제 성공 시 
                 // jQuery로 HTTP 요청
                  jQuery.ajax({
-                    url: "http://127.0.0.1:8080/payment/rest/complete/"+payCode, // 예: https://www.myservice.com/payments/complete
+                    url: "http://127.0.0.1:8080/payment/rest/complete/"+merchant_uid, // 예: https://www.myservice.com/payments/complete
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     data: {
@@ -94,17 +94,22 @@ function requestPay(){
                 }).done(function (data) {
                   // 가맹점 서버 결제 API 성공시 로직
                   payCode : payCode
-                	alert("success!!");
+                  var msg = '결제가 완료되었습니다.';
+	    			msg += '\n고유ID : ' + rsp.imp_uid;
+	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	    			msg += '\n결제 금액 : ' + rsp.paid_amount;
+	    			msg += '카드 승인번호 : ' + rsp.apply_num;
                 }); 
 
                 /*======================================================*/
         } else {
-			alert("실패");
+			var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
         }
     
-
+        alert(msg);
     
-    });
+    })
 };
 
 

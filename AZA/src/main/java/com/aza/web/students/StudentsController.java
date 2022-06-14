@@ -301,27 +301,52 @@ public class StudentsController {
 	// CHARACTER => id값 받아야함. test후 수정 ===================================
 	// 단순 view연결
 	@RequestMapping(value="addStudentsCharacterView")
-	public ModelAndView addStudentsCharacterView(ModelAndView mv) throws Exception {
+	public ModelAndView addStudentsCharacterView
+	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search,Students students) throws Exception {
 		
 		System.out.println("/students/addStudentsCharacter");
 		
 
+		
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		mv.addObject("list", listMap.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
+		
 		mv.setViewName("/students/addStudentsCharacter");
+
 		
 		return mv;		
 	}
 	
 	// character add!
 	@RequestMapping(value="addStudentsCharacter")
-	public ModelAndView addStudentsCharacter(Students students,ModelAndView mv) throws Exception {
+	public ModelAndView addStudentsCharacter(Students students,ModelAndView mv, HttpSession session) throws Exception {
 		
 		System.out.println("/students/addStudentsCharacter");
-		
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		students.setTeacherId(teacherId);
+
 		studentsService.addStudentsCharacter(students);
+		
 
 		mv.setViewName("/students/getStudentsCharacter");
+		mv.addObject("students",students);
 		
-		return mv;		
+		System.out.println(students.getCharacterCode());
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="updateStudentsCharacter")
@@ -337,23 +362,38 @@ public class StudentsController {
 	}
 	
 	@RequestMapping(value="deleteStudentsCharacter")
-	public ModelAndView deleteStudentsCharacter(@RequestParam("chaeacterCode") int chaeacterCode,ModelAndView mv) throws Exception {
+	public ModelAndView deleteStudentsCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter");
-		
-		studentsService.deleteStudentsCharacter(chaeacterCode);
+		System.out.println("/students/deleteStudentsCharacter");
+		System.out.println(characterCode);
+		studentsService.deleteStudentsCharacter(characterCode);
 
-		mv.setViewName("/students/getStudentsCharacter");
+		mv.setViewName("/students/addStudentsCharacterView");
 		
 		return mv;		
 	}
 	
+	
+	
+	@RequestMapping(value="getStudentsCharacter")
+	public ModelAndView getStudentCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception{
+		
+		System.out.println("getStudentsCharacter ... ");
+		
+		Students students = studentsService.getStudentsCharacter(characterCode);
+		mv.addObject("students",students);
+		mv.setViewName("/students/getStudentsCharacter");
+		System.out.println("Code Test ====>> " + characterCode);
+		return mv;
+	}
+	
 	// Exam
-	@RequestMapping(value="	manageStudentsExam")
+	@RequestMapping(value="manageStudentsExam")
 	public ModelAndView listStudentsExam
 	( @ModelAttribute("search") Search search, Model model, ModelAndView mv) throws Exception{
 		System.out.println("listStudentsExam Start...");
 
+		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}

@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -89,19 +91,53 @@ public class StudentsRestController {
 	public Map<String,Object> listStudentsExam
 	(HttpServletRequest request) throws Exception{
 		
-		System.out.println("listPayment RestController Start...");
+		System.out.println("listExam RestController Start...");
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);	
 		
 		Map<String, Object> map = studentsService.listStudentsExam(search);
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
 		return map;
 	}
 	
+	@RequestMapping(value = "getStudentsExam/{examCode}")
+	public Students getStudentsExam(@PathVariable int examCode) throws Exception{
+		
+		Students students = new Students();
+		students = studentsService.getStudentsExam(examCode);
+		
+		return students;		
+	}
 	
+	// 수정시 저장된 값 뿌려주기(?)
+	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.GET)
+	public Students updateStudentsExam(@PathVariable int examCode) throws Exception{
+		
+		System.out.println("rest/updateStudentsExam :: GET");
+		
+		return studentsService.getStudentsExam(examCode);
+	}
 	
+	// 수정 method
+	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.POST)
+	public Students updateStudentsExam(@RequestBody Students students) throws Exception{
+		
+		System.out.println("rest/updateStudentsExam :: POST");
+		
+		studentsService.updateStudentsExam(students);
+		
+		return students;		
+	}
 	
+	@RequestMapping(value = "deleteStudentsExam/{ExamCode}")
+	public void deleteStudentsExam(@PathVariable int examCode) throws Exception{
+		
+		studentsService.deleteStudentsExam(examCode);
+	}
 	
 	
 }

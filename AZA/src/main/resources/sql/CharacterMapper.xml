@@ -19,13 +19,13 @@
 	<!-- SQL : addCharacter INSERT -->
 	<insert id="addStudentsCharacter" parameterType="students">
 	INSERT INTO characters
-	VALUES(seq_characters_character_code.NEXTVAL, #{studentId}, #{teacherId}, #{characterContent})
+	VALUES(seq_characters_character_code.NEXTVAL, #{studentId}, #{teacherId}, #{characterContent},(SELECT user_name FROM users WHERE user_id=#{studentId}))
 	</insert>
 
 	<!-- SQL : character SELECT ONE --> 	
 	<select id="getStudentsCharacter" parameterType="int" resultMap="studentsCharacterSelectMap">
 	SELECT
-	student_id, character_content
+	*
 	FROM characters 
 	WHERE character_code = #{value}	
 	</select>
@@ -43,7 +43,6 @@
 	<!-- SQL : character delete -->
 	<delete id="deleteStudentsCharacter" parameterType="int">
 	DELETE FROM characters WHERE character_code = #{value}
-
 	</delete>
 	
 	

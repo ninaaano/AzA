@@ -48,6 +48,7 @@
 	<update id="updatePayment" parameterType="payment">
 	UPDATE payment 
  	<set>
+ 		imp_uid = ${impUid},
  	  <if test="checkPay != 'N'">
 		check_pay = #{checkPay},
 		pay_day = SYSDATE

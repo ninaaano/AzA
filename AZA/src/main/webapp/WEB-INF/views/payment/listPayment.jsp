@@ -250,7 +250,6 @@ $(function() {
 				</td>
 				
 				<td align="center">${payment.checkPay }</td>
-				
 				<td align="center" payCode="${payment.payCode}">
 				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
 						상세보기
