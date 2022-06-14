@@ -195,9 +195,9 @@ public class PaperServiceImpl implements PaperService {
 	}
 
 	@Override
-	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception {
-		List<Paper> list = paperDao.listPaperQuizTeacher(search);
-		int totalCount = paperDao.getPaperQuizTotalCountTeacher(search);
+	public Map<String, Object> listPaperQuizTeacher(Search search, String teacherId) throws Exception {
+		List<Paper> list = paperDao.listPaperQuizTeacher(search, teacherId);
+		int totalCount = paperDao.getPaperQuizTotalCountTeacher(search, teacherId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -209,10 +209,10 @@ public class PaperServiceImpl implements PaperService {
 
 
 	@Override
-	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception {
+	public Map<String, Object> listPaperQuizStudent(Search search, String studentId) throws Exception {
 		
-		List<Paper> list = paperDao.listPaperQuizStudent(search);
-		int totalCount = paperDao.getPaperQuizTotalCountStudent(search);
+		List<Paper> list = paperDao.listPaperQuizStudent(search, studentId);
+		int totalCount = paperDao.getPaperQuizTotalCountStudent(search, studentId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

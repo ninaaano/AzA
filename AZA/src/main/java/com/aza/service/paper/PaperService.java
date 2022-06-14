@@ -20,8 +20,8 @@ public interface PaperService {
 	public void deletePaperQuiz(int quizCode) throws Exception;
 	
 	//PaperQuiz :: LIST 
-	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception;
-	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception;
+	public Map<String, Object> listPaperQuizTeacher(Search search, String teacherId) throws Exception;
+	public Map<String, Object> listPaperQuizStudent(Search search, String studentId) throws Exception;
 
 	
 	//PaperQuestion :: INSERT

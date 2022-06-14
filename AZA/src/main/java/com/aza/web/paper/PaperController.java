@@ -44,6 +44,77 @@ public class PaperController {
 	@Value("${pageSize}")
 	int pageSize;
 	
+	//Quiz
+	@RequestMapping(value="listPaperQuiz")
+	public ModelAndView listPaperQuiz(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
+		
+		System.out.println("/paper/listPaperQuiz");
+		
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		
+		User user = userService.getUser(userId);
+		
+		if(search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String,Object> map = new HashMap();
+		System.out.println("====>=>=>"+user.getRole());
+		
+		if(user.getRole().equals("student")) {
+			map = paperService.listPaperQuizStudent(search, userId);
+		}else if(user.getRole().equals("teacher")) {
+			map = paperService.listPaperQuizTeacher(search, userId);
+		}
+		
+		System.out.println("========================================================"+map.get("list"));
+		System.out.println("========================================================"+(Integer)map.get("totalCount"));
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/paper/listPaperQuiz");
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search",search);
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="addPaperQuiz", method=RequestMethod.GET)
+	public ModelAndView addPaperQuiz(HttpSession session) throws Exception {
+		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
+		System.out.println("/paper/addPaperQuiz : GET");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/paper/addPaperQuiz");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="addPaperQuiz", method=RequestMethod.POST)
+	public ModelAndView addPaperQuiz(@ModelAttribute("paper") Paper paper) throws Exception {
+		
+		System.out.println("/paper/addPaperQuiz : POST");
+		
+		paperService.addPaperQuiz(paper);
+//		paperService.addPaperQuestion(paper);
+//		paperService.addPaperChoice(paper);
+		
+		System.out.println("==="+paper);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/paper/listPaperQuiz");
+		
+		return modelAndView;
+	}
+	
+	
+	
+	
 	//HOMEWORK
 	@RequestMapping(value="listPaperHomework")
 	public ModelAndView listPaperHomework(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
@@ -68,9 +139,7 @@ public class PaperController {
 		}else if(user.getRole().equals("teacher")) {
 			map = paperService.listPaperHomeworkByTeacher(search, userId);
 		}
-		
-//		map = paperService.listPaperHomeworkByStudent(search, userId);
-//		map = paperService.listPaperHomeworkByTeacher(search, userId);
+
 		
 		System.out.println("========================================================"+map.get("list"));
 		System.out.println("========================================================"+(Integer)map.get("totalCount"));

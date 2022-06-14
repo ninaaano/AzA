@@ -8,45 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>수업 과제</title>
-
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>과제</title>
-        
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-	    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	    <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
-   		<link href="/resources/css/message.css" rel="stylesheet">
-   		
-        Load Favicon
-        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-        Load Material Icons from Google Fonts
-        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-        Load Simple DataTables Stylesheet
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
-        Load Litepicker stylesheet
-        <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/style.css" rel="stylesheet">
-        Roboto and Roboto Mono fonts from Google Fonts
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
-        Load main stylesheet
-        <link href="css/styles.css" rel="stylesheet">
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/> -->
         
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -85,7 +46,9 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>       	
-	
+
+
+		
 </head>
 
 <body>
@@ -101,34 +64,69 @@
 }); */
 
 
-$(function(){
+/* $(function(){
 	$("td:nth-child(2)").on("click", function() {
 		self.location ="/paper/getPaperHomework?homeworkCode"+$(this).attr('homeworkCode');
 	})
-})
+}) */
+
+function fncGetList(currentPage) {
+	$("#currentPage").val(currentPage);
+	$("form").attr("method" , "POST").attr("action" , "/paper/listPaperHomework").submit();
+}
+	//검색
+$(function() {
+	 $( "button.btn.btn-raised-primary:contains('검색')").on("click" , function() {
+		  
+		fncGetList(1);
+		});
+});
+
 
 </script>
 
 
-<h3>과제</h3>
-		
+<h3>수업 과제</h3>
+<form>	
 		<div class="card-body p-4">
             <!-- Simple DataTables example-->
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
             	<div class="dataTable-top">
-            		<div class="dataTable-dropdown">
+<!--             		<div class="dataTable-dropdown">
             			<label>
             				<select class="dataTable-selector">
             				<option value="5">5</option>
             				<option value="10" selected="">10</option>
             				</select> "entries per page"
            				</label>
-        			</div>
-	       			<!-- <div class="dataTable-search">
+        			</div> -->
+<!-- 	       			<div class="dataTable-search">
 	       				<input class="dataTable-input" placeholder="Search..." type="text">
 	      			</div> -->
 	      			<!-- //////////////////////////////////////////////////// -->
-	      			
+	      			<table align="right">
+					    <tr>
+						    
+							  <td>
+							    <select class="btn btn-raised-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
+									<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>수업명</option>
+									<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>학생 이름</option>
+								</select>
+							  </td>
+							  
+							  <td>
+			    			 	<input class="dataTable-input" type="text" aria-label="Text input with dropdown button" 
+			    			 			id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력하세요"
+			    			 			 value="${! empty search.searchKeyword ? search.searchKeyword : "" }">
+							  </td>
+							  <td>
+							  <button type="button" class="btn btn-raised-primary" type="submit" id="searchHomework">검색</button>
+							  </td>
+							  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+							  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+							  
+				    	</tr>	
+					</table>
 	      			<!-- //////////////////////////////////////////////////// -->
       			</div>
       			<div class="dataTable-container">
@@ -207,7 +205,18 @@ $(function(){
          		</div>
          	</div>
         </div>
+</form>	        
 
+<!--         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+      
+        <script type="module" src="/resources/javascript/common/material.js"></script>
+        <script src="/resources/javascript/common/scripts.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/common/datatables/datatables-simple-demo.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.nocss.js" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/common/litepicker.js"></script> -->
 
 
 </body>
