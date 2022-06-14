@@ -39,6 +39,11 @@ public class UserDaoImpl implements UserDao {
 	public void addUser(User user) throws Exception {
 		sqlSession.insert("UserMapper.addUser", user);
 	}
+	
+	@Override
+	public void addUserbyParent(User user) throws Exception {
+		sqlSession.insert("UserMapper.addUserbyParent", user);
+	}
 
 	@Override
 	public User getUser(String userId) throws Exception {
@@ -58,6 +63,11 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int checkDuplication(String userId) throws Exception {
 		return sqlSession.selectOne("UserMapper.checkDuplication", userId);
+	}
+	
+	@Override
+	public int checkStudent(String firstStudentId) throws Exception {
+		return sqlSession.selectOne("UserMapper.checkStudent", firstStudentId);
 	}
 
 	@Override

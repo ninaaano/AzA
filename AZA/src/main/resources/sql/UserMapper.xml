@@ -22,17 +22,36 @@
 		<result property="stopAlertEndTime" 		column="stop_alert_end_time" 			jdbcType="VARCHAR" />
 		<result property="check" 		column="user_check" 			jdbcType="CHAR" />
 		
+		<association property="relationName"  javaType="user">
+			<id property="relationName" column="relation_name" jdbcType="VARCHAR"/>
+			<id property="firstStudentId" column="student_id" jdbcType="VARCHAR" />
+		</association>
+		
 	</resultMap>
 	
 	
 	<!-- USERS : INSERT -->
 	<insert 	id="addUser"		parameterType="user" >							
 		INSERT
-		INTO users
-		(user_id,password,role,user_name,phone,school,grade,birth,parent_phone)
+		INTO users(user_id,password,role,user_name,phone,school,grade,birth,parent_phone)
 		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
-		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:CHAR} , #{parentPhone:VARCHAR}
-		)		
+		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:CHAR} , #{parentPhone:VARCHAR})
+			
+	</insert>
+	
+	
+	<insert 	id="addUserbyParent"		parameterType="user" >							
+		INSERT ALL
+		INTO users(user_id,password,role,user_name,phone,school,grade,birth,parent_phone)
+		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
+		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:CHAR} , #{parentPhone:VARCHAR})
+		INTO relation VALUES
+		(seq_relation_relation_code.NEXTVAL,
+		#{firstStudentId},
+		#{userId},
+		#{relationName}
+		)
+		SELECT*FROM DUAL	
 	</insert>
 	 
 	 <!-- USERS : SELECT -->
@@ -66,6 +85,12 @@
 	 	SELECT COUNT(user_id) 
 	 	FROM users
 	 	WHERE user_id = #{userId}
+	 </select>
+	 
+	 <select id="checkStudent" parameterType="String" resultType="int">
+	 	SELECT COUNT(user_id) 
+	 	FROM users
+	 	WHERE user_id = #{firstStudentId}
 	 </select>
 	 
  	 <!-- USERS : UpdateAlertState -->

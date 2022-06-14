@@ -50,6 +50,20 @@ public class UserRestController {
 	        return cnt;
 		}
 		
+		@RequestMapping( value="/checkStudent")
+		public int checkStudent(@RequestParam("id") String firstStudentId) throws Exception{
+						
+			System.out.println("==자녀아이디 찾아라==");
+	        System.out.println("전달받은 id:"+firstStudentId);
+	     
+	        int cnt = userService.checkStudent(firstStudentId);
+	        System.out.println("확인 결과:"+cnt);
+	     
+	        return cnt;
+
+	    	}
+		
+		
 		@RequestMapping( value="/login", method=RequestMethod.POST )
 		public User login(@ModelAttribute User user,
 										HttpSession session ) throws Exception{

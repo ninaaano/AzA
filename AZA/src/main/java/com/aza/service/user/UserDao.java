@@ -9,6 +9,7 @@ public interface UserDao {
 
 	//User :: INSERT ȸ������
 	public void addUser(User user) throws Exception;
+	public void addUserbyParent(User user) throws Exception;
 	
 	//User :: SELECT
 	public User getUser(String userId) throws Exception;
@@ -21,6 +22,7 @@ public interface UserDao {
 	
 	//User :: CheckDuplication
 	public int checkDuplication(String userId) throws Exception;
+	public int checkStudent(String firstStudentId) throws Exception;
 	
 	//User :: updateAlertState
 	public void updateAlertState(User user) throws Exception;

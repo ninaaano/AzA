@@ -21,6 +21,7 @@ public interface UserService {
 	
 	//User :: CheckDuplication
 	public int checkDuplication(String userId) throws Exception; //
+	public int checkStudent(String firstStudentId) throws Exception;
 	
 	//User :: updateAlertState
 	public void updateAlertState(User user) throws Exception;
