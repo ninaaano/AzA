@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +35,7 @@ public class UserRestController {
 		}
 		
 		@RequestMapping(value="addUser", method=RequestMethod.POST)
-		public User addUser(@RequestBody User user) throws Exception {
+		public User addUser(@ModelAttribute User user) throws Exception {
 			userService.addUser(user);
 			return user;
 		}
@@ -50,8 +50,22 @@ public class UserRestController {
 	        return cnt;
 		}
 		
+		@RequestMapping( value="/checkStudent")
+		public int checkStudent(@RequestParam("id") String firstStudentId) throws Exception{
+						
+			System.out.println("==자녀아이디 찾아라==");
+	        System.out.println("전달받은 id:"+firstStudentId);
+	     
+	        int cnt = userService.checkStudent(firstStudentId);
+	        System.out.println("확인 결과:"+cnt);
+	     
+	        return cnt;
+
+	    	}
+		
+		
 		@RequestMapping( value="/login", method=RequestMethod.POST )
-		public User login(	@RequestBody User user,
+		public User login(@ModelAttribute User user,
 										HttpSession session ) throws Exception{
 		
 			System.out.println("/user/login : POST");
@@ -107,7 +121,7 @@ public class UserRestController {
 		}
 		
 		@RequestMapping(value="updateUser", method = RequestMethod.POST)
-		public User updateUser (@RequestBody User user, HttpSession session) throws Exception {
+		public User updateUser (@ModelAttribute User user, HttpSession session) throws Exception {
 			
 			User userId = userService.getUser(user.getUserId());
 			
@@ -120,7 +134,7 @@ public class UserRestController {
 		
 		
 		@RequestMapping(value = "deleteUser/{userId}",method = RequestMethod.POST)
-		public User deletePurchase(@RequestBody User user, @PathVariable String userId) throws Exception {
+		public User deletePurchase(@ModelAttribute User user, @PathVariable String userId) throws Exception {
 			
 			userService.deleteUser(userId);
 			
@@ -128,16 +142,18 @@ public class UserRestController {
 		}
 
 		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
-		public User deleteRelation(@RequestBody User user, @PathVariable int relationCode) throws Exception {
+		public User deleteRelation(@ModelAttribute User user, @PathVariable int relationCode) throws Exception {
 			
 			userService.deleteRelation(relationCode);
 			
 			return user;
 		}
 		
-		@RequestMapping(value="sendSMS")
-		public void phoneAuth(UserService naverServiceImpl) throws Exception{
-			naverServiceImpl.phoneAuth();
+		@RequestMapping(value="/sendSMS/{phone}",method = RequestMethod.POST)
+		public void sendSMS(@PathVariable("phone") String phone) throws Exception{
+			
+			String message = Integer.toString(userService.phoneAuth());
+			userService.sendSMS(phone, message);
 		}
 		
 	

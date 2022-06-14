@@ -27,6 +27,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //        registry.enableSimpleBroker("/topic"); 
 //	}
 //	
-//}
+}
 
 //ChatBotPrac properties web  / 처리
