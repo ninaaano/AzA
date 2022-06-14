@@ -72,7 +72,7 @@ public interface StudentsService {
 	public Students getStudentsExam(int examCode) throws Exception;
 
 	// List SELECT
-	public Map<String, Object> listStudentsExam(Search search, String searchKeyword, String studentId) throws Exception;
+	public Map<String, Object> listStudentsExam(Search search) throws Exception;
 
 	// StudentsNote :: INSERT
 	public void addStudentsNote(Students students) throws Exception;

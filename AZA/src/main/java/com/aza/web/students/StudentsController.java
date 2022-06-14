@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -198,17 +199,7 @@ public class StudentsController {
 		return studentsService.getStudentsAttendance(attendanceCode);
 	}
 	
-	// CHARACTER
-	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
-	public ModelAndView addStudentsCharacterView() throws Exception {
-		
-		System.out.println("/students/addStudentsCharacter");
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/lesson/listStudentsRecord");
-		
-		return mv;		
-	}
+
 	
 	
 	//========================>Note
@@ -216,6 +207,8 @@ public class StudentsController {
 	public ModelAndView addStudentsNote(HttpSession session) throws Exception{
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
+		
+		
 		
 		System.out.println("/students/addStudentsNote : GET");
 		
@@ -310,4 +303,122 @@ public class StudentsController {
 		
 		return mv;			
 	}
+	
+	// CHARACTER => id값 받아야함. test후 수정 ===================================
+	// 단순 view연결
+	@RequestMapping(value="addStudentsCharacterView")
+	public ModelAndView addStudentsCharacterView
+	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search,Students students) throws Exception {
+		
+		System.out.println("/students/addStudentsCharacter");
+		
+
+		
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		mv.addObject("list", listMap.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
+		
+		mv.setViewName("/students/addStudentsCharacter");
+
+		
+		return mv;		
+	}
+	
+	// character add!
+	@RequestMapping(value="addStudentsCharacter")
+	public ModelAndView addStudentsCharacter(Students students,ModelAndView mv, HttpSession session) throws Exception {
+		
+		System.out.println("/students/addStudentsCharacter");
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		students.setTeacherId(teacherId);
+
+		studentsService.addStudentsCharacter(students);
+		
+
+		mv.setViewName("/students/getStudentsCharacter");
+		mv.addObject("students",students);
+		
+		System.out.println(students.getCharacterCode());
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="updateStudentsCharacter")
+	public ModelAndView updateStudentsCharacter(Students students,ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/updateStudentsCharacter");
+		
+		studentsService.updateStudentsCharacter(students);
+
+		mv.setViewName("/students/updateStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	@RequestMapping(value="deleteStudentsCharacter")
+	public ModelAndView deleteStudentsCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception {
+		
+		System.out.println("/students/deleteStudentsCharacter");
+		System.out.println(characterCode);
+		studentsService.deleteStudentsCharacter(characterCode);
+
+		mv.setViewName("/students/addStudentsCharacterView");
+		
+		return mv;		
+	}
+	
+	
+	
+	@RequestMapping(value="getStudentsCharacter")
+	public ModelAndView getStudentCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception{
+		
+		System.out.println("getStudentsCharacter ... ");
+		
+		Students students = studentsService.getStudentsCharacter(characterCode);
+		mv.addObject("students",students);
+		mv.setViewName("/students/getStudentsCharacter");
+		System.out.println("Code Test ====>> " + characterCode);
+		return mv;
+	}
+	
+	// Exam
+	@RequestMapping(value="manageStudentsExam")
+	public ModelAndView listStudentsExam
+	( @ModelAttribute("search") Search search, Model model, ModelAndView mv) throws Exception{
+		System.out.println("listStudentsExam Start...");
+
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);	
+		
+		Map<String, Object> map = studentsService.listStudentsExam(search);
+		
+		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		
+		mv.addObject("list", map.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
+		mv.setViewName("/students/manageStudentsExam");
+		
+		return mv;
+	}
+
+	
+	
+	
 }

@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"> 
-<title>addCharacter</title>
-
-
+<title>Students Character😋 </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-       
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -48,71 +45,45 @@
     margin : 50px;
 }
 </style>
+
 <script type="text/javascript">
+
 $(function() {
-	$( "button.btn.btn-raised-info:contains('등록')" ).on("click" , function() {
-		alert("등록");
-		addStudentsCharacter();
+	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
+		alert("삭제....😥😥😥😥😥😥😥😥");
+		deleteStudentsCharacter();
 	});
 });
 
+function deleteStudentsCharacter() {
 
-function addStudentsCharacter() {
-	var characterContent = $("textarea[name='characterContent']").val();
-	var studentId = $("input[name='studentId']").val();
-	
-	if(characterContent == null || characterContent.length < 1){
-		
-		alert("특징은 필수 입력 항목입니다.");
-		return;
-	}
-	$("form").attr("method" , "GET").attr("action" , "/students/addStudentsCharacter").submit();
+	$("form").attr("method" , "POST").attr("action" , "/students/deleteStudentsCharacter").submit();
 
 }
+
 </script>
 
 </head>
 <body>
-Hello World!
+<h3>Students Character ! </h3>
+<br/>
 <form>
+<div align="center" class="character">
+<h3>👻 ${students.studentName}의 특징 👻</h3>
 
-<div>
-	<input type="hidden" name="studentId" value="student21">
-	<input type="hidden" name="studentName" value="2용승">
+<input name="characterCode" value="${students.characterCode }">
 
-	<textarea class="dataTable-input" placeholder="학생의 특징을 작성해주세요 :)" 
-	type="text" style="width:600px;height:500px;"
-	name="characterContent" value="${students.characterContent}"></textarea>
-	
-	<br/>
-	
-	<button class="btn btn-raised-info" type="button">등록</button>
-	<button class="btn btn-raised-danger" type="button">취소</button>
-</div>
+<input value="${students.characterContent}" 
+style="width:600px;height:500px;">
+<br/>
+<br/>
 
-<!-- 학생 list -->
-<div>
-<table>
-
-<tbody>
-	<c:set var="i" value="0" />
-	  <c:forEach var="students" items="${list}">
- 	  <c:set var="i" value="${ i+1 }" />
-					  
-				<tr>				
-				<td align="center">
-				${ i }
-				</td>
-				<td align="center">${students}</td>
-
-
-				</tr>
-	 </c:forEach>
-</tbody>
-
-</table>
+	<button class="btn btn-raised-danger" type="button">삭제</button>
+	<button class="btn btn-raised-light" type="button">이전</button>
 
 </div>
+
 </form>
+
 </body>
 </html>
