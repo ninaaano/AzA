@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +17,6 @@
 <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
 <link href="assets/img/favicon.ico" rel="shortcut icon"
@@ -28,9 +26,7 @@
 	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
 	rel="stylesheet">
 <!-- Load Simple DataTables Stylesheet-->
-<link
-	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-	rel="stylesheet">
+
 <!-- Roboto and Roboto Mono fonts from Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
 	rel="stylesheet">
@@ -41,12 +37,19 @@
 
 
 
-
-
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -60,13 +63,6 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 <script type="text/javascript">
-
-$('#addStudentsRecordBtn').on("click", function() {
-	var addStudentsRecordForm = document.addStudentsRecordForm.lessonCode.value;
-	console.log("클릭함");
-	console.log(addStudentsRecordForm);
-	$("#addStudentsRecordForm").attr("action","/students/addStudentsRecord").submit();
-	})
 
 function deleteAlert(alertCode) {
 	$.ajax({
@@ -517,11 +513,6 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> Overview
 						</a>
-						<a class="nav-link" href="/students/listStudentsRecord">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 전체학생목록
-						</a>
 						<!-- Drawer link (Dashboards)-->
 						<a class="nav-link collapsed" href="javascript:void(0);"
 							data-bs-toggle="collapse" data-bs-target="#collapseDashboards"
@@ -682,19 +673,14 @@ $(function() {
 				<!-- Drawer footer        -->
 				<div class="drawer-footer border-top">
 					<div class="d-flex justify-content-center">
-					
-				<c:set var="root" value="${pageContext.request.contextPath}"/>
-						<form:form action="${root}/students/addStudentsRecord" name="addStudentsRecordForm" class="d-flex align-items-center" method="POST" modelAttribute="com.aza.service.domain.Students">
-							<form:input id="addStudentsRecordBtn" type="submit" class="btn btn-text-secondary btn-icon btn-lg me-3"><i class="material-icons text-secondary">add_circle_outline</i></form:input>
-							    <form:label for="lessonCode" class="form-label text-secondary">수업 코드</form:label>
-							    <form:input type="text" class="form-control pl-2" name="lessonCode" id="lessonCode" placeholder="수업코드를 입력하세요:D"/>
-							 	<form:label for="lessonStartDate" class="form-label text-secondary">수업시작일</form:label>
-							    <form:input type="text" class="form-control pl-2" name="lessonStartDate" id="lessonStartDate" placeholder="수업시작일을 입력하세요:D"/>
-							 	<form:label for="fees" class="form-label text-secondary">수업료</form:label>
-							    <form:input type="text" class="form-control pl-2" name="fees" id="fees" placeholder="수업료를 입력하세요:D"/>
-							 	<form:label for="payDueDate" class="form-label text-secondary">수업료 납부일</form:label>
-							    <form:input type="text" class="form-control pl-2" name="payDueDate" id="payDueDate" placeholder="수업료 납부일 입력하세요:D"/>
-						</form:form>					
+						<form class="d-flex align-items-center">
+							<button type="submit" class="btn btn-text-secondary btn-icon btn-lg me-3"><i class="material-icons text-secondary">add_circle_outline</i></button>
+							<div class="">
+							    <label for="inputLessonCod" class="form-label text-secondary">수업 추가</label>
+							    <input type="text" class="form-control pl-2" id="inputLessonCode" placeholder="수업코드를 입력하세요:D"/>
+							</div>
+						</form>					
+						
 					</div>
 					</div>
 				</div>
@@ -703,88 +689,51 @@ $(function() {
 	</div>
 </div>
 	<!-- Layout content-->
-	<div id="layoutDrawer_content">
-	
-		<!-- Main page content-->
-		<main class="mt-12">
-			<header class="main-header">
-				<!-- page header -->
-				<div class="row justify-content-center gx-5">
-                      <div class="col-md-8 col-lg-6">
-                          <div class="text-center py-10">
-                              <!-- Example brand image (inline SVG image)-->
-                              
-                          </div>
-                      </div>
-                  </div>
-				<!-- 여기에 jsp 넣기 -->
-
-			</header>
-			<div class="container-xl px-5">
-			
-			</div>
-		        <div class="messagePopup hidden" id="messagePopup">
-            <section style="background-color: #eee;">
-                
-                <!-- list -->
-                <div id="otherListContainer" class="container py-5">          
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">         
-                        <div class="card" id="chat2">
-                            <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <h5 class="mb-0">상대목록</h5>
+	 <!-- Layout content-->
+            <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-9">
+                        <div class="container-xl p-5 mb-3">
+                             <!-- <div class="row align-items-center justify-content-between">
+                                <div class="col-12 col-md mb-4 mb-md-0">
+                                    <h1 class="mb-1 display-4 fw-500 text-white">학생 목록</h1>
+                                    <p class="lead mb-0 text-white">STUDENTS LIST</p>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">@</span>
+                                <div class="col-12 col-md-auto flex-shrink-0">
+                                    <label class="form-label text-white-50" for="litepickerDateRange">Date range:</label>
+                                    <input class="form-control mb-0" id="litepickerDateRange" placeholder="Select date range..." value="Mar 8, 2021 - Mar 14, 2021" style="min-width: 13rem; height: 3rem">
+                                <div class="litepicker-backdrop"></div></div>
+                            </div> -->
+                        </div> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">학생 목록</h2>
+                                        <div class="card-text">Students List</div>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                  </div>
-                                <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
-                            </div>
-
-                            <div id="listOther" class="card-body scroll" style="height: 500px;">
-
-                                 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-               <!--  message -->
-                <div id="getMessageContainer" class="container py-5 hidden">          
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">         
-                        <div class="card py-10" id="chat2">
-                            <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div id="otherInfo">
-                                    <h5 class="mb-0">otherName</h5>
-                                    <h6 class="mb-0">otherDetail</h6>
+<!--                                     <div class="d-flex gap-2">
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
+                                    </div> -->
                                 </div>
-                                <button id="otherListBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">목록</button>
                             </div>
-                            
-                            <div id="messages" class="card-body scroll" style="position: relative; height: 400px">
-                                
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted">
+                            <div class="card-body p-4">
+
+
+                        <!-- Simple DataTables example-->
+                        <table id="datatablesSimple">
                         
-                            <form id="msgForm">
-                                <div class="d-flex justify-content-around">
-                                <input type="text" id="messageContent"  class="form-control form-control-lg" placeholder="메시지 입력">
-                                <button id="sendBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>   
-                            </div>     
-                            </form>
+                        </table>
+                      </div>
+                                
                         </div>
+                        <hr class="my-5" />
                     </div>
-                </div>
-                </div>
-            </section>
-        </div>
-		</main>
+                </main>
 	<!-- Footer-->
 	<footer>
 		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
@@ -793,7 +742,6 @@ $(function() {
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
@@ -801,43 +749,9 @@ $(function() {
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo.js"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
- 	// <![CDATA[  <-- For SVG support
-/*   	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}   */
-	// ]]>
 </script>
 </body>
 </html>

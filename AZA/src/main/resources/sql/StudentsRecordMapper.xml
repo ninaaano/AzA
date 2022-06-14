@@ -6,6 +6,7 @@
 	<resultMap id="studentsRecordSelectMap" type="students">
 		<result property="recordCode" column="record_code" jdbcType="NUMERIC" />
 		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="lessonName" column="lesson_Name" jdbcType="VARCHAR" />
 		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
 		<result property="studentName" column="student_name" jdbcType="VARCHAR" />
 		<result property="proposal" column="proposal" jdbcType="CHAR" />
