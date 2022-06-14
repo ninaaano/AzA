@@ -64,7 +64,7 @@ public class UserRestController {
 	    	}
 		
 		
-		@RequestMapping( value="/login", method=RequestMethod.POST )
+		@RequestMapping( value="/login", method=RequestMethod.GET )
 		public User login(@ModelAttribute User user,
 										HttpSession session ) throws Exception{
 		
