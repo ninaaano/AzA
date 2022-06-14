@@ -56,6 +56,15 @@ $(function() {
 	});
 });
 
+$(function() {
+	$( '#studentName' ).on("click" , function() {
+		
+		var name = $('#studentName').text();
+		var id = $('#studentId').text();
+		alert(name);
+		selflocation = "/students/addStudentsCharacterView"+id
+	});
+});
 
 function addStudentsCharacter() {
 	var characterContent = $("textarea[name='characterContent']").val();
@@ -66,7 +75,7 @@ function addStudentsCharacter() {
 		alert("특징은 필수 입력 항목입니다.");
 		return;
 	}
-	$("form").attr("method" , "GET").attr("action" , "/students/addStudentsCharacter").submit();
+	$("form").attr("method" , "POST").attr("action" , "/students/addStudentsCharacter").submit();
 
 }
 </script>
@@ -76,9 +85,40 @@ function addStudentsCharacter() {
 Hello World!
 <form>
 
+<!-- 학생 list -->
+<div id="studentsList" align="right">
+	<table border='1'>
+		<tbody>
+
+							  
+						<tr>
+						<td>No</td>
+						<td>ID</td>
+						<td>NAME</td>
+						</tr>
+							  
+						<tr>
+				<c:set var="i" value="0" />
+				<c:forEach var="students" items="${list}">
+		 	    <c:set var="i" value="${ i+1 }" />				
+						<td align="center">
+						${ i }
+						</td>
+						
+						<td align="center" id="studentId">${students.studentId}</td>
+						<td align="center" id="studentName">${students.studentName}</td>
+				 </c:forEach>
+						</tr>
+			
+		</tbody>
+	</table>
+</div>
+<br/>
+
+
 <div>
-	<input type="hidden" name="studentId" value="student21">
-	<input type="hidden" name="studentName" value="2용승">
+	<input name="studentId" value="${students.studentId}">	
+	<input name="studentName" value="${students.studentName}">
 
 	<textarea class="dataTable-input" placeholder="학생의 특징을 작성해주세요 :)" 
 	type="text" style="width:600px;height:500px;"
@@ -89,30 +129,9 @@ Hello World!
 	<button class="btn btn-raised-info" type="button">등록</button>
 	<button class="btn btn-raised-danger" type="button">취소</button>
 </div>
+<br/>
 
-<!-- 학생 list -->
-<div>
-<table>
-
-<tbody>
-	<c:set var="i" value="0" />
-	  <c:forEach var="students" items="${list}">
- 	  <c:set var="i" value="${ i+1 }" />
-					  
-				<tr>				
-				<td align="center">
-				${ i }
-				</td>
-				<td align="center">${students}</td>
-
-
-				</tr>
-	 </c:forEach>
-</tbody>
-
-</table>
-
-</div>
 </form>
+
 </body>
 </html>
