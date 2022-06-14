@@ -70,21 +70,27 @@ public class StudentsController {
 		//  0 list
 		search.setPageSize(50);	
 		Map<String, Object> proposalMap = studentsService.listProposalStudents(search, teacherId);
-		mv.addObject("listStudentsRecord", proposalMap.get("list"));
+		mv.addObject("listProposal", proposalMap.get("list"));
 		
 		return mv;			
 	}
 
 	
-	@RequestMapping(value="addStudentsRecord", method=RequestMethod.POST)
-	public ModelAndView addStudentsRecord(@ModelAttribute("students") Students students) throws Exception {
+	@RequestMapping(value="/addStudentsRecord", method=RequestMethod.POST)
+	public ModelAndView addStudentsRecord(@ModelAttribute("students") Students students, HttpSession session) throws Exception {
 		
 		System.out.println("/students/addStudentsRecord");
 		
+		User student = (User) session.getAttribute("user");
+		String studentId = student.getUserId();
+		
+		students.setStudentId(studentId);
+		
+		System.out.println(students);
 		studentsService.addStudentsRecord(students);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/lesson/listLesson");
+		mv.setViewName("/index");
 		
 		return mv;
 	}

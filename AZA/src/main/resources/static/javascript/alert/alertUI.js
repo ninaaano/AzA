@@ -1,0 +1,7 @@
+const alertLi = $('.alertLi');
+
+$(function() {
+
+	
+})
+

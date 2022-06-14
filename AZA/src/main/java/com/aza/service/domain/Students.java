@@ -4,6 +4,7 @@ public class Students {
 
 	// field
 	private String lessonCode;
+	private String lessonName;
 	private int attendanceCode;
 	private String studentId;
 	private String studentName;
@@ -41,6 +42,15 @@ public class Students {
 
 	public void setLessonCode(String lessonCode) {
 		this.lessonCode = lessonCode;
+	}
+
+	public String getLessonName() {
+		return lessonName;
+	}
+
+
+	public void setLessonName(String lessonName) {
+		this.lessonName = lessonName;
 	}
 
 
@@ -288,14 +298,15 @@ public class Students {
 
 	@Override
 	public String toString() {
-		return "Students [lessonCode=" + lessonCode + ", attendanceCode=" + attendanceCode + ", studentId=" + studentId
-				+ ", studentName=" + studentName + ", attendanceDate=" + attendanceDate + ", attendanceState="
-				+ attendanceState + ", characterCode=" + characterCode + ", teacherId=" + teacherId
-				+ ", characterContent=" + characterContent + ", recordCode=" + recordCode + ", proposal=" + proposal
-				+ ", lessonStartDate=" + lessonStartDate + ", fees=" + fees + ", payDueDate=" + payDueDate
-				+ ", examCode=" + examCode + ", examTerm=" + examTerm + ", examYear=" + examYear + ", examSemester="
-				+ examSemester + ", examSubject=" + examSubject + ", examScore=" + examScore + ", noteCode=" + noteCode
-				+ ", noteCreateAt=" + noteCreateAt + ", noteTitle=" + noteTitle + ", noteContent=" + noteContent + "]";
+		return "Students [lessonCode=" + lessonCode + ", lessonName=" + lessonName + ", attendanceCode="
+				+ attendanceCode + ", studentId=" + studentId + ", studentName=" + studentName + ", attendanceDate="
+				+ attendanceDate + ", attendanceState=" + attendanceState + ", characterCode=" + characterCode
+				+ ", teacherId=" + teacherId + ", characterContent=" + characterContent + ", recordCode=" + recordCode
+				+ ", proposal=" + proposal + ", lessonStartDate=" + lessonStartDate + ", fees=" + fees + ", payDueDate="
+				+ payDueDate + ", examCode=" + examCode + ", examTerm=" + examTerm + ", examYear=" + examYear
+				+ ", examSemester=" + examSemester + ", examSubject=" + examSubject + ", examScore=" + examScore
+				+ ", noteCode=" + noteCode + ", noteCreateAt=" + noteCreateAt + ", noteTitle=" + noteTitle
+				+ ", noteContent=" + noteContent + "]";
 	}
 	
 }

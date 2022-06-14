@@ -1,5 +1,7 @@
 package com.aza.web.alert;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,13 +41,16 @@ public class AlertController {
 	}
 	
 	@RequestMapping("readAlert/{alertCode}")
-	public ModelAndView readAlert(@PathVariable("alertCode") int alertCode, ModelAndView mv) throws Exception {
+	public ModelAndView readAlert(@PathVariable("alertCode") int alertCode, ModelAndView mv, HttpServletRequest req) throws Exception {
 		
 		System.out.println("/alert/readAlert");
 		
 		alertService.readAlert(alertCode);
 		
-		mv.setViewName("redirect:/alert/rest/listAlert");
+		String referer = req.getHeader("Referer");
+//	    return "redirect:"+ referer;
+		
+		mv.setViewName("redirect:"+referer);
 		
 		return mv;		
 	}

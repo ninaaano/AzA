@@ -42,7 +42,7 @@ public class StudentsRestController {
 	}
 	
 	
-	// STUDENTS_RECORD
+	// STUDENTS_RECORD :: 승인 요청된 학생들만
 	@RequestMapping("listStudentsRecord")
 	public Map<String, Object> listStudentsRecord(HttpSession session) throws Exception {
 		
@@ -56,6 +56,22 @@ public class StudentsRestController {
 		search.setPageSize(totalCount);
 				
 		return studentsService.listStudentsRecord(search, teacherId);		
+	}
+	
+	// STUDENTS_RECORD :: 승인 요청된 학생들만
+	@RequestMapping("listProposalStudents")
+	public Map<String, Object> listStudentsRecordTotal(HttpSession session) throws Exception {
+		
+		System.out.println("/students/rest/listProposalStudents");
+		
+		User dbUser = (User) session.getAttribute("user");		
+		String teacherId = dbUser.getUserId();
+		Search search = new Search();
+		int totalCount = (int) studentsService.listProposalStudents(search, teacherId).get("totalCount");
+		search.setCurrentPage(1);
+		search.setPageSize(totalCount);
+		
+		return studentsService.listProposalStudents(search, teacherId);		
 	}
 	
 	
