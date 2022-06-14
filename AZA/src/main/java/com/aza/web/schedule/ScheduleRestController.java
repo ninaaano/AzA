@@ -51,6 +51,12 @@ public class ScheduleRestController {
 		
 		return lessonService.listLessonSchedule(search, teacherId);
 	}
+	
+	@RequestMapping(value="getSchedule/{scheduleCode}",method=RequestMethod.GET)
+	public Schedule getSchedule(@PathVariable int scheduleCode) throws Exception{
+		return lessonService.getLessonSchedule(scheduleCode);
+	}
+	
 
 	@RequestMapping(value="addSchedule", method=RequestMethod.POST)
 	public Schedule addSchedule(@RequestBody Schedule schedule) throws Exception{
