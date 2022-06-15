@@ -1,5 +1,8 @@
 package com.aza.service.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Students {
 
 	// field

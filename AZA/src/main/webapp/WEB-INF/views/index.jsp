@@ -682,19 +682,21 @@ $(function() {
 				<!-- Drawer footer        -->
 				<div class="drawer-footer border-top">
 					<div class="d-flex justify-content-center">
-					
-				<c:set var="root" value="${pageContext.request.contextPath}"/>
-						<form:form action="${root}/students/addStudentsRecord" name="addStudentsRecordForm" class="d-flex align-items-center" method="POST" modelAttribute="com.aza.service.domain.Students">
-							<form:input id="addStudentsRecordBtn" type="submit" class="btn btn-text-secondary btn-icon btn-lg me-3"><i class="material-icons text-secondary">add_circle_outline</i></form:input>
-							    <form:label for="lessonCode" class="form-label text-secondary">수업 코드</form:label>
-							    <form:input type="text" class="form-control pl-2" name="lessonCode" id="lessonCode" placeholder="수업코드를 입력하세요:D"/>
-							 	<form:label for="lessonStartDate" class="form-label text-secondary">수업시작일</form:label>
-							    <form:input type="text" class="form-control pl-2" name="lessonStartDate" id="lessonStartDate" placeholder="수업시작일을 입력하세요:D"/>
-							 	<form:label for="fees" class="form-label text-secondary">수업료</form:label>
-							    <form:input type="text" class="form-control pl-2" name="fees" id="fees" placeholder="수업료를 입력하세요:D"/>
-							 	<form:label for="payDueDate" class="form-label text-secondary">수업료 납부일</form:label>
-							    <form:input type="text" class="form-control pl-2" name="payDueDate" id="payDueDate" placeholder="수업료 납부일 입력하세요:D"/>
-						</form:form>					
+					<form:form class="d-flex align-items-center" method="POST" action="/students/addStudentsRecord"  modelAttribute="students">
+							<button type="submit" class="btn btn-text-secondary btn-icon btn-lg me-3"><i class="material-icons text-secondary">add_circle_outline</i></button>
+							<div class="">
+							    <form:label path="lessonCode" for="lessonCode" class="form-label text-secondary">수업 코드</form:label>
+							    <form:input path="lessonCode" type="text" class="form-control pl-2" id="lessonCode" placeholder="수업코드를 입력하세요:D"/>
+							    <form:label path="lessonStartDate" for="lessonStartDate" class="form-label text-secondary">수업 시작일</form:label>
+							    <form:input path="lessonStartDate" type="text" class="form-control pl-2" id="lessonStartDate" placeholder="수업코드를 입력하세요:D"/>
+							    <form:label path="fees" for="fees" class="form-label text-secondary">수업료</form:label>
+							    <form:input path="fees" type="text" class="form-control pl-2" id="fees" placeholder="수업코드를 입력하세요:D"/>
+							    <form:label path="payDueDate" for="payDueDate" class="form-label text-secondary">수업료 입금일</form:label>
+							    <form:input path="payDueDate" type="text" class="form-control pl-2" id="payDueDate" placeholder="수업코드를 입력하세요:D"/>
+							</div>
+						</form:form>		
+
+				
 					</div>
 					</div>
 				</div>
