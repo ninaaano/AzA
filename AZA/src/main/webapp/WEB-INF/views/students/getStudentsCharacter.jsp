@@ -55,9 +55,22 @@ $(function() {
 	});
 });
 
+$(function() {
+	$( "button.btn.btn-raised-primary:contains('수정')" ).on("click" , function() {
+		alert("수정 화면으로 이동 🙃🙃");
+		updateStudentsCharacter();
+	});
+});
+
 function deleteStudentsCharacter() {
 
 	$("form").attr("method" , "POST").attr("action" , "/students/deleteStudentsCharacter").submit();
+
+}
+
+function updateStudentsCharacter() {
+
+	$("form").attr("method" , "POST").attr("action" , "/students/updateStudentsCharacter").submit();
 
 }
 
@@ -65,6 +78,9 @@ function deleteStudentsCharacter() {
 
 </head>
 <body>
+<% String hidden_name = request.getParameter("studentName");%>
+
+<input value="<%=hidden_name%> ">
 <h3>Students Character ! </h3>
 <br/>
 <form>
@@ -72,14 +88,17 @@ function deleteStudentsCharacter() {
 <h3>👻 ${students.studentName}의 특징 👻</h3>
 
 <input name="characterCode" value="${students.characterCode }">
+<input name="studentId" value="${students.studentId }">
+<input name="studentName" value="${studentName }">
 
-<input value="${students.characterContent}" 
+<input name="characterContent" value="${students.characterContent}" 
 style="width:600px;height:500px;">
 <br/>
 <br/>
 
+	<button class="btn btn-raised-primary" type="button">수정</button>
 	<button class="btn btn-raised-danger" type="button">삭제</button>
-	<button class="btn btn-raised-light" type="button">이전</button>
+	<button class="btn btn-raised-light" type="button">확인</button>
 
 </div>
 

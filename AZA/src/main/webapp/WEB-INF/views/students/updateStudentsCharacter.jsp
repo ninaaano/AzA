@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"> 
-<title>addCharacter</title>
-
-
+<title> Character Update😮 </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-       
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -48,53 +45,32 @@
     margin : 50px;
 }
 </style>
-<script type="text/javascript">
-$(function() {
-	$( "button.btn.btn-raised-info:contains('등록')" ).on("click" , function() {
-		alert("등록 click");
 
-		addStudentsCharacter();
+<script type="text/javascript">
+
+$(function() {
+	$( "button.btn.btn-raised-light:contains('확인')" ).on("click" , function() {
+		alert("확인 버튼 클릭");
+		updateStudentsCharacter();
 	});
 });
 
-   $(function() {
-	$( '#studentName' ).on('change' , function() {
-		
-		var studentName = $('option:selected').text().trim()
-		var studentId =$('option:selected').val().trim();
-		
-		alert("id=>"+studentId);
-		alert("name=>"+studentName); 
-
+$(function() {
+	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
+		alert("삭제....😥😥😥😥😥😥😥😥");
+		deleteStudentsCharacter();
 	});
-});   
+});
 
-function addStudentsCharacter() {
-	
-	var characterContent = $("textarea[name='characterContent']").val();
-	var studentName = $('option:selected').text().trim()
-	var studentId =$('option:selected').val().trim();
-	alert("id=>"+studentId);
-	alert("name=>"+studentName); 
-	
-	var obj;
-	 obj = document.createElement('input');
-		obj.setAttribute('method','POST');
-		obj.setAttribute('action', "/students/addStudentsCharacter");
-	
-		obj.setAttribute('type', 'hidden');
-	    obj.setAttribute('name', 'studentName');
-	    obj.setAttribute('value', studentName);
-	alert("obj=>"+obj); 
+function deleteStudentsCharacter() {
 
-	
-	if(characterContent == null || characterContent.length < 1){
-		
-		alert("특징은 필수 입력 항목입니다.🙄🙄");
-		return;
-	}
-			
-	$("form").attr("method" , "POST").attr("action" , "/students/addStudentsCharacter").submit();
+	$("form").attr("method" , "POST").attr("action" , "/students/deleteStudentsCharacter").submit();
+
+}
+
+function updateStudentsCharacter() {
+
+	$("form").attr("method" , "POST").attr("action" , "/students/updateStudentsCharacter").submit();
 
 }
 
@@ -102,38 +78,28 @@ function addStudentsCharacter() {
 
 </head>
 <body>
-<h3>학생 특징 등록</h3>
+<% String hidden_name = request.getParameter("studentName");%>
+
+<input value="<%=hidden_name%> ">
+<h3>Students Character Update!👀 </h3>
+<br/>
 <form>
+<div align="center" class="character">
+<h3>👻 ${students.studentName}의 특징 👻</h3>
 
-<!-- 학생 list -->
-<div>
-	
-			<select id="studentName" name="studentId">
-				<c:set var="i" value="0" />
-				<c:forEach var="students" items="${list}">
-		 	    <c:set var="i" value="${ i+1 }" />	  
-						
-						<option align="center" value="${students.studentId }">${students.studentName}
-						<%-- <td align="center" id="studentName"   value="${students.studentName}">${students.studentName}</td> --%>
-	
-				 </c:forEach>
-				</select>
-			
+<input name="characterCode" value="${students.characterCode }">
+<input name="studentId" value="${students.studentId }">
+<input name="studentName" value="${studentName }">
+
+<input name="characterContent" value="${students.characterContent}" 
+style="width:600px;height:500px;">
+<br/>
 <br/>
 
+	<button class="btn btn-raised-danger" type="button">삭제</button>
+	<button class="btn btn-raised-light" type="button">확인</button>
 
-
-
-	<textarea class="dataTable-input" placeholder="학생의 특징을 작성해주세요 :)" 
-	type="text" style="width:600px;height:500px;"
-	name="characterContent" value="${students.characterContent}"></textarea>
-	
-	<br/>
-	
-	<button class="btn btn-raised-info" type="button">등록</button>
-	<button class="btn btn-raised-danger" type="button">취소</button>
 </div>
-<br/>
 
 </form>
 

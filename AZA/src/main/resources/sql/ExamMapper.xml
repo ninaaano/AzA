@@ -22,6 +22,9 @@
 	<insert id="addStudentsExam" parameterType="students">
 	INSERT INTO exam
 	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${examScore})
+      <selectKey keyProperty="examCode" resultType="int" order="AFTER">
+        SELECT seq_exam_exam_code.CURRVAL FROM DUAL
+     </selectKey>
 	</insert>
 
 	<!-- SQL : exam SELECT ONE  -->	
