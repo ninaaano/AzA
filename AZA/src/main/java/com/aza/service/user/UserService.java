@@ -21,6 +21,7 @@ public interface UserService {
 	
 	//User :: CheckDuplication
 	public int checkDuplication(String userId) throws Exception; //
+	public int checkStudent(String firstStudentId) throws Exception;
 	
 	//User :: updateAlertState
 	public void updateAlertState(User user) throws Exception;
@@ -53,7 +54,9 @@ public interface UserService {
 	public Map<String, Object> listRelationByParent(Search search, String parentId) throws Exception;
 	
 	// private phoneAuth
-	public int phoneAuth() throws Exception;
+	public void sendSMS(String phone,String message) throws Exception;
+
+	int phoneAuth() throws Exception;
 
 
 }

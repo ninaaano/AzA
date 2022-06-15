@@ -45,6 +45,13 @@
 		  
 	}
 	
+	$(function() {
+		
+		$( "button.btn.btn-primary:contains('취소')").on("click" , function() {
+			history.go(-1);
+		});
+	});	
+	
 	
 	</script>
 	
@@ -57,7 +64,7 @@
 	<form name="noteForm" action="addStudentsNote" method="post">
 	      <div id="smarteditor">
 	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="제목을 입력해주세요"></input>
-	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="학생 이름"></input>
+	      	<input name="studentId" id="studentId" value="${user.userId}" style="color:#808080; background-color: #ccc;" readonly />
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
 	                  placeholder="내용을 입력해주세요"

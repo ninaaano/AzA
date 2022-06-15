@@ -79,5 +79,19 @@ public class AlertDaoImpl implements AlertDao {
 		search.setSearchId(receiverId);
 		return sqlSessionTemplate.selectOne("AlertMapper.getAlertTotalCount", search);
 	}
-
+	
+	
+	@Override
+	public List<Alert> getAlertPayment(Search search,String receiverId)throws Exception {
+		search.setSearchId(receiverId);
+		return sqlSessionTemplate.selectList("AlertMapper.getAlertPayment", search);
+	}
+	
+	
+	@Override
+	public List<Alert> getAlertByDate(Search search)throws Exception{
+		return sqlSessionTemplate.selectList("AlertMapper.getAlertByDate");
+		
+	}
+	
 }

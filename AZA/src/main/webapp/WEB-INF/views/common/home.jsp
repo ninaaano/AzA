@@ -78,10 +78,11 @@
 
 
 <body>
+
   
         <h2>채팅</h2>
         <h3 class="">채팅페이지</h3>
-        <button class="open-messagePopup" id="open-messagePopup" >Chat</button>        
+        <button class="open-messagePopup" id="open-messagePopup" >Chat</button> 
         <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 

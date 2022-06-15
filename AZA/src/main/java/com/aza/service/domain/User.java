@@ -7,7 +7,7 @@ public class User {
 	private String userName;
 	private String phone;
 	private String school;
-	private char grade;
+	private String grade;
 	private String birth;
 	private String parentPhone;
 	private String password;
@@ -64,11 +64,11 @@ public class User {
 		this.school = school;
 	}
 
-	public char getGrade() {
+	public String getGrade() {
 		return grade;
 	}
 
-	public void setGrade(char grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 

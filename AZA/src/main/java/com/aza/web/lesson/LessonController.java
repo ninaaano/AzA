@@ -1,5 +1,7 @@
 package com.aza.web.lesson;
 
+import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -57,10 +59,10 @@ public class LessonController {
 	}
 	
 	@RequestMapping(value="addLesson", method=RequestMethod.POST)
-	public ModelAndView addLesson(@ModelAttribute("lesson") Lesson Lesson) throws Exception{
+	public ModelAndView addLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();
 		
-		lessonService.addLesson(Lesson);
+		lessonService.addLesson(lesson);
 		model.setViewName("redirect:/lesson/listLesson");
 		
 		return model;
@@ -131,4 +133,48 @@ public class LessonController {
 		model.setViewName("redirect:/lesson/getLesson");
 		return model;
 	}
+	
+	//delete
+	@RequestMapping(value="deleteLesson")
+	public ModelAndView deleteLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
+		ModelAndView model = new ModelAndView();
+		lessonService.deleteLesson(lessonCode);
+		model.setViewName("redirect:/lesson/listLesson");
+		return model;
+	}
+	
+	@RequestMapping(value="manageLessonBook")
+	public ModelAndView manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+	
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+//		String role = ((User) session.getAttribute("user")).getRole();
+				
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		Map<String, Object> map = lessonService.listLessonTeacher(search, teacherId);
+		
+		Page resultPage = new Page(search.getCurrentPage(),
+				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/lesson/manageLessonBook");
+		model.addObject("list",map.get("list"));
+		model.addObject("resultPage",resultPage);
+		model.addObject("search",search);
+		
+		return model;
+	}
+	
+	
+	@RequestMapping("1")
+	public ModelAndView chatbot() throws Exception{
+		ModelAndView model = new ModelAndView();
+		
+		model.setViewName("/chatbot/chatbot");
+		
+		return model;
+	}
+	
 }

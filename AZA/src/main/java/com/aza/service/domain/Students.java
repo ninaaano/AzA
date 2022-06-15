@@ -1,10 +1,6 @@
 package com.aza.service.domain;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class Students {
-
 	// field
 	private String lessonCode;
 	private String lessonName;
@@ -124,6 +120,7 @@ public class Students {
 	}
 
 
+	
 	public void setCharacterCode(int characterCode) {
 		this.characterCode = characterCode;
 	}

@@ -173,11 +173,12 @@ public class LessonServiceTest {
 		Schedule schedule = new Schedule();
 		
 		schedule.setTeacherId("teacher53");
-		schedule.setScheduleStartDate("2022/06/05");
-		schedule.setScheduleStartTime("02:50");
-		schedule.setScheduleEndDate("2022/06/05");
-		schedule.setScheduleEndTime("09:00");
-		schedule.setScheduleContent("잠은...죽어서");
+		schedule.setScheduleStartDate("2022/06/12");
+		schedule.setStart("02:50");
+		schedule.setScheduleEndDate("2022/06/12");
+		schedule.setEnd("09:00");
+		schedule.setScheduleContent("화이팅");
+		schedule.setTitle("사랑해");
 		lessonService.addLessonSchedule(schedule);
 		
 		System.out.println("sql add 완료");
@@ -188,7 +189,7 @@ public class LessonServiceTest {
 	public void testgetLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
-		schedule = lessonService.getLessonSchedule(1022);
+		schedule = lessonService.getLessonSchedule(1002);
 		
 		System.out.println(schedule);
 	}

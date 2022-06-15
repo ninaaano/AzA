@@ -9,9 +9,12 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +31,7 @@ import com.aza.service.payment.PaymentService;
 @RequestMapping("/payment/*")
 
 public class PaymentController {
+	
 	
 	//Field
 	@Autowired
@@ -93,12 +97,23 @@ public class PaymentController {
 		return mv;
 	}
 	
-	//== TEST
+	@RequestMapping(value = "getPayment/{payCode}")
+	public ModelAndView getPayment(@PathVariable int payCode, Payment payment) throws Exception{
+		
+		payment = paymentService.getPayment(payCode);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("payment", payment);
+		mv.setViewName("/payment/getPayment");
+		
+		return mv;
+		
+	}
 	
-//	@RequestMapping(value = "/getPayment", method = RequestMethod.GET)
-//	public ModelAndView getPayment (@RequestParam("payCode")int payCode)throws Exception{
-//		return new ModelAndView(); // 값 넣어야함
-//	}
+	
+	//============================================
+		
+	//== TEST
 	
 //	@RequestMapping(value = "/updatePayment", method = RequestMethod.POST)
 //	public ModelAndView updatePayment (@ModelAttribute("payment") Payment payment ,@RequestParam("payCode")int payCode)throws Exception{

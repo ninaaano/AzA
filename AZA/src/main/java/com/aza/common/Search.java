@@ -113,7 +113,10 @@ public class Search {
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
-				+ searchKeyword + ", pageSize=" + pageSize + ", searchId=" + searchId + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+				+ searchKeyword + ", pageSize=" + pageSize + ", searchId=" + searchId + ", lessonCode=" + lessonCode
+				+ ", searchStartDate=" + searchStartDate + ", searchEndDate=" + searchEndDate + ", content=" + content
+				+ ", relationCode=" + relationCode + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + "]";
 	}
+
+
 }

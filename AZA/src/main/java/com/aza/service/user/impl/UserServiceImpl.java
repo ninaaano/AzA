@@ -47,8 +47,20 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void addUser(User user) throws Exception {
-		userDao.addUser(user);
-		userDao.addRelation(user);
+
+		String p = "parent";
+		
+		if(user.getRole().equals(p)) {
+			userDao.addUserbyParent(user);
+		} else {
+			userDao.addUser(user);
+
+		}
+		
+		System.out.println(user);
+		
+		
+	//	userDao.addRelation(user);
 	}
 
 	@Override
@@ -69,7 +81,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int checkDuplication(String userId) throws Exception {
-		return userDao.checkDuplication(userId);
+		int cnt = userDao.checkDuplication(userId);
+		return cnt;
+	}
+	
+	@Override
+	public int checkStudent(String firstStudentId) throws Exception {
+		int cnt = userDao.checkStudent(firstStudentId);
+		return cnt;
 	}
 
 	@Override
@@ -181,7 +200,7 @@ public class UserServiceImpl implements UserService {
 	  return encodeBase64String;
 	}
 	
-	public static void sendSMS(String phone,String message) {
+	public void sendSMS(String phone,String message) {
 		String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
 		String requestUrl= "/sms/v2/services/";                   		// 요청 URL
 		String requestUrlType = "/messages";                      		// 요청 URL
@@ -259,6 +278,7 @@ public class UserServiceImpl implements UserService {
         }
 	}
 
+	
 	
 	@Override
 	public int phoneAuth() throws Exception {

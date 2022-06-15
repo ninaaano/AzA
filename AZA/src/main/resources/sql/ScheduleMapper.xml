@@ -8,24 +8,28 @@
 		<result property="scheduleCode" column="schedule_code" jdbcType="NUMERIC" />
 		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
 		<result property="scheduleStartDate" column="schedule_start_date" jdbcType="VARCHAR" />
-		<result property="scheduleStartTime" column="schedule_start_time" jdbcType="VARCHAR" />
+		<result property="start" column="schedule_start_time" jdbcType="VARCHAR" />
 		<result property="scheduleEndDate" column="schedule_end_date" jdbcType="VARCHAR" />
-		<result property="scheduleEndTime" column="schedule_end_time" jdbcType="VARCHAR" />
+		<result property="end" column="schedule_end_time" jdbcType="VARCHAR" />
 		<result property="scheduleContent" column="schedule_content" jdbcType="VARCHAR" />
+		<result property="title" column="schedule_title" jdbcType="VARCHAR"/>
+		
+		
 	</resultMap>
 	
 	<insert id = "addLessonSchedule">
 		INSERT INTO schedule 
 		VALUES (seq_schedule_schedule_code.nextval,
-		#{teacherId},#{scheduleStartDate},#{scheduleStartTime:VARCHAR},
-		#{scheduleEndDate},#{scheduleEndTime:VARCHAR},#{scheduleContent})
+		(SELECT user_id FROM USERS WHERE user_id = #{teacherId}), 
+		#{scheduleStartDate:VARCHAR},#{start:VARCHAR},
+		#{scheduleEndDate:VARCHAR},#{end:VARCHAR},#{scheduleContent:VARCHAR},#{title})
 	</insert>
 	<!-- (SELECT user_id FROM USERS WHERE user_id = #{teacherId}) -->
 	
-	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">
-		SELECT L.lesson_name, S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
-		FROM schedule S, users U, lesson L
-		WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id AND S.teacher_id = 'teacher53'<!-- #{teacherId} --> AND S.schedule_code=#{scheduleCode}
+	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">		
+		SELECT S.schedule_start_date, S.schedule_end_date, S.start, S.end, S.schedule_content,S.title
+		FROM schedule S, users U
+		WHERE S.teacher_id = u.user_id AND S.schedule_code = #{scheduleCode}
 	</select>
 	
 	
@@ -34,9 +38,10 @@
 		<set>
 			schedule_Start_Date = #{scheduleStartDate:VARCHAR},
 			schedule_End_Date = #{scheduleEndDate:VARCHAR},
-			schedule_Start_Time = #{scheduleStartTime:VARCHAR},
-			schedule_end_time = #{scheduleEndTime:VARCHAR},
-			schedule_content = #{scheduleContent:VARCHAR}
+			start = #{scheduleStartTime:VARCHAR},
+			end = #{scheduleEndTime:VARCHAR},
+			schedule_content = #{scheduleContent:VARCHAR},
+			title = #{scheduleTitlte:VARCHAR}
 		</set>
 		WHERE schedule_code = #{scheduleCode} AND teacher_id = #{teacherId} <!-- #{teacherId} -->
 	</update>
@@ -62,8 +67,8 @@
 		SELECT *
 		FROM (
 			SELECT inner_table.*, ROWNUM AS row_seq
-			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
-					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and S.teacher_id = #{teacherId}
+			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L	<!-- if 학생일때 추가 -->
+					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = #{teacherId}
 					ORDER BY S.schedule_code desc) inner_table
 			WHERE ROWNUM &lt;= #{endRowNum})
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}

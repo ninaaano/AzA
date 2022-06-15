@@ -695,8 +695,6 @@ $(function() {
 							    <form:input path="payDueDate" type="text" class="form-control pl-2" id="payDueDate" placeholder="수업코드를 입력하세요:D"/>
 							</div>
 						</form:form>		
-
-				
 					</div>
 					</div>
 				</div>

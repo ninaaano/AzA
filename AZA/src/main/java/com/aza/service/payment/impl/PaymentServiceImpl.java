@@ -202,12 +202,10 @@ public class PaymentServiceImpl implements PaymentService {
 		    conn.disconnect();
 		    
 		    return response.getResponse().getAmount();
-
-		   
 	}
 
 	@Override
-	public void payMentCancle(String access_token, String imp_uid, String amount, String reason) throws Exception{
+	public void paymentCancle(String access_token, String imp_uid, int amount, String reason) throws Exception{
 		
 		System.out.println("===== payMentCancle() Start ======");
 //		System.out.println(access_token); // 토큰
@@ -242,11 +240,7 @@ public class PaymentServiceImpl implements PaymentService {
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
  
 		br.close();
-		conn.disconnect();
-		
+		conn.disconnect();		
 	}
-
-
-
 
 }

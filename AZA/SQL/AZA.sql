@@ -316,13 +316,13 @@ where isbn = '987654321';
 /*addlessonschedule*/
 INSERT
 INTO schedule
-VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,'teacher51',TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'공부');
+VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'공부','일정api');
 
 (SELECT user_id FROM USERS WHERE user_id = 'teacher51'));
 
 INSERT INTO schedule 
 		VALUES (seq_schedule_schedule_code.nextval,
-		#{teacherId},#{scheduleStartDate},#{scheduleStartTime:VARCHAR},
+		(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),#{scheduleStartDate},#{scheduleStartTime:VARCHAR},
 		#{scheduleEndDate},#{scheduleEndTime:VARCHAR},#{scheduleContent})
 
 /*getLessonschedule*/
@@ -331,8 +331,12 @@ WHERE schedule_code = 1021;
 
 SELECT L.lesson_name, S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
 FROM schedule S, users U, lesson L
-WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id AND S.teacher_id = 'teacher53' AND S.schedule_code=1021;
+WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id  AND S.teacher_id = 'teacher51' AND S.schedule_code=1001; 
 
+/*getLessonSchedule 최종*/
+SELECT S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
+FROM schedule S, users U
+WHERE S.teacher_id = u.user_id AND S.schedule_code=1001;
 
 /*udpateLessonSchedule*/
 UPDATE schedule
@@ -360,7 +364,7 @@ SELECT *
 FROM (
 	SELECT inner_table.*, ROWNUM AS row_seq
 	FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L
-			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and teacher_id = 'teacher51'
+			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = 'teacher51'
 			ORDER BY schedule_start_date || schedule_start_time) inner_table
 	WHERE ROWNUM <= 3)
 WHERE row_seq BETWEEN 1 AND 3;

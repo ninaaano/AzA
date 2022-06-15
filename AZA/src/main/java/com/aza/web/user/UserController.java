@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,10 +20,10 @@ import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
 
 @Controller
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RequestMapping("/user/*")
 public class UserController {
 
-	
 	///Field
 	@Autowired
 	@Qualifier("userServiceImpl")
@@ -47,14 +47,14 @@ public class UserController {
 		System.out.println("/user/addUser : GET");
 
 		ModelAndView mv= new ModelAndView();
-		mv.setViewName("/join");
+		mv.setViewName("/user/join");
 		
 		return mv;
 	}
 	
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
-	public ModelAndView addUser( @ModelAttribute("user") User user, HttpSession httpSession,@RequestParam("userId") String userId) throws Exception{
+	public ModelAndView addUser( @ModelAttribute("user") User user) throws Exception{
 		
 	//	user.setBuyer((User)session.getAttribute("user"));
 	//	user.setUser(userService.getUser(userId));
@@ -64,7 +64,7 @@ public class UserController {
 		
 		System.out.println("/user/addUser : POST");
 				
-		return new ModelAndView("/main");
+		return new ModelAndView("redirect:/login");
 	}	
 
 	
@@ -207,5 +207,6 @@ public class UserController {
 		
 		return new ModelAndView("redirect:/user/updateRelation?relationCode="+user.getRelationCode());
 	}
+	
 	
 }

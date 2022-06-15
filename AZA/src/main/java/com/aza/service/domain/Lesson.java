@@ -142,16 +142,16 @@ public class Lesson {
 		return bookTitle;
 	}
 
-	public void setBookTitle(String bookTitle) {
-		this.bookTitle = bookTitle;
+	public void setBookTitle(Object object) {
+		this.bookTitle = (String) object;
 	}
 
 	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setIsbn(Object object) {
+		this.isbn = (String) object;
 	}
 
 	public String getPublisher() {
@@ -166,32 +166,32 @@ public class Lesson {
 		return bookPrice;
 	}
 
-	public void setBookPrice(String bookPrice) {
-		this.bookPrice = bookPrice;
+	public void setBookPrice(Object object) {
+		this.bookPrice = (String) object;
 	}
 
 	public String getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthor(Object object) {
+		this.author = (String) object;
 	}
 
 	public String getBookYear() {
 		return bookYear;
 	}
 
-	public void setBookYear(String bookYear) {
-		this.bookYear = bookYear;
+	public void setBookYear(Object object) {
+		this.bookYear = (String) object;
 	}
 
 	public String getBookImg() {
 		return bookImg;
 	}
 
-	public void setBookImg(String bookImg) {
-		this.bookImg = bookImg;
+	public void setBookImg(Object object) {
+		this.bookImg = (String) object;
 	}
 
 	public int getBookCode() {

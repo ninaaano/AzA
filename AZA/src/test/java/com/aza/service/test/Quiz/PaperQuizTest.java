@@ -32,7 +32,7 @@ public class PaperQuizTest {
 		Paper paper = new Paper();
 		paper.setLessonCode("ABCD1234");
 		paper.setStudentId("student21");
-		paper.setQuizTitle("합친 것 Test 용");
+		paper.setQuizTitle("");
 		
 		
 		System.out.println("==>> "+paper);
@@ -53,7 +53,6 @@ public class PaperQuizTest {
 		paper.setQuizScore(50);
 		
 		paperService.updatePaperQuiz(paper);
-		// 제출일, 점수
 		
 	}
 	//@Test // delete test OK
@@ -62,7 +61,7 @@ public class PaperQuizTest {
 		
 	}
 	
-	// 선생님 list
+	//  list
 	//@Test // list Test OK // totalCount OK
 	void testListPaperQuizT() throws Exception{
 		Search search = new Search();
@@ -90,7 +89,7 @@ public class PaperQuizTest {
 		
 	}
 	
-	//학생 list
+	// list
 	//@Test
 	void testListPaperQuizS() throws Exception{
 		Search search = new Search();
@@ -103,20 +102,20 @@ public class PaperQuizTest {
 		List<Object> list = (List<Object>)map.get("list");
 		Integer totalCount = (Integer)map.get("totalCount");
 		
-		System.out.println("Quiz학생 list========== ");
+		System.out.println("Quiz list========== ");
 		System.out.println(" SearchId====>> " + search.getSearchId());
 		System.out.println("Quiz TotalCount ====>> " + totalCount);
 		System.out.println("Quiz List ==>> " + list);
 	}
 	
-	//=== 용승===================================================================
+	//=== ===================================================================
 	//@Test
 	public void testAddQuestion() throws Exception{
 		Paper paper = new Paper();
 		paper.setQuizCode(1001);
 		paper.setQuestionNo(3);
 		paper.setQuestionContent("123+321 =???");
-		paper.setTeacherAnswer("list Test용");
+		paper.setTeacherAnswer("list Test");
 		paper.setAnswerCheck('0');
 		
 		System.out.println("==>> "+paper);
@@ -140,7 +139,7 @@ public class PaperQuizTest {
 		paper.setTeacherAnswer("Test update");
 		paper.setStudentAnswer("333");
 		paper.setAnswerCheck('0');
-		paper.setFeedBackContent("Ʋ�Ƚ��ϴ�. �����ϼ���");
+		paper.setFeedBackContent("�����ϼ���");
 		paper.setQuestionCode(1002);
 		
 		paperService.updatePaperQuestion(paper);
@@ -277,7 +276,7 @@ public class PaperQuizTest {
 		search.setSearchId("student31");
 		search.setLessonCode("abcd1234");
 		
-		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search, search.getLessonCode(),search.getSearchId());
+		Map<String,Object> map = paperService.listPaperHomeworkByStudent(search, search.getSearchId());
 		
 		List<Object> list = (List<Object>)map.get("list");
 		

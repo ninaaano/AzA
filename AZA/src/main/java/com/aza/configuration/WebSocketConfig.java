@@ -10,23 +10,23 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 //@Configuration
 //@EnableWebSocketMessageBroker
-public class WebSocketConfig1 implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	
-//	//connection했을때 CORS허용
+////	//connection했을때 CORS허용
 //	@Override
 //	public void registerStompEndpoints(StompEndpointRegistry registry) {
 //		// TODO Auto-generated method stub
 ////		registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
 //		registry.addEndpoint("/ws").withSockJS();
 //	}
-//	
+////	
 //	@Override
 //	public void configureMessageBroker(MessageBrokerRegistry registry) {
 //		// TODO Auto-generated method stub
 //		registry.setApplicationDestinationPrefixes("/app"); 
 //        registry.enableSimpleBroker("/topic"); 
 //	}
-	
+//	
 }
 
 //ChatBotPrac properties web  / 처리

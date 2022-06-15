@@ -20,8 +20,8 @@ public interface PaperService {
 	public void deletePaperQuiz(int quizCode) throws Exception;
 	
 	//PaperQuiz :: LIST 
-	public Map<String, Object> listPaperQuizTeacher(Search search) throws Exception;
-	public Map<String, Object> listPaperQuizStudent(Search search) throws Exception;
+	public Map<String, Object> listPaperQuizTeacher(Search search, String teacherId) throws Exception;
+	public Map<String, Object> listPaperQuizStudent(Search search, String studentId) throws Exception;
 
 	
 	//PaperQuestion :: INSERT
@@ -76,10 +76,12 @@ public interface PaperService {
 	public void deletePaperHomework(int homeworkCode) throws Exception;
 	
 	//PaperHomework :: LIST
-	public Map<String, Object> listPaperHomeworkByStudent(Search search, String LessonCode, String StudentId) throws Exception;
+//	public Map<String, Object> listPaperHomeworkByStudent(Search search, String LessonCode, String StudentId) throws Exception;
+	public Map<String, Object> listPaperHomeworkByStudent(Search search,  String studentId) throws Exception;
 	
 	//PaperHomework :: LIST
-	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String LessonCode) throws Exception;
+//	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String LessonCode) throws Exception;
+	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String teacherId) throws Exception;
 	
 	//PaperHomeworkCheck :: UPDATE
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;

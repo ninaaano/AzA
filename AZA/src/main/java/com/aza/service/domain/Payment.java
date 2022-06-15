@@ -5,7 +5,7 @@ public class Payment {
 	private int payCode; // 수납코드
 	private int studentRecordNo; // 학생기록부 번호
 	private char checkPay; // 수납여부
-	private int amount; // 결제 금액
+	private long amount; // 결제 금액
 	private String payDay; // 수납일
 	private String payer; // 결제자
 	private String payDueDate; // 수납예정일
@@ -95,11 +95,11 @@ public class Payment {
 		this.checkPay = checkPay;
 	}
 
-	public int getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 

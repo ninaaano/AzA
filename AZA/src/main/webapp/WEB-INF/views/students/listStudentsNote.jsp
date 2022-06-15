@@ -15,6 +15,24 @@
 <body>
 <script type="text/javascript">
 
+/* $(function(){
+	$('#noteTitlee').on("click", function(){
+		self.location ="/students/getStudentsNote?noteCode="+$(this).attr('noteCode');
+	})
+}); */
+
+$(function(){
+	$("td:nth-child(2)").on("click", function() {
+		self.location ="/students/getStudentsNote?noteCode="+$(this).attr('noteCode');
+	})
+})
+
+
+$(function() {	
+	$( "button.btn.btn-primary:contains('작성')").on("click" , function() {
+		self.location = "/students/addStudentsNote";
+	});
+});	
 
 </script>
 
@@ -37,15 +55,17 @@
 				<c:set var="i" value="${i+1}" />
 				<tr class="ct_list_pop">
 					<td align="center">${i}</td>
-					<td align="left">${students.noteTitle}</td>
+					<td align="left" id="noteTitlee" noteCode="${students.noteCode }">${students.noteTitle}</td>
 					<td align="left">${students.noteCreateAt}</td>
 
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-				
-<!--  -->			
+	<!-- <input type="button" onclick="addBtn();" value="작성"/> -->
+	<button id="addBtn" type="button" class="btn btn-primary">작성</button>
+	
+	
        
 
 </body>

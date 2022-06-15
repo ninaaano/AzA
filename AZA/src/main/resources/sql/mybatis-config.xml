@@ -18,7 +18,7 @@
 		<typeAlias alias="alert" type="com.aza.service.domain.Alert"/>
 		<typeAlias alias="lesson" type="com.aza.service.domain.Lesson" />
 		<typeAlias alias="user" type="com.aza.service.domain.User"/>
-
+		<!-- <typeAlias alias="book" type="com.aza.service.domain.Book"/> -->
 		<typeAlias alias="payment" type="com.aza.service.domain.Payment"/>
 		<typeAlias alias="paper" type="com.aza.service.domain.Paper"/>
 		
@@ -34,7 +34,7 @@
 		<mapper resource="sql/AttendanceMapper.xml"/>
 		<mapper resource="sql/AlertMapper.xml"/>
 		<mapper resource="sql/LessonMapper.xml"/>
-		<mapper resource="sql/BookMapper.xml"/>
+		<!-- <mapper resource="sql/BookMapper.xml"/> -->
 
 		<mapper resource="sql/CharacterMapper.xml"/>
 		<mapper resource="sql/ExamMapper.xml"/>
