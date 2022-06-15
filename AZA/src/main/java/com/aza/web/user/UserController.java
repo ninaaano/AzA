@@ -2,12 +2,15 @@ package com.aza.web.user;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,14 +65,14 @@ public class UserController {
 		
 		userService.addUser(user);
 		
-		System.out.println("/user/addUser : POST");
+		System.out.println("컨트롤러 쪽 : /user/addUser : POST");
 				
-		return new ModelAndView("redirect:/login");
+		return new ModelAndView("/login");
 	}	
 
 	
 	// test : login
-	@RequestMapping( value="login")
+	@RequestMapping(value="login")
 	public @ResponseBody ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		
 		System.out.println("/user/login");
@@ -79,6 +82,10 @@ public class UserController {
 	
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
+		
+		
+		// 로그인한 사람의 role이 parent일때 id로 listrelation 받아와서 session에 넣어주기 
+		
 		System.out.println(dbUser);
 		
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
@@ -93,31 +100,6 @@ public class UserController {
 		}
 	}
 	
-
-		
-	
-	
-	
-//	// test : login
-//	@RequestMapping( value="login")
-//	public @ResponseBody ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
-//		
-//		System.out.println("/user/login");
-//		
-//		ModelAndView mv= new ModelAndView();
-//	
-//		//Business Logic
-//		User dbUser=userService.getUser(user.getUserId());
-//		System.out.println(dbUser);
-//		
-//		if(user.getPassword().equals(dbUser.getPassword())){
-//			session.setAttribute("user", dbUser);
-//			mv.setViewName("/index");
-//		} 
-//		
-//		System.out.println(session.getAttribute("user"));
-//		return mv;
-//	}
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public ModelAndView logout(HttpSession session ) throws Exception{
@@ -209,5 +191,139 @@ public class UserController {
 		return new ModelAndView("redirect:/user/updateRelation?relationCode="+user.getRelationCode());
 	}
 	
+//	@RequestMapping( value="find_id_form")
+//	public ModelAndView findId() throws Exception{
+//		System.out.println("아이디 겟또");
+//		ModelAndView mv= new ModelAndView();
+//		mv.setViewName("/user/findId");
+//		
+//		return mv;
+//	}
+//
+//	
+//	@RequestMapping( value="find_id", method=RequestMethod.POST )
+//	public ModelAndView findId( @ModelAttribute("user") User user) throws Exception{
+//		user = userService.findId(user);
+//		System.out.println("컨트롤러 아이디 포스또");
+//		ModelAndView mv= new ModelAndView();
+//		if(user==null) {
+//			mv.addObject("check",1);
+//		}else {
+//			mv.addObject("check",0);
+//			mv.addObject("userId",user.getUserId());
+//		}
+//		
+//		return new ModelAndView("/user/findId");
+//	}
+//	
+//	@RequestMapping( value="find_password_form")
+//	public ModelAndView findPassword() throws Exception{
+//		System.out.println("비밀번호 겟또");
+//		ModelAndView mv= new ModelAndView();
+//		mv.setViewName("/user/findPassword");
+//		
+//		return mv;
+//	}
+//
+//	
+//	@RequestMapping( value="find_password", method=RequestMethod.POST )
+//	public ModelAndView findPassword( @ModelAttribute("user") User user) throws Exception{
+//		user = userService.findPassword(user);
+//		System.out.println("컨트롤러 아이디 포스또");
+//		ModelAndView mv= new ModelAndView();
+//		if(user==null) {
+//			mv.addObject("check",1);
+//		}else {
+//			mv.addObject("check",0);
+//			mv.addObject("updateId",user.getUserId());
+//		}
+//		
+//		return new ModelAndView("/user/findPassword");
+//	}
+//	
+//	@RequestMapping( value="update_password", method=RequestMethod.POST )
+//	public ModelAndView updatePassword( @ModelAttribute("user") User user,@RequestParam(value="updateid", defaultValue="", required=false)String userId) throws Exception{
+//		
+//		user.setUserId(userId);
+//		System.out.println(user);
+//		userService.updatePassword(user);
+//		return new ModelAndView("/user/updatePassword");
+//	}
+//	
+//	@RequestMapping(value="check_password_view")
+//	public String updatePassword(HttpSession session) throws Exception {
+//		
+//		User user = (User)session.getAttribute("loginUser");
+//		
+//		if(user==null) {
+//			return "user/login";
+//		}else {
+//			return "user/getUser";
+//		}
+//	}
+
+	 // 아이디 찾기 페이지 이동
+		@RequestMapping(value="findId")
+		public String findIdView() {
+			return "user/findId";
+		}
+		
+	    // 아이디 찾기 실행
+		@RequestMapping(value="findId", method=RequestMethod.POST)
+		public String findIdAction(User vo, Model model) throws Exception {
+			User user = userService.findId(vo);
+			
+			if(user == null) { 
+				model.addAttribute("check", 1);
+			} else { 
+				model.addAttribute("check", 0);
+				model.addAttribute("id", user.getUserId());
+			}
+			
+			return "user/findId";
+		}
+		
+	    // 비밀번호 찾기 페이지로 이동
+		@RequestMapping(value="findPassword")
+		public String findPasswordView() {
+			return "user/findPassword";
+		}
+		
+	    // 비밀번호 찾기 실행
+		@RequestMapping(value="findPassword", method=RequestMethod.POST)
+		public String findPasswordAction(User vo, Model model) throws Exception {
+			User user = userService.findPassword(vo);
+			
+			if(user == null) { 
+				model.addAttribute("check", 1);
+			} else { 
+				model.addAttribute("check", 0);
+				model.addAttribute("updateid", user.getUserId());
+			}
+			
+			return "user/findPassword";
+		}
+		
+	    // 비밀번호 바꾸기 실행
+		@RequestMapping(value="update_password", method=RequestMethod.POST)
+		public String updatePasswordAction(@RequestParam(value="updateid", defaultValue="", required=false) String id,
+											User vo) throws Exception {
+			vo.setUserId(id);
+			System.out.println(vo);
+			userService.updatePassword(vo);
+			return "user/findPasswordConfirm";
+		}
+		
+	    // 비밀번호 바꾸기할 경우 성공 페이지 이동
+		@RequestMapping(value="check_password_view")
+		public String checkPasswordForModify(HttpSession session, Model model) {
+			User loginUser = (User) session.getAttribute("loginUser");
+			
+			if(loginUser == null) {
+				return "user/login";
+			} else {
+				return "mypage/checkformodify";
+			}
+		}		
 	
 }

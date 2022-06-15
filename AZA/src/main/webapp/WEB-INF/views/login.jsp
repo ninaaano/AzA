@@ -5,7 +5,8 @@
 
 <html>
 <head>
-
+<!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <link
 	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
 	rel="stylesheet" />
@@ -16,22 +17,14 @@
 	rel="stylesheet" />
 <!-- Load main stylesheet-->
 <link href="/resources/css/template.css" rel="stylesheet" />
+
+
 <link href="assets/img/favicon.ico" rel="shortcut icon"
 	type="image/x-icon">
 <!-- Load Material Icons from Google Fonts-->
 <link
 	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="/resources/css/message.css" />
 
 
 
@@ -44,12 +37,12 @@
 <title>AZA : LOGIN</title>
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 
-
-
-<link rel="stylesheet"
+<!--  이거 있으니까 색이 파란색으로 나온다 ㅡㅡ -->
+<!-- <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+ -->
 
 
 
@@ -59,12 +52,27 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	//============= 회원원가입 화면이동 =============
-	$(function() {
 
-		$("button").on("click", function() {
+	$( function() {
+		$("button:contains('회원가입')").on("click" , function() {
 			self.location = "/user/addUser"
 		});
 	});
+	
+	$( function() {
+		$("button:contains('아이디 찾기')").on("click" , function() {
+			self.location = "/user/findId"
+		});
+	});
+	
+	$( function() {
+		$("button:contains('비밀번호 재설정')").on("click" , function() {
+			self.location = "/user/findPassword"
+		});
+	});
+	
+
+
 </script>
 
 </head>
@@ -80,7 +88,7 @@
 								<div class="card-body p-5">
 									<!-- Auth header with logo image-->
 									<div class="text-center">
-									
+
 
 										<h1 class="display-5 mb-0">Login</h1>
 										<div class="subheading-1 mb-5">AZA에 오신걸 환영합니다!</div>
@@ -94,18 +102,27 @@
 										<div class="mb-4">
 											<mwc-textfield class="w-100" label="Password" outlined
 												icontrailing="visibility_off" type="password">
-											비밀번호 : <input type="text" name="password" id="password"></input>
+											비밀번호 : <input type="password" name="password" id="password"></input>
 
 											</mwc-textfield>
 										</div>
-										<div
-											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small fw-500 text-decoration-none"
-												href="app-auth-password-basic.html">비밀번호를 잊어버리셨나요?</a>
-										</div>
-
-										<button type="submit">로그인</button>
-										<button type="button" >회원가입</button>
+									
+										<mwc-tab-bar class="nav nav-tabs" role="tablist">
+                                </mwc-tab-bar>
+										
+										 <div class="mb-2">
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-outline-primary" type="submit">로그인</button>
+                                                </div>
+                                            </div>
+                                            
+										 <div class="mb-1">
+                                                <div class="btn-group" role="group">
+                                           			<button class="btn btn-text-primary" type="button">아이디 찾기</button>
+                                                    <button class="btn btn-text-primary" type="button">비밀번호 재설정</button>
+                                                    <button class="btn btn-text-primary" type="button">회원가입</button>
+                                                </div>
+                                            </div>
 
 									</form>
 								</div>
@@ -116,11 +133,13 @@
 			</main>
 		</div>
 	</div>
-	<script
+<!-- <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> -->
 	<!-- Load global scripts-->
-	<script type="module" src="js/material.js"></script>
-	<script src="js/scripts.js"></script>
+<!--	<script type="module" src="/resources/common/material.js"></script>
+	<script src="/resources/common/scripts.js"></script>
+	
+	 -->	
 </body>
 </html>
