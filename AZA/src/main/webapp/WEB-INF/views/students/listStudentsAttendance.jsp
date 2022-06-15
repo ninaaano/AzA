@@ -753,6 +753,15 @@ $(function() {
 				<div class="row justify-content-center gx-5">
                       <div class="col-md-8 col-lg-6">
                           <div class="text-center py-10 mt-3">
+							<div class="dropdown">
+							  <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+							    자녀 선택
+							  </a>							
+							  	<ul class="dropdown-menu">
+								  <li><a class="dropdown-item" href="#">Action</a></li>
+								  <li><a class="dropdown-item" href="#">Another action</a></li>
+								</ul>
+							</div>
                              <nav>
 							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
 							    <button class="nav-link active" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonList" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
@@ -818,7 +827,9 @@ $(function() {
 							  
 							  <!-- 교재 -->
 							  <div class="tab-pane fade" id="nav-lessonBook" role="tabpanel" aria-labelledby="nav-lessonBook-tab">
+							  
 							  교재
+							  
 							  </div>
 							</div>                             
                           </div>
