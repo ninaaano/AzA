@@ -572,14 +572,13 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> 전체학생목록
 						</a>
-
 						<!-- Drawer link (Dashboards)-->
 						<a class="nav-link collapsed" href="javascript:void(0);"
 							data-bs-toggle="collapse" data-bs-target="#collapseDashboards"
 							aria-expanded="false" aria-controls="collapseDashboards">
 							<div class="nav-link-icon">
 								<i class="material-icons">dashboard</i>
-							</div> 자녀관리
+							</div> Dashboards
 							<div class="drawer-collapse-arrow">
 								<i class="material-icons">expand_more</i>
 							</div>
@@ -588,12 +587,12 @@ $(function() {
 						<div class="collapse" id="collapseDashboards"
 							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
 							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="app-dashboard-default.html">수업목록</a>
-								<a class="nav-link" href="/students/listStudentsAttendance">출석</a>
-								<a class="nav-link" href="app-dashboard-analytics.html">성적</a>
-								<a class="nav-link" href="app-dashboard-accounting.html">쪽지시험</a>
-								<a class="nav-link" href="app-dashboard-orders.html">교재</a>
-								<a class="nav-link" href="app-dashboard-projects.html">홈</a>
+								<a class="nav-link" href="app-dashboard-default.html">Default</a>
+								<a class="nav-link" href="app-dashboard-minimal.html">Minimal</a>
+								<a class="nav-link" href="app-dashboard-analytics.html">Analytics</a>
+								<a class="nav-link" href="app-dashboard-accounting.html">Accounting</a>
+								<a class="nav-link" href="app-dashboard-orders.html">Orders</a>
+								<a class="nav-link" href="app-dashboard-projects.html">Projects</a>
 							</nav>
 						</div>
 						<!-- Drawer link (Layouts)-->
@@ -795,9 +794,25 @@ $(function() {
 				    </div>
 				</div>
 			</header>
+			
+			
 			<div class="container-xl px-5">
 			
+				<div id="calendar"></div>
+				
+				<div id="listStudentsAttendance">
+					
+				
+				
+				</div>
+			
+			
+			
 			</div>
+		    
+		    
+		    
+		    
 		    <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 

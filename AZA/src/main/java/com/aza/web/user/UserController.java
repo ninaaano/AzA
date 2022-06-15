@@ -83,6 +83,7 @@ public class UserController {
 		
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
+			
 			System.out.println(session.getAttribute("user"));
 			System.out.println("로그인 성공이시다");
 			return mv; // 일치하면 메인

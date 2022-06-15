@@ -18,6 +18,7 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
+<script defer src="/resources/javascript/students/studentsUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -55,6 +56,7 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -572,7 +574,6 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> 전체학생목록
 						</a>
-
 						<!-- Drawer link (Dashboards)-->
 						<a class="nav-link collapsed" href="javascript:void(0);"
 							data-bs-toggle="collapse" data-bs-target="#collapseDashboards"
@@ -588,12 +589,12 @@ $(function() {
 						<div class="collapse" id="collapseDashboards"
 							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
 							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="app-dashboard-default.html">수업목록</a>
-								<a class="nav-link" href="/students/listStudentsAttendance">출석</a>
-								<a class="nav-link" href="app-dashboard-analytics.html">성적</a>
-								<a class="nav-link" href="app-dashboard-accounting.html">쪽지시험</a>
-								<a class="nav-link" href="app-dashboard-orders.html">교재</a>
-								<a class="nav-link" href="app-dashboard-projects.html">홈</a>
+								<a class="nav-link" href="app-dashboard-default.html">Default</a>
+								<a class="nav-link" href="app-dashboard-minimal.html">Minimal</a>
+								<a class="nav-link" href="app-dashboard-analytics.html">Analytics</a>
+								<a class="nav-link" href="app-dashboard-accounting.html">Accounting</a>
+								<a class="nav-link" href="app-dashboard-orders.html">Orders</a>
+								<a class="nav-link" href="app-dashboard-projects.html">Projects</a>
 							</nav>
 						</div>
 						<!-- Drawer link (Layouts)-->
@@ -751,54 +752,83 @@ $(function() {
 				<!-- page header -->
 				<div class="row justify-content-center gx-5">
                       <div class="col-md-8 col-lg-6">
-                          <div class="text-center py-10">
-                              <!-- Example brand image (inline SVG image)-->
-                              
+                          <div class="text-center py-10 mt-3">
+                             <nav>
+							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
+							    <button class="nav-link active" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonList" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
+							    <button class="nav-link" id="nav-studentsAttendance-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsAttendance" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">출석</button>
+							    <button class="nav-link" id="nav-studentsExam-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsExam" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">성적</button>
+							    <button class="nav-link" id="nav-paperQuiz-tab" data-bs-toggle="tab" data-bs-target="#nav-paperQuiz" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
+							    <button class="nav-link" id="nav-lessonBook-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonBook" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">교재</button>
+							  </div>
+							</nav>
+							<div class="tab-content" id="nav-tabContent">
+							  <div class="tab-pane fade show active" id="nav-lessonList" role="tabpanel" aria-labelledby="nav-lessonList-tab">
+							  
+							  
+							  
+							  
+							  수업목록
+							  
+							  
+							  
+							  
+							  </div>
+							  
+							  <!-- 출석  -->
+							  <div class="tab-pane fade" id="nav-studentsAttendance" role="tabpanel" aria-labelledby="nav-studentsAttendance-tab">
+
+								  <div class="hbContainer">
+					                <div class="calendarYearMonth center">
+					                    <p class="left calBtn" onclick="prevMonth()"> Prev </p>
+					                    <p id="yearMonth"></p>
+					                    <p class="right calBtn" onclick="nextMonth()"> Next </p>
+					                </div>
+					                <div>
+					                    <ol class="calendarList1">
+					                        <li class="day-name">Sat</li>
+					                        <li class="day-name">Sun</li>
+					                        <li class="day-name">Mon</li>
+					                        <li class="day-name">Tue</li>
+					                        <li class="day-name">Wed</li>
+					                        <li class="day-name">Thu</li>
+					                        <li class="day-name">Fri</li>
+					                    </ol>
+					                    <ol class="calendarList2" id="calendarList">
+					
+					                    </ol>
+					               </div>
+            					</div>
+							  </div>
+							  
+							  <!-- 성적 -->
+							  <div class="tab-pane fade" id="nav-studentsExam" role="tabpanel" aria-labelledby="nav-studentsExam-tab">
+							  
+							  성적
+							  
+							  
+							  </div>
+							  
+							  <!-- 쪽지시험 -->
+							  <div class="tab-pane fade" id="nav-paperQuiz" role="tabpanel" aria-labelledby="nav-paperQuiz-tab">
+							  
+							  쪽지시험
+							  
+							  </div>
+							  
+							  <!-- 교재 -->
+							  <div class="tab-pane fade" id="nav-lessonBook" role="tabpanel" aria-labelledby="nav-lessonBook-tab">
+							  교재
+							  </div>
+							</div>                             
                           </div>
                       </div>
                   </div>
-				<!-- 수업 추가 Modal-->
-				<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-				    <div class="modal-dialog modal-dialog-centered">
-				        <div class="modal-content">
-				            <div class="modal-header">
-				                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
-				                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
-				            </div>
-				            <div class="modal-body">
-				             <c:url var="add_record" value="/students/listStudentsRecord"/>
-					            <form name="addStudentsRecordForm" action="${add_record}">
-						          <div class="form-group">
-						            <label for="lessonCode" class="col-form-label">수업 코드:</label>
-						            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
-						            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="fees" class="col-form-label">수업료:</label>
-						            <input type="text" class="form-control" id="fees" name="fees"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
-						            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
-						          </div>
-						          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
-						          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
-						          <div class="d-flex justify-content-end">
-					              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
-					              </div>
-					        </form>
-				            </div>
-				        </div>
-				    </div>
-				</div>
 			</header>
-			<div class="container-xl px-5">
+			<div class="container-xl px-5"> 
 			
 			</div>
-		    <div class="messagePopup hidden" id="messagePopup">
+		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -867,8 +897,6 @@ $(function() {
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>

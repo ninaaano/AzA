@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     if (datatablesSimple) {
 	    	$.ajax({
-		url:"http://localhost:8080/students/rest/listStudentsRecord",
+		url:"http://localhost:8080/students/rest/listTotalStudentsRecord",
 		type:"POST",
 		headers : {
                 "Accept" : "application/json",
@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', event => {
 				
 		var proposalIcon = function(data, type, row) {
 			if(data == "0") {
-				return `<a href="/students/proposal/StudentsRecord/${row.lastElementChild.textContent}/1"><span class="badge bg-secondary">승인</span></a><a href="/students/proposal/StudentsRecord/${row.lastElementChild.textContent}/2"><span class="badge bg-danger">승인 거절</span></a>`				
+				return `<a href="/students/proposalStudents/${row.lastElementChild.textContent}/1"><span class="badge bg-success pl-3 pr-3 mr-3">승인</span></a><a href="/students/proposalStudents/${row.lastElementChild.textContent}/2"><span class="badge bg-gray">승인 거절</span></a>`				
 			} 
 			else if(data == "1") {
 				return `<span class="badge bg-primary mr-3">승인 완료</span>`+

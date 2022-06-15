@@ -1,5 +1,8 @@
 package com.aza.web.students;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
+import com.aza.service.domain.Lesson;
 import com.aza.service.domain.Students;
 import com.aza.service.domain.User;
+import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
+import com.aza.service.user.UserService;
 
 @Controller
 @RequestMapping("/students/*")
@@ -31,6 +36,14 @@ public class StudentsController {
 	@Autowired
 	@Qualifier("studentsServiceImpl")
 	private StudentsService studentsService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
+	
+	@Autowired
+	@Qualifier("lessonServiceImpl")
+	private LessonService lessonService;
 
 	@Value("${pageUnit}")
 	int pageUnit;
@@ -75,7 +88,6 @@ public class StudentsController {
 		
 		return mv;			
 	}
-
 	
 	@RequestMapping(value="/addStudentsRecord", method=RequestMethod.POST)
 	public ModelAndView addStudentsRecord(@ModelAttribute("students") Students students, HttpSession session) throws Exception {
@@ -199,8 +211,67 @@ public class StudentsController {
 		return studentsService.getStudentsAttendance(attendanceCode);
 	}
 	
+	@RequestMapping("listStudentsAttendance")
+	public ModelAndView listStudentsAttendance(@ModelAttribute("search") Search search, HttpSession session, @RequestParam(required = false) String studentId, @RequestParam(required = false) String lessonCode) throws Exception {
+		
+		System.out.println("/students/listStudentsAttendance");
+		
+		String searchStartDate = search.getSearchStartDate();
+		String searchEndDate = search.getSearchEndDate();	
+		
+		System.out.println(search);
+		//System.out.println(month);
+		//System.out.println(year);
+		
+		if(search.getSearchStartDate() == null || search.getSearchStartDate().length() < 1) {
+			LocalDate now = LocalDate.now();
+			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/01"));
+			searchEndDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/31"));			
+		}
+		
 
-	
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		
+		// 임시 => session으로 쓸거
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		//Map<String, Object> map = userService.listRelationByParent(search, userId);
+		
+		if(studentId == null) {
+			List students = (List) userService.listRelationByParent(search, userId).get("list");	
+			studentId = ((User) students.get(0)).getFirstStudentId();			
+		}
+
+		System.out.println("students : "+studentId);
+		
+		if(lessonCode == null) {
+			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
+			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
+			
+		}
+
+		System.out.println("lessons : "+lessonCode);
+		
+		search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/students/listStudentsAttendance");
+		mv.addObject("listStudentsRecord", map.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
+
+		return mv;			
+	}
 	
 	//========================>Note
 	@RequestMapping( value="addStudentsNote", method=RequestMethod.GET )

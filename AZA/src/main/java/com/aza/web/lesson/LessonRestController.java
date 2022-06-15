@@ -41,6 +41,17 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
+	@RequestMapping(value="checkLessonCode/{lessonCode}")
+	public boolean checkLessonCode(@PathVariable("lessonCode") String lessonCode) throws Exception {
+		
+		Lesson lesson = lessonService.getLesson(lessonCode);
+		
+		if (lesson == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	@RequestMapping(value="addLessonBook")
 	public ModelAndView addLessonBook(@RequestBody  Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();

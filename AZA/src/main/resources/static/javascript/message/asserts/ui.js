@@ -97,7 +97,7 @@ function showAddMessage() {
 
 function disconnect() {
     if (stompClient !== null) {
-        stompClient.disconnect();
+       // stompClient.disconnect();
     }
     console.log("연결 끝 : Disconnected");
 }
