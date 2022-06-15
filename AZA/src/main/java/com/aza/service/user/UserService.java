@@ -57,6 +57,12 @@ public interface UserService {
 	public void sendSMS(String phone,String message) throws Exception;
 
 	int phoneAuth() throws Exception;
+	
+	public User findId(User user)throws Exception;
+	
+	public User findPassword(User user)throws Exception;
+	
+	public void updatePassword(User user)throws Exception;
 
 
 }
