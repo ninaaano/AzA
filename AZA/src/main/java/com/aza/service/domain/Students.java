@@ -120,6 +120,7 @@ public class Students {
 	}
 
 
+	
 	public void setCharacterCode(int characterCode) {
 		this.characterCode = characterCode;
 	}

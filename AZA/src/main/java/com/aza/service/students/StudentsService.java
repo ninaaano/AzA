@@ -25,9 +25,11 @@ public interface StudentsService {
 	// STUDENT_RECORD :: LIST - 승인 요청 중 (proposal 0)
 	public Map<String, Object> listProposalStudents(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 전체 학생 (proposal 2)
+	// STUDENT_RECORD :: LIST - 승인완료 학생 (proposal 1)
 	public Map<String, Object> listStudentsRecord(Search search, String teacherId) throws Exception;
 
+	// STUDENT_RECORD :: LIST - 전체 학생 (proposal 0,1)
+	public Map<String, Object> listTotalStudentsRecord(Search search, String teacherId) throws Exception;
 
 	// ATTENDANCE :: INSERT
 	public void addStudentsAttendance(Students students) throws Exception;

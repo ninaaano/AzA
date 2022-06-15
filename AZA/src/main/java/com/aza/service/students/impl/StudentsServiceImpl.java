@@ -1,5 +1,6 @@
 package com.aza.service.students.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,27 @@ public class StudentsServiceImpl implements StudentsService {
 
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> listTotalStudentsRecord(Search search, String teacherId) throws Exception {
+		
+		List<Students> temp1 = studentsDao.listStudentsRecord(search, teacherId);
+		List<Students> temp2 = studentsDao.listProposalStudents(search, teacherId);
+		
+		List<Students> totalList = new ArrayList<>();
+		totalList.addAll(temp2);
+		totalList.addAll(temp1);
+		
+		int totalCount = studentsDao.getProposalStudentsTotalCount(search, teacherId) + studentsDao.getStudentsRecordTotalCount(search, teacherId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", totalList );
+		map.put("totalCount", new Integer(totalCount));
+	
+		return map;
+	}
+	
+	
 
 	@Override
 	public void addStudentsAttendance(Students students) throws Exception {
@@ -135,7 +157,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("ï¿½ï¿½ï¿½ï¿½") || attendanceState.equals("ï¿½ï¿½ï¿½ï¿½")) {
+		if(attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð")) {
 			Search search = new Search();
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");

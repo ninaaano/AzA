@@ -12,7 +12,7 @@
     
 window.addEventListener('DOMContentLoaded', event => {
 
-    const litepickerSingleDate = document.getElementById('litepickerSingleDate');
+    const litepickerSingleDate = document.getElementById('lessonStartDate');
     if (litepickerSingleDate) {
         new Litepicker({
             element: litepickerSingleDate,

@@ -69,9 +69,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-reactor-netty</artifactId>
 		</dependency>
-		
-		
-		
+      
 
       <dependency>
          <groupId>org.springframework.boot</groupId>
@@ -79,7 +77,6 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
          <scope>runtime</scope>
          <optional>true</optional>
       </dependency>
-      
       <!---->
       		<!-- marked the embedded servlet container as provided -->
 		<dependency>
