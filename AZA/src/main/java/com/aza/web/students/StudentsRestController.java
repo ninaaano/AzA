@@ -102,17 +102,6 @@ public class StudentsRestController {
 		
 		return mv;
 	}
-
-	// Character
-	@RequestMapping(value = "addStudentsCharacter/{studentId}")
-	public ModelAndView addStudentsCharacter(@PathVariable String studentId) {
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/students/addStudentsCharacterView");
-		
-		return mv;
-	}
-	
 	
 	// Exam ===========================================
 	@RequestMapping(value = "manageStudentsExam")

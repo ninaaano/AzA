@@ -20,6 +20,9 @@
 	<insert id="addStudentsCharacter" parameterType="students">
 	INSERT INTO characters
 	VALUES(seq_characters_character_code.NEXTVAL, #{studentId}, #{teacherId}, #{characterContent},(SELECT user_name FROM users WHERE user_id=#{studentId}))
+      <selectKey keyProperty="characterCode" resultType="int" order="AFTER">
+        SELECT seq_characters_character_code.CURRVAL FROM DUAL
+     </selectKey>
 	</insert>
 
 	<!-- SQL : character SELECT ONE --> 	
