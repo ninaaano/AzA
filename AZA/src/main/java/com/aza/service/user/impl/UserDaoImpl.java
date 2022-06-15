@@ -157,5 +157,20 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("UserMapper.updateCheck", user);
 	}
 
+	@Override
+	public User findId(User user) throws Exception {
+		return sqlSession.selectOne("UserMapper.findId", user);
+	}
+
+	@Override
+	public User findPassword(User user) throws Exception {
+		return sqlSession.selectOne("UserMapper.findPassword", user);
+	}
+
+	@Override
+	public void updatePassword(User user) throws Exception {
+		sqlSession.update("UserMapper.updatePassword", user);
+	}
+
 
 }

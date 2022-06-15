@@ -129,5 +129,21 @@
 		WHERE user_id = #{userId}
 	 </update>
 	 
+	 <select id="findId" resultType="user">
+		select * from users where user_name=#{userName} and phone=#{phone}
+	</select>
+	
+	<select id="findPassword" resultType="user">
+		select * from users where user_id=#{userId} and phone=#{phone}
+	</select>
+	
+	<update id="updatePassword">
+		update users
+		<set>
+		password=#{password}
+		</set>
+		where user_id=#{userId}
+	</update>
+	 
 	 
 </mapper>

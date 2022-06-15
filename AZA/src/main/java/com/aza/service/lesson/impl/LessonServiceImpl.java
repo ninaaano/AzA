@@ -137,15 +137,33 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public Map<String, Object> listLessonSchedule(Search search, String teacherId) throws Exception {
+	public Map<String, Object> listLessonSchedule( String teacherId) throws Exception {
 		// TODO Auto-generated method stub
-		List<Schedule> list = lessonDao.listLessonSchedule(search, teacherId);
-		int totalCount = lessonDao.getLessonScheduleTotalCount(search,teacherId);
+		List<Schedule> list = lessonDao.listLessonSchedule( teacherId);
+//		int totalCount = lessonDao.getLessonScheduleTotalCount(search,teacherId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+//		map.put("totalCount", new Integer(totalCount));
 		
 		return map;
 	}
+
+	@Override
+	public void deteteLessonScheduleAll() throws Exception {
+		// TODO Auto-generated method stub
+		lessonDao.deteteLessonScheduleAll();
+	}
+
+	@Override
+	public Map<String, Object> listLessonScheduleStudent(String studentId, String teacherId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Schedule> list = lessonDao.listLessonScheduleStudent(studentId, teacherId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
 }

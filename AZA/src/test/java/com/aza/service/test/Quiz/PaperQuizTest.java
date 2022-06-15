@@ -63,13 +63,13 @@ public class PaperQuizTest {
 	
 	//  list
 	//@Test // list Test OK // totalCount OK
-	void testListPaperQuizT() throws Exception{
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(3);	
-		search.setSearchKeyword("ABCD1234");
-		search.setSearchId("student22");
-		
+//	void testListPaperQuizT() throws Exception{
+//		Search search = new Search();
+//		search.setCurrentPage(1);
+//		search.setPageSize(3);	
+//		search.setSearchKeyword("ABCD1234");
+//		search.setSearchId("student22");
+//		
 //		User user = userService.getUser("teacher2");
 //		System.out.println("role!! ==>> " + user.getRole());
 //		if(user.getRole() != "teacher" ) {
@@ -78,35 +78,35 @@ public class PaperQuizTest {
 //		}else {
 //			search.setSearchCondition(null);
 //		}
-		
-		System.out.println("search ==> " + search);
-		
-		Map<String, Object> map = paperService.listPaperQuizTeacher(search);
-		List<Object> list = (List<Object>)map.get("list");
-		Integer totalCount = (Integer)map.get("totalCount");
-		System.out.println("Quiz TotalCount ====>> " + totalCount);
-		System.out.println("Quiz List ==>> " + list);
-		
-	}
-	
-	// list
-	//@Test
-	void testListPaperQuizS() throws Exception{
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(3);	
-		search.setSearchKeyword("ABCD1234");
-		search.setSearchId("student22");
-		
-		Map<String, Object> map = paperService.listPaperQuizStudent(search);
-		List<Object> list = (List<Object>)map.get("list");
-		Integer totalCount = (Integer)map.get("totalCount");
-		
-		System.out.println("Quiz list========== ");
-		System.out.println(" SearchId====>> " + search.getSearchId());
-		System.out.println("Quiz TotalCount ====>> " + totalCount);
-		System.out.println("Quiz List ==>> " + list);
-	}
+//		
+//		System.out.println("search ==> " + search);
+//		
+//		Map<String, Object> map = paperService.listPaperQuizTeacher(search);
+//		List<Object> list = (List<Object>)map.get("list");
+//		Integer totalCount = (Integer)map.get("totalCount");
+//		System.out.println("Quiz TotalCount ====>> " + totalCount);
+//		System.out.println("Quiz List ==>> " + list);
+//		
+//	}
+//	
+//	// list
+//	//@Test
+//	void testListPaperQuizS() throws Exception{
+//		Search search = new Search();
+//		search.setCurrentPage(1);
+//		search.setPageSize(3);	
+//		search.setSearchKeyword("ABCD1234");
+//		search.setSearchId("student22");
+//		
+//		Map<String, Object> map = paperService.listPaperQuizStudent(search);
+//		List<Object> list = (List<Object>)map.get("list");
+//		Integer totalCount = (Integer)map.get("totalCount");
+//		
+//		System.out.println("Quiz list========== ");
+//		System.out.println(" SearchId====>> " + search.getSearchId());
+//		System.out.println("Quiz TotalCount ====>> " + totalCount);
+//		System.out.println("Quiz List ==>> " + list);
+//	}
 	
 	//=== ===================================================================
 	//@Test
@@ -139,7 +139,7 @@ public class PaperQuizTest {
 		paper.setTeacherAnswer("Test update");
 		paper.setStudentAnswer("333");
 		paper.setAnswerCheck('0');
-		paper.setFeedBackContent("╟Ь╨нго╪╪©Д");
+		paper.setFeedBackContent("О©╫О©╫О©╫О©╫О©╫о╪О©╫О©╫О©╫");
 		paper.setQuestionCode(1002);
 		
 		paperService.updatePaperQuestion(paper);
@@ -309,6 +309,5 @@ public class PaperQuizTest {
 		
 		Paper paper = new Paper();
 
-		
 	}
 }

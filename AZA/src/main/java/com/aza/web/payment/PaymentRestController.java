@@ -66,10 +66,10 @@ public class PaymentRestController {
 		int amount = paymentService.paymentInfo(impUid, token);
 		
 		//실결제 금액과 일치하는지 확인.
-		long checkAmount = payment.getAmount();
+		long price = payment.getAmount();
 		//일치하지 않을 때 결제 취소
 		try {
-			if(checkAmount != amount) {
+			if(price != amount) {
 			paymentService.paymentCancle(token, payment.getImpUid(), amount, "결제 금액 오류");
 			 return new ResponseEntity<String>("결제 금액 오류, 결제 취소", HttpStatus.BAD_REQUEST);
 		}else {

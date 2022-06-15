@@ -375,15 +375,13 @@ public class StudentsController {
 		return mv;			
 	}
 	
-	// CHARACTER => id값 받아야함. test후 수정 ===================================
+	// CHARACTER test후 수정 ===================================
 	// 단순 view연결
-	@RequestMapping(value="addStudentsCharacterView")
-	public ModelAndView addStudentsCharacterView
-	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search,Students students) throws Exception {
+	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
+	public ModelAndView addStudentsCharacter
+	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter");
-		
-
+		System.out.println("/students/addStudentsCharacter :: GET ::단순 View");
 		
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		
@@ -408,28 +406,47 @@ public class StudentsController {
 	}
 	
 	// character add!
-	@RequestMapping(value="addStudentsCharacter")
-	public ModelAndView addStudentsCharacter(Students students,ModelAndView mv, HttpSession session) throws Exception {
+	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.POST)
+	public ModelAndView addStudentsCharacter
+	(@ModelAttribute("students") Students students, ModelAndView mv, 
+			HttpSession session) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter");
+		System.out.println("/students/addStudentsCharacter :: POST ::등록");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
-
+		
 		studentsService.addStudentsCharacter(students);
 		
-
 		mv.setViewName("/students/getStudentsCharacter");
 		mv.addObject("students",students);
 		
-		System.out.println(students.getCharacterCode());
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="updateStudentsCharacter")
-	public ModelAndView updateStudentsCharacter(Students students,ModelAndView mv) throws Exception {
+	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.GET)
+	public ModelAndView updateStudentsCharacter(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter");
+		System.out.println("/students/updateStudentsCharacter :: GET :: 단순 VIEW");
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		students.setTeacherId(teacherId);
+		
+		System.out.println("update characterCode => " + characterCode);
+		
+		studentsService.getStudentsCharacter(characterCode);
+
+		mv.setViewName("/students/updateStudentsCharacter");
+		
+		return mv;		
+	}
+	
+	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.POST)
+	public ModelAndView updateStudentsCharacter(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session) throws Exception {
+		
+		System.out.println("/students/updateStudentsCharacter :: POST :: 수정하기");
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		students.setTeacherId(teacherId);
+		
 		
 		studentsService.updateStudentsCharacter(students);
 
@@ -439,13 +456,18 @@ public class StudentsController {
 	}
 	
 	@RequestMapping(value="deleteStudentsCharacter")
-	public ModelAndView deleteStudentsCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception {
+	public ModelAndView deleteStudentsCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv, HttpSession session) throws Exception {
 		
 		System.out.println("/students/deleteStudentsCharacter");
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		Students students = new Students();
+		students.setTeacherId(teacherId);
+		
+		
 		System.out.println(characterCode);
 		studentsService.deleteStudentsCharacter(characterCode);
 
-		mv.setViewName("/students/addStudentsCharacterView");
+		mv.setViewName("redirect:/students/addStudentsCharacter");
 		
 		return mv;		
 	}
@@ -467,9 +489,12 @@ public class StudentsController {
 	// Exam
 	@RequestMapping(value="manageStudentsExam")
 	public ModelAndView listStudentsExam
-	( @ModelAttribute("search") Search search, Model model, ModelAndView mv) throws Exception{
+	( @ModelAttribute("search") Search search, Model model, ModelAndView mv,HttpSession session) throws Exception{
 		System.out.println("listStudentsExam Start...");
-
+		
+		String studentId = ((User) session.getAttribute("user")).getUserId();
+		search.setSearchId(studentId);
+		search.setSearchKeyword("수학");
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -489,7 +514,6 @@ public class StudentsController {
 		return mv;
 	}
 
-	
 	
 	
 }

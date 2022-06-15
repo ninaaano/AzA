@@ -59,5 +59,11 @@ public interface UserDao {
 	public int getListRelationByStudentTotalCount(Search search, String studentId) throws Exception;
 	
 	public int getListRelationByParentTotalCount(Search search, String parentId) throws Exception;
+	
+	public User findId(User user) throws Exception;
+	
+	public User findPassword(User user)throws Exception;
+	
+	public void updatePassword(User user)throws Exception;
 
 }

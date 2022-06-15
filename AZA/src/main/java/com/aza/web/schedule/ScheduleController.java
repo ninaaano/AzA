@@ -78,26 +78,30 @@ public class ScheduleController {
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		System.out.println(userId);
 		
-		String[] alldata = req.getParameterValues("alldata");				
+		String[] alldata = req.getParameterValues("alldata");
+		
+		lessonService.deteteLessonScheduleAll();
 		for(int i=0; i<alldata.length; i++) {
 //			Object obj = parser.parse(req.getParameterValues("alldata")[0]);
 			Object obj = parser.parse(alldata[i]);
 //			System.out.println(obj);
 			JSONArray jsonA = (JSONArray) obj;
 //			System.out.println(jsonA);
-		
-			json = (JSONObject) jsonA.get(i);
-			System.out.println(json);
-			System.out.println("==============");
-			String scheduleTitle = (String) json.get("scheduleTitle");
-			String scheduleStartTime = (String) json.get("scheduleStartTime");
-			String scheduleEndTime = (String) json.get("scheduleEndTime");
 			
-			schedule.setTeacherId(userId);
-			schedule.setTitle(scheduleTitle);
-			schedule.setStart(scheduleStartTime);
-			schedule.setEnd(scheduleEndTime);
-			lessonService.addLessonSchedule(schedule);
+			for(int j=0; j<jsonA.size(); j++) {
+				json = (JSONObject) jsonA.get(j);
+				System.out.println(json);
+				System.out.println("==============");
+				String scheduleTitle = (String) json.get("title");
+				String scheduleStartTime = (String) json.get("start");
+				String scheduleEndTime = (String) json.get("end");
+				
+				schedule.setTeacherId(userId);
+				schedule.setTitle(scheduleTitle);
+				schedule.setStart(scheduleStartTime);
+				schedule.setEnd(scheduleEndTime);
+				lessonService.addLessonSchedule(schedule);
+			}
 		}
 		model.setViewName("redirect:/schedule/manageLessonSchedule");
 		return model;
@@ -116,100 +120,48 @@ public class ScheduleController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="listLessonSchedule", method= RequestMethod.POST)
+	@RequestMapping(value="listLessonSchedule")
 	@ResponseBody
-//	public ModelAndView listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
-//	public String listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
-	public JSONObject listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
-		if(search.getCurrentPage()==0)
-		{
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
+	public JSONObject listLessonSchedule(HttpSession session) throws Exception{
+		String role = ((User) session.getAttribute("user")).getRole();
 		
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		Map<String, Object> map = lessonService.listLessonSchedule(search, teacherId);
-//		String[] map = lessonService.listLessonSchedule(search, teacherId);
-		
-		JSONObject jsonObject = new JSONObject();
-		for(Map.Entry<String, Object> entry: map.entrySet()) {
-			String key = entry.getKey();
-			Object value = entry.getValue();
-			jsonObject.put(key, value);
-		}
-				
-		return jsonObject;
-		
-//		JSONParser parser = new JSONParser();
-		
-//		String teacherId = ((User) session.getAttribute("user")).getUserId();
-//		Map<String, Object> map = lessonService.listLessonSchedule(search, teacherId);
-//		System.out.println("===============");
-//		System.out.println(map);
-//		System.out.println("===============");
-//		JSONObject json = new JSONObject();
-//		try {
-//			for(Map.Entry<String, Object> entry : map.entrySet()) {
-//				String key = entry.getKey();
-//				Object value = entry.getValue();
-//				
-//				json.put(key, value);
-//			}
-//		}catch(Exception e) {
-//			System.out.println("error임");
-//		}
-//		
-//		System.out.println("===============");
-//		System.out.println(teacherId);
-//		System.out.println(map);
-//		System.out.println("===============");
-		
-		
+		if(role.equals("teacher")) {
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
 			
-//		JSONObject jsonObj = new JSONObject(map);
-//		System.out.println("===============");
-//		System.out.println(jsonObj);
-//		System.out.println("===============");
-		
-//		JSONArray jsonArr = new JSONArray();
-//				
-//		System.out.println("===============");
-//		System.out.println(jsonArr);
-//		System.out.println("===============");
-//		ModelAndView model = new ModelAndView();
-
-//		model.addObject("list",map.get("list"));
-//		return model;
-		
-//		System.out.println(json.toString());
-//		return model;
+			Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
+			}
+			System.out.println(json.toString());
+			return json;
+		}else {
+			String studentId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, studentId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
+			}
+			System.out.println(json.toString());
+			return json;
+		}
 	}
-	
-//	@GetMapping(params="method=list")
-//	public ModelAndView list() {
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("/schedule/manageLessonSchedule");
-//		return model;
-//	}
-//	@GetMapping(params="method=data")
-//	public String data(Model d) throws Exception {
-//		d.addAttribute("list",lessonService.getLessonSchedule(1002));
-//		return "pageJsonReport";
-//	}
-
-//	@RequestMapping(value="/calendar", method=RequestMethod.GET)
-//	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
-//		String viewpage = "calendar";
-//		String viewpage = "/schedule/manageLessonSchedule";
-//		List<Schedule> schedule = null;
-//		try {
-//			schedule = lessonService.getSchedule();
-//			request.setAttribute("calendarList", schedule);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		mv.setViewName(viewpage);
-//		return mv;
-//	}
 	
 }

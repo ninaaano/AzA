@@ -10,7 +10,7 @@ VALUES('teacher52','teacher52','teacher5','teacher5','5252',null,null,null,null,
 
 INSERT
 INTO USERS
-VALUES('student5','student5','student5','stduent5','525252','비트고1',null,null,null,0,null,null);
+VALUES('student5','student5','student5','stduent5','525252','鍮꾪듃怨�1',null,null,null,0,null,null);
 
 INSERT
 INTO USERS
@@ -18,43 +18,43 @@ VALUES('parent5','parent5','parent5','parent5','123123',null,null,null,null,0,nu
 
 INSERT
 INTO LESSON 
-VALUES ('abcd1234','teacher51','비트고1 자바','월수금','09:00','21:00','비트',40000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ('abcd1234','teacher51','鍮꾪듃怨�1 �옄諛�','�썡�닔湲�','09:00','21:00','鍮꾪듃',40000,'java','�븞�뀞�븯�꽭�슂',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT
 INTO LESSON 
-VALUES ('','teacher51','자바 타이핑','월수금','09:00','21:00','비트',40000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ('','teacher51','�옄諛� ���씠�븨','�썡�닔湲�','09:00','21:00','鍮꾪듃',40000,'java','�븞�뀞�븯�꽭�슂',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT
 INTO LESSON 
-VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),'teacher51','비트2 자바','토일','09:00','21:00','비트',90000,'java','안녕하세요',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),'teacher51','鍮꾪듃2 �옄諛�','�넗�씪','09:00','21:00','鍮꾪듃',90000,'java','�븞�뀞�븯�꽭�슂',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT 
 INTO LESSON
-VALUES ('agho1216','teacher51','비트고3 파이썬','화목','09:00','21:00','비트',40000,'python','하이루',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ('agho1216','teacher51','鍮꾪듃怨�3 �뙆�씠�뜫','�솕紐�','09:00','21:00','鍮꾪듃',40000,'python','�븯�씠猷�',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 INSERT 
 INTO LESSON
-VALUES ('abcd4321','teacher52','비트고2 파이썬','토일','11:00','20:00','강남',80000,'javascript','비싸다비싸다',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
+VALUES ('abcd4321','teacher52','鍮꾪듃怨�2 �뙆�씠�뜫','�넗�씪','11:00','20:00','媛뺣궓',80000,'javascript','鍮꾩떥�떎鍮꾩떥�떎',TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'));
 
 /*book*/
 INSERT
 INTO BOOK
-VALUES('9788997924325','자바의 신','어디지','20000','이상민','2017-01=01','IMG');
+VALUES('9788997924325','�옄諛붿쓽 �떊','�뼱�뵒吏�','20000','�씠�긽誘�','2017-01=01','IMG');
 
 INSERT
 INTO BOOK 
-VALUES('12312312355487','논어','어디지','20000','공자','2010-01=01','IMG');
+VALUES('12312312355487','�끉�뼱','�뼱�뵒吏�','20000','怨듭옄','2010-01=01','IMG');
 
 INSERT
 INTO BOOK 
-VALUES('99','국가론','여기','20000','플라톤','2010/03/01','IMG');
+VALUES('99','援�媛�濡�','�뿬湲�','20000','�뵆�씪�넠','2010/03/01','IMG');
 
 
 -- test lesson delete and book --
 
 INSERT
 INTO BOOK 
-VALUES('99','국가론','여기','20000','플라톤','2010/03/01','IMG');
+VALUES('99','援�媛�濡�','�뿬湲�','20000','�뵆�씪�넠','2010/03/01','IMG');
 INSERT
 INTO LESSON_BOOK
 VALUES(
@@ -64,7 +64,7 @@ SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
 
 INSERT
 INTO BOOK 
-VALUES('1111','누가 내 치즈 훔침?','애기','10000','경호','2015/03/01','IMG');
+VALUES('1111','�늻媛� �궡 移섏쫰 �썡移�?','�븷湲�','10000','寃쏀샇','2015/03/01','IMG');
 
 
 --lesson_book
@@ -123,30 +123,30 @@ where lesson_code like 'abcd1234';
 
 /* updateLesson */
 UPDATE lesson
-SET lesson_name = '비트초2 c언어',
-	lesson_day = '월 금',
-	lesson_place = '비트초 2-2반',
+SET lesson_name = '鍮꾪듃珥�2 c�뼵�뼱',
+	lesson_day = '�썡 湲�',
+	lesson_place = '鍮꾪듃珥� 2-2諛�',
 	fees = '300000',
-	subject = 'c언어',
-	le.lesson_content='어린이 여러분 안뇽?'
-WHERE lesson_name like '비트고1 자바';
+	subject = 'c�뼵�뼱',
+	le.lesson_content='�뼱由곗씠 �뿬�윭遺� �븞�눦?'
+WHERE lesson_name like '鍮꾪듃怨�1 �옄諛�';
 
 UPDATE lesson le, students_record sr
-SET le.lesson_name = '비트초3 c언어',
+SET le.lesson_name = '鍮꾪듃珥�3 c�뼵�뼱',
 	sr.fees = 10000
-where le.lesson_code = sr.lesson_code AND lesson_name like '비트고1 자바';
+where le.lesson_code = sr.lesson_code AND lesson_name like '鍮꾪듃怨�1 �옄諛�';
 
 /* deleteLesson */
 DELETE FROM lesson
 WHERE lesson_code like 'abcd1234';
 
-/* listLesson 수업명, 학생명 */
+/* listLesson �닔�뾽紐�, �븰�깮紐� */
 SELECT * FROM LESSON
 ORDER BY lesson_create_at DESC;
 
 select *
 from lesson
-where lesson_name like '%비트고3 파이썬%';
+where lesson_name like '%鍮꾪듃怨�3 �뙆�씠�뜫%';
 
 SELECT *
 FROM lesson le, students_record sr
@@ -156,11 +156,11 @@ select *
 from lesson
 where lesson_create_at between '2022/05/30 00:00:00' AND '2022/05/31 23:59:59';
 
-/* 선생님 */
+/* �꽑�깮�떂 */
 SELECT*
 FROM (SELECT inner_table.*
 	FROM (SELECT * FROM lesson
-		WHERE lesson_name like '%비트%' 
+		WHERE lesson_name like '%鍮꾪듃%' 
 		ORDER BY lesson_create_at DESC) inner_table
 	WHERE lesson_create_at <='20220531' AND teacher_id = 'teacher51')
 WHERE lesson_create_at > '2022/05/30 00:00:00';
@@ -182,7 +182,7 @@ VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
  		#{lessonName}, #{lessonDay},
 		#{lessonStartTime},#{lessonEndTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
-/*선생님 다시 한거*/
+/*�꽑�깮�떂 �떎�떆 �븳嫄�*/
 SELECT*
 FROM (SELECT inner_table.*, ROWNUM AS row_seq
 	FROM (SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time,L.lesson_place, L.subject, L.lesson_code
@@ -192,7 +192,7 @@ FROM (SELECT inner_table.*, ROWNUM AS row_seq
 		WHERE ROWnUM <= 3) inner_table
 	WHERE row_seq BETWEEN 1 and 3;
 
-/*학생 다시 한거*/
+/*�븰�깮 �떎�떆 �븳嫄�*/
 SELECT L.lesson_name,  U.user_name, SR.proposal
 FROM LESSON L, STUDENTS_RECORD SR, USERS U
 WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id ='student5';
@@ -226,7 +226,7 @@ order by lesson_create_at desc;
 
 
 
-/* 둘이 같은 코드*/
+/* �몮�씠 媛숈� 肄붾뱶*/
 select*from lesson le, students_record sr
 where le.lesson_code = sr.lesson_code AND sr.student_id = 'student5'
 ORDER BY le.lesson_create_at desc;
@@ -257,12 +257,12 @@ BEFORE INSERT ON BOOK
 FOR EACH ROW
     BEGIN
     IF INSERTING THEN
-        INSERT INTO LESSON_BOOK('11','새우좋아','와퍼','70000','누구지','2022/06/01','IMG');
+        INSERT INTO LESSON_BOOK('11','�깉�슦醫뗭븘','���띁','70000','�늻援ъ�','2022/06/01','IMG');
         VALUES (::ISBN);
     END IF;
 END TR_STUDENT_TEST;
 
---삭제 된 후
+--�궘�젣 �맂 �썑
 
 
 CREATE OR REPLACE TRIGGER TR_BOOK
@@ -273,17 +273,17 @@ CREATE OR REPLACE TRIGGER TR_BOOK
 	END 
 
 
---테이블 제약조건 검색
+--�뀒�씠釉� �젣�빟議곌굔 寃��깋
 SELECT CONSTRAINT_NAME, STATUS
 FROM ALL_CONSTRAINTS
 WHERE TABLE_NAME='LESSON_BOOK';
---제약조건 삭제
+--�젣�빟議곌굔 �궘�젣
 ALTER TABLE LESSON_BOOK DROP CONSTRAINT lESSON_BOOK_DELETE;
 
 /* Book=================*/
 /* add book*/
 INSERT ALL
-	INTO BOOK VALUES('19981216','안경호','자서전','1000000','안경호','2030/12/16','IMG')
+	INTO BOOK VALUES('19981216','�븞寃쏀샇','�옄�꽌�쟾','1000000','�븞寃쏀샇','2030/12/16','IMG')
 	INTO LESSON_BOOK VALUES(SEQ_LESSON_BOOK_BOOK_CODE.nextVal,'agho1216','19981216')
 	SELECT*FROM DUAL;
 (SELECT lesson_code FROM lesson WHERE lesson_code='11111111'),
@@ -316,7 +316,7 @@ where isbn = '987654321';
 /*addlessonschedule*/
 INSERT
 INTO schedule
-VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'공부','일정api');
+VALUES(SEQ_SCHEDULE_SCHEDULE_CODE.nextVal,(SELECT user_id FROM USERS WHERE user_id = 'teacher51'),TO_CHAR(sysdate,'yyyy/mm/dd'),TO_CHAR(sysdate,'HH24:MI:SS'),'2022/07/01',null,'怨듬�','�씪�젙api');
 
 (SELECT user_id FROM USERS WHERE user_id = 'teacher51'));
 
@@ -333,7 +333,7 @@ SELECT L.lesson_name, S.schedule_start_date, S.schedule_end_date, S.schedule_sta
 FROM schedule S, users U, lesson L
 WHERE S.teacher_id = u.user_id AND L.teacher_id = U.user_id  AND S.teacher_id = 'teacher51' AND S.schedule_code=1001; 
 
-/*getLessonSchedule 최종*/
+/*getLessonSchedule 理쒖쥌*/
 SELECT S.schedule_start_date, S.schedule_end_date, S.schedule_start_time, S.schedule_end_time, S.schedule_content
 FROM schedule S, users U
 WHERE S.teacher_id = u.user_id AND S.schedule_code=1001;
@@ -343,7 +343,7 @@ UPDATE schedule
 SET schedule_Start_Date = TO_CHAR(sysdate,'yyyy/mm/dd'),
 	schedule_End_Date = '2022/06/16',
 	schedule_Start_Time = TO_CHAR(sysdate,'HH24:MI:SS'),
-	schedule_content = '화이팅하자'
+	schedule_content = '�솕�씠�똿�븯�옄'
 WHERE schedule_start_date ='2022/05/31' AND schedule_start_time='19:06:13' and teacher_id='teacher51';
 
 UPDATE schedule
@@ -367,7 +367,7 @@ FROM (
 			WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = 'teacher51'
 			ORDER BY schedule_start_date || schedule_start_time) inner_table
 	WHERE ROWNUM <= 3)
-WHERE row_seq BETWEEN 1 AND 3;
+WHERE row_seq BETWEEN 1 AND 10;
 
 SELECT *
 FROM (
@@ -377,6 +377,13 @@ FROM (
 			ORDER BY S.schedule_code desc) inner_table
 	WHERE ROWNUM <= 3)
 WHERE row_seq BETWEEN 1 AND 3;
+
+/*listLessonSchedule students*/
+SELECT S.*
+FROM schedule S, users U, (SELECT L.teacher_id LT
+        FROM students_record SR, lesson L
+        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = 'student5') A
+WHERE S.teacher_id = U.user_id AND U.user_id = A.LT AND S.teacher_Id = 'teacher51';
 
 
 select*from schedule
@@ -422,6 +429,6 @@ FROM (
 	WHERE ROWNUM <= 3)
 WHERE row_seq BETWEEN 1 AND 3;
 
---컬럼 삭제
+--而щ읆 �궘�젣
 ALTER TABLE emp DROP COLUMN email;
 

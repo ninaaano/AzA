@@ -288,5 +288,22 @@ public class UserServiceImpl implements UserService {
     	return num1;
 		
 	}
+
+	@Override
+	public User findId(User user) throws Exception {
+		return userDao.findId(user);
+	}
+
+	@Override
+	public User findPassword(User user) throws Exception {
+		return userDao.findPassword(user);
+	}
+
+	@Override
+	public void updatePassword(User user) throws Exception {
+		userDao.updatePassword(user);
+	}
+
+
 	
 }
