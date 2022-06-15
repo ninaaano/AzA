@@ -14,7 +14,7 @@
 <script type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
-<script src="path/jquery-3.3.1.min.js"></script>
+<!-- <script src="path/jquery-3.3.1.min.js"></script> -->
 
 
 <script>
@@ -26,9 +26,30 @@
     	$(document).ready(function(){
         var calendarEl = document.getElementById('calendar');
         
-        var all_events = null;
-        all_events = loadingEvents();
-        console.log(all_events);
+        /* var all_events = null; */
+       /* all_events = loadingEvents();
+        
+
+  	  	var return_value;
+  	  	alert("==============");
+  	  	alert(return_value);
+  	  	console.log(return_value); */
+        /* console.log(all_events);
+        alert(JSON.stringify(all_events)); */
+        
+       /*  let json = JSON.stringify(all_events);
+        
+        alert(json);
+        
+        var jsonConverList = JSON.parse(all_events);
+        console.log('--------');
+        console.log(jsonConverList);
+        console.log('--------'); */
+        
+        /* var arr = new Array(all_events);
+        var json = json_encode(arr);
+        console.log(json); */
+        
 		//new FullCalendar.Calendar(대상 DOM 객체,(속성: 속성값, 속성2: 속성값2..))
         calendar = new FullCalendar.Calendar(calendarEl, {
           headerToolbar: {
@@ -45,7 +66,63 @@
           selectable: true, //날짜 선택시 표시
           dayMaxEvents: true, //이벤트가 많을 시 +표시로 보여줌 ㅎㅎ
           selectMirror: true,
-          events: all_events,	//json형태의 값 
+          events: function(info, successCallback, failureCallback){
+        	  // ajax 처리로 데이터를 로딩 시킨다.
+        	  /* var datalist = []; */
+        	  $.ajax({
+        		 type:"post",
+        		 url: '/schedule/listLessonSchedule',
+        		 dataType: "json",
+                 success: function(list) {
+                	  var events = [];
+                      console.log("^^ 될거지?");
+                      console.log(list);
+                      $.each(list, function (index,data){
+                    	  /* for(var i=0; i<data.length; i++){
+                    		  console.log(data[i].title);  
+                    	  } */
+                    		var datalist = data.list;
+                    	  
+                    		/* for(var i=0; i<data.length; i++){ */
+	                    		if(data.pValue !=null && data.pValue === 'private'){
+	                    			for(var i=0; i<data.length; i++){
+	                    			events.push({
+		                    				title:data[i].title
+		                    				,start:data[i].start
+		                    				,end:data[i].end
+	                    			}); 
+	                    			}
+	                    		}else if(data.pValue!=null&&data.pValue ==='public'){
+	                    			for(var i=0; i<data.length; i++){
+	                    			events.push({
+		                    				title:data[i].title
+		                    				,start:data[i].start
+		                    				,end:data[i].end
+	                    				}); 
+	                    			}
+	                    		}else{
+	                    			for(var i=0; i<data.length; i++){
+		                    			events.push({
+			                    				title:data[i].title
+			                    				,start:data[i].start
+			                    				,end:data[i].end
+		                    				}); 
+		                    			}                  			
+	                    		}
+                    		 /*} */
+                      })                      
+                      /* datalist.push({
+                    		title:result.title,
+                    		start:result.start,
+                    		end:result.end */
+                    		/* title: "오후 회의",
+                    		start: "2022-06-06T19:00:00",
+                    		end: "2022-06-07T09:30:00" */
+                      /* }); */
+                	  successCallback(events);
+                 	}
+        	  });
+          },//json형태의 값
           eventAdd: function(){//이벤트가 추가되면 발생하는 이벤트
         	  console.log()
           },
@@ -58,21 +135,22 @@
             	title: title,
                 start: arg.start,
                 end: arg.end,
-                allDay: arg.allDay,
+                /* allDay: arg.allDay, */
                 backgroundColor:"skyblue",
                 textColor:"blue"
               })
             }
-            calendar.unselect()
+           /*  calendar.unselect() */
           },
           eventClick: function(arg){
               if(confirm('이벤트를 지우겠습니까?')){
                 arg.event.remove()
               }
             },
-          aditable: true,
+          aditable: true
           //ajax데이터를 불러올 부분
-          events: all_events
+          /* events: all_events */
+          /* events: */
         });
         calendar.render();       
         //선택한 옵션이 변경되면 동적으로 일정관리 옵션 변경
@@ -109,7 +187,6 @@
       
       function loadingEvents()	//전체 json data 담김
       {
-    	  var return_value = null;
     	  $.ajax
     	  ({
     		  type:'POST',
@@ -120,19 +197,25 @@
     		})
     		.done(function(result){
     			/* console.log(result); */
-    			var list = result.list;
+    			/* alert(JSON.stringify(result));*/
+    			
+    			/* var list = result.list;
     			list.map(schedule => {
-    				/* console.log(schedule.start);
+    				console.log(schedule.start);
     				console.log(schedule.end);
-    				console.log(schedule.title); */
-    			} )    			
-    			return_value = result;
-    		})
-    		
+    				console.log(schedule.title);
+    			}) */
+    			
+    			return_value = JSON.stringify(result);
+    			/* alert(JSON.stringify(result)); */
+    			alert(return_value);
+    			return return_value;
+    		})    		
     		.fail(function(request, status, error){
     			alert("에러 발생:"+error)	
     		});
-    		return return_value;
+    	  /* 
+    		return return_value; */
       }
       
       function savedata(jsondata)

@@ -58,8 +58,14 @@ public interface LessonDao {
 	//schedule : delete
 	public void deleteLessonSchedule(int scheudleCode) throws Exception;
 	
-	//schedule : list
-	public List<Schedule> listLessonSchedule(Search search, String teacherId) throws Exception;
+	//schedule : listTeacher
+	public List<Schedule> listLessonSchedule(String teacherId) throws Exception;
+	
+	//schdule : studnet
+	public List<Schedule> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
+	
+	//schedule : delete all
+	public void deteteLessonScheduleAll() throws Exception;
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 

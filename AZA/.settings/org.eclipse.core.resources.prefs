@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//SQL/AZA.sql=UTF-8
 encoding//src/main/java=UTF-8
 encoding//src/main/java/com/aza/common/aspect/LogAspectJ.java=UTF-8
 encoding//src/main/java/com/aza/service/user/UserService.java=EUC-KR

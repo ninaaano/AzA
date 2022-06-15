@@ -52,7 +52,13 @@ public interface LessonService {
 	// schedule : delete
 	public void deleteLessonSchedule(int scheudleCode) throws Exception;
 
-	// schedule : list
-	public Map<String, Object> listLessonSchedule(Search search, String teacherId) throws Exception;
+	// schedule : list teacher
+	public Map<String, Object> listLessonSchedule(String teacherId) throws Exception;
+	
+	//schedule : lsit students
+	public Map<String, Object> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
+	
+	//schedule : all delete
+	public void deteteLessonScheduleAll() throws Exception;
 
 }

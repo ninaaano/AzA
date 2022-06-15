@@ -53,6 +53,10 @@
 		WHERE schedule_code = #{scheduleCode}
 	</delete>
 	
+	<delete id ="deleteAll">
+		DELETE FROM schedule
+	</delete>
+	
 <!-- 	<select id ="listLessonSchedule" resultMap="scheduleSelectMap">
 			SELECT *
 			FROM ( SELECT inner_table.*, ROWNUM AS row_seq
@@ -63,23 +67,35 @@
 				WHERE ROWNUM &lt;= #{endRowNum} )
 			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select> -->
-	<select id = "listLessonSchedule" resultMap="scheduleSelectMap">
+	<select id = "listLessonScheduleTeacher" resultMap="scheduleSelectMap">
+		select s.* from schedule s
+		where s.teacher_id=#{teacherId}
+		order by s.schedule_code desc
+	</select>
+	
+	<select id = "listLessonScheduleStudents" resultMap="scheduleSelectMap">
+		SELECT S.*
+		FROM schedule S, users U, (SELECT L.teacher_id LT
+		        FROM students_record SR, lesson L
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT AND S.teacher_Id = #{teacherId};
+	</select>
+	
+	<!-- <select id = "listLessonSchedule" resultMap="scheduleSelectMap">
 		SELECT *
 		FROM (
 			SELECT inner_table.*, ROWNUM AS row_seq
-			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L	<!-- if 학생일때 추가 -->
+			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L	if 학생일때 추가
 					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = #{teacherId}
 					ORDER BY S.schedule_code desc) inner_table
-			WHERE ROWNUM &lt;= #{endRowNum})
+			WHERE ROWNUM &lt;= 100)
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
-
-	</select>
+	</select> -->
 	
-	
-	<select id = "getLessonTotalCount" resultType="int">
+<!-- 	<select id = "getLessonTotalCount" resultType="int">
 	 		SELECT COUNT(*)
 	 		FROM( SELECT * from schedule
 	 				where teacher_id = #{searchKeyword}
 	 			) countTable
-	 </select>
+	 </select> -->
 </mapper>
