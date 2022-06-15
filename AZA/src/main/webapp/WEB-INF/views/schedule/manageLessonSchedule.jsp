@@ -71,7 +71,7 @@
         	  /* var datalist = []; */
         	  $.ajax({
         		 type:"post",
-        		 url: '/schedule/listLessonSchedule',
+        		 url: '/schedule/rest/listLessonSchedule',
         		 dataType: "json",
                  success: function(list) {
                 	  var events = [];
@@ -190,7 +190,7 @@
     	  $.ajax
     	  ({
     		  type:'POST',
-    		  url: '/schedule/listLessonSchedule',
+    		  url: '/schedule/rest/listLessonSchedule',
     		  data: {},
     		  dataType: 'JSON',	//가지고 올때의 데이터 타입
     		  async: false //==>동기

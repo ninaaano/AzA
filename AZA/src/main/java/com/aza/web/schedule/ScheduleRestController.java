@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.common.Search;
 import com.aza.service.domain.Schedule;
@@ -75,6 +79,52 @@ public class ScheduleRestController {
 		lessonService.deleteLessonSchedule(scheduleCode);
 		
 		return schedule;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("listLessonSchedule")
+	@ResponseBody
+	public Map<String, Object> listLessonSchedule(HttpSession session) throws Exception{
+		String role = ((User) session.getAttribute("user")).getRole();
+		
+		if(role.equals("teacher")) {
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
+			}
+			System.out.println(json.toString());
+//			return json;
+			return lessonService.listLessonSchedule(teacherId);
+		}else {
+			String studentId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, studentId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
+			}
+			System.out.println(json.toString());
+			return json;
+		}
 	}
 	
 //	@SuppressWarnings("unchecked")

@@ -123,31 +123,45 @@ public class ScheduleController {
 	@RequestMapping(value="listLessonSchedule")
 	@ResponseBody
 	public JSONObject listLessonSchedule(HttpSession session) throws Exception{
+		String role = ((User) session.getAttribute("user")).getRole();
 		
-		List<Map<String,Object>> paramList = new ArrayList<Map<String,Object>>();
-		
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		
-		Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
-		
-		
-		JSONArray arr = new JSONArray();
-		
-		JSONObject jsonObject = new JSONObject();
-		
-		JSONObject json = new JSONObject();
-		try {
-			for(Map.Entry<String, Object> entry : map.entrySet()) {
-				String key = entry.getKey();
-				Object value = entry.getValue();
-				
-				json.put(key, value);
+		if(role.equals("teacher")) {
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
 			}
-		}catch(Exception e) {
-			System.out.println("error임");
+			System.out.println(json.toString());
+			return json;
+		}else {
+			String studentId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, studentId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error임");
+			}
+			System.out.println(json.toString());
+			return json;
 		}
-		System.out.println(json.toString());
-		return json;
 	}
 	
 }
