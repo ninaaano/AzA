@@ -18,7 +18,7 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-<script defer src="/resources/javascript/students/studentsUI.js"></script>
+<script defer src="/resources/javascript/students/teacherHome.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -753,98 +753,28 @@ $(function() {
 				<div class="row justify-content-center gx-5">
                       <div class="row justify-content-end col-md-8 col-lg-6">
                           <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                              <div class="nav-item dropdown pt-3" id="myDropdown">
-						      <a class="nav-link dropdown-toggle pb-0" href="#" data-bs-toggle="dropdown">  자녀 선택  </a>
-						      <ul class="dropdown-menu">
-							  		<c:forEach var="student" items="${studentInfo}">
-							  			<li><a class="dropdown-item" href="#">${student.userName}  &raquo;</a>
-							  				<ul class="submenu dropdown-menu">
-							  					<c:forEach var="lesson" items="${lessons}">
-							  					<li><a class="dropdown-item" href="/students/listStudentsAttendance?studentId=${student.userId}&lessonCode=${lesson.lessonCode}">${lesson.lessonName}</a></li>
-							  					</c:forEach>
-						            		</ul>
-							  			</li>	
-							  	</c:forEach>
-						      </ul>
-                          </div>
-
+                             
 							
 						    </div>
-                      <nav>
-							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
-							    <button class="nav-link active" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonList" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
-							    <button class="nav-link" id="nav-studentsAttendance-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsAttendance" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">출석</button>
-							    <button class="nav-link" id="nav-studentsExam-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsExam" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">성적</button>
-							    <button class="nav-link" id="nav-paperQuiz-tab" data-bs-toggle="tab" data-bs-target="#nav-paperQuiz" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
-							    <button class="nav-link" id="nav-lessonBook-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonBook" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">교재</button>
-							  </div>
-							</nav>
+                      
                       </div>
                   </div>
 			</header>
 			<div class="container-xl px-5"> 
-			                            
-							<div class="tab-content" id="nav-tabContent">
-							  <div class="tab-pane fade show active" id="nav-lessonList" role="tabpanel" aria-labelledby="nav-lessonList-tab">
-							  
-							  
-							  
-							  
-							  수업목록
-							  
-							  
-							  
-							  
-							  </div>
-							  
-							  <!-- 출석  -->
-							  <div class="tab-pane fade" id="nav-studentsAttendance" role="tabpanel" aria-labelledby="nav-studentsAttendance-tab">
-
-								  <div class="hbContainer">
-					                <div class="calendarYearMonth center">
-					                    <p class="left calBtn" onclick="prevMonth()"> Prev </p>
-					                    <p id="yearMonth"></p>
-					                    <p class="right calBtn" onclick="nextMonth()"> Next </p>
-					                </div>
-					                <div>
-					                    <ol class="calendarList1">
-					                        <li class="day-name">Sat</li>
-					                        <li class="day-name">Sun</li>
-					                        <li class="day-name">Mon</li>
-					                        <li class="day-name">Tue</li>
-					                        <li class="day-name">Wed</li>
-					                        <li class="day-name">Thu</li>
-					                        <li class="day-name">Fri</li>
-					                    </ol>
-					                    <ol class="calendarList2" id="calendarList">
-					
-					                    </ol>
-					               </div>
-            					</div>
-							  </div>
-							  
-							  <!-- 성적 -->
-							  <div class="tab-pane fade" id="nav-studentsExam" role="tabpanel" aria-labelledby="nav-studentsExam-tab">
-							  
-							  성적
-							  
-							  
-							  </div>
-							  
-							  <!-- 쪽지시험 -->
-							  <div class="tab-pane fade" id="nav-paperQuiz" role="tabpanel" aria-labelledby="nav-paperQuiz-tab">
-							  
-							  쪽지시험
-							  
-							  </div>
-							  
-							  <!-- 교재 -->
-							  <div class="tab-pane fade" id="nav-lessonBook" role="tabpanel" aria-labelledby="nav-lessonBook-tab">
-							  
-							  교재
-							  
-							  </div>
-							</div>
+				<div id="calendar">
+				달력
+				</div>
+			     <div id="addStudentsAttendance">
+			     출석
+			     
+			     </div>
+			     <div id="lessonTimeTable">
+			     시간표
+			     
+			     
+			     </div>
+			                           
+							
 			</div>
 		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">

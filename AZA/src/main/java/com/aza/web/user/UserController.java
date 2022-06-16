@@ -79,6 +79,9 @@ public class UserController {
 		System.out.println("/user/login");
 		
 		ModelAndView mv= new ModelAndView();
+		
+	
+		
 		mv.setViewName("/index");
 	
 		//Business Logic
@@ -101,6 +104,10 @@ public class UserController {
 				session.setAttribute("students", students);
 			}
 			
+			// teacher 인 경우
+			if(dbUser.getRole().equals("teacher")) {
+				mv.setViewName("/index_teacher");
+			}
 			
 			System.out.println(session.getAttribute("user"));
 			System.out.println("로그인 성공이시다");

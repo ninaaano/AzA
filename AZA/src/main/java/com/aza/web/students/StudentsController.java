@@ -2,6 +2,7 @@ package com.aza.web.students;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -232,24 +233,35 @@ public class StudentsController {
 		
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
+		System.out.println(userId);
 		List students = (List) session.getAttribute("students");
+		System.out.println(students);
 		
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
-		if(studentId == null) {
+		if(studentId==null || studentId.length() < 1) {
 			studentId = ((User) students.get(0)).getFirstStudentId();			
 		}
 		
+		List<User> studentsInfo = new ArrayList<User> ();
+		
+		for(int i = 0; i < students.size(); i++) {
+			String temp = ((User) students.get(i)).getFirstStudentId();
+			User student = userService.getUser(temp);
+			
+			studentsInfo.add(student);
+		}
+
 		User student = userService.getUser(studentId);
 
 		System.out.println("student : "+student);
 		
 		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
 		
-		if(lessonCode == null) {
+		if(lessonCode == null || lessonCode.length() < 1) {
 			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
 		}
 
@@ -268,7 +280,7 @@ public class StudentsController {
 		mv.addObject("listStudentsRecord", map.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
-		mv.addObject("students", students);
+		mv.addObject("studentInfo", studentsInfo);
 		mv.addObject("lessons", lessons);
 
 		return mv;			

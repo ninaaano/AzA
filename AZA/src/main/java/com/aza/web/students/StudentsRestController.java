@@ -124,27 +124,28 @@ public class StudentsRestController {
 		LocalDate now = LocalDate.now();
 		String prevMonth = Integer.toString(month - 1); 
 		prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
+		String curMonth = month < 10 ? "0" + Integer.toString(month) : Integer.toString(month);
 		
 		if(year == null) {
 			year = Integer.toString(now.getYear());
 		}
 		
 		String searchStartDate = year + "/" + prevMonth + "/31";
-		String searchEndDate = year + "/" + month + "/31";
+		String searchEndDate = year + "/" + curMonth + "/31";
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(31);
 		
-		if(studentId == null) {
+		if(studentId==null || studentId.length() < 1) {
 			List students = (List) session.getAttribute("students");
 			studentId = ((User) students.get(0)).getFirstStudentId();			
 		}
 		
 		System.out.println("studentId : "+studentId);
 		
-		if(lessonCode == null) {
+		if(lessonCode == null || lessonCode.length() < 1) {
 			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
 			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();	
 		}

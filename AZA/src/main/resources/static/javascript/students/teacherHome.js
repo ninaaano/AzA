@@ -1,40 +1,48 @@
 window.addEventListener('DOMContentLoaded', event => {
 	
-	// 자녀 선택 드롭다운
-	if (window.innerWidth < 992) {
-	  // close all inner dropdowns when parent is closed
-	  document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
-	    everydropdown.addEventListener('hidden.bs.dropdown', function () {
-	      // after dropdown is hidden, then find all submenus
-	        this.querySelectorAll('.submenu').forEach(function(everysubmenu){
-	          // hide every submenu as well
-	          everysubmenu.style.display = 'none';
-	        });
-	    })
-	  });
-	
-	  document.querySelectorAll('.dropdown-menu a').forEach(function(element){
-	    element.addEventListener('click', function (e) {
-	        let nextEl = this.nextElementSibling;
-	        if(nextEl && nextEl.classList.contains('submenu')) {	
-	          // prevent opening link if link needs to open dropdown
-	          e.preventDefault();
-	          if(nextEl.style.display == 'block'){
-	            nextEl.style.display = 'none';
-	          } else {
-	            nextEl.style.display = 'block';
-	          }
-	
-	        }
-	    });
-	  })
-	}
-	
-	// 달력
-	var currentMonth = new Date().getMonth() + 1;	
-	loadEvent(currentMonth);
+
+	attendanceLoad();
+
 	
 })
+
+// AJAX : addStudentsAttendance 
+function attendanceLoad() {
+	
+	var curDay = new Date().getDay();
+		
+	$.ajax({
+		url:"http://localhost:8080/students/rest/studentsRecord?lessonDaycurDay="+curDay,
+		type:"POST",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {	
+				console.log(result);
+				
+				
+				
+	
+			}else {
+				
+			}
+		}
+	})
+}
+
+
+function makeTimeTable(result) {
+	
+	
+	
+	
+	
+}
+
+
+
 
 // AJAX : restCtrl
 function loadEvent(month) {

@@ -18,6 +18,7 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
+<script defer src="/resources/javascript/students/teacherHome.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -55,6 +56,7 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -118,7 +120,7 @@ $(function() {
 })
 
 
-
+/* 
 function deleteAlert(alertCode) {
 	$.ajax({
 		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
@@ -180,10 +182,6 @@ function deleteAlert(alertCode) {
             }
        }
 	})
-	
-	
-	
-	
 }
 
 
@@ -317,15 +315,13 @@ function readAlert(alertCode) {
 	})
 }
 
-
+ */
 
 $(function() {
-
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
-
 	})
 
 	// Message
@@ -383,9 +379,6 @@ $(function() {
             } 
         })
 	})
-	
-
-
 })
 	
 
@@ -565,7 +558,7 @@ $(function() {
 						<a class="nav-link" href="index.html">
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> Overview
+							</div> 수업관리
 						</a>
 						<a class="nav-link" href="/students/listStudentsRecord">
 							<div class="nav-link-icon">
@@ -578,7 +571,7 @@ $(function() {
 							aria-expanded="false" aria-controls="collapseDashboards">
 							<div class="nav-link-icon">
 								<i class="material-icons">dashboard</i>
-							</div> Dashboards
+							</div> 학생관리
 							<div class="drawer-collapse-arrow">
 								<i class="material-icons">expand_more</i>
 							</div>
@@ -749,71 +742,32 @@ $(function() {
 			<header class="main-header">
 				<!-- page header -->
 				<div class="row justify-content-center gx-5">
-                      <div class="col-md-8 col-lg-6">
-                          <div class="text-center py-10">
-                              <!-- Example brand image (inline SVG image)-->
-                              
-                          </div>
+                      <div class="row justify-content-end col-md-8 col-lg-6">
+                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
+                             
+							
+						    </div>
+                      
                       </div>
                   </div>
-				<!-- 수업 추가 Modal-->
-				<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-				    <div class="modal-dialog modal-dialog-centered">
-				        <div class="modal-content">
-				            <div class="modal-header">
-				                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
-				                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
-				            </div>
-				            <div class="modal-body">
-				             <c:url var="add_record" value="/students/listStudentsRecord"/>
-					            <form name="addStudentsRecordForm" action="${add_record}">
-						          <div class="form-group">
-						            <label for="lessonCode" class="col-form-label">수업 코드:</label>
-						            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
-						            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="fees" class="col-form-label">수업료:</label>
-						            <input type="text" class="form-control" id="fees" name="fees"/>
-						          </div>
-						          <div class="form-group">
-						            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
-						            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
-						          </div>
-						          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
-						          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
-						          <div class="d-flex justify-content-end">
-					              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
-					              </div>
-					        </form>
-				            </div>
-				        </div>
-				    </div>
-				</div>
 			</header>
-			
-			
-			<div class="container-xl px-5">
-			
-				<div id="calendar"></div>
-				
-				<div id="listStudentsAttendance">
-					
-				
-				
+			<div class="container-xl px-5"> 
+				<div id="calendar">
+				달력
 				</div>
-			
-			
-			
+			     <div id="addStudentsAttendance">
+			    	
+			     
+			     </div>
+			     <div id="lessonTimeTable">
+			     시간표
+			     
+			     
+			     </div>
+			                           
+							
 			</div>
-		    
-		    
-		    
-		    
-		    <div class="messagePopup hidden" id="messagePopup">
+		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -882,8 +836,6 @@ $(function() {
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
