@@ -5,7 +5,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>강의노트 연습</title>
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- 네이버 스마트에디터  -->
 	<!-- <head> 안에 추가 -->
 	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -25,7 +26,7 @@
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-	<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<!-- 	<script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
 	<script defer src="/resources/javascript/alert/alertUI.js"></script>
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 	<!-- Load Favicon-->
@@ -72,6 +73,8 @@
 	</style>
 	<link href="/resources/css/styles.css" rel="stylesheet">
 	<link href="/resources/css/common.css" rel="stylesheet">
+	
+	
 	<!-- //////////////////////////////////////////////////// -->
 	<script>			
 	
@@ -107,22 +110,46 @@
 	}
 	
 	function deleteBtn() {
-		$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+		if(window.confirm("정말 삭제하시겠습니까?")){
+			if(true){
+				$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		}
+		
 	}
 	
+/* 	$(function() {
+		
+		$( "button.btn.btn-outline-primary:contains('삭제')").on("click" , function() {
+			history.go(-1);
+		});
+	}); */	
+	
 	$(function() {
 		
-		$( "button.btn.btn-primary:contains('삭제')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('뒤로')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
 	
-	$(function() {
-		
-		$( "button.btn.btn-primary:contains('뒤로')").on("click" , function() {
-			history.go(-1);
-		});
-	});	
+	window.onload = function() {
+		document.getElementById("download")
+		.addEventListener("click",()=>{
+			const smarteditorr = this.document.getElementById("smarteditor");
+			console.log(smarteditorr);
+			console.log(window);
+			var opt = {
+					margin: 1,
+					filename: 'note.pdf',
+					image: {type: 'jpeg', quality: 0.98},
+					html2canvas: {scale: 2},
+					jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+			};
+			html2pdf().from(smarteditorr).set(opt).save();
+		})
+	}
 	
 	</script>
 	
@@ -149,27 +176,28 @@
     
     
     <form>
-    	<div id="smarteditor">
- 		    <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">제 목</span>
-                <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="noteTitle" id="noteTitle" value="${students.noteTitle}"/>
-            </div>
-	      	<div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">아이디</span>
-                <div class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="studentId" id="studentId" value="${students.studentId}">${students.studentId}</div>
-            </div>
+    <div class="border border-top-0 p-3 p-sm-5 bg-light" >
+
+    <div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
+    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
+	    	<div class="input-group mb-3">
+		            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
+		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
+	        </div>
+	        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+	                	name="studentId" id="studentId" value="${students.studentId}"></input>
 	      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 			           rows="30" cols="10" 
-			           style="width: 100%" readonly>${students.noteContent}</textarea>
+			           style="width: 100%">${students.noteContent}</textarea>
         </div>
         <div align="center">
-              <input type="button" onclick="updateBtn();" class="btn btn-primary" value="수정"/>
-              <input type="button" onclick="deleteBtn();" class="btn btn-primary" value="삭제"/>
-              <button id="backBtn" type="button" class="btn btn-primary">뒤로</button>
+              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="저장"/>
+              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="삭제"/>
+              <button id="backBtn" type="button" class="btn btn-outline-primary">뒤로</button>
 		</div>
+	</div>
     </form>
     
     <script>

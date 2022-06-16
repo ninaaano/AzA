@@ -24,7 +24,7 @@
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-	<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+	<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
 	<script defer src="/resources/javascript/alert/alertUI.js"></script>
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 	<!-- Load Favicon-->
@@ -74,8 +74,6 @@
 	<!-- //////////////////////////////////////////////////// -->
 	<script>
 	
-	<script>
-	
 /* 	function save(){
 		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
 	    		//스마트 에디터 값을 텍스트컨텐츠로 전달
@@ -108,7 +106,7 @@
 	
 	$(function() {
 		
-		$( "button.btn.btn-primary:contains('취소')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('취소')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
@@ -123,19 +121,16 @@
 <body>
 
 	<form name="noteForm" action="addStudentsNote" method="post">
-	      <div id="smarteditor">
-	      	<%-- <input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="제목을 입력해주세요"></input>
-	      	<input name="studentId" id="studentId" value="${user.userId}" style="color:#808080; background-color: #ccc;" readonly /> --%>
+		<div class="border border-top-0 p-3 p-sm-5 bg-light">
+	      <div id="smarteditor" style="margin: 0px 30px 30px 30px">
     	 	<div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">제 목</span>
-                <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="noteTitle" id="noteTitle" value="${students.noteTitle}"/>
-            </div>
-	      	<div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">아이디</span>
-                <div class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="studentId" id="studentId" value="${students.studentId}">${user.userId}</div>
-            </div>
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
+	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+	             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
+        	</div>
+            <input type="hidden" class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+            	name="studentId" id="studentId" value="${user.userId}" <%-- value="${students.studentId}" --%> aria-describedby="button-addon1"/>
+
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
 	                  placeholder="내용을 입력해주세요"
@@ -146,6 +141,7 @@
  	      	  <input type="button" onclick="submitPost();" value="작성" class="btn btn-outline-primary"/>
 			  <button id="CalcelBtn" type="button" class="btn btn-outline-primary">취소</button>
 		  </div>
+	  </div>
     </form>
     
     <script>

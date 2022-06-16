@@ -27,8 +27,8 @@ public class HomeworkTest {
 	public void testAddHomework() throws Exception {
 		Paper paper = new Paper();
 		
-		paper.setStudentId("student31");
-		paper.setLessonCode("abcd1234");
+		paper.setStudentId("student33");
+		paper.getLessonName().setLessonName(null);
 		paper.setHomeworkTitle("프로젝트");
 		paper.setHomeworkContent("분석설계");
 		paper.setHomeworkDueDate("2022/06/06");

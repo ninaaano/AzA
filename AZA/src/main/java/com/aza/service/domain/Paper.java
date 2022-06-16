@@ -33,6 +33,9 @@ public class Paper {
 	private Lesson teacherId;
 	private Students studentName;
 	
+//	private String studentNamee;
+//	private String lessonNamee;
+	
 	public Paper() {
 		
 	}

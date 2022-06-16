@@ -232,7 +232,7 @@ public class StudentsController {
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		
-		// ì„ì‹œ => sessionìœ¼ë¡œ ì“¸ê±°
+		// ÀÓ½Ã => sessionÀ¸·Î ¾µ°Å
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
@@ -375,13 +375,13 @@ public class StudentsController {
 		return mv;			
 	}
 	
-	// CHARACTER testí›„ ìˆ˜ì • ===================================
-	// ë‹¨ìˆœ viewì—°ê²°
+	// CHARACTER testÈÄ ¼öÁ¤ ===================================
+	// ´Ü¼ø view¿¬°á
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: GET ::ë‹¨ìˆœ View");
+		System.out.println("/students/addStudentsCharacter :: GET ::´Ü¼ø View");
 		
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		
@@ -411,7 +411,7 @@ public class StudentsController {
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
 			HttpSession session) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: POST ::ë“±ë¡");
+		System.out.println("/students/addStudentsCharacter :: POST ::µî·Ï");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -427,7 +427,7 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView updateStudentsCharacter(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter :: GET :: ë‹¨ìˆœ VIEW");
+		System.out.println("/students/updateStudentsCharacter :: GET :: ´Ü¼ø VIEW");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -443,7 +443,7 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView updateStudentsCharacter(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter :: POST :: ìˆ˜ì •í•˜ê¸°");
+		System.out.println("/students/updateStudentsCharacter :: POST :: ¼öÁ¤ÇÏ±â");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -494,7 +494,7 @@ public class StudentsController {
 		
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(studentId);
-		search.setSearchKeyword("ìˆ˜í•™");
+		search.setSearchKeyword("¼öÇĞ");
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);

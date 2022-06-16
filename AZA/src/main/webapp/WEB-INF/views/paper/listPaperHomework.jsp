@@ -16,8 +16,8 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<!-- <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script> -->
+<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -146,10 +146,13 @@ $(function() {
 
 </script>
 
-
-<h3>수업 과제</h3>
+	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+        <h1 class="display-4 mb-0">과 제 목 록</h1>
+        <div class="text-muted">Homework List</div>
+    </div>
+    
 <form>	
-		<div class="card-body p-4">
+		<div class="card-body p-4" style="margin: 20px 20px 20px 20px">
             <!-- Simple DataTables example-->
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
             	<div class="dataTable-top">

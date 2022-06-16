@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', event => {
-
+	
     const datatablesSimpleNote = document.getElementById('datatablesSimpleNote');
 
     if (datatablesSimpleNote) {
@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', event => {
 				}	
 				
 				
-         /*new simpleDatatables.DataTable(datatablesSimpleNote, {
+         new simpleDatatables.DataTable(datatablesSimpleNote, {
 			data,
 			columns:[
 				{
@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', event => {
 	                orderData: [0, 1],
 	            },
             ],	
-		});*/
+		});
 			}}
 		})
     }

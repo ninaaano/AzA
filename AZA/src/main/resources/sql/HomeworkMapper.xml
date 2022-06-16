@@ -29,11 +29,13 @@
 
 	<!-- HOMEWORK :: INSERT -->
 	<insert id="addPaperHomework">
-	INSERT INTO homework(homework_code, student_id, lesson_code, homework_title,
+	INSERT INTO homework(homework_code, student_id, student_name, lesson_code, homework_title,
 	homework_contents, homework_due_date, homework_check, homework_create_at)
 	VALUES(seq_homework_homework_code.NEXTVAL,
 	 		 #{studentId},
-	 		 #{lessonCode},
+	 		 (SELECT user_name FROM users WHERE user_id = #{studentId}), 
+	 		 <!-- #{lessonCode}, -->
+	 		 (SELECT lesson_code FROM lesson WHERE lesson_name = #{lessonName}),
 	 		 #{homeworkTitle},
 	 		 #{homeworkContent},
 	 		 #{homeworkDueDate},
