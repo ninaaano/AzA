@@ -1,9 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--  날짜 ,금액 포맷 lib-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="EUC-KR"> 
 <title>listPayment</title>
 
 
@@ -52,17 +56,20 @@ function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
 }
+
 	//검색
 		$(function() {
 		 	$( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
+
 			});
 		 
 		});
 	
 	
 		 $(function() {
+
 			 	$("td:contains('상세보기')").on("click" , function() {
 					
 					 var payCode = $(this).attr("payCode");
@@ -70,17 +77,21 @@ function fncGetList(currentPage) {
 					 
 					 
 			 		self.location ="/payment/getPayment/"+payCode;
+
 				}); 
 			 });				
+
 /* 테스트 
 $(function() {
 	$("td:nth-child(3)").on("click" , function() {
 		alert("hi!");
+
 		var payCode = $(this).attr("payCode");
 		alert(payCode);
 		
 	    var amonut = $("#amount").text().trim();
 	    alert("test 금액 => " + amonut);
+
 		$.ajax(
 			{
 				url: "/payment/rest/getPayment/"+payCode,
@@ -106,15 +117,20 @@ $(function() {
 					}
 				
 			});
+
 	});
 });
-<<<<<<< HEAD
  */
+
 </script>
 </head>
 <body>
 
-<h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> O </a> </h3> 
+
+
+
+<h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> 1 </a> </h3> 
+
 <form>				
 				
 				<table>
@@ -132,6 +148,7 @@ $(function() {
                            <li><a class="dropdown-item" href="#!">기간</a></li>
                            <li><a class="dropdown-item" href="#!">수납여부</a></li>
                        </ul>
+
                    </div>
 	               </td> -->
 	               
@@ -144,18 +161,18 @@ $(function() {
 					</select> 
 					</td>
 					<td>
+
 							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
 							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
-
 					<td>
 					
 					<td>
-
 							<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" name="searchKeyword" 
 							value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
 									
 						
 						 </td>
+
 					<td align="right" width="70">
 					<button class="btn btn-raised-light" type="submit" id="searchPayment">검색</button>
 				</td>
@@ -163,6 +180,9 @@ $(function() {
 				</tr>
 				<tr> <td height="20"></td> </tr>
 				</table>
+
+
+
 <table id="datatablesSimple" class="dataTable-table">
 	
 	
@@ -218,7 +238,7 @@ $(function() {
 				<td align="center">${payment.studentName}</td>
 				
 				<td align="center" id="amount" >
-					<fmt:formatNumber value="${payment.amount}" pattern="#,###" />원
+					${payment.amount}
 				</td>
 				
 				<td align="center">${payment.payDueDate }</td>
@@ -229,11 +249,12 @@ $(function() {
 				</td>
 				
 				<td align="center">${payment.checkPay }</td>
-				<td align="center" payCode="${payment.payCode}">
-				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
+				<td align="center">
+				<button class="btn btn-raised-warning" type="button" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">
 						상세보기
 			　</button>			
 				</td>
+
 				</tr>
 	 </c:forEach>
 </table>	
