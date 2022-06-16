@@ -76,18 +76,7 @@ function addStudentsCharacter() {
 	var studentId =$('option:selected').val().trim();
 	alert("id=>"+studentId);
 	alert("name=>"+studentName); 
-	
-	var obj;
-	 obj = document.createElement('input');
-		obj.setAttribute('method','POST');
-		obj.setAttribute('action', "/students/addStudentsCharacter");
-	
-		obj.setAttribute('type', 'hidden');
-	    obj.setAttribute('name', 'studentName');
-	    obj.setAttribute('value', studentName);
-	alert("obj=>"+obj); 
-
-	
+		
 	if(characterContent == null || characterContent.length < 1){
 		
 		alert("특징은 필수 입력 항목입니다.🙄🙄");

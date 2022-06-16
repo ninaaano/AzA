@@ -450,7 +450,7 @@ public class StudentsController {
 		
 		studentsService.updateStudentsCharacter(students);
 
-		mv.setViewName("/students/updateStudentsCharacter");
+		mv.setViewName("/students/getStudentsCharacter");
 		
 		return mv;		
 	}
@@ -474,15 +474,15 @@ public class StudentsController {
 	
 	
 	
-	@RequestMapping(value="getStudentsCharacter")
-	public ModelAndView getStudentCharacter(@RequestParam("characterCode") int characterCode, ModelAndView mv) throws Exception{
+	@RequestMapping(value="getStudentsCharacter/{characterCode}")
+	public ModelAndView getStudentCharacter(@PathVariable("characterCode") int characterCode, ModelAndView mv) throws Exception{
 		
 		System.out.println("getStudentsCharacter ... ");
 		
 		Students students = studentsService.getStudentsCharacter(characterCode);
 		mv.addObject("students",students);
 		mv.setViewName("/students/getStudentsCharacter");
-		System.out.println("Code Test ====>> " + characterCode);
+		System.out.println("GET Code  ====>> " + characterCode);
 		return mv;
 	}
 	

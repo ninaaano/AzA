@@ -70,7 +70,7 @@ function deleteStudentsCharacter() {
 
 function updateStudentsCharacter() {
 
-	$("form").attr("method" , "POST").attr("action" , "/students/updateStudentsCharacter").submit();
+	$("form").attr("method" , "GET").attr("action" , "/students/updateStudentsCharacter").submit();
 
 }
 
@@ -78,12 +78,10 @@ function updateStudentsCharacter() {
 
 </head>
 <body>
-<% String hidden_name = request.getParameter("studentName");%>
 
-<input value="<%=hidden_name%> ">
-<h3>Students Character ! </h3>
+ <h3>Students Character ! </h3>
 <br/>
-<form>
+<%--
 <div align="center" class="character">
 <h3>👻 ${students.studentName}의 특징 👻</h3>
 
@@ -100,7 +98,40 @@ style="width:600px;height:500px;">
 	<button class="btn btn-raised-danger" type="button">삭제</button>
 	<button class="btn btn-raised-light" type="button">확인</button>
 
-</div>
+</div> --%>
+
+
+<!--  -->
+<form>
+
+			<div class="card card-raised border-top border-4 border-primary h-100"  align="center">
+                                    <div class="card-body p-5">
+                                        <div class="overline text-muted mb-4"></div>
+                                        <h1>👻 ${students.studentName}의 특징 👻</h1>
+                                        <p class="card-text mb-4" name="characterCode">character Code : ${students.characterCode }</p>
+                                        <p class="card-text mb-4" name="studentId">studentId : ${students.studentId }</p>
+                                        <table class="table table-sm mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td><div class="text-muted fst-italic" name="characterContent">${students.characterContent}</div></td>
+<!--                                                     <td>Roger Henn</td>
+                                                    <td class="text-end"><div class="text-muted">-$5,400.00</div></td> -->
+                                                </tr>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer bg-transparent position-relative ripple-gray">
+<!--                                         <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary" href="#!">
+                                            <div class="fst-button">View More</div>
+                                            <i class="material-icons icon-sm ms-1">chevron_right</i> -->
+                                      <!--   </a> -->
+                                      		<button class="btn btn-raised-primary" type="button">수정</button>
+											<button class="btn btn-raised-danger" type="button">삭제</button>
+											<button class="btn btn-raised-light" type="button">확인</button>
+                                    </div>  
+              </div>
+
+
+<!--  -->
 
 </form>
 

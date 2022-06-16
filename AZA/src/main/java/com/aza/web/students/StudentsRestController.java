@@ -199,5 +199,14 @@ public class StudentsRestController {
 		studentsService.deleteStudentsExam(examCode);
 	}
 	
+	@RequestMapping(value = "getStudentsCharacter/{characterCode}")
+	public Students getStudentsCharacter(@PathVariable int characterCode) throws Exception{
+		
+		System.out.println("restGetStudentCharacter...");
+		Students students = new Students();
+		students = studentsService.getStudentsCharacter(characterCode);
+		
+		return students;		
+	}
 	
 }
