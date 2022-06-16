@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aza.common.Search;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
 
@@ -90,6 +91,16 @@ public class UserController {
 		
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
+			
+			if(dbUser.getRole().equals("parent")) {
+				Search search = new Search();
+				search.setPageSize(pageSize);
+				search.setCurrentPage(1);
+				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
+				
+				session.setAttribute("students", students);
+			}
+			
 			
 			System.out.println(session.getAttribute("user"));
 			System.out.println("로그인 성공이시다");

@@ -758,8 +758,10 @@ $(function() {
 							    ÀÚ³à ¼±ÅÃ
 							  </a>							
 							  	<ul class="dropdown-menu">
-								  <li><a class="dropdown-item" href="#">Action</a></li>
-								  <li><a class="dropdown-item" href="#">Another action</a></li>
+							  		<c:set var="i" value="0" />
+							  		<c:forEach var="student" items="${students}">
+							  			<li><a class="dropdown-item" href="#">${student.firstStudentId}</a></li>
+							  		</c:forEach>
 								</ul>
 							</div>
                              <nav>

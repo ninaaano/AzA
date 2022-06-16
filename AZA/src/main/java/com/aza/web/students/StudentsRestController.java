@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -110,38 +111,45 @@ public class StudentsRestController {
 	
 	
 	// ATTENDANCE
-	@RequestMapping(value="listStudentsAttendance/{month}", method=RequestMethod.POST)
-	public Map<String, Object> listStudentsAttendance(@PathVariable("month") String month, HttpSession session) throws Exception {
+	@RequestMapping(value="listStudentsAttendance/{month}/{year}", method=RequestMethod.POST)
+	public Map<String, Object> listStudentsAttendance(	@PathVariable("month") int month, 
+														@PathVariable(required = false, value="year") String year, 
+														HttpSession session,
+														@RequestParam(required = false, value="studentId") String studentId,
+														@RequestParam(required = false, value="lessonCode") String lessonCode
+														) throws Exception {
 		
 		System.out.println("/students/rest/listStudentsAttendance");
 		
 		LocalDate now = LocalDate.now();
-		String searchStartDate = now.getYear() + "/" + month + "/01";
-		String searchEndDate = now.getYear() + "/" + month + "/31";
+		String prevMonth = Integer.toString(month - 1); 
+		prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
+		
+		if(year == null) {
+			year = Integer.toString(now.getYear());
+		}
+		
+		String searchStartDate = year + "/" + prevMonth + "/31";
+		String searchEndDate = year + "/" + month + "/31";
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		Search search = new Search();
-		
-		// 임시 => session으로 쓸거
-		if(search.getCurrentPage() == 0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		
-		//Map<String, Object> map = userService.listRelationByParent(search, userId);
-		List students = (List) userService.listRelationByParent(search, userId).get("list");	
-		
-		String studentId = ((User) students.get(0)).getFirstStudentId();
-		System.out.println("students : "+studentId);
-		
-		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
-		String lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
-		System.out.println("lessons : "+lessonCode);
-		
-		//
-		search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(31);
+		
+		if(studentId == null) {
+			List students = (List) session.getAttribute("students");
+			studentId = ((User) students.get(0)).getFirstStudentId();			
+		}
+		
+		System.out.println("studentId : "+studentId);
+		
+		if(lessonCode == null) {
+			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
+			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();	
+		}
+		
+		System.out.println("lessonCode : "+lessonCode);
 
 		return studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);	
 	}

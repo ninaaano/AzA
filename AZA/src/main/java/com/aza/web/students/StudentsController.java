@@ -220,44 +220,43 @@ public class StudentsController {
 		String searchEndDate = search.getSearchEndDate();	
 		
 		System.out.println(search);
-		//System.out.println(month);
-		//System.out.println(year);
-		
+
+		// 날짜 설정
 		if(search.getSearchStartDate() == null || search.getSearchStartDate().length() < 1) {
 			LocalDate now = LocalDate.now();
-			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/01"));
+			String prevMonth = Integer.toString(now.getMonthValue() - 1); 
+			prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
+			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/"+prevMonth+"/31"));
 			searchEndDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/31"));			
 		}
 		
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
+		List students = (List) session.getAttribute("students");
 		
-		// 임시 => session으로 쓸거
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
-		//Map<String, Object> map = userService.listRelationByParent(search, userId);
-		
 		if(studentId == null) {
-			List students = (List) userService.listRelationByParent(search, userId).get("list");	
 			studentId = ((User) students.get(0)).getFirstStudentId();			
 		}
+		
+		User student = userService.getUser(studentId);
 
-		System.out.println("students : "+studentId);
+		System.out.println("student : "+student);
+		
+		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
 		
 		if(lessonCode == null) {
-			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
 			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
-			
 		}
 
-		System.out.println("lessons : "+lessonCode);
+		System.out.println("lessonCode : "+lessonCode);
 		
-		search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(pageSize);
+		search.setPageSize(31);
 		
 		Map<String, Object> map = studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);
 		
@@ -269,6 +268,8 @@ public class StudentsController {
 		mv.addObject("listStudentsRecord", map.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
+		mv.addObject("students", students);
+		mv.addObject("lessons", lessons);
 
 		return mv;			
 	}
