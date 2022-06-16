@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
+<meta charset="EUC-KR"> 
 <title>addCharacter</title>
 
 
@@ -50,14 +50,14 @@
 </style>
 <script type="text/javascript">
 $(function() {
-	$( "button.btn.btn-raised-info:contains('ë“±ë¡')" ).on("click" , function() {
-		alert("ë“±ë¡ click");
+	$( "button.btn.btn-raised-info:contains('µî·Ï')" ).on("click" , function() {
+		alert("µî·Ï click");
 
 		addStudentsCharacter();
 	});
 });
 
-   $(function() {
+/*    $(function() {
 	$( '#studentName' ).on('change' , function() {
 		
 		var studentName = $('option:selected').text().trim()
@@ -67,8 +67,11 @@ $(function() {
 		alert("name=>"+studentName); 
 
 	});
-});   
+});    */
 
+   
+   
+   
 function addStudentsCharacter() {
 	
 	var characterContent = $("textarea[name='characterContent']").val();
@@ -79,7 +82,7 @@ function addStudentsCharacter() {
 		
 	if(characterContent == null || characterContent.length < 1){
 		
-		alert("íŠ¹ì§•ì€ í•„ìˆ˜ ì…ë ¥ í•­ëª©ì…ë‹ˆë‹¤.ğŸ™„ğŸ™„");
+		alert("Æ¯Â¡Àº ÇÊ¼ö ÀÔ·Â Ç×¸ñÀÔ´Ï´Ù.");
 		return;
 	}
 			
@@ -91,19 +94,19 @@ function addStudentsCharacter() {
 
 </head>
 <body>
-<h3>í•™ìƒ íŠ¹ì§• ë“±ë¡</h3>
+
 <form>
 
-<!-- í•™ìƒ list -->
-<div>
-	
-			<select id="studentName" name="studentId">
+<!-- ÇĞ»ı list -->
+<div align="center">
+	<h3>ÇĞ»ı Æ¯Â¡ µî·Ï</h3>
+			<select id="studentName" name="studentId" >
+
 				<c:set var="i" value="0" />
 				<c:forEach var="students" items="${list}">
 		 	    <c:set var="i" value="${ i+1 }" />	  
 						
 						<option align="center" value="${students.studentId }">${students.studentName}
-						<%-- <td align="center" id="studentName"   value="${students.studentName}">${students.studentName}</td> --%>
 	
 				 </c:forEach>
 				</select>
@@ -113,14 +116,14 @@ function addStudentsCharacter() {
 
 
 
-	<textarea class="dataTable-input" placeholder="í•™ìƒì˜ íŠ¹ì§•ì„ ì‘ì„±í•´ì£¼ì„¸ìš” :)" 
+	<textarea class="dataTable-input" placeholder="Æ¯Â¡À» ÀÔ·ÂÇØÁÖ¼¼¿ä :)" 
 	type="text" style="width:600px;height:500px;"
 	name="characterContent" value="${students.characterContent}"></textarea>
 	
 	<br/>
 	
-	<button class="btn btn-raised-info" type="button">ë“±ë¡</button>
-	<button class="btn btn-raised-danger" type="button">ì·¨ì†Œ</button>
+	<button class="btn btn-raised-info" type="button">µî·Ï</button>
+	<button class="btn btn-raised-danger" type="button">Ãë¼Ò</button>
 </div>
 <br/>
 

@@ -59,6 +59,9 @@ public interface StudentsService {
 
 	//  SELECT
 	public Students getStudentsCharacter(int characterCode) throws Exception;
+	
+	//list
+	public Map<String, Object> listStudentsCharacter(Search search) throws Exception;
 
 	// exam =======================================================
 	// INSERT

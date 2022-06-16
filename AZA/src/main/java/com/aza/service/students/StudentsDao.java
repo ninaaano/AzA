@@ -69,6 +69,10 @@ public interface StudentsDao {
 
 	//  SELECT
 	public Students getStudentsCharacter(int characterCode) throws Exception;
+	
+	// 드롭 다운
+	public List<Students> listStudentsCharacter(Search search) throws Exception;
+	public int getStudentsCharacterTotalCount(Search search) throws Exception;
 
 	// exam ================================================
 	// INSERT

@@ -225,6 +225,18 @@ public class StudentsServiceImpl implements StudentsService {
 		// TODO Auto-generated method stub
 		return studentsDao.getStudentsCharacter(characterCode);
 	}
+	
+	@Override
+	public Map<String, Object> listStudentsCharacter(Search search) throws Exception {
+		List<Students> list = studentsDao.listStudentsCharacter(search);
+		int totalCount = studentsDao.getStudentsCharacterTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
@@ -294,4 +306,6 @@ public class StudentsServiceImpl implements StudentsService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
+
 }
