@@ -22,6 +22,7 @@ import com.aza.service.lesson.LessonService;
 @SpringBootTest
 public class LessonServiceTest {
 
+	private static final int Object = 0;
 	@Autowired
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
@@ -212,23 +213,54 @@ public class LessonServiceTest {
 		lessonService.deleteLessonSchedule(1022);
 		System.out.println("delete 완료");
 	}
+
 	
 	//OK
 	//@Test
-	public void listLessonSchedule() throws Exception{
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(3);
-		Map<String, Object> map = lessonService.listLessonSchedule(search,"teacher51");
+//	public void listLessonSchedule() throws Exception{
+//		Search search = new Search();
+//		search.setCurrentPage(1);
+//		search.setPageSize(3);
+//		Map<String, Object> map = lessonService.listLessonSchedule(search,"teacher51");
+//		System.out.println(map);
+//		
+//		List<Object> list = (List<Object>)map.get("list");
+////		assertEquals(3, list.size());
+//		
+//		System.out.println(list);
+////				
+//		Integer totalCount = (Integer)map.get("totalCount");
+//		System.out.println(totalCount);	
+//	}
+	
+	
+	
+	//@Test
+	public void testLessonTime() throws Exception{
+		Map<String, Object> map = lessonService.listLessonTime("teacher51", "화");
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");
-//		assertEquals(3, list.size());
-		
 		System.out.println(list);
-//				
-		Integer totalCount = (Integer)map.get("totalCount");
-		System.out.println(totalCount);	
 	}
+	
+	
+	
+	//@Test
+//	public void testlistLessonStudent() throws Exception{
+//		Search search = new Search();
+//		search.setCurrentPage(1);
+//		search.setPageSize(3);
+//		Map<String, Object> map = lessonService.listLessonStudent(search,"student5");
+////		Map<String, Object> map = lessonService.listLesson(search,"student5");
+//		System.out.println(map);
+//		
+//		List<Object> list = (List<Object>)map.get("list");
+////		assertEquals(3, list.size());
+//		
+//		System.out.println(list);
+//				
+//		Integer totalCount = (Integer)map.get("totalCount");
+//	}
 	
 }

@@ -107,8 +107,12 @@ public class LessonController {
 		}
 	}
 	
-	@RequestMapping(value="getLesson")
+	@RequestMapping(value="getLesson", method=RequestMethod.GET)
 	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
+		System.out.println("==========");
+		System.out.println("getLesson start.....");
+		System.out.println("==========");
+		
 		ModelAndView model = new ModelAndView();
 		Lesson lesson = lessonService.getLesson(lessonCode);
 		
@@ -117,7 +121,7 @@ public class LessonController {
 		return model;
 	}
 	
-	@RequestMapping(value="updateLessonView")
+	@RequestMapping(value="updateLessonView", method=RequestMethod.GET)
 	public ModelAndView updateLessonView(@RequestParam("lessonCode") String lessonCode) throws Exception {
 		ModelAndView model = new ModelAndView();
 		Lesson lesson = lessonService.getLesson(lessonCode);
@@ -127,11 +131,11 @@ public class LessonController {
 		return model;
 	}
 	
-	@RequestMapping(value="udpateLesson")
+	@RequestMapping(value="udpateLesson", method=RequestMethod.POST)
 	public ModelAndView updateLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();
 		lessonService.updateLesson(lesson);
-		model.setViewName("redirect:/lesson/getLesson");
+		model.setViewName("redirect:/lesson/getLesson?lessonCode="+lesson.getLessonCode());
 		return model;
 	}
 	

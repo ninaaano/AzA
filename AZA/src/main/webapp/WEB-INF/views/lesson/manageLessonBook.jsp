@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page pageEncoding="EUC-KR" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

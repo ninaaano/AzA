@@ -48,6 +48,7 @@ public class ScheduleRestController {
 		System.out.println(this.getClass());
 	}
 	
+	
 	@RequestMapping(value="manageLessonSchedule")
 	public Map<String, Object> manageLessonSchedule(HttpSession session) throws Exception{
 		User user = (User)session.getAttribute("user");

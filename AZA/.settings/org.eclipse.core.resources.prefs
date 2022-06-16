@@ -6,5 +6,6 @@ encoding//src/main/java/com/aza/service/students/impl/StudentsServiceImpl.java=E
 encoding//src/main/java/com/aza/service/user/UserService.java=EUC-KR
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/views/chatbot/chatbot.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/lesson/updateLessonView.jsp=EUC-KR
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

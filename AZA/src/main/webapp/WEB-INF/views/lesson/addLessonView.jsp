@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page pageEncoding="EUC-KR" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,20 +37,24 @@
         <div class="col-sm-10">
           <input type="text" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="수업종료시간">
         </div>
+       </div>
         <div class="form-group">
             <label for="lessonPlace" class="col-sm-2 control-label">수업장소</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="수업장소">
+        </div>
         </div>
         <div class="form-group">
             <label for="fees" class="col-sm-2 control-label">수업료</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="fees" name="fees" placeholder="수업료">
         </div>
+        </div>
         <div class="form-group">
             <label for="lessonContent" class="col-sm-2 control-label">수업커리큘럼</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="커리큘럼">
+        </div>
         </div>
 
        <div class="form-group">

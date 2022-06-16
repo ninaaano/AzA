@@ -50,6 +50,8 @@ public class LessonServiceImpl implements LessonService {
 	@Override
 	public void updateLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("updateLesson DB 접속");
+		System.out.println(lesson);
 		lessonDao.updateLesson(lesson);
 	}
 
@@ -80,6 +82,18 @@ public class LessonServiceImpl implements LessonService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+		
+	}
+	
+	@Override
+	public Map<String, Object> listLessonTime(String teacherId, String lessonDay) throws Exception {
+		// TODO Auto-generated method stub
+		List<Lesson> list = lessonDao.listLessonTime(teacherId, lessonDay);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
 		
 		return map;
 	}
@@ -165,5 +179,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		return map;
 	}
+
+
 	
 }
