@@ -755,14 +755,40 @@ $(function() {
 				<div id="calendar">
 				달력
 				</div>
-			     <div id="addStudentsAttendance">
-			    	
+				<div class="row d-flex justify-content-around">
+				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
+	                          <div class="card card-raised overflow-hidden h-100">
+	                              <div class="card-header bg-primary text-white">
+	                                  <div id="curDate" class="d-flex justify-content-between align-items-center"></div>
+	                              </div>
+	                              <div class="card-body bg-transparent p-0">
+	                                  <div class="list-group list-group-flush">
+	                                      <div class="list-group-item d-flex justify-content-between align-items-center">
+	                                          <div class="col-6 caption font-monospace text-muted">Time</div>
+	                                          <div class="col-6 caption text-muted ms-2">수업명</div>
+	                                      </div>
+	                                      <div id="curLessonList"></div>
+	                                 </div>
+	                           	  </div>
+	                          </div>
+	                     </div>
+	                
+                     
 			     
-			     </div>
-			     <div id="lessonTimeTable">
-			     시간표
 			     
-			     
+				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
+				    	
+                         <div class="card card-raised h-100 overflow-hidden">
+                             <div id="curLessonName" class="card-header bg-white">
+                             	<div>출석 체크</div>
+                             </div>
+                             <div id="curAttendanceList" class="card-body bg-transparent p-0">
+                                 
+                             </div>
+                         </div>
+	                            
+				     
+				     </div>
 			     </div>
 			                           
 							

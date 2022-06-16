@@ -11,7 +11,7 @@
 		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
 		<result property="lessonDay" column="lesson_day" jdbcType="VARCHAR" />
 		<result property="lessonStartTime" column="lesson_start_time" jdbcType="VARCHAR" />
-		<result property="lessonEndTime" column="lesson_End_time" jdbcType="VARCHAR" />
+		<result property="lessonEndTime" column="lesson_end_time" jdbcType="VARCHAR" />
 		<result property="lessonPlace" column="lesson_place" jdbcType="VARCHAR" />
 		<result property="fees" column="fees" jdbcType="NUMERIC" />
 		<result property="subject" column="subject" jdbcType="VARCHAR"/>
@@ -72,10 +72,12 @@
 		<set> 
 			lesson_name = #{lessonName:VARCHAR},
 			lesson_day = #{lessonDay:VARCHAR},
+			lesson_start_time = #{lessonStartTime:VARCHAR},
+			lesson_end_time = #{lessonEndTime:VARCHAR},
 			lesson_place = #{lessonPlace:VARCHAR},
 			fees = #{fees:NUMERIC},
 			subject = #{subject:VARCHAR},
-			lesson_content= #{lessonContent:VARCHAR}
+			lesson_content = #{lessonContent:VARCHAR}
 		</set>
 		WHERE lesson_code = #{lessonCode}
 	</update>
@@ -84,6 +86,13 @@
 		DELETE FROM lesson
 		WHERE lesson_code = #{lessonCode}
 	</delete>
+	
+	<select id = "listLessonTime" resultMap="lessonSelectMap">
+		select L.*
+		from lesson L
+		where L.teacher_id = #{teacherId} and lesson_day like '%${lessonDay}%'
+		order by lesson_start_time
+	</select>
 
 	
 	<select id = "listLessonTeacher" resultMap="lessonSelectMap">
@@ -186,4 +195,3 @@
 	 </select>
 	 
 </mapper>
-

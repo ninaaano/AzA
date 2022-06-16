@@ -63,7 +63,7 @@ public class StudentsRestController {
 	
 	// STUDENTS_RECORD :: 승인 완료된 학생들만
 	@RequestMapping("listStudentsRecord")
-	public Map<String, Object> listStudentsRecord(HttpSession session) throws Exception {
+	public Map<String, Object> listStudentsRecord(HttpSession session, @RequestParam(required = false, value = "lessonCode") String lessonCode) throws Exception {
 		
 		System.out.println("/students/rest/listStudentsRecord");
 		
@@ -73,8 +73,14 @@ public class StudentsRestController {
 		int totalCount = (int) studentsService.listStudentsRecord(search, teacherId).get("totalCount");
 		search.setCurrentPage(1);
 		search.setPageSize(totalCount);
-				
-		return studentsService.listStudentsRecord(search, teacherId);		
+		
+		if(lessonCode != null && lessonCode.length() > 1) {
+			
+			search.setSearchCondition("2");
+			search.setSearchKeyword(lessonCode);
+			
+		}
+		return studentsService.listStudentsRecord(search, teacherId);			
 	}
 	
 	// STUDENTS_RECORD :: 승인 요청된 학생들만

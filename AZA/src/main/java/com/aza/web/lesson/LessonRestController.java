@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -118,5 +119,39 @@ public class LessonRestController {
 	public void deleteLessonBook(@PathVariable String isbn) throws Exception{
 		lessonService.deleteLessonBook(isbn);
 	}
+
+//	1.선생님 이름 넣었을때 오늘 듣는 수업 요일 넣었을때 
+//	2.해당 시간에 맞는 수업을 찾아내야함 
+//	3.시간  /  수업명
+	@RequestMapping("/listLessonTime")
+	public List listLessonTime(HttpSession session, @RequestParam(required = false) String lessonDay) throws Exception{
+		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		
+		String day ="";
+		switch(lessonDay){
+			case "0": day = "일";
+				break;
+			case "1": day = "월";
+				break;
+			case "2": day = "화";
+				break;
+			case "3": day = "수";
+				break;
+			case "4": day = "목";
+				break;
+			case "5": day = "금";
+				break;
+			case "6": day = "토";
+				break;
+		}
+		
+		Map<String, Object> map = lessonService.listLessonTime(teacherId, day);
 	
+		return (List) map.get("list");
+	}
 }
+
+		
+		
+		
+		
