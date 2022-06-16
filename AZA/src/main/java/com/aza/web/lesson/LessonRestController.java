@@ -53,7 +53,7 @@ public class LessonRestController {
 		return true;
 	}
 	
-	@RequestMapping(value="addLessonBook")
+	@RequestMapping("/addLessonBook")
 	public ModelAndView addLessonBook(@RequestBody  Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();
 		try {
@@ -120,9 +120,6 @@ public class LessonRestController {
 		lessonService.deleteLessonBook(isbn);
 	}
 
-//	1.선생님 이름 넣었을때 오늘 듣는 수업 요일 넣었을때 
-//	2.해당 시간에 맞는 수업을 찾아내야함 
-//	3.시간  /  수업명
 	@RequestMapping("/listLessonTime")
 	public List<Map<String, Object>> listLessonTime(HttpSession session, @RequestParam(required = false) int lessonDay) throws Exception{
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
@@ -144,10 +141,12 @@ public class LessonRestController {
 				break;
 		}
 		
+		
 		Map<String, Object> map = lessonService.listLessonTime(teacherId, day);
 		
-		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("result");
-		return list;
+
+		//List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("result");
+		return null;
 	}
 }
 

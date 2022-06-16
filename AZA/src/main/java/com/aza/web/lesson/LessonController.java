@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,8 +28,7 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 @RequestMapping("/lesson/*")
 public class LessonController {
@@ -42,12 +42,10 @@ public class LessonController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
+	@Value("${pageUnit}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
+	@Value("${pageSize}")
 	int pageSize;
 	
 	@RequestMapping(value="addLessonView", method=RequestMethod.GET)
@@ -60,16 +58,18 @@ public class LessonController {
 	}
 	
 	@RequestMapping(value="addLesson", method=RequestMethod.POST)
-	public ModelAndView addLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
+	public ModelAndView addLesson(@ModelAttribute("lesson") Lesson lesson, HttpSession session) throws Exception{
 		ModelAndView model = new ModelAndView();
+		String teacherId = ((User)session.getAttribute("user")).getUserId();
 		
+		lesson.setTeacherId(teacherId);
 		lessonService.addLesson(lesson);
 		model.setViewName("redirect:/lesson/listLesson");
 		
 		return model;
 	}
 	
-	@RequestMapping(value="listLesson")
+	@RequestMapping("listLesson")
 	public ModelAndView listLesson(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -143,6 +143,9 @@ public class LessonController {
 	@RequestMapping(value="deleteLesson")
 	public ModelAndView deleteLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
 		ModelAndView model = new ModelAndView();
+		System.out.println("===========");
+		System.out.println("deleteLesson Ω√¿€");
+		System.out.println("===========");
 		lessonService.deleteLesson(lessonCode);
 		model.setViewName("redirect:/lesson/listLesson");
 		return model;
@@ -181,5 +184,6 @@ public class LessonController {
 		
 		return model;
 	}
+	
 	
 }

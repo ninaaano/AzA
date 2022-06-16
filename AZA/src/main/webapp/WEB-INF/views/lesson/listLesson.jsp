@@ -1,11 +1,11 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>¼ö¾÷ ¸ñ·Ï Á¶È¸</title>
+<title>ìˆ˜ì—… ëª©ë¡ ì¡°íšŒ</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -22,45 +22,44 @@
 		})
 	})
 	
-	function fncAddLesson(){
-		$("form").attr("method","GET").attr("action","/product/addLessonView").submit();
-	}
 	$(function(){
-		$("button.btn.btn-primary").on("click",function(){
-			fncAddLesson();
+		$("td.btn01:contains('ìˆ˜ì—…ì¶”ê°€')").on("click",function(){
+			self.location = "/lesson/addLessonView"
 		});
 	});
 </script>
 
 </head>
 <body>
-	<h1>¼ö¾÷ ¸ñ·Ï</h1>
-
-				<div>
-					<button type="button" class="btn btn-primary">¼ö¾÷Ãß°¡</button>
-				</div>
-			
+	<h1>ìˆ˜ì—… ëª©ë¡</h1>
+	<table>
+		<tr>
+		<td class="btn01">
+			ìˆ˜ì—…ì¶”ê°€
+		</td>
+		</tr>
+	</table>
 	
 	<table border="1" cellspacing = "0" cellpadding = "10px">
 		<thead>
 			<tr>
 				<td class="ct_list_b" width="100">number</td>
 				
-				<td class="ct_list_b" width="100">¼ö¾÷¸í</td>
+				<td class="ct_list_b" width="100">ìˆ˜ì—…ëª…</td>
 				
-				<th class="ct_list_b" width="100">¼±»ı´Ô ÀÌ¸§</th>
+				<th class="ct_list_b" width="100">ì„ ìƒë‹˜ ì´ë¦„</th>
 				
-				<th class="ct_list_b" width="150">¼ö¾÷¿äÀÏ</th>
+				<th class="ct_list_b" width="150">ìˆ˜ì—…ìš”ì¼</th>
 				
-				<th class="ct_list_b" width="150">¼ö¾÷½ÃÀÛ½Ã°£</th>
+				<th class="ct_list_b" width="150">ìˆ˜ì—…ì‹œì‘ì‹œê°„</th>
 				
-				<th class="ct_list_b" width="150">¼ö¾÷Á¾·á½Ã°£</th>
+				<th class="ct_list_b" width="150">ìˆ˜ì—…ì¢…ë£Œì‹œê°„</th>
 				
-				<th class="ct_list_b" width="150">¼ö¾÷Àå¼Ò</th>
+				<th class="ct_list_b" width="150">ìˆ˜ì—…ì¥ì†Œ</th>
 				
-				<th class="ct_list_b" width="150">°ú¸ñ¸í</th>
+				<th class="ct_list_b" width="150">ê³¼ëª©ëª…</th>
 				
-				<th class="ct_list_b" width="150">¼ö¾÷ÄÚµå</th>
+				<th class="ct_list_b" width="150">ìˆ˜ì—…ì½”ë“œ</th>
 				
 				<c:if test="${user.role eq 'student'}">
 				    <th class="ct_list_b" width="150">proposal</th>

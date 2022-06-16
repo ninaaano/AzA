@@ -52,7 +52,7 @@
 		INSERT 
 		INTO LESSON	
 		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
-				(SELECT user_id FROM USERS WHERE user_id = {userId}),
+				(SELECT user_id FROM USERS WHERE user_id = #{teacherId}),
 		 		#{lessonName}, #{lessonDay},
 				#{lessonStartTime},#{lessonEndTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
 				TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))

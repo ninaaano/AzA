@@ -1,19 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>¼ö¾÷ »ó¼¼ Á¶È¸</title>
+<meta charset="UTF-8">
+<title>ìˆ˜ì—… ìƒì„¸ ì¡°íšŒ</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> -->
+
+<!-- ëª¨ë‹¬ -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 		$(function(){
-			$("td.ct_btn01:contains('¼öÁ¤')").on("click",function(){
+			$("td.ct_btn01:contains('ìˆ˜ì •')").on("click",function(){
 				self.location="/lesson/updateLessonView?lessonCode=${lesson.lessonCode}"
 			});
+		});	
+		
+		function fncdeleteLesson(){
+			var lessonCode = $("input[name='lessonCode']").val();
+			if(lessonCode != "${lesson.lessonCode}"){
+				alert("ìˆ˜ì—…ì½”ë“œê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+				return;
+			}
+			$("form").attr("method","GET").attr("action","/lesson/deleteLesson").submit();
+		}
+		
+		$(function(){
+			$("button.ct_btn02").on("click",function(){
+				fncdeleteLesson();
+			});
 		});
+		
 </script>
 
 </head>
@@ -23,12 +47,11 @@
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="93%" class="ct_ttl01">¼ö¾÷ »ó¼¼ Á¶È¸</td>
+				<td width="93%" class="ct_ttl01">ìˆ˜ì—… ìƒì„¸ ì¡°íšŒ</td>
 				<td width="20%" align="right">&nbsp;</td>
 			</tr>
 		</table>
 		</td>
-		<td width="12" height="37"><img src="/images/ct_ttl_img03.gif" width="12" height="37"></td>
 	</tr>
 </table>
 
@@ -37,14 +60,13 @@
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
-		<td width="104" class="ct_write">°­ÀÇ¸í </td>
+		<td width="104" class="ct_write">ê°•ì˜ëª… </td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">${lesson.lessonName}
 					</td>
-					<td>	</td>
 				</tr>
 			</table>
 		</td>
@@ -54,7 +76,7 @@
 	</tr>
 	
 	<tr>
-		<td width="104" class="ct_write">¼ö¾÷½ºÄÉÁì</td>
+		<td width="104" class="ct_write">ìˆ˜ì—…ìŠ¤ì¼€ì¥´</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonDay}</td>
 	</tr>
@@ -63,7 +85,7 @@
 	</tr>
 	
 	<tr>
-		<td width="104" class="ct_write">¼ö¾÷ ½ÃÀÛ½Ã°£/Á¾·á½Ã°£</td>
+		<td width="104" class="ct_write">ìˆ˜ì—… ì‹œì‘ì‹œê°„/ì¢…ë£Œì‹œê°„</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonStartTime} / ${lesson.lessonEndTime}</td>
 	</tr>
@@ -71,7 +93,7 @@
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
-		<td width="104" class="ct_write">¼ö¾÷ Àå¼Ò</td>
+		<td width="104" class="ct_write">ìˆ˜ì—… ì¥ì†Œ</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonPlace}</td>
 	</tr>
@@ -80,7 +102,7 @@
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
-		<td width="104" class="ct_write">¼ö¾÷ ½ÃÀÛÀÏ </td>
+		<td width="104" class="ct_write">ìˆ˜ì—… ì‹œì‘ì¼ </td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonCreateAt}</td>
 	</tr>
@@ -89,31 +111,31 @@
 	</tr>
 	
 	<tr>
-		<td width="104" class="ct_write">°ú¸ñ¸í</td>
+		<td width="104" class="ct_write">ê³¼ëª©ëª…</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.subject}</td>
 	</tr>
 	
 	<tr>
-		<td width="104" class="ct_write">¼ö¾÷ÄÚµå</td>
+		<td width="104" class="ct_write">ìˆ˜ì—…ì½”ë“œ</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonCode}</td>
 	</tr>
 	
 <%-- 		<tr>
-		<td width="104" class="ct_write">¼ö³³ÀÏ</td>
+		<td width="104" class="ct_write">ìˆ˜ë‚©ì¼</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.fees}</td>
 	</tr> --%>
 	
 		<tr>
-		<td width="104" class="ct_write">¼ö¾÷·á</td>
+		<td width="104" class="ct_write">ìˆ˜ì—…ë£Œ</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.fees}</td>
 	</tr>
 	
 		<tr>
-		<td width="104" class="ct_write">Ä¿¸®Å§·³</td>
+		<td width="104" class="ct_write">ì»¤ë¦¬í˜ëŸ¼</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${lesson.lessonContent}</td>
 	</tr>
@@ -132,12 +154,42 @@
 					<c:choose>
 						<c:when test="${user.role eq 'teacher'}">
 							<tr>
-								<td class="ct_btn01">¼öÁ¤ &nbsp;&nbsp;</td>
-								<td>ÀÌÀü</td>
-							</tr>	
+								<td class="ct_btn01">ìˆ˜ì • &nbsp;&nbsp;</td>
+								<!-- <td class="ct_btn02">ì‚­ì œ</td> -->
+								</tr>
+								<!-- Modal -->
+								<form>
+								Â  <div class="modal fade" id="myModal" role="dialog"> 
+								Â  Â  <div class="modal-dialog">
+								Â  Â Â 
+								Â  Â  Â  <!-- Modal content-->
+								Â  Â  Â  <div class="modal-content">
+								Â  Â  Â  Â  <div class="modal-header">
+								Â  Â  Â  Â  Â  <h4 class="modal-title" align="center">ìˆ˜ì—…ì½”ë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”</h4> 
+								Â  Â  Â  Â  </div>
+								Â  Â  Â  Â  <div class="modal-body" align="center">
+											<div class="form-group">
+									         <label for="lessonCode" class="col-sm-2 control-label">ìˆ˜ì—…ì½”ë“œ</label>
+									         <div class="col-sm-10">
+									           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="ìˆ˜ì—…ì½”ë“œ">
+									         </div>
+									       </div>
+								Â  Â  Â  Â  </div>
+								Â  Â  Â  Â  <div class="modal-footer">
+								Â  Â  Â  Â  Â  <button type="button" class="ct_btn02" id="ct_btn02">ì‚­ì œ</button>
+										  <button type="button" class="btn btn-default" data-dismiss="modal">ë‹«ê¸°</button>
+								Â  Â  Â  Â  </div>
+								Â  Â  Â  </div>
+								Â  Â  </div>
+								Â  </div>
+								</form>
+								
+								<br/><br/>
+								&nbsp;&nbsp;<button type="button" data-toggle="modal" data-target="#myModal">ì‚­ì œ</button>
+								
 						</c:when>					
 						<c:otherwise>
-							ÀÌÀü						
+							ì´ì „						
 						</c:otherwise>
 					</c:choose>
 				</tr>

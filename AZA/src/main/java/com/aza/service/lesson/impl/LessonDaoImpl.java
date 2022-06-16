@@ -44,6 +44,8 @@ public class LessonDaoImpl implements LessonDao {
 	@Override
 	public void addLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
 		sqlSessionTemplate.insert("LessonMapper.addLesson", lesson);
 	}
 
