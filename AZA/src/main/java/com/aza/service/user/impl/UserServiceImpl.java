@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String userId) throws Exception {
-		userDao.deleteUser(userId);
+	public void deleteUser(User user) throws Exception {
+		userDao.deleteUser(user);
 
 	}
 

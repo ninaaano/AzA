@@ -49,11 +49,13 @@ body {
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
+	
 }
 
 .form-label-group input {
 	height: auto;
 	border-radius: 2rem;
+	
 }
 
 .form-label-group>input, .form-label-group>label {
@@ -103,41 +105,58 @@ body {
 .form-label-group input:not(:placeholder-shown) ~label {
 	padding-top: calc(var(- -input-padding-y)/3);
 	padding-bottom: calc(var(- -input-padding-y)/3);
-	font-size: 12px;
+	font-size: 15px;
 	color: #777;
 }
 </style>
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet" />
+<!-- Roboto and Roboto Mono fonts from Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet" />
+<!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
 
-<!-- Custom styles for this template -->
-<link href="css/modern-business.css" rel="stylesheet">
 
-<!-- Bootstrap core JavaScript -->
-<script src="jquery/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
+<link href="assets/img/favicon.ico" rel="shortcut icon"
+	type="image/x-icon">
+<!-- Load Material Icons from Google Fonts-->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
+
+
+
 </head>
 <body>
 <form method="post" class="form-signin" action="find_id" name="findform">
+		
 		<div class="form-label-group">
-			<input type="text" id="name" name="name" class="form-control"/>
-			<label for="name">name</label>
+			이름 : <input type="text" id="userName" name="userName" class="form-control"/>
+			<label for="name"></label>
 		</div>
 		
 		<div class="form-label-group">
-			<input type="text" id="phone" name="phone" class="form-control"/>
-			<label for="phone">phone</label>
+			핸드폰 번호 : <input type="text" id="phone" name="phone" class="form-control"/>
+			<label for="phone"></label>
 		</div>
 
 		<div class="form-label-group">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="submit" value="check">
+			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+					type="button">취소</button>
 		</div>
 
 		<!-- 이름과 전화번호가 일치하지 않을 때-->
 		<c:if test="${check == 1}">
 			<script>
-				opener.document.findform.name.value = "";
+				opener.document.findform.userName.value = "";
 				opener.document.findform.phone.value = "";
 			</script>
 			<label>일치하는 정보가 존재하지 않습니다.</label>
@@ -145,19 +164,40 @@ body {
 
 		<!-- 이름과 비밀번호가 일치하지 않을 때 -->
 		<c:if test="${check == 0 }">
-		<label>찾으시는 아이디는' ${id}' 입니다.</label>
+		<label>찾으시는 아이디는 '${id}' 입니다.</label>
 		<div class="form-label-group">
-				<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-					type="button" value="OK" onclick="closethewindow()">
+					<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+					type="button">비밀번호 재설정</button>
+					<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+					type="button">로그인 화면으로</button>
 			</div>
 		</c:if>
 
 	</form>
-	
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		function closethewindow(){
-			self.close();
-		}
+	
+	$( function() {
+		$("button:contains('비밀번호 재설정')").on("click" , function() {
+			self.location = "/user/findPassword"
+		});
+	});
+	
+	$( function() {
+		$("button:contains('로그인 화면으로')").on("click" , function() {
+			self.location = "/user/login"
+		});
+	});
+	
+	$( function() {
+		$("button:contains('취소')").on("click" , function() {
+			self.location = "http://127.0.0.1:8080/"
+		});
+	});
+
+		
 	</script>
 </body>
 </html>
