@@ -88,12 +88,14 @@ font-family: Pretendard, 'Noto Sans KR';
 <div class="card-body p-4">
 	<div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
 	<div class="dataTable-top">
-			<table align="right">
+		<table align="right">
+		<c:if test="${user.role eq 'teacher'}">
 			<tr>
 				<td class="btn01">
 					수업추가
 				</td>
 			</tr>
+		</c:if>
 				 <tr>
 					  <td>
 					   <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >

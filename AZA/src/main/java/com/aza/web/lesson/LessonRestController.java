@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.book.BookService;
 import com.aza.service.domain.Lesson;
@@ -42,8 +44,28 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping("/listLesson")
-	public Map
+	@RequestMapping("listLesson")
+	public Map<String, Object> listLesson(HttpSession session) throws Exception{
+		String role = ((User)session.getAttribute("user")).getRole();
+		
+		if(role.equals("teacher")) {
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
+			Search search = new Search();
+			int totalCount = (int)lessonService.listLessonTeacher(search, teacherId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);			
+			
+			return lessonService.listLessonTeacher(search, teacherId);
+		}else {
+			String userId = ((User)session.getAttribute("user")).getUserId();
+			Search search = new Search();
+			int totalCount = (int)lessonService.listLessonStudent(search, userId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			return lessonService.listLessonStudent(search, userId);
+		}
+	}
 	
 	@RequestMapping(value="checkLessonCode/{lessonCode}")
 	public boolean checkLessonCode(@PathVariable("lessonCode") String lessonCode) throws Exception {
@@ -57,11 +79,17 @@ public class LessonRestController {
 	}
 	
 	@RequestMapping("/addLessonBook")
-	public ModelAndView addLessonBook(@RequestBody  Lesson lesson) throws Exception{
+	public ModelAndView addLessonBook(HttpServletRequest request) throws Exception{
 		ModelAndView model = new ModelAndView();
+		String isbn = request.getParameter("isbn");
+		System.out.println("=========");
+		System.out.println(isbn);
+		System.out.println("=========");
+		
+		Lesson lesson = new Lesson();
 		try {
 			BookService crawler = new BookService();
-			String url = URLEncoder.encode("9788994492032", "UTF-8");
+			String url = URLEncoder.encode(isbn, "UTF-8");
 			String response = crawler.search(url);
 			
 			String[] fields = {"title","link","description","image","author","price","isbn"};
@@ -94,7 +122,11 @@ public class LessonRestController {
 					if(field.equals("image")) {
 						lesson.setBookImg(item.get(field));
 	 				}
+					lesson.setIsbn(isbn);
 				}
+				System.out.println("==========");
+				System.out.println(lesson);
+				System.out.println("==========");
 			}			
 //			System.out.println(response);
 		} catch (Exception e) {

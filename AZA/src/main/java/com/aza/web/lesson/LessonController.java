@@ -69,7 +69,7 @@ public class LessonController {
 		return model;
 	}
 	
-	@RequestMapping("listLesson")
+	@RequestMapping(value="listLesson")
 	public ModelAndView listLesson(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
