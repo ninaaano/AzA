@@ -81,7 +81,7 @@ $(function() {
 			$('.valCheck').addClass('show');
 		} else {
 			$.ajax({
-				 url: "http://localhost:8080/lesson/rest/checkLessonCode/"+lessonCode,
+				 url: "/lesson/rest/checkLessonCode/"+lessonCode,
 		            type: "GET",
 		            headers : {
 		                    "Accept" : "application/json",
@@ -330,7 +330,7 @@ $(function() {
 		console.log("메시지 버튼 눌림");
 		
         $.ajax({
-            url: "http://localhost:8080/message/rest/listMessage",
+            url: "/message/rest/listMessage",
             type: "GET",
             headers : {
                     "Accept" : "application/json",

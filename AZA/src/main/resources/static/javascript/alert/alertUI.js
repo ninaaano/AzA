@@ -1,6 +1,6 @@
 function deleteAlert(alertCode) {
 	$.ajax({
-		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
+		url:"/alert/rest/deleteAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -21,7 +21,7 @@ function deleteAlert(alertCode) {
 
 function listAlert() {
 	$.ajax({
-		url:"http://localhost:8080/alert/rest/listAlert",
+		url:"/alert/rest/listAlert",
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -44,7 +44,7 @@ function listAlert() {
 
 function readAlert(alertCode) {
 	$.ajax({
-		url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
+		url:"/alert/rest/readAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",

@@ -15,7 +15,7 @@
           $(function() {   
                                
                 $.ajax({
-                    url: "http://localhost:8080/message/rest/listMessage",
+                    url: "/message/rest/listMessage",
                     type: "GET",
                     headers : {
                             "Accept" : "application/json",
