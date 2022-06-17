@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -62,7 +62,8 @@ $(function () {
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					},success : function(JSONData , status) {
-						$('#studentName').text(+JSONData.studentName+"ÀÇ Æ¯Â¡");
+						alert("¼±ÅÃµÈ cName => "+JSONData.studentName);
+						$('#studentName').text(JSONData.studentName+"ÀÇ Æ¯Â¡");
 						$('#studentName').val(JSONData.studentName);
 						
 						$('#studentId').text(JSONData.studentId);

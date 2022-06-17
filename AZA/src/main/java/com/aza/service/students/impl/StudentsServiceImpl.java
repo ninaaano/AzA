@@ -277,6 +277,17 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 	
 	@Override
+	public Map<String, Object> listStudentsExamByStudent(Search search) throws Exception {
+		List<Students> list = studentsDao.listStudentsExamByStudent(search);
+		int totalCount = studentsDao.getStudentsExamTotalCountByStudent(search);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	@Override
 	public void addStudentsNote(Students students) throws Exception {
 		studentsDao.addStudentsNote(students);
 	}
@@ -306,6 +317,8 @@ public class StudentsServiceImpl implements StudentsService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
+
 
 
 }

@@ -25,16 +25,16 @@ public interface StudentsDao {
 	// STUDENTS_RECORD :: DELETE 
 	public void deleteStudentsRecord(int recordCode) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 승인 요청 중 (proposal 0)
+	// STUDENT_RECORD :: LIST -  (proposal 0)
 	public List<Students> listProposalStudents(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: Total Count - 승인 요청 중 (proposal 0)
+	// STUDENT_RECORD :: Total Count -  (proposal 0)
 	public int getProposalStudentsTotalCount(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 전체 학생 (proposal 2)
+	// STUDENT_RECORD :: LIST - (proposal 2)
 	public List<Students> listStudentsRecord(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: Total Count - 전체 학생 (proposal 2)
+	// STUDENT_RECORD :: Total Count -  (proposal 2)
 	public int getStudentsRecordTotalCount(Search search, String teacherId) throws Exception;
 
 
@@ -70,7 +70,7 @@ public interface StudentsDao {
 	//  SELECT
 	public Students getStudentsCharacter(int characterCode) throws Exception;
 	
-	// 드롭 다운
+	// LIST
 	public List<Students> listStudentsCharacter(Search search) throws Exception;
 	public int getStudentsCharacterTotalCount(Search search) throws Exception;
 
@@ -93,6 +93,9 @@ public interface StudentsDao {
 	// TotalCount
 	public int getStudentsExamTotalCount(Search search) throws Exception;
 
+	// ListByStudent
+	public List<Students> listStudentsExamByStudent(Search search) throws Exception;
+	public int getStudentsExamTotalCountByStudent(Search search) throws Exception;
 	
 	//// Note
 	// StudentsNote :: INSERT

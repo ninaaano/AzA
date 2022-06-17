@@ -22,13 +22,13 @@ public interface StudentsService {
 	// STUDENTS_RECORD :: DELETE 
 	public void deleteStudentsRecord(int recordCode) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 승인 요청 중 (proposal 0)
+	// STUDENT_RECORD :: LIST -  (proposal 0)
 	public Map<String, Object> listProposalStudents(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 승인완료 학생 (proposal 1)
+	// STUDENT_RECORD :: LIST -  (proposal 1)
 	public Map<String, Object> listStudentsRecord(Search search, String teacherId) throws Exception;
 
-	// STUDENT_RECORD :: LIST - 전체 학생 (proposal 0,1)
+	// STUDENT_RECORD :: LIST - (proposal 0,1)
 	public Map<String, Object> listTotalStudentsRecord(Search search, String teacherId) throws Exception;
 
 	// ATTENDANCE :: INSERT
@@ -78,6 +78,9 @@ public interface StudentsService {
 
 	// List SELECT
 	public Map<String, Object> listStudentsExam(Search search) throws Exception;
+	
+	// List byStudent
+	public Map<String, Object> listStudentsExamByStudent(Search search) throws Exception;
 
 	// StudentsNote :: INSERT
 	public void addStudentsNote(Students students) throws Exception;

@@ -37,7 +37,18 @@
         <link rel="stylesheet" href="/resources/css/message.css"/>
         
 <!--  -->
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+  
 </head>
+
+
 <body>
 
 <h1> Rest 싫어요 :( </h1>
@@ -52,10 +63,83 @@
 					이름 : ${students.studentName} <br/>
 					과목 : ${students.examSubject} <br/>
 					점수 : ${students.examScore}
-	
+					<hr/>
 				 </c:forEach>
 
+<div id="myfirstchart" style="height: 250px;">
+          <script>
 
+              new Morris.Line({
+
+              // ID of the element in which to draw the chart.
+
+              element: 'myfirstchart',
+
+              // Chart data records -- each entry in this array corresponds to a point on
+
+              // the chart.
+
+              data: [
+
+                { day: '2016-04-07', rank: 18, sales: 3},
+
+                { day: '2016-04-08', rank: 10, sales: 4},
+
+                { day: '2016-04-11', rank: 7, sales: 5},
+
+                { day: '2016-04-12', rank: 5, sales: 6},
+
+                { day: '2016-04-13', rank: 7, sales: 7},
+
+                { day: '2016-04-14', rank: 10, sales: 7},
+
+                { day: '2016-04-18', rank: 7, sales: 10},
+
+                { day: '2016-04-19', rank: 5, sales: 14}
+
+              ],
+
+              // The name of the data record attribute that contains x-values.
+
+              xkey: 'day',
+
+              // A list of names of data record attributes that contain y-values.
+
+              ykeys: ['rank'],
+
+              // Labels for the ykeys -- will be displayed when you hover over the
+
+              // chart.
+
+              labels: ['rank'],
+
+              lineColors: ['black'],
+
+              pointFillColors: ['red'],
+
+              pointSize: ['5px'],
+
+              lineWidth: ['3px'],
+
+              resize: ['true'],
+
+              smooth: ['true'],
+
+              events: ['2016-04-19'],
+
+              eventStrokeWidth: ['5px'],
+
+              parseTime:['true']
+
+            });
+
+
+
+          </script>
+
+
+
+        </div>
 
 
 </body>

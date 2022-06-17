@@ -15,13 +15,15 @@
 		<result property="examTerm" 			column="exam_term" 				jdbcType="VARCHAR"/>
 		<result property="examSubject" 			column="exam_subject" 			jdbcType="VARCHAR"/>
 		<result property="examScore" 			column="exam_score" 			jdbcType="VARCHAR"/>
+		<result property="studentName" 			column="student_name" 			jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	
 	<!-- SQL : exam INSERT -->
 	<insert id="addStudentsExam" parameterType="students">
 	INSERT INTO exam
-	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${examScore})
+	VALUES(seq_exam_exam_code.NEXTVAL, #{studentId}, #{examYear}, #{examSemester}, #{examTerm}, #{examSubject}, ${examScore},
+	(SELECT user_name FROM users WHERE user_id = #{studentId}))
       <selectKey keyProperty="examCode" resultType="int" order="AFTER">
         SELECT seq_exam_exam_code.CURRVAL FROM DUAL
      </selectKey>
@@ -79,5 +81,26 @@
 		) countTable
 	</select>
 	
+	<!-- SQL : listExamByStudent -->
+	
+	<select  id="listStudentsExamByStudent"  parameterType="search"	resultMap="studentsExamSelectMap">
+		SELECT * 
+		FROM (
+			    SELECT inner_table.*, ROWNUM AS row_seq
+			    FROM ( SELECT * FROM exam 
+						WHERE student_id = #{searchId}
+				)inner_table 
+		    WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
+	 </select>
+	
+		<select id="getStudentsExamTotalCountByStudent"  parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM (  SELECT
+				*
+				FROM exam
+				WHERE student_id = #{searchId:VARCHAR}
+		) countTable
+	</select>
 	
 </mapper>
