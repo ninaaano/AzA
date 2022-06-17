@@ -156,8 +156,7 @@
 		INSERT ALL
 		INTO BOOK VALUES(#{isbn},#{bookTitle},#{publisher:VARCHAR},#{bookPrice:VARCHAR},#{author:VARCHAR},#{bookYear:VARCHAR},#{bookImg:VARCHAR})
 		INTO LESSON_BOOK VALUES(SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
-				(SELECT lesson_code FROM LESSON WHERE lesson_code = #{lessonCode})
-				,#{isbn})
+				(SELECT lesson_code FROM LESSON WHERE lesson_code = #{lessonCode}),#{isbn})
 		SELECT*FROM DUAL
 	</insert>
 	

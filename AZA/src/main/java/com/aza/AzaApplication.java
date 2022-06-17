@@ -21,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AzaApplication extends SpringBootServletInitializer/*extends WebMvcConfigurerAdapter*/ {
 
 	public static void main(String[] args) {
-		System.out.println("AzaApplication Ω√¿€");
+		System.out.println("AzaApplication start");
 		SpringApplication.run(AzaApplication.class, args);
 	}
 
