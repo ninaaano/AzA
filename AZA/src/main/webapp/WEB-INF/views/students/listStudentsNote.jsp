@@ -143,35 +143,56 @@ $(function() {
 </div> --%>
 <!-- //////////////////////////////////////////////////////////////// -->
 
-
- <h3>강의 노트</h3>
-	<div>
+	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+        <h1 class="display-4 mb-0">강의 노트</h1>
+        <div class="text-muted">Students Note</div>
+    </div>
+	<div style="margin: 30px 30px 30px 30px">
 		<!-- <input type="button" onclick="addBtn();" value="작성"/> -->
 		<button id="addBtn" type="button" class="btn btn-outline-primary">노트 작성</button>
 	</div>
-	<table class="table table-hover table-striped" border="1" cellspacing = "0" cellpadding = "10px">
-		<thead>
-			<tr>
-				<td class="ct_list_b" width="100">No.</td>
-				<td class="ct_list_b" width="100">제목</td>
-				<td class="ct_list_b" width="100">작성 날짜</td>
 
-			</tr>
-		</thead>
-		
-		<tbody>
-			<c:set var="i" value="0"/>			
-			<c:forEach var="students" items="${list}">			
-				<c:set var="i" value="${i+1}" />
-				<tr class="ct_list_pop">
-					<td align="left">${i}</td>
-					<td align="left" id="noteTitlee" noteCode="${students.noteCode }">${students.noteTitle}</td>
-					<td align="left">${students.noteCreateAt}</td>
+	<div class="dataTable-container" style="margin: 30px 30px 30px 30px">
+      		<table id="datatablesSimple" class="dataTable-table">
+	                <thead>
+	                    <tr>
+	                    	
+	                    	<th data-sortable="" style="width: 5%;">
+	                    		<a href="#" class="dataTable-sorter">No.</a>
+                    		</th>
+                    		<th data-sortable="" style="width: 16%;">
+                    			<a href="#" class="dataTable-sorter">제목</a>
+                   			</th>
+                   			<th data-sortable="" style="width: 15%;">
+                   				<a href="#" class="dataTable-sorter">작성 날짜</a>
+                  			</th>
+               			</tr>
+	                </thead>
+	                
+                	<tbody>
+           				<c:set var="i" value="0"/>			
+							<c:forEach var="students" items="${list}">			
+							<c:set var="i" value="${i+1}" />
+							<tr>
+								<td >${i}</td>
+								<td id="noteTitlee" noteCode="${students.noteCode }">${students.noteTitle}</td>
+								<td >${students.noteCreateAt}</td>				
+							</tr>
+						</c:forEach>
+              			</tbody>
+              </table>
+              <!-- <nav class="dataTable-pagination">
+	              <ul class="dataTable-pagination-list">
+		              <li class="active"><a href="#" data-page="1">1</a></li>
+		              <li class=""><a href="#" data-page="2">2</a></li>
+		              <li class=""><a href="#" data-page="3">3</a></li>
+		              <li class="ellipsis"><a href="#">…</a></li>
+		              <li class=""><a href="#" data-page="10">10</a></li
+		              ><li class="pager"><a href="#" data-page="2">></a></li>
+	              </ul>
+              </nav> -->
+    </div>
 
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
 
 	
 	

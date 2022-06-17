@@ -123,11 +123,5 @@ public class AlertRestController {
 		
 		return map;
 		
-	}
-	
-	
-	
-	
-	
-	
+	}	
 }

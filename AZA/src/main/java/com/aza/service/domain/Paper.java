@@ -29,9 +29,12 @@ public class Paper {
 	private String homeworkDueDate;
 	private int homeworkCode;
 	
-	private Lesson lessonName;
+//	private Lesson lessonName;
+//	private Students studentName;
 	private Lesson teacherId;
-	private Students studentName;
+	
+	private String studentName;
+	private String lessonName;
 	
 	public Paper() {
 		
@@ -268,15 +271,23 @@ public class Paper {
 	}
 
 
-	public Lesson getLessonName() {
-		return lessonName;
-	}
-
-
-	public void setLessonName(Lesson lessonName) {
-		this.lessonName = lessonName;
-	}
-
+//	public Lesson getLessonName() {
+//		return lessonName;
+//	}
+//
+//
+//	public void setLessonName(Lesson lessonName) {
+//		this.lessonName = lessonName;
+//	}
+//
+//	public Students getStudentName() {
+//		return studentName;
+//	}
+//	
+//	
+//	public void setStudentName(Students studentName) {
+//		this.studentName = studentName;
+//	}
 
 	public Lesson getTeacherId() {
 		return teacherId;
@@ -288,13 +299,23 @@ public class Paper {
 	}
 
 
-	public Students getStudentName() {
+	public String getStudentName() {
 		return studentName;
 	}
 
 
-	public void setStudentName(Students studentName) {
+	public void setStudentName(String studentName) {
 		this.studentName = studentName;
+	}
+
+
+	public String getLessonName() {
+		return lessonName;
+	}
+
+
+	public void setLessonName(String lessonName) {
+		this.lessonName = lessonName;
 	}
 
 
@@ -308,9 +329,14 @@ public class Paper {
 				+ ", answerCheck=" + answerCheck + ", choiceNo=" + choiceNo + ", choiceContent=" + choiceContent
 				+ ", homeworkCheck=" + homeworkCheck + ", homeworkTitle=" + homeworkTitle + ", homeworkContent="
 				+ homeworkContent + ", homeworkCreateAt=" + homeworkCreateAt + ", homeworkDueDate=" + homeworkDueDate
-				+ ", homeworkCode=" + homeworkCode + ", lessonName=" + lessonName + ", teacherId=" + teacherId
-				+ ", studentName=" + studentName + "]";
+				+ ", homeworkCode=" + homeworkCode + ", teacherId=" + teacherId + ", studentName=" + studentName
+				+ ", lessonName=" + lessonName + "]";
 	}
+
+	
+
+
+
 
 	
 

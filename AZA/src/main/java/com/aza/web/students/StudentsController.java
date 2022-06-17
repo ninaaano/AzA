@@ -3,6 +3,7 @@ package com.aza.web.students;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public class StudentsController {
 	}
 	
 	// STUDENTS_RECORD
-	@RequestMapping(value="listStudentsRecord")
+	@RequestMapping(value="listStudentsRecord",  method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listStudentsRecord(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		System.out.println("/students/listStudentsRecord");
@@ -222,44 +223,56 @@ public class StudentsController {
 		String searchEndDate = search.getSearchEndDate();	
 		
 		System.out.println(search);
-		//System.out.println(month);
-		//System.out.println(year);
-		
+
 		if(search.getSearchStartDate() == null || search.getSearchStartDate().length() < 1) {
 			LocalDate now = LocalDate.now();
-			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/01"));
+			String prevMonth = Integer.toString(now.getMonthValue() - 1); 
+			prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
+			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/"+prevMonth+"/31"));
 			searchEndDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/31"));			
 		}
 		
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
-		
-		// 임시 => session으로 쓸거
+		System.out.println(userId);
+		List students = (List) session.getAttribute("students");
+
+
+		// �ӽ� => session���� ����
+
+		System.out.println(students);
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
-		//Map<String, Object> map = userService.listRelationByParent(search, userId);
-		
-		if(studentId == null) {
-			List students = (List) userService.listRelationByParent(search, userId).get("list");	
+		if(studentId==null || studentId.length() < 1) {
 			studentId = ((User) students.get(0)).getFirstStudentId();			
 		}
-
-		System.out.println("students : "+studentId);
 		
-		if(lessonCode == null) {
-			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
-			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
+		List<User> studentsInfo = new ArrayList<User> ();
+		
+		for(int i = 0; i < students.size(); i++) {
+			String temp = ((User) students.get(i)).getFirstStudentId();
+			User student = userService.getUser(temp);
 			
+			studentsInfo.add(student);
 		}
 
-		System.out.println("lessons : "+lessonCode);
+		User student = userService.getUser(studentId);
+
+		System.out.println("student : "+student);
 		
-		search = new Search();
+		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
+		
+		if(lessonCode == null || lessonCode.length() < 1) {
+			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
+		}
+
+		System.out.println("lessonCode : "+lessonCode);
+		
 		search.setCurrentPage(1);
-		search.setPageSize(pageSize);
+		search.setPageSize(31);
 		
 		Map<String, Object> map = studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);
 		
@@ -271,6 +284,8 @@ public class StudentsController {
 		mv.addObject("listStudentsRecord", map.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
+		mv.addObject("studentInfo", studentsInfo);
+		mv.addObject("lessons", lessons);
 
 		return mv;			
 	}
@@ -377,13 +392,18 @@ public class StudentsController {
 		return mv;			
 	}
 	
-	// CHARACTER test후 수정 ===================================
-	// 단순 view연결
+	// CHARACTER testl===================================
+	
+	// CHARACTER test�� ���� ===================================
+	// �ܼ� view����
+
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
-		
-		System.out.println("/students/addStudentsCharacter :: GET ::단순 View");
+
+		System.out.println("/students/addStudentsCharacter :: GET ::�ܼ� View");
+
+
 		
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		
@@ -414,6 +434,7 @@ public class StudentsController {
 			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
 		System.out.println("/students/addStudentsCharacter :: POST ::등록");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -435,10 +456,12 @@ public class StudentsController {
 		return mv;
 	}
 	
+
 	@RequestMapping(value="updateStudentsCharacterView", method=RequestMethod.POST)
 	public ModelAndView updateStudentsCharacterView(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
 		System.out.println("/students/updateStudentsCharacterView :: GET :: 단순 VIEW");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -456,7 +479,9 @@ public class StudentsController {
 	public ModelAndView updateStudentsCharacter
 	(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter :: POST :: 수정하기");
+
+		System.out.println("/students/updateStudentsCharacter :: POST :: �����ϱ�");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(teacherId);
 		
@@ -531,7 +556,9 @@ public class StudentsController {
 		
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(studentId);
-		search.setSearchKeyword("수학");
+
+		search.setSearchKeyword("����");
+
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -549,8 +576,6 @@ public class StudentsController {
 		mv.setViewName("/students/manageStudentsExam");
 		
 		return mv;
-	}
-
-	
+	}	
 	
 }
