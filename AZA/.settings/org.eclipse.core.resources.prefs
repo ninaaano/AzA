@@ -8,5 +8,7 @@ encoding//src/main/java/com/aza/web/user/UserController.java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/smarteditor/SmartEditor2Skin.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/chatbot/chatbot.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/paper/addPaperHomework.jsp=EUC-KR
+encoding//src/main/webapp/WEB-INF/views/paper/listPaperHomework.jsp=EUC_KR
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

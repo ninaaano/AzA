@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+    pageEncoding="euc-kr"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>ê°•ì˜ë…¸íŠ¸ ì—°ìŠµ</title>
+	<meta charset="euc-kr">
+	<title>°­ÀÇ³ëÆ®</title>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- ë„¤ì´ë²„ ìŠ¤ë§ˆíŠ¸ì—ë””í„°  -->
-	<!-- <head> ì•ˆì— ì¶”ê°€ -->
-	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<!-- ³×ÀÌ¹ö ½º¸¶Æ®¿¡µğÅÍ  -->
+	<!-- <head> ¾È¿¡ Ãß°¡ -->
+	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- 2.10.0 ë²„ì „ì—” js íŒŒì¼ ì¼ë¶€ë¶„ì´ ì—†ì–´ ì˜¤ë¥˜ ë°œìƒ ! -->
+	<!-- 2.10.0 ¹öÀü¿£ js ÆÄÀÏ ÀÏºÎºĞÀÌ ¾ø¾î ¿À·ù ¹ß»ı ! -->
 	
-	<!-- head ì•ˆì— ì¶”ê°€ -->
+	<!-- head ¾È¿¡ Ãß°¡ -->
 	
 	<!-- //////////////////////////////////////////////////// -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,22 +80,22 @@
 	
 /* 	function save(){
 		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ê°’ì„ í…ìŠ¤íŠ¸ì»¨í…ì¸ ë¡œ ì „ë‹¬
+	    		//½º¸¶Æ® ¿¡µğÅÍ °ªÀ» ÅØ½ºÆ®ÄÁÅÙÃ÷·Î Àü´Ş
 		var content = document.getElementById("smartEditor").value;
 		alert(document.getElementById("txtContent").value); 
-	    		// ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë• document.getìœ¼ë¡œ ë°›ì•„ì˜¤ê¸°
+	    		// °ªÀ» ºÒ·¯¿Ã ¶© document.getÀ¸·Î ¹Ş¾Æ¿À±â
 		return; 
 	} */
 
     function updateBtn() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
-		  //ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ê°’ì„ í…ìŠ¤íŠ¸ì»¨í…ì¸ ë¡œ ì „ë‹¬
+		  //½º¸¶Æ® ¿¡µğÅÍ °ªÀ» ÅØ½ºÆ®ÄÁÅÙÃ÷·Î Àü´Ş
 		  let noteContent = document.getElementById("noteContent").value
 		  let noteTitle = document.getElementById("noteTitle").value
 		  let noteCode = document.getElementById("noteCode").value
-		  // ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë• document.getìœ¼ë¡œ ë°›ì•„ì˜¤ê¸°
+		  // °ªÀ» ºÒ·¯¿Ã ¶© document.getÀ¸·Î ¹Ş¾Æ¿À±â
 		  if(noteContent == '' || noteTitle == '') {
-		    alert("ì œëª©ê³¼ ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
+		    alert("Á¦¸ñ°ú ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
 		    oEditors.getById["noteContent"].exec("FOCUS")
 		    return
 		  } else {
@@ -110,11 +110,11 @@
 	}
 	
 	function deleteBtn() {
-		if(window.confirm("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")){
+		if(window.confirm("Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")){
 			if(true){
 				$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
 			}else{
-				alert('ì‚­ì œê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.');
+				alert('»èÁ¦°¡ Ãë¼ÒµÇ¾ú½À´Ï´Ù.');
 			}
 		}
 		
@@ -122,14 +122,14 @@
 	
 /* 	$(function() {
 		
-		$( "button.btn.btn-outline-primary:contains('ì‚­ì œ')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('»èÁ¦')").on("click" , function() {
 			history.go(-1);
 		});
 	}); */	
 	
 	$(function() {
 		
-		$( "button.btn.btn-outline-primary:contains('ë’¤ë¡œ')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('µÚ·Î')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
@@ -161,27 +161,30 @@
 
 <%-- 	<form name="noteForm" action="updateStudentsNote" method="post">
 	      <div id="smarteditor">
-	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"></input>
-	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="í•™ìƒ ì´ë¦„"></input>
+	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä"></input>
+	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="ÇĞ»ı ÀÌ¸§"></input>
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
-	                  placeholder="ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"
+	                  placeholder="³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä"
 	                  style="width: 100%"></textarea>
 
 	      </div>
-      <input type="button" onclick="updateBtn();" value="í™•ì¸"/>
-      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">ì·¨ì†Œ</button>
+      <input type="button" onclick="updateBtn();" value="È®ÀÎ"/>
+      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">Ãë¼Ò</button>
 
     </form> --%>
     
     
     <form>
     <div class="border border-top-0 p-3 p-sm-5 bg-light" >
-
+	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+	        <h1 class="display-4 mb-0">°­ ÀÇ ³ë Æ®</h1>
+	        <div class="text-muted">Students Note</div>
+   	</div>
     <div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
     	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
 	    	<div class="input-group mb-3">
-		            <button class="btn btn-outline-primary" type="button" style="width:120px;">ì œ ëª©</button>
+		            <button class="btn btn-outline-primary" type="button" style="width:120px;">Á¦ ¸ñ</button>
 		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
 	        </div>
@@ -193,9 +196,9 @@
 			           style="width: 100%">${students.noteContent}</textarea>
         </div>
         <div align="center">
-              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="ì €ì¥"/>
-              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="ì‚­ì œ"/>
-              <button id="backBtn" type="button" class="btn btn-outline-primary">ë’¤ë¡œ</button>
+              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="ÀúÀå"/>
+              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="»èÁ¦"/>
+              <button id="backBtn" type="button" class="btn btn-outline-primary">µÚ·Î</button>
 		</div>
 	</div>
     </form>
@@ -207,8 +210,8 @@
 	      console.log("Naver SmartEditor")
 	      nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: oEditors,
-	        elPlaceHolder: "noteContent",	//textarea ID ì…ë ¥
-	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html ê²½ë¡œ ì…ë ¥
+	        elPlaceHolder: "noteContent",	//textarea ID ÀÔ·Â
+	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html °æ·Î ÀÔ·Â
 	        fCreator: "createSEditor2"
 	      
 	      })

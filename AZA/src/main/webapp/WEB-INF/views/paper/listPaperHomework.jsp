@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="UTF-8"%>
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  ë‚ ì§œ ,ê¸ˆì•¡ í¬ë§· lib-->
+<!--  ³¯Â¥ ,±İ¾× Æ÷¸Ë lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ìˆ˜ì—… ê³¼ì œ</title>
+<title>¼ö¾÷ °úÁ¦</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,7 +66,7 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/common.css" rel="stylesheet">   
 <!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>ê³¼ì œ</title>       
+	<title>°úÁ¦</title>       
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -95,11 +95,8 @@ font-family: Pretendard, 'Noto Sans KR';
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/message.css"/>
         
-
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>   -->     	
 
 
@@ -111,43 +108,38 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 <script type="text/javascript">
-
 /* $(function(){
 	$('#lessonNamee').on("click", function(){
 		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
 }); */
 
-
-/* $(function(){
-	$("td:nth-child(2)").on("click", function() {
+$(function(){
+	$("td:nth-child(3)").on("click", function() {
 		self.location ="/paper/getPaperHomework?homeworkCode"+$(this).attr('homeworkCode');
 	})
-}) */
-
+})
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/paper/listPaperHomework").submit();
 }
-	//ê²€ìƒ‰
+	//°Ë»ö
 $(function() {
-	 $( "button.btn.btn-outline-primary:contains('ê²€ìƒ‰')").on("click" , function() {
+	 $( "button.btn.btn-outline-primary:contains('°Ë»ö')").on("click" , function() {
 		  
 		fncGetList(1);
 		});
 });
 	
 $(function() {	
-	$( "button.btn.btn-outline-primary:contains('ê³¼ì œ ë“±ë¡')").on("click" , function() {
+	$( "button.btn.btn-outline-primary:contains('°úÁ¦ µî·Ï')").on("click" , function() {
 		self.location = "/paper/addPaperHomework";
 	});
 });
-
-
 </script>
 
 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-        <h1 class="display-4 mb-0">ê³¼ ì œ ëª© ë¡</h1>
+        <h1 class="display-4 mb-0">°ú Á¦ ¸ñ ·Ï</h1>
         <div class="text-muted">Homework List</div>
     </div>
     
@@ -169,26 +161,26 @@ $(function() {
 	      			</div> -->
 	      			<!-- //////////////////////////////////////////////////// -->
 	      			<div>
-	      				<button id="addBtn" type="button" class="btn btn-outline-primary">ê³¼ì œ ë“±ë¡</button>
+	      				<button id="addBtn" type="button" class="btn btn-outline-primary">°úÁ¦ µî·Ï</button>
 	      			</div>
 	      			<table align="right">
 					    <tr>
 							  <td>
 							    <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
-									<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>ìˆ˜ì—…ëª…</option>
-									<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>í•™ìƒ ì´ë¦„</option>
+									<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>¼ö¾÷¸í</option>
+									<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>ÇĞ»ı ÀÌ¸§</option>
 								</select>
 							  </td>
 							  
 							  <td>
 			    			 	<input class="dataTable-input" type="text" aria-label="Text input with dropdown button" 
-			    			 			id="searchKeyword" name="searchKeyword" placeholder="ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•˜ì„¸ìš”"
+			    			 			id="searchKeyword" name="searchKeyword" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä"
 			    			 			 value="${! empty search.searchKeyword ? search.searchKeyword : "" }">
 							  </td>
 							  <td>
-							  <button type="button" class="btn btn-outline-primary" type="submit" id="searchHomework">ê²€ìƒ‰</button>
+							  <button type="button" class="btn btn-outline-primary" type="submit" id="searchHomework">°Ë»ö</button>
 							  </td>
-							  <!-- PageNavigation ì„ íƒ í˜ì´ì§€ ê°’ì„ ë³´ë‚´ëŠ” ë¶€ë¶„ -->
+							  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
 							  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 							  
 				    	</tr>	
@@ -204,27 +196,27 @@ $(function() {
 		                    		<a href="#" class="dataTable-sorter">No.</a>
 	                    		</th>
 	                    		<th data-sortable="" style="width: 16%;">
-	                    			<a href="#" class="dataTable-sorter">ìˆ˜ì—…ëª…</a>
+	                    			<a href="#" class="dataTable-sorter">¼ö¾÷¸í</a>
 	                   			</th>
 	                   			<th data-sortable="" style="width: 15%;">
-	                   				<a href="#" class="dataTable-sorter">ê³¼ì œ ì œëª©</a>
+	                   				<a href="#" class="dataTable-sorter">°úÁ¦ Á¦¸ñ</a>
 	                  			</th>
 	                  			<th data-sortable="" style="width: 15%;">
-	                  				<a href="#" class="dataTable-sorter">í•™ìƒ ì´ë¦„</a>
+	                  				<a href="#" class="dataTable-sorter">ÇĞ»ı ÀÌ¸§</a>
 	                 			</th>
 	                 			<th data-sortable="" style="width: 20%;">
-	                 				<a href="#" class="dataTable-sorter">ë“±ë¡ ë‚ ì§œ</a>
+	                 				<a href="#" class="dataTable-sorter">µî·Ï ³¯Â¥</a>
 	                			</th>
 	                			<th data-sortable="" style="width: 14%;">
-	                 				<a href="#" class="dataTable-sorter">ë§ˆê° ë‚ ì§œ</a>
+	                 				<a href="#" class="dataTable-sorter">¸¶°¨ ³¯Â¥</a>
 	                			</th>
 	                			<th data-sortable="" style="width: 10%;">
-	                 				<a href="#" class="dataTable-sorter">ê³¼ì œ ì œì¶œ</a>
+	                 				<a href="#" class="dataTable-sorter">°úÁ¦ Á¦Ãâ</a>
 	                			</th>
 	               			</tr>
 		                </thead>
 		                
-	                	<tbody>
+	                	<%-- <tbody>
             				<c:set var="i" value="0"/>			
 								<c:forEach var="paper" items="${list}">			
 								<c:set var="i" value="${i+1}" />
@@ -233,6 +225,24 @@ $(function() {
 									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName.getLessonName()}</td>
 									<td >${paper.homeworkTitle}</td>
 									<td >${paper.studentName.getStudentName()}</td>
+									<td >${paper.homeworkCreateAt}</td>
+									<td >
+										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
+										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
+									</td>
+		                			<td><span class="badge bg-primary">${paper.homeworkCheck}</span></td>				
+								</tr>
+							</c:forEach>
+               			</tbody> --%>
+               			<tbody>
+            				<c:set var="i" value="0"/>			
+								<c:forEach var="paper" items="${list}">			
+								<c:set var="i" value="${i+1}" />
+								<tr>
+									<td >${i}</td>
+									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName}</td>
+									<td >${paper.homeworkTitle}</td>
+									<td >${paper.studentName}</td>
 									<td >${paper.homeworkCreateAt}</td>
 									<td >
 										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -258,13 +268,13 @@ $(function() {
 		             			<a href="#" data-page="3">3</a>
 		             		</li>
             				<li class="ellipsis">
-            					<a href="#">â€¦</a>
+            					<a href="#">¡¦</a>
            					</li>
            					<li class="">
            						<a href="#" data-page="20">20</a>
           					</li>
           					<li class="pager">
-          						<a href="#" data-page="2">â€º</a>
+          						<a href="#" data-page="2">></a>
           					</li>
           				</ul>
          			</nav>

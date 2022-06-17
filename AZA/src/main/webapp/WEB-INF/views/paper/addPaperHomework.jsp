@@ -62,7 +62,7 @@
 		<script type="text/javascript">
 	
 		function fncAddHomework(){
-			var lessonName = $("select[name='lessonName']").val();
+			var lessonName = $("input[name='lessonName']").val();
 			var homeworkTitle = $("input[name='homeworkTitle']").val();
 			var studentName = $("input[name='studentName']").val();
 			var homeworkDueDate = $("input[name='homeworkDueDate']").val();
@@ -109,12 +109,13 @@ font-family: Pretendard, 'Noto Sans KR';
 <body>
 
 	<form>
-		<div>
-		<h1>과제 등록</h1>
-		</div>
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
-	        <div class="input-group mb-3">
+			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
+		        <h1 class="display-4 mb-0">과 제 등 록</h1>
+		        <div class="text-muted">Add Homework</div>
+	    	</div>
+	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
 	            <!-- <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
                     <option selected=""></option>
@@ -122,26 +123,26 @@ font-family: Pretendard, 'Noto Sans KR';
                     <option value="2">비트고2 자바스크립트</option>
                 </select> -->
                 <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" aria-describedby="button-addon1">
+	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 제목</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="homeworkTitle" name="homeworkTitle" aria-describedby="button-addon1">
+	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="studentName" name="studentName" aria-describedby="button-addon1">
+	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="homeworkDueDate" name="homeworkDueDate" aria-describedby="button-addon1">
+	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="mb-0">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >과제 내용</button>
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" rows="12"></textarea>
+	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" value="${paper.homeworkContent}" rows="12"></textarea>
 	        </div>
 	    </div>
 		

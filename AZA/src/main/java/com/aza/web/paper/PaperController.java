@@ -171,11 +171,11 @@ public class PaperController {
 	@RequestMapping(value="addPaperHomework", method=RequestMethod.POST)
 	public ModelAndView addPaperHomework(@ModelAttribute("paper") Paper paper) throws Exception {
 	
-		System.out.println("/students/addStudentsNote : POST");
+		System.out.println("/paper/addPaperHomework : POST");
 
+		System.out.println("==="+paper);
 		paperService.addPaperHomework(paper);
 		
-		System.out.println("==="+paper);
 		ModelAndView modelAndView = new ModelAndView();	
 		modelAndView.setViewName("redirect:/paper/listPaperHomework");		
 
