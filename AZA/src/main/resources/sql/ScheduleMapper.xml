@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="ScheduleMapper">
+	<resultMap id="scheduleSelectMap" type="schedule">
+		<result property="scheduleCode" column="schedule_code" jdbcType="NUMERIC" />
+		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
+		<result property="scheduleStartDate" column="schedule_start_date" jdbcType="VARCHAR" />
+		<result property="start" column="schedule_start_time" jdbcType="VARCHAR" />
+		<result property="scheduleEndDate" column="schedule_end_date" jdbcType="VARCHAR" />
+		<result property="end" column="schedule_end_time" jdbcType="VARCHAR" />
+		<result property="scheduleContent" column="schedule_content" jdbcType="VARCHAR" />
+		<result property="title" column="schedule_title" jdbcType="VARCHAR"/>
+		
+		
+	</resultMap>
+	
+	<insert id = "addLessonSchedule">
+		INSERT INTO schedule 
+		VALUES (seq_schedule_schedule_code.nextval,
+		(SELECT user_id FROM USERS WHERE user_id = #{teacherId}), 
+		#{scheduleStartDate:VARCHAR},#{start:VARCHAR},
+		#{scheduleEndDate:VARCHAR},#{end:VARCHAR},#{scheduleContent:VARCHAR},#{title})
+	</insert>
+	<!-- (SELECT user_id FROM USERS WHERE user_id = #{teacherId}) -->
+	
+	<select id = "getLessonSchedule" parameterType = "int" resultMap = "scheduleSelectMap">		
+		SELECT S.schedule_start_date, S.schedule_end_date, S.start, S.end, S.schedule_content,S.title
+		FROM schedule S, users U
+		WHERE S.teacher_id = u.user_id AND S.schedule_code = #{scheduleCode}
+	</select>
+	
+	
+	<update id = "updateLessonSchedule">
+		UPDATE schedule
+		<set>
+			schedule_Start_Date = #{scheduleStartDate:VARCHAR},
+			schedule_End_Date = #{scheduleEndDate:VARCHAR},
+			start = #{scheduleStartTime:VARCHAR},
+			end = #{scheduleEndTime:VARCHAR},
+			schedule_content = #{scheduleContent:VARCHAR},
+			title = #{scheduleTitlte:VARCHAR}
+		</set>
+		WHERE schedule_code = #{scheduleCode} AND teacher_id = #{teacherId} <!-- #{teacherId} -->
+	</update>
+	
+
+	<delete id = "deleteLessonSchedule">
+		DELETE 
+		FROM schedule
+		WHERE schedule_code = #{scheduleCode}
+	</delete>
+	
+	<delete id ="deleteAll">
+		DELETE FROM schedule
+	</delete>
+	
+<!-- 	<select id ="listLessonSchedule" resultMap="scheduleSelectMap">
+			SELECT *
+			FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM ( SELECT *	FROM schedule 
+					WHERE teacher_id = #{teacherId}
+					ORDER BY schedule_start_date || schedule_start_time
+					Order by schedule_code DESC) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	<select id = "listLessonScheduleTeacher" resultMap="scheduleSelectMap">
+		select s.* from schedule s
+		where s.teacher_id=#{teacherId}
+		order by s.schedule_code desc
+	</select>
+	
+	<select id = "listLessonScheduleStudents" resultMap="scheduleSelectMap">
+		SELECT S.*
+		FROM schedule S, users U, (SELECT L.teacher_id LT
+		        FROM students_record SR, lesson L
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT AND S.teacher_Id = #{teacherId};
+	</select>
+	
+	<!-- <select id = "listLessonSchedule" resultMap="scheduleSelectMap">
+		SELECT *
+		FROM (
+			SELECT inner_table.*, ROWNUM AS row_seq
+			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L	if 학생일때 추가
+					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = #{teacherId}
+					ORDER BY S.schedule_code desc) inner_table
+			WHERE ROWNUM &lt;= 100)
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	
+<!-- 	<select id = "getLessonTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from schedule
+	 				where teacher_id = #{searchKeyword}
+	 			) countTable
+	 </select> -->
+</mapper>

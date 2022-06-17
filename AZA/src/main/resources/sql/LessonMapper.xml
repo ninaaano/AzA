@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="LessonMapper">
+	<resultMap id="lessonSelectMap" type="lesson">
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="teacherId" column="teacher_id" jdbcType="VARCHAR" />
+		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
+		<result property="lessonDay" column="lesson_day" jdbcType="VARCHAR" />
+		<result property="lessonStartTime" column="lesson_start_time" jdbcType="VARCHAR" />
+		<result property="lessonEndTime" column="lesson_end_time" jdbcType="VARCHAR" />
+		<result property="lessonPlace" column="lesson_place" jdbcType="VARCHAR" />
+		<result property="fees" column="fees" jdbcType="NUMERIC" />
+		<result property="subject" column="subject" jdbcType="VARCHAR"/>
+		<result property="lessonContent" column="lesson_content" jdbcType="VARCHAR"/>
+		<result property="lessonCreateAt" column="lesson_create_at" jdbcType="VARCHAR"/>
+		<!-- <result property="teacherName" column="teacher_name" jdbcType="VARCHAR"/> -->
+		
+		<association property="studentId"  javaType="students">
+			<id property="studentId" column="student_id" jdbcType="VARCHAR"/>
+			<result property="proposal" column="proposal" jdbcType="CHAR"/>
+		</association>
+		<association property="teacherName"  javaType="user">
+			<id property="userName" column="user_name" jdbcType="VARCHAR"/>
+		</association>
+		
+	</resultMap>
+	
+	<resultMap id = "lessonBookSelectMap" type="lesson">
+		<result property ="isbn" column="isbn" jdbcType="VARCHAR"/>
+		<result property ="bookTitle" column="book_title" jdbcType="VARCHAR"/>
+		<result property ="publisher" column="publisher" jdbcType="VARCHAR"/>
+		<result property ="bookPrice" column="book_price" jdbcType="VARCHAR"/>
+		<result property ="author" column="author" jdbcType="VARCHAR"/>
+		<result property ="bookYear" column="book_year" jdbcType="VARCHAR"/>
+		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>		
+	</resultMap>	
+
+	<!-- LESSON :: INSERT -->
+<!-- - 	<insert id="addLesson">
+		INSERT 
+		INTO LESSON		
+		VALUES (#{lessonCode}, #{teacherId}, #{lessonName}, #{lessonDay},#{lessonStartTime},
+		 #{lessonEndTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
+		TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
+	</insert> -->	
+	
+	<insert id="addLesson">
+		INSERT 
+		INTO LESSON	
+		VALUES ((SELECT DBMS_RANDOM.STRING('X', 8) STR FROM DUAL),
+				(SELECT user_id FROM USERS WHERE user_id = #{teacherId}),
+		 		#{lessonName}, #{lessonDay},
+				#{lessonStartTime},#{lessonEndTime}, #{lessonPlace}, #{fees}, #{subject}, #{lessonContent:VARCHAR}, 
+				TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'))
+	</insert>
+	
+	
+	<!-- STUDENTS_RECORD :: SELECT -->
+	<select id="getLesson" parameterType="String" resultMap="lessonSelectMap">
+		SELECT * from lesson
+		where lesson_code = #{lessonCode}
+	</select>
+
+
+	<!-- STUDENTS_RECORD :: UPDATE -->
+	<update id="updateLesson">
+		UPDATE lesson
+		<set> 
+			lesson_name = #{lessonName:VARCHAR},
+			lesson_day = #{lessonDay:VARCHAR},
+			lesson_start_time = #{lessonStartTime:VARCHAR},
+			lesson_end_time = #{lessonEndTime:VARCHAR},
+			lesson_place = #{lessonPlace:VARCHAR},
+			fees = #{fees:NUMERIC},
+			subject = #{subject:VARCHAR},
+			lesson_content = #{lessonContent:VARCHAR}
+		</set>
+		WHERE lesson_code = #{lessonCode}
+	</update>
+	
+	<delete id = "deleteLesson">
+		DELETE FROM lesson
+		WHERE lesson_code = #{lessonCode}
+	</delete>
+	
+	<select id = "listLessonTime" resultMap="lessonSelectMap">
+		select L.*
+		from lesson L
+		where L.teacher_id = #{teacherId} and lesson_day like '%${lessonDay}%'
+		order by lesson_start_time
+	</select>
+
+	
+	<select id = "listLessonTeacher" resultMap="lessonSelectMap">
+		SELECT*
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+			FROM (SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time,L.lesson_place, L.subject, L.lesson_code
+				FROM LESSON L, USERS U 
+				WHERE L.teacher_id = U.user_id  AND teacher_id = #{searchId}
+				ORDER BY L.lesson_create_at desc) inner_table
+				WHERE ROWnUM &lt;= #{endRowNum}) inner_table
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
+
+	<select id = "listLessonStuents" resultMap="lessonSelectMap">			
+		SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
+			FROM(
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.lesson_place, L.subject, L.lesson_code, SR.proposal
+				FROM LESSON L, STUDENTS_RECORD SR, USERS U
+				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}
+				ORDER BY L.lesson_create_at desc			
+			 )inner_table
+				WHERE ROWNUM &lt; = #{endRowNum} )
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
+
+<!-- 	<select id = "listLessonStuents" resultMap="studentsRecordSelectMap,lessonSelectMap,userSelectMap">			
+		SELECT*
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
+			FROM(
+				SELECT L.lesson_name,  U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.subject, L.lesson_code, SR.proposal
+				FROM LESSON L join STUDENTS_RECORD SR join USERS U
+				ON SR.student_id = #{studentId}
+				ORDER BY L.lesson_create_at desc	
+			 )inner_table
+				WHERE ROWNUM &lt; = #{endRowNum})
+			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select> -->
+	
+	
+	<!-- SQL : SELECT ROW Count -->
+	 <select id = "getLessonTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from lesson
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					student_id = '%${searchKeyword}%'
+	 				</if>
+					<if test="searchCondition == 3 and searchKeyword !='' ">
+	 					lesson_name like '%${searchKeyword}%'
+	 				</if>
+	 				<if test="searchCondition == 3 and searchKeyword !='' ">
+	 					teacher_id = '%${searchKeyword}%'
+	 				</if>					    
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
+	 
+	 <insert id = "addLessonBook">
+		INSERT ALL
+		INTO BOOK VALUES(#{isbn},#{bookTitle},#{publisher:VARCHAR},#{bookPrice:VARCHAR},#{author:VARCHAR},#{bookYear:VARCHAR},#{bookImg:VARCHAR})
+		INTO LESSON_BOOK VALUES(SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
+				(SELECT lesson_code FROM LESSON WHERE lesson_code = #{lessonCode}),#{isbn})
+		SELECT*FROM DUAL
+	</insert>
+	
+	<select id = "listLessonBook" resultMap ="lessonBookSelectMap">
+		select *
+		from (select inner_table.*, ROWNUM AS row_seq
+			FROM (SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+				FROM BOOK B, LESSON_BOOK LB, LESSON L
+				WHERE B.isbn=LB.isbn AND LB.lesson_code = L.lesson_code and 
+				L.teacher_id = #{teacherId}) inner_table
+				WHERE ROWNUM &lt; = #{endRowNum})
+		WHERE ROW_SEQ BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	<!-- and L.lesson_code = 'agho1216' -->
+	
+	<delete id="deleteLessonBook">
+		DELETE
+		FROM lesson_book
+		WHERE isbn = #{isbn}
+	</delete>
+	
+	<select id = "getLessonBookTotalCount" resultType="int">
+	 		SELECT COUNT(*)
+	 		FROM( SELECT * from lesson_book
+	 		<if test="searchCondition != null">
+				<where>
+					<if test="searchCondition == 0 and searchKeyword !='' ">
+	 					teacher_id = {searchKeyword}
+	 				</if>
+					<if test="searchCondition == 2 and searchKeyword !='' ">
+	 					lesson_code = {searchKeyword}
+	 				</if>				    
+	 			</where>
+	 		</if> 	) countTable
+	 </select>
+	 
+</mapper>

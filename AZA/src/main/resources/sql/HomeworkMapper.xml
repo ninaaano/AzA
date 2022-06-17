@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HomeworkMapper">
+
+	<resultMap id="homeworkSelectMap" type="paper">
+		<result property="homeworkCode" column="homework_code" jdbcType="NUMERIC" />
+		<result property="studentId" column="student_id" jdbcType="VARCHAR" />
+		<result property="studentName" column="student_name" jdbcType="VARCHAR" />
+		<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR" />
+		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
+		<result property="homeworkTitle" column="homework_title" jdbcType="VARCHAR" />
+		<result property="homeworkContent" column="homework_contents" jdbcType="VARCHAR" />
+		<result property="homeworkDueDate" column="homework_due_date" jdbcType="DATE" />
+		<result property="homeworkCheck" column="homework_check" jdbcType="CHAR" />
+		<result property="homeworkCreateAt" column="homework_create_at" jdbcType="VARCHAR" />
+		
+		<association property="teacherId"  javaType="lesson">
+			<id property="teacherId" column="teacher_id" jdbcType="VARCHAR"/>
+		</association>
+		
+<!-- 		<association property = "lessonName" javaType="lesson">
+			<id property = "lessonName" column="lesson_name" jdbcType="VARCHAR"/>
+		</association>
+		
+		<association property = "studentName" javaType="students">
+			<id property = "studentName" column="student_name" jdbcType="VARCHAR"/>
+		</association> -->
+	</resultMap>
+
+
+	<!-- HOMEWORK :: INSERT -->
+	<insert id="addPaperHomework">
+	INSERT INTO homework(homework_code, student_id, student_name, lesson_code, lesson_name, homework_title,
+	homework_contents, homework_due_date, homework_create_at)
+	VALUES(seq_homework_homework_code.NEXTVAL,
+	 		 (SELECT user_id FROM users WHERE user_name = #{studentName}), 
+	 		 #{studentName},
+	 		 (SELECT lesson_code FROM lesson WHERE lesson_name = #{lessonName}),
+	 		 #{lessonName},
+	 		 #{homeworkTitle},
+	 		 #{homeworkContent},
+	 		 #{homeworkDueDate},
+	 		 TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS')
+	 )
+	</insert>
+	
+	
+	<!-- HOMEWORK :: SELECT -->
+	<select id="getPaperHomework" parameterType="int" resultMap="homeworkSelectMap">
+		SELECT *
+		FROM homework
+		WHERE homework_code = #{homeworkCode}
+	</select>
+
+
+	<!-- HOMEWORK :: UPDATE -->
+	<update id="updatePaperHomework" parameterType="paper">
+	UPDATE homework
+	<set>
+		homework_title = #{homeworkTitle},
+		homework_contents= #{homeworkContent},
+		homework_due_date= #{homeworkDueDate}	
+	</set>
+	WHERE homework_code = #{homeworkCode}
+	</update>
+	
+	
+	<!-- HOMEWORKCHECK :: UPDATE -->
+	<update id="updatePaperHomeworkCheck" parameterType="int">
+	UPDATE homework
+	<set>
+		homework_check = '1'
+	</set>
+	WHERE homework_code = #{homeworkCode}	
+	</update>
+	
+
+	<!-- HOMEWORK :: DELETE  -->
+	<delete id="deletePaperHomework">
+	DELETE homework
+	WHERE homework_code = #{homeworkCode}
+	</delete>
+	
+		
+	<!--  HOMEWORK:: LIST  -->
+<!-- 	<select id="listPaperHomeworkByTeacher" resultMap="HomeworkSelectMap">
+		SELECT * 
+		FROM (
+		    SELECT inner_table.*, ROWNUM AS row_seq
+		    FROM ( SELECT 
+					homework_code,
+					(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}) lesson_name, 
+					homework_title, (SELECT user_name FROM users WHERE user_id = #{studentId}) student_name,
+					homework_create_at, homework_due_date, homework_check
+					FROM homework
+					<if test="searchCondition != null">
+						<where>
+							<if test="searchCondition == 3 and searchKeyword != '' ">
+								lesson_code = #{lessonCode}
+							</if>
+						</where>
+					</if>
+					ORDER BY  homework_create_at DESC  ) inner_table 
+		    WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	<select id="listPaperHomeworkByTeacher" parameterType="search" resultMap="homeworkSelectMap"> 
+		SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM (	SELECT
+						h.homework_code, h.lesson_name, h.homework_title, sr.student_name,
+						h.homework_create_at, h.homework_due_date, h.homework_check
+						FROM homework h, students_record sr, lesson l
+							<where>
+							h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code AND l.teacher_id = #{searchId} 
+								<if test='searchCondition != null'>
+									<if test="searchCondition == 0 and searchKeyword != '' ">
+										AND h.lesson_name LIKE '%' || #{searchKeyword} || '%'
+									</if>
+									<if test="searchCondition == 1 and searchKeyword != '' ">
+										AND h.student_name LIKE '%' || #{searchKeyword} || '%'
+									</if>
+								</if>	
+							</where>
+						ORDER BY h.homework_create_at desc ) inner_table
+					WHERE ROWNUM &lt;= #{endRowNum}
+				)			
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<!--  HOMEWORK:: LIST  -->
+<!-- 	<select id="listPaperHomeworkByStudent" resultMap="HomeworkSelectMap">
+		SELECT * 
+		FROM (
+		    SELECT inner_table.*, ROWNUM AS row_seq
+		    FROM ( SELECT 
+					homework_code,
+					(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}) lesson_name, 
+					homework_title, (SELECT user_name FROM users WHERE user_id = #{searchId}) student_name,
+					homework_create_at, homework_due_date, homework_check
+					FROM homework
+					WHERE student_id = #{searchId}
+					<if test="searchCondition != null">
+						<where>
+							<if test="searchCondition == 0 and searchKeyword != '' ">
+								student_id = #{searchId}
+							</if>
+							<if test="searchCondition == 3 and searchKeyword != '' ">
+								lesson_code = #{lessonCode}
+							</if>
+						</where>
+					</if>
+					ORDER BY  homework_create_at DESC  ) inner_table 
+		    WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	<select id="listPaperHomeworkByStudent" parameterType="search" resultMap="homeworkSelectMap"> 
+		SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM (	SELECT
+						h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
+						h.homework_create_at, h.homework_due_date, h.homework_check
+						FROM homework h, students_record sr						
+							<where>
+							h.student_id = sr.student_id AND sr.student_id = #{searchId}
+								<if test='searchCondition != null'>
+									<if test="searchCondition == 0 and searchKeyword != '' ">
+										AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+									</if>
+								</if>
+							</where>
+						ORDER BY h.homework_create_at desc ) inner_table
+					WHERE ROWNUM &lt;= #{endRowNum}
+				)			
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<!-- HOMEWORKLIST :: TOTALCOUNT -->
+<!-- 	<select id="getListPaperHomeworkByTeacherTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM (  SELECT 
+				homework_code,
+				(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}) lesson_name, 
+				homework_title, (SELECT user_name FROM users WHERE user_id = student_id) student_name,
+				homework_create_at, homework_due_date, homework_check
+				FROM homework
+				<if test="searchCondition != null">
+					<where>
+						<if test="searchCondition == 0 and searchKeyword != '' ">
+							student_id = #{searchId}
+						</if>
+						<if test="searchCondition == 3 and searchKeyword != '' ">
+							lesson_code = #{lessonCode}
+						</if>
+					</where>
+				</if>
+	            ORDER BY  homework_create_at DESC ) countTable	
+	</select> -->
+	
+	<select id="getListPaperHomeworkByTeacherTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM (  SELECT
+					h.homework_code, h.lesson_name, h.homework_title, sr.student_name,
+					h.homework_create_at, h.homework_due_date, h.homework_check
+					FROM homework h, students_record sr, lesson l
+						<where>
+							h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code
+							AND l.teacher_id = #{searchId}
+							<if test='searchCondition != null'>
+								<if test="searchCondition == 0 and searchKeyword != '' ">
+									AND h.lesson_name LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword != '' ">
+									AND h.student_name LIKE '%' || #{searchKeyword} || '%'
+								</if>
+							</if>
+						</where>
+					ORDER BY h.homework_create_at desc ) countTable	
+	</select>
+	
+	<!-- HOMEWORKLIST :: TOTALCOUNT -->
+<!-- 	<select id="getListPaperHomeworkByStudentTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM (  SELECT 
+				homework_code,
+				(SELECT lesson_name FROM lesson WHERE lesson_code = #{lessonCode}) lesson_name, 
+				homework_title, (SELECT user_name FROM users WHERE user_id = student_id) student_name,
+				homework_create_at, homework_due_date, homework_check
+				FROM homework
+				WHERE student_id = #{searchId}
+				<if test="searchCondition != null">
+					<where>
+						<if test="searchCondition == 0 and searchKeyword != '' ">
+							student_id = #{searchId}
+						</if>
+						<if test="searchCondition == 3 and searchKeyword != '' ">
+							lesson_code = #{lessonCode}
+						</if>
+					</where>
+				</if>
+	            ORDER BY  homework_create_at DESC ) countTable	
+	</select> -->
+	
+	<select id="getListPaperHomeworkByStudentTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM (  SELECT
+				h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
+				h.homework_create_at, h.homework_due_date, h.homework_check
+				FROM homework h, students_record sr
+					<where>
+					h.student_id = sr.student_id AND sr.student_id = #{searchId}
+						<if test='searchCondition != null'>
+							<if test="searchCondition == 0 and searchKeyword != '' ">
+								AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+							</if>
+						</if>
+					</where>
+				ORDER BY h.homework_create_at desc ) countTable	
+	</select>
+	
+
+</mapper>
