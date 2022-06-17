@@ -134,7 +134,7 @@
 	</select>
 	
 	<select id="findPassword" resultMap="userSelectMap">
-		select * from users where user_id=#{userId} and user_name=#{userName} and phone=#{phone}
+		select * from users where user_id=#{userId} and phone=#{phone}
 	</select>
 	
 	<update id="updatePassword">

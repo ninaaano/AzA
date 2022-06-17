@@ -587,7 +587,6 @@ body>div.container {
 	function cert() {
 		 var random = Math.floor(Math.random() * 1000000)+"";
 		 var phone = $("#phone").val();	
-		 alert("phone"+phone);
 		 $('#randomVal').val(random);
 			var obj = {
 					"type" : "SMS",
