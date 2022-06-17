@@ -183,6 +183,7 @@ function attendanceLoad() {
 
 	$.ajax({
 		url:"/lesson/rest/listLessonTime?lessonDay="+curDay,
+
 		type:"GET",
 		headers : {
 
