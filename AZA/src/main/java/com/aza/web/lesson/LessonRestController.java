@@ -82,8 +82,10 @@ public class LessonRestController {
 	public ModelAndView addLessonBook(HttpServletRequest request) throws Exception{
 		ModelAndView model = new ModelAndView();
 		String isbn = request.getParameter("isbn");
+		String lessonCode = request.getParameter("lessonCode");
 		System.out.println("=========");
-		System.out.println(isbn);
+		System.out.println("isbn=? "+isbn);
+		System.out.println("lessonCode=? "+lessonCode);
 		System.out.println("=========");
 		
 		Lesson lesson = new Lesson();
@@ -91,6 +93,8 @@ public class LessonRestController {
 			BookService crawler = new BookService();
 			String url = URLEncoder.encode(isbn, "UTF-8");
 			String response = crawler.search(url);
+			
+			
 			
 			String[] fields = {"title","link","description","image","author","price","isbn"};
 			Map<String, Object> result = crawler.getResult(response, fields);
@@ -113,16 +117,16 @@ public class LessonRestController {
 					if(field.equals("price")) {
 						lesson.setBookPrice(item.get(field));
 					}
-					if(field.equals("isbn")) {
-						lesson.setIsbn(item.get(field));
-					}
+//					if(field.equals("isbn")) {
+//						lesson.setIsbn(item.get(field));
+//					}
 					if(field.equals("pubdate")) {
 						lesson.setBookYear(item.get(field));
 					}
 					if(field.equals("image")) {
 						lesson.setBookImg(item.get(field));
 	 				}
-					lesson.setIsbn(isbn);
+					lesson.setLessonCode(lessonCode);
 				}
 				System.out.println("==========");
 				System.out.println(lesson);
@@ -132,10 +136,20 @@ public class LessonRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		lessonService.addLessonBook(lesson);
+		
 		model.setViewName("redirect:/lesson/manageLessonBook");
 		return model;
+	}
+	
+	@RequestMapping("listLessonBook")
+	public Map<String,Object> listLessonBook(HttpSession session) throws Exception{
+		System.out.println("=======================");
+		System.out.println("listLessonBook rest ½ÇÇà");
+		String teacherId = ((User)session.getAttribute("user")).getUserId();
+		Search search = new Search();
+				
+		return lessonService.listLessonBook(search, teacherId);
 	}
 	
 	@RequestMapping("/manageLessonBook")

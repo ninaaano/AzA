@@ -11,6 +11,11 @@
 
 <script type ="text/javascript">
 	function fncAddLessonBook() {
+		/* var lessonCode = $("input[name='lessonCode']").val();
+		if(lessonCode != "${lesson.lessonCode}"){
+			alert("수업코드가 일치하지 않습니다.");
+			return;
+		} */
 		$("form").attr("method","GET").attr("action","/lesson/rest/addLessonBook").submit();
 	}
 	$(function(){
@@ -18,11 +23,36 @@
 			fncAddLessonBook();	
 		});		
 	});
+	
+	function listLessonBook(){
+		$.ajax({
+			url:"http://localhost:8080/lesson/rest/listLessonBook",
+			type:"GET",
+			headers:{
+				"Accept" : "application/json",
+                "Content-Type" : "application/json",
+			},
+			success: function(result){
+				alert("OK");
+				console.log(result);
+				var list = result.list
+				console.log(list);
+				console.log("-------");
+				
+			}
+		})
+	}
 </script>
 
 </head>
 <body>
 <form class="d-flex" action="{% url 'api_book_search' %}" method="GET">	책 검색(isbn 입력)
+	<div class="form-group">
+         <label for="lessonCode" class="col-sm-2 control-label">수업코드</label>
+         <div class="col-sm-10">
+           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+         </div>
+    </div>
 	<input name = "isbn" class="form-control me-2" type="search" placeholder="isbn 입력" aria-label="Search">
 	<button class="btn btn-outline-success" type="button">검색</button>
 </form>
