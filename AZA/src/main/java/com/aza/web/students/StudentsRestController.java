@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,9 +61,9 @@ public class StudentsRestController {
 	}
 	
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ì™„ë£Œëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿Ï·áµÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listStudentsRecord")
-	public Map<String, Object> listStudentsRecord(HttpSession session) throws Exception {
+	public Map<String, Object> listStudentsRecord(HttpSession session, @RequestParam(required = false, value = "lessonCode") String lessonCode) throws Exception {
 		
 		System.out.println("/students/rest/listStudentsRecord");
 		
@@ -72,11 +73,17 @@ public class StudentsRestController {
 		int totalCount = (int) studentsService.listStudentsRecord(search, teacherId).get("totalCount");
 		search.setCurrentPage(1);
 		search.setPageSize(totalCount);
-				
-		return studentsService.listStudentsRecord(search, teacherId);		
+		
+		if(lessonCode != null && lessonCode.length() > 1) {
+			
+			search.setSearchCondition("2");
+			search.setSearchKeyword(lessonCode);
+			
+		}
+		return studentsService.listStudentsRecord(search, teacherId);			
 	}
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listProposalStudents")
 	public Map<String, Object> listProposalStudents(HttpSession session) throws Exception {
 		
@@ -92,7 +99,7 @@ public class StudentsRestController {
 		return studentsService.listProposalStudents(search, teacherId);		
 	}
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listTotalStudentsRecord")
 	public Map<String, Object> listlistTotalStudentsRecord(HttpSession session) throws Exception {
 		
@@ -110,19 +117,33 @@ public class StudentsRestController {
 	
 	
 	// ATTENDANCE
-	@RequestMapping(value="listStudentsAttendance/{month}", method=RequestMethod.POST)
-	public Map<String, Object> listStudentsAttendance(@PathVariable("month") String month, HttpSession session) throws Exception {
+	@RequestMapping(value="listStudentsAttendance/{month}/{year}", method=RequestMethod.POST)
+	public Map<String, Object> listStudentsAttendance(	@PathVariable("month") int month, 
+														@PathVariable(required = false, value="year") String year, 
+														HttpSession session,
+														@RequestParam(required = false, value="studentId") String studentId,
+														@RequestParam(required = false, value="lessonCode") String lessonCode
+														) throws Exception {
 		
 		System.out.println("/students/rest/listStudentsAttendance");
 		
 		LocalDate now = LocalDate.now();
-		String searchStartDate = now.getYear() + "/" + month + "/01";
-		String searchEndDate = now.getYear() + "/" + month + "/31";
+		String prevMonth = Integer.toString(month - 1); 
+		prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
+		String curMonth = month < 10 ? "0" + Integer.toString(month) : Integer.toString(month);
+		
+		if(year == null) {
+			year = Integer.toString(now.getYear());
+		}
+		
+		String searchStartDate = year + "/" + prevMonth + "/31";
+		String searchEndDate = year + "/" + curMonth + "/31";
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		Search search = new Search();
+
 		
-		// ì„ì‹œ => sessionìœ¼ë¡œ ì“¸ê±°
+		// ÀÓ½Ã => sessionÀ¸·Î ¾µ°Å
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
@@ -142,6 +163,20 @@ public class StudentsRestController {
 		search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(31);
+		
+		if(studentId==null || studentId.length() < 1) {
+			List students = (List) session.getAttribute("students");
+			studentId = ((User) students.get(0)).getFirstStudentId();			
+		}
+		
+		System.out.println("studentId : "+studentId);
+		
+		if(lessonCode == null || lessonCode.length() < 1) {
+			List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
+			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();	
+		}
+		
+		System.out.println("lessonCode : "+lessonCode);
 
 		return studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);	
 	}
@@ -173,7 +208,7 @@ public class StudentsRestController {
 		return students;		
 	}
 	
-	// ìˆ˜ì •ì‹œ ì €ì¥ëœ ê°’ ë¿Œë ¤ì£¼ê¸°(?)
+	// ¼öÁ¤½Ã ÀúÀåµÈ °ª »Ñ·ÁÁÖ±â(?)
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.GET)
 	public Students updateStudentsExam(@PathVariable int examCode) throws Exception{
 		
@@ -182,7 +217,7 @@ public class StudentsRestController {
 		return studentsService.getStudentsExam(examCode);
 	}
 	
-	// ìˆ˜ì • method
+	// ¼öÁ¤ method
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.POST)
 	public Students updateStudentsExam(@RequestBody Students students) throws Exception{
 		

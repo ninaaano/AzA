@@ -18,8 +18,6 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-<script defer src="/resources/javascript/students/teacherHome.js"></script>
-<script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -57,7 +55,6 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
-<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -121,7 +118,7 @@ $(function() {
 })
 
 
-/* 
+
 function deleteAlert(alertCode) {
 	$.ajax({
 		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
@@ -183,6 +180,10 @@ function deleteAlert(alertCode) {
             }
        }
 	})
+	
+	
+	
+	
 }
 
 
@@ -316,13 +317,15 @@ function readAlert(alertCode) {
 	})
 }
 
- */
+
 
 $(function() {
+
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
+
 	})
 
 	// Message
@@ -380,6 +383,9 @@ $(function() {
             } 
         })
 	})
+	
+
+
 })
 	
 
@@ -396,7 +402,7 @@ $(function() {
 <body class="nav-fixed bg-light">
 <div class="nav-fixed bg-light">
 	<!-- Top app bar navigation menu-->
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-primary">
+	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-dark">
 		<div class="container-fluid px-4">
 			<!-- Drawer toggle button-->
 			<button class="btn btn-lg btn-icon order-1 order-lg-0"
@@ -404,11 +410,17 @@ $(function() {
 				<i class="material-icons">menu</i>
 			</button>
 			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index">
-			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
-			</a>
+			<a class="navbar-brand me-auto" href="index.html">
+			<div class="text-uppercase">AZA : 학생관리프로그램</div></a>
 			<!-- Navbar items-->
 			<div class="d-flex align-items-center mx-3 me-lg-0">
+				<!-- Navbar-->
+				<ul class="navbar-nav d-none d-lg-flex">
+					<li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="https://docs.startbootstrap.com/material-admin-pro"
+						target="_blank">Documentation</a></li>
+				</ul>
 				<!-- Navbar buttons-->
 				<div class="d-flex">
 					<!-- Messages dropdown-->
@@ -418,7 +430,63 @@ $(function() {
 							aria-expanded="false">
 							<i class="material-icons">mail_outline</i>
 						</button>
-					</div>				
+					</div>
+			
+<!-- 						<ul
+							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
+							aria-labelledby="dropdownMenuMessages">
+							<li><h6
+									class="dropdown-header bg-primary text-white fw-500 py-3">Messages</h6></li>
+							<li><hr class="dropdown-divider my-0" /></li>
+							<li><a class="dropdown-item unread" href="#!">
+									<div class="dropdown-item-content">
+										<div class="dropdown-item-content-text">
+											<div class="text-truncate d-inline-block"
+												style="max-width: 18rem">Hi there, I had a question
+												about something, is there any way you can help me out?</div>
+										</div>
+										<div class="dropdown-item-content-subtext">Mar 12, 2021
+											&middot; Juan Babin</div>
+									</div>
+							</a></li>
+							<li><hr class="dropdown-divider my-0" /></li>
+							<li><a class="dropdown-item" href="#!">
+									<div class="dropdown-item-content">
+										<div class="dropdown-item-content-text">
+											<div class="text-truncate d-inline-block"
+												style="max-width: 18rem">Thanks for the assistance the
+												other day, I wanted to follow up with you just to make sure
+												everyting is settled.</div>
+										</div>
+										<div class="dropdown-item-content-subtext">Mar 10, 2021
+											&middot; Christine Hendersen</div>
+									</div>
+							</a></li>
+							<li><hr class="dropdown-divider my-0" /></li>
+							<li><a class="dropdown-item" href="#!">
+									<div class="dropdown-item-content">
+										<div class="dropdown-item-content-text">
+											<div class="text-truncate d-inline-block"
+												style="max-width: 18rem">Welcome to our group! It's
+												good to see new members and I know you will do great!</div>
+										</div>
+										<div class="dropdown-item-content-subtext">Mar 8, 2021
+											&middot; Celia J. Knight</div>
+									</div>
+							</a></li>
+							<li><hr class="dropdown-divider my-0" /></li>
+							<li><a class="dropdown-item py-3" href="#!">
+									<div class="d-flex align-items-center w-100 justify-content-end text-primary">
+										<div class="fst-button small">View all</div>
+										<i class="material-icons icon-sm ms-1">chevron_right</i>
+									</div>
+							</a></li>
+						</ul>
+					</div> -->
+					
+					
+					
+					
 					<!-- Notifications and alerts dropdown-->
 					<div class="dropdown dropdown-notifications d-none d-sm-block">
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
@@ -465,6 +533,7 @@ $(function() {
 			</div>
 		</div>
 	</nav>
+
 	<!-- Layout wrapper-->
 	<div id="layoutDrawer">
 		<!-- Layout navigation-->
@@ -491,43 +560,174 @@ $(function() {
 						<!-- Divider-->
 						<div class="drawer-menu-divider d-sm-none"></div>
 						<!-- Drawer section heading (Interface)-->
-						<div class="drawer-menu-heading">MENU</div>
+						<div class="drawer-menu-heading">Interface</div>
 						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
+						<a class="nav-link" href="index.html">
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> 수업관리
+							</div> Overview
 						</a>
-						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
-							<div class="nav-link-icon">
-								<i class="material-icons" href="#">language</i>
-							</div> 전체 학생 목록
-						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link" href="/students/listStudentsRecord">
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> 학생 관리
+							</div> 전체학생목록
 						</a>
-						<a class="nav-link left_nav" href="#">
+
+						<!-- Drawer link (Dashboards)-->
+						<a class="nav-link collapsed" href="javascript:void(0);"
+							data-bs-toggle="collapse" data-bs-target="#collapseDashboards"
+							aria-expanded="false" aria-controls="collapseDashboards">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 클라우드
+								<i class="material-icons">dashboard</i>
+							</div> 자녀관리
+							<div class="drawer-collapse-arrow">
+								<i class="material-icons">expand_more</i>
+							</div>
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<!-- Nested drawer nav (Dashboards)-->
+						<div class="collapse" id="collapseDashboards"
+							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
+							<nav class="drawer-menu-nested nav">
+								<a class="nav-link" href="app-dashboard-default.html">수업목록</a>
+								<a class="nav-link" href="/students/listStudentsAttendance">출석</a>
+								<a class="nav-link" href="app-dashboard-analytics.html">성적</a>
+								<a class="nav-link" href="app-dashboard-accounting.html">쪽지시험</a>
+								<a class="nav-link" href="app-dashboard-orders.html">교재</a>
+								<a class="nav-link" href="app-dashboard-projects.html">홈</a>
+							</nav>
+						</div>
+						<!-- Drawer link (Layouts)-->
+						<a class="nav-link collapsed" href="javascript:void(0);"
+							data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+							aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 수납
+								<i class="material-icons">view_compact</i>
+							</div> Layouts
+							<div class="drawer-collapse-arrow">
+								<i class="material-icons">expand_more</i>
+							</div>
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<!-- Nested drawer nav (Layouts)-->
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
+							<nav class="drawer-menu-nested nav">
+								<a class="nav-link" href="layout-dark.html">Dark Theme</a> <a
+									class="nav-link" href="layout-light.html">Light Theme</a> <a
+									class="nav-link" href="layout-static.html">Static
+									Navigation</a>
+							</nav>
+						</div>
+						<!-- Drawer link (Pages)-->
+						<a class="nav-link collapsed" href="javascript:void(0);"
+							data-bs-toggle="collapse" data-bs-target="#collapsePages"
+							aria-expanded="false" aria-controls="collapsePages">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> Q&A
+								<i class="material-icons">layers</i>
+							</div> Pages
+							<div class="drawer-collapse-arrow">
+								<i class="material-icons">expand_more</i>
+							</div>
 						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 교재
-						</a>
+						<!-- Nested drawer nav (Pages)-->
+						<div class="collapse" id="collapsePages"
+							aria-labelledby="headingTwo" data-bs-parent="#drawerAccordion">
+							<nav class="drawer-menu-nested nav accordion"
+								id="drawerAccordionPages">
+								<!-- Drawer link (Pages -> Account)-->
+								<a class="nav-link collapsed" href="javascript:void(0);"
+									data-bs-toggle="collapse"
+									data-bs-target="#pagesCollapseAccount" aria-expanded="false"
+									aria-controls="pagesCollapseAccount"> Account
+									<div class="drawer-collapse-arrow">
+										<i class="material-icons">expand_more</i>
+									</div>
+								</a>
+								<!-- Nested drawer nav (Pages -> Account)-->
+								<div class="collapse" id="pagesCollapseAccount"
+									aria-labelledby="headingOne"
+									data-bs-parent="#drawerAccordionPages">
+									<nav class="drawer-menu-nested nav">
+										<a class="nav-link" href="app-account-billing.html">Billing</a>
+										<a class="nav-link" href="app-account-notifications.html">Notifications</a>
+										<a class="nav-link" href="app-account-profile.html">Profile</a>
+										<a class="nav-link" href="app-account-security.html">Security</a>
+									</nav>
+								</div>
+								<!-- Drawer link (Pages -> Authentication)-->
+								<a class="nav-link collapsed" href="javascript:void(0);"
+									data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth"
+									aria-expanded="false" aria-controls="pagesCollapseAuth">
+									Authentication
+									<div class="drawer-collapse-arrow">
+										<i class="material-icons">expand_more</i>
+									</div>
+								</a>
+								<!-- Nested drawer nav (Pages -> Authentication)-->
+								<div class="collapse" id="pagesCollapseAuth"
+									aria-labelledby="headingOne"
+									data-bs-parent="#drawerAccordionPages">
+									<nav class="drawer-menu-nested nav">
+										<a class="nav-link" href="app-auth-login-basic.html">Login
+											1</a> <a class="nav-link" href="app-auth-login-styled-1.html">Login
+											2</a> <a class="nav-link" href="app-auth-login-styled-2.html">Login
+											3</a> <a class="nav-link" href="app-auth-register-basic.html">Register</a>
+										<a class="nav-link" href="app-auth-password-basic.html">Forgot
+											Password</a>
+									</nav>
+								</div>
+								<!-- Drawer link (Pages -> Blank Pages)-->
+								<a class="nav-link" href="app-blank-page.html">Blank Page</a>
+								<!-- Drawer link (Pages -> Error)-->
+								<a class="nav-link collapsed" href="javascript:void(0);"
+									data-bs-toggle="collapse" data-bs-target="#pagesCollapseError"
+									aria-expanded="false" aria-controls="pagesCollapseError">
+									Error
+									<div class="drawer-collapse-arrow">
+										<i class="material-icons">expand_more</i>
+									</div>
+								</a>
+								<!-- Nested drawer nav (Pages -> Error)-->
+								<div class="collapse" id="pagesCollapseError"
+									aria-labelledby="headingOne"
+									data-bs-parent="#drawerAccordionPages">
+									<nav class="drawer-menu-nested nav">
+										<a class="nav-link" href="app-error-400.html">400 Error
+											Page</a> <a class="nav-link" href="app-error-401.html">401
+											Error Page</a> <a class="nav-link" href="app-error-403.html">403
+											Error Page</a> <a class="nav-link" href="app-error-404.html">404
+											Error Page</a> <a class="nav-link" href="app-error-429.html">429
+											Error Page</a> <a class="nav-link" href="app-error-500.html">500
+											Error Page</a> <a class="nav-link" href="app-error-503.html">503
+											Error Page</a> <a class="nav-link" href="app-error-504.html">504
+											Error Page</a>
+									</nav>
+								</div>
+								<!-- Drawer link (Pages -> Pricing)-->
+								<a class="nav-link" href="app-invoice.html">Invoice</a>
+								<!-- Drawer link (Pages -> Knowledgebase)-->
+								<a class="nav-link collapsed" href="javascript:void(0);"
+									data-bs-toggle="collapse"
+									data-bs-target="#pagesCollapseKnowledgebase"
+									aria-expanded="false"
+									aria-controls="pagesCollapseKnowledgebase"> Knowledgebase
+									<div class="drawer-collapse-arrow">
+										<i class="material-icons">expand_more</i>
+									</div>
+								</a>
+								<!-- Nested drawer nav (Pages -> Knowledgebase)-->
+								<div class="collapse" id="pagesCollapseKnowledgebase"
+									aria-labelledby="headingOne"
+									data-bs-parent="#drawerAccordionPages">
+									<nav class="drawer-menu-nested nav">
+										<a class="nav-link" href="#">Home</a>
+										<a class="nav-link" href="#">Categories</a>
+										<a class="nav-link" href="#">Article</a>
+									</nav>
+								</div>
+								<!-- Drawer link (Pages -> Pricing)-->
+								<a class="nav-link" href="#">Pricing</a>
+							</nav>
+						</div>
 						<!-- Divider-->
 						<div class="drawer-menu-divider"></div>
 				<!-- Drawer footer        -->
@@ -550,21 +750,55 @@ $(function() {
 			<header class="main-header">
 				<!-- page header -->
 				<div class="row justify-content-center gx-5">
-                      <div class="row justify-content-end col-md-8 col-lg-6">
-                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                             
-							
-						    </div>
-                      
+                      <div class="col-md-8 col-lg-6">
+                          <div class="text-center py-10">
+                              <!-- Example brand image (inline SVG image)-->
+                              
+                          </div>
                       </div>
                   </div>
+				<!-- 수업 추가 Modal-->
+				<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+				    <div class="modal-dialog modal-dialog-centered">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
+				                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
+				            </div>
+				            <div class="modal-body">
+				             <c:url var="add_record" value="/students/listStudentsRecord"/>
+					            <form name="addStudentsRecordForm" action="${add_record}">
+						          <div class="form-group">
+						            <label for="lessonCode" class="col-form-label">수업 코드:</label>
+						            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
+						          </div>
+						          <div class="form-group">
+						            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
+						            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
+						          </div>
+						          <div class="form-group">
+						            <label for="fees" class="col-form-label">수업료:</label>
+						            <input type="text" class="form-control" id="fees" name="fees"/>
+						          </div>
+						          <div class="form-group">
+						            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
+						            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
+						          </div>
+						          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
+						          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
+						          <div class="d-flex justify-content-end">
+					              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
+					              </div>
+					        </form>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 			</header>
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-					<iframe id="mainFrame" src="/home" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
+			<div class="container-xl px-5">
 			
-
-		        <div class="messagePopup hidden" id="messagePopup">
+			</div>
+		    <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -633,6 +867,8 @@ $(function() {
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>

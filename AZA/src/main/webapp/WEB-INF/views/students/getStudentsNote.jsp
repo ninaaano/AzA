@@ -1,18 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+    pageEncoding="euc-kr"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Í∞ïÏùòÎÖ∏Ìä∏ Ïó∞Ïäµ</title>
-
-	<!-- ÎÑ§Ïù¥Î≤Ñ Ïä§ÎßàÌä∏ÏóêÎîîÌÑ∞  -->
-	<!-- <head> ÏïàÏóê Ï∂îÍ∞Ä -->
-	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- 2.10.0 Î≤ÑÏ†ÑÏóî js ÌååÏùº ÏùºÎ∂ÄÎ∂ÑÏù¥ ÏóÜÏñ¥ Ïò§Î•ò Î∞úÏÉù ! -->
+	<meta charset="euc-kr">
+	<title>∞≠¿«≥Î∆Æ</title>
 	
-	<!-- head ÏïàÏóê Ï∂îÍ∞Ä -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- ≥◊¿Ãπˆ Ω∫∏∂∆Æø°µ≈Õ  -->
+	<!-- <head> æ»ø° √ﬂ∞° -->
+	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="euc-kr"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<!-- 2.10.0 πˆ¿¸ø£ js ∆ƒ¿œ ¿œ∫Œ∫–¿Ã æ¯æÓ ø¿∑˘ πﬂª˝ ! -->
+	
+	<!-- head æ»ø° √ﬂ∞° -->
 	
 	<!-- //////////////////////////////////////////////////// -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +26,7 @@
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-	<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<!-- 	<script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
 	<script defer src="/resources/javascript/alert/alertUI.js"></script>
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 	<!-- Load Favicon-->
@@ -72,27 +73,29 @@
 	</style>
 	<link href="/resources/css/styles.css" rel="stylesheet">
 	<link href="/resources/css/common.css" rel="stylesheet">
+	
+	
 	<!-- //////////////////////////////////////////////////// -->
 	<script>			
 	
 /* 	function save(){
 		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//Ïä§ÎßàÌä∏ ÏóêÎîîÌÑ∞ Í∞íÏùÑ ÌÖçÏä§Ìä∏Ïª®ÌÖêÏ∏†Î°ú Ï†ÑÎã¨
+	    		//Ω∫∏∂∆Æ ø°µ≈Õ ∞™¿ª ≈ÿΩ∫∆Æƒ¡≈Ÿ√˜∑Œ ¿¸¥ﬁ
 		var content = document.getElementById("smartEditor").value;
 		alert(document.getElementById("txtContent").value); 
-	    		// Í∞íÏùÑ Î∂àÎü¨Ïò¨ Îïê document.getÏúºÎ°ú Î∞õÏïÑÏò§Í∏∞
+	    		// ∞™¿ª ∫“∑Øø√ ∂© document.get¿∏∑Œ πﬁæ∆ø¿±‚
 		return; 
 	} */
 
     function updateBtn() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
-		  //Ïä§ÎßàÌä∏ ÏóêÎîîÌÑ∞ Í∞íÏùÑ ÌÖçÏä§Ìä∏Ïª®ÌÖêÏ∏†Î°ú Ï†ÑÎã¨
+		  //Ω∫∏∂∆Æ ø°µ≈Õ ∞™¿ª ≈ÿΩ∫∆Æƒ¡≈Ÿ√˜∑Œ ¿¸¥ﬁ
 		  let noteContent = document.getElementById("noteContent").value
 		  let noteTitle = document.getElementById("noteTitle").value
 		  let noteCode = document.getElementById("noteCode").value
-		  // Í∞íÏùÑ Î∂àÎü¨Ïò¨ Îïê document.getÏúºÎ°ú Î∞õÏïÑÏò§Í∏∞
+		  // ∞™¿ª ∫“∑Øø√ ∂© document.get¿∏∑Œ πﬁæ∆ø¿±‚
 		  if(noteContent == '' || noteTitle == '') {
-		    alert("Ï†úÎ™©Í≥º ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî.")
+		    alert("¡¶∏Ò∞˙ ≥ªøÎ¿ª ¿‘∑¬«ÿ¡÷ººø‰.")
 		    oEditors.getById["noteContent"].exec("FOCUS")
 		    return
 		  } else {
@@ -107,22 +110,46 @@
 	}
 	
 	function deleteBtn() {
-		$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+		if(window.confirm("¡§∏ª ªË¡¶«œΩ√∞⁄Ω¿¥œ±Ó?")){
+			if(true){
+				$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+			}else{
+				alert('ªË¡¶∞° √Îº“µ«æ˙Ω¿¥œ¥Ÿ.');
+			}
+		}
+		
 	}
 	
+/* 	$(function() {
+		
+		$( "button.btn.btn-outline-primary:contains('ªË¡¶')").on("click" , function() {
+			history.go(-1);
+		});
+	}); */	
+	
 	$(function() {
 		
-		$( "button.btn.btn-primary:contains('ÏÇ≠Ï†ú')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('µ⁄∑Œ')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
 	
-	$(function() {
-		
-		$( "button.btn.btn-primary:contains('Îí§Î°ú')").on("click" , function() {
-			history.go(-1);
-		});
-	});	
+	window.onload = function() {
+		document.getElementById("download")
+		.addEventListener("click",()=>{
+			const smarteditorr = this.document.getElementById("smarteditor");
+			console.log(smarteditorr);
+			console.log(window);
+			var opt = {
+					margin: 1,
+					filename: 'note.pdf',
+					image: {type: 'jpeg', quality: 0.98},
+					html2canvas: {scale: 2},
+					jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+			};
+			html2pdf().from(smarteditorr).set(opt).save();
+		})
+	}
 	
 	</script>
 	
@@ -134,42 +161,46 @@
 
 <%-- 	<form name="noteForm" action="updateStudentsNote" method="post">
 	      <div id="smarteditor">
-	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="Ï†úÎ™©ÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî"></input>
-	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="ÌïôÏÉù Ïù¥Î¶Ñ"></input>
+	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="¡¶∏Ò¿ª ¿‘∑¬«ÿ¡÷ººø‰"></input>
+	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="«–ª˝ ¿Ã∏ß"></input>
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
-	                  placeholder="ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî"
+	                  placeholder="≥ªøÎ¿ª ¿‘∑¬«ÿ¡÷ººø‰"
 	                  style="width: 100%"></textarea>
 
 	      </div>
-      <input type="button" onclick="updateBtn();" value="ÌôïÏù∏"/>
-      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">Ï∑®ÏÜå</button>
+      <input type="button" onclick="updateBtn();" value="»Æ¿Œ"/>
+      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">√Îº“</button>
 
     </form> --%>
     
     
     <form>
-    	<div id="smarteditor">
- 		    <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Ï†ú Î™©</span>
-                <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="noteTitle" id="noteTitle" value="${students.noteTitle}"/>
-            </div>
-	      	<div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">ÏïÑÏù¥Îîî</span>
-                <div class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                	name="studentId" id="studentId" value="${students.studentId}">${students.studentId}</div>
-            </div>
+    <div class="border border-top-0 p-3 p-sm-5 bg-light" >
+	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+	        <h1 class="display-4 mb-0">∞≠ ¿« ≥Î ∆Æ</h1>
+	        <div class="text-muted">Students Note</div>
+   	</div>
+    <div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
+    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
+	    	<div class="input-group mb-3">
+		            <button class="btn btn-outline-primary" type="button" style="width:120px;">¡¶ ∏Ò</button>
+		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
+	        </div>
+	        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+	                	name="studentId" id="studentId" value="${students.studentId}"></input>
 	      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 			           rows="30" cols="10" 
-			           style="width: 100%" readonly>${students.noteContent}</textarea>
+			           style="width: 100%">${students.noteContent}</textarea>
         </div>
         <div align="center">
-              <input type="button" onclick="updateBtn();" class="btn btn-primary" value="ÏàòÏ†ï"/>
-              <input type="button" onclick="deleteBtn();" class="btn btn-primary" value="ÏÇ≠Ï†ú"/>
-              <button id="backBtn" type="button" class="btn btn-primary">Îí§Î°ú</button>
+              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="¿˙¿Â"/>
+              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="ªË¡¶"/>
+              <button id="backBtn" type="button" class="btn btn-outline-primary">µ⁄∑Œ</button>
 		</div>
+	</div>
     </form>
     
     <script>
@@ -179,8 +210,8 @@
 	      console.log("Naver SmartEditor")
 	      nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: oEditors,
-	        elPlaceHolder: "noteContent",	//textarea ID ÏûÖÎ†•
-	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html Í≤ΩÎ°ú ÏûÖÎ†•
+	        elPlaceHolder: "noteContent",	//textarea ID ¿‘∑¬
+	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html ∞Ê∑Œ ¿‘∑¬
 	        fCreator: "createSEditor2"
 	      
 	      })

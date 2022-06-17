@@ -77,7 +77,7 @@
 	 <!-- USERS : DELETE -->
  	 <delete	id="deleteUser"	parameterType="String" >
 	   	DELETE FROM users
-		WHERE user_id = #{userId}
+		WHERE user_id = #{userId} and password = #{password}
 	 </delete>
 		 
 	 <!-- USERS : CheckDuplication -->
@@ -129,12 +129,12 @@
 		WHERE user_id = #{userId}
 	 </update>
 	 
-	 <select id="findId" resultType="user">
+	 <select id="findId" resultMap="userSelectMap">
 		select * from users where user_name=#{userName} and phone=#{phone}
 	</select>
 	
-	<select id="findPassword" resultType="user">
-		select * from users where user_id=#{userId} and phone=#{phone}
+	<select id="findPassword" resultMap="userSelectMap">
+		select * from users where user_id=#{userId} and user_name=#{userName} and phone=#{phone}
 	</select>
 	
 	<update id="updatePassword">

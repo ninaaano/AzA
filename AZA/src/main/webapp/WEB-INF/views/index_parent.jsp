@@ -18,7 +18,6 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-<script defer src="/resources/javascript/students/teacherHome.js"></script>
 <script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -57,7 +56,6 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
-<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -121,7 +119,7 @@ $(function() {
 })
 
 
-/* 
+
 function deleteAlert(alertCode) {
 	$.ajax({
 		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
@@ -183,6 +181,10 @@ function deleteAlert(alertCode) {
             }
        }
 	})
+	
+	
+	
+	
 }
 
 
@@ -316,13 +318,15 @@ function readAlert(alertCode) {
 	})
 }
 
- */
+
 
 $(function() {
+
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
+
 	})
 
 	// Message
@@ -380,13 +384,10 @@ $(function() {
             } 
         })
 	})
-})
 	
 
 
-
-
-
+})	
 </script>
 
 
@@ -465,6 +466,7 @@ $(function() {
 			</div>
 		</div>
 	</nav>
+
 	<!-- Layout wrapper-->
 	<div id="layoutDrawer">
 		<!-- Layout navigation-->
@@ -496,22 +498,7 @@ $(function() {
 						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> 수업관리
-						</a>
-						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
-							<div class="nav-link-icon">
-								<i class="material-icons" href="#">language</i>
-							</div> 전체 학생 목록
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 학생 관리
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 클라우드
+							</div> 자녀관리
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
@@ -523,19 +510,15 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> Q&A
 						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 교재
-						</a>
-						<!-- Divider-->
-						<div class="drawer-menu-divider"></div>
-				<!-- Drawer footer        -->
-				<div class="drawer-footer border-top">
-					<div class="d-flex justify-content-center">
-					<!-- 수업 추가 버튼 -->
-						<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentsRecord">수업 추가<i class="trailing-icon material-icons">launch</i></button>
 					</div>
+						<!-- Divider-->
+					<div class="drawer-menu-divider"></div>
+					<!-- Drawer footer        -->
+					<div class="drawer-footer border-top">
+						<div class="d-flex justify-content-center">
+						<!-- 수업 추가 버튼 -->
+							<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentsRecord">수업 추가<i class="trailing-icon material-icons">launch</i></button>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -547,24 +530,56 @@ $(function() {
 	
 		<!-- Main page content-->
 		<main class="mt-12">
-			<header class="main-header">
+			<header class="main-header" style="height:0px;">
 				<!-- page header -->
-				<div class="row justify-content-center gx-5">
-                      <div class="row justify-content-end col-md-8 col-lg-6">
-                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                             
-							
-						    </div>
-                      
-                      </div>
-                  </div>
-			</header>
+					<div class="row justify-content-center gx-5">
+	                  </div>
+					<!-- 수업 추가 Modal-->
+					<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+					    <div class="modal-dialog modal-dialog-centered">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
+					                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
+					            </div>
+					            <div class="modal-body">
+					             <c:url var="add_record" value="/students/listStudentsRecord"/>
+						            <form name="addStudentsRecordForm" action="${add_record}">
+							          <div class="form-group">
+							            <label for="lessonCode" class="col-form-label">수업 코드:</label>
+							            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
+							            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="fees" class="col-form-label">수업료:</label>
+							            <input type="text" class="form-control" id="fees" name="fees"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
+							            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
+							          </div>
+							          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
+							          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
+							          <div class="d-flex justify-content-end">
+						              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
+						              </div>
+						        </form>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</header>
+				
+			
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-					<iframe id="mainFrame" src="/home" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
+					<iframe id="mainFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
 			
-
-		        <div class="messagePopup hidden" id="messagePopup">
+			
+		    <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -626,13 +641,16 @@ $(function() {
             </section>
         </div>
 		</main>
+
+        		
 	<!-- Footer-->
 	<footer>
 		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<%-- <jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
@@ -643,41 +661,6 @@ $(function() {
 	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
- 	// <![CDATA[  <-- For SVG support
-/*   	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}   */
-	// ]]>
-</script>
+	</script>
 </body>
 </html>
