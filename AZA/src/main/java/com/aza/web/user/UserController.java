@@ -1,7 +1,6 @@
 package com.aza.web.user;
 
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -81,11 +80,9 @@ public class UserController {
 		System.out.println("/user/login");
 		
 		ModelAndView mv= new ModelAndView();
-		mv.setViewName("/index");
 	
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
-
 		
 		System.out.println(dbUser);
 		
@@ -101,15 +98,29 @@ public class UserController {
 				session.setAttribute("students", students);
 			}
 			
+			// teacher 
+			if(dbUser.getRole().equals("teacher")) {
+				mv.setViewName("/index_teacher");
+			}
+			
+			// student 
+			if(dbUser.getRole().equals("student")) {
+				mv.setViewName("/index_student");
+			}
+			
+			// parent 
+			if(dbUser.getRole().equals("parent")) {
+				mv.setViewName("/index_parent");
+			}
 			
 			System.out.println(session.getAttribute("user"));
 
 			System.out.println("");
-			return mv; 
+			return mv; // 
 
 		} else {
 			System.out.println("");
-			mv.addObject("alert",".");
+
 			return new ModelAndView("/login"); // 
 
 		}
@@ -184,6 +195,7 @@ public class UserController {
 		userService.addRelation(user);
 		
 		return new ModelAndView("addRelation");
+
 	}	
 	
 	@RequestMapping(value="getRelation",method=RequestMethod.GET)
@@ -224,7 +236,7 @@ public class UserController {
 
 //	@RequestMapping( value="find_id_form")
 //	public ModelAndView findId() throws Exception{
-//		System.out.println("���대�� 寃���");
+
 //		ModelAndView mv= new ModelAndView();
 //		mv.setViewName("/user/findId");
 //		
@@ -235,7 +247,8 @@ public class UserController {
 //	@RequestMapping( value="find_id", method=RequestMethod.POST )
 //	public ModelAndView findId( @ModelAttribute("user") User user) throws Exception{
 //		user = userService.findId(user);
-//		System.out.println("而⑦�몃·�� ���대�� �ъ�ㅻ��");
+
+//		System.out.println("");
 //		ModelAndView mv= new ModelAndView();
 //		if(user==null) {
 //			mv.addObject("check",1);
@@ -249,7 +262,8 @@ public class UserController {
 //	
 //	@RequestMapping( value="find_password_form")
 //	public ModelAndView findPassword() throws Exception{
-//		System.out.println("鍮�諛�踰��� 寃���");
+
+//		System.out.println("");
 //		ModelAndView mv= new ModelAndView();
 //		mv.setViewName("/user/findPassword");
 //		
@@ -260,7 +274,8 @@ public class UserController {
 //	@RequestMapping( value="find_password", method=RequestMethod.POST )
 //	public ModelAndView findPassword( @ModelAttribute("user") User user) throws Exception{
 //		user = userService.findPassword(user);
-//		System.out.println("而⑦�몃·�� ���대�� �ъ�ㅻ��");
+
+//		System.out.println("");
 //		ModelAndView mv= new ModelAndView();
 //		if(user==null) {
 //			mv.addObject("check",1);
@@ -300,7 +315,6 @@ public class UserController {
 			return "user/findId";
 		}
 		
-	   
 		@RequestMapping(value="find_id", method=RequestMethod.POST)
 
 		public String findIdAction(User vo, Model model) throws Exception {
@@ -319,14 +333,13 @@ public class UserController {
 			return "user/findId";
 		}
 		
-
 		@RequestMapping(value="findPassword")
 		public String findPasswordView() {
 			System.out.println("");
 			return "user/findPassword";
 		}
 		
-	     
+     
 		@RequestMapping(value="find_password", method=RequestMethod.POST)
 
 		public String findPasswordAction(User vo, Model model) throws Exception {
@@ -344,7 +357,6 @@ public class UserController {
 			return "user/findPassword";
 		}
 		
-
 		@RequestMapping(value="update_password", method=RequestMethod.POST)
 		public String updatePasswordAction(@RequestParam(value="updateid", defaultValue="", required=false) String id,
 											User vo) throws Exception {
@@ -354,7 +366,6 @@ public class UserController {
 			System.out.println("");
 			return "user/findPassword";
 		}
-		
 
 		@RequestMapping(value="check_password_view")
 		public String checkPasswordForModify(HttpSession session, Model model) {

@@ -35,11 +35,11 @@ public class LessonServiceTest {
 //		lesson.setLessonCode("11111111");
 		lesson.setTeacherId("teacher52");
 		lesson.setLessonName("Lonely Eyes");
-		lesson.setLessonPlace("미국");
-		lesson.setLessonDay("토");
+		lesson.setLessonPlace("");
+		lesson.setLessonDay("");
 		lesson.setLessonStartTime("10:50");
 		lesson.setLessonEndTime("09:30");
-		lesson.setSubject("팝송");
+		lesson.setSubject("");
 		lesson.setFees(4500);
 		
 		lessonService.addLesson(lesson);
@@ -47,7 +47,7 @@ public class LessonServiceTest {
 		lesson = lessonService.getLesson("11111111");
 		System.out.println(lesson);
 		System.out.println("============");
-		System.out.println("sql add 완료");
+		
 	}
 	
 	//OK
@@ -80,11 +80,9 @@ public class LessonServiceTest {
 		
 	}
 	
-	//OK....? 연관된거 delete...
 	//@Test
 	public void deleteLesson() throws Exception{
 		lessonService.deleteLesson("EDF43234");
-		System.out.println("delete 완료");
 	}
 	
 	//OK
@@ -140,7 +138,6 @@ public class LessonServiceTest {
 		lesson.setLessonCode("agho1216");
 		lessonService.addLessonBook(lesson);
 		
-		System.out.println("sql add 완료");
 	}
 	
 	//OK
@@ -165,7 +162,6 @@ public class LessonServiceTest {
 	//@Test
 	public void testDeleteLessonBook() throws Exception{
 		lessonService.deleteLessonBook("987654321");
-		System.out.println("delete 완료");
 	}
 	
 	//OK
@@ -174,15 +170,6 @@ public class LessonServiceTest {
 		Schedule schedule = new Schedule();
 		
 		schedule.setTeacherId("teacher53");
-		schedule.setScheduleStartDate("2022/06/12");
-		schedule.setStart("02:50");
-		schedule.setScheduleEndDate("2022/06/12");
-		schedule.setEnd("09:00");
-		schedule.setScheduleContent("화이팅");
-		schedule.setTitle("사랑해");
-		lessonService.addLessonSchedule(schedule);
-		
-		System.out.println("sql add 완료");
 	}
 		
 	//OK
@@ -204,14 +191,12 @@ public class LessonServiceTest {
 		schedule.setScheduleContent("lany-all 4 Nothing!");
 		
 		lessonService.updateLessonSchedule(schedule);
-		System.out.println("updateSchedule완료");
 	}
 	
 	//OK
 	//@Test
 	public void testDeleteLessonSchedule() throws Exception{
 		lessonService.deleteLessonSchedule(1022);
-		System.out.println("delete 완료");
 	}
 
 	
@@ -234,10 +219,11 @@ public class LessonServiceTest {
 //	}
 	
 	
-	
-	//@Test
+
+	@Test
 	public void testLessonTime() throws Exception{
-		Map<String, Object> map = lessonService.listLessonTime("teacher51", "화");
+		Map<String, Object> map = lessonService.listLessonTime("teacher1", "");
+
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");

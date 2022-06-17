@@ -2,6 +2,7 @@ package com.aza.web.students;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class StudentsController {
 	}
 	
 	// STUDENTS_RECORD
-	@RequestMapping(value="listStudentsRecord")
+	@RequestMapping(value="listStudentsRecord",  method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listStudentsRecord(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		System.out.println("/students/listStudentsRecord");
@@ -221,7 +222,6 @@ public class StudentsController {
 		
 		System.out.println(search);
 
-		// 
 		if(search.getSearchStartDate() == null || search.getSearchStartDate().length() < 1) {
 			LocalDate now = LocalDate.now();
 			String prevMonth = Integer.toString(now.getMonthValue() - 1); 
@@ -232,25 +232,38 @@ public class StudentsController {
 		
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
+		System.out.println(userId);
 		List students = (List) session.getAttribute("students");
 
+
 		// 임시 => session으로 쓸거
+
+		System.out.println(students);
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
-		if(studentId == null) {
+		if(studentId==null || studentId.length() < 1) {
 			studentId = ((User) students.get(0)).getFirstStudentId();			
 		}
 		
+		List<User> studentsInfo = new ArrayList<User> ();
+		
+		for(int i = 0; i < students.size(); i++) {
+			String temp = ((User) students.get(i)).getFirstStudentId();
+			User student = userService.getUser(temp);
+			
+			studentsInfo.add(student);
+		}
+
 		User student = userService.getUser(studentId);
 
 		System.out.println("student : "+student);
 		
 		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
 		
-		if(lessonCode == null) {
+		if(lessonCode == null || lessonCode.length() < 1) {
 			lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
 		}
 
@@ -269,7 +282,7 @@ public class StudentsController {
 		mv.addObject("listStudentsRecord", map.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
-		mv.addObject("students", students);
+		mv.addObject("studentInfo", studentsInfo);
 		mv.addObject("lessons", lessons);
 
 		return mv;			
@@ -381,12 +394,13 @@ public class StudentsController {
 	
 	// CHARACTER test후 수정 ===================================
 	// 단순 view연결
+
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
-		
 
 		System.out.println("/students/addStudentsCharacter :: GET ::단순 View");
+
 
 		
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
@@ -416,7 +430,6 @@ public class StudentsController {
 	public ModelAndView addStudentsCharacter
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
 			HttpSession session) throws Exception {
-		
 
 		System.out.println("/students/addStudentsCharacter :: POST ::등록");
 
@@ -434,7 +447,6 @@ public class StudentsController {
 	
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView updateStudentsCharacter(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
-		
 
 		System.out.println("/students/updateStudentsCharacter :: GET :: 단순 VIEW");
 
@@ -526,8 +538,6 @@ public class StudentsController {
 		mv.setViewName("/students/manageStudentsExam");
 		
 		return mv;
-	}
-
-	
+	}	
 	
 }

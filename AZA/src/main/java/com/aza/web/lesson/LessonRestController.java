@@ -156,32 +156,31 @@ public class LessonRestController {
 	}
 
 	@RequestMapping("/listLessonTime")
-	public List<Map<String, Object>> listLessonTime(HttpSession session, @RequestParam(required = false) int lessonDay) throws Exception{
+	public List listLessonTime(HttpSession session, @RequestParam(required = false) String lessonDay) throws Exception{
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		String day ="";
 		switch(lessonDay){
-			case 0: day = "일";
+			case "0": day = "일";
 				break;
-			case 1: day = "월";
+			case "1": day = "월";
 				break;
-			case 2: day = "화";
+			case "2": day = "화";
 				break;
-			case 3: day = "수";
+			case "3": day = "수";
 				break;
-			case 4: day = "목";
+			case "4": day = "목";
 				break;
-			case 5: day = "금";
+			case "5": day = "금";
 				break;
-			case 6: day = "토";
+			case "6": day = "토";
 				break;
 		}
 		
 		
 		Map<String, Object> map = lessonService.listLessonTime(teacherId, day);
 		
+		return (List) map.get("list");
 
-		//List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("result");
-		return null;
 	}
 }
 

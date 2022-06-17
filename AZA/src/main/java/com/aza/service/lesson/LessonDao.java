@@ -72,4 +72,3 @@ public interface LessonDao {
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 
 }
-
