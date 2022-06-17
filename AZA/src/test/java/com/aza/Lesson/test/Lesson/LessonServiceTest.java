@@ -28,23 +28,23 @@ public class LessonServiceTest {
 	private LessonService lessonService;
 	
 	//ok
-	//@Test
+//	@Test
 	public void testAddLesson() throws Exception{
 		Lesson lesson = new Lesson();
 		
 //		lesson.setLessonCode("11111111");
-		lesson.setTeacherId("teacher52");
-		lesson.setLessonName("Lonely Eyes");
-		lesson.setLessonPlace("");
-		lesson.setLessonDay("");
+		lesson.setTeacherId("teacher1");
+		lesson.setLessonName("경호가 듣는 노래");
+		lesson.setLessonPlace("bitcamp");
+		lesson.setLessonDay("월화수목금");
 		lesson.setLessonStartTime("10:50");
-		lesson.setLessonEndTime("09:30");
-		lesson.setSubject("");
+		lesson.setLessonEndTime("19:30");
+		lesson.setSubject("경호");
 		lesson.setFees(4500);
 		
 		lessonService.addLesson(lesson);
 		
-		lesson = lessonService.getLesson("11111111");
+		//lesson = lessonService.getLesson("");
 		System.out.println(lesson);
 		System.out.println("============");
 		

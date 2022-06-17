@@ -1,7 +1,9 @@
 package com.aza.web.students;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
@@ -27,7 +29,6 @@ import com.aza.service.domain.Students;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
-
 import com.aza.service.user.UserService;
 
 
@@ -61,7 +62,7 @@ public class StudentsRestController {
 	}
 	
 	
-	// STUDENTS_RECORD :: ½ÂÀÎ ¿Ï·áµÈ ÇĞ»ıµé¸¸
+	// STUDENTS_RECORD :: ìŠ¹ì¸ ì™„ë£Œëœ í•™ìƒë“¤ë§Œ
 	@RequestMapping("listStudentsRecord")
 	public Map<String, Object> listStudentsRecord(HttpSession session, @RequestParam(required = false, value = "lessonCode") String lessonCode) throws Exception {
 		
@@ -83,7 +84,7 @@ public class StudentsRestController {
 		return studentsService.listStudentsRecord(search, teacherId);			
 	}
 	
-	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
+	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
 	@RequestMapping("listProposalStudents")
 	public Map<String, Object> listProposalStudents(HttpSession session) throws Exception {
 		
@@ -99,7 +100,7 @@ public class StudentsRestController {
 		return studentsService.listProposalStudents(search, teacherId);		
 	}
 	
-	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
+	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
 	@RequestMapping("listTotalStudentsRecord")
 	public Map<String, Object> listlistTotalStudentsRecord(HttpSession session) throws Exception {
 		
@@ -141,26 +142,6 @@ public class StudentsRestController {
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		Search search = new Search();
-
-		
-		// ÀÓ½Ã => sessionÀ¸·Î ¾µ°Å
-		if(search.getCurrentPage() == 0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		
-		//Map<String, Object> map = userService.listRelationByParent(search, userId);
-		List students = (List) userService.listRelationByParent(search, userId).get("list");	
-		
-		String studentId = ((User) students.get(0)).getFirstStudentId();
-		System.out.println("students : "+studentId);
-		
-		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
-		String lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
-		System.out.println("lessons : "+lessonCode);
-		
-		//
-		search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(31);
 		
@@ -180,6 +161,55 @@ public class StudentsRestController {
 
 		return studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);	
 	}
+	
+	@RequestMapping(value="addStudentsAttendance", method=RequestMethod.POST)
+	public Students addStudentsAttendance(@RequestBody Students student) throws Exception {
+		
+		studentsService.addStudentsAttendance(student);
+		
+		Search search = new Search(); 
+		search.setCurrentPage(1);
+		search.setPageSize(1);
+		
+		String date = student.getAttendanceDate();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");	
+		Calendar cal = Calendar.getInstance();    
+		Date tempDate = transFormat.parse(date);
+
+		cal.setTime(tempDate);    
+		cal.add(Calendar.DATE, -1);
+		String startDate = transFormat.format(cal.getTime());
+		
+		List list =  (List) studentsService.listStudentsAttendance(search, student.getStudentId(), student.getLessonCode(), startDate, date).get("list");
+
+		return (Students) list.get(0);		
+	}
+	
+	@RequestMapping(value="updateStudentsAttendance", method= {RequestMethod.POST, RequestMethod.GET})
+	public Students upStudentsAttendnace(@RequestBody Students student) throws Exception {
+		
+		System.out.println(student);
+		
+		studentsService.updateStudentsAttendance(student);
+		
+		return studentsService.getStudentsAttendance(student.getAttendanceCode());
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// Exam ===========================================
 	@RequestMapping(value = "manageStudentsExam")
@@ -208,7 +238,7 @@ public class StudentsRestController {
 		return students;		
 	}
 	
-	// ¼öÁ¤½Ã ÀúÀåµÈ °ª »Ñ·ÁÁÖ±â(?)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½(?)
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.GET)
 	public Students updateStudentsExam(@PathVariable int examCode) throws Exception{
 		
@@ -217,7 +247,7 @@ public class StudentsRestController {
 		return studentsService.getStudentsExam(examCode);
 	}
 	
-	// ¼öÁ¤ method
+	// ï¿½ï¿½ï¿½ï¿½ method
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.POST)
 	public Students updateStudentsExam(@RequestBody Students students) throws Exception{
 		
