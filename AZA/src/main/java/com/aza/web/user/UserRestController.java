@@ -132,24 +132,24 @@ public class UserRestController {
 			return user;
 		}
 		
-		
-		@RequestMapping(value = "/quit",method = RequestMethod.POST)
-		public User deleteUser(@ModelAttribute User user,HttpSession session) throws Exception {
-			
-			// 세션에 있는 member
-			User member = (User)session.getAttribute("User");
-			
-			String dbpwd=member.getPassword();
-			String pwd=user.getPassword();
-			
-			if(!(dbpwd.equals(pwd))) {
-				
-			}
-			
-			System.out.println("rest 삭제");
-		userService.deleteUser(user);
-					return user;
-		}
+//		쓰는지 모르겟음.. 나중에 돌려보기		
+//		@RequestMapping(value = "/quit",method = RequestMethod.POST)
+//		public User deleteUser(@ModelAttribute User user,HttpSession session) throws Exception {
+//			
+//			// 세션에 있는 member
+//			User member = (User)session.getAttribute("User");
+//			
+//			String dbpwd=member.getPassword();
+//			String pwd=user.getPassword();
+//			
+//			if(!(dbpwd.equals(pwd))) {
+//				
+//			}
+//			
+//			System.out.println("rest 삭제");
+//		userService.deleteUser(user);
+//					return user;
+//		}
 
 		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
 		public User deleteRelation(@ModelAttribute User user, @PathVariable int relationCode) throws Exception {

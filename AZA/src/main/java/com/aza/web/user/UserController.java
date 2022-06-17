@@ -108,6 +108,7 @@ public class UserController {
 			return mv; // 일치하면 메인
 		} else {
 			System.out.println("안돼 로그인 시켜줄 생각없어 돌아가");
+			mv.addObject("alert","그런 사람 없습니다.");
 			return new ModelAndView("/login"); // 틀리면 로그인화면
 		}
 	}
@@ -225,6 +226,7 @@ public class UserController {
 	 // 아이디 찾기 페이지 이동
 		@RequestMapping(value="findId")
 		public String findIdView() {
+			System.out.println("아이디 찾으러가자");
 			return "user/findId";
 		}
 		
@@ -235,10 +237,13 @@ public class UserController {
 			
 			if(user == null) { 
 				model.addAttribute("check", 1);
+				System.out.println("아이디없다");
 			} else { 
 				model.addAttribute("check", 0);
 				model.addAttribute("id", user.getUserId());
+				System.out.println("아이디있다");
 			}
+			System.out.println("아이디 찾아라");
 			
 			return "user/findId";
 		}
@@ -246,6 +251,7 @@ public class UserController {
 	    // 비밀번호 찾기 페이지로 이동
 		@RequestMapping(value="findPassword")
 		public String findPasswordView() {
+			System.out.println("비번찾으러가자");
 			return "user/findPassword";
 		}
 		
@@ -256,11 +262,13 @@ public class UserController {
 			
 			if(user == null) { 
 				model.addAttribute("check", 1);
+				System.out.println("그런 사람 없다는데");
 			} else { 
 				model.addAttribute("check", 0);
 				model.addAttribute("updateid", user.getUserId());
+				System.out.println("바꿔바꿔");
 			}
-			
+			System.out.println("비번바꿔라");
 			return "user/findPassword";
 		}
 		
@@ -271,6 +279,7 @@ public class UserController {
 			vo.setUserId(id);
 			System.out.println(vo);
 			userService.updatePassword(vo);
+			System.out.println("비번바꾼후인데 왜 안나오냐?");
 			return "user/findPassword";
 		}
 		
