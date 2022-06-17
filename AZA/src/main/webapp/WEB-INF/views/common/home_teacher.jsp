@@ -52,16 +52,17 @@
 	
 <!-- schedule -->
 <link type="text/css" href="/resources/css/schedule.css" rel="stylesheet" />
-<script defer type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
+<script type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
 <!-- <script src='../lib/main.min.js'></script> -->
-<script defer type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
-<script defer type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
-<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
+<script type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
 <style>
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -406,17 +407,23 @@ $(function() {
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
 
-			<div class="container-xl px-5">
-			<div class="row d-flex justify-content-around mb-6" style="margin: 0 20% 0 20%"> 
-				<div id="calendar" >
+			<div class="container-xl px-5"> 
+			
+			<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
+				<div id="calendar" style="margin: 0 30% 0 30%">
 						<div id='loading'>loading...</div>
 						<div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
 						<div style="width:60%; float:left; text-align:right">일정 현황
 						</div><div style="width:40%; float:left;text-align:right"></div>
 						<button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
 						cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
-				</div>		
+						<div id='calendar'></div>
 				</div>
+			</div>
+				
+				
+				 <hr class="my-5">
+				
 				<div class="row d-flex justify-content-around">
 				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
 	                          <div class="card card-raised overflow-hidden h-100">
@@ -436,8 +443,6 @@ $(function() {
 	                     </div>
 	                
                      
-			     
-			     
 				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
 				    	
                          <div class="card card-raised h-100 overflow-hidden">

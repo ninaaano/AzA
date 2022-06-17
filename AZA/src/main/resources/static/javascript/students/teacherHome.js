@@ -84,11 +84,12 @@ function makeUpdateAttendanceView(student) {
 
 	var div = `<div class="d-flex align-items-center">
                  <div class="btn-group" role="group" aria-label="Mixed styles example">
-				    <button name class="btn btn-raised-success" type="button" onclick="updateAttendance('${student.attendanceCode}','출석')">출석💚</button>
-				    <button name class="btn btn-raised-danger" type="button" onclick="updateAttendance('${student.attendanceCode}','결석')">결석😢</button>
-				    <button name class="btn btn-raised-warning" type="button" onclick="updateAttendance('${student.attendanceCode}','지각')">지각🙄</button>
-				    <button name class="btn btn-raised-primary" type="button" onclick="updateAttendance('${student.attendanceCode}','도망')">도망🏃‍♀️</button>
-				    <button class="btn btn-raised-secondary" type="button" onclick="updateAttendance('${student.attendanceCode}','조퇴')">조퇴👋</button>
+
+				    <button name class="btn btn-raised-success" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','출석', '${student.lessonCode}')">출석💚</button>
+				    <button name class="btn btn-raised-danger" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','결석', '${student.lessonCode}')">결석😢</button>
+				    <button name class="btn btn-raised-warning" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','지각', '${student.lessonCode}')">지각🙄</button>
+				    <button name class="btn btn-raised-primary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','도망', '${student.lessonCode}')">도망🏃‍♀️</button>
+				    <button class="btn btn-raised-secondary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','조퇴', '${student.lessonCode}')">조퇴👋</button>
 				</div></div>`;
 	
 	$(`#attendance-${student.studentId}`).append(div);
@@ -97,11 +98,13 @@ function makeUpdateAttendanceView(student) {
 }
 
 
-function updateAttendance(attendanceCode, state) {
+function updateAttendance(attendanceCode, studentId, state, lessonCode) {
 	
 	var data = {
 		attendanceCode: attendanceCode,
+		studentId: studentId,
 		attendanceState: state,
+		lessonCode: lessonCode,
 	};
 	
 	$.ajax({

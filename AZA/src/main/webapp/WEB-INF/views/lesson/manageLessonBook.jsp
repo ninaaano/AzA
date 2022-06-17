@@ -121,6 +121,7 @@
 					<td align="left"><img src="${lesson.bookImg}"></td>
 					
 					<td align="left">${lesson.bookCode}</td>
+
 				</tr>
 			</c:forEach>
 		</tbody>

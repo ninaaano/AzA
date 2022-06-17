@@ -154,6 +154,7 @@ public class LessonController {
 	
 	@RequestMapping(value="manageLessonBook")
 	public ModelAndView manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+
 		System.out.println("manageLessonBook½ÇÇà");
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -173,6 +174,7 @@ public class LessonController {
 		model.addObject("resultPage",resultPage);
 		model.addObject("search",search);
 		System.out.println(model);
+
 		return model;
 	}
 	
