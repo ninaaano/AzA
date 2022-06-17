@@ -42,6 +42,9 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
+	@RequestMapping("/listLesson")
+	public Map
+	
 	@RequestMapping(value="checkLessonCode/{lessonCode}")
 	public boolean checkLessonCode(@PathVariable("lessonCode") String lessonCode) throws Exception {
 		
@@ -125,19 +128,19 @@ public class LessonRestController {
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		String day ="";
 		switch(lessonDay){
-			case 0: day = "ì¼";
+			case 0: day = "ÀÏ";
 				break;
-			case 1: day = "ì›”";
+			case 1: day = "¿ù";
 				break;
-			case 2: day = "í™”";
+			case 2: day = "È­";
 				break;
-			case 3: day = "ìˆ˜";
+			case 3: day = "¼ö";
 				break;
-			case 4: day = "ëª©";
+			case 4: day = "¸ñ";
 				break;
-			case 5: day = "ê¸ˆ";
+			case 5: day = "±İ";
 				break;
-			case 6: day = "í† ";
+			case 6: day = "Åä";
 				break;
 		}
 		

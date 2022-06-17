@@ -1,15 +1,68 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ìˆ˜ì—… ëª©ë¡ ì¡°íšŒ</title>
+<title>¼ö¾÷ ¸ñ·Ï Á¶È¸</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <meta charset="EUC-KR">
+
+
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<script defer src="/resources/javascript/alert/alertUI.js"></script>
+<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+<!-- Load Favicon-->
+<link href="assets/img/favicon.ico" rel="shortcut icon"
+	type="image/x-icon">
+<!-- Load Material Icons from Google Fonts-->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
+<!-- Load Simple DataTables Stylesheet-->
+
+<!-- Roboto and Roboto Mono fonts from Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<!-- Load main stylesheet-->
+
+
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+<style>
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
+</style>
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">   
+
+
 <script type="text/javascript">
 	/* function fncGetUserList(currentPage){
 		$("#currentPage").val(currentPage)
@@ -23,78 +76,117 @@
 	})
 	
 	$(function(){
-		$("td.btn01:contains('ìˆ˜ì—…ì¶”ê°€')").on("click",function(){
+		$("td.btn01:contains('¼ö¾÷Ãß°¡')").on("click",function(){
 			self.location = "/lesson/addLessonView"
 		});
 	});
 </script>
-
 </head>
 <body>
-	<h1>ìˆ˜ì—… ëª©ë¡</h1>
-	<table>
-		<tr>
-		<td class="btn01">
-			ìˆ˜ì—…ì¶”ê°€
-		</td>
-		</tr>
-	</table>
-	
-	<table border="1" cellspacing = "0" cellpadding = "10px">
-		<thead>
+	<h1 align="center">¼ö¾÷ ¸ñ·Ï</h1>
+<form>
+<div class="card-body p-4">
+	<div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+	<div class="dataTable-top">
+			<table align="right">
 			<tr>
-				<td class="ct_list_b" width="100">number</td>
-				
-				<td class="ct_list_b" width="100">ìˆ˜ì—…ëª…</td>
-				
-				<th class="ct_list_b" width="100">ì„ ìƒë‹˜ ì´ë¦„</th>
-				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ìš”ì¼</th>
-				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì‹œì‘ì‹œê°„</th>
-				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì¢…ë£Œì‹œê°„</th>
-				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì¥ì†Œ</th>
-				
-				<th class="ct_list_b" width="150">ê³¼ëª©ëª…</th>
-				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì½”ë“œ</th>
-				
-				<c:if test="${user.role eq 'student'}">
-				    <th class="ct_list_b" width="150">proposal</th>
-				</c:if>
+				<td class="btn01">
+					¼ö¾÷Ãß°¡
+				</td>
 			</tr>
-		</thead>
-		
-		<tbody>
-			<c:set var="i" value="0"/>			
-			<c:forEach var="lesson" items="${list}">			
-				<c:set var="i" value="${i+1}" />
-				<tr class="ct_list_pop">
-					<td align="center" lessonCode="${lesson.lessonCode}">${i}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonName}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.teacherName.getUserName()}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonDay}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonStartTime}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonEndTime}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonPlace}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.subject}</td>
-					
-					<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonCode}</td>
-					
-					<c:if test="${user.role eq 'student'}">
-				    	<td class="left">hello</td>
-					</c:if>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+				 <tr>
+					  <td>
+					   <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
+							<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>¼ö¾÷¸í</option>
+						</select>
+					  </td>
+								  
+					  <td>
+				  		 	<input class="dataTable-input" type="text" aria-label="Text input with dropdown button" 
+				  			id="searchKeyword" name="searchKeyword" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä"
+				   			value="${! empty search.searchKeyword ? search.searchKeyword : "" }">
+					  </td>
+					  <td>
+					 <button type="button" class="btn btn-outline-primary" type="submit" id="searchHomework">°Ë»ö</button>
+				  </td>
+				  <!--  ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
+				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  
+			   	</tr>	
+		</table>
+	</div>
+	
+		<div class="dataTable-container">
+			<!-- <table border="1" cellspacing = "0" cellpadding = "10px"> -->
+			<table id="datatablesSimple" class="dataTable-table">
+				<thead>
+					<tr>
+						<th data-sortable="" style="width: 5%;">number</th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷¸í</a></th>
+						
+						<th data-sortable="" style="width: 9%;">
+						<a href="#" class="dataTable-sorter">¼±»ı´Ô ÀÌ¸§</a></th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷¿äÀÏ</a></th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷½ÃÀÛ½Ã°£</a></th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷Á¾·á½Ã°£</a></th>
+						
+						<th data-sortable="" style="width: 7%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷Àå¼Ò</a></th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">°ú¸ñ¸í</a></th>
+						
+						<th data-sortable="" style="width: 10%;">
+						<a href="#" class="dataTable-sorter">¼ö¾÷ÄÚµå</a></th>
+						
+						<c:if test="${user.role eq 'student'}">
+						    <th data-sortable="" style="width: 5%;">
+						    <a href="#" class="dataTable-sorter">proposal</a></th>
+						</c:if>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<c:set var="i" value="0"/>			
+					<c:forEach var="lesson" items="${list}">			
+						<c:set var="i" value="${i+1}" />
+						<tr class="ct_list_pop">
+							<td align="center" lessonCode="${lesson.lessonCode}">${i}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonName}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.teacherName.getUserName()}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonDay}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonStartTime}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonEndTime}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonPlace}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.subject}</td>
+							
+							<td align="left" lessonCode="${lesson.lessonCode}">${lesson.lessonCode}</td>
+							
+							<c:if test="${user.role eq 'student'}">
+						    	<td class="left">hello</td>
+							</c:if>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		</div>
+	</div>
+	</form>
+	</body>
 </html>

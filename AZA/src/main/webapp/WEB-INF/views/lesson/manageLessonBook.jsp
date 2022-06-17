@@ -1,10 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta charset="EUC-KR">
-<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>manageLessonBook</title>
@@ -17,9 +15,9 @@
 </script>
 </head>
 <body>
-<form class="d-flex" action="{% url 'api_book_search' %}" method="GET">	ì±… ê²€ìƒ‰(isbn ìž…ë ¥)
-	<input name="q" class="form-control me-2" type="search" placeholder="isbn ìž…ë ¥" aria-label="Search">
-	<button class="btn btn-outline-success" type="submit">ê²€ìƒ‰</button>
+<form class="d-flex" action="{% url 'api_book_search' %}" method="GET">	Ã¥ °Ë»ö(isbn ÀÔ·Â)
+	<input name="q" class="form-control me-2" type="search" placeholder="isbn ÀÔ·Â" aria-label="Search">
+	<button class="btn btn-outline-success" type="submit">°Ë»ö</button>
 </form>
 
 	<table border="1" cellspacing = "0" cellpadding = "10px">
@@ -27,21 +25,21 @@
 			<tr>
 				<td class="ct_list_b" width="100">number</td>
 				
-				<td class="ct_list_b" width="100">ìˆ˜ì—…ëª…</td>
+				<td class="ct_list_b" width="100">¼ö¾÷¸í</td>
 				
-				<th class="ct_list_b" width="100">ì„ ìƒë‹˜ ì´ë¦„</th>
+				<th class="ct_list_b" width="100">¼±»ý´Ô ÀÌ¸§</th>
 				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ìš”ì¼</th>
+				<th class="ct_list_b" width="150">¼ö¾÷¿äÀÏ</th>
 				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì‹œìž‘ì‹œê°„</th>
+				<th class="ct_list_b" width="150">¼ö¾÷½ÃÀÛ½Ã°£</th>
 				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì¢…ë£Œì‹œê°„</th>
+				<th class="ct_list_b" width="150">¼ö¾÷Á¾·á½Ã°£</th>
 				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ìž¥ì†Œ</th>
+				<th class="ct_list_b" width="150">¼ö¾÷Àå¼Ò</th>
 				
-				<th class="ct_list_b" width="150">ê³¼ëª©ëª…</th>
+				<th class="ct_list_b" width="150">°ú¸ñ¸í</th>
 				
-				<th class="ct_list_b" width="150">ìˆ˜ì—…ì½”ë“œ</th>
+				<th class="ct_list_b" width="150">¼ö¾÷ÄÚµå</th>
 				
 				<c:if test="${param.menu eq 'student'}">
 				    <th class="ct_list_b" width="150">proposal</th>

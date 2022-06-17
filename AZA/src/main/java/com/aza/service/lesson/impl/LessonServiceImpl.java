@@ -50,7 +50,7 @@ public class LessonServiceImpl implements LessonService {
 	@Override
 	public void updateLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("updateLesson DB Ï†ëÏÜç");
+		System.out.println("updateLesson DB ¡¢º”");
 		System.out.println(lesson);
 		lessonDao.updateLesson(lesson);
 	}
