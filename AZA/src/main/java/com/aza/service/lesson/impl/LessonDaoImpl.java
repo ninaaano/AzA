@@ -44,6 +44,8 @@ public class LessonDaoImpl implements LessonDao {
 	@Override
 	public void addLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
 		sqlSessionTemplate.insert("LessonMapper.addLesson", lesson);
 	}
 
@@ -88,6 +90,15 @@ public class LessonDaoImpl implements LessonDao {
 		search.setSearchId(userID);
 		
 		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",search);
+	}
+	
+	@Override
+	public List<Lesson> listLessonTime(String teacherId, String lessonDay) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("teacherId", teacherId);
+		map.put("lessonDay", lessonDay);
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonTime",map);
 	}
 	
 //	==================================
