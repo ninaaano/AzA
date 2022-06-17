@@ -383,7 +383,12 @@ $(function() {
 })
 	
 
-
+$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[#logout]").on("click" , function() {
+				$("form").attr("method" , "get").attr("action" , "/user/logout").submit();
+			});
+		});	
 
 
 
@@ -457,7 +462,10 @@ $(function() {
 							</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="#!"> <i
+
 									class="material-icons leading-icon text-primary">logout</i>
+									<!-- class="material-icons leading-icon" >logout</i> -->	<!-- 2022/06/18 MJ파트 충돌 주석처리했음 -->
+
 									<div class="me-3">Logout</div>
 							</a></li>
 						</ul>
