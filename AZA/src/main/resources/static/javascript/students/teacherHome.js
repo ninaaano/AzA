@@ -75,7 +75,7 @@ var curDay = now.getDay();
 function attendanceLoad() {
 
 	$.ajax({
-		url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay=2"/*+curDay*/,
+		url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay="+curDay,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
