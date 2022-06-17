@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
-<title>Students CharacterğŸ˜‹ </title>
+<meta charset="EUC-KR"> 
+<title>Students Character </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +31,7 @@
         
         
         
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
@@ -48,16 +49,57 @@
 
 <script type="text/javascript">
 
+$(function () {
+	$('#characterCode').on('change', function() {
+		var characterCode = $('option:selected').val().trim();
+		alert("¼±ÅÃµÈ characterCode => "+characterCode);
+		
+		$.ajax(
+				{url : "/students/rest/getStudentsCharacter/"+characterCode ,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},success : function(JSONData , status) {
+						alert("¼±ÅÃµÈ cName => "+JSONData.studentName);
+						$('#studentName').text(JSONData.studentName+"ÀÇ Æ¯Â¡");
+						$('#studentName').val(JSONData.studentName);
+						
+						$('#studentId').text(JSONData.studentId);
+						$('#studentId').val(JSONData.studentId);
+						
+						$('#characterContent').text(JSONData.characterContent);
+						$('#characterContent').val(JSONData.characterContent);
+						
+						$('#characterCode2').text(JSONData.characterCode);
+						$('#characterCode2').val(JSONData.characterCode);
+						
+						$('#characterCode').val(JSONData.characterCode);
+					}
+	
+				}		
+		
+		)
+		
+		
+		
+	})
+	
+	
+});
+
+
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('ì‚­ì œ')" ).on("click" , function() {
-		alert("ì‚­ì œ....ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥");
+	$( "button.btn.btn-raised-danger:contains('»èÁ¦')" ).on("click" , function() {
+		alert("»èÁ¦....");
 		deleteStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-primary:contains('ìˆ˜ì •')" ).on("click" , function() {
-		alert("ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™ ğŸ™ƒğŸ™ƒ");
+	$( "button.btn.btn-raised-primary:contains('¼öÁ¤')" ).on("click" , function() {
+		alert("¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿");
 		updateStudentsCharacter();
 	});
 });
@@ -70,38 +112,84 @@ function deleteStudentsCharacter() {
 
 function updateStudentsCharacter() {
 
-	$("form").attr("method" , "POST").attr("action" , "/students/updateStudentsCharacter").submit();
+	$("form").attr("method" , "POST").attr("action" , "/students/updateStudentsCharacterView").submit();
 
 }
+
+
 
 </script>
 
 </head>
 <body>
-<% String hidden_name = request.getParameter("studentName");%>
-
-<input value="<%=hidden_name%> ">
-<h3>Students Character ! </h3>
-<br/>
 <form>
+ <h3>GET Students Character ! </h3>
+<br/>
+
+
+
 <div align="center" class="character">
-<h3>ğŸ‘» ${students.studentName}ì˜ íŠ¹ì§• ğŸ‘»</h3>
+<%-- <h3> ${students.studentName}ÀÇ Æ¯Â¡ </h3> --%>
 
-<input name="characterCode" value="${students.characterCode }">
-<input name="studentId" value="${students.studentId }">
-<input name="studentName" value="${studentName }">
+<%-- <input type="hidden" name="characterCode" value="${students.characterCode }"> --%>
+<input type="hidden" name="studentId" value="${students.studentId }">
+<input type="hidden" name="studentName" value="${students.studentName }">
+<input type="hidden" name="characterContent"  value="${students.characterContent }">
 
-<input name="characterContent" value="${students.characterContent}" 
+<%-- <input name="characterContent" value="${students.characterContent}" 
 style="width:600px;height:500px;">
 <br/>
 <br/>
 
-	<button class="btn btn-raised-primary" type="button">ìˆ˜ì •</button>
-	<button class="btn btn-raised-danger" type="button">ì‚­ì œ</button>
-	<button class="btn btn-raised-light" type="button">í™•ì¸</button>
+	<button class="btn btn-raised-primary" type="button">¼öÁ¤</button>
+	<button class="btn btn-raised-danger" type="button">»èÁ¦</button>
+	<button class="btn btn-raised-light" type="button">È®ÀÎ</button>
 
+</div>  --%>
+
+			<select id="characterCode" name="characterCode" >
+
+				<c:set var="i" value="0" />
+				<c:forEach var="students" items="${list}">
+		 	    <c:set var="i" value="${ i+1 }" />	  
+						
+						<option align="center" value="${students.characterCode }">${students.studentName}
+	
+				 </c:forEach>
+			</select>
+			
+<br/>
+
+
+			<div class="card card-raised border-top border-4 border-primary h-100"  >
+                                    <div class="card-body p-5">
+                                        <div class="overline text-muted mb-4"></div>
+                                        <h1 id="studentName"> ${students.studentName}ÀÇ Æ¯Â¡ </h1>
+                                        <p class="card-text mb-4" id="characterCode2">character Code : ${students.characterCode }</p>
+                                        <p class="card-text mb-4" id="studentId">studentId : ${students.studentId }</p>
+                                        <table class="table table-sm mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td><div class="text-muted fst-italic"></div></td>
+                                                     <td id="characterContent">${students.characterContent}</td>
+                                                   <!-- <td class="text-end"><div class="text-muted">-$5,400.00</div></td> -->
+                                                </tr>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer bg-transparent position-relative ripple-gray">
+<!--                                         <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary" href="#!">
+                                            <div class="fst-button">View More</div>
+                                            <i class="material-icons icon-sm ms-1">chevron_right</i> -->
+                                      <!--   </a> -->
+                                      		<button class="btn btn-raised-primary" type="button">¼öÁ¤</button>
+											<button class="btn btn-raised-danger" type="button">»èÁ¦</button>
+											<!-- <button class="btn btn-raised-light" type="button">È®ÀÎ</button> -->
+                                    </div>  
+              </div>
+
+
+<!--  --> 
 </div>
-
 </form>
 
 </body>

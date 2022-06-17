@@ -522,15 +522,21 @@ $(function() {
 								<i class="material-icons text-primary">language</i>
 							</div> 클라우드
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
 							<div class="nav-link-icon">
 								<i class="material-icons text-primary">language</i>
 							</div> 수납
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/students/addStudentsCharacter'>
 							<div class="nav-link-icon">
+
 								<i class="material-icons text-primary">language</i>
 							</div> Q&A
+							
+							<!-- MY 주석처리함 위에 Q%A 랑 충돌 -->
+							<!-- 	<i class="material-icons">language</i>
+							</div> 특징 -->	
+
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">

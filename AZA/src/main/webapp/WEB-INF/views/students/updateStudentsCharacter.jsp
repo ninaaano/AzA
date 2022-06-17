@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
-<title> Character UpdateğŸ˜® </title>
+<meta charset="EUC-KR"> 
+<title> Character Update </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,15 +49,15 @@
 <script type="text/javascript">
 
 $(function() {
-	$( "button.btn.btn-raised-light:contains('í™•ì¸')" ).on("click" , function() {
-		alert("í™•ì¸ ë²„íŠ¼ í´ë¦­");
+	$( "button.btn.btn-raised-light:contains('¼öÁ¤ÇÏ±â')" ).on("click" , function() {
+		alert("¼öÁ¤ ¹öÆ° Å¬¸¯");
 		updateStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('ì‚­ì œ')" ).on("click" , function() {
-		alert("ì‚­ì œ....ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥ğŸ˜¥");
+	$( "button.btn.btn-raised-danger:contains('»èÁ¦')" ).on("click" , function() {
+		alert("»èÁ¦....");
 		deleteStudentsCharacter();
 	});
 });
@@ -78,26 +78,25 @@ function updateStudentsCharacter() {
 
 </head>
 <body>
-<% String hidden_name = request.getParameter("studentName");%>
 
-<input value="<%=hidden_name%> ">
-<h3>Students Character Update!ğŸ‘€ </h3>
+<h3>Students Character Update! </h3>
 <br/>
 <form>
 <div align="center" class="character">
-<h3>ğŸ‘» ${students.studentName}ì˜ íŠ¹ì§• ğŸ‘»</h3>
+<h3> ${students.studentName}ÀÇ Æ¯Â¡ </h3>
 
-<input name="characterCode" value="${students.characterCode }">
-<input name="studentId" value="${students.studentId }">
-<input name="studentName" value="${studentName }">
+<input type="hidden" name="characterCode" value="${students.characterCode }">
+<input type="hidden" name="studentId" value="${students.studentId }">
+<input type="hidden" name="studentName" value="${students.studentName}">
 
-<input name="characterContent" value="${students.characterContent}" 
-style="width:600px;height:500px;">
+<textarea class="dataTable-input" name="characterContent" 
+style="width:600px;height:500px;"> ${students.characterContent} </textarea>
 <br/>
 <br/>
 
-	<button class="btn btn-raised-danger" type="button">ì‚­ì œ</button>
-	<button class="btn btn-raised-light" type="button">í™•ì¸</button>
+	<button class="btn btn-raised-light" type="button">¼öÁ¤ÇÏ±â</button>
+	<button class="btn btn-raised-danger" type="button">»èÁ¦</button>
+	
 
 </div>
 
