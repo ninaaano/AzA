@@ -38,13 +38,12 @@
         
 <!--  -->
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
   
 </head>
 
@@ -65,81 +64,104 @@
 					점수 : ${students.examScore}
 					<hr/>
 				 </c:forEach>
+				 
+<div class="card mb-5">
+      <div class="card-header bg-white px-4"><div class="fs-5 my-1">Example Line Chart</div></div>
+      <div class="card-body p-4">
+     	 <canvas id="myLineChart" width="883" height="265" style="display: block; box-sizing: border-box; width: 706.797px; height: 212px;"></canvas>
+      </div>
+  </div>
 
-<div id="myfirstchart" style="height: 250px;">
-          <script>
-
-              new Morris.Line({
-
-              // ID of the element in which to draw the chart.
-
-              element: 'myfirstchart',
-
-              // Chart data records -- each entry in this array corresponds to a point on
-
-              // the chart.
-
-              data: [
-
-                { day: '2016-04-07', rank: 18, sales: 3},
-
-                { day: '2016-04-08', rank: 10, sales: 4},
-
-                { day: '2016-04-11', rank: 7, sales: 5},
-
-                { day: '2016-04-12', rank: 5, sales: 6},
-
-                { day: '2016-04-13', rank: 7, sales: 7},
-
-                { day: '2016-04-14', rank: 10, sales: 7},
-
-                { day: '2016-04-18', rank: 7, sales: 10},
-
-                { day: '2016-04-19', rank: 5, sales: 14}
-
-              ],
-
-              // The name of the data record attribute that contains x-values.
-
-              xkey: 'day',
-
-              // A list of names of data record attributes that contain y-values.
-
-              ykeys: ['rank'],
-
-              // Labels for the ykeys -- will be displayed when you hover over the
-
-              // chart.
-
-              labels: ['rank'],
-
-              lineColors: ['black'],
-
-              pointFillColors: ['red'],
-
-              pointSize: ['5px'],
-
-              lineWidth: ['3px'],
-
-              resize: ['true'],
-
-              smooth: ['true'],
-
-              events: ['2016-04-19'],
-
-              eventStrokeWidth: ['5px'],
-
-              parseTime:['true']
-
-            });
+<script type="text/javascript">
+new Chart(document.getElementById("myLineChart"), {
+	  type: 'line',
+	  data: {
+	    labels: ["2022/1 중간","2022/1 기말","2022/2 중간","2022/2 기말"],
+	    datasets: [{ 
+	        data: [86,114,106,106],
+	        label: "수학",
+	        borderColor: "#3e95cd",
+	        fill: false
+	      }, { 
+	        data: [282,350,411,502],
+	        label: "과학",
+	        borderColor: "#8e5ea2",
+	        fill: false
+	      }, { 
+	        data: [168,170,178,190],
+	        label: "사회",
+	        borderColor: "#3cba9f",
+	        fill: false
+	      }, { 
+	        data: [40,20,10,16],
+	        label: "Java",
+	        borderColor: "#e8c3b9",
+	        fill: false
+	      }
+	    ]
+	  },
+	  options: {
+	    title: {
+	      display: true,
+	      text: 'exam chart test'
+	    }
+	  }
+	});
 
 
 
-          </script>
-
-
-
-        </div>
+/*             var context = document
+                .getElementById('myLineChart')
+                .getContext('2d');
+            var myChart = new Chart(context, {
+                type: 'line', // 차트의 형태
+                data: { // 차트에 들어갈 데이터
+                    labels: [
+                        //x 축
+                        '1','2','3','4','5','6','7'
+                    ],
+                    datasets: [
+                        { //데이터
+                            label: 'test1', //차트 제목
+                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                            data: [
+                                21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            ],
+                            backgroundColor: [
+                                //색상
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                //경계선 색상
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1 //경계선 굵기
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            }); */
+        </script>
 
 
 </body>

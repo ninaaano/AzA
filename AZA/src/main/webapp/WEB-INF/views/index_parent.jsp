@@ -500,7 +500,7 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> ÀÚ³à°ü¸®
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
 							</div> ¼ö³³

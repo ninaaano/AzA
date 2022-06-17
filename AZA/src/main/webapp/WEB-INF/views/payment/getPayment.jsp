@@ -14,8 +14,7 @@
 
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -50,6 +49,12 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<style>
+	body {
+    padding-top : 20px;
+    margin : 50px;
+}
+</style>
 </head>
 <body>
 

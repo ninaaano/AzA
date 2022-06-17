@@ -513,15 +513,15 @@ $(function() {
 								<i class="material-icons">language</i>
 							</div> Å¬¶ó¿ìµå
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
 							</div> ¼ö³³
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/students/addStudentsCharacter'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> Q&A
+							</div> Æ¯Â¡
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
