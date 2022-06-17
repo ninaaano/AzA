@@ -2,6 +2,20 @@
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 
+<% 
+
+String userId = request.getParameter("userId");
+String password = request.getParameter("password");
+
+boolean login = userId.equals("") && password.equals("");
+
+if(!login){
+	response.sendRedirect(location)
+}
+
+
+%>
+
 
 <html>
 <head>
@@ -93,7 +107,7 @@
 										<h1 class="display-5 mb-0">Login</h1>
 										<div class="subheading-1 mb-5">AZA에 오신걸 환영합니다!</div>
 									</div>
-									<form action="/user/login">
+									<form name = "loginForm" action="/user/login">
 										<div class="mb-4">
 											<mwc-textfield class="w-100" label="userId" outlined>
 											아이디 : <input type="text" name="userId" id="userId"></input> </mwc-textfield>
@@ -112,7 +126,7 @@
 										
 										 <div class="mb-2">
                                                 <div class="btn-group" role="group">
-                                                    <button class="btn btn-outline-primary" type="submit">로그인</button>
+                                                    <button class="btn btn-outline-primary" type="submit" onclick="login()">로그인</button>
                                                 </div>
                                             </div>
                                             
@@ -123,6 +137,7 @@
                                                     <button class="btn btn-text-primary" type="button">회원가입</button>
                                                 </div>
                                             </div>
+                                           
 
 									</form>
 								</div>
@@ -141,5 +156,23 @@
 	<script src="/resources/common/scripts.js"></script>
 	
 	 -->	
+	 
+	 <script type="text/javascript">
+	 
+function login()	{
+	
+	var loginForm = document.loginForm;
+	var userId = loginForm.userId.value;
+	var password = loginForm.password.value;
+	
+	if(!userId || !password ){
+		alert ("아이디와 비밀번호를 모두 입력해주세요.")
+	}else{
+		loginForm.submit();
+	}
+}
+
+	 
+	 </script>
 </body>
 </html>

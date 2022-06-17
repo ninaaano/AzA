@@ -17,7 +17,7 @@ public interface UserService {
 	public void updateUser(User user) throws Exception; //
 	
 	//User :: DELETE
-	public void deleteUser(String userId) throws Exception; //
+	public void deleteUser(User user) throws Exception; //
 	
 	//User :: CheckDuplication
 	public int checkDuplication(String userId) throws Exception; //
