@@ -104,7 +104,7 @@ public class StudentsController {
 		studentsService.addStudentsRecord(students);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/index");
+		mv.setViewName("/index_teacher");
 		
 		return mv;
 	}
@@ -236,7 +236,7 @@ public class StudentsController {
 		List students = (List) session.getAttribute("students");
 
 
-		// ÀÓ½Ã => sessionÀ¸·Î ¾µ°Å
+		// ï¿½Ó½ï¿½ => sessionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		System.out.println(students);
 		if(search.getCurrentPage() == 0 ){
@@ -392,14 +392,14 @@ public class StudentsController {
 	
 	// CHARACTER testl===================================
 	
-	// CHARACTER testÈÄ ¼öÁ¤ ===================================
-	// ´Ü¼ø view¿¬°á
+	// CHARACTER testï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ===================================
+	// ï¿½Ü¼ï¿½ viewï¿½ï¿½ï¿½ï¿½
 
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/addStudentsCharacter :: GET ::´Ü¼ø View");
+		System.out.println("/students/addStudentsCharacter :: GET ::ï¿½Ü¼ï¿½ View");
 
 
 		
@@ -431,7 +431,7 @@ public class StudentsController {
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
 			HttpSession session) throws Exception {
 
-		System.out.println("/students/addStudentsCharacter :: POST ::µî·Ï");
+		System.out.println("/students/addStudentsCharacter :: POST ::ï¿½ï¿½ï¿½");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -448,7 +448,7 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView updateStudentsCharacter(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 
-		System.out.println("/students/updateStudentsCharacter :: GET :: ´Ü¼ø VIEW");
+		System.out.println("/students/updateStudentsCharacter :: GET :: ï¿½Ü¼ï¿½ VIEW");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -466,7 +466,7 @@ public class StudentsController {
 	public ModelAndView updateStudentsCharacter(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
 
-		System.out.println("/students/updateStudentsCharacter :: POST :: ¼öÁ¤ÇÏ±â");
+		System.out.println("/students/updateStudentsCharacter :: POST :: ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -519,7 +519,7 @@ public class StudentsController {
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(studentId);
 
-		search.setSearchKeyword("¼öÇÐ");
+		search.setSearchKeyword("ï¿½ï¿½ï¿½ï¿½");
 
 		
 		if (search.getCurrentPage() == 0) {

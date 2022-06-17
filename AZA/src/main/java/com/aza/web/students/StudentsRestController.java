@@ -194,7 +194,7 @@ public class StudentsRestController {
 	@RequestMapping(value="updateStudentsAttendance", method= {RequestMethod.POST, RequestMethod.GET})
 	public Students upStudentsAttendnace(@RequestBody Students student) throws Exception {
 		
-		System.out.println(student);
+		System.out.println("/rest/updatestudentsAttendance : "+student);
 		
 		studentsService.updateStudentsAttendance(student);
 		

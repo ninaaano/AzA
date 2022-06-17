@@ -53,7 +53,7 @@
     						FROM LESSON l, USERS u 
     						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{studentId}) v), 
     	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
-    	null,
+    	null
     	)
 	</insert>
 	

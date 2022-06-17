@@ -36,14 +36,14 @@ public class StudentsTest {
 	
 
 	
-	@Test
+	//@Test
 	public void testInsert() {
 		Message message = new Message("teacher1","student12","test1","2022-06-09 19:44:44");
 		mongoTemplate.insert(message);
 		System.out.println(message);
 	}
 	
-	@Test
+	//@Test
 public void deleteMessage() throws Exception {
 		
 		Criteria criteria = new Criteria("_id");
@@ -68,7 +68,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-		@Test // :: add
+		//@Test // :: add
 	public void testAddStudentsRecord() throws Exception {
 
 		Students students = new Students();
@@ -100,7 +100,7 @@ public void deleteMessage() throws Exception {
 	}
 
 
-		@Test // :: proposal
+	//	@Test // :: proposal
 	public void testProposalStudents() throws Exception {
 
 		studentsService.proposalStudents(1050, '1'); // ����
@@ -171,14 +171,14 @@ public void deleteMessage() throws Exception {
 
 	}
 
-//		@Test
+		@Test
 	public void testAddStudentsAttendance() throws Exception {
 
 		Students students = new Students();
 		students.setStudentId("student11");
-		students.setLessonCode("ABCD1234");
-		students.setAttendanceDate("20220604");
-		students.setAttendanceState("�⼮");
+		students.setLessonCode("KNODWC8X");
+		students.setAttendanceDate("20220610");
+		students.setAttendanceState("도망");
 
 		System.out.println(students);
 
@@ -379,7 +379,7 @@ public void deleteMessage() throws Exception {
 			studentsService.deleteStudentsExam(1000);
 		}
 		
-		@Test
+	//	@Test
 		public void testListExam() throws Exception{
 			
 			Search search = new Search();

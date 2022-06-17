@@ -168,12 +168,11 @@ public class StudentsServiceImpl implements StudentsService {
 		if(attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð")) {
 			Search search = new Search();
 			search.setCurrentPage(1);
+			search.setPageSize(pageSize);
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
-
-			search.setCurrentPage(1);
-			search.setPageSize(totalCount);
+			
 			System.out.println(totalCount);
 			
 			if(totalCount != 0) {
