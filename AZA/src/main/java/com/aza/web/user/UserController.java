@@ -33,7 +33,7 @@ public class UserController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
-	
+
 	
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
@@ -68,6 +68,7 @@ public class UserController {
 		userService.addUser(user);
 		
 		System.out.println(" : /user/addUser : POST");
+
 				
 		return new ModelAndView("/login");
 	}	
@@ -84,8 +85,7 @@ public class UserController {
 	
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
-		
-		
+
 		
 		System.out.println(dbUser);
 		
@@ -103,12 +103,15 @@ public class UserController {
 			
 			
 			System.out.println(session.getAttribute("user"));
+
 			System.out.println("");
 			return mv; 
+
 		} else {
 			System.out.println("");
 			mv.addObject("alert",".");
 			return new ModelAndView("/login"); // 
+
 		}
 	}
 	
@@ -194,13 +197,12 @@ public class UserController {
 //		System.out.println("/user/updateUser : GET");
 //		//Business Logic
 //		User user = userService.getUser(userId);
-		
+
 //		model.addAttribute("user", user);
 //		
 //		return "forward:/user/updateUser.jsp";
 //	}
 
-	
 	@RequestMapping( value="updateRelation", method=RequestMethod.POST )
 	public ModelAndView updateRelation(@RequestParam("currentPage") int currentPage,@RequestParam("relationCode")int relationCode) throws Exception{
 
@@ -219,10 +221,79 @@ public class UserController {
 		
 		return new ModelAndView("redirect:/user/updateRelation?relationCode="+user.getRelationCode());
 	}
-	
+
+//	@RequestMapping( value="find_id_form")
+//	public ModelAndView findId() throws Exception{
+//		System.out.println("���대�� 寃���");
+//		ModelAndView mv= new ModelAndView();
+//		mv.setViewName("/user/findId");
+//		
+//		return mv;
+//	}
+//
+//	
+//	@RequestMapping( value="find_id", method=RequestMethod.POST )
+//	public ModelAndView findId( @ModelAttribute("user") User user) throws Exception{
+//		user = userService.findId(user);
+//		System.out.println("而⑦�몃·�� ���대�� �ъ�ㅻ��");
+//		ModelAndView mv= new ModelAndView();
+//		if(user==null) {
+//			mv.addObject("check",1);
+//		}else {
+//			mv.addObject("check",0);
+//			mv.addObject("userId",user.getUserId());
+//		}
+//		
+//		return new ModelAndView("/user/findId");
+//	}
+//	
+//	@RequestMapping( value="find_password_form")
+//	public ModelAndView findPassword() throws Exception{
+//		System.out.println("鍮�諛�踰��� 寃���");
+//		ModelAndView mv= new ModelAndView();
+//		mv.setViewName("/user/findPassword");
+//		
+//		return mv;
+//	}
+//
+//	
+//	@RequestMapping( value="find_password", method=RequestMethod.POST )
+//	public ModelAndView findPassword( @ModelAttribute("user") User user) throws Exception{
+//		user = userService.findPassword(user);
+//		System.out.println("而⑦�몃·�� ���대�� �ъ�ㅻ��");
+//		ModelAndView mv= new ModelAndView();
+//		if(user==null) {
+//			mv.addObject("check",1);
+//		}else {
+//			mv.addObject("check",0);
+//			mv.addObject("updateId",user.getUserId());
+//		}
+//		
+//		return new ModelAndView("/user/findPassword");
+//	}
+//	
+//	@RequestMapping( value="update_password", method=RequestMethod.POST )
+//	public ModelAndView updatePassword( @ModelAttribute("user") User user,@RequestParam(value="updateid", defaultValue="", required=false)String userId) throws Exception{
+//		
+//		user.setUserId(userId);
+//		System.out.println(user);
+//		userService.updatePassword(user);
+//		return new ModelAndView("/user/updatePassword");
+//	}
+//	
+//	@RequestMapping(value="check_password_view")
+//	public String updatePassword(HttpSession session) throws Exception {
+//		
+//		User user = (User)session.getAttribute("loginUser");
+//		
+//		if(user==null) {
+//			return "user/login";
+//		}else {
+//			return "user/getUser";
+//		}
+//	}
 
 
-	 
 		@RequestMapping(value="findId")
 		public String findIdView() {
 			System.out.println("");
@@ -231,6 +302,7 @@ public class UserController {
 		
 	   
 		@RequestMapping(value="find_id", method=RequestMethod.POST)
+
 		public String findIdAction(User vo, Model model) throws Exception {
 			User user = userService.findId(vo);
 			
@@ -247,7 +319,7 @@ public class UserController {
 			return "user/findId";
 		}
 		
-	    
+
 		@RequestMapping(value="findPassword")
 		public String findPasswordView() {
 			System.out.println("");
@@ -256,6 +328,7 @@ public class UserController {
 		
 	     
 		@RequestMapping(value="find_password", method=RequestMethod.POST)
+
 		public String findPasswordAction(User vo, Model model) throws Exception {
 			User user = userService.findPassword(vo);
 			
@@ -271,7 +344,7 @@ public class UserController {
 			return "user/findPassword";
 		}
 		
-		
+
 		@RequestMapping(value="update_password", method=RequestMethod.POST)
 		public String updatePasswordAction(@RequestParam(value="updateid", defaultValue="", required=false) String id,
 											User vo) throws Exception {
@@ -282,6 +355,16 @@ public class UserController {
 			return "user/findPassword";
 		}
 		
-	    		
+
+		@RequestMapping(value="check_password_view")
+		public String checkPasswordForModify(HttpSession session, Model model) {
+			User loginUser = (User) session.getAttribute("loginUser");
+			
+			if(loginUser == null) {
+				return "user/login";
+			} else {
+				return "mypage/checkformodify";
+			}
+		}		
 	
 }

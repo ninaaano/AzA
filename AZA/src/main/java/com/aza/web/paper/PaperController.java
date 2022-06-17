@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import com.aza.service.paper.PaperService;
 import com.aza.service.user.UserService;
 
 @Controller
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RequestMapping("/paper/*")
 public class PaperController {
 	
@@ -169,11 +171,11 @@ public class PaperController {
 	@RequestMapping(value="addPaperHomework", method=RequestMethod.POST)
 	public ModelAndView addPaperHomework(@ModelAttribute("paper") Paper paper) throws Exception {
 	
-		System.out.println("/students/addStudentsNote : POST");
+		System.out.println("/paper/addPaperHomework : POST");
 
+		System.out.println("==="+paper);
 		paperService.addPaperHomework(paper);
 		
-		System.out.println("==="+paper);
 		ModelAndView modelAndView = new ModelAndView();	
 		modelAndView.setViewName("redirect:/paper/listPaperHomework");		
 

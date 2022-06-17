@@ -233,7 +233,8 @@ public class StudentsController {
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		List students = (List) session.getAttribute("students");
-		
+
+		// 임시 => session으로 쓸거
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
@@ -378,11 +379,15 @@ public class StudentsController {
 	
 	// CHARACTER testl===================================
 	
+	// CHARACTER test후 수정 ===================================
+	// 단순 view연결
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: GET :: View");
+
+		System.out.println("/students/addStudentsCharacter :: GET ::단순 View");
+
 		
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		
@@ -412,7 +417,9 @@ public class StudentsController {
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
 			HttpSession session) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: POST ::");
+
+		System.out.println("/students/addStudentsCharacter :: POST ::등록");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -428,7 +435,9 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView updateStudentsCharacter(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter :: GET ::  VIEW");
+
+		System.out.println("/students/updateStudentsCharacter :: GET :: 단순 VIEW");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -444,7 +453,9 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView updateStudentsCharacter(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session) throws Exception {
 		
-		System.out.println("/students/updateStudentsCharacter :: POST :: ");
+
+		System.out.println("/students/updateStudentsCharacter :: POST :: 수정하기");
+
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		
@@ -495,7 +506,9 @@ public class StudentsController {
 		
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(studentId);
-		search.setSearchKeyword("");
+
+		search.setSearchKeyword("수학");
+
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);

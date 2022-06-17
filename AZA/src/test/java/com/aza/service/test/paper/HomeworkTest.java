@@ -27,11 +27,11 @@ public class HomeworkTest {
 	public void testAddHomework() throws Exception {
 		Paper paper = new Paper();
 		
-		paper.setStudentId("student31");
-		paper.setLessonCode("abcd1234");
+		paper.setStudentName("학생3");
+		paper.setLessonName("비트고2 자바스크립트");
 		paper.setHomeworkTitle("프로젝트");
 		paper.setHomeworkContent("분석설계");
-		paper.setHomeworkDueDate("2022/06/06");
+		paper.setHomeworkDueDate("2022/06/17");
 		paper.setHomeworkCheck('0');
 		
 		System.out.println("==>"+paper);

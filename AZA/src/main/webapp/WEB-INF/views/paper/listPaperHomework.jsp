@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="UTF-8"%>
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--  날짜 ,금액 포맷 lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
@@ -16,8 +16,8 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-<script defer src="/resources/javascript/message/asserts/ui.js"></script>
+<!-- <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script> -->
+<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -95,11 +95,8 @@ font-family: Pretendard, 'Noto Sans KR';
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/message.css"/>
         
-
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>   -->     	
 
 
@@ -111,20 +108,17 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 <script type="text/javascript">
-
 /* $(function(){
 	$('#lessonNamee').on("click", function(){
 		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
 }); */
 
-
-/* $(function(){
-	$("td:nth-child(2)").on("click", function() {
+$(function(){
+	$("td:nth-child(3)").on("click", function() {
 		self.location ="/paper/getPaperHomework?homeworkCode"+$(this).attr('homeworkCode');
 	})
-}) */
-
+})
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/paper/listPaperHomework").submit();
@@ -142,14 +136,16 @@ $(function() {
 		self.location = "/paper/addPaperHomework";
 	});
 });
-
-
 </script>
 
-
 <h3>수업 과제</h3>
+	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+        <h1 class="display-4 mb-0">과 제 목 록</h1>
+        <div class="text-muted">Homework List</div>
+    </div>
+    
 <form>	
-		<div class="card-body p-4">
+		<div class="card-body p-4" style="margin: 20px 20px 20px 20px">
             <!-- Simple DataTables example-->
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
             	<div class="dataTable-top">
@@ -221,7 +217,7 @@ $(function() {
 	               			</tr>
 		                </thead>
 		                
-	                	<tbody>
+	                	<%-- <tbody>
             				<c:set var="i" value="0"/>			
 								<c:forEach var="paper" items="${list}">			
 								<c:set var="i" value="${i+1}" />
@@ -230,6 +226,24 @@ $(function() {
 									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName.getLessonName()}</td>
 									<td >${paper.homeworkTitle}</td>
 									<td >${paper.studentName.getStudentName()}</td>
+									<td >${paper.homeworkCreateAt}</td>
+									<td >
+										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
+										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
+									</td>
+		                			<td><span class="badge bg-primary">${paper.homeworkCheck}</span></td>				
+								</tr>
+							</c:forEach>
+               			</tbody> --%>
+               			<tbody>
+            				<c:set var="i" value="0"/>			
+								<c:forEach var="paper" items="${list}">			
+								<c:set var="i" value="${i+1}" />
+								<tr>
+									<td >${i}</td>
+									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName}</td>
+									<td >${paper.homeworkTitle}</td>
+									<td >${paper.studentName}</td>
 									<td >${paper.homeworkCreateAt}</td>
 									<td >
 										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -261,7 +275,11 @@ $(function() {
            						<a href="#" data-page="20">20</a>
           					</li>
           					<li class="pager">
+<<<<<<< HEAD
           						<a href="#" data-page="2"></a>
+=======
+          						<a href="#" data-page="2">></a>
+>>>>>>> refs/heads/YS
           					</li>
           				</ul>
          			</nav>

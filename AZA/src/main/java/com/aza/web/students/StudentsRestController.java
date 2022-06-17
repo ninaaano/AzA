@@ -61,7 +61,7 @@ public class StudentsRestController {
 	}
 	
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ì™„ë£Œëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿Ï·áµÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listStudentsRecord")
 	public Map<String, Object> listStudentsRecord(HttpSession session) throws Exception {
 		
@@ -77,7 +77,7 @@ public class StudentsRestController {
 		return studentsService.listStudentsRecord(search, teacherId);		
 	}
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listProposalStudents")
 	public Map<String, Object> listProposalStudents(HttpSession session) throws Exception {
 		
@@ -93,7 +93,7 @@ public class StudentsRestController {
 		return studentsService.listProposalStudents(search, teacherId);		
 	}
 	
-	// STUDENTS_RECORD :: ìŠ¹ì¸ ìš”ì²­ëœ í•™ìƒë“¤ë§Œ
+	// STUDENTS_RECORD :: ½ÂÀÎ ¿äÃ»µÈ ÇĞ»ıµé¸¸
 	@RequestMapping("listTotalStudentsRecord")
 	public Map<String, Object> listlistTotalStudentsRecord(HttpSession session) throws Exception {
 		
@@ -134,6 +134,26 @@ public class StudentsRestController {
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
 		Search search = new Search();
+
+		
+		// ÀÓ½Ã => sessionÀ¸·Î ¾µ°Å
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		//Map<String, Object> map = userService.listRelationByParent(search, userId);
+		List students = (List) userService.listRelationByParent(search, userId).get("list");	
+		
+		String studentId = ((User) students.get(0)).getFirstStudentId();
+		System.out.println("students : "+studentId);
+		
+		List lessons = (List) lessonService.listLessonStudent(search, studentId).get("list");
+		String lessonCode = ((Lesson)lessons.get(0)).getLessonCode();
+		System.out.println("lessons : "+lessonCode);
+		
+		//
+		search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(31);
 		
@@ -181,7 +201,7 @@ public class StudentsRestController {
 		return students;		
 	}
 	
-	// ìˆ˜ì •ì‹œ ì €ì¥ëœ ê°’ ë¿Œë ¤ì£¼ê¸°(?)
+	// ¼öÁ¤½Ã ÀúÀåµÈ °ª »Ñ·ÁÁÖ±â(?)
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.GET)
 	public Students updateStudentsExam(@PathVariable int examCode) throws Exception{
 		
@@ -190,7 +210,7 @@ public class StudentsRestController {
 		return studentsService.getStudentsExam(examCode);
 	}
 	
-	// ìˆ˜ì • method
+	// ¼öÁ¤ method
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.POST)
 	public Students updateStudentsExam(@RequestBody Students students) throws Exception{
 		
