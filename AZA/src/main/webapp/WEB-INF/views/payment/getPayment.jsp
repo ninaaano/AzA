@@ -84,7 +84,7 @@ function requestPay(){
         if (rsp.success) { // 결제 성공 시 
                 // jQuery로 HTTP 요청
                  jQuery.ajax({
-                    url: "http://127.0.0.1:8080/payment/rest/complete/"+merchant_uid, // 예: https://www.myservice.com/payments/complete
+                    url: "http://127.0.0.1:8080/payment/rest/complete/"+ merchant_uid, // 예: https://www.myservice.com/payments/complete
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     data: {
@@ -99,6 +99,8 @@ function requestPay(){
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 	    			msg += '\n결제 금액 : ' + rsp.paid_amount;
 	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+	    			// 넘겨줄 정보..
+	    			
                 }); 
 
                 /*======================================================*/

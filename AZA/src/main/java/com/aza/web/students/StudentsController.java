@@ -1,6 +1,7 @@
 package com.aza.web.students;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
+
 
 @Controller
 @RequestMapping("/students/*")
@@ -409,7 +411,7 @@ public class StudentsController {
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView addStudentsCharacter
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
-			HttpSession session) throws Exception {
+			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
 		System.out.println("/students/addStudentsCharacter :: POST ::등록");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
@@ -420,7 +422,15 @@ public class StudentsController {
 		students = studentsService.getStudentsCharacter(students.getCharacterCode());
 		mv.setViewName("/students/getStudentsCharacter");
 		mv.addObject("students",students);
+		search.setSearchId(teacherId);
 		
+		Map<String, Object> list = studentsService.listStudentsCharacter(search);
+		System.out.println("update list ==>> " + list);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)list.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		mv.addObject("list", list.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
 		
 		return mv;
 	}
@@ -450,16 +460,18 @@ public class StudentsController {
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(teacherId);
 		
-		Map<String, Object> listMap = studentsService.listStudentsCharacter(search);
+		Map<String, Object> list = studentsService.listStudentsCharacter(search);
+		System.out.println("update list ==>> " + list);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)list.get("totalCount")).intValue(), pageUnit, pageSize);
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
+		mv.addObject("list", list.get("list"));
+		mv.addObject("resultPage", resultPage);
+		mv.addObject("search", search);
 		
 		studentsService.updateStudentsCharacter(students);
 		
 		mv.addObject("students",students);	
-		mv.addObject("list", listMap.get("list"));
-		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);
+
 		mv.setViewName("/students/getStudentsCharacter");
 		
 		return mv;		

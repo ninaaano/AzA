@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>성적은 REST이다.</title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -43,9 +42,20 @@
 
 <h1> Rest 싫어요 :( </h1>
 
-<div class="card-body pt-4">
-<canvas id="dashboardAreaChart" width="637" height="255" style="display: block; box-sizing: border-box; width: 510.391px; height: 204px;"></canvas>
-</div>
+
+
+				<c:set var="i" value="0" />
+				<c:forEach var="students" items="${list}">
+		 	    <c:set var="i" value="${ i+1 }" />
+		 	    	  
+					I D : ${students.studentId}	  <br/>
+					이름 : ${students.studentName} <br/>
+					과목 : ${students.examSubject} <br/>
+					점수 : ${students.examScore}
+	
+				 </c:forEach>
+
+
 
 
 </body>

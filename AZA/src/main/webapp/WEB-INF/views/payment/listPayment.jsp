@@ -13,8 +13,7 @@
 
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -249,8 +248,8 @@ $(function() {
 				</td>
 				
 				<td align="center">${payment.checkPay }</td>
-				<td align="center">
-				<button class="btn btn-raised-warning" type="button" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">
+				<td align="center" payCode="${payment.payCode}">
+				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
 						상세보기
 			　</button>			
 				</td>
