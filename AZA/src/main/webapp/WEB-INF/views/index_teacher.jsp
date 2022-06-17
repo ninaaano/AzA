@@ -383,7 +383,12 @@ $(function() {
 })
 	
 
-
+$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[#logout]").on("click" , function() {
+				$("form").attr("method" , "get").attr("action" , "/user/logout").submit();
+			});
+		});	
 
 
 
@@ -396,15 +401,16 @@ $(function() {
 <body class="nav-fixed bg-light">
 <div class="nav-fixed bg-light">
 	<!-- Top app bar navigation menu-->
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-primary">
+
+	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
 		<div class="container-fluid px-4">
 			<!-- Drawer toggle button-->
 			<button class="btn btn-lg btn-icon order-1 order-lg-0"
 				id="drawerToggle" href="javascript:void(0);">
-				<i class="material-icons">menu</i>
+				<i class="material-icons text-primary">menu</i>
 			</button>
 			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index">
+			<a class="navbar-brand me-auto" href="/user/login" data-url=''>
 			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
 			</a>
 			<!-- Navbar items-->
@@ -416,7 +422,7 @@ $(function() {
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
 							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
 							aria-expanded="false">
-							<i class="material-icons">mail_outline</i>
+							<i class="material-icons text-primary">mail_outline</i>
 						</button>
 					</div>				
 					<!-- Notifications and alerts dropdown-->
@@ -424,7 +430,7 @@ $(function() {
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
 							id="dropdownMenuNotifications" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons">notifications</i>
+							<i class="material-icons text-primary">notifications</i>
 						</button>
 						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
@@ -438,25 +444,28 @@ $(function() {
 						<button class="btn btn-lg btn-icon dropdown-toggle"
 							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
 							aria-expanded="false">
-							<i class="material-icons">person</i>
+							<i class="material-icons text-primary">person</i>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-end mt-3"
 							aria-labelledby="dropdownMenuProfile">
 							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">person</i>
+									class="material-icons leading-icon text-primary">person</i>
 									<div class="me-3">Profile</div>
 							</a></li>
 							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">settings</i>
+									class="material-icons leading-icon text-primary">settings</i>
 									<div class="me-3">Settings</div>
 							</a></li>
 							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">help</i>
+									class="material-icons leading-icon text-primary">help</i>
 									<div class="me-3">Help</div>
 							</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">logout</i>
+
+									class="material-icons leading-icon text-primary">logout</i>
+									<!-- class="material-icons leading-icon" >logout</i> -->	<!-- 2022/06/18 MJ파트 충돌 주석처리했음 -->
+
 									<div class="me-3">Logout</div>
 							</a></li>
 						</ul>
@@ -475,57 +484,63 @@ $(function() {
 				<div class="drawer-menu">
 					<div class="nav">
 						<!-- Drawer section heading (Account)-->
-						<div class="drawer-menu-heading d-sm-none">Account</div>
+						<div class="drawer-menu-heading d-sm-none titleFont text-primary fs-4">Account</div>
 						<!-- Drawer link (Notifications)-->
 						<a class="nav-link d-sm-none" href="#!">
 							<div class="nav-link-icon">
-								<i class="material-icons">notifications</i>
+								<i class="material-icons text-primary text-primary">notifications</i>
 							</div> Notifications
 						</a>
 						<!-- Drawer link (Messages)-->
 						<a class="nav-link d-sm-none" href="#!">
 							<div class="nav-link-icon">
-								<i class="material-icons">mail</i>
+								<i class="material-icons text-primary text-primary">mail</i>
 							</div> Messages
 						</a>
 						<!-- Divider-->
 						<div class="drawer-menu-divider d-sm-none"></div>
 						<!-- Drawer section heading (Interface)-->
-						<div class="drawer-menu-heading">MENU</div>
+						<div class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 						<!-- Drawer link (Overview)-->
 						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+								<i class="material-icons text-primary">language</i>
 							</div> 수업관리
 						</a>
 						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
 							<div class="nav-link-icon">
-								<i class="material-icons" href="#">language</i>
+								<i class="material-icons text-primary" href="#">language</i>
 							</div> 전체 학생 목록
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+								<i class="material-icons text-primary">language</i>
 							</div> 학생 관리
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+								<i class="material-icons text-primary">language</i>
 							</div> 클라우드
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+								<i class="material-icons text-primary">language</i>
 							</div> 수납
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/students/addStudentsCharacter'>
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+
+								<i class="material-icons text-primary">language</i>
 							</div> Q&A
+							
+							<!-- MY 주석처리함 위에 Q%A 랑 충돌 -->
+							<!-- 	<i class="material-icons">language</i>
+							</div> 특징 -->	
+
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
+								<i class="material-icons text-primary">language</i>
 							</div> 교재
 						</a>
 						<!-- Divider-->
@@ -544,7 +559,48 @@ $(function() {
 </div>
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
-	
+	<header class="main-header" style="height:0px;">
+				<!-- page header -->
+					<div class="row justify-content-center gx-5">
+	                  </div>
+					<!-- 수업 추가 Modal-->
+					<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+					    <div class="modal-dialog modal-dialog-centered">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
+					                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
+					            </div>
+					            <div class="modal-body">
+					             <c:url var="add_record" value="/students/listStudentsRecord"/>
+						            <form name="addStudentsRecordForm" action="${add_record}">
+							          <div class="form-group">
+							            <label for="lessonCode" class="col-form-label">수업 코드:</label>
+							            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
+							            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="fees" class="col-form-label">수업료:</label>
+							            <input type="text" class="form-control" id="fees" name="fees"/>
+							          </div>
+							          <div class="form-group">
+							            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
+							            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
+							          </div>
+							          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
+							          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
+							          <div class="d-flex justify-content-end">
+						              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
+						              </div>
+						        </form>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</header>
 		<!-- Main page content-->
 		<main class="mt-12">
 			<header class="main-header">

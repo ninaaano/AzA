@@ -1,6 +1,8 @@
 
+
 // 출석
 function attendanceHandler(lessonCode) {
+
 
 	console.log('클릭됨');
 	
@@ -11,7 +13,15 @@ function attendanceHandler(lessonCode) {
 					"Accept" : "application/json",
                 	"Content-Type" : "application/json",
 
-                },
+//   console.log('클릭됨');
+   
+//   $.ajax({
+//      url: "http://localhost:8080/students/rest/listStudentsRecord?lessonCode="+lessonCode,
+//      type: "POST",
+//      headers: { 
+//               "Accept" : "application/json",
+//                   "Content-Type" : "application/json",
+              },
       success: function(result) {
          if(result) {
             
@@ -28,6 +38,7 @@ function attendanceHandler(lessonCode) {
 }
 
 function makeAddAttendanceView(result) {
+
 
 	
 	$('#curLessonName').empty();
@@ -84,11 +95,12 @@ function makeUpdateAttendanceView(student) {
 
 	var div = `<div class="d-flex align-items-center">
                  <div class="btn-group" role="group" aria-label="Mixed styles example">
-				    <button name class="btn btn-raised-success" type="button" onclick="updateAttendance('${student.attendanceCode}','출석')">출석💚</button>
-				    <button name class="btn btn-raised-danger" type="button" onclick="updateAttendance('${student.attendanceCode}','결석')">결석😢</button>
-				    <button name class="btn btn-raised-warning" type="button" onclick="updateAttendance('${student.attendanceCode}','지각')">지각🙄</button>
-				    <button name class="btn btn-raised-primary" type="button" onclick="updateAttendance('${student.attendanceCode}','도망')">도망🏃‍♀️</button>
-				    <button class="btn btn-raised-secondary" type="button" onclick="updateAttendance('${student.attendanceCode}','조퇴')">조퇴👋</button>
+
+				    <button name class="btn btn-raised-success" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','출석', '${student.lessonCode}')">출석💚</button>
+				    <button name class="btn btn-raised-danger" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','결석', '${student.lessonCode}')">결석😢</button>
+				    <button name class="btn btn-raised-warning" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','지각', '${student.lessonCode}')">지각🙄</button>
+				    <button name class="btn btn-raised-primary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','도망', '${student.lessonCode}')">도망🏃‍♀️</button>
+				    <button class="btn btn-raised-secondary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','조퇴', '${student.lessonCode}')">조퇴👋</button>
 				</div></div>`;
 	
 	$(`#attendance-${student.studentId}`).append(div);
@@ -97,11 +109,13 @@ function makeUpdateAttendanceView(student) {
 }
 
 
-function updateAttendance(attendanceCode, state) {
+function updateAttendance(attendanceCode, studentId, state, lessonCode) {
 	
 	var data = {
 		attendanceCode: attendanceCode,
+		studentId: studentId,
 		attendanceState: state,
+		lessonCode: lessonCode,
 	};
 	
 	$.ajax({
@@ -162,6 +176,8 @@ function addStudentsAttendance(studentId, lessonCode, attendanceDate, state) {
 		}
 	})
 
+//function addStudentsAttendance(studentId, state) {		//MY충돌 주석처리함
+   
 }
 
 
@@ -188,6 +204,12 @@ function attendanceLoad() {
 		type:"GET",
 		headers : {
 
+//MY 충돌 주석처리함
+//   $.ajax({
+//      url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay="+curDay,
+//      type:"GET",
+//      headers : {
+
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
@@ -212,6 +234,7 @@ function makeTimeTable(result) {
    $('#curLessonList').empty();
    
    $('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
+
    
    result.map((lesson, idx) => {
       
@@ -244,10 +267,17 @@ function loadEvent(month) {
    console.log(month, urlParam, studentId,lessonCode);
 
 
+
 	$.ajax({
 		url:"/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
 		type:"POST",
 		headers : {
+
+//MY 충돌 주석처리함
+//   $.ajax({
+//      url:"http://localhost:8080/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
+//      type:"POST",
+//      headers : {
 
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
@@ -281,14 +311,16 @@ function loadEvent(month) {
             })
 
          }else {
+
             console.log("실패");
+
          }
       }
    })   
 }   
 
 
-// 달력
+// �޷�
 function colored(data) {
    
    var badge = "";
@@ -302,6 +334,7 @@ function colored(data) {
          break;
       case "도망":
          badge =   `<div class="m-0"><span class="badge bg-warning text-dark">도망</span></div>`;
+
          break;
       default:
          badge = `<div class="m-0"><span class="badge bg-secondary">${data.status}</span></div>`;

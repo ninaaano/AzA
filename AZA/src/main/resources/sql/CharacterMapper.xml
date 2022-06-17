@@ -48,5 +48,21 @@
 	DELETE FROM characters WHERE character_code = #{value}
 	</delete>
 	
+	<!-- SQL : character SELECT -->
+	<select id="listStudentsCharacter" parameterType="search" resultMap="studentsCharacterSelectMap">
+	SELECT
+	*
+	FROM characters
+	WHERE teacher_id = #{searchId}
+	ORDER BY student_name
+	</select>
 	
+		<select id="getStudentsCharacterTotalCount" parameterType="search" resultType="int">
+	SELECT COUNT(*)
+	  	FROM( SELECT
+			*
+			FROM characters
+			WHERE teacher_id = #{searchId}
+			ORDER BY student_name) countTable
+	</select>
 </mapper>

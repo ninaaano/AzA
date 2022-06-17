@@ -38,11 +38,13 @@ import com.aza.service.user.UserService;
 @RestController
 @RequestMapping("/students/rest/*")
 public class StudentsRestController {
+
    
    // field
    @Autowired
    @Qualifier("studentsServiceImpl")
    private StudentsService studentsService;
+
 
    // field
    @Autowired
@@ -194,7 +196,9 @@ public class StudentsRestController {
 	@RequestMapping(value="updateStudentsAttendance", method= {RequestMethod.POST, RequestMethod.GET})
 	public Students upStudentsAttendnace(@RequestBody Students student) throws Exception {
 		
-		System.out.println(student);
+
+		System.out.println("/rest/updatestudentsAttendance : "+student);
+
 		
 		studentsService.updateStudentsAttendance(student);
 		
@@ -255,5 +259,14 @@ public class StudentsRestController {
 		studentsService.deleteStudentsExam(examCode);
 	}
 	
+	@RequestMapping(value = "getStudentsCharacter/{characterCode}")
+	public Students getStudentsCharacter(@PathVariable int characterCode) throws Exception{
+		
+		System.out.println("restGetStudentCharacter...");
+		Students students = new Students();
+		students = studentsService.getStudentsCharacter(characterCode);
+		
+		return students;		
+	}
 	
 }

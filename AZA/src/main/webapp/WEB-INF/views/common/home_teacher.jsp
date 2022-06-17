@@ -62,6 +62,7 @@
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -406,9 +407,11 @@ $(function() {
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
 
-			<div class="container-xl px-5">
-			<div class="row d-flex justify-content-around mb-6" style="margin: 0 20% 0 20%"> 
-				<div id="calendar" >
+
+			<div class="container-xl px-5"> 
+			
+			<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
+				<div id="calendar" style="margin: 0 30% 0 30%">
 						<div id='loading'>loading...</div>
 						<div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
 						<div style="width:60%; float:left; text-align:right">일정 현황
@@ -417,6 +420,11 @@ $(function() {
 						cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
 				</div>		
 				</div>
+			</div>
+				
+				
+				 <hr class="my-5">
+				
 				<div class="row d-flex justify-content-around">
 				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
 	                          <div class="card card-raised overflow-hidden h-100">
@@ -436,8 +444,6 @@ $(function() {
 	                     </div>
 	                
                      
-			     
-			     
 				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
 				    	
                          <div class="card card-raised h-100 overflow-hidden">

@@ -34,4 +34,5 @@ public interface PaymentService {
 	public int paymentInfo(String imp_uid, String access_token) throws Exception;
 	
 	public void paymentCancle(String access_token, String imp_uid, int amount, String reason) throws Exception;
+	
 }

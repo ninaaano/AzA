@@ -1,21 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  ë‚ ì§œ ,ê¸ˆì•¡ í¬ë§· lib-->
+<!--  ³¯Â¥ ,±İ¾× Æ÷¸Ë lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
+<meta charset="EUC-KR"> 
 <title>GET PAYMENT</title>
 
 
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -50,6 +49,12 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<style>
+	body {
+    padding-top : 20px;
+    margin : 50px;
+}
+</style>
 </head>
 <body>
 
@@ -68,11 +73,11 @@ function requestPay(){
     
     // name, amonut
 
-    // ê²°ì œì°½ í˜¸ì¶œ
+    // °áÁ¦Ã¢ È£Ãâ
     IMP.request_pay({
         pg : 'html5_inicis',
         pay_method : 'card',
-        merchant_uid : payCode, // ì£¼ë¬¸ ë²ˆí˜¸
+        merchant_uid : payCode, // ÁÖ¹® ¹øÈ£
 		name : lessonName,
 		amount : price,
 		buyer_tel : '010-1111-2222'
@@ -81,10 +86,10 @@ function requestPay(){
     }, function(rsp) {
         /*======================================================*/
 /*         console.log(rsp); */
-        if (rsp.success) { // ê²°ì œ ì„±ê³µ ì‹œ 
-                // jQueryë¡œ HTTP ìš”ì²­
+        if (rsp.success) { // °áÁ¦ ¼º°ø ½Ã 
+                // jQuery·Î HTTP ¿äÃ»
                  jQuery.ajax({
-                    url: "http://127.0.0.1:8080/payment/rest/complete/"+merchant_uid, // ì˜ˆ: https://www.myservice.com/payments/complete
+                    url: "http://127.0.0.1:8080/payment/rest/complete/"+ merchant_uid, // ¿¹: https://www.myservice.com/payments/complete
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     data: {
@@ -92,19 +97,21 @@ function requestPay(){
                         merchant_uid: rsp.merchant_uid
                     }
                 }).done(function (data) {
-                  // ê°€ë§¹ì  ì„œë²„ ê²°ì œ API ì„±ê³µì‹œ ë¡œì§
+                  // °¡¸ÍÁ¡ ¼­¹ö °áÁ¦ API ¼º°ø½Ã ·ÎÁ÷
                   payCode : payCode
-                  var msg = 'ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.';
-	    			msg += '\nê³ ìœ ID : ' + rsp.imp_uid;
-	    			msg += '\nìƒì  ê±°ë˜ID : ' + rsp.merchant_uid;
-	    			msg += '\nê²°ì œ ê¸ˆì•¡ : ' + rsp.paid_amount;
-	    			msg += 'ì¹´ë“œ ìŠ¹ì¸ë²ˆí˜¸ : ' + rsp.apply_num;
-                }); 
-
+                  var msg = '°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.';
+	    			msg += '\n°íÀ¯ID : ' + rsp.imp_uid;
+	    			msg += '\n»óÁ¡ °Å·¡ID : ' + rsp.merchant_uid;
+	    			msg += '\n°áÁ¦ ±İ¾× : ' + rsp.paid_amount;
+	    			msg += 'Ä«µå ½ÂÀÎ¹øÈ£ : ' + rsp.apply_num;
+	    			// ³Ñ°ÜÁÙ Á¤º¸..
+	    			
+	    			
+                }) 
                 /*======================================================*/
         } else {
-			var msg = 'ê²°ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.';
-	        msg += 'ì—ëŸ¬ë‚´ìš© : ' + rsp.error_msg;
+			var msg = '°áÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.';
+	        msg += '¿¡·¯³»¿ë : ' + rsp.error_msg;
         }
     
         alert(msg);
@@ -142,31 +149,31 @@ function requestPay(){
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ì—…ëª…</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö¾÷¸í</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">í•™ìƒ ì´ë¦„</a>
+		<a href="#" class="dataTable-sorter" align="center">ÇĞ»ı ÀÌ¸§</a>
 		</th>
 		
 		<th data-sortable="" style="width: 12%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ë£Œ</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³·á</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì˜ˆì •ì¼</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿¹Á¤ÀÏ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì™„ë£Œì¼</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿Ï·áÀÏ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì—¬ë¶€</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿©ºÎ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 10%;">
-		<a href="#" class="dataTable-sorter" align="center">ë‚©ë¶€í•˜ê¸°</a>
+		<a href="#" class="dataTable-sorter" align="center">³³ºÎÇÏ±â</a>
 		</th>				
 		
 		</tr>
@@ -185,7 +192,7 @@ function requestPay(){
 				<td align="center" id="studentName" payCode="${payment.payCode}">${payment.studentName}</td>
 				
 				<td align="center" value="${payment.amount}" id="amount" >
-					<fmt:formatNumber value="${payment.amount}" pattern="#,###" />
+					${payment.amount}
 				</td>
 				
 				<td align="center">${payment.payDueDate }</td>
@@ -198,7 +205,7 @@ function requestPay(){
 				<td align="center">${payment.checkPay }</td>
 				
 				<td align="center">
-				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">ê²°ì œí•˜ê¸°ã€€</button>
+				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">°áÁ¦ÇÏ±â¡¡</button>
 				</td>
 
 				</tr>

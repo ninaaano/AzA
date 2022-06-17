@@ -160,6 +160,7 @@ public class Lesson {
 
 	public void setPublisher(Object object) {
 		this.publisher = (String) object;
+
 	}
 
 	public String getBookPrice() {
