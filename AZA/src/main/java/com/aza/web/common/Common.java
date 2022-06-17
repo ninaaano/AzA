@@ -26,5 +26,29 @@ public class Common {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/home")
+	public @ResponseBody ModelAndView homeController(HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		String role = user.getRole();
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if(role.equals("teacher")) {
+			mv.setViewName("/common/home_teacher");
+		}
+		
+		if(role.equals("student")) {
+			mv.setViewName("/common/home_student");
+		}
+		
+		if(role.equals("parent")) {
+			mv.setViewName("/common/home_parent");
+		}
+
+		
+		return mv;
+	}
 
 }

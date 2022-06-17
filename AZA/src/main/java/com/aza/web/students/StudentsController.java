@@ -58,7 +58,7 @@ public class StudentsController {
 	}
 	
 	// STUDENTS_RECORD
-	@RequestMapping(value="listStudentsRecord")
+	@RequestMapping(value="listStudentsRecord",  method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listStudentsRecord(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		System.out.println("/students/listStudentsRecord");

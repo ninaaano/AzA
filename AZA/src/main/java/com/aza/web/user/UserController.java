@@ -79,10 +79,6 @@ public class UserController {
 		System.out.println("/user/login");
 		
 		ModelAndView mv= new ModelAndView();
-		
-	
-		
-		mv.setViewName("/index");
 	
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
@@ -107,6 +103,16 @@ public class UserController {
 			// teacher 인 경우
 			if(dbUser.getRole().equals("teacher")) {
 				mv.setViewName("/index_teacher");
+			}
+			
+			// student 인 경우
+			if(dbUser.getRole().equals("student")) {
+				mv.setViewName("/index_student");
+			}
+			
+			// parent 인 경우
+			if(dbUser.getRole().equals("parent")) {
+				mv.setViewName("/index_parent");
 			}
 			
 			System.out.println(session.getAttribute("user"));
