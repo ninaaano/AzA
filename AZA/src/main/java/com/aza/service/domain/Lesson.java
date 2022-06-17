@@ -158,8 +158,8 @@ public class Lesson {
 		return publisher;
 	}
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+	public void setPublisher(Object object) {
+		this.publisher = (String) object;
 	}
 
 	public String getBookPrice() {

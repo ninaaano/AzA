@@ -52,11 +52,11 @@
 	
 <!-- schedule -->
 <link type="text/css" href="/resources/css/schedule.css" rel="stylesheet" />
-<script type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
 <!-- <script src='../lib/main.min.js'></script> -->
-<script type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
-<script type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
+<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
 <style>
 *, body { 
@@ -406,15 +406,16 @@ $(function() {
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
 
-			<div class="container-xl px-5"> 
-				<div id="calendar">
+			<div class="container-xl px-5">
+			<div class="row d-flex justify-content-around mb-6" style="margin: 0 20% 0 20%"> 
+				<div id="calendar" >
 						<div id='loading'>loading...</div>
 						<div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
 						<div style="width:60%; float:left; text-align:right">일정 현황
 						</div><div style="width:40%; float:left;text-align:right"></div>
 						<button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
 						cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
-						<div id='calendar'></div>
+				</div>		
 				</div>
 				<div class="row d-flex justify-content-around">
 				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">

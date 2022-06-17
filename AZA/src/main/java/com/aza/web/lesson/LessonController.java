@@ -154,7 +154,7 @@ public class LessonController {
 	
 	@RequestMapping(value="manageLessonBook")
 	public ModelAndView manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
-	
+		System.out.println("manageLessonBook½ÇÇà");
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
@@ -162,7 +162,7 @@ public class LessonController {
 //		String role = ((User) session.getAttribute("user")).getRole();
 				
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		Map<String, Object> map = lessonService.listLessonTeacher(search, teacherId);
+		Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
 		
 		Page resultPage = new Page(search.getCurrentPage(),
 				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
@@ -172,7 +172,7 @@ public class LessonController {
 		model.addObject("list",map.get("list"));
 		model.addObject("resultPage",resultPage);
 		model.addObject("search",search);
-		
+		System.out.println(model);
 		return model;
 	}
 	

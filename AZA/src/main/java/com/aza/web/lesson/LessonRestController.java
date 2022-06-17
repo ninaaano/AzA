@@ -93,10 +93,8 @@ public class LessonRestController {
 			BookService crawler = new BookService();
 			String url = URLEncoder.encode(isbn, "UTF-8");
 			String response = crawler.search(url);
-			
-			
-			
-			String[] fields = {"title","link","description","image","author","price","isbn"};
+						
+			String[] fields = {"title","link","publisher","description","image","author","price","isbn","pubdate"};
 			Map<String, Object> result = crawler.getResult(response, fields);
 			
 			if(result.size() >0)
@@ -120,17 +118,24 @@ public class LessonRestController {
 //					if(field.equals("isbn")) {
 //						lesson.setIsbn(item.get(field));
 //					}
+					if(field.equals("publisher")) {
+						lesson.setPublisher(item.get(field));
+					}
 					if(field.equals("pubdate")) {
 						lesson.setBookYear(item.get(field));
 					}
 					if(field.equals("image")) {
 						lesson.setBookImg(item.get(field));
 	 				}
+					if(field.equals("pudate")) {
+						lesson.setBookYear(item.get(field));
+					}
 					lesson.setLessonCode(lessonCode);
+					lesson.setIsbn(isbn);
 				}
 				System.out.println("==========");
 				System.out.println(lesson);
-				System.out.println("==========");
+					System.out.println("==========");
 			}			
 //			System.out.println(response);
 		} catch (Exception e) {
@@ -138,7 +143,7 @@ public class LessonRestController {
 		}
 		lessonService.addLessonBook(lesson);
 		
-		model.setViewName("redirect:/lesson/manageLessonBook");
+		model.setViewName("/lesson/manageLessonBook");
 		return model;
 	}
 	
@@ -148,6 +153,8 @@ public class LessonRestController {
 		System.out.println("listLessonBook rest ½ÇÇà");
 		String teacherId = ((User)session.getAttribute("user")).getUserId();
 		Search search = new Search();
+		
+		System.out.println();
 				
 		return lessonService.listLessonBook(search, teacherId);
 	}

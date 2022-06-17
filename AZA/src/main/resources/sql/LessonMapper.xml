@@ -163,9 +163,9 @@
 	<select id = "listLessonBook" resultMap ="lessonBookSelectMap">
 		select *
 		from (select inner_table.*, ROWNUM AS row_seq
-			FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+			FROM (SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
 				FROM BOOK B, LESSON_BOOK LB, LESSON L
-				WHERE B.ISBN=LB.ISBN AND LB.lesson_code = L.lesson_code and 
+				WHERE B.isbn=LB.isbn AND LB.lesson_code = L.lesson_code and 
 				L.teacher_id = #{teacherId}) inner_table
 				WHERE ROWNUM &lt; = #{endRowNum})
 		WHERE ROW_SEQ BETWEEN #{startRowNum} AND #{endRowNum}

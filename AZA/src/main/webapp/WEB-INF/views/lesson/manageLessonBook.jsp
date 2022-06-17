@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,6 @@
 				var list = result.list
 				console.log(list);
 				console.log("-------");
-				
 			}
 		})
 	}
@@ -79,24 +79,30 @@
 
 		<thead>
 			<tr>
-				<td class="ct_list_b" width="100">책 제목</td>
+				<td class="ct_list_b" width="100">번호</td>
 				
-				<td class="ct_list_b" width="100">저자</td>
+				<td class="ct_list_b" width="100">isbn</td>
+				
+				<td class="ct_list_b" width="100">책이름</td>
 				
 				<th class="ct_list_b" width="100">출판사</th>
 				
+				<th class="ct_list_b" width="100">가격</th>
+				
+				<th class="ct_list_b" width="100">저자</th>
+				
 				<th class="ct_list_b" width="150">발행년도</th>
 				
-				<th class="ct_list_b" width="150">책가격</th>
+				<th class="ct_list_b" width="150">표지</th>
 				
-				<th class="ct_list_b" width="150">수업명</th>
+				<th class="ct_list_b" width="150">수업코드</th>
 			</tr>
 		</thead>
 		
 		<tbody>
 			<c:set var="i" value="0"/>			
-			<c:forEach var="lesson" items="${list}">			
-				<c:set var="i" value="${i+1}" />
+				<c:forEach var="lesson" items="${list}">			
+				<c:set var="i" value = "${i+1}"/>
 				<tr class="ct_list_pop">
 					<td align="center">${i}</td>
 					
@@ -112,13 +118,9 @@
 					
 					<td align="left">${lesson.bookYear}</td>
 					
-					<td align="left">${lesson.bookImg}</td>
+					<td align="left"><img src="${lesson.bookImg}"></td>
 					
 					<td align="left">${lesson.bookCode}</td>
-					
-					<c:if test="${param.menu eq 'student'}">
-				    	<td class="left">hello</td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

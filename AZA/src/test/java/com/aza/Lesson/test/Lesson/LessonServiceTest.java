@@ -165,11 +165,16 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	//@Test
+	@Test
 	public void testaddLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
-		schedule.setTeacherId("teacher53");
+		schedule.setTeacherId("teacher51");
+		schedule.setStart("2022-06-10T04:00:00.000Z");
+		schedule.setEnd("2022-06-14T04:00:00.000Z");
+		schedule.setTitle("화이팅");
+		
+		System.out.println(schedule);
 	}
 		
 	//OK
@@ -177,7 +182,7 @@ public class LessonServiceTest {
 	public void testgetLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
-		schedule = lessonService.getLessonSchedule(1002);
+		schedule = lessonService.getLessonSchedule(1002);		
 		
 		System.out.println(schedule);
 	}
@@ -220,7 +225,7 @@ public class LessonServiceTest {
 	
 	
 
-	@Test
+	//@Test
 	public void testLessonTime() throws Exception{
 		Map<String, Object> map = lessonService.listLessonTime("teacher1", "");
 
