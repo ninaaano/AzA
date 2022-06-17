@@ -138,6 +138,7 @@ $(function() {
 });
 </script>
 
+<h3>수업 과제</h3>
 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
         <h1 class="display-4 mb-0">과 제 목 록</h1>
         <div class="text-muted">Homework List</div>
@@ -274,7 +275,11 @@ $(function() {
            						<a href="#" data-page="20">20</a>
           					</li>
           					<li class="pager">
+<<<<<<< HEAD
+          						<a href="#" data-page="2"></a>
+=======
           						<a href="#" data-page="2">></a>
+>>>>>>> refs/heads/YS
           					</li>
           				</ul>
          			</nav>

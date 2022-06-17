@@ -19,7 +19,6 @@
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <script defer src="/resources/javascript/students/teacherHome.js"></script>
-<script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -394,176 +393,52 @@ $(function() {
 </head>
 
 <body class="nav-fixed bg-light">
-<div class="nav-fixed bg-light">
-	<!-- Top app bar navigation menu-->
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-primary">
-		<div class="container-fluid px-4">
-			<!-- Drawer toggle button-->
-			<button class="btn btn-lg btn-icon order-1 order-lg-0"
-				id="drawerToggle" href="javascript:void(0);">
-				<i class="material-icons">menu</i>
-			</button>
-			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index">
-			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
-			</a>
-			<!-- Navbar items-->
-			<div class="d-flex align-items-center mx-3 me-lg-0">
-				<!-- Navbar buttons-->
-				<div class="d-flex">
-					<!-- Messages dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons">mail_outline</i>
-						</button>
-					</div>				
-					<!-- Notifications and alerts dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuNotifications" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons">notifications</i>
-						</button>
-						<ul id="alertDropDown"
-							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
-							aria-labelledby="dropdownMenuNotifications">
-						</ul>
-					</div>
-					
-					
-					<!-- User profile dropdown-->
-					<div class="dropdown">
-						<button class="btn btn-lg btn-icon dropdown-toggle"
-							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons">person</i>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end mt-3"
-							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">person</i>
-									<div class="me-3">Profile</div>
-							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">settings</i>
-									<div class="me-3">Settings</div>
-							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">help</i>
-									<div class="me-3">Help</div>
-							</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">logout</i>
-									<div class="me-3">Logout</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<!-- Layout wrapper-->
-	<div id="layoutDrawer">
-		<!-- Layout navigation-->
-		<div id="layoutDrawer_nav">
-			<!-- Drawer navigation-->
-			<nav class="drawer accordion drawer-light bg-white"
-				id="drawerAccordion">
-				<div class="drawer-menu">
-					<div class="nav">
-						<!-- Drawer section heading (Account)-->
-						<div class="drawer-menu-heading d-sm-none">Account</div>
-						<!-- Drawer link (Notifications)-->
-						<a class="nav-link d-sm-none" href="#!">
-							<div class="nav-link-icon">
-								<i class="material-icons">notifications</i>
-							</div> Notifications
-						</a>
-						<!-- Drawer link (Messages)-->
-						<a class="nav-link d-sm-none" href="#!">
-							<div class="nav-link-icon">
-								<i class="material-icons">mail</i>
-							</div> Messages
-						</a>
-						<!-- Divider-->
-						<div class="drawer-menu-divider d-sm-none"></div>
-						<!-- Drawer section heading (Interface)-->
-						<div class="drawer-menu-heading">MENU</div>
-						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 수업관리
-						</a>
-						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
-							<div class="nav-link-icon">
-								<i class="material-icons" href="#">language</i>
-							</div> 전체 학생 목록
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 학생 관리
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 클라우드
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 수납
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> Q&A
-						</a>
-						<a class="nav-link left_nav" href="#">
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 교재
-						</a>
-						<!-- Divider-->
-						<div class="drawer-menu-divider"></div>
-				<!-- Drawer footer        -->
-				<div class="drawer-footer border-top">
-					<div class="d-flex justify-content-center">
-					<!-- 수업 추가 버튼 -->
-						<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentsRecord">수업 추가<i class="trailing-icon material-icons">launch</i></button>
-					</div>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
-</div>
+
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
-	
-		<!-- Main page content-->
-		<main class="mt-12">
-			<header class="main-header">
-				<!-- page header -->
-				<div class="row justify-content-center gx-5">
-                      <div class="row justify-content-end col-md-8 col-lg-6">
-                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                             
-							
-						    </div>
-                      
-                      </div>
-                  </div>
-			</header>
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-					<iframe id="mainFrame" src="/home" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-			
 
+			<div class="container-xl px-5"> 
+				<div id="calendar">
+				달력
+				</div>
+				<div class="row d-flex justify-content-around">
+				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
+	                          <div class="card card-raised overflow-hidden h-100">
+	                              <div class="card-header bg-primary text-white">
+	                                  <div id="curDate" class="d-flex justify-content-between align-items-center"></div>
+	                              </div>
+	                              <div class="card-body bg-transparent p-0">
+	                                  <div class="list-group list-group-flush">
+	                                      <div class="list-group-item d-flex justify-content-between align-items-center">
+	                                          <div class="col-6 caption font-monospace text-muted">Time</div>
+	                                          <div class="col-6 caption text-muted ms-2">수업명</div>
+	                                      </div>
+	                                      <div id="curLessonList"></div>
+	                                 </div>
+	                           	  </div>
+	                          </div>
+	                     </div>
+	                
+                     
+			     
+			     
+				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
+				    	
+                         <div class="card card-raised h-100 overflow-hidden">
+                             <div id="curLessonName" class="card-header bg-white">
+                             	<div>출석 체크</div>
+                             </div>
+                             <div id="curAttendanceList" class="card-body bg-transparent p-0">
+                                 
+                             </div>
+                         </div>
+	                            
+				     
+				     </div>
+			     </div>
+			                           
+							
+			</div>
 		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
@@ -628,8 +503,8 @@ $(function() {
 		</main>
 	<!-- Footer-->
 	<footer>
-		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<%-- <jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -643,41 +518,6 @@ $(function() {
 	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
- 	// <![CDATA[  <-- For SVG support
-/*   	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}   */
-	// ]]>
 </script>
 </body>
 </html>

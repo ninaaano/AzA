@@ -30,6 +30,8 @@ public interface LessonDao {
 	
 	public List<Lesson> listLessonStudent(Search search, String userID) throws Exception;
 	
+	public List<Lesson>	listLessonTime(String teacherId, String lessonDay) throws Exception;
+	
 	public int getLessonTotalCount(Search search, String searchKeyword) throws Exception;
 	
 //=======================================================
@@ -70,4 +72,3 @@ public interface LessonDao {
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 
 }
-

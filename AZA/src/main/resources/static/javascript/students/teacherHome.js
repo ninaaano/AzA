@@ -1,40 +1,128 @@
+// 출석
+function attendanceHandler(lessonCode) {
+	console.log('클릭됨');
+	
+	$.ajax({
+		url: "http://localhost:8080/students/rest/listStudentsRecord?lessonCode="+lessonCode,
+		type: "POST",
+		headers: { 
+					"Accept" : "application/json",
+                	"Content-Type" : "application/json",
+                },
+		success: function(result) {
+			if(result) {
+				
+				console.log(result);
+				
+				var list = result.list;
+				makeAddAttendanceView(list);
+			
+			} else {
+				console.log("error");
+			}
+		}
+	})
+}
+
+function makeAddAttendanceView(result) {
+	
+	$('#curLessonName').empty();
+	$('#curAttendanceList').empty();
+	
+	$('#curLessonName').append(`<div class="fw-bold">${result[0].lessonName}</div>`)
+	
+	result.map((student, idx) => {
+		var div= `<div class="list-group list-group-flush">
+	                 <div class="list-group-item ripple-gray mdc-ripple-upgraded" style="--mdc-ripple-fg-size:488px; --mdc-ripple-fg-scale:1.69072; --mdc-ripple-fg-translate-start:202.606px, -226.656px; --mdc-ripple-fg-translate-end:162.669px, -217.431px;">
+	                     <div class="d-flex align-items-center justify-content-between">
+	                         <div class="me-3">${student.studentName}</div>
+	                         <div class="d-flex align-items-center">
+	                             <div class="btn-group" role="group" aria-label="Mixed styles example">
+								    <button name class="btn btn-raised-success" type="button" onclick="addStudentsAttendance('${student.studentId}','출석')">출석💚</button>
+								    <button name class="btn btn-raised-danger" type="button" onclick="addStudentsAttendance('${student.studentId}','결석')">결석😢</button>
+								    <button name class="btn btn-raised-warning" type="button" onclick="addStudentsAttendance('${student.studentId}','지각')">지각🙄</button>
+								    <button name class="btn btn-raised-primary" type="button" onclick="addStudentsAttendance('${student.studentId}','도망')">도망🏃‍♀️</button>
+								    <button class="btn btn-raised-secondary" type="button" onclick="addStudentsAttendance('${student.studentId}','조퇴')">조퇴👋</button>
+								</div>
+	                         </div>
+	                     </div>
+	                 </div>
+	             </div>`;
+
+		$('#curAttendanceList').append(div);
+		
+	})
+}
+
+function addStudentsAttendance(studentId, state) {
+	
+}
+
+
+
 window.addEventListener('DOMContentLoaded', event => {
 	
-	// 자녀 선택 드롭다운
-	if (window.innerWidth < 992) {
-	  // close all inner dropdowns when parent is closed
-	  document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
-	    everydropdown.addEventListener('hidden.bs.dropdown', function () {
-	      // after dropdown is hidden, then find all submenus
-	        this.querySelectorAll('.submenu').forEach(function(everysubmenu){
-	          // hide every submenu as well
-	          everysubmenu.style.display = 'none';
-	        });
-	    })
-	  });
-	
-	  document.querySelectorAll('.dropdown-menu a').forEach(function(element){
-	    element.addEventListener('click', function (e) {
-	        let nextEl = this.nextElementSibling;
-	        if(nextEl && nextEl.classList.contains('submenu')) {	
-	          // prevent opening link if link needs to open dropdown
-	          e.preventDefault();
-	          if(nextEl.style.display == 'block'){
-	            nextEl.style.display = 'none';
-	          } else {
-	            nextEl.style.display = 'block';
-	          }
-	
-	        }
-	    });
-	  })
-	}
-	
-	// 달력
-	var currentMonth = new Date().getMonth() + 1;	
-	loadEvent(currentMonth);
+	attendanceLoad();
 	
 })
+
+var now = new Date();
+var curMonth = ('0' + (now.getMonth() + 1)).slice(-2);
+var curDate = ('0' + now.getDate()).slice(-2);
+var curDay = now.getDay();
+
+// AJAX : studentsAttendance 
+function attendanceLoad() {
+
+	$.ajax({
+		url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay=2"/*+curDay*/,
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {	
+				console.log(result);
+				
+				makeTimeTable(result);
+				
+	
+			}else {
+				console.log("error");
+			}
+		}
+	})
+}
+
+
+function makeTimeTable(result) {
+	
+	$('#curDate').empty();
+	$('#curLessonList').empty();
+	
+	$('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
+	
+	result.map((lesson, idx) => {
+		
+		var lessonCode = lesson.lessonCode;
+		var lessonName = lesson.lessonName;
+		var startTime = lesson.lessonStartTime;
+		var endTime = lesson.lessonEndTime;
+		
+		var div = `<div class="list-group-item-action d-flex justify-content-between align-items-center py-2" onclick="attendanceHandler('`+lessonCode+`')">
+					<div class="col-6 me-2 text-primary">${startTime} ~ ${endTime}</div>
+                    <div class="col-6 me-2 text-muted">${lessonName}</div></div>`;
+		
+		$('#curLessonList').append(div);
+	})	
+}
+
+
+
+
+
+
 
 // AJAX : restCtrl
 function loadEvent(month) {

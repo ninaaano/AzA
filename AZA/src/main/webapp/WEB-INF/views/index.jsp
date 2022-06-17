@@ -386,13 +386,7 @@ $(function() {
 	
 
 
-})
-	
-
-
-
-
-
+})	
 </script>
 
 
@@ -410,17 +404,10 @@ $(function() {
 				<i class="material-icons">menu</i>
 			</button>
 			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="index.html">
+			<a class="navbar-brand me-auto" href="/index">
 			<div class="text-uppercase">AZA : 학생관리프로그램</div></a>
 			<!-- Navbar items-->
 			<div class="d-flex align-items-center mx-3 me-lg-0">
-				<!-- Navbar-->
-				<ul class="navbar-nav d-none d-lg-flex">
-					<li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="https://docs.startbootstrap.com/material-admin-pro"
-						target="_blank">Documentation</a></li>
-				</ul>
 				<!-- Navbar buttons-->
 				<div class="d-flex">
 					<!-- Messages dropdown-->
@@ -430,63 +417,7 @@ $(function() {
 							aria-expanded="false">
 							<i class="material-icons">mail_outline</i>
 						</button>
-					</div>
-			
-<!-- 						<ul
-							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
-							aria-labelledby="dropdownMenuMessages">
-							<li><h6
-									class="dropdown-header bg-primary text-white fw-500 py-3">Messages</h6></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item unread" href="#!">
-									<div class="dropdown-item-content">
-										<div class="dropdown-item-content-text">
-											<div class="text-truncate d-inline-block"
-												style="max-width: 18rem">Hi there, I had a question
-												about something, is there any way you can help me out?</div>
-										</div>
-										<div class="dropdown-item-content-subtext">Mar 12, 2021
-											&middot; Juan Babin</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item" href="#!">
-									<div class="dropdown-item-content">
-										<div class="dropdown-item-content-text">
-											<div class="text-truncate d-inline-block"
-												style="max-width: 18rem">Thanks for the assistance the
-												other day, I wanted to follow up with you just to make sure
-												everyting is settled.</div>
-										</div>
-										<div class="dropdown-item-content-subtext">Mar 10, 2021
-											&middot; Christine Hendersen</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item" href="#!">
-									<div class="dropdown-item-content">
-										<div class="dropdown-item-content-text">
-											<div class="text-truncate d-inline-block"
-												style="max-width: 18rem">Welcome to our group! It's
-												good to see new members and I know you will do great!</div>
-										</div>
-										<div class="dropdown-item-content-subtext">Mar 8, 2021
-											&middot; Celia J. Knight</div>
-									</div>
-							</a></li>
-							<li><hr class="dropdown-divider my-0" /></li>
-							<li><a class="dropdown-item py-3" href="#!">
-									<div class="d-flex align-items-center w-100 justify-content-end text-primary">
-										<div class="fst-button small">View all</div>
-										<i class="material-icons icon-sm ms-1">chevron_right</i>
-									</div>
-							</a></li>
-						</ul>
-					</div> -->
-					
-					
-					
-					
+					</div>				
 					<!-- Notifications and alerts dropdown-->
 					<div class="dropdown dropdown-notifications d-none d-sm-block">
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
@@ -565,12 +496,37 @@ $(function() {
 						<a class="nav-link" href="index.html">
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
-							</div> Overview
+							</div> 수업관리
 						</a>
 						<a class="nav-link" href="/students/listStudentsRecord">
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
 							</div> 전체학생목록
+						</a>
+						<a class="nav-link" href="/students/listStudentsRecord">
+							<div class="nav-link-icon">
+								<i class="material-icons">language</i>
+							</div> 학생관리
+						</a>
+						<a class="nav-link" href="/students/listStudentsRecord">
+							<div class="nav-link-icon">
+								<i class="material-icons">language</i>
+							</div> 클라우드
+						</a>
+						<a class="nav-link" href="/students/listStudentsRecord">
+							<div class="nav-link-icon">
+								<i class="material-icons">language</i>
+							</div> 수납
+						</a>
+						<a class="nav-link" href="/students/listStudentsRecord">
+							<div class="nav-link-icon">
+								<i class="material-icons">language</i>
+							</div> Q&A
+						</a>
+						<a class="nav-link" href="/students/listStudentsRecord">
+							<div class="nav-link-icon">
+								<i class="material-icons">language</i>
+							</div> 교재
 						</a>
 
 						<!-- Drawer link (Dashboards)-->
@@ -796,6 +752,10 @@ $(function() {
 				</div>
 			</header>
 			<div class="container-xl px-5">
+			
+			
+			<iframe id="mainFrame"></iframe>
+			
 			
 			</div>
 		    <div class="messagePopup hidden" id="messagePopup">

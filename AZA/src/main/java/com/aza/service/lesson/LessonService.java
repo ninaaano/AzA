@@ -29,6 +29,9 @@ public interface LessonService {
 	
 	public Map<String, Object> listLessonStudent(Search search, String userID) throws Exception;
 	
+	public Map<String, Object> listLessonTime(String teacherId, String lessonDay) throws Exception;
+	
+	
 //	==============================================
 	
 	// book : add

@@ -63,26 +63,26 @@ public class UserRestController {
 
 	    	}
 		
-		
-		@RequestMapping( value="/login", method=RequestMethod.GET )
-		public User login(@ModelAttribute User user,
-										HttpSession session ) throws Exception{
-		
-			System.out.println("/user/login : POST");
-			//Business Logic
-			System.out.println("::"+user);
-			User dbUser=userService.getUser(user.getUserId());
-			
-			if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
-					session.setAttribute("user", dbUser);
-					// 메인화면이동
-					return dbUser;
-			}else {
-				return dbUser;
-			}
-			
-		//	return dbUser;
-		}
+//		//필요없는듯
+//		@RequestMapping( value="/login", method=RequestMethod.GET )
+//		public User login(@ModelAttribute User user,
+//										HttpSession session ) throws Exception{
+//		
+//			System.out.println("rest쪽 로그인~~");
+//			//Business Logic
+//			System.out.println("::"+user);
+//			User dbUser=userService.getUser(user.getUserId());
+//			
+//			if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
+//					session.setAttribute("user", dbUser);
+//					// 메인화면이동
+//					return dbUser;
+//			}else {
+//				return dbUser;
+//			}
+//			
+//		//	return dbUser;
+//		}
 
 		
 		
@@ -132,14 +132,24 @@ public class UserRestController {
 			return user;
 		}
 		
-		
-		@RequestMapping(value = "deleteUser/{userId}",method = RequestMethod.POST)
-		public User deletePurchase(@ModelAttribute User user, @PathVariable String userId) throws Exception {
-			
-			userService.deleteUser(userId);
-			
-			return user;
-		}
+//		쓰는지 모르겟음.. 나중에 돌려보기		
+//		@RequestMapping(value = "/quit",method = RequestMethod.POST)
+//		public User deleteUser(@ModelAttribute User user,HttpSession session) throws Exception {
+//			
+//			// 세션에 있는 member
+//			User member = (User)session.getAttribute("User");
+//			
+//			String dbpwd=member.getPassword();
+//			String pwd=user.getPassword();
+//			
+//			if(!(dbpwd.equals(pwd))) {
+//				
+//			}
+//			
+//			System.out.println("rest 삭제");
+//		userService.deleteUser(user);
+//					return user;
+//		}
 
 		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
 		public User deleteRelation(@ModelAttribute User user, @PathVariable int relationCode) throws Exception {

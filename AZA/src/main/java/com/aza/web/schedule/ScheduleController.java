@@ -36,6 +36,7 @@ import com.aza.service.domain.Schedule;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 
+
 @Controller
 @RequestMapping("/schedule/*")
 public class ScheduleController {
@@ -112,7 +113,7 @@ public class ScheduleController {
 		ModelAndView model  = new ModelAndView();
 		Schedule schedule = lessonService.getLessonSchedule(scheduleCode);
 		
-		//json형태?
+		//json
 		
 		model.addObject("schedule", schedule);
 		model.setViewName("/schedule/manageLessonSchedule");
@@ -139,7 +140,7 @@ public class ScheduleController {
 					json.put(key, value);
 				}
 			}catch(Exception e) {
-				System.out.println("error임");
+				System.out.println("error");
 			}
 			System.out.println(json.toString());
 			return json;
@@ -157,7 +158,7 @@ public class ScheduleController {
 					json.put(key, value);
 				}
 			}catch(Exception e) {
-				System.out.println("error임");
+				System.out.println("error");
 			}
 			System.out.println(json.toString());
 			return json;
