@@ -2,7 +2,7 @@
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 
-<% 
+<%-- <% 
 
 String userId = request.getParameter("userId");
 String password = request.getParameter("password");
@@ -14,7 +14,7 @@ if(!login){
 }
 
 
-%>
+%> --%>
 
 
 <html>
