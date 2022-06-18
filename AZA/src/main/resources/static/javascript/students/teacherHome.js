@@ -1,72 +1,195 @@
+
+
 // 출석
 function attendanceHandler(lessonCode) {
+
+
 	console.log('클릭됨');
 	
 	$.ajax({
-		url: "http://localhost:8080/students/rest/listStudentsRecord?lessonCode="+lessonCode,
+		url: "/students/rest/listStudentsRecord?lessonCode="+lessonCode,
 		type: "POST",
 		headers: { 
 					"Accept" : "application/json",
                 	"Content-Type" : "application/json",
-                },
-		success: function(result) {
-			if(result) {
-				
-				console.log(result);
-				
-				var list = result.list;
-				makeAddAttendanceView(list);
-			
-			} else {
-				console.log("error");
-			}
-		}
-	})
+
+//   console.log('클릭됨');
+   
+//   $.ajax({
+//      url: "http://localhost:8080/students/rest/listStudentsRecord?lessonCode="+lessonCode,
+//      type: "POST",
+//      headers: { 
+//               "Accept" : "application/json",
+//                   "Content-Type" : "application/json",
+              },
+      success: function(result) {
+         if(result) {
+            
+            console.log(result);
+            
+            var list = result.list;
+            makeAddAttendanceView(list);
+         
+         } else {
+            console.log("error");
+         }
+      }
+   })
 }
 
 function makeAddAttendanceView(result) {
+
+
 	
 	$('#curLessonName').empty();
 	$('#curAttendanceList').empty();
 	
 	$('#curLessonName').append(`<div class="fw-bold">${result[0].lessonName}</div>`)
 	
+	var attendanceDate = curYear+"/"+curMonth+"/"+curDate;
+	
 	result.map((student, idx) => {
 		var div= `<div class="list-group list-group-flush">
 	                 <div class="list-group-item ripple-gray mdc-ripple-upgraded" style="--mdc-ripple-fg-size:488px; --mdc-ripple-fg-scale:1.69072; --mdc-ripple-fg-translate-start:202.606px, -226.656px; --mdc-ripple-fg-translate-end:162.669px, -217.431px;">
 	                     <div class="d-flex align-items-center justify-content-between">
 	                         <div class="me-3">${student.studentName}</div>
-	                         <div class="d-flex align-items-center">
+	                         <div id="state-${student.studentId}" class="me-3"></div>
+	                         <div id="attendance-${student.studentId}" class="d-flex align-items-center">
 	                             <div class="btn-group" role="group" aria-label="Mixed styles example">
-								    <button name class="btn btn-raised-success" type="button" onclick="addStudentsAttendance('${student.studentId}','출석')">출석💚</button>
-								    <button name class="btn btn-raised-danger" type="button" onclick="addStudentsAttendance('${student.studentId}','결석')">결석😢</button>
-								    <button name class="btn btn-raised-warning" type="button" onclick="addStudentsAttendance('${student.studentId}','지각')">지각🙄</button>
-								    <button name class="btn btn-raised-primary" type="button" onclick="addStudentsAttendance('${student.studentId}','도망')">도망🏃‍♀️</button>
-								    <button class="btn btn-raised-secondary" type="button" onclick="addStudentsAttendance('${student.studentId}','조퇴')">조퇴👋</button>
+								    <button name class="btn btn-raised-success" type="button" onclick="addStudentsAttendance('${student.studentId}','${student.lessonCode}', '${attendanceDate}', '출석')">출석💚</button>
+								    <button name class="btn btn-raised-danger" type="button" onclick="addStudentsAttendance('${student.studentId}','${student.lessonCode}', '${attendanceDate}','결석')">결석😢</button>
+								    <button name class="btn btn-raised-warning" type="button" onclick="addStudentsAttendance('${student.studentId}', '${student.lessonCode}', '${attendanceDate}', '지각',)">지각🙄</button>
+								    <button name class="btn btn-raised-primary" type="button" onclick="addStudentsAttendance('${student.studentId}',  '${student.lessonCode}', '${attendanceDate}','도망')">도망🏃‍♀️</button>
+								    <button class="btn btn-raised-secondary" type="button" onclick="addStudentsAttendance('${student.studentId}', '${student.lessonCode}', '${attendanceDate}', '조퇴')">조퇴👋</button>
 								</div>
 	                         </div>
 	                     </div>
 	                 </div>
 	             </div>`;
 
-		$('#curAttendanceList').append(div);
-		
-	})
+
+      $('#curAttendanceList').append(div);
+      
+   })
 }
 
-function addStudentsAttendance(studentId, state) {
+
+function makeUpdateAttendanceView(student) {
 	
+	$(`#attendance-${student.studentId}`).empty();
+	
+	var stateStr = "";
+	
+	if(student.attendanceState == '출석') {
+		stateStr = `<div class='text-success fw-bolder'>${student.attendanceState}💚</div>`;
+	} else if(student.attendanceState == '결석') {
+		stateStr = `<div class='text-danger fw-bolder'>${student.attendanceState}😢</div>`;
+	} else if(student.attendanceState == '지각') {
+		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}🙄</div>`;
+	} else if(student.attendanceState == '도망') {
+		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}🏃‍♀️</div>`;
+	} else if(student.attendanceState == '조퇴') {
+		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}👋</div>`;
+	}
+	
+
+	var div = `<div class="d-flex align-items-center">
+                 <div class="btn-group" role="group" aria-label="Mixed styles example">
+
+				    <button name class="btn btn-raised-success" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','출석', '${student.lessonCode}')">출석💚</button>
+				    <button name class="btn btn-raised-danger" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','결석', '${student.lessonCode}')">결석😢</button>
+				    <button name class="btn btn-raised-warning" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','지각', '${student.lessonCode}')">지각🙄</button>
+				    <button name class="btn btn-raised-primary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','도망', '${student.lessonCode}')">도망🏃‍♀️</button>
+				    <button class="btn btn-raised-secondary" type="button" onclick="updateAttendance('${student.attendanceCode}', '${student.studentId}','조퇴', '${student.lessonCode}')">조퇴👋</button>
+				</div></div>`;
+	
+	$(`#attendance-${student.studentId}`).append(div);
+	$(`#state-${student.studentId}`).empty();
+	$(`#state-${student.studentId}`).append(stateStr);
+}
+
+
+function updateAttendance(attendanceCode, studentId, state, lessonCode) {
+	
+	var data = {
+		attendanceCode: attendanceCode,
+		studentId: studentId,
+		attendanceState: state,
+		lessonCode: lessonCode,
+	};
+	
+	$.ajax({
+		url: "/students/rest/updateStudentsAttendance",
+		type: "POST",
+		headers: { 
+					"Accept" : "application/json",
+                	"Content-Type" : "application/json",
+                },
+        data: JSON.stringify(data),
+        success: function(result) {
+			if(result) {
+
+				makeUpdateAttendanceView(result)
+				
+			} else {
+				console.log("fail");
+			}
+	
+	
+		}
+	})
+	
+	
+	
+	
+}
+
+
+function addStudentsAttendance(studentId, lessonCode, attendanceDate, state) {
+	
+	var data =  {
+      studentId: studentId,
+      lessonCode: lessonCode,
+      attendanceDate: attendanceDate,
+      attendanceState: state,
+  	};
+
+	
+	$.ajax({
+		url: "/students/rest/addStudentsAttendance",
+		type: "POST",
+		headers: { 
+					"Accept" : "application/json",
+                	"Content-Type" : "application/json",
+                },
+        data: JSON.stringify(data),
+		success: function(result) {
+			if(result) {
+				
+				console.log(result);
+				
+				makeUpdateAttendanceView(result);
+			
+			} else {
+				console.log("error");
+			}
+		}
+	})
+
+//function addStudentsAttendance(studentId, state) {		//MY충돌 주석처리함
+   
 }
 
 
 
 window.addEventListener('DOMContentLoaded', event => {
-	
-	attendanceLoad();
-	
+   
+   attendanceLoad();
+   
 })
 
 var now = new Date();
+var curYear = now.getFullYear();
 var curMonth = ('0' + (now.getMonth() + 1)).slice(-2);
 var curDate = ('0' + now.getDate()).slice(-2);
 var curDay = now.getDay();
@@ -74,48 +197,58 @@ var curDay = now.getDay();
 // AJAX : studentsAttendance 
 function attendanceLoad() {
 
+
 	$.ajax({
-		url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay="+curDay,
+		url:"/lesson/rest/listLessonTime?lessonDay="+curDay,
+
 		type:"GET",
 		headers : {
+
+//MY 충돌 주석처리함
+//   $.ajax({
+//      url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay="+curDay,
+//      type:"GET",
+//      headers : {
+
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
-        success: function(result) {         	
-            if(result) {	
-				console.log(result);
-				
-				makeTimeTable(result);
-				
-	
-			}else {
-				console.log("error");
-			}
-		}
-	})
+        success: function(result) {            
+            if(result) {   
+            console.log(result);
+            
+            makeTimeTable(result);
+            
+   
+         }else {
+            console.log("error");
+         }
+      }
+   })
 }
 
 
 function makeTimeTable(result) {
-	
-	$('#curDate').empty();
-	$('#curLessonList').empty();
-	
-	$('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
-	
-	result.map((lesson, idx) => {
-		
-		var lessonCode = lesson.lessonCode;
-		var lessonName = lesson.lessonName;
-		var startTime = lesson.lessonStartTime;
-		var endTime = lesson.lessonEndTime;
-		
-		var div = `<div class="list-group-item-action d-flex justify-content-between align-items-center py-2" onclick="attendanceHandler('`+lessonCode+`')">
-					<div class="col-6 me-2 text-primary">${startTime} ~ ${endTime}</div>
+   
+   $('#curDate').empty();
+   $('#curLessonList').empty();
+   
+   $('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
+
+   
+   result.map((lesson, idx) => {
+      
+      var lessonCode = lesson.lessonCode;
+      var lessonName = lesson.lessonName;
+      var startTime = lesson.lessonStartTime;
+      var endTime = lesson.lessonEndTime;
+      
+      var div = `<div class="list-group-item-action d-flex justify-content-between align-items-center py-2" onclick="attendanceHandler('`+lessonCode+`')">
+               <div class="col-6 me-2 text-primary">${startTime} ~ ${endTime}</div>
                     <div class="col-6 me-2 text-muted">${lessonName}</div></div>`;
-		
-		$('#curLessonList').append(div);
-	})	
+      
+      $('#curLessonList').append(div);
+   })   
 }
 
 
@@ -126,78 +259,90 @@ function makeTimeTable(result) {
 
 // AJAX : restCtrl
 function loadEvent(month) {
-	var url = new URL(window.location.href);
-	var urlParam = url.searchParams;
-	var studentId = urlParam.has("studentId") ? urlParam.get("studentId") : "";
-	var lessonCode = urlParam.has("lessonCode") ? urlParam.get("lessonCode") : "";
-	
-	console.log(month, urlParam, studentId,lessonCode);
+   var url = new URL(window.location.href);
+   var urlParam = url.searchParams;
+   var studentId = urlParam.has("studentId") ? urlParam.get("studentId") : "";
+   var lessonCode = urlParam.has("lessonCode") ? urlParam.get("lessonCode") : "";
+   
+   console.log(month, urlParam, studentId,lessonCode);
+
+
 
 	$.ajax({
-		url:"http://localhost:8080/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
+		url:"/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
 		type:"POST",
 		headers : {
+
+//MY 충돌 주석처리함
+//   $.ajax({
+//      url:"http://localhost:8080/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
+//      type:"POST",
+//      headers : {
+
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
-        success: function(result) {         	
+        success: function(result) {            
             if(result) {
-				
-				var list = result.list;
-				
-				console.log(list);
-	
-				var attendanceArr = [];
-				
-				list.map(x=> {
-					var date = x.attendanceDate.substr(-2);
-					var status = x.attendanceState;
-					
-					date = date[0] == "0" ? date.substr(-1) : date
-					
-					var temp = {date, status};
-					
-					attendanceArr.push(temp);
-				})
+            
+            var list = result.list;
+            
+            console.log(list);
+   
+            var attendanceArr = [];
+            
+            list.map(x=> {
+               var date = x.attendanceDate.substr(-2);
+               var status = x.attendanceState;
+               
+               date = date[0] == "0" ? date.substr(-1) : date
+               
+               var temp = {date, status};
+               
+               attendanceArr.push(temp);
+            })
 
-				console.log(attendanceArr);
-	
-				makeCalendar(currentYear, currentMonth);
-			
-				attendanceArr.map(x => {
-					colored(x);
-				})
+            console.log(attendanceArr);
+   
+            makeCalendar(currentYear, currentMonth);
+         
+            attendanceArr.map(x => {
+               colored(x);
+            })
 
-			}else {
-				console.log("실패");
-			}
-		}
-	})	
-}	
+         }else {
+
+            console.log("실패");
+
+         }
+      }
+   })   
+}   
 
 
-// 달력
+// �޷�
 function colored(data) {
-	
-	var badge = "";
-	
-	switch (data.status) {
-		case "결석":
-			badge = `<div class="m-0"><span class="badge bg-danger">결석</span></div>`;
-			break;
-		case "출석":
-			badge = `<div class="m-0"><span class="badge bg-success">출석</span></div>`;
-			break;
-		case "도망":
-			badge =	`<div class="m-0"><span class="badge bg-warning text-dark">도망</span></div>`;
-			break;
-		default:
-			badge = `<div class="m-0"><span class="badge bg-secondary">${data.status}</span></div>`;
-			break;
-	}
+   
+   var badge = "";
+   
+   switch (data.status) {
+      case "결석":
+         badge = `<div class="m-0"><span class="badge bg-danger">결석</span></div>`;
+         break;
+      case "출석":
+         badge = `<div class="m-0"><span class="badge bg-success">출석</span></div>`;
+         break;
+      case "도망":
+         badge =   `<div class="m-0"><span class="badge bg-warning text-dark">도망</span></div>`;
 
-	$(`#${data.date}`).append(badge);
-	
+         break;
+      default:
+         badge = `<div class="m-0"><span class="badge bg-secondary">${data.status}</span></div>`;
+         break;
+   }
+
+   $(`#${data.date}`).append(badge);
+   
 }
 
 const months = [
@@ -251,7 +396,7 @@ function makeCalendar(year, month) {
 }
 
 function nextMonth() {
-	
+   
     currentMonth = currentMonth + 1;
     if (currentMonth > 12) {
         currentYear = currentYear + 1;
@@ -265,7 +410,7 @@ function nextMonth() {
 
 
 function prevMonth() {
-	
+   
     currentMonth = currentMonth - 1;
     if (currentMonth < 1) {
         currentYear = currentYear - 1;

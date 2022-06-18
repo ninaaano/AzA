@@ -135,33 +135,55 @@ body {
 </head>
 <body>
 <form method="post" class="form-signin" action="find_password" name="findform">
-<div class="form-label-group">
-			<input type="text" id="userId" name="userId" class="form-control"/>
+
+
+		<div class="form-label-group col-md-4">
+			<input type="text" id="userId" name="userId" class="form-control" />
 			<label for="userId">아이디</label>
 		</div>
-		
-		<div class="form-label-group">
-			<input type="text" id="userName" name="userName" class="form-control"/>
-			<label for="name">이름</label>
-		</div>
-		
-		<div class="form-label-group">
-			<input type="text" id="phone" name="phone" class="form-control"/>
+
+			<div class="form-label-group col-md-4">
+			<input type="text" id="phone" name="phone" class="form-control" /> 
 			<label for="phone">핸드폰번호</label>
+			<div id="phoneCheck"></div>
 		</div>
+
+		<div class="form-label-group">
+			<button type="button"
+				class="btn btn-lg btn-secondary btn-block text-uppercase"
+				onclick="cert();">인증번호 받기</button>
+		</div>
+
+
+
+		<div class="form-row">
+			<div class="form-label-group col-md-4">
+				<input type="text" class="form-control" id="certification"
+					placeholder="인증번호를 입력해주세요" required>
+				<div class="form-group" id="certCheck"></div>
+			</div>
+			<div class="form-group col-md-4">
+				<button type="button"
+					class="btn btn-lg btn-secondary btn-block text-uppercase"
+					id="sms_AuthBtn" onclick="smsAuthBtn();">확인</button>
+			</div>
+		</div>
+
+		<input type="hidden" id="randomVal" value="" />
+
+
 
 		<div class="form-label-group">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="submit" value="check">
-				<button class="btn btn-lg btn-secondary btn-block text-uppercase"
-					type="button">취소</button>
+			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+				type="button">취소</button>
 		</div>
 
 		<!-- 정보가 일치하지 않을 때-->
 		<c:if test="${check == 1}">
 			<script>
-			opener.document.findform.userId.value = "";
-				opener.document.findform.userName.value = "";
+				opener.document.findform.userId.value = "";
 				opener.document.findform.phone.value = "";
 			</script>
 			<label>일치하는 정보가 존재하지 않습니다.</label>
@@ -173,7 +195,7 @@ body {
 			<label>비밀번호를 변경해주세요.</label>
 		</div>
 		<div class="form-label-group">
-		<input type="hidden" id="userId" name="updateid" value="${updateid }">
+		<input type="hidden" id="userId" name="updateid" value="${updateid}">
 		
 			<input type="text" id="password" name="password" class="form-control"/>
 			<label for="password">password</label>
@@ -215,6 +237,52 @@ body {
 				self.location = "http://127.0.0.1:8080/"
 			});
 		});
+		
+		
+		<!--휴대폰 인증 / SMS SENS API -->
+
+		function cert() {
+			 var random = Math.floor(Math.random() * 1000000)+"";
+			 var phone = $("#phone").val();	
+			 $('#randomVal').val(random);
+		
+				
+				$.ajax({
+					type : 'POST',
+					url :'/user/rest/sendSMS/' + phone,
+					dataType : "json",
+					contentType: "application/json",
+					success : function(data) {
+						if(data.statusName == "success"){
+							$('#certCheck').text("인증 번호가 전송되었습니다.");
+							$('#certCheck').css('color','blue');
+							$("#signup_btn").attr("disabled",true);
+						}else {
+							$('#certCheck').text("입력한 번호를 다시 확인해주세요.");
+							$('#certCheck').css('color','red');
+							$("#signup_btn").attr("disabled",true);
+						}
+					}
+				});
+		}
+		
+		function smsAuthBtn() {
+			
+			var userVal = $('#certification').val();
+			var certVal = $('#randomVal').val();
+		
+				if(userVal == certVal){
+					$('#certCheck').text("인증이 완료되었습니다.");
+					$('#certCheck').css('color','blue');	
+					$("#signup_btn").attr("disabled",false);
+				}else{
+					$('#certCheck').text("인증번호를 다시 확인해주세요");
+					$('#certCheck').css('color','red');
+					$("#signup_btn").attr("disabled",true);
+				}
+			
+		};
+		
 	</script>
 </body>
 </html>

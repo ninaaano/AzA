@@ -77,6 +77,8 @@ public class PaymentRestController {
 			payment.setCheckPay('Y');
 			payment.setImpUid(impUid);
 			paymentService.updatePayment(payment);
+			System.out.println("결제 성공");
+			System.out.println("comlete payment => " + payment);
 		}
 			
 		}catch (Exception e) {

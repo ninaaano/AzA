@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  ë‚ ì§œ ,ê¸ˆì•¡ í¬ë§· lib-->
+<!--  ³¯Â¥ ,±İ¾× Æ÷¸Ë lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
+<meta charset="EUC-KR"> 
 <title>listPayment</title>
 
 
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Aza : main</title>       
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -50,27 +48,33 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-
+<style>
+	body {
+    padding-top : 10px;
+    margin : 50px;
+}
+</style>
 
 <script type="text/javascript">
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
 }
-	//ê²€ìƒ‰
+
+	//°Ë»ö
 		$(function() {
 		 	$( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
+
 			});
 		 
 		});
-
 	
 	
 		 $(function() {
 
-			 	$("td:contains('ìƒì„¸ë³´ê¸°')").on("click" , function() {
+			 	$("td:contains('»ó¼¼º¸±â')").on("click" , function() {
 					
 					 var payCode = $(this).attr("payCode");
 					 alert("payCode ==> "+payCode);
@@ -81,20 +85,16 @@ function fncGetList(currentPage) {
 				}); 
 			 });				
 
-/* í…ŒìŠ¤íŠ¸ 
-
+/* Å×½ºÆ® 
 $(function() {
 	$("td:nth-child(3)").on("click" , function() {
 		alert("hi!");
 
-
-
 		var payCode = $(this).attr("payCode");
 		alert(payCode);
-
 		
 	    var amonut = $("#amount").text().trim();
-	    alert("test ê¸ˆì•¡ => " + amonut);
+	    alert("test ±İ¾× => " + amonut);
 
 		$.ajax(
 			{
@@ -108,9 +108,9 @@ $(function() {
 					success : function(JSONData , status){
 						
 						//alert("JSONData : \n"+JSONData);
-						//alert("JSONData ì´ë¦„ : \n"+JSONData.studentName);
-						//alert("JSONData ìˆ˜ì—…ëª… : \n"+(String)JSONObejct.get("lessonName");
-						//alert("JSONData ê¸ˆì•¡ : \n"+JSONData.amount);
+						//alert("JSONData ÀÌ¸§ : \n"+JSONData.studentName);
+						//alert("JSONData ¼ö¾÷¸í : \n"+(String)JSONObejct.get("lessonName");
+						//alert("JSONData ±İ¾× : \n"+JSONData.amount);
 						//
 						var name = JSONData.studentName
 						var amount = JSONData.amount
@@ -121,16 +121,20 @@ $(function() {
 					}
 				
 			});
+
 	});
 });
-<<<<<<< HEAD
  */
 
 </script>
 </head>
 <body>
 
-<h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> âœ” </a> </h3> 
+
+
+
+<h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> 1 </a> </h3> 
+
 <form>				
 				
 				<table>
@@ -139,46 +143,50 @@ $(function() {
 <!-- 				<td>
 				  <div class="dropdown">
 				  <button class="btn btn-raised-primary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                    ê²€ìƒ‰ ì¡°ê±´
+	                    °Ë»ö Á¶°Ç
 	                    <i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i>
 	              </button>
-	                    ìˆ˜ì •í•´ì•¼í•¨.
+	                    ¼öÁ¤ÇØ¾ßÇÔ.
              	           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                           <li><a class="dropdown-item" href="#!">í•™ìƒì´ë¦„</a></li>
-                           <li><a class="dropdown-item" href="#!">ê¸°ê°„</a></li>
-                           <li><a class="dropdown-item" href="#!">ìˆ˜ë‚©ì—¬ë¶€</a></li>
+                           <li><a class="dropdown-item" href="#!">ÇĞ»ıÀÌ¸§</a></li>
+                           <li><a class="dropdown-item" href="#!">±â°£</a></li>
+                           <li><a class="dropdown-item" href="#!">¼ö³³¿©ºÎ</a></li>
                        </ul>
+
                    </div>
 	               </td> -->
 	               
 					<td align="right">
 						<select name="searchCondition" class="btn btn-raised-primary dropdown-toggle" style="width: 120px">
-							<option value="404"> ê²€ìƒ‰ ì¡°ê±´ </option>
-							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>í•™ìƒì´ë¦„</option>
-							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>ê¸°ê°„</option>
-							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>ìˆ˜ë‚©ì—¬ë¶€</option>
+							<option value="404"> °Ë»ö Á¶°Ç </option>
+							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>ÇĞ»ıÀÌ¸§</option>
+							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>±â°£</option>
+							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>¼ö³³¿©ºÎ</option>
 					</select> 
 					</td>
 					<td>
+
 							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
 							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
-
 					<td>
 					
 					<td>
-
-							<input class="dataTable-input" placeholder="ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” :)" type="text" name="searchKeyword" 
+							<input class="dataTable-input" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä :)" type="text" name="searchKeyword" 
 							value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
 									
 						
 						 </td>
+
 					<td align="right" width="70">
-					<button class="btn btn-raised-light" type="submit" id="searchPayment">ê²€ìƒ‰</button>
+					<button class="btn btn-raised-light" type="submit" id="searchPayment">°Ë»ö</button>
 				</td>
 				
 				</tr>
 				<tr> <td height="20"></td> </tr>
 				</table>
+
+
+
 <table id="datatablesSimple" class="dataTable-table">
 	
 	
@@ -190,31 +198,31 @@ $(function() {
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ì—…ëª…</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö¾÷¸í</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">í•™ìƒ ì´ë¦„</a>
+		<a href="#" class="dataTable-sorter" align="center">ÇĞ»ı ÀÌ¸§</a>
 		</th>
 		
 		<th data-sortable="" style="width: 12%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ë£Œ</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³·á</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì˜ˆì •ì¼</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿¹Á¤ÀÏ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì™„ë£Œì¼</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿Ï·áÀÏ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">ìˆ˜ë‚©ì—¬ë¶€</a>
+		<a href="#" class="dataTable-sorter" align="center">¼ö³³¿©ºÎ</a>
 		</th>
 		
 		<th data-sortable="" style="width: 10%;">
-		<a href="#" class="dataTable-sorter" align="center">ë‚©ë¶€í•˜ê¸°</a>
+		<a href="#" class="dataTable-sorter" align="center">³³ºÎÇÏ±â</a>
 		</th>				
 		
 		</tr>
@@ -234,7 +242,7 @@ $(function() {
 				<td align="center">${payment.studentName}</td>
 				
 				<td align="center" id="amount" >
-					<fmt:formatNumber value="${payment.amount}" pattern="#,###" />ì›
+					${payment.amount}
 				</td>
 				
 				<td align="center">${payment.payDueDate }</td>
@@ -247,9 +255,10 @@ $(function() {
 				<td align="center">${payment.checkPay }</td>
 				<td align="center" payCode="${payment.payCode}">
 				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
-						ìƒì„¸ë³´ê¸°
-			ã€€</button>			
+						»ó¼¼º¸±â
+			¡¡</button>			
 				</td>
+
 				</tr>
 	 </c:forEach>
 </table>	

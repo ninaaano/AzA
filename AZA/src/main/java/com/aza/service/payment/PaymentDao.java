@@ -30,4 +30,5 @@ public interface PaymentDao {
 	// totalCount
 	public int totalPaymentCount(Search search) throws Exception;
 	
+	
 }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,11 @@
 
 <script type ="text/javascript">
 	function fncAddLessonBook() {
+		/* var lessonCode = $("input[name='lessonCode']").val();
+		if(lessonCode != "${lesson.lessonCode}"){
+			alert("수업코드가 일치하지 않습니다.");
+			return;
+		} */
 		$("form").attr("method","GET").attr("action","/lesson/rest/addLessonBook").submit();
 	}
 	$(function(){
@@ -18,11 +24,35 @@
 			fncAddLessonBook();	
 		});		
 	});
+	
+	function listLessonBook(){
+		$.ajax({
+			url:"http://localhost:8080/lesson/rest/listLessonBook",
+			type:"GET",
+			headers:{
+				"Accept" : "application/json",
+                "Content-Type" : "application/json",
+			},
+			success: function(result){
+				alert("OK");
+				console.log(result);
+				var list = result.list
+				console.log(list);
+				console.log("-------");
+			}
+		})
+	}
 </script>
 
 </head>
 <body>
 <form class="d-flex" action="{% url 'api_book_search' %}" method="GET">	책 검색(isbn 입력)
+	<div class="form-group">
+         <label for="lessonCode" class="col-sm-2 control-label">수업코드</label>
+         <div class="col-sm-10">
+           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+         </div>
+    </div>
 	<input name = "isbn" class="form-control me-2" type="search" placeholder="isbn 입력" aria-label="Search">
 	<button class="btn btn-outline-success" type="button">검색</button>
 </form>
@@ -49,24 +79,30 @@
 
 		<thead>
 			<tr>
-				<td class="ct_list_b" width="100">책 제목</td>
+				<td class="ct_list_b" width="100">번호</td>
 				
-				<td class="ct_list_b" width="100">저자</td>
+				<td class="ct_list_b" width="100">isbn</td>
+				
+				<td class="ct_list_b" width="100">책이름</td>
 				
 				<th class="ct_list_b" width="100">출판사</th>
 				
+				<th class="ct_list_b" width="100">가격</th>
+				
+				<th class="ct_list_b" width="100">저자</th>
+				
 				<th class="ct_list_b" width="150">발행년도</th>
 				
-				<th class="ct_list_b" width="150">책가격</th>
+				<th class="ct_list_b" width="150">표지</th>
 				
-				<th class="ct_list_b" width="150">수업명</th>
+				<th class="ct_list_b" width="150">수업코드</th>
 			</tr>
 		</thead>
 		
 		<tbody>
 			<c:set var="i" value="0"/>			
-			<c:forEach var="lesson" items="${list}">			
-				<c:set var="i" value="${i+1}" />
+				<c:forEach var="lesson" items="${list}">			
+				<c:set var="i" value = "${i+1}"/>
 				<tr class="ct_list_pop">
 					<td align="center">${i}</td>
 					
@@ -82,13 +118,10 @@
 					
 					<td align="left">${lesson.bookYear}</td>
 					
-					<td align="left">${lesson.bookImg}</td>
+					<td align="left"><img src="${lesson.bookImg}"></td>
 					
 					<td align="left">${lesson.bookCode}</td>
-					
-					<c:if test="${param.menu eq 'student'}">
-				    	<td class="left">hello</td>
-					</c:if>
+
 				</tr>
 			</c:forEach>
 		</tbody>
