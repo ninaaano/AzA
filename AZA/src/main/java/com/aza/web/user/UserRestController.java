@@ -159,7 +159,7 @@ public class UserRestController {
 			return user;
 		}
 		
-		@RequestMapping(value="/sendSMS/{phone}",method = RequestMethod.POST)
+		@RequestMapping(value="/sendSMS/{phone}/{message}",method = RequestMethod.POST)
 		public void sendSMS(@PathVariable("phone") String phone) throws Exception{
 			
 			String message = Integer.toString(userService.phoneAuth());

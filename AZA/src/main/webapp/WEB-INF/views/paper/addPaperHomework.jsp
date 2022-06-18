@@ -91,11 +91,11 @@
 			});
 		});
 		
-		$(function() {
-			$("button.btn.btn-outline-primary:contains('등록')").on("click", function() {
+		$(function() {			
+			$( "button.btn.btn-outline-primary:contains('취소')").on("click" , function() {
 				history.go(-1);
 			});
-		});
+		});	
 		
 	</script>
 <style>
@@ -122,27 +122,27 @@ font-family: Pretendard, 'Noto Sans KR';
                     <option value="1">비트고1 자바</option>
                     <option value="2">비트고2 자바스크립트</option>
                 </select> -->
-                <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+                <input class="form-control" type="text" placeholder="수업명을 입력하세요" aria-label="Example text with button addon" 
 	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 제목</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+	            <input class="form-control" type="text" placeholder="과제 제목을 입력하세요" aria-label="Example text with button addon" 
 	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+	            <input class="form-control" type="text" placeholder="학생 이름을 입력하세요" aria-label="Example text with button addon" 
 	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+	            <input class="form-control" type="text" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
 	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="mb-0">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >과제 내용</button>
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" value="${paper.homeworkContent}" rows="12"></textarea>
+	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="과제 내용을 입력하세요" value="${paper.homeworkContent}" rows="12"></textarea>
 	        </div>
 	    </div>
 		

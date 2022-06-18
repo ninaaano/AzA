@@ -2,21 +2,6 @@
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 
-<%-- <% 
-
-String userId = request.getParameter("userId");
-String password = request.getParameter("password");
-
-boolean login = userId.equals("") && password.equals("");
-
-if(!login){
-	response.sendRedirect(location)
-}
-
-
-%> --%>
-
-
 <html>
 <head>
 <!-- Load Favicon-->
@@ -107,7 +92,7 @@ if(!login){
 										<h1 class="display-5 mb-0">Login</h1>
 										<div class="subheading-1 mb-5">AZA에 오신걸 환영합니다!</div>
 									</div>
-									<form name = "loginForm" action="/user/login">
+									<form name = "loginForm" >
 										<div class="mb-4">
 											<mwc-textfield class="w-100" label="userId" outlined>
 											아이디 : <input type="text" name="userId" id="userId"></input> </mwc-textfield>
@@ -169,6 +154,7 @@ function login()	{
 		alert ("아이디와 비밀번호를 모두 입력해주세요.")
 	}else{
 		loginForm.submit();
+		$("form").attr("method" , "POST").attr("action" , "/user/login").submit();
 	}
 }
 

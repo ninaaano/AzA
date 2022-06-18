@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.aza.common.Search;
@@ -20,6 +21,13 @@ import com.aza.service.user.UserService;
 
 @Service("studentsServiceImpl")
 public class StudentsServiceImpl implements StudentsService {
+	
+
+	@Value("${pageUnit}")
+	int pageUnit;
+
+	@Value("${pageSize}")
+	int pageSize;
 
 	@Autowired
 	@Qualifier("studentsDaoImpl")
@@ -121,12 +129,12 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		if(attendanceState.equals("ï¿½â¼®")) {
 			Search search = new Search();
+			search.setCurrentPage(1);
+			search.setPageSize(pageSize);
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
 
-			search.setCurrentPage(1);
-			search.setPageSize(totalCount);
 			
 			if(totalCount != 0) {
 				for(User parent : parents) {
@@ -159,12 +167,13 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		if(attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð")) {
 			Search search = new Search();
+			search.setCurrentPage(1);
+
+			search.setPageSize(pageSize);
 			
 			List<User> parents = (List<User>) userService.listRelationByStudent(search, studentId).get("list");
 			int totalCount = (int) userService.listRelationByStudent(search, studentId).get("totalCount");
-
-			search.setCurrentPage(1);
-			search.setPageSize(totalCount);
+			
 			System.out.println(totalCount);
 			
 			if(totalCount != 0) {
@@ -225,6 +234,18 @@ public class StudentsServiceImpl implements StudentsService {
 		// TODO Auto-generated method stub
 		return studentsDao.getStudentsCharacter(characterCode);
 	}
+	
+	@Override
+	public Map<String, Object> listStudentsCharacter(Search search) throws Exception {
+		List<Students> list = studentsDao.listStudentsCharacter(search);
+		int totalCount = studentsDao.getStudentsCharacterTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
@@ -265,6 +286,17 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 	
 	@Override
+	public Map<String, Object> listStudentsExamByStudent(Search search) throws Exception {
+		List<Students> list = studentsDao.listStudentsExamByStudent(search);
+		int totalCount = studentsDao.getStudentsExamTotalCountByStudent(search);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	@Override
 	public void addStudentsNote(Students students) throws Exception {
 		studentsDao.addStudentsNote(students);
 	}
@@ -294,4 +326,8 @@ public class StudentsServiceImpl implements StudentsService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
+
+
+
 }

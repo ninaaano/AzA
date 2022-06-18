@@ -116,9 +116,11 @@ font-family: Pretendard, 'Noto Sans KR';
 
 $(function(){
 	$("td:nth-child(3)").on("click", function() {
-		self.location ="/paper/getPaperHomework?homeworkCode"+$(this).attr('homeworkCode');
+ 		//alert($(this).attr('homeworkCode'));
+		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
 })
+
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/paper/listPaperHomework").submit();
@@ -138,7 +140,6 @@ $(function() {
 });
 </script>
 
-<h3>수업 과제</h3>
 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
         <h1 class="display-4 mb-0">과 제 목 록</h1>
         <div class="text-muted">Homework List</div>
@@ -241,8 +242,8 @@ $(function() {
 								<c:set var="i" value="${i+1}" />
 								<tr>
 									<td >${i}</td>
-									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName}</td>
-									<td >${paper.homeworkTitle}</td>
+									<td >${paper.lessonName}</td>
+									<td id="homeworkTitlee" homeworkCode="${paper.homeworkCode}">${paper.homeworkTitle}</td>
 									<td >${paper.studentName}</td>
 									<td >${paper.homeworkCreateAt}</td>
 									<td >
