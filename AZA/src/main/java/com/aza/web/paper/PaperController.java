@@ -136,7 +136,7 @@ public class PaperController {
 		Map<String, Object> map = new HashMap();
 		System.out.println("====>=>=>"+user.getRole());
 		
-		if(user.getRole().equals("student")) {
+		if(user.getRole().equals("student") || user.getRole().equals("parent")) {
 			map = paperService.listPaperHomeworkByStudent(search, userId);
 		}else if(user.getRole().equals("teacher")) {
 			map = paperService.listPaperHomeworkByTeacher(search, userId);
@@ -173,7 +173,7 @@ public class PaperController {
 	
 		System.out.println("/paper/addPaperHomework : POST");
 
-		System.out.println("==="+paper);
+		System.out.println("===>"+paper);
 		paperService.addPaperHomework(paper);
 		
 		ModelAndView modelAndView = new ModelAndView();	
@@ -188,7 +188,7 @@ public class PaperController {
 		System.out.println("/paper/updatePaperHomework : POST");
 		// Business Logic
 		paperService.updatePaperHomework(paper);
-		
+		System.out.println("=========>>>>>>>>>>"+paper);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/paper/getPaperHomework?homeworkCode="+paper.getHomeworkCode());
 		
@@ -197,8 +197,11 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="getPaperHomework", method=RequestMethod.GET)
-	public ModelAndView getPaperHomework(@RequestParam("homeworkCode") int homeworkCode) throws Exception {
-
+	public ModelAndView getPaperHomework(@RequestParam("homeworkCode") int homeworkCode, HttpSession session) throws Exception {
+		
+		System.out.println("=+=+=+=+=+>>>>>>>>>>>"+((User) session.getAttribute("user")).getUserId());
+		User dbUser = userService.getUser(((User) session.getAttribute("user")).getUserId());
+		
 		System.out.println("paper/getPaperHomework : GET");
 		
 		Paper paper = paperService.getPaperHomework(homeworkCode);
@@ -206,6 +209,7 @@ public class PaperController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("paper/getPaperHomework");
 		modelAndView.addObject("paper", paper);
+		modelAndView.addObject("user", dbUser);
 		
 		System.out.println("===="+paper);
  
@@ -214,15 +218,28 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="deletePaperHomework")
-	public ModelAndView deleteStudentsNote(@RequestParam("homeworkCode") int homeworkCode, HttpSession session) throws Exception {
+	public ModelAndView deletePaperHomework(@RequestParam("homeworkCode") int homeworkCode, HttpSession session) throws Exception {
 		
-		System.out.println("/deleteStudentsNote");
+		System.out.println("/deletePaperHomework");
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		
 		paperService.deletePaperHomework(homeworkCode);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/paper/listPaperHomework");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="updatePaperHomeworkCheck")
+	public ModelAndView updatePaperHomeworkCheck(@RequestParam("homeworkCode") int homeworkCode) throws Exception {
+		
+		System.out.println("==updatePaperHomeworkCheck");
+		
+		paperService.updatePaperHomeworkCheck(homeworkCode);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/paper/getPaperHomework?homeworkCode="+homeworkCode);
 		
 		return modelAndView;
 	}

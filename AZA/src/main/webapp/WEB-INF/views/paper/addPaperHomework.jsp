@@ -61,7 +61,8 @@
 	
 		<script type="text/javascript">
 	
-		function fncAddHomework(){
+		function addBtn(){
+
 			var lessonName = $("input[name='lessonName']").val();
 			var homeworkTitle = $("input[name='homeworkTitle']").val();
 			var studentName = $("input[name='studentName']").val();
@@ -85,17 +86,20 @@
 			$("form").attr("method","POST").attr("action" , "/paper/addPaperHomework").submit();
 		}
 		
-		$(function() {
+/*  		$(function() {
 			$("button.btn.btn-outline-primary:contains('등록')").on("click", function() {
 				fncAddHomework();
 			});
 		});
 		
-		$(function() {			
-			$( "button.btn.btn-outline-primary:contains('취소')").on("click" , function() {
+ 		$(function() {
+			$("button.btn.btn-outline-primary:contains('취소')").on("click", function() {
 				history.go(-1);
 			});
-		});	
+		}); */
+		function cancelBtn() {
+			history.go(-1);
+		}
 		
 	</script>
 <style>
@@ -137,7 +141,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
-	            <input class="form-control" type="text" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
+	            <input class="form-control" type="date" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
 	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="mb-0">
@@ -146,11 +150,11 @@ font-family: Pretendard, 'Noto Sans KR';
 	        </div>
 	    </div>
 		
-	    <div align="center">			
-		 	 <button id="addBtn" class="btn btn-outline-primary">등록</button>
-		 	 <button id="cancelBtn" class="btn btn-outline-primary">취소</button>
-		</div>
 	</form>	
+	    <div align="center">			
+		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">등록</button>
+		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
+		</div>
 	
 </body>
 </html>

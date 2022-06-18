@@ -9,7 +9,6 @@ encoding//src/main/java/com/aza/service/lesson=EUC-KR
 encoding//src/main/java/com/aza/service/students/impl/StudentsServiceImpl.java=EUC-KR
 encoding//src/main/java/com/aza/service/user/UserService.java=EUC-KR
 encoding//src/main/java/com/aza/web/lesson=EUC-KR
-encoding//src/main/java/com/aza/web/students/StudentsController.java=EUC-KR
 encoding//src/main/java/com/aza/web/students/StudentsRestController.java=EUC-KR
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/javascript/students/studentsUI.js=UTF-8

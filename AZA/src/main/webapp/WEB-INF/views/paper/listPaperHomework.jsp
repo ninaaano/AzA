@@ -250,7 +250,14 @@ $(function() {
 										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
 										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
 									</td>
-		                			<td><span class="badge bg-primary">${paper.homeworkCheck}</span></td>				
+										<c:choose>
+											<c:when test="${paper.homeworkCheck eq '0'}">
+												<td><span class="badge bg-primary">과제 미완료</span></td>
+											</c:when>
+											<c:otherwise>
+												<td><span class="badge bg-primary">과제 완료</span></td>
+											</c:otherwise>
+										</c:choose>
 								</tr>
 							</c:forEach>
                			</tbody>
