@@ -1,5 +1,6 @@
 package com.aza;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -21,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AzaApplication extends SpringBootServletInitializer/*extends WebMvcConfigurerAdapter*/ {
 
 	public static void main(String[] args) {
-		System.out.println("AzaApplication Ω√¿€");
+		System.out.println("AzaApplication start");
 		SpringApplication.run(AzaApplication.class, args);
 	}
 

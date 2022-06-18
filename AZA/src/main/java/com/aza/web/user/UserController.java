@@ -47,54 +47,36 @@ public class UserController {
 	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
 	public ModelAndView addUser() throws Exception{
-		
-		System.out.println("/user/addUser : GET");
-
+		System.out.println("[Controller] => /user/addUser : GET");
 		ModelAndView mv= new ModelAndView();
 		mv.setViewName("/user/join");
-		
 		return mv;
 	}
 	
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
 	public ModelAndView addUser( @ModelAttribute("user") User user) throws Exception{
-		
-	//	user.setBuyer((User)session.getAttribute("user"));
-	//	user.setUser(userService.getUser(userId));
-	//	user.setTranCode("1");
-		
 		userService.addUser(user);
-		
-		System.out.println(" : /user/addUser : POST");
-
-				
+		System.out.println("[Controller] => /user/addUser : POST");
 		return new ModelAndView("/login");
 	}	
 
 	
 	// test : login
-	@RequestMapping(value="login")
-	public @ResponseBody ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
-		
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		System.out.println("/user/login");
-		
 		ModelAndView mv= new ModelAndView();
-	
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
-		
 		System.out.println(dbUser);
-		
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
-			
 			if(dbUser.getRole().equals("parent")) {
 				Search search = new Search();
 				search.setPageSize(pageSize);
 				search.setCurrentPage(1);
 				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
-				
 				session.setAttribute("students", students);
 			}
 			
@@ -112,20 +94,14 @@ public class UserController {
 			if(dbUser.getRole().equals("parent")) {
 				mv.setViewName("/index_parent");
 			}
-			
 			System.out.println(session.getAttribute("user"));
-
-			System.out.println("");
+			System.out.println("Login okokgoodgood");
 			return mv; // 
-
 		} else {
-			System.out.println("");
-
+			System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
 			return new ModelAndView("/login"); // 
-
 		}
 	}
-	
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public ModelAndView logout(HttpSession session ) throws Exception{
@@ -152,7 +128,7 @@ public class UserController {
 	
 	@RequestMapping( value="quit", method=RequestMethod.GET )
 	public String deleteUser() throws Exception{
-		System.out.println("/user/deleteUser : GET");
+		System.out.println("[Controller] => /user/deleteUser : GET");
 		return "/user/quit";
 
 	}
@@ -171,7 +147,7 @@ public class UserController {
 		userService.deleteUser(user);
 		session.invalidate();
 
-		System.out.println("");
+		System.out.println("[Controller] => delete okok");
 		return "/login";
 		
 
@@ -234,108 +210,34 @@ public class UserController {
 		return new ModelAndView("redirect:/user/updateRelation?relationCode="+user.getRelationCode());
 	}
 
-//	@RequestMapping( value="find_id_form")
-//	public ModelAndView findId() throws Exception{
-
-//		ModelAndView mv= new ModelAndView();
-//		mv.setViewName("/user/findId");
-//		
-//		return mv;
-//	}
-//
-//	
-//	@RequestMapping( value="find_id", method=RequestMethod.POST )
-//	public ModelAndView findId( @ModelAttribute("user") User user) throws Exception{
-//		user = userService.findId(user);
-
-//		System.out.println("");
-//		ModelAndView mv= new ModelAndView();
-//		if(user==null) {
-//			mv.addObject("check",1);
-//		}else {
-//			mv.addObject("check",0);
-//			mv.addObject("userId",user.getUserId());
-//		}
-//		
-//		return new ModelAndView("/user/findId");
-//	}
-//	
-//	@RequestMapping( value="find_password_form")
-//	public ModelAndView findPassword() throws Exception{
-
-//		System.out.println("");
-//		ModelAndView mv= new ModelAndView();
-//		mv.setViewName("/user/findPassword");
-//		
-//		return mv;
-//	}
-//
-//	
-//	@RequestMapping( value="find_password", method=RequestMethod.POST )
-//	public ModelAndView findPassword( @ModelAttribute("user") User user) throws Exception{
-//		user = userService.findPassword(user);
-
-//		System.out.println("");
-//		ModelAndView mv= new ModelAndView();
-//		if(user==null) {
-//			mv.addObject("check",1);
-//		}else {
-//			mv.addObject("check",0);
-//			mv.addObject("updateId",user.getUserId());
-//		}
-//		
-//		return new ModelAndView("/user/findPassword");
-//	}
-//	
-//	@RequestMapping( value="update_password", method=RequestMethod.POST )
-//	public ModelAndView updatePassword( @ModelAttribute("user") User user,@RequestParam(value="updateid", defaultValue="", required=false)String userId) throws Exception{
-//		
-//		user.setUserId(userId);
-//		System.out.println(user);
-//		userService.updatePassword(user);
-//		return new ModelAndView("/user/updatePassword");
-//	}
-//	
-//	@RequestMapping(value="check_password_view")
-//	public String updatePassword(HttpSession session) throws Exception {
-//		
-//		User user = (User)session.getAttribute("loginUser");
-//		
-//		if(user==null) {
-//			return "user/login";
-//		}else {
-//			return "user/getUser";
-//		}
-//	}
-
-
+	// ID search start 1. page
 		@RequestMapping(value="findId")
 		public String findIdView() {
-			System.out.println("");
+			System.out.println("ID gogogo");
 			return "user/findId";
 		}
 		
+		// ID Search 
 		@RequestMapping(value="find_id", method=RequestMethod.POST)
-
 		public String findIdAction(User vo, Model model) throws Exception {
 			User user = userService.findId(vo);
 			
 			if(user == null) { 
 				model.addAttribute("check", 1);
-				System.out.println("");
+				System.out.println("ID NONO");
 			} else { 
 				model.addAttribute("check", 0);
 				model.addAttribute("id", user.getUserId());
-				System.out.println("");
+				System.out.println("ID YESYESYES");
 			}
-			System.out.println("");
+			System.out.println("come on ID");
 			
 			return "user/findId";
 		}
 		
 		@RequestMapping(value="findPassword")
 		public String findPasswordView() {
-			System.out.println("");
+			System.out.println("FIND PASSWORD :3");
 			return "user/findPassword";
 		}
 		
@@ -347,13 +249,13 @@ public class UserController {
 			
 			if(user == null) { 
 				model.addAttribute("check", 1);
-				System.out.println("");
+				System.out.println("PASSWORD NONONONO");
 			} else { 
 				model.addAttribute("check", 0);
 				model.addAttribute("updateid", user.getUserId());
-				System.out.println("");
+				System.out.println("CHANGE PASSWORDDDDDDDD");
 			}
-			System.out.println("");
+			System.out.println("<<CHANGE PASSWORD>>");
 			return "user/findPassword";
 		}
 		
@@ -363,19 +265,8 @@ public class UserController {
 			vo.setUserId(id);
 			System.out.println(vo);
 			userService.updatePassword(vo);
-			System.out.println("");
+			System.out.println("WHY AN NA WA");
 			return "user/findPassword";
 		}
 
-		@RequestMapping(value="check_password_view")
-		public String checkPasswordForModify(HttpSession session, Model model) {
-			User loginUser = (User) session.getAttribute("loginUser");
-			
-			if(loginUser == null) {
-				return "user/login";
-			} else {
-				return "mypage/checkformodify";
-			}
-		}		
-	
 }

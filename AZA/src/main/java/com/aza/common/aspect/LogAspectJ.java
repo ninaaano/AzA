@@ -2,8 +2,6 @@ package com.aza.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-
 public class LogAspectJ {
 
 	///Constructor

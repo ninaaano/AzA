@@ -32,7 +32,7 @@
 	<!-- HOMEWORK :: INSERT -->
 	<insert id="addPaperHomework">
 	INSERT INTO homework(homework_code, student_id, student_name, lesson_code, lesson_name, homework_title,
-	homework_contents, homework_due_date, homework_check, homework_create_at)
+	homework_contents, homework_due_date, homework_create_at)
 	VALUES(seq_homework_homework_code.NEXTVAL,
 	 		 (SELECT user_id FROM users WHERE user_name = #{studentName}), 
 	 		 #{studentName},
@@ -41,7 +41,6 @@
 	 		 #{homeworkTitle},
 	 		 #{homeworkContent},
 	 		 #{homeworkDueDate},
-	 		 #{homeworkCheck},
 	 		 TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS')
 	 )
 	</insert>
@@ -110,17 +109,17 @@
 		SELECT *
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
 				FROM (	SELECT
-						h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
+						h.homework_code, h.lesson_name, h.homework_title, sr.student_name,
 						h.homework_create_at, h.homework_due_date, h.homework_check
 						FROM homework h, students_record sr, lesson l
 							<where>
 							h.student_id = sr.student_id AND sr.lesson_code = l.lesson_code AND l.teacher_id = #{searchId} 
 								<if test='searchCondition != null'>
 									<if test="searchCondition == 0 and searchKeyword != '' ">
-										AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+										AND h.lesson_name LIKE '%' || #{searchKeyword} || '%'
 									</if>
 									<if test="searchCondition == 1 and searchKeyword != '' ">
-										AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
+										AND h.student_name LIKE '%' || #{searchKeyword} || '%'
 									</if>
 								</if>	
 							</where>
@@ -202,7 +201,7 @@
 	<select id="getListPaperHomeworkByTeacherTotalCount" resultType="int">
 		SELECT COUNT(*) 
 		FROM (  SELECT
-					h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
+					h.homework_code, h.lesson_name, h.homework_title, sr.student_name,
 					h.homework_create_at, h.homework_due_date, h.homework_check
 					FROM homework h, students_record sr, lesson l
 						<where>
@@ -210,10 +209,10 @@
 							AND l.teacher_id = #{searchId}
 							<if test='searchCondition != null'>
 								<if test="searchCondition == 0 and searchKeyword != '' ">
-									AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+									AND h.lesson_name LIKE '%' || #{searchKeyword} || '%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword != '' ">
-									AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
+									AND h.student_name LIKE '%' || #{searchKeyword} || '%'
 								</if>
 							</if>
 						</where>

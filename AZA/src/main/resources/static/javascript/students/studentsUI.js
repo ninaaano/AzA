@@ -46,7 +46,7 @@ function loadEvent(month) {
 	console.log(month, urlParam, studentId,lessonCode);
 
 	$.ajax({
-		url:"http://localhost:8080/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
+		url:"/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
 		type:"POST",
 		headers : {
                 "Accept" : "application/json",

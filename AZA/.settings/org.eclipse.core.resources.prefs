@@ -1,13 +1,16 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=refs/heads/master
+>>>>>>>=refs/heads/MY
 eclipse.preferences.version=1
 encoding//SQL/AZA.sql=UTF-8
 encoding//src/main/java=UTF-8
+encoding//src/main/java/com/aza/AzaApplication.java=EUC-KR
 encoding//src/main/java/com/aza/service/lesson=EUC-KR
 encoding//src/main/java/com/aza/service/students/impl/StudentsServiceImpl.java=EUC-KR
 encoding//src/main/java/com/aza/service/user/UserService.java=EUC-KR
 encoding//src/main/java/com/aza/web/lesson=EUC-KR
+encoding//src/main/java/com/aza/web/students/StudentsController.java=EUC-KR
+encoding//src/main/java/com/aza/web/students/StudentsRestController.java=EUC-KR
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/javascript/students/studentsUI.js=UTF-8
 encoding//src/main/resources/static/smarteditor/SmartEditor2Skin.html=UTF-8
