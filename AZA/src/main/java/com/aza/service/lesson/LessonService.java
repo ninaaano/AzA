@@ -43,6 +43,8 @@ public interface LessonService {
 	// book : delete
 	public void deleteLessonBook(String isbn) throws Exception;	
 	
+	public Map<String, Object> listBookTeacher(String teacherId) throws Exception;
+	
 //	==============================================
 
 	// schedule : add

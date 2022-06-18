@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,7 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 
 @RestController
-@RequestMapping("/lesson/rest/")
+@RequestMapping("/lesson/rest/*")
 public class LessonRestController {
 
 	@Autowired
@@ -77,15 +78,16 @@ public class LessonRestController {
 		}
 		return true;
 	}
-	
-	@RequestMapping("/addLessonBook")
-	public ModelAndView addLessonBook(HttpServletRequest request) throws Exception{
+	//@RequestParam(required = false, value = "lessonCode") String lessonCode,
+	@RequestMapping(value="addLessonBook", method=RequestMethod.POST)
+	public ModelAndView addLessonBook(@RequestParam(required = false,value="lessonCode") String lessonCode, HttpServletRequest request) throws Exception{
+		System.out.println("rest addLessonBook Controller ½ÇÇà");
 		ModelAndView model = new ModelAndView();
 		String isbn = request.getParameter("isbn");
-		String lessonCode = request.getParameter("lessonCode");
+//		String lessonCode = request.getParameter("lessonCode");
 		System.out.println("=========");
-		System.out.println("isbn=? "+isbn);
-		System.out.println("lessonCode=? "+lessonCode);
+		System.out.println("isbn=> "+isbn);
+		System.out.println("lessonCode=> "+lessonCode);
 		System.out.println("=========");
 		
 		Lesson lesson = new Lesson();
@@ -143,7 +145,7 @@ public class LessonRestController {
 		}
 		lessonService.addLessonBook(lesson);
 		
-		model.setViewName("/lesson/manageLessonBook");
+		model.setViewName("redirect:/lesson/manageLessonBook");
 		return model;
 	}
 	
@@ -171,10 +173,14 @@ public class LessonRestController {
 		return lessonService.listLessonBook(search, teacherId);
 	}
 	
-	@RequestMapping("/deleteLessonBook")
-	public void deleteLessonBook(@PathVariable String isbn) throws Exception{
-		lessonService.deleteLessonBook(isbn);
-	}
+//	@RequestMapping("/deleteLessonBook")
+//	public void deleteLessonBook(@RequestParam("isbn") String isbn) throws Exception{
+//		System.out.println("===========");
+//		System.out.println("deleteLessonBook restController");
+//		System.out.println("===========");
+//		
+//		lessonService.deleteLessonBook(isbn);
+//	}
 
 	@RequestMapping("/listLessonTime")
 	public List listLessonTime(HttpSession session, @RequestParam(required = false) String lessonDay) throws Exception{

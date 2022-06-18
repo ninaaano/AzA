@@ -235,7 +235,15 @@ public class LessonServiceTest {
 		System.out.println(list);
 	}
 	
-	
+	//@Test
+	public void testListBookTeacher() throws Exception{
+		Map<String, Object> map = lessonService.listBookTeacher("teacher51");
+		
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println(list);
+	}
 	
 	//@Test
 //	public void testlistLessonStudent() throws Exception{

@@ -292,7 +292,7 @@ INSERT ALL
 /* listLesson Book*/
 select *
 from (select inner_table.*, ROWNUM AS row_seq
-	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name,LB.lesson_code
 		FROM BOOK B, LESSON_BOOK LB, LESSON L
 		WHERE B.ISBN=LB.ISBN AND LB.lesson_code = L.lesson_code and L.teacher_id = 'teacher51') inner_table
 		WHERE rownum<3)

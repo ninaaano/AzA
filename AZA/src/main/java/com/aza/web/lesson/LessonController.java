@@ -155,6 +155,7 @@ public class LessonController {
 	@RequestMapping(value="manageLessonBook")
 	public ModelAndView manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 
+		//lesson code客 lessonName 啊廉客具窃		
 		System.out.println("manageLessonBook角青");
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -163,6 +164,11 @@ public class LessonController {
 //		String role = ((User) session.getAttribute("user")).getRole();
 				
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
+		
+		Map<String, Object> lessonName = lessonService.listBookTeacher(teacherId);
+		System.out.println("================");
+		System.out.println(lessonName);
+		System.out.println("================");
 		Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
 		
 		Page resultPage = new Page(search.getCurrentPage(),
@@ -170,6 +176,7 @@ public class LessonController {
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("/lesson/manageLessonBook");
+		model.addObject("book",lessonName.get("book"));
 		model.addObject("list",map.get("list"));
 		model.addObject("resultPage",resultPage);
 		model.addObject("search",search);
@@ -178,6 +185,19 @@ public class LessonController {
 		return model;
 	}
 	
+	@RequestMapping(value="deleteLessonBook")
+	public ModelAndView deleteLessonBook(@RequestParam("isbn") String isbn) throws Exception{
+		System.out.println("===========");
+		System.out.println("deleteLessonBook Controller");
+		System.out.println("===========");
+		System.out.println("isbn="+isbn);
+		
+		lessonService.deleteLessonBook(isbn);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/lesson/manageLessonBook");
+		
+		return model;
+	}
 	
 	@RequestMapping("1")
 	public ModelAndView chatbot() throws Exception{

@@ -126,6 +126,17 @@ public class LessonServiceImpl implements LessonService {
 		lessonDao.deleteLessonBook(isbn);
 	}
 
+	@Override
+	public Map<String, Object> listBookTeacher(String teacherId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Lesson> list = lessonDao.listBookTeacher(teacherId);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("book",list);
+		
+		return map;
+	}
+
 	//=================================================	
 	
 	@Override
