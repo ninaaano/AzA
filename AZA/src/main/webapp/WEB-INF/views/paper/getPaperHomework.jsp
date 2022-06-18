@@ -62,6 +62,20 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 
+<script type="text/javascript">
+		
+ 		$(function() {
+			
+			$( "button.btn.btn-outline-primary:contains('뒤로')").on("click" , function() {
+				
+				$(#homeworkTitle').attr('readonly', false);
+				$(#studentName').attr('readonly', false);
+				$(#homeworkDueDate').attr('readonly', false);
+				$(#homeworkContent').attr('readonly', false);
+			});
+		});
+
+</script>
 
 </head>
 <body>
@@ -98,14 +112,14 @@ font-family: Pretendard, 'Noto Sans KR';
 
 	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="과제 내용을 입력하세요" value="${paper.homeworkContent}" rows="12" readonly>${paper.homeworkContent}</textarea>
 	        </div>
-	         <div class="form-check" align="center">
+	         <div class="form-check" align="center" style="margin:20px 0px 0px 0px; font-size:20px;" >
                  <input class="form-check-input" id="flexCheckDefault" type="checkbox" value="">
-                 <label class="form-check-label" for="flexCheckDefault">과제 제출</label>
+                 <label class="form-check-label" for="flexCheckDefault">과제 완료 체크</label>
             </div>
 	    </div>
 		
 	    <div align="center">			
-		 	 <button id="addBtn" class="btn btn-outline-primary">수정</button>
+		 	 <button id="goUpdateBtn" onclick="goUpdateBtn" class="btn btn-outline-primary">수정</button>
 		 	 <button id="cancelBtn" class="btn btn-outline-primary">취소</button>
 		</div>
 	</form>	
