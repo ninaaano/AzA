@@ -26,5 +26,7 @@ public interface AlertDao {
 	public List<Alert> getAlertPayment(Search search, String receiverId) throws Exception;
 
 	public List<Alert> getAlertByDate(Search search) throws Exception;
+	
+	public int alertCreateList(int alertCode)throws Exception;
 
 }

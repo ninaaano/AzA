@@ -1,6 +1,10 @@
 package com.aza.web.alert;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,12 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.aza.service.alert.AlertService;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
@@ -117,5 +115,20 @@ public class AlertController {
 		return mv;	
 		
 	}
+	
+	@RequestMapping("getAlertTotalCount")
+	public ModelAndView getAlertTotalCount(@PathVariable("alertCreateAt")String alertCreateAt,@ModelAttribute("search") Search search,String receiverId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		search.setSearchId(receiverId);
+		Map<String, Object> listAlert = alertService.listAlert(search, receiverId);
+		
+		
+		
+		return mv;
+		
+	}
+		
+
 
 }

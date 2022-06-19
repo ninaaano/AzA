@@ -93,5 +93,12 @@ public class AlertDaoImpl implements AlertDao {
 		return sqlSessionTemplate.selectList("AlertMapper.getAlertByDate");
 		
 	}
+
+
+	@Override
+	public int alertCreateList(int alertCode) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
