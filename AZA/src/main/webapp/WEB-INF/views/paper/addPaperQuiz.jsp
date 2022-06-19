@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    %>
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>과제 등록</title>
+<title>쪽지시험 등록</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,7 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <!-- <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script> -->
-<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -55,59 +55,13 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
-	
-	<link href="/resources/css/styles.css" rel="stylesheet">
-	<link href="/resources/css/common.css" rel="stylesheet">
-	
-		<script type="text/javascript">
-	
-		function addBtn(){
-
-			//var lessonName = $("input[name='lessonName']").val();
-			var lessonName = $('option:selected').text().trim();
-			var homeworkTitle = $("input[name='homeworkTitle']").val();
-			var studentName = $("input[name='studentName']").val();
-			var homeworkDueDate = $("input[name='homeworkDueDate']").val();
-			var homeworkContent = $("textarea[name='homeworkContent']").val();
-			
-			if(homeworkTitle == null || homeworkTitle.length<1){
-				alert("제목은 반드시 입력해야 합니다.");
-				return;
-			}
-			if(studentName == null || studentName.length<1){
-				alert("학생이름은 반드시 입력해야 합니다.");
-				return;
-			}
-			if(homeworkContent == null || homeworkContent.length<1){
-				alert("과제 내용을 반드시 입력해야합니다.");
-				return;
-			}
-
-			$("form").attr("method","POST").attr("action" , "/paper/addPaperHomework").submit();
-		}
-		
-/*  		$(function() {
-			$("button.btn.btn-outline-primary:contains('등록')").on("click", function() {
-				fncAddHomework();
-			});
-		});
-		
- 		$(function() {
-			$("button.btn.btn-outline-primary:contains('취소')").on("click", function() {
-				history.go(-1);
-			});
-		}); */
-		function cancelBtn() {
-			history.go(-1);
-		}
-		
-	</script>
 <style>
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
-
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
 
 </head>
 <body>
@@ -116,8 +70,8 @@ font-family: Pretendard, 'Noto Sans KR';
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
 			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
-		        <h1 class="display-4 mb-0">과 제 등 록</h1>
-		        <div class="text-muted">Add Homework</div>
+		        <h1 class="display-4 mb-0">시 험 등 록</h1>
+		        <div class="text-muted">Add Quiz</div>
 	    	</div>
 	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
@@ -133,24 +87,24 @@ font-family: Pretendard, 'Noto Sans KR';
 	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1"> --%>
 	        </div>
 	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 제목</button>
-	            <input class="form-control" type="text" placeholder="과제 제목을 입력하세요" aria-label="Example text with button addon" 
-	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">시험명</button>
+	            <input class="form-control" type="text" placeholder="시험명을 입력하세요" aria-label="Example text with button addon" 
+	             id="quizTitle" name="quizTitle" value="${paper.quizTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
 	            <input class="form-control" type="text" placeholder="학생 이름을 입력하세요" aria-label="Example text with button addon" 
 	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
 	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
+	        <div class="input-group mb-3" type="hidden">
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">점수</button>
 	            <input class="form-control" type="date" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
-	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
+	            id="quizScore" name="quizScore" value="${paper.quizScore}" aria-describedby="button-addon1">
 	        </div>
-	        <div class="mb-0">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >과제 내용</button>
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="과제 내용을 입력하세요" value="${paper.homeworkContent}" rows="12"></textarea>
-	        </div>
+	        <button id="addSubjective" class="btn btn-text-primary" type="button">주관식 문제 추가</button>
+	        <button id="addNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 추가</button>
+	        <!-- <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 삭제</button>
+	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 삭제</button> -->
 	    </div>
 		
 	</form>	
@@ -158,6 +112,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">등록</button>
 		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
 		</div>
-	
+
+
 </body>
 </html>

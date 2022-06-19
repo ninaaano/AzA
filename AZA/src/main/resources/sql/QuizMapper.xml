@@ -9,9 +9,11 @@
 	<resultMap id = "quizSelectMap" type="paper">
 		<result property ="quizCode" column="quiz_code" jdbcType="NUMERIC"/>
 		<result property ="lessonCode" column="lesson_code" jdbcType="VARCHAR"/>
+		<result property ="lessonName" column="lesson_name" jdbcType="VARCHAR" />
 		<result property ="studentId" column="student_id" jdbcType="VARCHAR"/>
+		<result property ="studentName" column="student_name" jdbcType="VARCHAR"/>
 		<result property ="quizTitle" column="quiz_title" jdbcType="VARCHAR"/>
-		<result property ="quizCreateAt" column="quiz_create_at" jdbcType="DATE"/>
+		<result property ="quizCreateAt" column="quiz_create_at" jdbcType="VARCHAR"/>
 		<result property ="quizSubmitDate" column="quiz_submit_date" jdbcType="DATE"/>
 		<result property ="quizScore" column="quiz_score" jdbcType="NUMERIC"/>
 		
@@ -19,20 +21,20 @@
 			<id property="teacherId" column="teacher_id" jdbcType="VARCHAR"/>
 		</association>
 		
-		<association property = "lessonName" javaType="lesson">
+<!-- 		<association property = "lessonName" javaType="lesson">
 			<id property = "lessonName" column="lesson_name" jdbcType="VARCHAR"/>
 		</association>
 		
 		<association property = "studentName" javaType="students">
 			<id property = "studentName" column="student_name" jdbcType="VARCHAR"/>
-		</association>
+		</association> -->
 	</resultMap>
 
 	<!-- SQL : INSERT -->
 	<insert id = "addPaperQuiz" parameterType="paper">
 	INSERT INTO quiz
-	VALUES(seq_quiz_quiz_code.NEXTVAL, #{lessonCode:VARCHAR}, 
-	#{studentId:VARCHAR}, #{quizTitle:VARCHAR}, TO_DATE(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
+	VALUES(seq_quiz_quiz_code.NEXTVAL, (SELECT lesson_code FROM lesson WHERE lesson_name = #{lessonName:VARCHAR}), #{lessonName:VARCHAR}, 
+	(SELECT user_id FROM users WHERE user_name = #{studentName:VARCHAR}), #{studentName:VARCHAR}, #{quizTitle:VARCHAR}, TO_DATE(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
 	#{quizSubmitDate:DATE}, #{quizScore:NUMERIC})
 	</insert>
 	
@@ -73,7 +75,7 @@
 	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select> -->
 	
-	<select id="listPaperQuizTeacher" parameterType="search" resultMap="quizSelectMap">
+<!-- 	<select id="listPaperQuizTeacher" parameterType="search" resultMap="quizSelectMap">
 		SELECT * 
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
 	   		 FROM ( SELECT
@@ -88,6 +90,28 @@
 							</if>
 							<if test="searchCondition == 1 and searchKeyword != '' ">
 								AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
+							</if>
+						</if>	
+					</where>
+				ORDER BY q.quiz_create_at desc ) inner_table 
+			WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select> -->
+	<select id="listPaperQuizTeacher" parameterType="search" resultMap="quizSelectMap">
+		SELECT * 
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+	   		 FROM ( SELECT
+					q.quiz_code, q.lesson_name, q.quiz_title, q.student_name,
+					q.quiz_create_at, q.quiz_submit_date, q.quiz_score
+					FROM quiz q, lesson l
+					<where>
+					q.lesson_code = l.lesson_code AND l.teacher_id = #{searchId}
+						<if test='searchCondition != null'>
+							<if test="searchCondition == 0 and searchKeyword != '' ">
+								AND q.lesson_name LIKE '%' || #{searchKeyword} || '%'
+							</if>
+							<if test="searchCondition == 1 and searchKeyword != '' ">
+								AND q.student_name LIKE '%' || #{searchKeyword} || '%'
 							</if>
 						</if>	
 					</where>
@@ -143,18 +167,18 @@
 	
 	<select id="getPaperQuizTotalCountTeacher"  parameterType="search" resultType="int">
 		SELECT COUNT(*)
-		FROM (  SELECT
-				q.quiz_code, sr.lesson_name, q.quiz_title, sr.student_name,
-				q.quiz_create_at, q.quiz_submit_date, q.quiz_score
-				FROM quiz q, students_record sr, lesson l
+		FROM (   SELECT
+					q.quiz_code, q.lesson_name, q.quiz_title, q.student_name,
+					q.quiz_create_at, q.quiz_submit_date, q.quiz_score
+					FROM quiz q, lesson l
 					<where>
-					q.student_id = sr.student_id AND sr.lesson_code = l.lesson_code AND l.teacher_id = #{searchId}
+					q.lesson_code = l.lesson_code AND l.teacher_id = #{searchId}
 						<if test='searchCondition != null'>
 							<if test="searchCondition == 0 and searchKeyword != '' ">
-								AND sr.lesson_name LIKE '%' || #{searchKeyword} || '%'
+								AND q.lesson_name LIKE '%' || #{searchKeyword} || '%'
 							</if>
 							<if test="searchCondition == 1 and searchKeyword != '' ">
-								AND sr.student_name LIKE '%' || #{searchKeyword} || '%'
+								AND q.student_name LIKE '%' || #{searchKeyword} || '%'
 							</if>
 						</if>	
 					</where>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +68,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		
 		window.onload = function () { 
 			$("#updateBtn").hide();
+			$("#lessonNameList").hide();
 			
 			if(${user.role eq 'teacher'}){
 				$("#checkDiv").hide();
@@ -95,6 +98,8 @@ font-family: Pretendard, 'Noto Sans KR';
 				
 				$("#goUpdateBtn").hide();
 				$("#updateBtn").show();
+				$("#lessonNameList").show();
+				$("#lessonNameListInput").hide();
 				
 			    const homeworkDueDate = document.getElementById('homeworkDueDate');
 			    homeworkDueDate.type = "date";
@@ -105,6 +110,8 @@ font-family: Pretendard, 'Noto Sans KR';
  			
 			$( "button.btn.btn-outline-primary:contains('확인')").on("click" , function() {
 				$("form").attr("method", "POST").attr("action","/paper/updatePaperHomework").submit();
+				$("#lessonNameList").hide();
+				$("#lessonNameListInput").show();
 			});
  		});
  		
@@ -144,7 +151,19 @@ font-family: Pretendard, 'Noto Sans KR';
 	    	</div>
 			
 			<input type="hidden" name="homeworkCode" id="homeworkCode" value="${paper.homeworkCode }"/>
-	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
+			
+	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameList">
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
+	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+	            	<c:set var="i" value="0"/>
+	            	<c:forEach var="lesson" items="${list }">
+	            	<c:set var="i" value="${i+1 }"/>
+	            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+	            	</c:forEach>
+                </select>
+	        </div>
+	        
+	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameListInput">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
                 <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1" readOnly="true">
