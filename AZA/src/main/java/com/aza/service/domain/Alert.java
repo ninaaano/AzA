@@ -54,6 +54,9 @@ public class Alert {
 
 	public void setAlertContent(String alertContent) {
 		
+		System.out.println(alertContent+" alert");
+		
+		
 		switch(alertContent) {		
 		case "출석" :
 			this.alertContent = " 학생 출석했습니다💚";

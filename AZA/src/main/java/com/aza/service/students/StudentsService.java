@@ -1,5 +1,6 @@
 package com.aza.service.students;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -30,6 +31,8 @@ public interface StudentsService {
 
 	// STUDENT_RECORD :: LIST - (proposal 0,1)
 	public Map<String, Object> listTotalStudentsRecord(Search search, String teacherId) throws Exception;
+	
+	public Map<String, Object> listStudentsRecordByStudent(Search search, String studentId) throws Exception;
 
 	// ATTENDANCE :: INSERT
 	public void addStudentsAttendance(Students students) throws Exception;

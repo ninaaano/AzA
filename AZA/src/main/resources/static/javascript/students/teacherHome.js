@@ -12,15 +12,6 @@ function attendanceHandler(lessonCode) {
 		headers: { 
 					"Accept" : "application/json",
                 	"Content-Type" : "application/json",
-
-//   console.log('클릭됨');
-   
-//   $.ajax({
-//      url: "http://localhost:8080/students/rest/listStudentsRecord?lessonCode="+lessonCode,
-//      type: "POST",
-//      headers: { 
-//               "Accept" : "application/json",
-//                   "Content-Type" : "application/json",
               },
       success: function(result) {
          if(result) {
@@ -67,10 +58,38 @@ function makeAddAttendanceView(result) {
 	                 </div>
 	             </div>`;
 
-
       $('#curAttendanceList').append(div);
       
+      checkAttendanceValue(student);
+      
    })
+}
+
+
+function checkAttendanceValue(student) {
+	
+	$.ajax({
+		url: 'students/rest/listStudentsAttendance/'+curMonth+"/"+curYear+"/"+curDate+"?studentId="+student.studentId+"&lessonCode="+student.lessonCode,
+		type: 'GET',
+		headers: { 
+					"Accept" : "application/json",
+                	"Content-Type" : "application/json",
+              },
+        success: function(result) {
+			 if(result) {
+            
+            console.log(result);
+            
+            var attendance = result.list[0];
+            
+            makeUpdateAttendanceView(attendance);
+         
+         } else {
+            console.log("error");
+         }
+       	}
+	})
+
 }
 
 
@@ -138,10 +157,7 @@ function updateAttendance(attendanceCode, studentId, state, lessonCode) {
 	
 		}
 	})
-	
-	
-	
-	
+
 }
 
 
@@ -272,13 +288,6 @@ function loadEvent(month) {
 		url:"/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
 		type:"POST",
 		headers : {
-
-//MY 충돌 주석처리함
-//   $.ajax({
-//      url:"http://localhost:8080/students/rest/listStudentsAttendance/"+month+"/"+currentYear+"?studentId="+studentId+"&lessonCode="+lessonCode,
-//      type:"POST",
-//      headers : {
-
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },

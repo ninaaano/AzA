@@ -70,15 +70,14 @@ public class GreetingController {
 
 	//@MessageExceptionHandler(MessageConversionException.class)
 	@MessageMapping("/deleteMessage/{_id}")
-	@SendTo("/topic/showDeleteMessage")
-	public void deleteMessage(@DestinationVariable String _id, @Payload(required= false)Message message) throws Exception {
+	@SendTo("/topic/getMessage")
+	public List deleteMessage(@DestinationVariable String _id, @Payload(required= false)Message message) throws Exception {
 		Thread.sleep(1000);
 		System.out.println("deleteMessage : "+message);
 				
-		messageServiceImpl.deleteMessage(_id);
-				
-		//
+		Message deleted = messageServiceImpl.deleteMessage(_id);
+		
+		List list = messageServiceImpl.getMessage(deleted.getSenderId(), deleted.getReceiverId());
+		return list;	
 	}
-	
-
 }
