@@ -491,7 +491,7 @@ console.log("메시지 버튼 눌림");
 						<!-- Drawer section heading (Interface)-->
 						<div class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
+						<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
 							</div> 자녀관리

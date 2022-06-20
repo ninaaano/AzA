@@ -50,5 +50,19 @@ public class Common {
 		
 		return mv;
 	}
+	
+	// 부모님 -> 자녀관리
+	@RequestMapping("/parent/kids") 
+	public ModelAndView parentKidsController(HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/common/sub_bar_parent");
+		mv.addObject("user", user);
+		
+		return mv;
+		
+	}
 
 }
