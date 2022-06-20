@@ -30,16 +30,16 @@ public class PaperQuizTest {
 	//@Test // add test OK
 	void testAddQuiz() throws Exception{
 		Paper paper = new Paper();
-		paper.setLessonCode("ABCD1234");
-		paper.setStudentId("student21");
-		paper.setQuizTitle("");
+		paper.setLessonName("bit1 java");
+		paper.setStudentName("student3");
+		paper.setQuizTitle("minus");
 		
 		
 		System.out.println("==>> "+paper);
 		paperService.addPaperQuiz(paper);
 		
 	}
-	@Test // get test OK
+	//@Test // get test OK
 	void testGetQuiz() throws Exception{
 		Paper paper = paperService.getPaperQuiz(1000);
 		System.out.println(paper);
@@ -286,7 +286,7 @@ public class PaperQuizTest {
 		System.out.println("==="+totalCount);
 	}
 	
-	@Test
+	//@Test
 	public void testListHomeworkByTeacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);

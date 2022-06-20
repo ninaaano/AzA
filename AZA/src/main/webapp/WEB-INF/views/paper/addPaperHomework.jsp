@@ -61,13 +61,14 @@
 	
 		<script type="text/javascript">
 	
-		function fncAddHomework(){
-			var lessonName = $("input[name='lessonName']").val();
+		function addBtn(){
+
+			//var lessonName = $("input[name='lessonName']").val();
+			var lessonName = $('option:selected').text().trim();
 			var homeworkTitle = $("input[name='homeworkTitle']").val();
 			var studentName = $("input[name='studentName']").val();
 			var homeworkDueDate = $("input[name='homeworkDueDate']").val();
 			var homeworkContent = $("textarea[name='homeworkContent']").val();
-			
 			
 			if(homeworkTitle == null || homeworkTitle.length<1){
 				alert("제목은 반드시 입력해야 합니다.");
@@ -81,21 +82,24 @@
 				alert("과제 내용을 반드시 입력해야합니다.");
 				return;
 			}
-			
+
 			$("form").attr("method","POST").attr("action" , "/paper/addPaperHomework").submit();
 		}
 		
-		$(function() {
+/*  		$(function() {
 			$("button.btn.btn-outline-primary:contains('등록')").on("click", function() {
 				fncAddHomework();
 			});
 		});
 		
-		$(function() {			
-			$( "button.btn.btn-outline-primary:contains('취소')").on("click" , function() {
+ 		$(function() {
+			$("button.btn.btn-outline-primary:contains('취소')").on("click", function() {
 				history.go(-1);
 			});
-		});	
+		}); */
+		function cancelBtn() {
+			history.go(-1);
+		}
 		
 	</script>
 <style>
@@ -117,13 +121,16 @@ font-family: Pretendard, 'Noto Sans KR';
 	    	</div>
 	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
-	            <!-- <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
-                    <option selected=""></option>
-                    <option value="1">비트고1 자바</option>
-                    <option value="2">비트고2 자바스크립트</option>
-                </select> -->
-                <input class="form-control" type="text" placeholder="수업명을 입력하세요" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1">
+	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+	            	<c:set var="i" value="0"/>
+	            	<c:forEach var="lesson" items="${list }">
+	            	<c:set var="i" value="${i+1 }"/>
+	            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+	            	</c:forEach>
+                </select>
+                
+                <%-- <input class="form-control" type="text" placeholder="수업명을 입력하세요" aria-label="Example text with button addon" 
+	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1"> --%>
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 제목</button>
@@ -137,7 +144,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
-	            <input class="form-control" type="text" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
+	            <input class="form-control" type="date" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
 	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="mb-0">
@@ -146,11 +153,11 @@ font-family: Pretendard, 'Noto Sans KR';
 	        </div>
 	    </div>
 		
-	    <div align="center">			
-		 	 <button id="addBtn" class="btn btn-outline-primary">등록</button>
-		 	 <button id="cancelBtn" class="btn btn-outline-primary">취소</button>
-		</div>
 	</form>	
+	    <div align="center">			
+		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">등록</button>
+		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
+		</div>
 	
 </body>
 </html>

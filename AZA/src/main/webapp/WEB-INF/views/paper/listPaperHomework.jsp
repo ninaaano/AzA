@@ -110,14 +110,14 @@ font-family: Pretendard, 'Noto Sans KR';
 <script type="text/javascript">
 /* $(function(){
 	$('#lessonNamee').on("click", function(){
-		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
+		self.location ="/paper/managePaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
 }); */
 
 $(function(){
 	$("td:nth-child(3)").on("click", function() {
  		//alert($(this).attr('homeworkCode'));
-		self.location ="/paper/getPaperHomework?homeworkCode="+$(this).attr('homeworkCode');
+		self.location ="/paper/managePaperHomework?homeworkCode="+$(this).attr('homeworkCode');
 	})
 })
 
@@ -150,18 +150,6 @@ $(function() {
             <!-- Simple DataTables example-->
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
             	<div class="dataTable-top">
-<!--             		<div class="dataTable-dropdown">
-            			<label>
-            				<select class="dataTable-selector">
-            				<option value="5">5</option>
-            				<option value="10" selected="">10</option>
-            				</select> "entries per page"
-           				</label>
-        			</div> -->
-<!-- 	       			<div class="dataTable-search">
-	       				<input class="dataTable-input" placeholder="Search..." type="text">
-	      			</div> -->
-	      			<!-- //////////////////////////////////////////////////// -->
 	      			<div>
 	      				<button id="addBtn" type="button" class="btn btn-outline-primary">과제 등록</button>
 	      			</div>
@@ -218,24 +206,6 @@ $(function() {
 	               			</tr>
 		                </thead>
 		                
-	                	<%-- <tbody>
-            				<c:set var="i" value="0"/>			
-								<c:forEach var="paper" items="${list}">			
-								<c:set var="i" value="${i+1}" />
-								<tr>
-									<td >${i}</td>
-									<td id="lessonNamee" homeworkCode="${paper.homeworkCode}">${paper.lessonName.getLessonName()}</td>
-									<td >${paper.homeworkTitle}</td>
-									<td >${paper.studentName.getStudentName()}</td>
-									<td >${paper.homeworkCreateAt}</td>
-									<td >
-										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
-										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
-									</td>
-		                			<td><span class="badge bg-primary">${paper.homeworkCheck}</span></td>				
-								</tr>
-							</c:forEach>
-               			</tbody> --%>
                			<tbody>
             				<c:set var="i" value="0"/>			
 								<c:forEach var="paper" items="${list}">			
@@ -250,7 +220,14 @@ $(function() {
 										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
 										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
 									</td>
-		                			<td><span class="badge bg-primary">${paper.homeworkCheck}</span></td>				
+										<c:choose>
+											<c:when test="${paper.homeworkCheck eq '1'}">
+												<td><span class="badge bg-primary"> 완료 </span></td>
+											</c:when>
+											<c:otherwise>
+												<td><span class="badge bg-primary">과제 미완료 ${paper.homeworkCheck}</span></td>
+											</c:otherwise>
+										</c:choose>
 								</tr>
 							</c:forEach>
                			</tbody>

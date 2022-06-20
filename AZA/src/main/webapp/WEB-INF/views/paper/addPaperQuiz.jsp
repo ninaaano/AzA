@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>과제</title>
+<title>쪽지시험 등록</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +15,7 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <!-- <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script> -->
-<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -62,52 +63,56 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 
-
 </head>
 <body>
+
 	<form>
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
 			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
-		        <h1 class="display-4 mb-0">과 제 조 회</h1>
-		        <div class="text-muted">Homework</div>
+		        <h1 class="display-4 mb-0">시 험 등 록</h1>
+		        <div class="text-muted">Add Quiz</div>
 	    	</div>
-
 	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
-                <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1" readonly>
+	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+	            	<c:set var="i" value="0"/>
+	            	<c:forEach var="lesson" items="${list }">
+	            	<c:set var="i" value="${i+1 }"/>
+	            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+	            	</c:forEach>
+                </select>
+                
+                <%-- <input class="form-control" type="text" placeholder="수업명을 입력하세요" aria-label="Example text with button addon" 
+	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1"> --%>
 	        </div>
 	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 제목</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1" readonly>
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">시험명</button>
+	            <input class="form-control" type="text" placeholder="시험명을 입력하세요" aria-label="Example text with button addon" 
+	             id="quizTitle" name="quizTitle" value="${paper.quizTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1" readonly>
+	            <input class="form-control" type="text" placeholder="학생 이름을 입력하세요" aria-label="Example text with button addon" 
+	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
 	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1" readonly>
+	        <div class="input-group mb-3" type="hidden">
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">점수</button>
+	            <input class="form-control" type="date" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 
+	            id="quizScore" name="quizScore" value="${paper.quizScore}" aria-describedby="button-addon1">
 	        </div>
-	        <div class="mb-0">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >과제 내용</button>
-
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="과제 내용을 입력하세요" value="${paper.homeworkContent}" rows="12" readonly>${paper.homeworkContent}</textarea>
-	        </div>
-	         <div class="form-check" align="center">
-                 <input class="form-check-input" id="flexCheckDefault" type="checkbox" value="">
-                 <label class="form-check-label" for="flexCheckDefault">과제 제출</label>
-            </div>
+	        <button id="addSubjective" class="btn btn-text-primary" type="button">주관식 문제 추가</button>
+	        <button id="addNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 추가</button>
+	        <!-- <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 삭제</button>
+	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 삭제</button> -->
 	    </div>
 		
-	    <div align="center">			
-		 	 <button id="addBtn" class="btn btn-outline-primary">수정</button>
-		 	 <button id="cancelBtn" class="btn btn-outline-primary">취소</button>
-		</div>
 	</form>	
+	    <div align="center">			
+		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">등록</button>
+		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
+		</div>
+
+
 </body>
 </html>
