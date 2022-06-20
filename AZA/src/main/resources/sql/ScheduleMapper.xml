@@ -69,33 +69,42 @@
 	</select> -->
 	<select id = "listLessonScheduleTeacher" resultMap="scheduleSelectMap">
 		select s.* from schedule s
-		where s.teacher_id=#{teacherId}
+		where s.teacher_id = #{searchId}
 		order by s.schedule_code desc
 	</select>
 	
 	<select id = "listLessonScheduleStudents" resultMap="scheduleSelectMap">
-		SELECT S.*
+		SELECT S.*, U.user_name
 		FROM schedule S, users U, (SELECT L.teacher_id LT
 		        FROM students_record SR, lesson L
 		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
-		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT AND S.teacher_Id = #{teacherId};
+		        WHERE S.teacher_id = U.user_id AND U.user_id = A.LT
+		        <if test="searchCondition != null">
+						<if test="searchCondition == 0 and searchKeyword !='' ">
+							 AND S.teacher_Id = #{teacherId};
+						</if>
+				</if>
 	</select>
 	
-	<!-- <select id = "listLessonSchedule" resultMap="scheduleSelectMap">
-		SELECT *
-		FROM (
-			SELECT inner_table.*, ROWNUM AS row_seq
-			FROM ( SELECT L.lesson_Name, S.* FROM schedule S, users U, lesson L	if 학생일때 추가
-					WHERE S.teacher_id = U.user_id and u.user_id = L.teacher_id and L.teacher_id = #{teacherId}
-					ORDER BY S.schedule_code desc) inner_table
-			WHERE ROWNUM &lt;= 100)
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
-	</select> -->
+	<select id = "getLessonScheduleTeacherTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM(select s.* from schedule s
+			where s.teacher_id = #{searchKeyword} ) countTable
+	</select>
 	
-<!-- 	<select id = "getLessonTotalCount" resultType="int">
-	 		SELECT COUNT(*)
-	 		FROM( SELECT * from schedule
-	 				where teacher_id = #{searchKeyword}
-	 			) countTable
-	 </select> -->
+	<select id = "getLessonScheduleStudentsTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM(SELECT S.*, U.user_name
+				FROM schedule S, users U, (SELECT L.teacher_id LT
+		     			   FROM students_record SR, lesson L
+		     			   WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
+				WHERE S.teacher_id = U.user_id AND U.user_id = A.LT
+		        <if test="searchCondition != null">
+						<if test="searchCondition == 0 and searchKeyword !='' ">
+							 AND S.teacher_Id = #{teacherId};
+						</if>
+				</if>
+		        ) countTable
+	</select>
+	
 </mapper>

@@ -32,7 +32,11 @@ public interface LessonDao {
 	
 	public List<Lesson>	listLessonTime(String teacherId, String lessonDay) throws Exception;
 	
-	public int getLessonTotalCount(Search search, String searchKeyword) throws Exception;
+	public int getLessonTeacherTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public int getLessonStudentTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public int getLessontimeTotalCount(String teacherId, String lessonDay) throws Exception;
 	
 //=======================================================
 	
@@ -45,7 +49,10 @@ public interface LessonDao {
 	//lessonBook : delete
 	public void deleteLessonBook(String isbn) throws Exception;
 	
+	public List<Lesson> listBookTeacher(Search search, String teacherId) throws Exception;
+	
 	public int getLeesonBookTotalCount(Search serach, String searchKeyword) throws Exception;
+	
 	//=======================================================	
 	
 	//schedule : add
@@ -61,7 +68,7 @@ public interface LessonDao {
 	public void deleteLessonSchedule(int scheudleCode) throws Exception;
 	
 	//schedule : listTeacher
-	public List<Schedule> listLessonSchedule(String teacherId) throws Exception;
+	public List<Schedule> listLessonScheduleTeacher(Search search, String teacherId) throws Exception;
 	
 	//schdule : studnet
 	public List<Schedule> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
@@ -70,5 +77,7 @@ public interface LessonDao {
 	public void deteteLessonScheduleAll() throws Exception;
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public int getLessonScheduleStudentTotalCount(String studentId, String teacherId) throws Exception;
 
 }

@@ -4,8 +4,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -159,14 +161,44 @@ public class UserRestController {
 			return user;
 		}
 		
-		@RequestMapping(value="/sendSMS/{phone}/{message}",method = RequestMethod.POST)
-		public void sendSMS(@PathVariable("phone") String phone) throws Exception{
-			
-			String message = Integer.toString(userService.phoneAuth());
-			userService.sendSMS(phone, message);
+		@RequestMapping(value="/sendSMS/{phone}")
+		public void sendSMS(User vo,Model model,@PathVariable("phone") String phone,HttpSession session) throws Exception{
+//			int num = userService.phoneAuth();
+//			String message = "AZA에서 보낸 인증번호는 ["+num+"] 입니다."; // 아니 왜 문자열 넣으면 400에러 뜨냐?
+			User user = userService.checkPhone(vo);
+
+			if(user == null) { 
+				model.addAttribute("result", "success");
+				String message = Integer.toString(userService.phoneAuth());
+				userService.sendSMS(phone, message);
+				System.out.println("checkPhone");
+			} else { 
+				model.addAttribute("result", "fail");
+				System.out.println("NO CHECK PHONE");
+			}
+			System.out.println("<<CHECK PHONE>>");
+		
 		}
 		
-	
+		@RequestMapping(value="/confirmCode/{confirm}/{phoneAuth}")
+		public JSONObject confirmCode(@PathVariable String confirm,
+								@PathVariable Integer phoneAuth, HttpSession session) throws Exception {
+			
+			JSONObject json = new JSONObject();
+			int num =(Integer)session.getAttribute(confirm);			
+			String userId = (String)session.getAttribute("userId");
+			System.out.println("send : "+phoneAuth);
+			System.out.println("recall : "+num);
+			if(phoneAuth == num) {
+				json.put("result", "인증완료");
+				json.put("userId", userId);
+				session.removeAttribute(confirm);
+			} else {
+				json.put("result", "인증실패");
+			}
+			
+			return json;
+		}
 	
 	}
 

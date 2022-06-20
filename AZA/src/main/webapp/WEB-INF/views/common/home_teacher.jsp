@@ -52,11 +52,11 @@
 	
 <!-- schedule -->
 <link type="text/css" href="/resources/css/schedule.css" rel="stylesheet" />
-<script type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
 <!-- <script src='../lib/main.min.js'></script> -->
-<script type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
-<script type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
+<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
 <style>
 *, body { 
@@ -407,6 +407,7 @@ $(function() {
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
 
+
 			<div class="container-xl px-5"> 
 			
 			<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
@@ -417,7 +418,7 @@ $(function() {
 						</div><div style="width:40%; float:left;text-align:right"></div>
 						<button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
 						cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
-						<div id='calendar'></div>
+				</div>		
 				</div>
 			</div>
 				

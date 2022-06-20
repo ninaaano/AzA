@@ -65,5 +65,7 @@ public interface UserDao {
 	public User findPassword(User user)throws Exception;
 	
 	public void updatePassword(User user)throws Exception;
+	
+	User checkPhone(User user) throws Exception;
 
 }

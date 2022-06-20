@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -247,6 +248,12 @@ public class StudentsRestController {
 		students = studentsService.getStudentsExam(examCode);
 		
 		return students;		
+	}
+	
+	@RequestMapping(value = "addStudentsExam")
+	public void addStudentsExam(@ModelAttribute("students") Students students) throws Exception{
+		
+		studentsService.addStudentsExam(students);	
 	}
 	
 	@RequestMapping(value = "updateStudentsExam/{examCode}", method = RequestMethod.GET)

@@ -144,6 +144,10 @@
 		</set>
 		where user_id=#{userId}
 	</update>
+	
+	<select id="checkPhone" resultMap="userSelectMap">
+		select * from users where phone=#{phone}
+	</select>
 	 
 	 
 </mapper>
