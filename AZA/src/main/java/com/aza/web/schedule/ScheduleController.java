@@ -123,13 +123,13 @@ public class ScheduleController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="listLessonSchedule")
 	@ResponseBody
-	public JSONObject listLessonSchedule(HttpSession session) throws Exception{
+	public JSONObject listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		String role = ((User) session.getAttribute("user")).getRole();
 		
 		if(role.equals("teacher")) {
 			String teacherId = ((User) session.getAttribute("user")).getUserId();
 			
-			Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
+			Map<String, Object> map = lessonService.listLessonScheduleTeacher(search, teacherId);
 			
 			JSONObject json = new JSONObject();
 			try {

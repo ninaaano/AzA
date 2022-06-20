@@ -56,6 +56,7 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/index_UI.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -331,10 +332,10 @@ $(function() {
 
 	// Message
 	$("#open-messagePopup").on("click", function() {
-		console.log("메시지 버튼 눌림");
+console.log("메시지 버튼 눌림");
 		
         $.ajax({
-            url: "http://localhost:8080/message/rest/listMessage",
+            url: "/message/rest/listMessage",
             type: "GET",
             headers : {
                     "Accept" : "application/json",
@@ -343,30 +344,26 @@ $(function() {
             success: function(result) {
                 if(result) {
                 	console.log(result);
-                	
+                	sessionStorage.clear();
                 	sessionStorage.setItem('userId', result[0].userId);
                 	
                 	result.shift();
                 	
-                	console.log(result);
+                	console.log("message/listmessage : "+result);
                 	
                 	var listOtherView = "";
                 	
                 	result.map((other,i) => {
-               			
-                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
-                		let studentName = other.studentId ? other.studentName : "학생이룸";
-                		let relationName = other.relationName ? other.relationName : "";
-                		let userId = other.userId ? other.userId : studentId;
-                		let userName = studentName + " " + relationName;
-                		//console.log(i, studentId);
+                		var userId = other.userId;
+                		var userName = other.relationName ? other.firstStudentName + "  " + other.relationName : other.userName;
                 		
+            
                 		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
                 		<li class='p-2 border-bottom' data-id=`+userId+`>
                             	<a class="d-flex justify-content-between">
                                     <div class="d-flex flex-row">
                                         <div class="pt-1">
-                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
+                                            <p class="fw-bold mb-0">`+userName+`</p>
                                             <p class="small text-muted">최근메시지</p>
                                         </div>
                                     </div>
@@ -495,7 +492,7 @@ $(function() {
 						<!-- Drawer section heading (Interface)-->
 						<div class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
+						<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
 							<div class="nav-link-icon">
 								<i class="material-icons">language</i>
 							</div> 자녀관리

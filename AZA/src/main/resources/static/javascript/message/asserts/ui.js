@@ -75,24 +75,13 @@ function connect() {
 			});
         });
         
-        // deleteMessage : 메시지 삭제
-        stompClient.subscribe('/topic/showDeleteMessage'), function(data) {
-			console.log(data);
-			var message = JSON.parse(data.body);
-			let userId = message.senderId;
-			let otherId = message.receiverId;
-			getMessage(userId, otherId);
-		}
     });
 }
 
 function showAddMessage() {
 	stompClient.subscribe('/topic/showAddMessage', function(message) {
-		console.log(message);
-		
+		console.log(message);		
 	})
-	
-	
 }
 
 function disconnect() {
@@ -131,11 +120,6 @@ function deleteBtnHandler(ele) {
 															})
 }
 
-
-
-function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
-}
 
 function showMessages(userId, message) {
 

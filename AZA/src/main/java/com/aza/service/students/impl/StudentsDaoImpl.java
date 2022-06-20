@@ -94,6 +94,18 @@ public class StudentsDaoImpl implements StudentsDao {
 		System.out.println(search);
 		return sqlSessionTemplate.selectOne("StudentsRecordMapper.getStudentsRecordTotalCount", search);
 	}
+	
+	@Override
+	public List<Students> listStudentsRecordByStudent(Search search, String studentId) throws Exception{
+		search.setSearchId(studentId);
+		return sqlSessionTemplate.selectList("StudentsRecordMapper.listStudentsRecordByStudent", search);
+	}
+	
+	@Override
+	public int getStudentsRecordByStudentTotalCount(Search search, String studentId) throws Exception{
+		search.setSearchId(studentId);
+		return sqlSessionTemplate.selectOne("getStudentsRecordByStudentTotalCount", search);
+	}
 
 	@Override
 	public void addStudentsAttendance(Students students) throws Exception {

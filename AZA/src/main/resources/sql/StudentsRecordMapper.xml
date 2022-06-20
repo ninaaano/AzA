@@ -146,4 +146,23 @@
            </if> 
       ) countTable
 	</select>
+	
+	<select id="listStudentsRecordByStudent" parameterType="search" resultMap="studentsRecordSelectMap">
+	SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+		FROM ( 
+			SELECT * FROM students_record
+			WHERE student_id = #{searchId} AND proposal = '1'
+		)inner_table
+		WHERE ROWNUM &lt; = #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+
+	</select>
+	
+	<select id="getStudentsRecordByStudentTotalCount" parameterType="search" resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT * FROM students_record
+			WHERE student_id = #{searchId} AND proposal = '1') countTable
+	</select>
+
 </mapper>

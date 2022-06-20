@@ -69,13 +69,14 @@ public void deleteMessage() throws Exception {
 	}
 
 
-		//@Test // :: add
+		@Test // :: add
 	public void testAddStudentsRecord() throws Exception {
 
 		Students students = new Students();
 
+		//students.setLessonCode("KNODWC8X");
 		students.setLessonCode("KNODWC8X");
-		students.setStudentId("student12");
+		students.setStudentId("student11");
 		students.setLessonStartDate("2022/06/08"); 
 		students.setFees(10000);
 		students.setPayDueDate("30");

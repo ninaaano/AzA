@@ -20,7 +20,9 @@ import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Paper;
 import com.aza.service.domain.User;
+import com.aza.service.lesson.LessonService;
 import com.aza.service.paper.PaperService;
+import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
 
 @Controller
@@ -36,6 +38,14 @@ public class PaperController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
+	@Autowired
+	@Qualifier("studentsServiceImpl")
+	private StudentsService studentsService;
+	
+	@Autowired
+	@Qualifier("lessonServiceImpl")
+	private LessonService lessonService;
+	
 	public PaperController() {
 		System.out.println(this.getClass());
 	}
@@ -47,7 +57,7 @@ public class PaperController {
 	int pageSize;
 	
 	//Quiz
-	@RequestMapping(value="listPaperQuiz")
+	@RequestMapping(value="listPaperQuiz", method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listPaperQuiz(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		System.out.println("/paper/listPaperQuiz");
@@ -85,14 +95,33 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="addPaperQuiz", method=RequestMethod.GET)
-	public ModelAndView addPaperQuiz(HttpSession session) throws Exception {
+	public ModelAndView addPaperQuiz(HttpSession session, Search search) throws Exception {
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("/paper/addPaperQuiz : GET");
 		
+		User dbUser = userService.getUser(userId);
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = lessonService.listLessonTeacher(search, userId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		
+		System.out.println("==============>>>>>>>>>>>>>>>"+userId);
+		System.out.println("==============>>>>>>>>>>>>>>>"+map.get("list"));
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/paper/addPaperQuiz");
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search",search);
 		
 		return modelAndView;
 	}
@@ -136,7 +165,7 @@ public class PaperController {
 		Map<String, Object> map = new HashMap();
 		System.out.println("====>=>=>"+user.getRole());
 		
-		if(user.getRole().equals("student")) {
+		if(user.getRole().equals("student") || user.getRole().equals("parent")) {
 			map = paperService.listPaperHomeworkByStudent(search, userId);
 		}else if(user.getRole().equals("teacher")) {
 			map = paperService.listPaperHomeworkByTeacher(search, userId);
@@ -158,12 +187,32 @@ public class PaperController {
 	}
 	
 	@RequestMapping( value="addPaperHomework", method=RequestMethod.GET )
-	public ModelAndView addPaperHomework() throws Exception{
+	public ModelAndView addPaperHomework(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 	
 		System.out.println("/paper/addPaperHomework : GET");
 		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		User dbUser = userService.getUser(((User) session.getAttribute("user")).getUserId());
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = lessonService.listLessonTeacher(search, userId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		
+		System.out.println("==============>>>>>>>>>>>>>>>"+userId);
+		System.out.println("==============>>>>>>>>>>>>>>>"+map.get("list"));
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/paper/addPaperHomework");
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("user", dbUser);
 		
 		return modelAndView;
 	}
@@ -173,8 +222,10 @@ public class PaperController {
 	
 		System.out.println("/paper/addPaperHomework : POST");
 
-		System.out.println("==="+paper);
+		System.out.println("===>"+paper);
 		paperService.addPaperHomework(paper);
+		
+
 		
 		ModelAndView modelAndView = new ModelAndView();	
 		modelAndView.setViewName("redirect:/paper/listPaperHomework");		
@@ -188,24 +239,44 @@ public class PaperController {
 		System.out.println("/paper/updatePaperHomework : POST");
 		// Business Logic
 		paperService.updatePaperHomework(paper);
-		
+		System.out.println("=========>>>>>>>>>>"+paper);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/paper/getPaperHomework?homeworkCode="+paper.getHomeworkCode());
+		modelAndView.setViewName("redirect:/paper/managePaperHomework?homeworkCode="+paper.getHomeworkCode());
 		
 		return modelAndView;
 						
 	}
 	
-	@RequestMapping(value="getPaperHomework", method=RequestMethod.GET)
-	public ModelAndView getPaperHomework(@RequestParam("homeworkCode") int homeworkCode) throws Exception {
-
-		System.out.println("paper/getPaperHomework : GET");
+	@RequestMapping(value="managePaperHomework", method=RequestMethod.GET)
+	public ModelAndView managePaperHomework(@RequestParam("homeworkCode") int homeworkCode, HttpSession session, Search search) throws Exception {
+		
+		System.out.println("=+=+=+=+=+>>>>>>>>>>>"+((User) session.getAttribute("user")).getUserId());
+		User dbUser = userService.getUser(((User) session.getAttribute("user")).getUserId());
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = lessonService.listLessonTeacher(search, ((User) session.getAttribute("user")).getUserId());
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		
+		System.out.println("==============>>>>>>>>>>>>>>>"+((User) session.getAttribute("user")).getUserId());
+		System.out.println("==============>>>>>>>>>>>>>>>"+map.get("list"));
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		System.out.println("paper/managePaperHomework : GET");
 		
 		Paper paper = paperService.getPaperHomework(homeworkCode);
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("paper/getPaperHomework");
+		modelAndView.setViewName("paper/managePaperHomework");
 		modelAndView.addObject("paper", paper);
+		modelAndView.addObject("user", dbUser);
+		modelAndView.addObject("list", map.get("list"));
 		
 		System.out.println("===="+paper);
  
@@ -214,15 +285,28 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="deletePaperHomework")
-	public ModelAndView deleteStudentsNote(@RequestParam("homeworkCode") int homeworkCode, HttpSession session) throws Exception {
+	public ModelAndView deletePaperHomework(@RequestParam("homeworkCode") int homeworkCode, HttpSession session) throws Exception {
 		
-		System.out.println("/deleteStudentsNote");
+		System.out.println("/deletePaperHomework");
 		String studentId = ((User) session.getAttribute("user")).getUserId();
 		
 		paperService.deletePaperHomework(homeworkCode);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/paper/listPaperHomework");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="updatePaperHomeworkCheck")
+	public ModelAndView updatePaperHomeworkCheck(@RequestParam("homeworkCode") int homeworkCode) throws Exception {
+		
+		System.out.println("==updatePaperHomeworkCheck");
+		
+		paperService.updatePaperHomeworkCheck(homeworkCode);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/paper/managePaperHomework?homeworkCode="+homeworkCode);
 		
 		return modelAndView;
 	}

@@ -542,7 +542,7 @@ a.fc-event:hover {
     height: var(--fc-event-resizer-dot-total-width, 8px);
     border-style: solid;
     border-color: inherit;
-    background: #fff;
+    background: 255;
     background: var(--fc-page-bg-color, #fff)
 
     /* expand hit area */

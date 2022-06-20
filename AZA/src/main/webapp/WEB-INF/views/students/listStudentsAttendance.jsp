@@ -429,35 +429,12 @@ $(function() {
 
 							
 						    </div>
-                      <nav>
-							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
-							    <button class="nav-link active" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonList" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
-							    <button class="nav-link" id="nav-studentsAttendance-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsAttendance" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">출석</button>
-							    <button class="nav-link" id="nav-studentsExam-tab" data-bs-toggle="tab" data-bs-target="#nav-studentsExam" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">성적</button>
-							    <button class="nav-link" id="nav-paperQuiz-tab" data-bs-toggle="tab" data-bs-target="#nav-paperQuiz" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
-							    <button class="nav-link" id="nav-lessonBook-tab" data-bs-toggle="tab" data-bs-target="#nav-lessonBook" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">교재</button>
-							  </div>
-							</nav>
+
                       </div>
                   </div>
 			</header>
 			<div class="container-xl px-5"> 
-			                            
-							<div class="tab-content" id="nav-tabContent">
-							  <div class="tab-pane fade show active" id="nav-lessonList" role="tabpanel" aria-labelledby="nav-lessonList-tab">
-							  
-							  
-							  
-							  
-							  수업목록
-							  
-							  
-							  
-							  
-							  </div>
-							  
-							  <!-- 출석  -->
-							  <div class="tab-pane fade" id="nav-studentsAttendance" role="tabpanel" aria-labelledby="nav-studentsAttendance-tab">
+
 
 								  <div class="hbContainer">
 					                <div class="calendarYearMonth center">
@@ -480,31 +457,10 @@ $(function() {
 					                    </ol>
 					               </div>
             					</div>
-							  </div>
 							  
-							  <!-- 성적 -->
-							  <div class="tab-pane fade" id="nav-studentsExam" role="tabpanel" aria-labelledby="nav-studentsExam-tab">
-							  
-							  성적
-							  
-							  
-							  </div>
-							  
-							  <!-- 쪽지시험 -->
-							  <div class="tab-pane fade" id="nav-paperQuiz" role="tabpanel" aria-labelledby="nav-paperQuiz-tab">
-							  
-							  쪽지시험
-							  
-							  </div>
-							  
-							  <!-- 교재 -->
-							  <div class="tab-pane fade" id="nav-lessonBook" role="tabpanel" aria-labelledby="nav-lessonBook-tab">
-							  
-							  교재
-							  
-							  </div>
-							</div>
-			</div>
+							 </div>
+							
+
 		       <%--  <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 

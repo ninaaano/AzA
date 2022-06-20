@@ -1,12 +1,13 @@
 package com.aza.service.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 public class Message {
 
-	@MongoId
+	@Id
 	private String _id;
 	
 	private String receiverId;

@@ -99,6 +99,18 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 	
 	@Override
+	public Map<String, Object> listStudentsRecordByStudent(Search search, String studentId) throws Exception {
+		List<Students> list = studentsDao.listStudentsRecordByStudent(search, studentId);
+		int totalCount = studentsDao.getStudentsRecordByStudentTotalCount(search, studentId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+
+		return map;
+	}
+	
+	@Override
 	public Map<String, Object> listTotalStudentsRecord(Search search, String teacherId) throws Exception {
 		
 		List<Students> temp1 = studentsDao.listStudentsRecord(search, teacherId);
@@ -127,7 +139,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("ï¿½â¼®")) {
+		if(attendanceState.equals("Ãâ¼®")) {
 			Search search = new Search();
 			search.setCurrentPage(1);
 			search.setPageSize(pageSize);
@@ -165,7 +177,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð")) {
+		if (attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð") || attendanceState.equals("Ãâ¼®") ) {
 			Search search = new Search();
 			search.setCurrentPage(1);
 
@@ -176,7 +188,7 @@ public class StudentsServiceImpl implements StudentsService {
 			
 			System.out.println(totalCount);
 			
-			if(totalCount != 0) {
+			if(totalCount > 0) {
 				for(User parent : parents) {
 					Alert alert = new Alert();
 					

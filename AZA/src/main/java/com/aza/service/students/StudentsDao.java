@@ -36,6 +36,10 @@ public interface StudentsDao {
 
 	// STUDENT_RECORD :: Total Count -  (proposal 2)
 	public int getStudentsRecordTotalCount(Search search, String teacherId) throws Exception;
+	
+	public List<Students> listStudentsRecordByStudent(Search search, String studentId) throws Exception;
+	
+	public int getStudentsRecordByStudentTotalCount(Search search, String studentId) throws Exception;
 
 
 	// ATTENDANCE :: INSERT
