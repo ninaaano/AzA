@@ -24,11 +24,18 @@ public interface PaymentDao {
 	// LIST
 	public List<Payment> listPayment(Search search) throws Exception;
 	
-	// 자동 add
+	// auto add
 	public void addPaymentProcedure() throws Exception;
 	
 	// totalCount
 	public int totalPaymentCount(Search search) throws Exception;
 	
+	//studentList
+	public List<Payment> listPaymentBystudent(Search search) throws Exception;
+	public int totalPaymentCountBystudent(Search search) throws Exception;
+	
+	//parentList
+	public List<Payment> listPaymentByParent(Search search) throws Exception;
+	public int totalPaymentCountByParent(Search search) throws Exception;
 	
 }

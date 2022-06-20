@@ -404,9 +404,7 @@ public class StudentsController {
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/addStudentsCharacter :: GET ::");
-
-
+		System.out.println("/students/addStudentsCharacter :: GET :: ´Ü¼ø View");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 
@@ -437,7 +435,7 @@ public class StudentsController {
 
 			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: POST :: ï¿½ï¿½ï¿½");
+		System.out.println("/students/addStudentsCharacter :: POST :: ");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -466,7 +464,7 @@ public class StudentsController {
 	public ModelAndView updateStudentsCharacterView(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 
 		
-		System.out.println("/students/updateStudentsCharacterView :: GET :: ï¿½Ü¼ï¿½ VIEW");
+		System.out.println("/students/updateStudentsCharacterView :: GET :: VIEW");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -486,7 +484,7 @@ public class StudentsController {
 
 	(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/updateStudentsCharacter :: POST :: ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½");
+		System.out.println("/students/updateStudentsCharacter :: POST :: ");
 
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
@@ -530,7 +528,7 @@ public class StudentsController {
 
 	@RequestMapping(value="getStudentsCharacter/{characterCode}")
 	public ModelAndView getStudentCharacter
-	(@PathVariable("characterCode") int characterCode, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+	(@PathVariable("characterCode") int characterCode, @RequestParam("studentId") String studentId, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 
 		System.out.println("getStudentsCharacter ... ");
 
@@ -548,10 +546,14 @@ public class StudentsController {
 		mv.addObject("list", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
-
+	
+		search.setSearchKeyword(studentId);
+		if(studentsService.checkCharacterTotalCount(search) < 1) {
+		mv.setViewName("/students/addStudentsCharacter");	
+		}else {
 
 		mv.setViewName("/students/getStudentsCharacter");
-
+		}
 		return mv;
 	}
 

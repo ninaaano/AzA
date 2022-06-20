@@ -80,7 +80,9 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void updatePayment(Payment payment) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("payment update start...");
 		paymentDao.updatePayment(payment);
+		System.out.println("update º∫∞¯.");
 	}
 
 	@Override
@@ -108,11 +110,36 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> listPaymentBystudent(Search search) throws Exception {
+		
+		List<Payment> list = paymentDao.listPaymentBystudent(search);
+		int totalCount = paymentDao.totalPaymentCountBystudent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> listPaymentByParent(Search search) throws Exception {
+		List<Payment> list = paymentDao.listPaymentByParent(search);
+		int totalCount = paymentDao.totalPaymentCountByParent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 //======================================================================================
 	
 	@Override
-	@Scheduled(cron="0 0 0 * * *") // Îß§Ïùº 00Ïãú ÎßàÎã§ Ïã§Ìñâ
+	@Scheduled(cron="0 0 0 * * *") // 
 	@Bean
 	public void addPaymentProcedure() throws Exception {
 		paymentDao.addPaymentProcedure();		
@@ -140,7 +167,7 @@ public class PaymentServiceImpl implements PaymentService {
 		ResponseEntity<JSONObject> token  = restTemplate.postForEntity(url, entity, JSONObject.class);
 	
 	}
-// ÏïÑÏûÑÌè¨Ìä∏ API method
+// API method
 	@Override
 	public String getToken() throws IOException {
 		HttpsURLConnection conn = null;
@@ -208,8 +235,8 @@ public class PaymentServiceImpl implements PaymentService {
 	public void paymentCancle(String access_token, String imp_uid, int amount, String reason) throws Exception{
 		
 		System.out.println("===== payMentCancle() Start ======");
-//		System.out.println(access_token); // ÌÜ†ÌÅ∞
-//		System.out.println(imp_uid); // keyÍ∞í
+//		System.out.println(access_token); //
+//		System.out.println(imp_uid); //
 		
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/payments/cancel");
@@ -226,11 +253,12 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		JsonObject json = new JsonObject();
  
-		json.addProperty("reason", reason); // ÌôòÎ∂àÏÇ¨Ïú†
+		json.addProperty("reason", reason); // ∞·¡¶ √Îº“ ªÁ¿Ø
 		json.addProperty("imp_uid", imp_uid); 
-		json.addProperty("amount", amount); // ÌôòÎ∂à Í∏àÏï°
-		json.addProperty("checksum", amount); // ÌôòÎ∂à Í∞ÄÎä• Í∏àÏï°
- 
+		json.addProperty("amount", amount); // ∞·¡¶±›æ◊
+		json.addProperty("checksum", amount); // 
+		
+		System.out.println("Cancle json => " + json);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
  
 		bw.write(json.toString());
@@ -242,5 +270,9 @@ public class PaymentServiceImpl implements PaymentService {
 		br.close();
 		conn.disconnect();		
 	}
+
+
+
+
 
 }
