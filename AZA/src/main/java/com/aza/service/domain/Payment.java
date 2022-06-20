@@ -2,21 +2,21 @@ package com.aza.service.domain;
 
 public class Payment {
 	
-	private int payCode; // 수납코드
-	private int studentRecordNo; // 학생기록부 번호
-	private char checkPay; // 수납여부
-	private long amount; // 결제 금액
-	private String payDay; // 수납일
-	private String payer; // 결제자
-	private String payDueDate; // 수납예정일
-	private String impUid; // 아임포트 id
-	private String merchantUid; // 아임포트 번호
-	private int payOption; // 결제수단
-	private String receiver; // 결제받는 사람
-	private String studentId; // 수납 대상자(?) ID
-	private String studentName; // 수납 대상자 이름
+	private int payCode; // 
+	private int studentRecordNo; // 
+	private char checkPay; //
+	private int amount; // 
+	private String payDay; //
+	private String payer; // 
+	private String payDueDate; // 
+	private String impUid; // 
+	private String merchantUid; // 
+	private int payOption; // 
+	private String receiver; // 
+	private String studentId; // 
+	private String studentName; // 
 	
-	private Lesson payLessonName; // 수업명
+	private Lesson payLessonName; // 
 	
 	public Payment() {
 		
@@ -95,11 +95,11 @@ public class Payment {
 		this.checkPay = checkPay;
 	}
 
-	public long getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(long amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 

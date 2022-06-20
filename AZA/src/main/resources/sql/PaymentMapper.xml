@@ -48,16 +48,9 @@
 	<update id="updatePayment" parameterType="payment">
 	UPDATE payment 
  	<set>
- 		imp_uid = ${impUid},
- 	  <if test="checkPay != 'N'">
+ 		imp_uid = #{impUid:VARCHAR},
 		check_pay = #{checkPay},
-		pay_day = SYSDATE,
-		imp_uid = #{impUid:VARCHAR}
-	  </if>	
-	  <if test="checkPay == 'N'">
-		check_pay = #{checkPay},
-		pay_day = NULL
-	  </if>	
+		pay_day = SYSDATE
 	</set> 
 	WHERE pay_code = #{payCode}
 	</update>

@@ -80,7 +80,9 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void updatePayment(Payment payment) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("payment update start...");
 		paymentDao.updatePayment(payment);
+		System.out.println("update 성공.");
 	}
 
 	@Override
@@ -255,7 +257,8 @@ public class PaymentServiceImpl implements PaymentService {
 		json.addProperty("imp_uid", imp_uid); 
 		json.addProperty("amount", amount); // 결제금액
 		json.addProperty("checksum", amount); // 
- 
+		
+		System.out.println("Cancle json => " + json);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
  
 		bw.write(json.toString());

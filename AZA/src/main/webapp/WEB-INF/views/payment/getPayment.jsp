@@ -107,23 +107,22 @@ function requestPay(){
 		  			}
 	    			
 	    		})//ajax */
-	    		let payment = {
+ 	    		let payment = {
 						payCode: rsp.merchant_uid,
-						impUid: rsp.merchant_uid
-						}
-					// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-	                		// 결제내역을 사용자에게 보여주기 위해 필요함.
+						impUid: rsp.imp_uid,
+						checkPay : 'Y'
+						} 
+
 	               			$.ajax({
 						url : "/payment/rest/complete",
-						type : "get",
+						type : "post",
 						data : payment,
 						dataType : "text",
 						success : function(result){
 							if(result == "y") {
 								alert(msg);
-								location.href = "/payment/getPayment"+payCode; 
+ 								location.href = "/payment/rest/updatePaymet";  
 							}else{
-								alert("디비입력실패");
 								return false;
 							}
 						},
