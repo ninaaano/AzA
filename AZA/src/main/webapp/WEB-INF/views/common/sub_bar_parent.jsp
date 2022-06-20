@@ -444,7 +444,7 @@ $(function() {
                       </div>
                   </div>
 			</header>
-			<div class="container-xl px-5"> 
+			<div class="container-xl px-5 mx-0"> 
 			                            
 							<div class="tab-content" id="nav-tabContent">
 							  <div class="tab-pane fade show active" id="nav-lessonList" role="tabpanel" aria-labelledby="nav-parent-kids-tab">
@@ -452,8 +452,7 @@ $(function() {
 							  
 							  
 							  
-							  <iframe id="subFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
-							  
+							  <iframe id="subFrame" src="/lesson/listLesson" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
 							  
 							  
 							  
