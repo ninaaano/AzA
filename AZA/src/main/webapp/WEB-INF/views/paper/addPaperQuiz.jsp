@@ -105,6 +105,17 @@ font-family: Pretendard, 'Noto Sans KR';
 	        <button id="addNonSubjective" class="btn btn-text-primary" type="button">按包侥 巩力 眠啊</button>
 	        <!-- <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">按包侥 巩力 昏力</button>
 	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">按包侥 巩力 昏力</button> -->
+	        <div class="form-group">
+	        	<form name="addSubjectiveQuestion" id="addNonSubjectiveQuestion">
+	        		<table class="table table-bordered" id="dynamic_field">
+	        			<tr>
+	        				<td><span class="badge bg-warning" >1</span></td>
+	        				<td><input type="text" name="quizContent" id="quizContent" class="form-control"/></td>
+	        			</tr>
+	        		</table>
+	        	</form>
+	        </div>
+	        
 	    </div>
 		
 	</form>	
