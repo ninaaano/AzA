@@ -556,46 +556,80 @@ public class StudentsController {
 	}
 
 	// Exam
-	@RequestMapping(value="manageStudentsExam")
-	public ModelAndView listStudentsExam
-	(@ModelAttribute("search") Search search, Model model, ModelAndView mv,HttpSession session) throws Exception{
-		System.out.println("listStudentsExam Start...");
-
-		String studentId = ((User) session.getAttribute("user")).getUserId();
-		search.setSearchId(studentId);
-		User user = userService.getUser(studentId);
-
-
-
-		if (search.getCurrentPage() == 0) {
-			search.setCurrentPage(1);
+	@RequestMapping(value="manageStudentsExam", method= {RequestMethod.GET, RequestMethod.POST}) 
+	public ModelAndView manageStudentsExam (HttpSession session) throws Exception {
+		
+		System.out.println("/students/manageStudentsExam");
+		
+		User user = (User) session.getAttribute("user");
+		String studentId = user.getUserId();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/students/exam");
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(1);
+		search.setSearchId(user.getUserId());
+		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
+		int totalCount = (int) temp1.get("totalCount");
+		search.setPageSize(totalCount);
+		
+		Map<String, Object> temp2 = studentsService.listStudentsExamByStudent(search);
+		List<Students> examList = (List<Students>) temp2.get("list");
+		List<String> subjectList = new ArrayList<String>();
+		for(Students data : examList) {
+			String subject = data.getExamSubject();
+			if(!subjectList.contains(subject)) {
+				subjectList.add(subject);
+			}
 		}
-		search.setPageSize(pageSize);	
-
-		Map<String, Object> map = studentsService.listStudentsExamByStudent(search);
-
-		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-
-
-		mv.addObject("list", map.get("list"));
-		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);
-		mv.addObject("user", user);
-		mv.setViewName("/students/manageStudentsExam");
-
-		return mv;
-	}	
-
-	@RequestMapping(value = "addStudentsExam", method=RequestMethod.POST)
-	public ModelAndView addStudentsExam(@ModelAttribute("students") Students students, ModelAndView mv, HttpSession session) throws Exception{
 		
-		String studentId = ((User) session.getAttribute("user")).getUserId();
-		students.setStudentId(studentId);
+		mv.addObject("subjectList", subjectList);
 		
-		studentsService.addStudentsExam(students);	
-		
-		mv.setViewName("/students/manageStudentsExam");
 		return mv;
 	}
+	
+	
+	
+	
+	
+	/*
+	 * @RequestMapping(value="manageStudentsExam") public ModelAndView
+	 * listStudentsExam (@ModelAttribute("search") Search search, Model model,
+	 * ModelAndView mv,HttpSession session) throws Exception{
+	 * System.out.println("listStudentsExam Start...");
+	 * 
+	 * String studentId = ((User) session.getAttribute("user")).getUserId();
+	 * search.setSearchId(studentId); User user = userService.getUser(studentId);
+	 * 
+	 * 
+	 * 
+	 * if (search.getCurrentPage() == 0) { search.setCurrentPage(1); }
+	 * search.setPageSize(pageSize);
+	 * 
+	 * Map<String, Object> map = studentsService.listStudentsExamByStudent(search);
+	 * 
+	 * Page resultPage = new Page(search.getCurrentPage(), ((Integer)
+	 * map.get("totalCount")).intValue(), pageUnit, pageSize);
+	 * 
+	 * 
+	 * mv.addObject("list", map.get("list")); mv.addObject("resultPage",
+	 * resultPage); mv.addObject("search", search); mv.addObject("user", user);
+	 * mv.setViewName("/students/exam");
+	 * 
+	 * return mv; }
+	 * 
+	 * @RequestMapping(value = "addStudentsExam", method=RequestMethod.POST) public
+	 * ModelAndView addStudentsExam(@ModelAttribute("students") Students students,
+	 * ModelAndView mv, HttpSession session) throws Exception{
+	 * 
+	 * String studentId = ((User) session.getAttribute("user")).getUserId();
+	 * students.setStudentId(studentId);
+	 * 
+	 * studentsService.addStudentsExam(students);
+	 * 
+	 * mv.setViewName("/students/manageStudentsExam"); return mv; }
+	 */
 	
 }

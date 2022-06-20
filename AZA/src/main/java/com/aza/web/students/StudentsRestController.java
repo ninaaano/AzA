@@ -2,12 +2,13 @@ package com.aza.web.students;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Lesson;
 import com.aza.service.domain.Students;
@@ -224,22 +223,71 @@ public class StudentsRestController {
 	 */
 	
 	// Exam ===========================================
-	@RequestMapping(value = "manageStudentsExam")
-	public Map<String,Object> listStudentsExam
-	(HttpServletRequest request) throws Exception{
+	@RequestMapping(value="listStudentsExam/subject")
+	public List<String> listExamSubject(HttpSession session) throws Exception {
+		System.out.println("listStudentsExam/subject Start...");
 		
-		System.out.println("listExam RestController Start...");
-		
+		User user = (User) session.getAttribute("user");
 		Search search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(3);	
+		search.setPageSize(1);
+		search.setSearchId(user.getUserId());
+		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
+		int totalCount = (int) temp1.get("totalCount");
+		search.setPageSize(totalCount);
 		
-		Map<String, Object> map = studentsService.listStudentsExam(search);
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-				pageSize);
+		Map<String, Object> temp2 = studentsService.listStudentsExamByStudent(search);
+		List<Students> examList = (List<Students>) temp2.get("list");
+		List<String> subjectList = new ArrayList<String>();
+		for(Students data : examList) {
+			String subject = data.getExamSubject();
+			if(!subjectList.contains(subject)) {
+				subjectList.add(subject);
+			}
+		}
 		
-		return map;
+		return subjectList;
+		
 	}
+	
+	
+	@RequestMapping(value = "listStudentsExam")
+	public Map<String, Object> listStudentsExam(HttpSession session, @RequestBody(required = false) Students students) throws Exception{
+		
+		System.out.println("listExam RestController Start...");
+
+		User user = (User) session.getAttribute("user");
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(1);
+		search.setSearchId(user.getUserId());
+		//search.setPageSize(pageSize);
+		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
+		int totalCount = (int) temp1.get("totalCount");
+		search.setPageSize(totalCount);
+		
+		if(students == null || students.getExamSubject() == null || students.getExamSubject().length() < 1) {
+			Students firstData = (Students) ((List) temp1.get("list")).get(0);
+			search.setSearchKeyword(firstData.getExamSubject());
+		} else {
+			search.setSearchKeyword(students.getExamSubject());
+		}
+		
+		/*
+		 * Map<String, Object> temp2 = studentsService.listStudentsExam(search);
+		 * List<Students> examList = (List<Students>) temp2.get("list"); List<String>
+		 * subjectList = new ArrayList<String>(); for(Students data : examList) { String
+		 * subject = data.getExamSubject(); if(!subjectList.contains(subject)) {
+		 * subjectList.add(subject); } }
+		 * 
+		 * Map<String, Object> map = new HashMap<>();
+		 */
+		/*
+		 * map.put("examList", examList); map.put("subjectList", subjectList);
+		 */
+		return studentsService.listStudentsExam(search);
+	}
+
 	
 	@RequestMapping(value = "getStudentsExam/{examCode}")
 	public Students getStudentsExam(@PathVariable int examCode) throws Exception{

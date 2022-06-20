@@ -119,7 +119,7 @@ $(function() {
 	})
 })
 
-
+/* 
 
 function deleteAlert(alertCode) {
 	$.ajax({
@@ -319,7 +319,7 @@ function readAlert(alertCode) {
 	})
 }
 
-
+ */
 
 $(function() {
 
@@ -423,7 +423,8 @@ console.log("메시지 버튼 눌림");
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
 							id="dropdownMenuNotifications" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary">notifications</i>
+							<i class="material-icons text-primary position-relative">notifications</i> 
+							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
 						</button>
 						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
