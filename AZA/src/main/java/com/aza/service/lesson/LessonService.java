@@ -43,7 +43,7 @@ public interface LessonService {
 	// book : delete
 	public void deleteLessonBook(String isbn) throws Exception;	
 	
-	public Map<String, Object> listBookTeacher(String teacherId) throws Exception;
+	public Map<String, Object> listBookTeacher(Search search, String teacherId) throws Exception;
 	
 //	==============================================
 
@@ -60,12 +60,13 @@ public interface LessonService {
 	public void deleteLessonSchedule(int scheudleCode) throws Exception;
 
 	// schedule : list teacher
-	public Map<String, Object> listLessonSchedule(String teacherId) throws Exception;
+	public Map<String, Object> listLessonScheduleTeacher(Search search, String teacherId) throws Exception;
 	
 	//schedule : lsit students
 	public Map<String, Object> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
 	
 	//schedule : all delete
 	public void deteteLessonScheduleAll() throws Exception;
+
 
 }

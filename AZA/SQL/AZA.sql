@@ -100,7 +100,7 @@ VALUES(seq_students_record.nextVal,'agho4567',(SELECT lesson_name FROM lesson WH
 
 INSERT
 INTO STUDENTS_RECORD
-VALUES(seq_students_record.nextVal,'80RNVO0J',(SELECT lesson_name FROM lesson WHERE lesson_code = '80RNVO0J'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+VALUES(seq_students_record.nextVal,'FWZOOP30',(SELECT lesson_name FROM lesson WHERE lesson_code = 'FWZOOP30'),'student5','student',1,TO_CHAR(sysdate),40000,0);
 
 INSERT
 INTO STUDENTS_RECORD

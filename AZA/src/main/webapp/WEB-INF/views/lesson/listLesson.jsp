@@ -80,6 +80,21 @@ font-family: Pretendard, 'Noto Sans KR';
 			self.location = "/lesson/addLessonView"
 		});
 	});
+	
+	function listLesson(){
+		$.ajax({
+			url:"lesson/rest/listLesson",
+			type:"GET",
+			headers : {
+	                "Accept" : "application/json",
+	                "Content-Type" : "application/json",                                    
+	            },
+            success: function(JSONData, status){
+            	console.log(JSONData);
+            	alert(JSONData);
+            }
+		});
+	}
 </script>
 </head>
 <body>

@@ -87,11 +87,11 @@ public class LessonServiceTest {
 	
 	//OK
 	//@Test
-	public void testlistLesson() throws Exception{
+	public void testlistLessonTeacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher52");
+		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher51");
 //		Map<String, Object> map = lessonService.listLesson(search,"student5");
 		System.out.println(map);
 		
@@ -102,7 +102,8 @@ public class LessonServiceTest {
 				
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);	
-	}
+	}	
+	
 	//OK
 	//@Test
 	public void testlistLessonStudent() throws Exception{
@@ -121,6 +122,22 @@ public class LessonServiceTest {
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);	
 	}
+
+	//@Test
+	public void testLessonTime() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(9);
+		Map<String, Object> map = lessonService.listLessonTime("teacher51", "월");
+
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println(list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);
+	}
 	
 	//OK
 	//@Test
@@ -128,7 +145,7 @@ public class LessonServiceTest {
 		Lesson lesson = new Lesson();
 //		Book book = new Book();
 		
-		lesson.setIsbn("987654321");
+		lesson.setIsbn("1");
 		lesson.setBookTitle("lauv");
 		lesson.setPublisher("pop");
 		lesson.setBookPrice("90000");
@@ -158,14 +175,30 @@ public class LessonServiceTest {
 		System.out.println(totalCount);	
 	}
 	
-	//OK
-	//@Test
-	public void testDeleteLessonBook() throws Exception{
-		lessonService.deleteLessonBook("987654321");
+	@Test
+	public void testListBookTeacher() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(8);
+		Map<String, Object> map = lessonService.listLessonBook(search,"teacher51");
+		
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("book");
+		System.out.println(list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);	
 	}
 	
 	//OK
-	@Test
+	//@Test
+	public void testDeleteLessonBook() throws Exception{
+		lessonService.deleteLessonBook("1");
+	}
+	
+	//OK
+	//@Test
 	public void testaddLessonSchedule() throws Exception{
 		Schedule schedule = new Schedule();
 		
@@ -207,59 +240,37 @@ public class LessonServiceTest {
 	
 	//OK
 	//@Test
-//	public void listLessonSchedule() throws Exception{
-//		Search search = new Search();
-//		search.setCurrentPage(1);
-//		search.setPageSize(3);
-//		Map<String, Object> map = lessonService.listLessonSchedule(search,"teacher51");
-//		System.out.println(map);
-//		
-//		List<Object> list = (List<Object>)map.get("list");
-////		assertEquals(3, list.size());
-//		
-//		System.out.println(list);
-////				
-//		Integer totalCount = (Integer)map.get("totalCount");
-//		System.out.println(totalCount);	
-//	}
-	
-	
-
-	//@Test
-	public void testLessonTime() throws Exception{
-		Map<String, Object> map = lessonService.listLessonTime("teacher1", "");
-
+	public void listLessonSchedule() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(8);
+		Map<String, Object> map = lessonService.listLessonScheduleTeacher(search,"teacher51");
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");
-		System.out.println(list);
-	}
-	
-	//@Test
-	public void testListBookTeacher() throws Exception{
-		Map<String, Object> map = lessonService.listBookTeacher("teacher51");
+//		assertEquals(3, list.size());
 		
-		System.out.println(map);
-		
-		List<Object> list = (List<Object>)map.get("list");
 		System.out.println(list);
-	}
-	
-	//@Test
-//	public void testlistLessonStudent() throws Exception{
-//		Search search = new Search();
-//		search.setCurrentPage(1);
-//		search.setPageSize(3);
-//		Map<String, Object> map = lessonService.listLessonStudent(search,"student5");
-////		Map<String, Object> map = lessonService.listLesson(search,"student5");
-//		System.out.println(map);
-//		
-//		List<Object> list = (List<Object>)map.get("list");
-////		assertEquals(3, list.size());
-//		
-//		System.out.println(list);
 //				
-//		Integer totalCount = (Integer)map.get("totalCount");
-//	}
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);	
+	}
+	
+	//OK
+	//@Test
+	public void listLessonScheduleStudents() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(9);
+		Map<String, Object> map = lessonService.listLessonScheduleStudent("student5", "teacher51");
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println(list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);
+	}
 	
 }

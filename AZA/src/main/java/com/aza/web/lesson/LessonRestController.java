@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/lesson/rest/*")
 public class LessonRestController {
@@ -149,18 +151,19 @@ public class LessonRestController {
 		return model;
 	}
 	
-	@RequestMapping("listLessonBook")
-	public Map<String,Object> listLessonBook(HttpSession session) throws Exception{
-		System.out.println("=======================");
-		System.out.println("listLessonBook rest 실행");
-		String teacherId = ((User)session.getAttribute("user")).getUserId();
-		Search search = new Search();
-		
-		System.out.println();
-				
-		return lessonService.listLessonBook(search, teacherId);
-	}
+//	@RequestMapping("listLessonBook")
+//	public Map<String,Object> listLessonBook(HttpSession session) throws Exception{
+//		System.out.println("=======================");
+//		System.out.println("listLessonBook rest 실행");
+//		String teacherId = ((User)session.getAttribute("user")).getUserId();
+//		Search search = new Search();
+//		
+//		System.out.println();
+//				
+//		return lessonService.listLessonBook(search, teacherId);
+//	}
 	
+	//잘불러옴
 	@RequestMapping("/manageLessonBook")
 	public Map<String, Object> manageLessonBook(HttpSession session) throws Exception{
 		User user = (User)session.getAttribute("user");
@@ -173,8 +176,52 @@ public class LessonRestController {
 		return lessonService.listLessonBook(search, teacherId);
 	}
 	
-//	@RequestMapping("/deleteLessonBook")
-//	public void deleteLessonBook(@RequestParam("isbn") String isbn) throws Exception{
+//	@RequestMapping(value="manageLessonBook")
+//	public Map<String, Object> manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+//
+//		//lesson code와 lessonName 가져와야함		
+//		System.out.println("manageLessonBook실행");
+//		if(search.getCurrentPage()==0) {
+//			search.setCurrentPage(1);
+//		}
+//		search.setPageSize(pageSize);
+////		String role = ((User) session.getAttribute("user")).getRole();
+//				
+//		String teacherId = ((User) session.getAttribute("user")).getUserId();
+//		
+//		Map<String, Object> lessonName = lessonService.listBookTeacher(teacherId);
+//		
+//		Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
+//		
+//		Page resultPage = new Page(search.getCurrentPage(),
+//				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+//		
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("/lesson/manageLessonBook");
+//		model.addObject("book",lessonName.get("book"));
+//		model.addObject("list",map.get("list"));
+//		model.addObject("resultPage",resultPage);
+//		model.addObject("search",search);
+//		System.out.println(model);
+//
+//		return null;
+//	}
+
+	@RequestMapping(value = "deleteLessonBook", method = RequestMethod.POST)
+	public void deleteLessonBook(@RequestParam(value="isbn", required=false) String isbn, HttpServletRequest request) throws Exception{
+		System.out.println("===========");
+		System.out.println("deleteLessonBook restController");
+		System.out.println("===========");
+		String is = request.getParameter("isbn");
+		System.out.println(is);
+		System.out.println("===========");
+		System.out.println(isbn);
+		
+		lessonService.deleteLessonBook(isbn);
+	}
+	
+//	@RequestMapping(value = "deleteLessonBook")
+//	public void deleteLessonBook(@RequestParam(value="isbn") String isbn) throws Exception{
 //		System.out.println("===========");
 //		System.out.println("deleteLessonBook restController");
 //		System.out.println("===========");

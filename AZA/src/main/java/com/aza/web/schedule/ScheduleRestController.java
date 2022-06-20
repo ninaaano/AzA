@@ -85,13 +85,13 @@ public class ScheduleRestController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("listLessonSchedule")
 	@ResponseBody
-	public Map<String, Object> listLessonSchedule(HttpSession session) throws Exception{
+	public Map<String, Object> listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		String role = ((User) session.getAttribute("user")).getRole();
 		
 		if(role.equals("teacher")) {
 			String teacherId = ((User) session.getAttribute("user")).getUserId();
 			
-			Map<String, Object> map = lessonService.listLessonSchedule(teacherId);
+			Map<String, Object> map = lessonService.listLessonScheduleTeacher(search, teacherId);
 			
 			JSONObject json = new JSONObject();
 			try {
@@ -106,7 +106,7 @@ public class ScheduleRestController {
 			}
 			System.out.println(json.toString());
 //			return json;
-			return lessonService.listLessonSchedule(teacherId);
+			return lessonService.listLessonScheduleTeacher(search, teacherId);
 		}else {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
 			

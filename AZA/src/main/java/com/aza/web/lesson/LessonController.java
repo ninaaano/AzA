@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ import com.aza.common.Search;
 import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
-
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -164,12 +164,16 @@ public class LessonController {
 //		String role = ((User) session.getAttribute("user")).getRole();
 				
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
+//		System.out.println(teacherId);
 		
-		Map<String, Object> lessonName = lessonService.listBookTeacher(teacherId);
+		Map<String, Object> lessonName = lessonService.listBookTeacher(search, teacherId);
 		System.out.println("================");
 		System.out.println(lessonName);
 		System.out.println("================");
 		Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
+		System.out.println("================");
+		System.out.println(map);
+		System.out.println("================");
 		
 		Page resultPage = new Page(search.getCurrentPage(),
 				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
@@ -185,16 +189,19 @@ public class LessonController {
 		return model;
 	}
 	
-	@RequestMapping(value="deleteLessonBook")
-	public ModelAndView deleteLessonBook(@RequestParam("isbn") String isbn) throws Exception{
+	@RequestMapping(value="deleteLessonBook",method = RequestMethod.GET)
+	public ModelAndView deleteLessonBook(@RequestParam(value="isbn",required=false) String isbn, HttpServletRequest request) throws Exception{
 		System.out.println("===========");
 		System.out.println("deleteLessonBook Controller");
 		System.out.println("===========");
 		System.out.println("isbn="+isbn);
+		System.out.println("===========");
+		String is = request.getParameter("isbn");
+		System.out.println(is);
 		
 		lessonService.deleteLessonBook(isbn);
 		ModelAndView model = new ModelAndView();
-		model.setViewName("/lesson/manageLessonBook");
+		model.setViewName("redirect:/lesson/manageLessonBook");
 		
 		return model;
 	}
