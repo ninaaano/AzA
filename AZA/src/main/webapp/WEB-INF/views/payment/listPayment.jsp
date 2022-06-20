@@ -52,8 +52,11 @@
 	body {
     padding-top : 10px;
     margin : 50px;
-}
+    font-family: Pretendard, 'Noto Sans KR';
+    }
+
 </style>
+
 
 <script type="text/javascript">
 function fncGetList(currentPage) {
