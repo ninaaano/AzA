@@ -31,7 +31,6 @@ import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
 
-
 @Controller
 @RequestMapping("/students/*")
 public class StudentsController {
@@ -264,7 +263,7 @@ public class StudentsController {
 		System.out.println("student : "+student);
 
 
-		// ÀÌ°Å mapper È®ÀÎ ºÎÅ¹ÇØ¿ä... -> °æÈ£..... total ÇÏ³ª¾¿ ´Ù ¸¸µé¾î¾ßµÉ µí...¤Ì
+		// ï¿½Ì°ï¿½ mapper È®ï¿½ï¿½ ï¿½ï¿½Å¹ï¿½Ø¿ï¿½... -> ï¿½ï¿½È£..... total ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ ï¿½ï¿½...ï¿½ï¿½
 
 		search.setSearchId(studentId);
 		List lessons = (List) studentsService.listStudentsRecordByStudent(search, studentId).get("list");
@@ -438,7 +437,7 @@ public class StudentsController {
 
 			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: POST :: µî·Ï");
+		System.out.println("/students/addStudentsCharacter :: POST :: ï¿½ï¿½ï¿½");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -467,7 +466,7 @@ public class StudentsController {
 	public ModelAndView updateStudentsCharacterView(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 
 		
-		System.out.println("/students/updateStudentsCharacterView :: GET :: ´Ü¼ø VIEW");
+		System.out.println("/students/updateStudentsCharacterView :: GET :: ï¿½Ü¼ï¿½ VIEW");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -487,7 +486,7 @@ public class StudentsController {
 
 	(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/updateStudentsCharacter :: POST :: ¼öÁ¤ÇÏ±â");
+		System.out.println("/students/updateStudentsCharacter :: POST :: ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½");
 
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
