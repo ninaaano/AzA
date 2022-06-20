@@ -120,6 +120,7 @@
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
 
+<!-- 선생님 아이디 필요해서 넣었어요~~ -->
 	<select id = "listLessonStuents" resultMap="lessonSelectMap">			
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq		

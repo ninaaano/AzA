@@ -123,13 +123,29 @@ public class StudentsRestController {
 	
 	
 	// ATTENDANCE
-	@RequestMapping(value="listStudentsAttendance/{month}/{year}", method=RequestMethod.POST)
+	@RequestMapping(value={"listStudentsAttendance/{month}/{year}/{date}", "listStudentsAttendance/{month}/{year}"},method= {RequestMethod.POST, RequestMethod.GET})
 	public Map<String, Object> listStudentsAttendance(	@PathVariable("month") int month, 
-														@PathVariable(required = false, value="year") String year, 
+														@PathVariable(required = false, value="year") String year,
+														@RequestParam(required=false, value="date") Integer date,
 														HttpSession session,
 														@RequestParam(required = false, value="studentId") String studentId,
-														@RequestParam(required = false, value="lessonCode") String lessonCode
+														@RequestParam(required = false, value="lessonCode") String lessonCode														
 														) throws Exception {
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(31);
+		
+		if(date != null)  {
+			
+			System.out.println("/students/rest/listStudentsAttendance : teacherHome.js -> attendace 유무 체크");
+			
+			int prevDate = date -1;
+			String searchStartDate = year + "/" + month + "/" + prevDate;
+			String searchEndDate = year + "/" + month + "/" + date;
+			
+			return studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);	
+		}
 		
 		System.out.println("/students/rest/listStudentsAttendance");
 		
@@ -145,13 +161,8 @@ public class StudentsRestController {
 		String searchStartDate = year + "/" + prevMonth + "/31";
 		String searchEndDate = year + "/" + curMonth + "/31";
 
-
-
 		String userId = ((User) session.getAttribute("user")).getUserId();
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(31);
-		
+
 		if(studentId==null || studentId.length() < 1) {
 			List students = (List) session.getAttribute("students");
 			studentId = ((User) students.get(0)).getFirstStudentId();			
@@ -206,7 +217,10 @@ public class StudentsRestController {
 	
 	}
 	
-
+	/*
+	 * @RequestMapping(value="checkAttendanceValue"), method =
+	 * 
+	 */
 	
 	// Exam ===========================================
 	@RequestMapping(value = "manageStudentsExam")

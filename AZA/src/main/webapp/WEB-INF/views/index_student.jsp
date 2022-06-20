@@ -18,6 +18,7 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
+<script defer src="/resources/javascript/students/teacherHome.js"></script>
 <script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -56,6 +57,7 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -119,10 +121,10 @@ $(function() {
 })
 
 
-
+/* 
 function deleteAlert(alertCode) {
 	$.ajax({
-		url:"/alert/rest/deleteAlert/"+alertCode,
+		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -181,17 +183,13 @@ function deleteAlert(alertCode) {
             }
        }
 	})
-	
-	
-	
-	
 }
 
 
 
 function listAlert() {
 	$.ajax({
-		url:"/alert/rest/listAlert",
+		url:"http://localhost:8080/alert/rest/listAlert",
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -254,7 +252,7 @@ function listAlert() {
 
 function readAlert(alertCode) {
 	$.ajax({
-		url:"/alert/rest/readAlert/"+alertCode,
+		url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -318,20 +316,18 @@ function readAlert(alertCode) {
 	})
 }
 
-
+ */
 
 $(function() {
-
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
-
 	})
 
 	// Message
 	$("#open-messagePopup").on("click", function() {
-console.log("메시지 버튼 눌림");
+		console.log("메시지 버튼 눌림");
 		
         $.ajax({
             url: "/message/rest/listMessage",
@@ -380,10 +376,18 @@ console.log("메시지 버튼 눌림");
             } 
         })
 	})
+})
 	
 
+$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[#logout]").on("click" , function() {
+				$("form").attr("method" , "get").attr("action" , "/user/logout").submit();
+			});
+		});	
 
-})	
+
+
 </script>
 
 
@@ -454,7 +458,10 @@ console.log("메시지 버튼 눌림");
 							</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="#!"> <i
+
 									class="material-icons leading-icon text-primary">logout</i>
+									<!-- class="material-icons leading-icon" >logout</i> -->	<!-- 2022/06/18 MJ파트 충돌 주석처리했음 -->
+
 									<div class="me-3">Logout</div>
 							</a></li>
 						</ul>
@@ -491,30 +498,50 @@ console.log("메시지 버튼 눌림");
 						<!-- Drawer section heading (Interface)-->
 						<div class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
+						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsAttendance'>
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 자녀관리
+								<i class="material-icons text-primary">language</i>
+							</div> 수업관리
 						</a>
-						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
+						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 수납
+								<i class="material-icons text-primary" href="#">language</i>
+							</div> 과제
 						</a>
 						<a class="nav-link left_nav" href="#">
 							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> Q&A
+								<i class="material-icons text-primary">language</i>
+							</div> 성적
 						</a>
-					</div>
+						<a class="nav-link left_nav" href="#">
+							<div class="nav-link-icon">
+								<i class="material-icons text-primary">language</i>
+							</div> 강의노트
+						</a>
+						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
+							<div class="nav-link-icon">
+								<i class="material-icons text-primary">language</i>
+							</div> 수납
+						</a>
+						<a class="nav-link left_nav" href="#" data-url='/students/addStudentsCharacter'>
+							<div class="nav-link-icon">
+
+								<i class="material-icons text-primary">language</i>
+							</div> Q&A
+							
+							<!-- MY 주석처리함 위에 Q%A 랑 충돌 -->
+							<!-- 	<i class="material-icons">language</i>
+							</div> 특징 -->	
+
+						</a>
 						<!-- Divider-->
-					<div class="drawer-menu-divider"></div>
-					<!-- Drawer footer        -->
+						<div class="drawer-menu-divider"></div>
+				<!-- Drawer footer        -->
 					<div class="drawer-footer border-top">
 						<div class="d-flex justify-content-center">
 						<!-- 수업 추가 버튼 -->
 							<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentsRecord">수업 추가<i class="trailing-icon material-icons">launch</i></button>
-						</div>
+					</div>
 					</div>
 				</div>
 			</nav>
@@ -523,10 +550,7 @@ console.log("메시지 버튼 눌림");
 </div>
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
-	
-		<!-- Main page content-->
-		<main class="mt-12">
-			<header class="main-header" style="height:0px;">
+	<header class="main-header" style="height:0px;">
 				<!-- page header -->
 					<div class="row justify-content-center gx-5">
 	                  </div>
@@ -568,14 +592,26 @@ console.log("메시지 버튼 눌림");
 					    </div>
 					</div>
 				</header>
-				
-			
+		<!-- Main page content-->
+		<main class="mt-12">
+			<header class="main-header">
+				<!-- page header -->
+				<div class="row justify-content-center gx-5">
+                      <div class="row justify-content-end col-md-8 col-lg-6">
+                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
+                             
+							
+						    </div>
+                      
+                      </div>
+                  </div>
+			</header>
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-					<iframe id="mainFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
+					<iframe id="mainFrame" src="/home" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
 			
-			
-		    <div class="messagePopup hidden" id="messagePopup">
+
+		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -637,16 +673,13 @@ console.log("메시지 버튼 눌림");
             </section>
         </div>
 		</main>
-
-        		
 	<!-- Footer-->
 	<footer>
 		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<%-- <jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
@@ -657,6 +690,41 @@ console.log("메시지 버튼 눌림");
 	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
-	</script>
+ 	// <![CDATA[  <-- For SVG support
+/*   	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}   */
+	// ]]>
+</script>
 </body>
 </html>
