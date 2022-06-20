@@ -81,7 +81,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		});
 	});
 	
-	function listLesson(){
+/* 	function listLesson(){
 		$.ajax({
 			url:"lesson/rest/listLesson",
 			type:"GET",
@@ -94,7 +94,30 @@ font-family: Pretendard, 'Noto Sans KR';
             	alert(JSONData);
             }
 		});
+	} */
+	
+window.addEventListener('DOMContentLoaded',event=>{
+	const datatablesSimple = document.getElementById('datatablesSimple');
+	if(datatablesSimple){
+		$.ajax({
+			url:"/lesson/rest/listLesson",
+			type:"GET",
+			headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+            success:function(result){
+            	if(result){
+            		var list = result.list;
+            		console.log(list)
+            		alert(list)
+            		
+            	}
+            }
+		});
 	}
+})
+
 </script>
 </head>
 <body>
