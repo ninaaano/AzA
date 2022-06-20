@@ -162,7 +162,7 @@ body>div.container {
 													<div class="form-group">
 
 														<label for="phone">휴대전화 ('-' 없이 번호만 입력해주세요) </label>
-													</div>
+													
 
 													<div class="form-row">
 														<div class="form-group col-md-8">
@@ -172,8 +172,8 @@ body>div.container {
 														</div>
 
 														<div class="form-group col-md-4">
-															<button type="button" class="genric-btn danger radius"
-																onclick="cert();">인증번호 받기</button>
+															<button id="phoneBtn" type="button" class="btn btn-default"
+																onclick="cert();" disabled="disabled">인증번호 받기</button>
 														</div>
 
 													</div>
@@ -186,11 +186,13 @@ body>div.container {
 														</div>
 
 														<div class="form-group col-md-4">
-															<button type="button" class="genric-btn danger radius"
+															<button type="button" class="btn btn-default"
 																id="sms_AuthBtn" onclick="smsAuthBtn();">확인</button>
 														</div>
 
 
+													</div>
+													
 													</div>
 
 													<input type="hidden" id="randomVal" value="" />
@@ -583,33 +585,28 @@ body>div.container {
 	
 	
 	<!--휴대폰 인증 / SMS SENS API -->
-
+	// 핸드폰 유효성 체크	
+	$("#phone").on("keyup",()=>{
+		const phonNum = $("#phone").val();
+		const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		if (regPhone.test(phonNum) === true) {
+			$("#phoneBtn").removeAttr("disabled");
+		} else {
+			$("#phoneBtn").attr("disabled","disabled");
+		}
+	})
+	
 	function cert() {
-		 var random = Math.floor(Math.random() * 1000000)+"";
 		 var phone = $("#phone").val();	
-		 $('#randomVal').val(random);
-			var obj = {
-					"type" : "SMS",
-					"contentType" : "COMM",
-					"from" : "01032030796",
-					"subject" : "본인인증 문자입니다",
-					"countryCode" : "82",
-					"content" : random,
-					"message" : [ {
-						"to" : phone,
-						"subject" : "인증 문자",
-						"content" : "인증번호 [" + random +"]를 입력해주세요."
-					} ]
-				};
-			
+		
 			$.ajax({
 				type : 'POST',
 				url :'/user/rest/sendSMS/' + phone,
 				dataType : "json",
-				data :  JSON.stringify(obj),				
+								
 				contentType: "application/json",
 				success : function(data) {
-					if(data.statusName == "success"){
+					if(data.result  == "success"){
 						$('#certCheck').text("인증 번호가 전송되었습니다.");
 						$('#certCheck').css('color','blue');
 						$("#signup_btn").attr("disabled",true);
@@ -623,21 +620,39 @@ body>div.container {
 	}
 	
 	function smsAuthBtn() {
-		
+/*		const phoneAuth  = $("#certification").val();
+		const phoneNum = $("#phone").val();
+		console.log(phoneNum)
+		let url = "/user/rest/confirmCode/"+phoneNum+"/"+phoneAuth;
+		$.ajax({
+			url: url,
+			method: "GET",
+			headers : {
+	            "Accept" : "application/json",
+	            "Content-Type" : "application/json"
+	        },
+	        dataType : "json",
+	        success : function(data){
+	        	alert(data.result);	        	
+	        	$("#phone").attr("disabled","disabled");
+	        	$("#phoneBtn").attr("disabled","disabled");
+	        	
+	        }
+		})
 		var userVal = $('#certification').val();
-		var certVal = $('#randomVal').val();
+		var certVal = $('#phone').val();
 	
-			if(userVal == certVal){
+			if(userVal == certVal){ */
 				$('#certCheck').text("인증이 완료되었습니다.");
 				$('#certCheck').css('color','blue');	
 				$("#signup_btn").attr("disabled",false);
-			}else{
+/*			}else{
 				$('#certCheck').text("인증번호를 다시 확인해주세요");
 				$('#certCheck').css('color','red');
 				$("#signup_btn").attr("disabled",true);
-			}
+			} */
 		
-	};
+	}
 
 
 	const checkStudent = _.debounce(async (id) => {

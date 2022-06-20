@@ -25,5 +25,7 @@ public interface AlertService {
 	List<Alert> getAlertPayment(Search search, String receiverId) throws Exception;
 
 	List<Alert> getAlertByDate(Search search) throws Exception;
+
+	public int alertCreateList(int alertCode)throws Exception;
 	
 }

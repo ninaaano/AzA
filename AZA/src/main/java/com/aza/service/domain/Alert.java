@@ -1,5 +1,6 @@
 package com.aza.service.domain;
 
+
 public class Alert {
 	
 	// field

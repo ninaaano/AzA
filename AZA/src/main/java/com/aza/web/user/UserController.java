@@ -63,7 +63,7 @@ public class UserController {
 
 	
 	// test : login
-	@RequestMapping(value="login", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		System.out.println("/user/login");
 		ModelAndView mv= new ModelAndView();

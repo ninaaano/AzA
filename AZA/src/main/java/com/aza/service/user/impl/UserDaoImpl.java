@@ -172,5 +172,9 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("UserMapper.updatePassword", user);
 	}
 
+	@Override
+	public User checkPhone(User user) throws Exception {
+		return sqlSession.selectOne("UserMapper.checkPhone", user);
+	}
 
 }

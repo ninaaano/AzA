@@ -111,7 +111,7 @@
 										
 										 <div class="mb-2">
                                                 <div class="btn-group" role="group">
-                                                    <button class="btn btn-outline-primary" type="submit" onclick="login()">로그인</button>
+                                                    <button class="btn btn-outline-primary" type="button" onclick="login()">로그인</button>
                                                 </div>
                                             </div>
                                             
@@ -153,7 +153,6 @@ function login()	{
 	if(!userId || !password ){
 		alert ("아이디와 비밀번호를 모두 입력해주세요.")
 	}else{
-		loginForm.submit();
 		$("form").attr("method" , "POST").attr("action" , "/user/login").submit();
 	}
 }
