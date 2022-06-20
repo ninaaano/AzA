@@ -55,14 +55,15 @@ public class PaymentRestController {
 		
 	}
 
-	@RequestMapping("complete/{payCode}")
+	@RequestMapping("complete")
 	public ResponseEntity<String> completePayment
-	(@PathVariable int payCode,HttpSession session, Payment payment)throws Exception{
+	(HttpSession session, Payment payment)throws Exception{
+		System.out.println("rest Payment Complete");
 		String token = paymentService.getToken();
 		System.out.println("토큰 ==> " + token);
 		String impUid = payment.getImpUid();
 		
-		payment = paymentService.getPayment(payCode);
+		payment = paymentService.getPayment(payment.getPayCode());
 		int amount = paymentService.paymentInfo(impUid, token);
 		
 		//실결제 금액과 일치하는지 확인.

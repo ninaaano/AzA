@@ -111,9 +111,6 @@ function addStudentsCharacter() {
 			
 <br/>
 
-
-
-
 	<textarea class="dataTable-input" placeholder="특징을 입력해주세요 :)" 
 	type="text" style="width:600px;height:500px;"
 	name="characterContent" value="${students.characterContent}"></textarea>

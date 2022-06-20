@@ -63,9 +63,7 @@
 function requestPay(){
 	
 	var price = $("td:nth-child(4)").text().trim();
-	alert("amount ==> " + price);
 	var lessonName = $("td:nth-child(2)").text().trim();
-	
 	var payCode = $("td:nth-child(1)").text().trim();
 	
     var IMP = window.IMP;
@@ -86,19 +84,6 @@ function requestPay(){
     }, function(rsp) {
          console.log(rsp); 
         if (rsp.success) { // 결제 성공 시 
-                // jQuery로 HTTP 요청
-                 jQuery.ajax({
-                    url: "/payment/rest/complete/"+ merchant_uid, // 예: https://www.myservice.com/payments/complete
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                    data: {
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid
-                        
-                    }
-                }).done(function (data) {
-                  // 가맹점 서버 결제 API 성공시 로직
-                  payCode : payCode
                   var msg = '결제가 완료되었습니다.';
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
@@ -106,9 +91,45 @@ function requestPay(){
 	    			msg += '카드 승인번호 : ' + rsp.apply_num;
 	    			// 넘겨줄 정보..
 	    			
+/* 	    		$.ajax({
+	    			url : "/payment/rest/complete",
+	    			type : "POST",
+	    			data:JSON.stringify({
+  		  				payCode : rsp.imp_uid,
+
+  		  			}),
+  		  			headers : {
+  		  				"Accept" : "application/json",
+  		  				"Content-Type" : "application/json"
+  		  			},
+  		  			dataType : "json",
+		  			success : function(data){
+		  			}
 	    			
-	    			
-                }) 
+	    		})//ajax */
+	    		let payment = {
+						payCode: rsp.merchant_uid,
+						impUid: rsp.merchant_uid
+						}
+					// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+	                		// 결제내역을 사용자에게 보여주기 위해 필요함.
+	               			$.ajax({
+						url : "/payment/rest/complete",
+						type : "get",
+						data : payment,
+						dataType : "text",
+						success : function(result){
+							if(result == "y") {
+								alert(msg);
+								location.href = "/payment/getPayment"+payCode; 
+							}else{
+								alert("디비입력실패");
+								return false;
+							}
+						},
+						error : function(a,b,c){}
+					});	
+        
                 /*======================================================*/
         } else {
 			var msg = '결제에 실패하였습니다.';

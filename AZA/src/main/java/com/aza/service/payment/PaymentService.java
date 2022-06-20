@@ -25,10 +25,15 @@ public interface PaymentService {
 	
 	public void requestPay(String impUid) throws Exception;
 	
-	// 자동 add
+	//students List
+	public Map<String, Object> listPaymentBystudent(Search search) throws Exception;
+	//parent List
+	public Map<String, Object> listPaymentByParent(Search search) throws Exception;
+	
+	// auto add
 	public void addPaymentProcedure() throws Exception;
 	
-	//아임포트..
+	//
 	public String getToken() throws IOException;
 	
 	public int paymentInfo(String imp_uid, String access_token) throws Exception;

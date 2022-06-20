@@ -464,7 +464,7 @@ public class StudentsController {
 	public ModelAndView updateStudentsCharacterView(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 
 		
-		System.out.println("/students/updateStudentsCharacterView :: GET :: �ܼ� VIEW");
+		System.out.println("/students/updateStudentsCharacterView :: GET :: VIEW");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
@@ -484,7 +484,7 @@ public class StudentsController {
 
 	(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/updateStudentsCharacter :: POST :: �����ϱ�");
+		System.out.println("/students/updateStudentsCharacter :: POST :: ");
 
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();

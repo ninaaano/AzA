@@ -24,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Payment;
+import com.aza.service.domain.User;
 import com.aza.service.payment.PaymentService;
+import com.aza.service.user.UserService;
 
 
 @Controller
@@ -38,6 +40,9 @@ public class PaymentController {
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
 	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	
 	
 	@Value("#{commonProperties['pageUnit']}")
@@ -50,48 +55,51 @@ public class PaymentController {
 		System.out.println(this.getClass());
 	}
 	
-	//== TEST
-	//mapping Test OK
-	@RequestMapping("1")
-	public @ResponseBody ModelAndView paymentControllerTest() {
-		
-		try {
-
-			String token = paymentService.getToken();
-			System.out.println("토큰 ==> " + token);
-
-			} catch (IOException e) {
-
-			 System.out.println ("exception");
-
-			}
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("/payment/payment");
-		
-		return mv;
-	}
-	
 	@RequestMapping(value = "listPayment")
 	public ModelAndView listPayment
-	(HttpServletRequest request, @ModelAttribute("search") Search search, Model model) throws Exception{
+	(HttpServletRequest request, @ModelAttribute("search") Search search, ModelAndView mv, HttpSession session) throws Exception{
 		
 		System.out.println("listPayment Start...");
-
+		
+		//session => getUserId(role)
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		User user = userService.getUser(userId);
+		search.setSearchId(userId);
+		
+		System.out.println("userRole => " + user.getRole());
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);	
+		if(user.getRole().equals("student") ) {
+
+			Map<String, Object> map =paymentService.listPaymentBystudent(search);
+			Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			mv.addObject("list", map.get("list"));
+			mv.addObject("resultPage", resultPage);
+			mv.addObject("search", search);
+			System.out.println("students");
+			
+		}else if (user.getRole().equals("parent")) {
+
+			Map<String, Object> map =paymentService.listPaymentByParent(search);
+			Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			mv.addObject("list", map.get("list"));
+			mv.addObject("resultPage", resultPage);
+			mv.addObject("search", search);
+			System.out.println("parent");
 		
-		Map<String, Object> map =paymentService.listPayment(search);
-		
-		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", map.get("list"));
-		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);
+		}else {
+				Map<String, Object> map =paymentService.listPayment(search);
+				Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+				mv.addObject("list", map.get("list"));
+				mv.addObject("resultPage", resultPage);
+				mv.addObject("search", search);
+				System.out.println("teacher");
+			}
+
+
+		mv.addObject("user", user);
 		mv.setViewName("/payment/listPayment");
 		
 		return mv;
@@ -121,10 +129,10 @@ public class PaymentController {
 		int amount = paymentService.paymentInfo(impUid, token);
 		
 		//실결제 금액과 일치하는지 확인.
-		long price = payment.getAmount();
+		long checkPrice = payment.getAmount();
 		//일치하지 않을 때 결제 취소
 		try {
-			if(price != amount) {
+			if(checkPrice != amount) {
 			paymentService.paymentCancle(token, payment.getImpUid(), amount, "결제 금액 오류");
 			 return new ResponseEntity<String>("결제 금액 오류, 결제 취소", HttpStatus.BAD_REQUEST);
 		}else {

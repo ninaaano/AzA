@@ -224,11 +224,15 @@ $(function() {
 		<a href="#" class="dataTable-sorter" align="center">수납여부</a>
 		</th>
 		
+
+		<c:if test="${user.role eq 'student' || user.role eq 'parent'}">
 		<th data-sortable="" style="width: 10%;">
 		<a href="#" class="dataTable-sorter" align="center">납부하기</a>
 		</th>				
+		</c:if>
 		
 		</tr>
+		
 	</thead>
 	
 	<tbody>
@@ -240,6 +244,8 @@ $(function() {
 				<td align="center">
 				${ i }
 				<input type="hidden" id="payCode" value="${payment.payCode}">
+				<input type="hidden" id="studentId" value="${payment.studentId}">
+				
 				</td>
 				<td align="center">${payment.payLessonName.getLessonName()}</td>
 				<td align="center">${payment.studentName}</td>
@@ -256,12 +262,15 @@ $(function() {
 				</td>
 				
 				<td align="center">${payment.checkPay }</td>
+				
+				<c:if test="${user.role eq 'student' || user.role eq 'parent'}">
 				<td align="center" payCode="${payment.payCode}">
-				<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
+					<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
 						상세보기
-			　</button>			
+				　</button>			
 				</td>
-
+				</c:if>
+				
 				</tr>
 	 </c:forEach>
 </table>	

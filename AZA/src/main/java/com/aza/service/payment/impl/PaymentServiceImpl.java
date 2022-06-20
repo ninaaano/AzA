@@ -108,11 +108,36 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> listPaymentBystudent(Search search) throws Exception {
+		
+		List<Payment> list = paymentDao.listPaymentBystudent(search);
+		int totalCount = paymentDao.totalPaymentCountBystudent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> listPaymentByParent(Search search) throws Exception {
+		List<Payment> list = paymentDao.listPaymentByParent(search);
+		int totalCount = paymentDao.totalPaymentCountByParent(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 //======================================================================================
 	
 	@Override
-	@Scheduled(cron="0 0 0 * * *") // ë§¤ì¼ 00ì‹œ ë§ˆë‹¤ ì‹¤í–‰
+	@Scheduled(cron="0 0 0 * * *") // 
 	@Bean
 	public void addPaymentProcedure() throws Exception {
 		paymentDao.addPaymentProcedure();		
@@ -140,7 +165,7 @@ public class PaymentServiceImpl implements PaymentService {
 		ResponseEntity<JSONObject> token  = restTemplate.postForEntity(url, entity, JSONObject.class);
 	
 	}
-// ì•„ì„í¬íŠ¸ API method
+// API method
 	@Override
 	public String getToken() throws IOException {
 		HttpsURLConnection conn = null;
@@ -208,8 +233,8 @@ public class PaymentServiceImpl implements PaymentService {
 	public void paymentCancle(String access_token, String imp_uid, int amount, String reason) throws Exception{
 		
 		System.out.println("===== payMentCancle() Start ======");
-//		System.out.println(access_token); // í† í°
-//		System.out.println(imp_uid); // keyê°’
+//		System.out.println(access_token); //
+//		System.out.println(imp_uid); //
 		
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/payments/cancel");
@@ -226,10 +251,10 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		JsonObject json = new JsonObject();
  
-		json.addProperty("reason", reason); // í™˜ë¶ˆì‚¬ìœ 
+		json.addProperty("reason", reason); // °áÁ¦ Ãë¼Ò »çÀ¯
 		json.addProperty("imp_uid", imp_uid); 
-		json.addProperty("amount", amount); // í™˜ë¶ˆ ê¸ˆì•¡
-		json.addProperty("checksum", amount); // í™˜ë¶ˆ ê°€ëŠ¥ ê¸ˆì•¡
+		json.addProperty("amount", amount); // °áÁ¦±İ¾×
+		json.addProperty("checksum", amount); // 
  
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
  
@@ -242,5 +267,9 @@ public class PaymentServiceImpl implements PaymentService {
 		br.close();
 		conn.disconnect();		
 	}
+
+
+
+
 
 }
