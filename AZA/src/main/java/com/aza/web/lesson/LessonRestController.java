@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,8 +48,10 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping("listLesson")
+	@RequestMapping(value = "listLesson")
+	@ResponseBody
 	public Map<String, Object> listLesson(HttpSession session) throws Exception{
+		System.out.println("rest/listLesson -> 시작");
 		String role = ((User)session.getAttribute("user")).getRole();
 		
 		if(role.equals("teacher")) {
@@ -56,10 +59,12 @@ public class LessonRestController {
 			Search search = new Search();
 			int totalCount = (int)lessonService.listLessonTeacher(search, teacherId).get("totalCount");
 			search.setCurrentPage(1);
-			search.setPageSize(totalCount);			
-			
+			search.setPageSize(totalCount);
+			System.out.println("<===========");
+			System.out.println(lessonService.listLessonTeacher(search, teacherId));
+			System.out.println("===========>");
 			return lessonService.listLessonTeacher(search, teacherId);
-		}else {
+		} else {
 			String userId = ((User)session.getAttribute("user")).getUserId();
 			Search search = new Search();
 			int totalCount = (int)lessonService.listLessonStudent(search, userId).get("totalCount");
@@ -151,21 +156,11 @@ public class LessonRestController {
 		return model;
 	}
 	
-//	@RequestMapping("listLessonBook")
-//	public Map<String,Object> listLessonBook(HttpSession session) throws Exception{
-//		System.out.println("=======================");
-//		System.out.println("listLessonBook rest 실행");
-//		String teacherId = ((User)session.getAttribute("user")).getUserId();
-//		Search search = new Search();
-//		
-//		System.out.println();
-//				
-//		return lessonService.listLessonBook(search, teacherId);
-//	}
 	
-	//잘불러옴
-	@RequestMapping("/manageLessonBook")
+	@RequestMapping(value= "manageLessonBook")
+	@ResponseBody
 	public Map<String, Object> manageLessonBook(HttpSession session) throws Exception{
+		System.out.println("rest -> manageLessonBook 시작");
 		User user = (User)session.getAttribute("user");
 		String teacherId = user.getUserId();
 		Search search = new Search();
