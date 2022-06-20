@@ -67,9 +67,8 @@
 	   	<set>
 	   		password = #{password},
 	   		phone = #{phone},
-	   		grade = #{grade},
-	   		school = #{school},
-	   		parent_Phone = #{parentPhone}
+	   		grade = #{grade:VARCHAR},
+	   		school = #{school:VARCHAR},
 	   	</set>
 		WHERE user_id = #{userId}
 	 </update>

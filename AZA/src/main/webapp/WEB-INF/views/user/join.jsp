@@ -101,7 +101,7 @@ body>div.container {
 														<select name="role" id="role">
 														<option value="teacher">선생님</option>
 														<option value="student">학생</option>
-														<option value="parents">학부모</option>
+														<option value="parent">학부모</option>
 													</select>
 
 													<div class="form-group">
@@ -296,7 +296,7 @@ body>div.container {
 			 -->
 
 
-													<div class="parents" style="display: none;">
+													<div class="parent" style="display: none;">
 														<label for="firstStudentId"
 															class="col-sm-offset-1 col-sm-4 control-label">학생
 															아이디</label>
@@ -308,7 +308,7 @@ body>div.container {
 														</div>
 													</div>
 
-													<div class="parents" style="display: none;">
+													<div class="parent" style="display: none;">
 														<label for="relationName"
 															class="col-sm-offset-1 col-sm-3 control-label">학생과의
 															관계</label>
@@ -568,13 +568,13 @@ body>div.container {
 			$('#role').on('change', function(){
 				if($(this).val()=='teacher'){
 				$('.student').hide();
-				$('.parents').hide();
+				$('.parent').hide();
 				} else if ($(this).val()=='student'){
 				$('.student').show();
-				$('.parents').hide();
+				$('.parent').hide();
 				}else{
 				$('.student').hide();
-				$('.parents').show();
+				$('.parent').show();
 
 				
 				}

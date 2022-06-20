@@ -1,8 +1,11 @@
 package com.aza.web.user;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aza.common.Page;
 import com.aza.common.Search;
+import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
 
@@ -61,15 +66,23 @@ public class UserController {
 		return new ModelAndView("/login");
 	}	
 
+	@RequestMapping( value="/login", method=RequestMethod.GET )
+	public String login() throws Exception{
+		
+		System.out.println("/user/login : GET");
+
+		return "redirect:/login";
+	}
 	
 	// test : login
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session,HttpServletRequest request, RedirectAttributes rttr ) throws Exception{
 		System.out.println("/user/login");
 		ModelAndView mv= new ModelAndView();
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		System.out.println(dbUser);
+		session = request.getSession();
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 			
@@ -83,6 +96,7 @@ public class UserController {
 			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
+				//rttr.setAttribute("user", dbUser);
 				mv.setViewName("/index_teacher");
 			}
 			
@@ -107,29 +121,63 @@ public class UserController {
 			System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
 			return new ModelAndView("/login"); // 
 		}
+	
 	}
 	
-	@RequestMapping( value="logout", method=RequestMethod.GET )
+	@RequestMapping( value="/logout", method=RequestMethod.GET )
 	public ModelAndView logout(HttpSession session ) throws Exception{
 		
 		System.out.println("/user/logout : POST");
 		
 		session.invalidate();
 				
-		return new ModelAndView("redirect:/index.jsp");
+		return new ModelAndView("redirect:/");
 	}
 	
 	@RequestMapping(value="getUser",method=RequestMethod.GET)
-	public ModelAndView getUser (@RequestParam("userId")String userId) throws Exception{
-		return new ModelAndView("/user/getUser","user",userService.getUser(userId));
+	public ModelAndView getUser (@RequestParam("userId")String userId,@ModelAttribute("search") Search search) throws Exception{
+		System.out.println("==========");
+		System.out.println("getUser start.....");
+		System.out.println("==========");
+		
+		ModelAndView model = new ModelAndView();
+		User user = userService.getUser(userId);
+		
+		if(user.getRole().equals("parent")) {
+			Map<String, Object> map = userService.listRelationByParent(search, userId);
+			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+			System.out.println(resultPage);
+			
+			model.addObject("list", map.get("list"));
+			model.addObject("resultPage", resultPage);
+			model.addObject("search", search);
+		
+			return model;	
+		}
+
+		model.addObject("user", user);
+		model.setViewName("/user/getUser");
+		return model;
 	}
 	
-	@RequestMapping(value="/updateUser", method = RequestMethod.POST)
-	public ModelAndView updatePurchase (@ModelAttribute("user") User user) throws Exception {
+	// 수정 후 화면
+	@RequestMapping(value="getUserView", method=RequestMethod.POST)
+	public ModelAndView updateUser(@ModelAttribute("User") User user) throws Exception {
 		
+		ModelAndView model = new ModelAndView();
 		userService.updateUser(user);
-		
-		return new ModelAndView("/getUser.jsp","user",user);
+		model.setViewName("redirect:/user/getUser?userId="+user.getUserId());
+		return model;
+	}
+	
+	// 마이페이지 수정
+	@RequestMapping(value="updateUser", method = RequestMethod.GET)
+	public ModelAndView updateUser (@RequestParam("userId")String userId) throws Exception {
+		ModelAndView model = new ModelAndView();
+		User user = userService.getUser(userId);
+		model.addObject("user",user);
+		model.setViewName("/user/updateUser");
+		return model;
 	}
 	
 	@RequestMapping( value="quit", method=RequestMethod.GET )
@@ -154,7 +202,7 @@ public class UserController {
 		session.invalidate();
 
 		System.out.println("[Controller] => delete okok");
-		return "/login";
+		return "/";
 		
 
 	}

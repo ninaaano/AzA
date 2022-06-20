@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,27 +66,22 @@ public class UserRestController {
 
 	    	}
 		
-//		//필요없는듯
-//		@RequestMapping( value="/login", method=RequestMethod.GET )
-//		public User login(@ModelAttribute User user,
-//										HttpSession session ) throws Exception{
-//		
-//			System.out.println("rest쪽 로그인~~");
-//			//Business Logic
-//			System.out.println("::"+user);
-//			User dbUser=userService.getUser(user.getUserId());
-//			
-//			if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
-//					session.setAttribute("user", dbUser);
-//					// 메인화면이동
-//					return dbUser;
-//			}else {
-//				return dbUser;
-//			}
-//			
-//		//	return dbUser;
-//		}
 
+		@RequestMapping( value="/login", method=RequestMethod.POST )
+		public User login(@ModelAttribute User user,
+										HttpSession session ) throws Exception{
+		
+			System.out.println("rest쪽 로그인~~");
+			//Business Logic
+			System.out.println("::"+user);
+			User dbUser=userService.getUser(user.getUserId());
+			
+			if( user.getPassword().equals(dbUser.getPassword())){
+				session.setAttribute("user", dbUser);
+			}
+			
+			return dbUser;
+		}
 		
 		
 		/////for Msg
@@ -122,17 +118,30 @@ public class UserRestController {
 			return userService.getUser(userId);
 		}
 		
-		@RequestMapping(value="updateUser", method = RequestMethod.POST)
-		public User updateUser (@ModelAttribute User user, HttpSession session) throws Exception {
-			
-			User userId = userService.getUser(user.getUserId());
-			
-			if(user.getUserId()==userId.getUserId()){
-				session.setAttribute("user", userId);
-			}
-			
-			return user;
-		}
+//		@RequestMapping(value="updateUser", method = RequestMethod.GET)
+//		public User updateUser (@PathVariable String userId) throws Exception {
+//			
+//			System.out.println("/user/updateUser : GET");
+//			//Business Logic
+//			User user = userService.getUser(userId);
+//			
+//			return user;
+//		}
+//		
+//		@RequestMapping( value="/updateUser", method=RequestMethod.POST )
+//		public User updateUser(@ModelAttribute User user, HttpSession session) throws Exception{
+//
+//			System.out.println("/user/updateUser : POST");
+//			//Business Logic
+//					
+//			// userService.updateUser(user);
+//			User sessionId=userService.getUser(user.getUserId());
+//			if(user.getUserId().equals(sessionId.getUserId())){
+//				session.setAttribute("user", sessionId);
+//			}
+//			
+//			return sessionId;
+//		}
 		
 //		쓰는지 모르겟음.. 나중에 돌려보기		
 //		@RequestMapping(value = "/quit",method = RequestMethod.POST)
