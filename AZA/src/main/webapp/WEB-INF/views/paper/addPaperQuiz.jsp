@@ -71,7 +71,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	}
 	
 	function addNonSubjective() {
-		$("#addNonSubjectiveQuestion").append('
+		$("#addNonSubjectiveQuestion").append("
 				<table class="table table-bordered">
     			<tr>
     				<th colspan="4"><span class="badge bg-warning" id="questionNo">1번</span></th>
@@ -131,7 +131,7 @@ font-family: Pretendard, 'Noto Sans KR';
     			<tr>
     				<td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
     			</tr>
-    		</table>');
+    		</table>");
 	}
 	
 	
@@ -140,8 +140,8 @@ font-family: Pretendard, 'Noto Sans KR';
 
 </head>
 <body>
-		    <button class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>주관식 문제 추가</button>
-	        <button class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>객관식 문제 추가</button>
+		    <button id="addSubjective" class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>주관식 문제 추가</button>
+	        <button id="addNonSubjective" class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>객관식 문제 추가</button>
 	<form id="quizForm">
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
