@@ -147,7 +147,7 @@ public class PaperController {
 	
 	
 	//HOMEWORK
-	@RequestMapping(value="listPaperHomework")
+	@RequestMapping(value="listPaperHomework", method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listPaperHomework(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		System.out.println("/paper/listPaperHomework");

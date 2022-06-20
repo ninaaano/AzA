@@ -72,7 +72,6 @@ font-family: Pretendard, 'Noto Sans KR';
 
 </script>
 
-
 </head>
 
 <body class="nav-fixed bg-light">
@@ -123,7 +122,6 @@ font-family: Pretendard, 'Noto Sans KR';
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
-	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>

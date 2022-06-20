@@ -88,7 +88,35 @@
 	} */
 
     function updateBtn() {
-		    $("form").attr("method" , "POST").attr("action" , "/students/updateStudentsNoteView").submit();		  
+		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
+		  //스마트 에디터 값을 텍스트컨텐츠로 전달
+		  let noteContent = document.getElementById("noteContent").value
+		  let noteTitle = document.getElementById("noteTitle").value
+		  let noteCode = document.getElementById("noteCode").value
+		  // 값을 불러올 땐 document.get으로 받아오기
+		  if(noteContent == '' || noteTitle == '') {
+		    alert("제목과 내용을 입력해주세요.")
+		    oEditors.getById["noteContent"].exec("FOCUS")
+		    return
+		  } else {
+			/* alert(document.getElementById("noteContent").value) */
+		    console.log(noteContent)
+/* 		    document.noteForm.action='students/updateStudentsNote';
+		    document.noteForm.submit(); */
+		    $("form").attr("method" , "POST").attr("action" , "/students/updateStudentsNote").submit();
+		  }
+		  
+		  
+	}
+	
+	function deleteBtn() {
+		if(window.confirm("정말 삭제하시겠습니까?")){
+			if(true){
+				$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		}	
 	}
 	
 	$(function() {
@@ -98,30 +126,29 @@
 		});
 	});	
 	
-	window.onload = function() {
-		document.getElementById("download")
-		.addEventListener("click",()=>{
-			const smarteditorr = this.document.getElementById("smarteditor");
-			console.log(smarteditorr);
-			console.log(window);
-			var opt = {
-					margin: 1,
-					filename: 'note.pdf',
-					image: {type: 'jpeg', quality: 0.98},
-					html2canvas: {scale: 2},
-					jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
-			};
-			html2pdf().from(smarteditorr).set(opt).save();
-		})
-	}
-	
 	</script>
 	
 	
 	
 
 </head>
-<body>    
+<body>
+
+<%-- <form name="noteForm" action="updateStudentsNote" method="post">
+	      <div id="smarteditor">
+	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="제목을 입력해주세요"></input>
+	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="학생 이름"></input>
+	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
+	                  rows="30" cols="10" 
+	                  placeholder="내용을 입력해주세요"
+	                  style="width: 100%"></textarea>
+
+	      </div>
+      <input type="button" onclick="updateBtn();" value="확인"/>
+      <button id="cancelUpdateBtn" type="button" class="btn btn-primary">취소</button>
+
+    </form> --%>
+    
     
     <form>
     <div class="border border-top-0 p-3 p-sm-5 bg-light" >
@@ -129,29 +156,28 @@
 	        <h1 class="display-4 mb-0">강 의 노 트</h1>
 	        <div class="text-muted">Students Note</div>
    	</div>
-    <div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
     	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
 	    	<div class="input-group mb-3">
 		            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
 		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1" readOnly>
+		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
 	                	name="studentId" id="studentId" value="${students.studentId}"></input>
 	      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
-	        <div name="noteContent" id="noteContent" value="${students.noteContent}"
-			           rows="30" cols="10" readOnly 
-			           style="width: 100%">${students.noteContent}
-           </div>
+	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
+			           rows="30" cols="10" 
+			           style="width: 100%">${students.noteContent}</textarea>
         </div>
         <div align="center">
-              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="수정"/>
+              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="저장"/>
+              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="삭제"/>
               <button id="backBtn" type="button" class="btn btn-outline-primary">뒤로</button>
 		</div>
 	</div>
     </form>
     
-    <!-- <script>
+    <script>
 	    let oEditors = []
 	
 	    smartEditor = function() {
@@ -170,7 +196,7 @@
 	    })
 	    	    
 
-	 </script> -->
+	 </script>
 	
 	
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>

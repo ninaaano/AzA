@@ -63,7 +63,7 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 </head>
-<body>
+<body class="nav-fixed bg-light">
 <script type="text/javascript">
 
 /* $(function(){
@@ -89,66 +89,12 @@ $(function() {
 
 </script>
 
-<!-- //////////////////////////////////////////////////////////////// -->
-<!-- Layout content-->
-<%-- <div id="layoutDrawer_content">
-    <!-- Main page content-->
-    <main>
-    <header class="mb-9">
-            <div class="container-xl p-5 mb-3">
-                 <!-- <div class="row align-items-center justify-content-between">
-                    <div class="col-12 col-md mb-4 mb-md-0">
-                        <h1 class="mb-1 display-4 fw-500 text-white">학생 목록</h1>
-                        <p class="lead mb-0 text-white">STUDENTS LIST</p>
-                    </div>
-                    <div class="col-12 col-md-auto flex-shrink-0">
-                        <label class="form-label text-white-50" for="litepickerDateRange">Date range:</label>
-                        <input class="form-control mb-0" id="litepickerDateRange" placeholder="Select date range..." value="Mar 8, 2021 - Mar 14, 2021" style="min-width: 13rem; height: 3rem">
-                    <div class="litepicker-backdrop"></div></div>
-                </div> -->
-            </div> 
-        </header>
-        <div class="container-xl px-5">
-            <div class="card card-raised mb-5">
-                <div class="card-header bg-transparent px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="me-4">
-                            <h2 class="display-6 mb-0">학생 목록</h2>
-                            <div class="card-text">Students List</div>
-                        </div>
-<!--                                     <div class="d-flex gap-2">
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
-                                    </div> -->
-                    </div>
-                </div>
-                <div class="card-body p-4">
 
-
-            <!-- Simple DataTables example-->
-            <table id="datatablesSimpleNote">
-            
-            </table>
-          </div>
-                    
-            </div>
-            <hr class="my-5" />
-        </div>
-    </main>
-	<!-- Footer-->
-	<footer>
-		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" />
-	</footer>
-</div> --%>
-<!-- //////////////////////////////////////////////////////////////// -->
-
-	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+<%-- 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
         <h1 class="display-4 mb-0">강의 노트</h1>
         <div class="text-muted">Students Note</div>
     </div>
 	<div style="margin: 30px 30px 30px 30px">
-		<!-- <input type="button" onclick="addBtn();" value="작성"/> -->
 		<button id="addBtn" type="button" class="btn btn-outline-primary">노트 작성</button>
 	</div>
 
@@ -181,16 +127,6 @@ $(function() {
 						</c:forEach>
               			</tbody>
               </table>
-              <!-- <nav class="dataTable-pagination">
-	              <ul class="dataTable-pagination-list">
-		              <li class="active"><a href="#" data-page="1">1</a></li>
-		              <li class=""><a href="#" data-page="2">2</a></li>
-		              <li class=""><a href="#" data-page="3">3</a></li>
-		              <li class="ellipsis"><a href="#">…</a></li>
-		              <li class=""><a href="#" data-page="10">10</a></li
-		              ><li class="pager"><a href="#" data-page="2">></a></li>
-	              </ul>
-              </nav> -->
     </div>
 
 
@@ -201,12 +137,64 @@ $(function() {
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
+
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script> --%>
+<!-- //////////////////////////////////////////////////////////////// -->
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">강의노트 목록</h2>
+                                        <div class="card-text">Note List</div>
+                                    </div>
+<!--                                     <div class="d-flex gap-2">
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <br/>
+                            <div>
+	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">노트 작성</button>
+	      					</div>
+                            
+		                    <div class="card-body p-4">		
+		                        <!-- Simple DataTables example-->
+		                        <table id="datatablesSimpleNoteList">
+		                        
+		                        </table>
+		                    </div>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
+	<!-- Footer-->
+	<footer>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+	</footer>
+	</div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
 	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
-<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
+<!-- //////////////////////////////////////////////////////////////// -->
        
 
 </body>
