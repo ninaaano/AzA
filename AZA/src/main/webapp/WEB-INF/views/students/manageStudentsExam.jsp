@@ -42,8 +42,120 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
+<style>
+	body {
+    padding-top : 10px;
+    margin : 100px;
+    font-family: Pretendard, 'Noto Sans KR';
+    }
+
+</style>
 
 
+<script>
+$(function() {
+	$( "button.btn.btn-raised-success.btn-sm.col-sm-1.mb-4:contains('등록')" ).on("click" , function() {
+		alert("등록 click");
+		addStudentsExam();
+		
+		$.ajax({
+			url:"/studnents/rest/manageStudentsExam",
+			method:"POST",
+				headers: { 
+					"Accept" : "application/json",
+                	"Content-Type" : "application/json"
+				},success : function(JSONData , status) {
+					
+				}
+		})
+	});
+});
+
+function addStudentsExam() {
+	var examYear = $("input[name='examYear']").val();
+	var examSemester = $("input[name='examSemester']").val();
+	var examTerm = $("input[name='examTerm']").val();
+	var examSubject = $("input[name='examSubject']").val();
+	var examScore = $("input[name='examScore']").val();
+	
+	
+/* 	alert("년도 => "+examYear);
+	alert("학기 => "+examSemester);
+	alert("분기 => "+examTerm);
+	alert("과목 => "+examSubject);
+	alert("점수 => "+examScore); */
+	
+	if(examYear == null || examYear.length < 1){
+		
+		alert("년도는 필수 입력 항목입니다.");
+		return;
+	}
+	
+	if(examSemester == null || examSemester.length < 1){
+		
+		alert("학기는 필수 입력 항목입니다.");
+		return;
+	}
+	
+	if(examTerm == null || examTerm.length < 1){
+		
+		alert("분기는 필수 입력 항목입니다.");
+		return;
+	}
+	
+	if(examSubject == null || examSubject.length < 1){
+		
+		alert("과목은 필수 입력 항목입니다.");
+		return;
+	}
+	
+	if(examScore == null || examScore.length < 1){
+		
+		alert("점수는 필수 입력 항목입니다.");
+		return;
+	}
+	
+	$("form").attr("method" , "POST").attr("action" , "/students/addStudentsExam").submit();
+}
+
+
+
+
+$(function() {
+		$('#exam').on('change', function() {
+			alert("change");
+	
+ 		var examCode = $('option:selected').attr("examCode"); 
+			
+/*  	
+		var examScore = $('option:selected').val().trim();
+		var examSubject = $('option:selected').text().trim();  
+			alert("examScore => " + examScore); 
+			alert("examSubject => " + examSubject);
+			alert("examCode => " + examCode); */
+			
+			
+			$.ajax(
+					{url : "/students/rest/getStudentsExam/"+examCode ,
+						method : "GET" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						
+					},success : function(JSONData , status) {
+						alert("exam Code => "+JSONData.examCode);
+						alert("examSubject => "+JSONData.examSubject);
+						alert("examScore => "+JSONData.examScore);
+						
+					}						
+					})
+		})
+
+})
+
+
+</script>
   
 </head>
 
@@ -52,21 +164,106 @@
 
 <h1> Rest 싫어요 :( </h1>
 
+<input type="hidden" value="${user.userId }" name="studentId">
 
+	<div class="border border-top-0 p-3 p-sm-5 bg-light">
+	    <span class="text-nowrap p-3 border rounded bg-white" style="width: 10rem">I&nbsp;&nbsp;&nbsp;D : ${user.userId }</span>
+	    <span class="text-nowrap p-3 border rounded bg-white" style="width: 10rem">이 름 : ${user.userName } &nbsp;</span>
+	</div>
 
-				<c:set var="i" value="0" />
-				<c:forEach var="students" items="${list}">
-		 	    <c:set var="i" value="${ i+1 }" />
-		 	    	  
-					I D : ${students.studentId}	  <br/>
-					이름 : ${students.studentName} <br/>
-					과목 : ${students.examSubject} <br/>
-					점수 : ${students.examScore}
-					<hr/>
-				 </c:forEach>
+	
+	<div class="border border-top-0 p-3 p-sm-10">
+	    <div class="mb-4">
+	        <select class="form-select form-select-lg " aria-label="Large select example"  style="width: 10rem" id="exam">
+	        	<option selected="" disabled="">과목 선택</option>
+	        <c:forEach var="students" items="${list}">
+	            
+	            <option value="${students.examScore}" examCode = "${students.examCode }">${students.examSubject}</option>
+			</c:forEach>
+
+	        </select>
+	    </div>
+	</div>
+
+<!-- 성적 입력 시작 -->
+<form id="studentsExam">
+<div class="border border-top-0 p-3 p-sm-5 row">
+
+<!-- 년도 입력 -->
+
+ 
+
+    <div class="mb-4 col-sm-2">
+        <div class="form-floating">
+            <input class="form-control"  type="number" placeholder="2022" style="width:90px;" name="examYear">
+            <label for="floatingInputExample">
+          	    <font style="vertical-align: inherit;">
+           			 <font style="vertical-align: inherit;">년도</font>
+           		</font>
+           	</label>
+        </div>
+
+    </div>
+
+ <!-- 학기 입력 -->   
+     <div class="mb-4 col-sm-2">
+        <div class="form-floating">
+            <input class="form-control"  type="number" placeholder="1" style="width:90px;" name="examSemester">
+            <label for="floatingInputExample">
+          	    <font style="vertical-align: inherit;">
+           			 <font style="vertical-align: inherit;">학기</font>
+           		</font>
+           	</label>
+        </div>
+    </div>   
+
+<!-- 분기 입력 -->    
+     <div class="mb-4 col-sm-2">
+        <div class="form-floating">
+            <input class="form-control"  type="number" placeholder="1" style="width:90px;" name="examTerm">
+            <label for="floatingInputExample">
+          	    <font style="vertical-align: inherit;">
+           			 <font style="vertical-align: inherit;">분기</font>
+           		</font>
+           	</label>
+        </div>
+    </div> 
+
+<!-- 과목 입력 -->
+
+     <div class="mb-4 col-sm-2">
+        <div class="form-floating">
+            <input class="form-control"  type="text" placeholder="수학" style="width:90px;" name="examSubject">
+            <label for="floatingInputExample">
+          	    <font style="vertical-align: inherit;">
+           			 <font style="vertical-align: inherit;">과목</font>
+           		</font>
+           	</label>
+        </div>
+    </div> 
+
+<!-- 점수 입력 -->
+     <div class="mb-4 col-sm-2">
+        <div class="form-floating">
+            <input class="form-control" type="number" placeholder="100" style="width:90px;" name="examScore">
+            <label for="floatingInputExample">
+          	    <font style="vertical-align: inherit;">
+           			 <font style="vertical-align: inherit;">점수</font>
+           		</font>
+           	</label>
+        </div>
+    </div> 
+ <button class="btn btn-raised-success btn-sm col-sm-1 mb-4" type="button">등록</button>
+
+</div>
+
+</form>
+
+<!--  성적 입력 끝-->
+
 				 
-<div class="card mb-5">
-      <div class="card-header bg-white px-4"><div class="fs-5 my-1">Example Line Chart</div></div>
+<div class="card mb-5" align="center">
+      <div class="card-header bg-white px-4"><div class="fs-5 my-1">${user.userName }의 성적</div></div>
       <div class="card-body p-4">
      	 <canvas id="myLineChart" width="883" height="265" style="display: block; box-sizing: border-box; width: 706.797px; height: 212px;"></canvas>
       </div>
