@@ -452,7 +452,7 @@ $(function() {
 							  
 							  
 							  
-							  <iframe id="subFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
+							  <iframe id="subFrame" src="/lesson/listLesson" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
 							  
 							  
 							  
