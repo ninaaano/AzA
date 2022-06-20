@@ -455,7 +455,7 @@ $(function() {
 				                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
 				                        id="sprintSettingModalClose">취소</button>
 				                          <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-					   cursor:poointer" onclick="javascript:allSave();">전체저장</button>
+					 					  cursor:poointer" onclick="javascript:allSave();">전체저장</button>
 				                </div>
 				    
 				            </div>
