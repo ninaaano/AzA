@@ -8,7 +8,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>수업 과제</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -17,7 +17,7 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <!-- <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script> -->
-<!-- <script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
+<script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -63,47 +63,14 @@ font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
-<link href="/resources/css/common.css" rel="stylesheet">   
-<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>과제</title>       
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
-    <link href="/resources/css/message.css" rel="stylesheet">
-    Load Favicon
-    <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    Load Material Icons from Google Fonts
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    Load Simple DataTables Stylesheet
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
-    Roboto and Roboto Mono fonts from Google Fonts
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
-    Load main stylesheet
-    <link href="/resources/css/styles.css" rel="stylesheet">
-    
-        
-        
-        
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
-        
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>   -->     	
+<link href="/resources/css/common.css" rel="stylesheet">           
+ 	
 
 
 		
 </head>
 
-<body>
+<body class="nav-fixed bg-light">
 
 
 
@@ -140,14 +107,61 @@ $(function() {
 });
 </script>
 
-	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
+	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">과제 목록</h2>
+                                        <div class="card-text">Homework List</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div>
+	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">과제 등록</button>
+	      					</div>
+                            
+		                    <div class="card-body p-4">		
+		                        <!-- Simple DataTables example-->
+		                        <table id="datatablesSimpleHomeworkList">
+		                        
+		                        </table>
+		                    </div>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
+	<!-- Footer-->
+	<footer>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+	</footer>
+	</div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
+<%-- 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
         <h1 class="display-4 mb-0">과 제 목 록</h1>
         <div class="text-muted">Homework List</div>
     </div>
     
 <form>	
 		<div class="card-body p-4" style="margin: 20px 20px 20px 20px">
-            <!-- Simple DataTables example-->
+
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
             	<div class="dataTable-top">
 	      			<div>
@@ -175,7 +189,7 @@ $(function() {
 							  
 				    	</tr>	
 					</table>
-	      			<!-- //////////////////////////////////////////////////// -->
+
       			</div>
       			<div class="dataTable-container">
 	      			<table id="datatablesSimple" class="dataTable-table">
@@ -233,39 +247,10 @@ $(function() {
                			</tbody>
 	              	</table>
               	</div>
-              	<!-- <div class="dataTable-bottom">
-              		<div class="dataTable-info">Showing 1 to 5 of 100 entries</div>
-	              		<nav class="dataTable-pagination">
-	              		<ul class="dataTable-pagination-list">
-		              		<li class="active">
-		              			<a href="#" data-page="1">1</a>
-		              		</li>
-		              		<li class="">
-		              			<a href="#" data-page="2">2</a>
-		             		</li>
-		             		<li class="">
-		             			<a href="#" data-page="3">3</a>
-		             		</li>
-            				<li class="ellipsis">
-            					<a href="#">…</a>
-           					</li>
-           					<li class="">
-           						<a href="#" data-page="20">20</a>
-          					</li>
-          					<li class="pager">
-<<<<<<< HEAD
-          						<a href="#" data-page="2"></a>
-=======
-          						<a href="#" data-page="2">></a>
->>>>>>> refs/heads/YS
-          					</li>
-          				</ul>
-         			</nav>
-         		</div> -->
          	</div>
         </div>
 </form>	        
-
+ --%>
 
 </body>
 </html>

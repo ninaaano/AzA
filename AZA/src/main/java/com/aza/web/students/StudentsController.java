@@ -324,6 +324,24 @@ public class StudentsController {
 
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="updateStudentsNoteView", method=RequestMethod.POST)
+	public ModelAndView updateStudentsNote(@RequestParam("noteCode") int noteCode, Students students, HttpSession session) throws Exception{
+		
+		System.out.println("/studentst/updateStudentsNote : GET");
+		
+		String studentsId = ((User) session.getAttribute("user")).getUserId();
+
+
+		students= studentsService.getStudentsNote(noteCode);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/students/updateStudentsNote");
+		modelAndView.addObject("students", students);
+
+		return modelAndView;		
+		
+	}
 
 	@RequestMapping(value="updateStudentsNote", method=RequestMethod.POST)
 	public ModelAndView updateStudentsNote(@ModelAttribute("students") Students students) throws Exception {
@@ -371,7 +389,7 @@ public class StudentsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="listStudentsNote")
+	@RequestMapping(value="listStudentsNote" ,method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listStudentsNote(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 
 		System.out.println("/students/listStudentsNote");
@@ -437,7 +455,7 @@ public class StudentsController {
 
 			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
-		System.out.println("/students/addStudentsCharacter :: POST :: ���");
+		System.out.println("/students/addStudentsCharacter :: POST :: ");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);

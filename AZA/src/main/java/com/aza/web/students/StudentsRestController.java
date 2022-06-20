@@ -290,4 +290,30 @@ public class StudentsRestController {
 		return students;		
 	}
 	
+	@RequestMapping("listStudentsNote")
+	public Map<String, Object> listStudentsNote(HttpSession session) throws Exception {
+		
+		Map result = null;
+		System.out.println("/students/rest/listStudentsNote");
+		
+		User dbUser = (User) session.getAttribute("user");		
+		String userId = dbUser.getUserId();
+		
+		User user = userService.getUser(userId);
+		
+		Search search = new Search();
+		int totalCount;
+		
+		if(user.getRole().equals("student")) {
+			totalCount = (int) studentsService.listStudentsNote(search, userId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			result = studentsService.listStudentsNote(search, userId);
+			
+		}
+		
+		return result;			
+	}
+	
 }

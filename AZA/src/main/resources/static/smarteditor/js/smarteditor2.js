@@ -5492,6 +5492,7 @@ nhn.husky.SE_EditingArea_WYSIWYG = jindo.$Class({
 			sContent = sCursorHolder;
 		}
 		this.iframe.contentWindow.document.body.innerHTML = sContent;
+		
 
 		// [COM-1142] IE의 경우 <p>&nbsp;</p> 를 <p></p> 로 변환
 		// [SMARTEDITORSUS-1623] IE11은 <p></p>로 변환하면 라인이 붙어버리기 때문에 IE10만 적용하도록 수정

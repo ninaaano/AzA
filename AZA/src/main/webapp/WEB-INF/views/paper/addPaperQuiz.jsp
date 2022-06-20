@@ -71,65 +71,67 @@ font-family: Pretendard, 'Noto Sans KR';
 	}
 	
 	function addNonSubjective() {
-		$("#addNonSubjectiveQuestion").append("
-												<tr>
-													<th colspan="4"><span class="badge bg-warning" id="questionNo">1번</span></th>
-													<th colspan="1">
-														<div class="form-check" align="right">
-									                        <input class="form-check-input" id="answerCheck" type="checkbox" value="" checked="">
-									                        <label class="form-check-label" for="flexCheckChecked">정답</label>
-									                    </div>
-									                </th>
-												</tr>
-												<tr>
-													<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td>
-												</tr>
-												<tr>
-													<td>
-														<div class="form-check">
-									                        <input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo">
-									                        <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1번보기 입력" 
-									                        	id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example">
-									                    </div>
-													</td>
-													<td>
-														<div class="form-check">
-									                        <input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo">
-									                        <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2번보기 입력" 
-									                        	id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example">
-									                    </div>
-													</td>
-													<td>
-														<div class="form-check">
-									                        <input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo">
-									                        <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3번보기 입력" 
-									                        	id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example">
-									                    </div>
-													</td>
-													<td>
-														<div class="form-check">
-									                        <input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo">
-									                        <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4번보기 입력" 
-									                        	id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example">
-									                    </div>
-													</td>
-													<td>
-														<div class="form-check">
-									                        <input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo">
-									                        <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5번보기 입력" 
-									                        	id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example">
-									                    </div>
-													</td>
-												</tr>
-												<tr>
-													<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td>
-												</tr>
-												<tr>
-													<td colspan="5"><textarea type="text" name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
-												</tr>
-												<tr>
-													<td colspan="5"><textarea type="text" name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
-												</tr>");
+		$("#addNonSubjectiveQuestion").append('
+				<table class="table table-bordered">
+    			<tr>
+    				<th colspan="4"><span class="badge bg-warning" id="questionNo">1번</span></th>
+    				<th colspan="1">
+    					<div class="form-check" align="right">
+                            <input class="form-check-input" id="answerCheck" type="checkbox" value="" checked="">
+                            <label class="form-check-label" for="flexCheckChecked">정답</label>
+                        </div>
+                    </th>
+    			</tr>
+    			<tr>
+    				<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td>
+    			</tr>
+    			<tr>
+    				<td>
+    					<div class="form-check">
+                            <input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo">
+                            <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1번보기 입력" 
+                            	id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example">
+                        </div>
+    				</td>
+    				<td>
+    					<div class="form-check">
+                            <input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo">
+                            <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2번보기 입력" 
+                            	id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example">
+                        </div>
+    				</td>
+    				<td>
+    					<div class="form-check">
+                            <input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo">
+                            <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3번보기 입력" 
+                            	id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example">
+                        </div>
+    				</td>
+    				<td>
+    					<div class="form-check">
+                            <input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo">
+                            <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4번보기 입력" 
+                            	id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example">
+                        </div>
+    				</td>
+    				<td>
+    					<div class="form-check">
+                            <input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo">
+                            <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5번보기 입력" 
+                            	id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example">
+                        </div>
+    				</td>
+    			</tr>
+    			<tr>
+    				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td>
+    			</tr>
+    			<tr>
+    				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
+    			</tr>
+    			<tr>
+    				<td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
+    			</tr>
+    		</table>');
 	}
 	
 	
@@ -138,7 +140,8 @@ font-family: Pretendard, 'Noto Sans KR';
 
 </head>
 <body>
-
+		    <button class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>주관식 문제 추가</button>
+	        <button class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>객관식 문제 추가</button>
 	<form id="quizForm">
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
@@ -174,12 +177,11 @@ font-family: Pretendard, 'Noto Sans KR';
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 	            id="quizScore" name="quizScore" value="${paper.quizScore}" aria-describedby="button-addon1">
 	        </div>
-	        <button id="addSubjective" class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>주관식 문제 추가</button>
-	        <button id="addNonSubjective" class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>객관식 문제 추가</button>
+
 	        <!-- <button id="deleteSubjective" class="btn btn-text-primary" type="button">주관식 문제 삭제</button>
 	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">객관식 문제 삭제</button> -->
-        	<form>
-		        <div class="form-group" name="addNonSubjectiveQuestion" id="addNonSubjectiveQuestion" >
+ 
+		        <div class="form-group" name="addNonSubjectiveQuestion" id="addNonSubjectiveQuestion" >		        		
 		        		<table class="table table-bordered">
 		        			<tr>
 		        				<th colspan="4"><span class="badge bg-warning" id="questionNo">1번</span></th>
@@ -234,12 +236,13 @@ font-family: Pretendard, 'Noto Sans KR';
 		        				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td>
 		        			</tr>
 		        			<tr>
-		        				<td colspan="5"><textarea type="text" name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
+		        				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
 		        			</tr>
 		        			<tr>
-		        				<td colspan="5"><textarea type="text" name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
+		        				<td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
 		        			</tr>
 		        		</table>
+		        		
 	        		</div>
 		        		
 	        		<div class="form-group" name="addSubjectiveQuestion" id="addSubjectiveQuestion" >
@@ -267,10 +270,9 @@ font-family: Pretendard, 'Noto Sans KR';
 		        			</tr>
 		        		</table>
 			        </div>
-	        	</form>
-	    </div>
-		
-	</form>	
+	    		</div>
+        	</form>
+			
 	    <div align="center">			
 		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary" >등록</button>
 		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>

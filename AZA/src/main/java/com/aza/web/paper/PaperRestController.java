@@ -67,4 +67,36 @@ public class PaperRestController {
 			return result;			
 		}
 		
+		@RequestMapping("listPaperHomework")
+		public Map<String, Object> listPaperHomework(HttpSession session) throws Exception {
+			
+			Map result = null;
+			System.out.println("/paper/rest/listPaperHomework");
+			
+			User dbUser = (User) session.getAttribute("user");		
+			String userId = dbUser.getUserId();
+			
+			User user = userService.getUser(userId);
+			
+			Search search = new Search();
+			int totalCount;
+			
+			if(user.getRole().equals("student")) {
+				totalCount = (int) paperService.listPaperHomeworkByStudent(search, userId).get("totalCount");
+				search.setCurrentPage(1);
+				search.setPageSize(totalCount);
+				
+				result = paperService.listPaperHomeworkByStudent(search, userId);
+				
+			}else if(user.getRole().equals("teacher")) {
+				totalCount = (int) paperService.listPaperHomeworkByTeacher(search, userId).get("totalCount");
+				search.setCurrentPage(1);
+				search.setPageSize(totalCount);
+				
+				result = paperService.listPaperHomeworkByTeacher(search, userId);
+			}
+			
+			return result;			
+		}
+		
 }
