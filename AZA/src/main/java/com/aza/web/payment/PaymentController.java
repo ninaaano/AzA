@@ -58,7 +58,7 @@ public class PaymentController {
 		try {
 
 			String token = paymentService.getToken();
-			System.out.println("í† í° ==> " + token);
+			System.out.println("ÅäÅ« ==> " + token);
 
 			} catch (IOException e) {
 
@@ -114,29 +114,29 @@ public class PaymentController {
 	public ResponseEntity<String> realPayment
 	(@PathVariable int payCode,HttpSession session, Payment payment)throws Exception{
 		String token = paymentService.getToken();
-		System.out.println("í† í° ==> " + token);
+		System.out.println("ÅäÅ« ==> " + token);
 		String impUid = payment.getImpUid();
 		
 		payment = paymentService.getPayment(payCode);
 		int amount = paymentService.paymentInfo(impUid, token);
 		
-		//ì‹¤ê²°ì œ ê¸ˆì•¡ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸.
+		//½Ç°áÁ¦ ±İ¾×°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ.
 		long price = payment.getAmount();
-		//ì¼ì¹˜í•˜ì§€ ì•Šì„ ë•Œ ê²°ì œ ì·¨ì†Œ
+		//ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§ °áÁ¦ Ãë¼Ò
 		try {
 			if(price != amount) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜, ê²°ì œ ì·¨ì†Œ", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ±İ¾× ¿À·ù");
+			 return new ResponseEntity<String>("°áÁ¦ ±İ¾× ¿À·ù, °áÁ¦ Ãë¼Ò", HttpStatus.BAD_REQUEST);
 		}else {
-			//ê²°ì œ ì„±ê³µì‹œ ìˆ˜ë‚©ì™„ë£Œë¡œ ìƒíƒœ ë³€ê²½, impUidê°’ ì €ì¥
+			//°áÁ¦ ¼º°ø½Ã ¼ö³³¿Ï·á·Î »óÅÂ º¯°æ, impUid°ª ÀúÀå
 			payment.setCheckPay('Y');
 			payment.setImpUid(impUid);
 			paymentService.updatePayment(payment);
 		}
 			
 		}catch (Exception e) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ì—ëŸ¬", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ¿À·ù");
+			 return new ResponseEntity<String>("°áÁ¦ ¿¡·¯", HttpStatus.BAD_REQUEST);
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -148,7 +148,7 @@ public class PaymentController {
 //	@RequestMapping(value = "/updatePayment", method = RequestMethod.POST)
 //	public ModelAndView updatePayment (@ModelAttribute("payment") Payment payment ,@RequestParam("payCode")int payCode)throws Exception{
 //		paymentService.updatePayment(payment);
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/addPayment", method = RequestMethod.POST)
@@ -159,13 +159,13 @@ public class PaymentController {
 //		
 //		paymentService.addPayment(payment);
 //		
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/deletePayment", method = RequestMethod.GET)
 //	public ModelAndView deletePayment (@RequestParam("payCode")int payCode)throws Exception{
 //		paymentService.deletePayment(payCode);
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/listPayment")
@@ -188,7 +188,7 @@ public class PaymentController {
 //		modelAndView.addObject("resultPage", resultPage);
 //		modelAndView.addObject("search", search);
 //		
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	public ModelAndView requestPay() throws Exception{

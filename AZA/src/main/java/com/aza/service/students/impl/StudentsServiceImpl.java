@@ -246,6 +246,12 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		return map;
 	}
+	
+	@Override
+	public int checkCharacterTotalCount(Search search) throws Exception {
+
+		return studentsDao.checkCharacterTotalCount(search);
+	}
 
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
@@ -326,6 +332,8 @@ public class StudentsServiceImpl implements StudentsService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
+
 
 
 

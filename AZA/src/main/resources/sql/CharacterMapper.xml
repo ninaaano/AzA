@@ -57,12 +57,21 @@
 	ORDER BY student_name
 	</select>
 	
-		<select id="getStudentsCharacterTotalCount" parameterType="search" resultType="int">
+	<select id="getStudentsCharacterTotalCount" parameterType="search" resultType="int">
 	SELECT COUNT(*)
 	  	FROM( SELECT
 			*
 			FROM characters
 			WHERE teacher_id = #{searchId}
+			ORDER BY student_name) countTable
+	</select>
+	
+	<select id="checkCharacterTotalCount">
+		SELECT COUNT(*)
+	  	FROM( SELECT
+			*
+			FROM characters
+			WHERE teacher_id = #{searchId} AND student_id=#{searchKeyword}
 			ORDER BY student_name) countTable
 	</select>
 </mapper>

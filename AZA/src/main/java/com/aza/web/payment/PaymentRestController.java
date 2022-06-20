@@ -56,37 +56,36 @@ public class PaymentRestController {
 	}
 
 	@RequestMapping("complete/{payCode}")
-	public ResponseEntity<String> realPayment
+	public ResponseEntity<String> completePayment
 	(@PathVariable int payCode,HttpSession session, Payment payment)throws Exception{
 		String token = paymentService.getToken();
-		System.out.println("í† í° ==> " + token);
+		System.out.println("ÅäÅ« ==> " + token);
 		String impUid = payment.getImpUid();
 		
 		payment = paymentService.getPayment(payCode);
 		int amount = paymentService.paymentInfo(impUid, token);
 		
-		//ì‹¤ê²°ì œ ê¸ˆì•¡ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸.
+		//½Ç°áÁ¦ ±İ¾×°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ.
 		long price = payment.getAmount();
-		//ì¼ì¹˜í•˜ì§€ ì•Šì„ ë•Œ ê²°ì œ ì·¨ì†Œ
+		//ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§ °áÁ¦ Ãë¼Ò
 		try {
 			if(price != amount) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜, ê²°ì œ ì·¨ì†Œ", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ±İ¾× ¿À·ù");
+			 return new ResponseEntity<String>("°áÁ¦ ±İ¾× ¿À·ù, °áÁ¦ Ãë¼Ò", HttpStatus.BAD_REQUEST);
 		}else {
-			//ê²°ì œ ì„±ê³µì‹œ ìˆ˜ë‚©ì™„ë£Œë¡œ ìƒíƒœ ë³€ê²½, impUidê°’ ì €ì¥
+			//°áÁ¦ ¼º°ø½Ã ¼ö³³¿Ï·á·Î »óÅÂ º¯°æ, impUid°ª ÀúÀå
 			payment.setCheckPay('Y');
 			payment.setImpUid(impUid);
 			paymentService.updatePayment(payment);
-			System.out.println("ê²°ì œ ì„±ê³µ");
+			System.out.println("°áÁ¦ ¼º°ø");
 			System.out.println("comlete payment => " + payment);
 		}
 			
 		}catch (Exception e) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ì—ëŸ¬", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ¿À·ù");
+			 return new ResponseEntity<String>("°áÁ¦ ¿¡·¯", HttpStatus.BAD_REQUEST);
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
-

@@ -84,17 +84,17 @@ function requestPay(){
 		
 
     }, function(rsp) {
-        /*======================================================*/
-/*         console.log(rsp); */
+         console.log(rsp); 
         if (rsp.success) { // 결제 성공 시 
                 // jQuery로 HTTP 요청
                  jQuery.ajax({
-                    url: "http://127.0.0.1:8080/payment/rest/complete/"+ merchant_uid, // 예: https://www.myservice.com/payments/complete
+                    url: "/payment/rest/complete/"+ merchant_uid, // 예: https://www.myservice.com/payments/complete
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                     data: {
                         imp_uid: rsp.imp_uid,
                         merchant_uid: rsp.merchant_uid
+                        
                     }
                 }).done(function (data) {
                   // 가맹점 서버 결제 API 성공시 로직

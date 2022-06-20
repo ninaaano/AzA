@@ -16,8 +16,8 @@
 		<result property="payDueDate" 		 column="pay_due_date" 			jdbcType="VARCHAR" />
 		<result property="payDay" 			 column="pay_day" 				jdbcType="DATE" />
 		<result property="checkPay" 		 column="check_pay" 			jdbcType="CHAR" />
-		<result property="impUid" 			 column="imp_Uid" 				jdbcType="VARCHAR" />
-		<result property="merchantUid" 		 column="merchant_Uid" 			jdbcType="VARCHAR" />	
+		<result property="impUid" 			 column="imp_uid" 				jdbcType="VARCHAR" />
+		<result property="merchantUid" 		 column="merchant_uid" 			jdbcType="VARCHAR" />	
 		
 		<association property="payLessonName"  javaType="lesson">
 			<id property="lessonName" column="lesson_name" jdbcType="VARCHAR"/>
@@ -51,7 +51,8 @@
  		imp_uid = ${impUid},
  	  <if test="checkPay != 'N'">
 		check_pay = #{checkPay},
-		pay_day = SYSDATE
+		pay_day = SYSDATE,
+		imp_uid = #{impUid:VARCHAR}
 	  </if>	
 	  <if test="checkPay == 'N'">
 		check_pay = #{checkPay},

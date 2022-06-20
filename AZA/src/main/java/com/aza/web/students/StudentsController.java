@@ -400,7 +400,7 @@ public class StudentsController {
 	public ModelAndView addStudentsCharacter
 	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 
-		System.out.println("/students/addStudentsCharacter :: GET ::ï¿½Ü¼ï¿½ View");
+		System.out.println("/students/addStudentsCharacter :: GET :: ´Ü¼ø View");
 
 
 		
@@ -527,7 +527,7 @@ public class StudentsController {
 	
 	@RequestMapping(value="getStudentsCharacter/{characterCode}")
 	public ModelAndView getStudentCharacter
-	(@PathVariable("characterCode") int characterCode, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+	(@PathVariable("characterCode") int characterCode, @RequestParam("studentId") String studentId, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		
 		System.out.println("getStudentsCharacter ... ");
 		
@@ -546,9 +546,12 @@ public class StudentsController {
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
 		
-		
+		search.setSearchKeyword(studentId);
+		if(studentsService.checkCharacterTotalCount(search) < 1) {
+		mv.setViewName("/students/addStudentsCharacter");	
+		}else {
 		mv.setViewName("/students/getStudentsCharacter");
-
+		}
 		return mv;
 	}
 	

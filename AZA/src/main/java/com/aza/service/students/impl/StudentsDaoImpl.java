@@ -168,7 +168,13 @@ public class StudentsDaoImpl implements StudentsDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("CharacterMapper.getStudentsCharacterTotalCount",search);
 	}
-
+	
+	@Override
+	public int checkCharacterTotalCount(Search search) throws Exception {
+		
+		return sqlSessionTemplate.selectOne("CharacterMapper.checkCharacterTotalCount",search);
+	}
+	
 	// exam =========================================
 	@Override
 	public void addStudentsExam(Students students) throws Exception {
@@ -260,6 +266,9 @@ public class StudentsDaoImpl implements StudentsDao {
 		search.setSearchId(studentId);
 		return sqlSessionTemplate.selectOne("StudentsNoteMapper.getStudentsNoteTotalCount", search);
 	}
+
+
+
 
 
 
