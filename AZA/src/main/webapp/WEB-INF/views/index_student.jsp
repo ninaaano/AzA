@@ -503,7 +503,7 @@ $(function() {
 								<i class="material-icons text-primary">language</i>
 							</div> 수업관리
 						</a>
-						<a class="nav-link left_nav" href="#"  data-url='/students/listStudentsRecord'>
+						<a class="nav-link left_nav" href="#"  data-url='/paper/listPaperHomework'>
 							<div class="nav-link-icon">
 								<i class="material-icons text-primary" href="#">language</i>
 							</div> 과제
@@ -513,7 +513,7 @@ $(function() {
 								<i class="material-icons text-primary">language</i>
 							</div> 성적
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/students/listStudentsNote'>
 							<div class="nav-link-icon">
 								<i class="material-icons text-primary">language</i>
 							</div> 강의노트

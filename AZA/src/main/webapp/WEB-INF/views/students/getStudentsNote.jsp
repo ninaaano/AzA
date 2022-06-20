@@ -158,7 +158,7 @@
 </head>
 <body>
 
-<%-- 	<form name="noteForm" action="updateStudentsNote" method="post">
+<%-- <form name="noteForm" action="updateStudentsNote" method="post">
 	      <div id="smarteditor">
 	      	<input name="noteTitle" id="noteTitle" value="${students.noteTitle}" style="width: 100%" placeholder="제목을 입력해주세요"></input>
 	      	<input name="studentId" id="studentId" value="${students.studentId}" placeholder="학생 이름"></input>
