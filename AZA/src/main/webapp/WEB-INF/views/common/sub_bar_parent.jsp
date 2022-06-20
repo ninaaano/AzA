@@ -19,6 +19,7 @@
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <script defer src="/resources/javascript/students/studentsUI.js"></script>
+<script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -412,7 +413,7 @@ $(function() {
 				<div class="row justify-content-center gx-5">
                       <div class="row justify-content-end col-md-8 col-lg-6">
                           <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                              <div class="nav-item dropdown pt-3" id="myDropdown">
+                              <%-- <div class="nav-item dropdown pt-3" id="myDropdown">
 						      <a class="nav-link dropdown-toggle pb-0" href="#" data-bs-toggle="dropdown">  ÀÚ³à ¼±ÅÃ  </a>
 						      <ul class="dropdown-menu">
 							  		<c:forEach var="student" items="${studentInfo}">
@@ -425,7 +426,7 @@ $(function() {
 							  			</li>	
 							  	</c:forEach>
 						      </ul>
-                          </div>
+                          </div> --%>
 
 							
 						    </div>
@@ -451,7 +452,7 @@ $(function() {
 							  
 							  
 							  
-							  <iframe id="subFrame" src="/lesson/listLesson"></iframe>
+							  <iframe id="subFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
 							  
 							  
 							  
