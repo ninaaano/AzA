@@ -426,7 +426,8 @@ $(function() {
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
 							id="dropdownMenuNotifications" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary">notifications</i>
+							<i class="material-icons text-primary position-relative">notifications</i> 
+							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
 						</button>
 						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
@@ -508,7 +509,7 @@ $(function() {
 								<i class="material-icons text-primary" href="#">language</i>
 							</div> 과제
 						</a>
-						<a class="nav-link left_nav" href="#">
+						<a class="nav-link left_nav" href="#" data-url='/students/manageStudentsExam'>
 							<div class="nav-link-icon">
 								<i class="material-icons text-primary">language</i>
 							</div> 성적

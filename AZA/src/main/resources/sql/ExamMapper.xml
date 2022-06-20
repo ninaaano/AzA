@@ -66,6 +66,7 @@
 			    SELECT inner_table.*, ROWNUM AS row_seq
 			    FROM ( SELECT * FROM exam 
 						WHERE student_id = #{searchId} AND exam_subject = #{searchKeyword}
+						ORDER BY exam_subject
 				)inner_table 
 		    WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
@@ -78,6 +79,7 @@
 				*
 				FROM exam
 				WHERE student_id = #{searchId:VARCHAR} AND exam_subject = #{searchKeyword:VARCHAR}
+				ORDER BY exam_subject
 		) countTable
 	</select>
 	
@@ -89,6 +91,7 @@
 			    SELECT inner_table.*, ROWNUM AS row_seq
 			    FROM ( SELECT * FROM exam 
 						WHERE student_id = #{searchId}
+						ORDER BY exam_subject
 				)inner_table 
 		    WHERE ROWNUM &lt;= #{endRowNum} ) inner_table
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
@@ -100,6 +103,7 @@
 				*
 				FROM exam
 				WHERE student_id = #{searchId:VARCHAR}
+				ORDER BY exam_subject
 		) countTable
 	</select>
 	
