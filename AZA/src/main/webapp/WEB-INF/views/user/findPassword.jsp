@@ -242,18 +242,16 @@ body {
 		<!--휴대폰 인증 / SMS SENS API -->
 
 		function cert() {
-			 var random = Math.floor(Math.random() * 1000000)+"";
 			 var phone = $("#phone").val();	
-			 $('#randomVal').val(random);
-		
-				
+			
 				$.ajax({
 					type : 'POST',
 					url :'/user/rest/sendSMS/' + phone,
 					dataType : "json",
+									
 					contentType: "application/json",
 					success : function(data) {
-						if(data.statusName == "success"){
+						if(data.result  == "success"){
 							$('#certCheck').text("인증 번호가 전송되었습니다.");
 							$('#certCheck').css('color','blue');
 							$("#signup_btn").attr("disabled",true);
@@ -267,19 +265,10 @@ body {
 		}
 		
 		function smsAuthBtn() {
-			
-			var userVal = $('#certification').val();
-			var certVal = $('#randomVal').val();
-		
-				if(userVal == certVal){
 					$('#certCheck').text("인증이 완료되었습니다.");
 					$('#certCheck').css('color','blue');	
 					$("#signup_btn").attr("disabled",false);
-				}else{
-					$('#certCheck').text("인증번호를 다시 확인해주세요");
-					$('#certCheck').css('color','red');
-					$("#signup_btn").attr("disabled",true);
-				}
+				
 			
 		};
 		

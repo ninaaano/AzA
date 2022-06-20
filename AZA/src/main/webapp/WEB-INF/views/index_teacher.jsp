@@ -339,7 +339,7 @@ $(function() {
             success: function(result) {
                 if(result) {
                 	console.log(result);
-                	
+                	sessionStorage.clear();
                 	sessionStorage.setItem('userId', result[0].userId);
                 	
                 	result.shift();

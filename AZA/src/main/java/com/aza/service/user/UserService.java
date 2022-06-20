@@ -64,5 +64,9 @@ public interface UserService {
 	
 	public void updatePassword(User user)throws Exception;
 
+	int confirmCode(String code) throws Exception;
+
+	public User checkPhone(User user)throws Exception;
+
 
 }

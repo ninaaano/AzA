@@ -63,7 +63,7 @@ public class UserController {
 
 	
 	// test : login
-	@RequestMapping(value="login", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		System.out.println("/user/login");
 		ModelAndView mv= new ModelAndView();
@@ -72,13 +72,14 @@ public class UserController {
 		System.out.println(dbUser);
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
-			if(dbUser.getRole().equals("parent")) {
-				Search search = new Search();
-				search.setPageSize(pageSize);
-				search.setCurrentPage(1);
-				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
-				session.setAttribute("students", students);
-			}
+			
+			/*
+			 * if(dbUser.getRole().equals("parent")) { Search search = new Search();
+			 * search.setPageSize(pageSize); search.setCurrentPage(1); List<User> students =
+			 * (List) userService.listRelationByParent(search,
+			 * dbUser.getUserId()).get("list"); session.setAttribute("students", students);
+			 * }
+			 */
 			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
@@ -92,6 +93,11 @@ public class UserController {
 			
 			// parent 
 			if(dbUser.getRole().equals("parent")) {
+				Search search = new Search();
+				search.setPageSize(pageSize);
+				search.setCurrentPage(1);
+				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
+				session.setAttribute("students", students);
 				mv.setViewName("/index_parent");
 			}
 			System.out.println(session.getAttribute("user"));

@@ -48,10 +48,9 @@
     	seq_alert_alert_code.nextval, 
 		#{receiverId},
     	#{lessonCode},
-    	(SELECT ('[ ' || v.l_name || ' ] ' || v.s_name || #{alertContent}) CONTENT
-    		FROM LESSON, (SELECT l.lesson_name l_name, u.user_name s_name 
-    						FROM LESSON l, USERS u 
-    						WHERE l.lesson_code = #{lessonCode} AND u.user_id = #{studentId}) v), 
+    	(SELECT ('[ ' || lesson_name || ' ] ' || student_name || #{alertContent}) CONTENT
+   			FROM students_record
+			where lesson_code = #{lessonCode} AND student_id = #{studentId}),
     	TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'),
     	null
     	)

@@ -90,5 +90,11 @@ public class AlertServiceImpl implements AlertService {
 		return alertDao.getAlertByDate(search);
 		
 	}
+	
+	public int alertCreateList(int alertCode)throws Exception{
+		return alertDao.alertCreateList(alertCode);
+		
+		
+	}
 
 }

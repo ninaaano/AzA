@@ -149,10 +149,9 @@ style="width:600px;height:500px;">
 
 			<select id="characterCode" name="characterCode" >
 
-				<c:set var="i" value="0" />
+
 				<c:forEach var="students" items="${list}">
-		 	    <c:set var="i" value="${ i+1 }" />	  
-						
+  
 						<option align="center" value="${students.characterCode }">${students.studentName}
 	
 				 </c:forEach>

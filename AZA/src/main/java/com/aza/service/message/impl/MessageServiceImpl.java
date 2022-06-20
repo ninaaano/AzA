@@ -7,18 +7,22 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.aza.service.domain.Message;
 import com.aza.service.students.StudentsDao;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserDao;
 import com.aza.service.user.UserService;
+import com.mongodb.client.MongoDatabase;
 
 @Service("messageServiceImpl")
 public class MessageServiceImpl {
@@ -72,18 +76,14 @@ public class MessageServiceImpl {
 		System.out.println(message);
 	}
 
-	public void deleteMessage(String _id) throws Exception {
-
-		System.out.println("delete"+_id);
-
-
+	public Message deleteMessage(String _id) throws Exception {
 		
-		Criteria criteria = Criteria.where("_id").is(_id);
-		//criteria.is(new ObjectId(_id));
-
+		System.out.println("delete"+_id);
+		Criteria criteria = new Criteria("_id");
+		criteria.is(new ObjectId(_id));
 		Query qr = new Query(criteria);
 
-		System.out.println(mongoTemplate.exists(qr, Message.class));
+		return mongoTemplate.findAndRemove(qr, Message.class);
 	}
 
 

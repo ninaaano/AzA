@@ -100,7 +100,7 @@ VALUES(seq_students_record.nextVal,'agho4567',(SELECT lesson_name FROM lesson WH
 
 INSERT
 INTO STUDENTS_RECORD
-VALUES(seq_students_record.nextVal,'80RNVO0J',(SELECT lesson_name FROM lesson WHERE lesson_code = '80RNVO0J'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+VALUES(seq_students_record.nextVal,'FWZOOP30',(SELECT lesson_name FROM lesson WHERE lesson_code = 'FWZOOP30'),'student5','student',1,TO_CHAR(sysdate),40000,0);
 
 INSERT
 INTO STUDENTS_RECORD
@@ -292,7 +292,7 @@ INSERT ALL
 /* listLesson Book*/
 select *
 from (select inner_table.*, ROWNUM AS row_seq
-	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name,LB.lesson_code
 		FROM BOOK B, LESSON_BOOK LB, LESSON L
 		WHERE B.ISBN=LB.ISBN AND LB.lesson_code = L.lesson_code and L.teacher_id = 'teacher51') inner_table
 		WHERE rownum<3)

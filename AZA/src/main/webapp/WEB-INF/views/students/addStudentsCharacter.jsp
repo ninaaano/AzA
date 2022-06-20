@@ -102,9 +102,7 @@ function addStudentsCharacter() {
 	<h3>학생 특징 등록</h3>
 			<select id="studentName" name="studentId" >
 
-				<c:set var="i" value="0" />
 				<c:forEach var="students" items="${list}">
-		 	    <c:set var="i" value="${ i+1 }" />	  
 						
 						<option align="center" value="${students.studentId }">${students.studentName}
 	

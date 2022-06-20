@@ -2,6 +2,8 @@ package com.aza.web.message;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +15,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
 import com.aza.service.domain.Greeting;
@@ -23,7 +27,7 @@ import com.mongodb.client.MongoCollection;
 
 @CrossOrigin
 @Controller
-public class GreetingController {
+public class MessageController {
 
 	private SimpMessageSendingOperations messagingTemplate;
 	
@@ -35,14 +39,15 @@ public class GreetingController {
 	@Autowired
 	@Qualifier("messageServiceImpl")
 	private MessageServiceImpl messageServiceImpl;
-
-
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings")
-	public Greeting greeting(HelloMessage message) throws Exception {
-		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+	
+	@RequestMapping("/message")
+	public ModelAndView messageView(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/message/message");
+		
+		return mv;
 	}
+
 
 	@MessageMapping("/getMessage/{userId}/{otherId}")
 	@SendTo("/topic/getMessage")
@@ -70,15 +75,14 @@ public class GreetingController {
 
 	//@MessageExceptionHandler(MessageConversionException.class)
 	@MessageMapping("/deleteMessage/{_id}")
-	@SendTo("/topic/showDeleteMessage")
-	public void deleteMessage(@DestinationVariable String _id, @Payload(required= false)Message message) throws Exception {
+	@SendTo("/topic/getMessage")
+	public List deleteMessage(@DestinationVariable String _id, @Payload(required= false)Message message) throws Exception {
 		Thread.sleep(1000);
 		System.out.println("deleteMessage : "+message);
 				
-		messageServiceImpl.deleteMessage(_id);
-				
-		//
+		Message deleted = messageServiceImpl.deleteMessage(_id);
+		
+		List list = messageServiceImpl.getMessage(deleted.getSenderId(), deleted.getReceiverId());
+		return list;	
 	}
-	
-
 }

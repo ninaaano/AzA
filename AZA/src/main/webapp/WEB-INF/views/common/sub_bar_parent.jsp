@@ -18,7 +18,8 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-<script defer src="/resources/javascript/students/teacherHome.js"></script>
+<script defer src="/resources/javascript/students/studentsUI.js"></script>
+<script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -49,20 +50,10 @@
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
 	
-	
-<!-- schedule -->
-<link type="text/css" href="/resources/css/schedule.css" rel="stylesheet" />
-<script defer type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
-<!-- <script src='../lib/main.min.js'></script> -->
-<script defer type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
-<script defer type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
-<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	
 <style>
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
-
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -130,7 +121,7 @@ $(function() {
 })
 
 
-/* 
+
 function deleteAlert(alertCode) {
 	$.ajax({
 		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
@@ -192,6 +183,10 @@ function deleteAlert(alertCode) {
             }
        }
 	})
+	
+	
+	
+	
 }
 
 
@@ -325,13 +320,15 @@ function readAlert(alertCode) {
 	})
 }
 
- */
+
 
 $(function() {
+
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
+
 	})
 
 	// Message
@@ -389,6 +386,9 @@ $(function() {
             } 
         })
 	})
+	
+
+
 })
 	
 
@@ -404,129 +404,65 @@ $(function() {
 
 <body class="nav-fixed bg-light">
 
-	<!-- Layout content-->
 	<div id="layoutDrawer_content">
+	
+		<!-- Main page content-->
+		<main class="mt-12">
+			<header class="main-header">
+				<!-- page header -->
+				<div class="row justify-content-center gx-5">
+                      <div class="row justify-content-end col-md-8 col-lg-6">
+                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
+                              <%-- <div class="nav-item dropdown pt-3" id="myDropdown">
+						      <a class="nav-link dropdown-toggle pb-0" href="#" data-bs-toggle="dropdown">  자녀 선택  </a>
+						      <ul class="dropdown-menu">
+							  		<c:forEach var="student" items="${studentInfo}">
+							  			<li><a class="dropdown-item" href="#">${student.userName}  &raquo;</a>
+							  				<ul class="submenu dropdown-menu">
+							  					<c:forEach var="lesson" items="${lessons}">
+							  					<li><a class="dropdown-item" href="/students/listStudentsAttendance?studentId=${student.userId}&lessonCode=${lesson.lessonCode}">${lesson.lessonName}</a></li>
+							  					</c:forEach>
+						            		</ul>
+							  			</li>	
+							  	</c:forEach>
+						      </ul>
+                          </div> --%>
 
-
-			<div class="container-xl px-5"> 
-			
-			<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
-				<div id="calendar" style="margin: 0 30% 0 30%">
-						<div id='loading'>loading...</div>
-						<div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
-						<div style="width:60%; float:left; text-align:right">일정 현황
-						</div><div style="width:40%; float:left;text-align:right"></div>
-						<button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-						cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
-				</div>		
-				</div>
-			</div>
-				
-				
-				 <hr class="my-5">
-				
-				<div class="row d-flex justify-content-around">
-				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
-	                          <div class="card card-raised overflow-hidden h-100">
-	                              <div class="card-header bg-primary text-white">
-	                                  <div id="curDate" class="d-flex justify-content-between align-items-center"></div>
-	                              </div>
-	                              <div class="card-body bg-transparent p-0">
-	                                  <div class="list-group list-group-flush">
-	                                      <div class="list-group-item d-flex justify-content-between align-items-center">
-	                                          <div class="col-6 caption font-monospace text-muted">Time</div>
-	                                          <div class="col-6 caption text-muted ms-2">수업명</div>
-	                                      </div>
-	                                      <div id="curLessonList"></div>
-	                                 </div>
-	                           	  </div>
-	                          </div>
-	                     </div>
-	                
-                     
-				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
-				    	
-                         <div class="card card-raised h-100 overflow-hidden">
-                             <div id="curLessonName" class="card-header bg-white">
-                             	<div>출석 체크</div>
-                             </div>
-                             <div id="curAttendanceList" class="card-body bg-transparent p-0">
-                                 
-                             </div>
-                         </div>
-	                            
-				     
-				     </div>
-			     </div>
-			                           
 							
+						    </div>
+						   
+                      <nav>
+							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
+							  	
+							    <button class="subframe_nav nav-link active" data-url="/lesson/listLesson" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-parent-kids-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
+							    <button class="subframe_nav nav-link" data-url="/students/listStudentsAttendance" id="nav-studentsAttendance-tab" data-bs-target="#nav-parent-kids-tab" data-bs-toggle="tab"type="button" role="tab" aria-controls="nav-profile" aria-selected="false">출석</button>
+							    <button class="subframe_nav nav-link" id="nav-studentsExam-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">성적</button>
+							    <button class="subframe_nav nav-link" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
+							    <button class="subframe_nav nav-link" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">교재</button>
+							  </div>
+							</nav>
+                      </div>
+                  </div>
+			</header>
+			<div class="container-xl px-5 mx-0"> 
+			                            
+							<div class="tab-content" id="nav-tabContent">
+							  <div class="tab-pane fade show active" id="nav-lessonList" role="tabpanel" aria-labelledby="nav-parent-kids-tab">
+							  
+							  
+							  
+							  
+							  <iframe id="subFrame" src="/lesson/listLesson" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
+							  
+							  
+							  
+							  </div>
+							</div>
 			</div>
-		        <div class="messagePopup hidden" id="messagePopup">
-            <section style="background-color: #eee;">
-                
-                <!-- list -->
-                <div id="otherListContainer" class="container py-5">          
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">         
-                        <div class="card" id="chat2">
-                            <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <h5 class="mb-0">상대목록</h5>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                  </div>
-                                <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
-                            </div>
-
-                            <div id="listOther" class="card-body scroll" style="height: 500px;">
-
-                                 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-               <!--  message -->
-                <div id="getMessageContainer" class="container py-5 hidden">          
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-6">         
-                        <div class="card py-10" id="chat2">
-                            <div class="card-header d-flex justify-content-between align-items-center p-3">
-                                <div id="otherInfo">
-                                    <h5 class="mb-0">otherName</h5>
-                                    <h6 class="mb-0">otherDetail</h6>
-                                </div>
-                                <button id="otherListBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">목록</button>
-                            </div>
-                            
-                            <div id="messages" class="card-body scroll" style="position: relative; height: 400px">
-                                
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted">
-                        
-                            <form id="msgForm">
-                                <div class="d-flex justify-content-around">
-                                <input type="text" id="messageContent"  class="form-control form-control-lg" placeholder="메시지 입력">
-                                <button id="sendBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>   
-                            </div>     
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </section>
-        </div>
+		     
 		</main>
 	<!-- Footer-->
 	<footer>
-		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -540,6 +476,41 @@ $(function() {
 	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
+ 	// <![CDATA[  <-- For SVG support
+/*   	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}   */
+	// ]]>
 </script>
 </body>
 </html>
