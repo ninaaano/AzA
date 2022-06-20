@@ -441,20 +441,12 @@ console.log("메시지 버튼 눌림");
 						</button>
 						<ul class="dropdown-menu dropdown-menu-end mt-3"
 							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="#!"> <i
+							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
 									class="material-icons leading-icon text-primary">person</i>
 									<div class="me-3">Profile</div>
 							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon text-primary">settings</i>
-									<div class="me-3">Settings</div>
-							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon text-primary">help</i>
-									<div class="me-3">Help</div>
-							</a></li>
 							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#!"> <i
+							<li><a class="dropdown-item" href="/user/logout" > <i
 									class="material-icons leading-icon text-primary">logout</i>
 									<div class="me-3">Logout</div>
 							</a></li>

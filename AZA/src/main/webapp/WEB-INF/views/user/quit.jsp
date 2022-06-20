@@ -51,7 +51,7 @@ function deleteUser() {
 			return false;
 		}	
 
-	$("form").attr("method" , "POST").attr("action" , "/login").submit();
+	$("form").attr("method" , "POST").attr("action" , "/quit").submit();
 };
 
 // 수정하고 쓸거임
