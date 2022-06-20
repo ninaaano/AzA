@@ -124,4 +124,24 @@ public class AlertRestController {
 		return map;
 		
 	}	
+	
+	
+	@RequestMapping("countAlert")
+	public int countAlert(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
+		
+		System.out.println("alert/rest/countAlert");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(100);
+		search.setSearchCondition("0");
+		
+		User user = (User) session.getAttribute("user");
+
+		Map<String, Object> map = alertService.listAlert(search, user.getUserId());
+		int totalCount = ((Integer)map.get("totalCount")).intValue();
+		
+		return totalCount;
+	}
 }

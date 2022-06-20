@@ -51,18 +51,19 @@ public class PaymentTest {
 		 * pay_due_date 
 		 * */
 	}
-	//@Test // 용승이가 OK..!! 안되면 용승이탓!
+	@Test // 
 	void testUpdatePayment() throws Exception {
 		
 		Payment payment = new Payment();//paymentService.getPayment(1021);
-		payment.setPayCode(1021);
-		payment.setCheckPay('N');
+		payment.setPayCode(2286);
+		payment.setImpUid("123456");
+//		payment.setCheckPay('N');
 		System.out.println(payment);
 		//payment.setPayCode(1009);
 //		System.out.println(payment);
 		paymentService.updatePayment(payment);
 		System.out.println("2===>"+payment);
-		assertEquals('N', payment.getCheckPay());
+//		assertEquals('N', payment.getCheckPay());
 	}
 	
 	//@Test //OK
@@ -70,7 +71,7 @@ public class PaymentTest {
 		paymentService.deletePayment(1023);
 	}
 	
-	@Test // okok 근데 값이 이게 맞나
+	//@Test // okok 
 	public void testListPayment() throws Exception{
 		
 		Search search = new Search();
@@ -81,25 +82,25 @@ public class PaymentTest {
 	//	search.setSearchStartDate("2022/05/01");
 	//	search.setSearchEndDate("2022/05/30");
 		
-		System.out.println("시작=====================");
+		System.out.println("=====================");
 		
 		Map<String, Object> map = paymentService.listPayment(search);
-		System.out.println("수납 map ===> " + map);
+		System.out.println(" map ===> " + map);
 		
 		List<Object> list = (List<Object>)map.get("list");
 		//assertEquals(2,list.size());
-		System.out.println("수납 list ===> " + list);
+		System.out.println(" list ===> " + list);
 		
 		
 		
 		Integer totalCount = (Integer)map.get("totalCount");
-		System.out.println("수납 TotalCount ====>> " + totalCount);
-		System.out.println("수납 서치 ====>> " + search);
+		System.out.println("TotalCount ====>> " + totalCount);
+		System.out.println(" ====>> " + search);
 		
 	}
 	
 	// @Test 
-	// 수정해서 사용
+	// 
 //	    public void testPaymentByImpUid() {
 //	    	
 //	        String test_imp_uid = "imp15771574";

@@ -24,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Payment;
+import com.aza.service.domain.User;
 import com.aza.service.payment.PaymentService;
+import com.aza.service.user.UserService;
 
 
 @Controller
@@ -38,6 +40,9 @@ public class PaymentController {
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
 	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	
 	
 	@Value("#{commonProperties['pageUnit']}")
@@ -50,48 +55,51 @@ public class PaymentController {
 		System.out.println(this.getClass());
 	}
 	
-	//== TEST
-	//mapping Test OK
-	@RequestMapping("1")
-	public @ResponseBody ModelAndView paymentControllerTest() {
-		
-		try {
-
-			String token = paymentService.getToken();
-			System.out.println("í† í° ==> " + token);
-
-			} catch (IOException e) {
-
-			 System.out.println ("exception");
-
-			}
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("/payment/payment");
-		
-		return mv;
-	}
-	
 	@RequestMapping(value = "listPayment")
 	public ModelAndView listPayment
-	(HttpServletRequest request, @ModelAttribute("search") Search search, Model model) throws Exception{
+	(HttpServletRequest request, @ModelAttribute("search") Search search, ModelAndView mv, HttpSession session) throws Exception{
 		
 		System.out.println("listPayment Start...");
-
+		
+		//session => getUserId(role)
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		User user = userService.getUser(userId);
+		search.setSearchId(userId);
+		
+		System.out.println("userRole => " + user.getRole());
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);	
+		if(user.getRole().equals("student") ) {
+
+			Map<String, Object> map =paymentService.listPaymentBystudent(search);
+			Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			mv.addObject("list", map.get("list"));
+			mv.addObject("resultPage", resultPage);
+			mv.addObject("search", search);
+			System.out.println("students");
+			
+		}else if (user.getRole().equals("parent")) {
+
+			Map<String, Object> map =paymentService.listPaymentByParent(search);
+			Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			mv.addObject("list", map.get("list"));
+			mv.addObject("resultPage", resultPage);
+			mv.addObject("search", search);
+			System.out.println("parent");
 		
-		Map<String, Object> map =paymentService.listPayment(search);
-		
-		Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", map.get("list"));
-		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);
+		}else {
+				Map<String, Object> map =paymentService.listPayment(search);
+				Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+				mv.addObject("list", map.get("list"));
+				mv.addObject("resultPage", resultPage);
+				mv.addObject("search", search);
+				System.out.println("teacher");
+			}
+
+
+		mv.addObject("user", user);
 		mv.setViewName("/payment/listPayment");
 		
 		return mv;
@@ -110,37 +118,39 @@ public class PaymentController {
 		
 	}
 	
-	@RequestMapping("complete/{payCode}")
-	public ResponseEntity<String> realPayment
-	(@PathVariable int payCode,HttpSession session, Payment payment)throws Exception{
-		String token = paymentService.getToken();
-		System.out.println("í† í° ==> " + token);
-		String impUid = payment.getImpUid();
-		
-		payment = paymentService.getPayment(payCode);
-		int amount = paymentService.paymentInfo(impUid, token);
-		
-		//ì‹¤ê²°ì œ ê¸ˆì•¡ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸.
-		long price = payment.getAmount();
-		//ì¼ì¹˜í•˜ì§€ ì•Šì„ ë•Œ ê²°ì œ ì·¨ì†Œ
-		try {
-			if(price != amount) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ê¸ˆì•¡ ì˜¤ë¥˜, ê²°ì œ ì·¨ì†Œ", HttpStatus.BAD_REQUEST);
-		}else {
-			//ê²°ì œ ì„±ê³µì‹œ ìˆ˜ë‚©ì™„ë£Œë¡œ ìƒíƒœ ë³€ê²½, impUidê°’ ì €ì¥
-			payment.setCheckPay('Y');
-			payment.setImpUid(impUid);
-			paymentService.updatePayment(payment);
-		}
-			
-		}catch (Exception e) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "ê²°ì œ ì˜¤ë¥˜");
-			 return new ResponseEntity<String>("ê²°ì œ ì—ëŸ¬", HttpStatus.BAD_REQUEST);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+//	@RequestMapping("complete")
+//	public ResponseEntity<String> realPayment
+//	(HttpSession session, Payment payment)throws Exception{
+//		String token = paymentService.getToken();
+//		System.out.println("ÅäÅ« ==> " + token);
+//		String impUid = payment.getImpUid();
+//		
+//		payment = paymentService.getPayment(payment.getPayCode());
+//		int amount = paymentService.paymentInfo(impUid, token);
+//		
+//		//½Ç°áÁ¦ ±İ¾×°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ.
+//		int checkPrice = payment.getAmount();
+//		System.out.println("Check Price => " + checkPrice);
+//		//ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§ °áÁ¦ Ãë¼Ò
+//		try {
+//			if(checkPrice != amount) {
+//			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ±İ¾× ¿À·ù");
+//			 return new ResponseEntity<String>("°áÁ¦ ±İ¾× ¿À·ù, °áÁ¦ Ãë¼Ò", HttpStatus.BAD_REQUEST);
+//		}else {
+//			//°áÁ¦ ¼º°ø½Ã ¼ö³³¿Ï·á·Î »óÅÂ º¯°æ, impUid°ª ÀúÀå
+////			payment.setCheckPay('Y');
+////			payment.setImpUid(impUid);
+////			paymentService.updatePayment(payment);
+//			System.out.println("°áÁ¦ ¼º°ø");
+//		}
+//			
+//		}catch (Exception e) {
+//			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ¿À·ù");
+//			 return new ResponseEntity<String>("°áÁ¦ ¿¡·¯", HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 	//============================================
 		
 	//== TEST
@@ -148,7 +158,7 @@ public class PaymentController {
 //	@RequestMapping(value = "/updatePayment", method = RequestMethod.POST)
 //	public ModelAndView updatePayment (@ModelAttribute("payment") Payment payment ,@RequestParam("payCode")int payCode)throws Exception{
 //		paymentService.updatePayment(payment);
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/addPayment", method = RequestMethod.POST)
@@ -159,13 +169,13 @@ public class PaymentController {
 //		
 //		paymentService.addPayment(payment);
 //		
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/deletePayment", method = RequestMethod.GET)
 //	public ModelAndView deletePayment (@RequestParam("payCode")int payCode)throws Exception{
 //		paymentService.deletePayment(payCode);
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	@RequestMapping(value = "/listPayment")
@@ -188,7 +198,7 @@ public class PaymentController {
 //		modelAndView.addObject("resultPage", resultPage);
 //		modelAndView.addObject("search", search);
 //		
-//		return new ModelAndView(); // ê°’ ë„£ì–´ì•¼í•¨
+//		return new ModelAndView(); // °ª ³Ö¾î¾ßÇÔ
 //	}
 //	
 //	public ModelAndView requestPay() throws Exception{

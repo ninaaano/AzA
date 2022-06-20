@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', event => {
     if (datatablesSimple) {
 	    	$.ajax({
 		url:"/students/rest/listTotalStudentsRecord",
-		type:"POST",
+		type:"GET",
 		headers : {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    

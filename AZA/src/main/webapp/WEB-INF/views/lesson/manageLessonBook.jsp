@@ -88,6 +88,31 @@
 			}
 		})
 	} */
+	
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', event => {
+	const bookDataSimple = document.getElementById('bookDataSimple');
+	alert("½ÇÇà")
+	if(bookDataSimple){
+		$.ajax({
+			url:"/lesson/rest/manageLessonBook",
+			type:"GET",
+			dataType:"json",
+			success:function(result){
+				alert(result)
+				console.log(result)
+				/* if(result){
+					var book = result.list;
+					var bookData =[];
+					alert(book)
+				} */
+			}
+		})
+	}
+});
+
 </script>
 
 </head>

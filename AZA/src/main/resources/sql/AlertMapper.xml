@@ -112,7 +112,11 @@
 	FROM ( SELECT inner_table.*, ROWNUM AS row_seq
     		FROM (  SELECT * FROM alert
             		WHERE receiver_id = #{searchId}
-            		ORDER BY  alert_create_at DESC ) inner_table 
+            		<if test="searchCondition == 0">
+            		AND alert_read_at IS NULL
+            		</if>
+            		ORDER BY  alert_create_at DESC 
+            		) inner_table 
     		WHERE ROWNUM &lt;= #{endRowNum} )
 	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -122,6 +126,9 @@
 	SELECT COUNT(*)
 	FROM ( SELECT *	FROM alert
         	WHERE receiver_id = #{searchId}
+        	<if test="searchCondition == 0">
+            AND	alert_read_at IS NULL
+        	</if>
         	ORDER BY  alert_create_at DESC
 			) countTable
 	

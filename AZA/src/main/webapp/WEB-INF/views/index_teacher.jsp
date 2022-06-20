@@ -380,15 +380,7 @@ $(function() {
             } 
         })
 	})
-})
-	
 
-$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[#logout]").on("click" , function() {
-				$("form").attr("method" , "get").attr("action" , "/user/logout").submit();
-			});
-		});	
 
 
 
@@ -430,7 +422,8 @@ $(function() {
 						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
 							id="dropdownMenuNotifications" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary">notifications</i>
+							<i class="material-icons text-primary position-relative">notifications</i> 
+							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
 						</button>
 						<ul id="alertDropDown"
 							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
@@ -448,24 +441,14 @@ $(function() {
 						</button>
 						<ul class="dropdown-menu dropdown-menu-end mt-3"
 							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="#!"> <i
+							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
 									class="material-icons leading-icon text-primary">person</i>
 									<div class="me-3">Profile</div>
 							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon text-primary">settings</i>
-									<div class="me-3">Settings</div>
-							</a></li>
-							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon text-primary">help</i>
-									<div class="me-3">Help</div>
-							</a></li>
 							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#!"> <i
-
+							<li><a class="dropdown-item" href="/user/logout" > <i
 									class="material-icons leading-icon text-primary">logout</i>
 									<!-- class="material-icons leading-icon" >logout</i> -->	<!-- 2022/06/18 MJ파트 충돌 주석처리했음 -->
-
 									<div class="me-3">Logout</div>
 							</a></li>
 						</ul>

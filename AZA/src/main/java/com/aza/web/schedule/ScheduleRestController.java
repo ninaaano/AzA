@@ -82,7 +82,7 @@ public class ScheduleRestController {
 		return schedule;
 	}
 	
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	@RequestMapping("listLessonSchedule")
 	@ResponseBody
 	public Map<String, Object> listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{

@@ -122,6 +122,7 @@ public class LessonController {
 		return model;
 	}
 	
+	// 수업 수정
 	@RequestMapping(value="updateLessonView", method=RequestMethod.GET)
 	public ModelAndView updateLessonView(@RequestParam("lessonCode") String lessonCode) throws Exception {
 		ModelAndView model = new ModelAndView();
@@ -132,6 +133,7 @@ public class LessonController {
 		return model;
 	}
 	
+	// 수업 수정 후 화면
 	@RequestMapping(value="udpateLesson", method=RequestMethod.POST)
 	public ModelAndView updateLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();

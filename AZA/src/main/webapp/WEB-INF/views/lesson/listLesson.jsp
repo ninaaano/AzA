@@ -11,7 +11,7 @@
 
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<!-- JavaScript Bundle with Popper -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
@@ -96,27 +96,113 @@ font-family: Pretendard, 'Noto Sans KR';
 		});
 	} */
 	
-window.addEventListener('DOMContentLoaded',event=>{
-	const datatablesSimple = document.getElementById('datatablesSimple');
-	if(datatablesSimple){
+window.addEventListener('DOMContentLoaded', event => {
+	const lessonDataSimple = document.getElementById('lessonDataSimple');
+	
+	if(lessonDataSimple){
 		$.ajax({
 			url:"/lesson/rest/listLesson",
 			type:"GET",
-			headers : {
-                "Accept" : "application/json",
-                "Content-Type" : "application/json",                                    
-            },
+			dataType:"json",
             success:function(result){
             	if(result){
-            		var list = result.list;
-            		console.log(list)
-            		alert(list)
+            		var lesson = result.list;
+            		var lessonData = [];
             		
+            		lesson.map((lesson, i) =>{            			
+            			var temp = [];
+            			temp.push(i+1);
+            			temp.push(lesson.lessonName);
+            			temp.push(lesson.teacherName.userName);
+            			temp.push(lesson.lessonDay);
+            			temp.push(lesson.lessonStartTime);
+            			temp.push(lesson.lessonEndTime);
+            			temp.push(lesson.lessonPlace);
+            			temp.push(lesson.subject);            			
+            			temp.push(lesson.lessonCode);
+            			/* alert(temp) */
+            			
+            			lessonData.push(temp);
+            		})
+            		/* alert("=======")
+            		alert(lessonData) */
+            		
+            		var data ={
+            			"headings" : [
+	            			"No",
+	            			"수업명",
+	            			"선생님 이름",
+	            			"수업 요일",
+	            			"수업시작시간",
+	            			"수업종료시간",
+	            			"수업장소",
+	            			"과목명",
+	            			"수업코드",
+            			],
+            			"data" : lessonData,
+            		}
+            		
+            		var getLesson = function(data, type, row){
+            			var lessonCode = row.lastElementChild.textContent
+            			return `<a href="/lesson/getLesson?lessonCode=`+lessonCode+`">`+data+`</a>`;
+            		}
+            		
+            		new simpleDatatables.DataTable(lessonDataSimple,{
+            			data,
+            			columns:[
+            				{
+            					select: 1,
+            					render: getLesson
+            				},
+            			],
+            			columnDefs:[
+            				{
+            	                targets: [0],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [1],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [2],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [3],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [4],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [5],
+            	                orderData: [0, 1],
+            	            },                        
+            	            {
+            	                targets: [6],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [7],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [8],
+            	                orderData: [0, 1],
+            	            },
+            	            {
+            	                targets: [9],
+            	                orderData: [0, 1],
+            	            },
+            			],            			
+            		});
             	}
             }
-		});
+		})
 	}
-})
+});
 
 </script>
 </head>
@@ -134,7 +220,7 @@ window.addEventListener('DOMContentLoaded',event=>{
 				</td>
 			</tr>
 		</c:if>
-				 <tr>
+				 <%-- <tr>
 					  <td>
 					   <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
 							<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>수업명</option>
@@ -152,13 +238,13 @@ window.addEventListener('DOMContentLoaded',event=>{
 				  <!--  선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-			   	</tr>	
+			   	</tr> --%>	
 		</table>
 	</div>
 	
 		<div class="dataTable-container">
 			<!-- <table border="1" cellspacing = "0" cellpadding = "10px"> -->
-			<table id="datatablesSimple" class="dataTable-table">
+			<%-- <table id="datatablesSimple" class="dataTable-table">
 				<thead>
 					<tr>
 						<th data-sortable="" style="width: 5%;">number</th>
@@ -223,6 +309,10 @@ window.addEventListener('DOMContentLoaded',event=>{
 						</tr>
 					</c:forEach>
 				</tbody>
+			</table> --%>
+			
+			<table id="lessonDataSimple">
+						
 			</table>
 		</div>
 		</div>

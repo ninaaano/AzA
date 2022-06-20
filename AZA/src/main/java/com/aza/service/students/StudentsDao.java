@@ -77,6 +77,9 @@ public interface StudentsDao {
 	// LIST
 	public List<Students> listStudentsCharacter(Search search) throws Exception;
 	public int getStudentsCharacterTotalCount(Search search) throws Exception;
+	
+	//
+	public int checkCharacterTotalCount(Search search)throws Exception;
 
 	// exam ================================================
 	// INSERT

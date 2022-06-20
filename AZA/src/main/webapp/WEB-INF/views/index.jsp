@@ -544,7 +544,7 @@ $(function() {
 						<div class="collapse" id="collapseDashboards"
 							aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
 							<nav class="drawer-menu-nested nav">
-								<a class="nav-link" href="app-dashboard-default.html">수업목록</a>
+								<a class="nav-link" href="/lesson/listLesson">수업목록</a>
 								<a class="nav-link" href="/students/listStudentsAttendance">출석</a>
 								<a class="nav-link" href="app-dashboard-analytics.html">성적</a>
 								<a class="nav-link" href="app-dashboard-accounting.html">쪽지시험</a>

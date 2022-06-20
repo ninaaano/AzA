@@ -81,4 +81,28 @@ public class PaymentDaoImpl implements PaymentDao {
 		
 	}
 
+	@Override
+	public List<Payment> listPaymentBystudent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("PaymentMapper.listPaymentBystudent",search);
+	}
+
+	@Override
+	public int totalPaymentCountBystudent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("PaymentMapper.totalPaymentCountBystudent",search);
+	}
+
+	@Override
+	public List<Payment> listPaymentByParent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("PaymentMapper.listPaymentByParent",search);
+	}
+
+	@Override
+	public int totalPaymentCountByParent(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("PaymentMapper.totalPaymentCountByParent",search);
+	}
+
 }

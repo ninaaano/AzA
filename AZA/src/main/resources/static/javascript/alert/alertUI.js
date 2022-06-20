@@ -1,3 +1,52 @@
+window.addEventListener('DOMContentLoaded', event => {
+	countAlert();
+})
+
+let target = document.querySelector('#alertDropDown');
+
+let observer = new MutationObserver((mutations) => {
+   	countAlert();
+})
+
+let option = {
+    attributes: true,
+    childList: true,
+    characterData: true,
+    subtree: true,
+};
+
+observer.observe(target, option);
+
+function countAlert() {
+	
+	$.ajax({
+		url:"/alert/rest/countAlert",
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+        },
+        success: function(result) {
+			if(result) {
+				console.log("안읽은 알림 : "+result);
+				
+				if(result > 0) {
+					$("#alertCntBadge").removeClass("hidden");
+					$("#alertCntBadge").html(result);
+				} else {
+					$("#alertCntBadge").addClass("hidden");
+				}
+				
+			} else {
+				console.log("fail");
+				$("#alertCntBadge").addClass("hidden");
+			}
+		}
+		
+	})
+}
+
+
 function deleteAlert(alertCode) {
 	$.ajax({
 		url:"/alert/rest/deleteAlert/"+alertCode,
