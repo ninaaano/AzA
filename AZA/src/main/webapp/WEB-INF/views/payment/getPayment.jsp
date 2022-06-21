@@ -14,7 +14,8 @@
 
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -34,10 +35,7 @@
     <link href="/resources/css/styles.css" rel="stylesheet">
     
         
-        
-        
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
@@ -62,9 +60,9 @@
 
 function requestPay(){
 	
-	var price = $("td:nth-child(4)").text().trim();
-	var lessonName = $("td:nth-child(2)").text().trim();
-	var payCode = $("td:nth-child(1)").text().trim();
+	var price = $("#amount").text().trim();
+	var lessonName = $("#lessonName").text().trim();
+	var payCode = $(this).attr("payCode");
 	
     var IMP = window.IMP;
     IMP.init('imp15771574');
@@ -141,8 +139,9 @@ function requestPay(){
 
 
 
-<h3>GET PAYMENT</h3>
 
+<!--
+<h3>GET PAYMENT</h3>
 <table id="datatablesSimple" class="dataTable-table">
 	
 	
@@ -224,7 +223,78 @@ function requestPay(){
 				</tr>
 
 </table>	
+  -->
+<!-- 폼 변경 -->
+<div class="card card-raised border-top border-4 border-primary h-100" align="center" style="width:600px;height:10%;">
+      <div class="card-body p-5">
+          <div class="overline text-muted mb-4">Get Payment</div>
+          <h1>수업료 상세 내역</h1>
+          <input type="hidden" id="payCode" value="${payment.payCode}">
+          <br/>
+          <table class="table mb-0">
+              <tbody>
+                  <tr>
 
+                      <td>수업명</td>
+                      <td class="text-end" id="lessonName" value="${payment.payLessonName.getLessonName()}" >${payment.payLessonName.getLessonName()}</td></td>
+                  </tr>
+                  <tr>
+
+                      <td>학생이름</td>
+                      <td class="text-end" id="studentName" payCode="${payment.payCode}">${payment.studentName}</td>
+                  </tr>
+                  <tr>
+
+                      <td>수납료</td>
+                      <td class="text-end" value="${payment.amount}" id="amount" >
+					${payment.amount}</td>
+                  </tr>
+                  <tr>
+
+                  <tr>
+
+                      <td>수납예정일</td>
+                      <td class="text-end"> ${payment.payDueDate } </td>
+                  </tr>
+                  <tr>
+
+                      <td>수납완료일</td>
+                       <td class="text-end">
+                    	  <fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
+						  <fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 	
+					  </td>                     
+                  </tr>                  
+                  <tr>
+
+                      <td>수납여부</td>
+                      <td class="text-end" value="${payment.checkPay }">${payment.checkPay }</td>
+                  </tr>                
+                  
+              </tbody>
+          </table>
+      </div>
+      <!-- 결제 미완료 -->
+      <c:if test="${payment.checkPay eq 'N'.charAt(0) }">
+	      <div class="card-footer bg-transparent position-relative ripple-gray" onclick="requestPay()"   id="realPayment" payCode="${payment.payCode}">
+	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
+	              <div class="fst-button">결제하기</div>
+	              <i class="material-icons icon-sm ms-1" ></i>
+	          </a>
+	      </div>
+      </c:if>
+     <!-- 결제완료 --> 
+       <c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
+	      <div class="card-footer bg-transparent position-relative ripple-gray" payCode="${payment.payCode}">
+	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
+	              <div class="fst-button">수업료가 납부 완료되었습니다.:) </div>
+	              <i class="material-icons icon-sm ms-1" ></i>
+	          </a>
+	      </div>
+      </c:if>    
+     
+  </div>
+
+<!--  -->
 
 
 </body>
