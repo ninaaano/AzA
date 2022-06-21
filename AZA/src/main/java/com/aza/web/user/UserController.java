@@ -162,25 +162,44 @@ public class UserController {
 			model.addObject("search", search);
 			System.out.println(map.get("list"));
 			System.out.println("parent");
+			
+			List students = (List) session.getAttribute("students");
+			
+			if(studentId==null || studentId.length() < 1) {
+				studentId = ((User) students.get(0)).getFirstStudentId();			
+			}
+			
+			List<User> studentsInfo = new ArrayList<User> ();
 
-		//	return new ModelAndView("/user/getUser");	
-		}
-		List students = (List) session.getAttribute("students");
-		
-		if(studentId==null || studentId.length() < 1) {
-			studentId = ((User) students.get(0)).getFirstStudentId();			
-		}
-		
-		List<User> studentsInfo = new ArrayList<User> ();
+			for(int i = 0; i < students.size(); i++) { 
+				String temp = ((User) students.get(i)).getFirstStudentId(); 
+				User student = userService.getUser(temp);
+				studentsInfo.add(student); 
+			}
+			
+			System.out.println("======students========="+students);
+			System.out.println("======studentsInfo========="+studentsInfo);
 
-		for(int i = 0; i < students.size(); i++) { 
-			String temp = ((User) students.get(i)).getFirstStudentId(); 
-		//	User student = userService.getUser(temp);
-		//	studentsInfo.add(student); 
 		}
+
 		
-		System.out.println("======students========="+students);
-		System.out.println("======studentsInfo========="+studentsInfo);
+//		List<Member> member = mypageDao.getChildrenIdAndName(childrenNo);
+//	      if (member.size() > 0) {
+//	        for (int i = 0; i < children.size(); i++) {
+//	          children.get(i).setId(member.get(i).getId());
+//	          children.get(i).setName(member.get(i).getName());
+//	        }
+//	        parents.setStudents(children);
+//	      }
+//	      
+//	      memberInfoMap.put("parents", parents);
+//		
+//		
+		
+		
+		
+		
+		
 		
 		model.addObject("user", user);
 		model.setViewName("/user/getUser");

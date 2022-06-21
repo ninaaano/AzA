@@ -32,7 +32,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/message.css"/>
-</head>
+
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<!--  ///////////////////////// CSS ////////////////////////// -->
 
 	<script type="text/javascript">
 		
@@ -43,11 +46,40 @@
 				self.location="/user/updateUser?userId=${user.userId}"
 			});
 		});	
-			 
+	
+	//학생 아이디 유효성 검사
+			const checkStudent = _.debounce(async (id) => {
+		    	
+		    	var id = $("#firstStudentId").val();
+		    	
+		    	$.ajax({
+		    		url:'/user/rest/checkStudent',
+		    		type : "post",
+		    		data:{id},
+		    		success : function(cnt) {
+		    			if(cnt == 1) {
+		    				$('#certCheck2').text("확인이 완료되었습니다.");
+		    				$('#certCheck2').css('color','blue');	
+		    				
+		    			}
+		    			else {
+		    				$('#certCheck2').text("확인되지 않은 정보입니다.");
+		    				$('#certCheck2').css('color','red');
+		    				
+		    			}
+		    		}
+		    	});
+		    },2000);
+			
+		// 자녀 추가 이벤트
+			function addStudent(){
+				
+			}
 		
 	</script>
 	
-	
+
+</head>
 <body>
 <!-- ---------- 개인정보 수정 -------------->
 
@@ -106,31 +138,57 @@
 			
 			<select id="relationCode" name="relationCode" >
 
-
-				<c:forEach var="students" items="${list}">
+				<c:forEach var="user" items="${list}">
   
 						<option align="center" value="${user.relationCode}">${user.firstStudentId}
 	
 				 </c:forEach>
 			</select>
+			
+			<input type="button" name="addStudent" class="btn btn-primary" value="자녀추가">
+			
+			
+			<div></div>
+							
+	
+			<input type="text" id="firstStudentId" name="firstStudentId" placeholder="자녀 아이디" oninput="checkStudent()" />
+			<div class="form-group" id="certCheck2"></div>
+			<input type="text" id="relationName" name="relationName" placeholder="학생과의 관계">
+			<input type="submit" value="등록" onclick="addStudent();"/>
+			<input type="button" value="취소" onclick="deleteInput();"/>
+		
+			
+
 			<hr/>
+			
+			<c:forEach var="user" items="${list}">
+  
+	
+				
+			<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>자녀 이름</strong></div>
+			<div class="col-xs-8 col-md-4">${user.userName}</div>
+		</div>
 			
 			<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학교</strong></div>
 			<div class="col-xs-8 col-md-4">${user.school}</div>
 		</div>
-		<hr/>
+		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학년</strong></div>
 			<div class="col-xs-8 col-md-4">${user.grade}</div>
 		</div>
-		<hr/>
+	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>학생과의 관계</strong></div>
 			<div class="col-xs-8 col-md-4">${user.relationName}</div>
 		</div>
 		</hr>
+		
+		 </c:forEach>
 		</c:if>
+		
 
 		
 		<div class="row">
