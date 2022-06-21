@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Schedule;
 import com.aza.service.domain.User;
@@ -59,11 +60,33 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value = "manageLessonSchedule")
-	public ModelAndView manageLessonSchedule(@ModelAttribute("search") Search search, HttpSession session ){
+	public ModelAndView manageLessonSchedule(@ModelAttribute("search") Search search, HttpSession session ) throws Exception{
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);;
+		String userRole = ((User)session.getAttribute("user")).getRole();
 		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("/schedule/manageLessonSchedule");
-		return model; 
+		if(userRole.equals("teacher")) {
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/schedule/manageLessonSchedule");
+			return model;
+		} else {
+			String studentId = ((User)session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
+			System.out.println("===============");
+			System.out.println(map);
+			System.out.println("===============");
+			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/schedule/manageLessonSchedule");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			
+			return model;
+		}	 
 	}
 	
 	@RequestMapping(value="addLessonSchedule", method=RequestMethod.POST)
@@ -121,9 +144,9 @@ public class ScheduleController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="listLessonSchedule")
+	@RequestMapping(value="listLessonSchedule", method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+	public JSONObject listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session, @RequestParam(required=false, value="teacherId") String teacherID) throws Exception{
 		String role = ((User) session.getAttribute("user")).getRole();
 		
 		if(role.equals("teacher")) {
@@ -147,7 +170,7 @@ public class ScheduleController {
 		}else {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
 			
-			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, studentId);
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, teacherID);
 			
 			JSONObject json = new JSONObject();
 			try {
@@ -164,5 +187,4 @@ public class ScheduleController {
 			return json;
 		}
 	}
-	
 }

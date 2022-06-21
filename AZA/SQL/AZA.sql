@@ -100,7 +100,7 @@ VALUES(seq_students_record.nextVal,'agho4567',(SELECT lesson_name FROM lesson WH
 
 INSERT
 INTO STUDENTS_RECORD
-VALUES(seq_students_record.nextVal,'FWZOOP30',(SELECT lesson_name FROM lesson WHERE lesson_code = 'FWZOOP30'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+VALUES(seq_students_record.nextVal,'ZKIECEUA',(SELECT lesson_name FROM lesson WHERE lesson_code = 'ZKIECEUA'),'student5','student',1,TO_CHAR(sysdate),40000,0);
 
 INSERT
 INTO STUDENTS_RECORD
@@ -289,7 +289,7 @@ INSERT ALL
 (SELECT lesson_code FROM lesson WHERE lesson_code='11111111'),
 (SELECT isbn FROM BOOK WHERE ISBN = '1111'));
 
-/* listLesson Book*/
+/* listLesson Book teacher*/
 select *
 from (select inner_table.*, ROWNUM AS row_seq
 	FROM (SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name,LB.lesson_code
@@ -299,6 +299,14 @@ from (select inner_table.*, ROWNUM AS row_seq
 WHERE ROW_SEQ BETWEEN 1 AND 3;		
 
 and L.lesson_code = 'agho1216';
+
+/*listLesson Book students*/
+
+SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.LN
+FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name LN
+        FROM LESSON L, STUDENTS_RECORD SR, USERS U
+        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = 'student5') A
+WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn
 
 
 /* deleteLessonBook*/

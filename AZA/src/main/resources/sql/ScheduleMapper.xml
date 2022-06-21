@@ -14,6 +14,12 @@
 		<result property="scheduleContent" column="schedule_content" jdbcType="VARCHAR" />
 		<result property="title" column="schedule_title" jdbcType="VARCHAR"/>
 		
+		<association property="studentId" javaType="students">
+			<id property="studentId" column="student_id" jdbcType="VARCHAR"/>	
+		</association>
+		<association property="teacherName" javaType="user">
+			<id property="userName" column="user_name" jdbcType="VARCHAR"/>
+		</association>
 		
 	</resultMap>
 	
@@ -77,14 +83,30 @@
 		SELECT S.*, U.user_name
 		FROM schedule S, users U, (SELECT L.teacher_id LT
 		        FROM students_record SR, lesson L
-		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
-		        WHERE S.teacher_id = U.user_id AND U.user_id = A.LT
-		        <if test="searchCondition != null">
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId} AND ROWNUM &lt; 2) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT  AND S.teacher_Id = #{teacherId}
+		        <!-- <if test="searchCondition != null">
 						<if test="searchCondition == 0 and searchKeyword !='' ">
-							 AND S.teacher_Id = #{teacherId};
+							
 						</if>
-				</if>
+				</if> -->
 	</select>
+	
+	<select id = "listLessonSelectTeacher" resultMap="scheduleSelectMap">
+		SELECT DISTINCT U.user_name,L.teacher_id
+		FROM STUDENTS_RECORD SR, LESSON L, USERS U
+		WHERE U.user_id = L.teacher_id AND SR.lesson_code = L.lesson_code AND SR.student_id = #{searchId}
+	</select>
+	
+	<select id = "getlistLessonSelectTeacherTotalCount" resultType ="int">
+		SELECT COUNT(*)
+		FROM( SELECT DISTINCT U.user_name,L.teacher_id
+				FROM STUDENTS_RECORD SR, LESSON L, USERS U
+				WHERE U.user_id = L.teacher_id AND SR.lesson_code = L.lesson_code AND SR.student_id = #{searchKeyword}
+		)countTable
+	</select>
+	
+	
 	
 	<select id = "getLessonScheduleTeacherTotalCount" resultType="int">
 		SELECT COUNT(*)
@@ -95,16 +117,13 @@
 	<select id = "getLessonScheduleStudentsTotalCount" resultType="int">
 		SELECT COUNT(*)
 		FROM(SELECT S.*, U.user_name
-				FROM schedule S, users U, (SELECT L.teacher_id LT
-		     			   FROM students_record SR, lesson L
-		     			   WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId}) A
-				WHERE S.teacher_id = U.user_id AND U.user_id = A.LT
-		        <if test="searchCondition != null">
-						<if test="searchCondition == 0 and searchKeyword !='' ">
-							 AND S.teacher_Id = #{teacherId};
-						</if>
-				</if>
+		FROM schedule S, users U, (SELECT L.teacher_id LT
+		        FROM students_record SR, lesson L
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId} AND ROWNUM &lt; 2) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT  AND S.teacher_Id = #{teacherId}
 		        ) countTable
 	</select>
+	
+	
 	
 </mapper>
