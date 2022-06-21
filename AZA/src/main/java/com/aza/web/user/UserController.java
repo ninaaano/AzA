@@ -174,35 +174,18 @@ public class UserController {
 			for(int i = 0; i < students.size(); i++) { 
 				String temp = ((User) students.get(i)).getFirstStudentId(); 
 				User student = userService.getUser(temp);
-				studentsInfo.add(student); 
+				studentsInfo.add(student);
+				
+				
 			}
-			
+			model.addObject("studentsInfo",studentsInfo);
 			System.out.println("======students========="+students);
 			System.out.println("======studentsInfo========="+studentsInfo);
 
-		}
-
-		
-//		List<Member> member = mypageDao.getChildrenIdAndName(childrenNo);
-//	      if (member.size() > 0) {
-//	        for (int i = 0; i < children.size(); i++) {
-//	          children.get(i).setId(member.get(i).getId());
-//	          children.get(i).setName(member.get(i).getName());
-//	        }
-//	        parents.setStudents(children);
-//	      }
-//	      
-//	      memberInfoMap.put("parents", parents);
-//		
-//		
-		
-		
-		
-		
-		
+		}	
 		
 		model.addObject("user", user);
-		model.setViewName("/user/getUser");
+		
 		return model;
 	}
 	

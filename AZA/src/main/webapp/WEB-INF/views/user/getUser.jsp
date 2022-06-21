@@ -75,6 +75,27 @@
 			function addStudent(){
 				
 			}
+		// 학생목록 받아오기
+		var studentsInfo = JSON.parse(${json});
+		
+		
+		$('.form-btn').click(function(){
+			$(this).next().toggleClass('show-form');
+			});
+		
+		
+		.form{
+			 float:left;  
+			  list-style:none;
+			}
+			.hidden-form{
+			  visibility:hidden;
+			  }
+			.show-form{
+			visibility: visible !important;
+			}
+			
+			
 		
 	</script>
 	
@@ -145,6 +166,20 @@
 				 </c:forEach>
 			</select>
 			
+			
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<ul class="form">
+<li> 
+<input class="form-btn" type="button" name="name" value="Name" >  
+<input class="hidden-form" type="text" name="nm" >
+</li>
+</ul> 
+<ul class="form">
+<li> 
+<input class="form-btn" type="button" name="location" value="Location" >
+<input class="hidden-form" type="text" name="loc" >
+</li>
+</ul>
 			<input type="button" name="addStudent" class="btn btn-primary" value="자녀추가">
 			
 			
@@ -160,26 +195,26 @@
 			
 
 			<hr/>
-			
-			<c:forEach var="user" items="${list}">
+			<c:forEach var="studentsInfo" items="${studentsInfo}">
   
 	
 				
 			<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 이름</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userName}</div>
+			<div class="col-xs-8 col-md-4">${studentsInfo.userName}</div>
 		</div>
 			
 			<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학교</strong></div>
-			<div class="col-xs-8 col-md-4">${user.school}</div>
+			<div class="col-xs-8 col-md-4">${studentsInfo.school}</div>
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학년</strong></div>
-			<div class="col-xs-8 col-md-4">${user.grade}</div>
+			<div class="col-xs-8 col-md-4">${studentsInfo.grade}</div>
 		</div>
-	
+	</c:forEach>
+	<c:forEach var="user" items="${list}">
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>학생과의 관계</strong></div>
 			<div class="col-xs-8 col-md-4">${user.relationName}</div>
