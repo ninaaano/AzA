@@ -107,9 +107,14 @@ public class PaperServiceImpl implements PaperService {
 		paperDao.updatePaperHomeworkCheck(homeworkCode);
 	}
 
+//	@Override
+//	public void addPaperQuestion(Paper paper) throws Exception {
+//		paperDao.addPaperQuestion(paper);
+//	}
+	
 	@Override
-	public void addPaperQuestion(Paper paper) throws Exception {
-		paperDao.addPaperQuestion(paper);
+	public void addPaperQuestion(List<Paper> questionList) throws Exception {
+		paperDao.addPaperQuestion(questionList);
 	}
 
 	@Override

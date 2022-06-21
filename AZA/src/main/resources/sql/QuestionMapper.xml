@@ -35,9 +35,10 @@
 	
 	<insert id="addPaperQuestion">
 		INSERT INTO question(question_code, quiz_code, question_no, question_content, teacher_answer, student_answer, feedback_content, answer_check)
-		SELECT seq_question_question_code.NEXTVAL, #{quizCode}, A.* FROM(
+		SELECT seq_question_question_code.NEXTVAL, A.* FROM(
 		<foreach collection="list" item="paper" separator="UNION ALL">
 			SELECT #{paper.questionNo:INTEGER} as question_no,
+			#{paper.quizCode:INTEGER} as quiz_code,
 			#{paper.questionContent:VARCHAR} as question_content,
 			#{paper.teacherAnswer:VARCHAR} as teacher_answer,
 			#{paper.studentAnswer:VARCHAR} as student_answer,

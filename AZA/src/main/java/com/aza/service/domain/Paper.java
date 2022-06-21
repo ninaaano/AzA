@@ -1,6 +1,7 @@
 package com.aza.service.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Paper {
 	
@@ -35,6 +36,7 @@ public class Paper {
 	
 	private String studentName;
 	private String lessonName;
+	
 	
 	public Paper() {
 		
@@ -332,6 +334,10 @@ public class Paper {
 				+ ", homeworkCode=" + homeworkCode + ", teacherId=" + teacherId + ", studentName=" + studentName
 				+ ", lessonName=" + lessonName + "]";
 	}
+
+
+
+
 
 	
 

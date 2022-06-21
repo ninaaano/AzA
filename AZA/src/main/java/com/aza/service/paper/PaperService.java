@@ -1,5 +1,6 @@
 package com.aza.service.paper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -25,7 +26,8 @@ public interface PaperService {
 
 	
 	//PaperQuestion :: INSERT
-	public void addPaperQuestion(Paper paper) throws Exception;
+//	public void addPaperQuestion(Paper paper) throws Exception;
+	public void addPaperQuestion(List<Paper> questionList) throws Exception;
 	
 	//PaperQuestion :: SELECT
 	public Paper getPaperQuestion(int questionCode) throws Exception;

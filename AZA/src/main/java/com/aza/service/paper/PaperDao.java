@@ -31,7 +31,8 @@ public interface PaperDao {
 			
 	
 		//PaperQuestion :: INSERT
-		public void addPaperQuestion(Paper paper) throws Exception;
+		//public void addPaperQuestion(Paper paper) throws Exception;
+		public void addPaperQuestion(List<Paper> questionList) throws Exception;
 		
 		//PaperQuestion :: SELECT
 		public Paper getPaperQuestion(int questionCode) throws Exception;

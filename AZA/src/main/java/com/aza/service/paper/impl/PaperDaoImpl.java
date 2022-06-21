@@ -127,9 +127,14 @@ public class PaperDaoImpl implements PaperDao {
 	}
 
 
+//	@Override
+//	public void addPaperQuestion(Paper paper) throws Exception {
+//		sqlSession.insert("QuestionMapper.addPaperQuestion", paper);
+//	}
+	
 	@Override
-	public void addPaperQuestion(Paper paper) throws Exception {
-		sqlSession.insert("QuestionMapper.addPaperQuestion", paper);
+	public void addPaperQuestion(List<Paper> questionList) throws Exception {
+		sqlSession.insert("QuestionMapper.addPaperQuestion", questionList);
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.aza.web.paper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -127,7 +129,10 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="addPaperQuiz", method=RequestMethod.POST)
-	public ModelAndView addPaperQuiz(@ModelAttribute("paper") Paper paper) throws Exception {
+	public ModelAndView addPaperQuiz(@ModelAttribute("paper") Paper paper, String questionContent, String teacherAnswer, String feedBackContent, String studentAnswer) throws Exception {
+		System.out.println("questionContent==================="+questionContent);
+		
+		List<Paper> questionList = new ArrayList<Paper>();
 		
 		System.out.println("/paper/addPaperQuiz : POST");
 		
@@ -135,7 +140,21 @@ public class PaperController {
 		
 		paperService.addPaperQuiz(paper);
 		System.out.println("===afterAddPaperQuiz"+paper);
-		paperService.addPaperQuestion(paper);
+		String[] q = questionContent.split(",");
+		String[] t = teacherAnswer.split(",");
+//		String[] s = studentAnswer.split(",");
+//		String[] f = feedBackContent.split(",");
+		for(int i=0; i<q.length; i++) {
+			Paper p = new Paper();
+			p.setQuizCode(paper.getQuizCode());
+			p.setQuestionNo(i);
+			p.setQuestionContent(q[i]);
+			p.setTeacherAnswer(t[i]);
+//			p.setStudentAnswer(s[i]);
+//			p.setFeedBackContent(f[i]);
+			questionList.add(p);
+		}
+		paperService.addPaperQuestion(questionList);
 //		paperService.addPaperChoice(paper);
 		
 		
