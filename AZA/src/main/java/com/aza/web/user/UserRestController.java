@@ -192,6 +192,12 @@ public class UserRestController {
 //		userService.deleteUser(user);
 //					return user;
 //		}
+		
+		@RequestMapping(value="/addRelation", method=RequestMethod.POST)
+		public User addRelation(@ModelAttribute User user) throws Exception {
+			userService.addRelation(user);
+			return user;
+		}
 
 		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
 		public User deleteRelation(@ModelAttribute User user, @PathVariable int relationCode) throws Exception {

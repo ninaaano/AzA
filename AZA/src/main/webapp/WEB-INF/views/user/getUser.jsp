@@ -32,11 +32,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/message.css"/>
+<style>
 
+</style>
 <script
 		src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript">
 		
 	// 수업추가 참고하기
@@ -72,31 +74,24 @@
 		    },2000);
 			
 		// 자녀 추가 이벤트
+		$(function(){
+			$("input[name=addStudentBtn]").click(function(){
+				if ($(this).val()=="자녀추가"){
+					$("#addStudentInput").show();
+				}
+		});
+		
+	});
+		
+
+		
 			function addStudent(){
+				document.findform.action="addRelation";
+				document.findform.submit();
 				
 			}
-		// 학생목록 받아오기
-		var studentsInfo = JSON.parse(${json});
-		
-		
-		$('.form-btn').click(function(){
-			$(this).next().toggleClass('show-form');
-			});
-		
-		
-		.form{
-			 float:left;  
-			  list-style:none;
-			}
-			.hidden-form{
-			  visibility:hidden;
-			  }
-			.show-form{
-			visibility: visible !important;
-			}
-			
-			
-		
+	
+
 	</script>
 	
 
@@ -166,45 +161,33 @@
 				 </c:forEach>
 			</select>
 			
-			
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<ul class="form">
-<li> 
-<input class="form-btn" type="button" name="name" value="Name" >  
-<input class="hidden-form" type="text" name="nm" >
-</li>
-</ul> 
-<ul class="form">
-<li> 
-<input class="form-btn" type="button" name="location" value="Location" >
-<input class="hidden-form" type="text" name="loc" >
-</li>
-</ul>
-			<input type="button" name="addStudent" class="btn btn-primary" value="자녀추가">
+
+			<input type="button" name="addStudentBtn" class="btn btn-primary" value="자녀추가" onclick='addStudentBtn()' />
 			
 			
 			<div></div>
 							
-	
+			<div id="addStudentInput" style="display :none">
+			<input type="hidden" id="userId" name="addRelation" value="${addRelation}">
+			
 			<input type="text" id="firstStudentId" name="firstStudentId" placeholder="자녀 아이디" oninput="checkStudent()" />
 			<div class="form-group" id="certCheck2"></div>
-			<input type="text" id="relationName" name="relationName" placeholder="학생과의 관계">
+			<input type="text" id="relationName" name="relationName" placeholder="학생과의 관계" />
 			<input type="submit" value="등록" onclick="addStudent();"/>
 			<input type="button" value="취소" onclick="deleteInput();"/>
-		
+			</div>
 			
 
 			<hr/>
+			
 			<c:forEach var="studentsInfo" items="${studentsInfo}">
   
-	
-				
-			<div class="row">
+		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 이름</strong></div>
 			<div class="col-xs-8 col-md-4">${studentsInfo.userName}</div>
 		</div>
 			
-			<div class="row">
+		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학교</strong></div>
 			<div class="col-xs-8 col-md-4">${studentsInfo.school}</div>
 		</div>
