@@ -155,7 +155,7 @@ public class LessonRestController {
 		model.setViewName("redirect:/lesson/manageLessonBook");
 		return model;
 	}
-	
+
 	
 	@RequestMapping(value= "manageLessonBook")
 	@ResponseBody
@@ -170,6 +170,8 @@ public class LessonRestController {
 		search.setPageSize(totalCount);
 		return lessonService.listLessonBook(search, teacherId);
 	}
+	
+	
 	
 //	@RequestMapping(value="manageLessonBook")
 //	public Map<String, Object> manageLessonBook(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
