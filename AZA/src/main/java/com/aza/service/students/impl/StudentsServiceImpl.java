@@ -345,6 +345,12 @@ public class StudentsServiceImpl implements StudentsService {
 		return map;
 	}
 
+	@Override
+	public Students getCheckStudentsCharacter(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return studentsDao.getCheckStudentsCharacter(search);
+	}
+
 
 
 

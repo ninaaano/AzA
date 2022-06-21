@@ -80,7 +80,8 @@ public interface StudentsDao {
 	
 	//
 	public int checkCharacterTotalCount(Search search)throws Exception;
-
+	public Students getCheckStudentsCharacter(Search search) throws Exception;
+	
 	// exam ================================================
 	// INSERT
 	public void addStudentsExam(Students students) throws Exception;

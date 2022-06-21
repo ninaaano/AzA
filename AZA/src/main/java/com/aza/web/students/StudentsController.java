@@ -434,7 +434,6 @@ public class StudentsController {
 		Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
 
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
 
 		mv.addObject("list", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
@@ -450,11 +449,9 @@ public class StudentsController {
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView addStudentsCharacter
 	(@ModelAttribute("students") Students students, ModelAndView mv, 
-
 			HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 		
 		System.out.println("/students/addStudentsCharacter :: POST :: ");
-
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 
@@ -564,17 +561,56 @@ public class StudentsController {
 		mv.addObject("list", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
-	
-		search.setSearchKeyword(studentId);
-		if(studentsService.checkCharacterTotalCount(search) < 1) {
-		mv.setViewName("/students/addStudentsCharacter");	
-		}else {
-
+		
 		mv.setViewName("/students/getStudentsCharacter");
-		}
+
 		return mv;
 	}
-
+	//========= Test 있을때 get, 없을때 insert view
+//	@RequestMapping(value = "getCheckStudentsCharacter")
+//	public ModelAndView getCheckStudentsCharacter
+//		(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{
+//		String teacherId = ((User) session.getAttribute("user")).getUserId();
+//		search.setSearchId(teacherId);
+//		search.setSearchKeyword(studentId);
+//		if(search.getCurrentPage() == 0 ){
+//			search.setCurrentPage(1);
+//		}
+//		search.setPageSize(pageSize);
+//		System.out.println("teacherId => " + teacherId + " / ");
+//		System.out.println("studentId => " + studentId);
+//
+//		// empty character
+//		if(studentsService.checkCharacterTotalCount(search) < 1) {
+//			// add list
+//			Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
+//			System.out.println("check search Keyword=> " + search.getSearchKeyword() + "teacherId => " + teacherId);
+//			Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
+//			User userStudent = userService.getUser(studentId);
+//			mv.addObject("list", listMap.get("list"));
+//			mv.addObject("resultPage", resultPage);
+//			mv.addObject("search", search);
+//			mv.addObject("userStudent", userStudent);
+//			mv.setViewName("/students/addStudentsCharacter");
+//		}else {
+//			// !empty character
+//			students = studentsService.getCheckStudentsCharacter(search);
+//			// get list
+//			Map<String, Object> list = studentsService.listStudentsCharacter(search);
+//			System.out.println("update list ==>> " + list);
+//			Page resultPage = new Page( search.getCurrentPage(), ((Integer)list.get("totalCount")).intValue(), pageUnit, pageSize);
+//
+//			mv.addObject("list", list.get("list"));
+//			mv.addObject("resultPage", resultPage);
+//			mv.addObject("search", search);
+//			mv.addObject("students",students);
+//			System.out.println("student Character ==> " + students);
+//			mv.setViewName("/students/getStudentsCharacter");
+//		}
+//		
+//		return mv;
+//	}
+//========================
 	// Exam
 	@RequestMapping(value="manageStudentsExam", method= {RequestMethod.GET, RequestMethod.POST}) 
 	public ModelAndView manageStudentsExam (HttpSession session) throws Exception {

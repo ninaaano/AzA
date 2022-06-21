@@ -161,7 +161,7 @@ $(function() {
 	               
 					<td align="right">
 						<select name="searchCondition" class="btn btn-raised-primary dropdown-toggle" style="width: 120px">
-							<option value="404"> 검색 조건 </option>
+							<option selected="" disabled=""> 검색 조건 </option>
 							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>학생이름</option>
 							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>기간</option>
 							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>수납여부</option>

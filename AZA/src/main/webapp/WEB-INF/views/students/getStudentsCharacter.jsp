@@ -129,38 +129,24 @@ function updateStudentsCharacter() {
 
 
 <div align="center" class="character">
-<%-- <h3> ${students.studentName}의 특징 </h3> --%>
 
 <%-- <input type="hidden" name="characterCode" value="${students.characterCode }"> --%>
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
 <input type="hidden" name="characterContent"  value="${students.characterContent }">
 
-<%-- <input name="characterContent" value="${students.characterContent}" 
-style="width:600px;height:500px;">
-<br/>
-<br/>
 
-	<button class="btn btn-raised-primary" type="button">수정</button>
-	<button class="btn btn-raised-danger" type="button">삭제</button>
-	<button class="btn btn-raised-light" type="button">확인</button>
-
-</div>  --%>
-
-			<select id="characterCode" name="characterCode" >
-
-
-				<c:forEach var="students" items="${list}">
-  
-						<option align="center" value="${students.characterCode }">${students.studentName}
-	
+			<select id="characterCode" name="characterCode" class="form-select form-select-lg" aria-label="Large select example" style="width:600px;">
+						<option align="center" selected="" disabled="" > 학생 선택 </option>
+				<c:forEach var="students" items="${list}">  
+						<option align="center" value="${students.characterCode }">${students.studentName}	
 				 </c:forEach>
 			</select>
 			
 <br/>
+<br/>
 
-
-			<div class="card card-raised border-top border-4 border-primary h-100"  >
+			<div class="card card-raised border-top border-4 border-primary h-100"  style="width:600px;">
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
                                         <h1 id="studentName"> ${students.studentName}의 특징 </h1>

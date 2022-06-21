@@ -60,13 +60,22 @@
 	<select id="getStudentsCharacterTotalCount" parameterType="search" resultType="int">
 	SELECT COUNT(*)
 	  	FROM( SELECT
-			*
-			FROM characters
-			WHERE teacher_id = #{searchId}
-			ORDER BY student_name) countTable
+				*
+				FROM characters
+				WHERE teacher_id = #{searchId}
+				ORDER BY student_name) countTable
 	</select>
 	
-	<select id="checkCharacterTotalCount">
+	<!--  -->
+	<select id="getCheckStudentsCharacter" parameterType="search" resultMap="studentsCharacterSelectMap">
+		SELECT
+		*
+		FROM characters
+		WHERE teacher_id = #{searchId} AND student_id=#{searchKeyword}
+		ORDER BY student_name
+	</select>
+	
+	<select id="checkCharacterTotalCount" resultType="int">
 		SELECT COUNT(*)
 	  	FROM( SELECT
 			*
