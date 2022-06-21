@@ -241,7 +241,7 @@
             type:'POST',
             url: '/schedule/rest/listLessonSchedule',
             data: {},
-            dataType: 'JSON',   //가지고 올때의 데이터 타입
+            dataType: 'JSON',  //가지고 올때의 데이터 타입
             async: false //==>동기
           })
           .done(function(result){
@@ -259,7 +259,7 @@
              /* alert(JSON.stringify(result)); */
              alert(return_value);
              return return_value;
-          })          
+          })
           .fail(function(request, status, error){
              alert("에러 발생:"+error)   
           });
@@ -309,8 +309,9 @@
     	  
     	  console.log(teacherId)
     		  
-    	  $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherId="+teacherId).submit();
+    	  $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherID="+teacherId).submit();
       }
+      
       $(function(){
     	  $("button.btn01").on("click",function(){
     		  fncSelectTeacher(this);
@@ -373,7 +374,6 @@ body {
 								<option class="schedule" value="${i}" data-value="${schedule.teacherId}">${schedule.teacherName.userName}</option>
 							</c:forEach>
 						</select>
-						
 			   <!-- <div class="col-sm-10">
 		   <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
 		 </div> -->
@@ -385,7 +385,7 @@ body {
 	
    <div id='calendar'></div>
    <!-- modal 추가 -->
-   <c:if test="${user.role eq 'teacher' }">
+   <c:if test="${user.role eq 'teacher'}">
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -412,7 +412,6 @@ body {
                         id="sprintSettingModalClose">취소</button>
                         <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
    						cursor:poointer" onclick="javascript:allSave();">전체저장</button>
-
                 </div>    
             </div>
         </div>

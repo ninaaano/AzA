@@ -60,7 +60,7 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value = "manageLessonSchedule")
-	public ModelAndView manageLessonSchedule(@ModelAttribute("search") Search search, HttpSession session ) throws Exception{
+	public ModelAndView manageLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
@@ -72,6 +72,7 @@ public class ScheduleController {
 			model.setViewName("/schedule/manageLessonSchedule");
 			return model;
 		} else {
+			
 			String studentId = ((User)session.getAttribute("user")).getUserId();
 			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
 			System.out.println("===============");
@@ -88,6 +89,8 @@ public class ScheduleController {
 			return model;
 		}	 
 	}
+	
+	
 	
 	@RequestMapping(value="addLessonSchedule", method=RequestMethod.POST)
 	public ModelAndView addLessonSchedule(@ModelAttribute("search") Search search, HttpSession session, HttpServletRequest req) throws Exception{
