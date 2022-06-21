@@ -131,11 +131,13 @@ public class PaperController {
 		
 		System.out.println("/paper/addPaperQuiz : POST");
 		
+		System.out.println("===beforeAddPaperQuiz"+paper);
+		
 		paperService.addPaperQuiz(paper);
-//		paperService.addPaperQuestion(paper);
+		System.out.println("===afterAddPaperQuiz"+paper);
+		paperService.addPaperQuestion(paper);
 //		paperService.addPaperChoice(paper);
 		
-		System.out.println("==="+paper);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/paper/listPaperQuiz");
@@ -143,7 +145,42 @@ public class PaperController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value="managePaperQuiz", method=RequestMethod.GET)
+	public ModelAndView managePaperQuiz(@RequestParam("quizCode") int quizCode, HttpSession session, Search search) throws Exception {
+		
+		System.out.println("=+=+=+=+=+>>>>>>>>>>>"+((User) session.getAttribute("user")).getUserId());
+		User dbUser = userService.getUser(((User) session.getAttribute("user")).getUserId());
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = lessonService.listLessonTeacher(search, ((User) session.getAttribute("user")).getUserId());
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		
+		System.out.println("==============>>>>>>>>>>>>>>>"+((User) session.getAttribute("user")).getUserId());
+		System.out.println("==============>>>>>>>>>>>>>>>"+map.get("list"));
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		System.out.println("paper/managePaperQuiz : GET");
+		
+		Paper paper = paperService.getPaperQuiz(quizCode);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("paper/managePaperQuiz");
+		modelAndView.addObject("paper", paper);
+		modelAndView.addObject("user", dbUser);
+		modelAndView.addObject("list", map.get("list"));
+		
+		System.out.println("===="+paper);
+ 
+		return modelAndView;
+
+	}
 	
 	
 	//HOMEWORK
