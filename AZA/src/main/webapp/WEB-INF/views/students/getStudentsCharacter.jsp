@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR"> 
+<meta charset="UTF-8"> 
 <title>Students Character </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +52,7 @@
 $(function () {
 	$('#characterCode').on('change', function() {
 		var characterCode = $('option:selected').val().trim();
-/* 		alert("¼±ÅÃµÈ characterCode => "+characterCode); */
+/* 		alert("ì„ íƒëœ characterCode => "+characterCode); */
 		
 		$.ajax(
 				{url : "/students/rest/getStudentsCharacter/"+characterCode ,
@@ -62,8 +62,8 @@ $(function () {
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					},success : function(JSONData , status) {
-						/* alert("¼±ÅÃµÈ cName => "+JSONData.studentName); */
-						$('#studentName').text(JSONData.studentName+"ÀÇ Æ¯Â¡");
+						/* alert("ì„ íƒëœ cName => "+JSONData.studentName); */
+						$('#studentName').text(JSONData.studentName+"ì˜ íŠ¹ì§•");
 						$('#studentName').val(JSONData.studentName);
 						
 						$('#studentId').text(JSONData.studentId);
@@ -91,15 +91,15 @@ $(function () {
 
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('»èÁ¦')" ).on("click" , function() {
-		alert("»èÁ¦....");
+	$( "button.btn.btn-raised-danger:contains('ì‚­ì œ')" ).on("click" , function() {
+		alert("ì‚­ì œ....");
 		deleteStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-primary:contains('¼öÁ¤')" ).on("click" , function() {
-		alert("¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿");
+	$( "button.btn.btn-raised-primary:contains('ìˆ˜ì •')" ).on("click" , function() {
+		alert("ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™");
 		updateStudentsCharacter();
 	});
 });
@@ -129,7 +129,7 @@ function updateStudentsCharacter() {
 
 
 <div align="center" class="character">
- <h3> ÇĞ»ı Æ¯Â¡ Á¶È¸</h3>
+ <h3> í•™ìƒ íŠ¹ì§• ì¡°íšŒ</h3>
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
@@ -137,7 +137,7 @@ function updateStudentsCharacter() {
 
 
 			<select id="characterCode" name="characterCode" class="form-select form-select-lg" aria-label="Large select example" style="width:600px;">
-						<option align="center" selected="" disabled="" > ÇĞ»ı ¼±ÅÃ </option>
+						<option align="center" selected="" disabled="" > í•™ìƒ ì„ íƒ </option>
 				<c:forEach var="students" items="${list}">  
 						<option align="center" value="${students.characterCode }">${students.studentName}	
 				 </c:forEach>
@@ -149,7 +149,7 @@ function updateStudentsCharacter() {
 			<div class="card card-raised border-top border-4 border-primary h-100"  style="width:600px;">
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
-                                        <h1 id="studentName"> ${students.studentName}ÀÇ Æ¯Â¡ </h1>
+                                        <h1 id="studentName"> ${students.studentName}ì˜ íŠ¹ì§• </h1>
                                         <p class="card-text mb-4" id="characterCode2">character Code : ${students.characterCode }</p>
                                         <p class="card-text mb-4" id="studentId">studentId : ${students.studentId }</p>
                                         <table class="table table-sm mb-0">
@@ -166,9 +166,9 @@ function updateStudentsCharacter() {
                                             <div class="fst-button">View More</div>
                                             <i class="material-icons icon-sm ms-1">chevron_right</i> -->
                                       <!--   </a> -->
-                                      		<button class="btn btn-raised-primary" type="button">¼öÁ¤</button>
-											<button class="btn btn-raised-danger" type="button">»èÁ¦</button>
-											<!-- <button class="btn btn-raised-light" type="button">È®ÀÎ</button> -->
+                                      		<button class="btn btn-raised-primary" type="button">ìˆ˜ì •</button>
+											<button class="btn btn-raised-danger" type="button">ì‚­ì œ</button>
+											<!-- <button class="btn btn-raised-light" type="button">í™•ì¸</button> -->
                                     </div>  
               </div>
 
