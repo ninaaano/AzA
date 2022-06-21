@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,12 +50,10 @@ public class ScheduleRestController {
 	}
 	
 	
-	@RequestMapping(value="manageLessonSchedule")
-	public Map<String, Object> manageLessonSchedule(HttpSession session) throws Exception{
+	@RequestMapping(value="manageLessonSchedule", method=RequestMethod.POST)
+	public Map<String, Object> manageLessonSchedule(HttpSession session, @RequestParam(required=false, value="teacherId") String teacherID) throws Exception{
 		User user = (User)session.getAttribute("user");
 		
-		String teacherId = user.getUserId();
-		Search search = new Search();
 //		int totalCount= (int) lessonService.listLessonSchedule(search, teacherId).get("totalCount");
 //		search.setCurrentPage(1);
 //		search.setPageSize(totalCount);
@@ -83,9 +82,12 @@ public class ScheduleRestController {
 	}
 	
 //	@SuppressWarnings("unchecked")
-	@RequestMapping("listLessonSchedule")
+	@RequestMapping(value= "listLessonSchedule", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> listLessonSchedule(@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+	public Map<String, Object> listLessonSchedule(@ModelAttribute("search") Search search,
+			HttpSession session,
+			@RequestParam(required=false, value="teacherId") String teacherID) throws Exception{
+		
 		String role = ((User) session.getAttribute("user")).getRole();
 		
 		if(role.equals("teacher")) {
@@ -109,8 +111,9 @@ public class ScheduleRestController {
 			return lessonService.listLessonScheduleTeacher(search, teacherId);
 		}else {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
-			
-			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, studentId);
+			System.out.println("================");
+			System.out.println(teacherID);
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, teacherID);
 			
 			JSONObject json = new JSONObject();
 			try {

@@ -280,6 +280,13 @@ public class StudentsDaoImpl implements StudentsDao {
 	}
 
 
+	@Override
+	public Students getCheckStudentsCharacter(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("CharacterMapper.getCheckStudentsCharacter",search);
+	}
+
+
 
 
 

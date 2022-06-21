@@ -9,6 +9,7 @@
 <title>manageLessonBook</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 
 
 <!-- Latest compiled and minified CSS -->
@@ -18,11 +19,10 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
 <script type ="text/javascript">
 	function fncAddLessonBook(e) {
 		const p = [];
+		p.push('hi')
 		const select = $(".lessonbook");
 		for(let i=0; i<select.length; i++){
 			p.push($(select[i]).data('value'))
@@ -88,42 +88,58 @@
 			}
 		})
 	} */
-	
+
+
+	window.addEventListener('DOMContentLoaded', event => {
+		const bookDataSimple = document.getElementById('bookDataSimple');
+		/* alert("실행") */
+		if(bookDataSimple){
+			$.ajax({
+				url:"/lesson/rest/manageLessonBook",
+				type:"GET",
+				dataType:"json",
+				success:function(result){
+					if(result){
+						var book = result.list;
+						var bookData =[];
+						book.map((book,i)=>{
+							var temp=[];
+							temp.push(book.isbn);
+							temp.push(book.booktitle);
+							temp.push(book.publisher);
+							temp.push(book.bookPrice);
+							temp.push(book.author);
+							temp.push(book.bookYear);
+							temp.push(book.lessonName);
+							
+							bookData.push(temp);
+						})
+						console.log(bookData);
+						var out = "";
+						 out += "<br> ======";
+						 out += bookData[0];
+						 
+						 $("#result").html(out);
+					}
+				}
+			})
+		}
+	});	
 </script>
 
-<script>
-window.addEventListener('DOMContentLoaded', event => {
-	const bookDataSimple = document.getElementById('bookDataSimple');
-	alert("실행")
-	if(bookDataSimple){
-		$.ajax({
-			url:"/lesson/rest/manageLessonBook",
-			type:"GET",
-			dataType:"json",
-			success:function(result){
-				alert(result)
-				console.log(result)
-				/* if(result){
-					var book = result.list;
-					var bookData =[];
-					alert(book)
-				} */
-			}
-		})
-	}
-});
 
-</script>
 
 </head>
 <body>
 
+
 <form id="lessonbook"class="d-flex">	
+<c:if test="${user.role eq 'teacher'}">
 	책 검색(isbn 입력)
 	<div class="form-group">
          <label for="lessonCode" class="col-sm-2 control-label">수업명</label>
            <select class="form-select" aria-label="Disabled select example">
-           		<option value=''> 선택</option>
+           		<!-- <option value=''> 선택</option> -->
 		    	<c:set var="i" value="0"/>	
 		    	<c:forEach var="book" items="${book}">
 		    		<%-- <c:set var="i" value ="${i+1}"/> --%>
@@ -136,6 +152,7 @@ window.addEventListener('DOMContentLoaded', event => {
     </div>
 	<input name = "isbn" class="form-control me-2" type="search" placeholder="isbn 입력" aria-label="Search">
 	<button class="btn btn-outline-success" type="button">검색</button>
+	</c:if>
 </form>
 
 <form id="book" class="book">
@@ -164,6 +181,13 @@ window.addEventListener('DOMContentLoaded', event => {
 			  </div>
 		</c:forEach>
 	</div>
+	
+	<div id = "bookDataSimple">
+	</div>
+</form>
+
+<form id = "result">
+	
 </form>
 
 <%-- <c:set var="i" value="0"/>
@@ -221,8 +245,5 @@ window.addEventListener('DOMContentLoaded', event => {
 					  </div>
 					</div>
 			</c:forEach> --%>
-	
-	
-
 	</body>
 </html>

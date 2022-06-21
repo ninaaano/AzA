@@ -121,6 +121,18 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
+	public Map<String, Object> listLessonBookStudetns(Search search, String studentsId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Lesson> list = lessonDao.listLessonBookStudents(search, studentsId);
+		int totalCount = lessonDao.getLessonBookStudentsTotalCount(search, studentsId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		return map;
+	}
+
+	@Override
 	public void deleteLessonBook(String isbn) throws Exception {
 		// TODO Auto-generated method stub
 		lessonDao.deleteLessonBook(isbn);
@@ -193,5 +205,16 @@ public class LessonServiceImpl implements LessonService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
-	
+
+	@Override
+	public Map<String, Object> listLessonSelectTeacher(Search search, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Schedule> list = lessonDao.listLessonSelectTeacher(search, studentId);
+		int totalCount = lessonDao.getlistLessonSelectTeacherTotalCount(search, studentId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		return map;
+	}
 }

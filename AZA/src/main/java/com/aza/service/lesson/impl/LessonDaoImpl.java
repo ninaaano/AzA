@@ -160,6 +160,20 @@ public class LessonDaoImpl implements LessonDao {
 		return sqlSessionTemplate.selectOne("LessonMapper.getLessonBookTeacherTotalCount",search);
 	}
 	
+	@Override
+	public List<Lesson> listLessonBookStudents(Search search, String studentsId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentsId);
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonBookStudents", search);
+	}
+
+	@Override
+	public int getLessonBookStudentsTotalCount(Search search, String searchKeyword) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchKeyword(searchKeyword);
+		return sqlSessionTemplate.selectOne("LessonMapper.getLessonBookStudentsTotalCount",searchKeyword);
+	}
+	
 //	==================================
 
 
@@ -231,6 +245,22 @@ public class LessonDaoImpl implements LessonDao {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.delete("ScheduleMapper.deleteAll");
 	}
+
+	@Override
+	public List<Schedule> listLessonSelectTeacher(Search search, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		
+		return sqlSessionTemplate.selectList("ScheduleMapper.listLessonSelectTeacher",search);
+	}
+
+	@Override
+	public int getlistLessonSelectTeacherTotalCount(Search search, String searchKeyword) throws Exception {
+		search.setSearchKeyword(searchKeyword);
+		return sqlSessionTemplate.selectOne("ScheduleMapper.getlistLessonSelectTeacherTotalCount",search);
+	}
+
+
 
 
 //	@Override

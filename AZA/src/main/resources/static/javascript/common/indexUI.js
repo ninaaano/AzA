@@ -1,3 +1,26 @@
+window.addEventListener('DOMContentLoaded', event => {
+	$.ajax({
+		url:"/user/rest/getUser",
+		type:"POST",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+       	success: function(result) {
+			if(result) {
+			// console.log(result);
+			sessionStorage.setItem("role", result.role);
+			sessionStorage.setItem("userName", result.userName);
+				
+			} else {
+				console.log("getUser error");
+			}
+
+		} 
+
+	})
+
+});
 
 function changeIframeUrl(url)
 {

@@ -123,10 +123,11 @@ function requestPay(){
 								alert(msg);
  								location.href = "/payment/rest/updatePaymet";  
 							}else{
-								return false;
+								var msg = '결제에 실패하였습니다.';
+						         msg += '에러내용 : ' + rsp.error_msg;
 							}
 						},
-						error : function(a,b,c){}
+
 					});	
         
                 /*======================================================*/
@@ -192,11 +193,11 @@ function requestPay(){
 		<th data-sortable="" style="width: 13%;">
 		<a href="#" class="dataTable-sorter" align="center">수납여부</a>
 		</th>
-		
+
 		<th data-sortable="" style="width: 10%;">
 		<a href="#" class="dataTable-sorter" align="center">납부하기</a>
 		</th>				
-		
+
 		</tr>
 	</thead>
 	
@@ -223,12 +224,20 @@ function requestPay(){
 					<fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 		
 				</td>
 				
-				<td align="center">${payment.checkPay }</td>
+				<td align="center" value="${payment.checkPay }">${payment.checkPay }</td>
 				
+				<c:if test="${payment.checkPay eq 'N'.charAt(0) }">
 				<td align="center">
 				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">결제하기　</button>
 				</td>
-
+ 				</c:if> 
+ 				
+ 				<c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
+				<td align="center">
+				결제 완료 :)
+				</td>
+ 				</c:if> 	
+ 							
 				</tr>
 
 </table>	

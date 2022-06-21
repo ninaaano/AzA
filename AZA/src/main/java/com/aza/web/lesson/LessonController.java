@@ -163,32 +163,48 @@ public class LessonController {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-//		String role = ((User) session.getAttribute("user")).getRole();
-				
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-//		System.out.println(teacherId);
-		
-		Map<String, Object> lessonName = lessonService.listBookTeacher(search, teacherId);
-		System.out.println("================");
-		System.out.println(lessonName);
-		System.out.println("================");
-		Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
-		System.out.println("================");
-		System.out.println(map);
-		System.out.println("================");
-		
-		Page resultPage = new Page(search.getCurrentPage(),
-				((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
-		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("/lesson/manageLessonBook");
-		model.addObject("book",lessonName.get("book"));
-		model.addObject("list",map.get("list"));
-		model.addObject("resultPage",resultPage);
-		model.addObject("search",search);
-		System.out.println(model);
+		String role = ((User) session.getAttribute("user")).getRole();
+		if(role.equals("teacher")) {		
+			String teacherId = ((User) session.getAttribute("user")).getUserId();
+	//		System.out.println(teacherId);
+			
+			Map<String, Object> lessonName = lessonService.listBookTeacher(search, teacherId);
+//			System.out.println("================");
+//			System.out.println(lessonName);
+//			System.out.println("================");
+			Map<String, Object> map = lessonService.listLessonBook(search, teacherId);
+//			System.out.println("================");
+//			System.out.println(map);
+//			System.out.println("================");
+			
+			Page resultPage = new Page(search.getCurrentPage(),
+					((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/manageLessonBook");
+			model.addObject("book",lessonName.get("book"));
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			System.out.println(model);
 
-		return model;
+			return model;
+		}else {
+			String userId = ((User) session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonBookStudetns(search, userId);
+			
+			Page resultPage = new Page(search.getCurrentPage(),
+					((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/manageLessonBook");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			System.out.println(model);
+			
+			return model;
+		}
 	}
 	
 	@RequestMapping(value="deleteLessonBook",method = RequestMethod.GET)

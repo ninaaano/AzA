@@ -187,6 +187,14 @@
 	</select>
 	<!-- and L.lesson_code = 'agho1216' -->
 	
+	<select id = "listLessonBookStudents" resultMap="lessonBookSelectMap">
+		SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.LN
+		FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name LN
+		        FROM LESSON L, STUDENTS_RECORD SR, USERS U
+		        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}) A
+		WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn
+	</select>
+	
 	<select id = "listBookTeacher" resultMap="lessonSelectMap">
 		select*from lesson
 		where teacher_id = #{searchId}
@@ -217,5 +225,15 @@
 			SELECT COUNT(*)
 			FROM (select*from lesson
 				where teacher_id = #{searchKeyword}) countTable	
+	</select>
+	
+	<select id = "getLessonBookStudentsTotalCount" resultType ="int">
+		SELECT COUNT(*)
+		FROM(SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.LN
+			FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name LN
+			        FROM LESSON L, STUDENTS_RECORD SR, USERS U
+			        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchKeyword}) A
+			WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn
+		)countTable	
 	</select>
 </mapper>

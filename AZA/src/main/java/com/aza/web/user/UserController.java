@@ -1,6 +1,7 @@
 package com.aza.web.user;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
-import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
 
@@ -86,23 +85,15 @@ public class UserController {
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 			
-			/*
-			 * if(dbUser.getRole().equals("parent")) { Search search = new Search();
-			 * search.setPageSize(pageSize); search.setCurrentPage(1); List<User> students =
-			 * (List) userService.listRelationByParent(search,
-			 * dbUser.getUserId()).get("list"); session.setAttribute("students", students);
-			 * }
-			 */
-			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
 				//rttr.setAttribute("user", dbUser);
-				mv.setViewName("/index_teacher");
+				mv.setViewName("redirect:/index");
 			}
 			
 			// student 
 			if(dbUser.getRole().equals("student")) {
-				mv.setViewName("/index_student");
+				mv.setViewName("redirect:/index");
 			}
 			
 			// parent 
@@ -111,8 +102,15 @@ public class UserController {
 				search.setPageSize(pageSize);
 				search.setCurrentPage(1);
 				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
+				List<User> studentsInfo  = new ArrayList<User>();
 				session.setAttribute("students", students);
-				mv.setViewName("/index_parent");
+				
+				for(User student : students) {
+					User studentInfo = userService.getUser(student.getFirstStudentId());
+					studentsInfo.add(studentInfo);
+				}
+				session.setAttribute("studentsInfo", studentsInfo);
+				mv.setViewName("redirect:/index");
 			}
 			System.out.println(session.getAttribute("user"));
 			System.out.println("Login okokgoodgood");
@@ -135,13 +133,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUser",method=RequestMethod.GET)
-	public ModelAndView getUser (@RequestParam("userId")String userId,@ModelAttribute("search") Search search) throws Exception{
+	public ModelAndView getUser (@ModelAttribute("search") Search search, HttpSession session,@RequestParam(required = false) String studentId) throws Exception{
 		System.out.println("==========");
 		System.out.println("getUser start.....");
 		System.out.println("==========");
 		
 		ModelAndView model = new ModelAndView();
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		search.setSearchId(userId);
+
 		User user = userService.getUser(userId);
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);	 
 		
 		if(user.getRole().equals("parent")) {
 			Map<String, Object> map = userService.listRelationByParent(search, userId);
@@ -151,10 +157,28 @@ public class UserController {
 			model.addObject("list", map.get("list"));
 			model.addObject("resultPage", resultPage);
 			model.addObject("search", search);
-		
-			return model;	
-		}
+			System.out.println(map.get("list"));
+			System.out.println("parent");
 
+		//	return new ModelAndView("/user/getUser");	
+		}
+		List students = (List) session.getAttribute("students");
+		
+		if(studentId==null || studentId.length() < 1) {
+			studentId = ((User) students.get(0)).getFirstStudentId();			
+		}
+		
+		List<User> studentsInfo = new ArrayList<User> ();
+
+		for(int i = 0; i < students.size(); i++) { 
+			String temp = ((User) students.get(i)).getFirstStudentId(); 
+		//	User student = userService.getUser(temp);
+		//	studentsInfo.add(student); 
+		}
+		
+		System.out.println("======students========="+students);
+		System.out.println("======studentsInfo========="+studentsInfo);
+		
 		model.addObject("user", user);
 		model.setViewName("/user/getUser");
 		return model;

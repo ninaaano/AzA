@@ -67,6 +67,8 @@ public interface StudentsService {
 	public Map<String, Object> listStudentsCharacter(Search search) throws Exception;
 
 	public int checkCharacterTotalCount(Search search)throws Exception;
+	public Students getCheckStudentsCharacter(Search search) throws Exception;
+	
 	// exam =======================================================
 	// INSERT
 	public void addStudentsExam(Students students) throws Exception;
