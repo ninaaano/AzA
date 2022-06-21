@@ -2,6 +2,7 @@ package com.aza.web.user;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,13 +133,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUser",method=RequestMethod.GET)
-	public ModelAndView getUser (@RequestParam("userId")String userId,@ModelAttribute("search") Search search) throws Exception{
+	public ModelAndView getUser (@ModelAttribute("search") Search search, HttpSession session,@RequestParam(required = false) String studentId) throws Exception{
 		System.out.println("==========");
 		System.out.println("getUser start.....");
 		System.out.println("==========");
 		
 		ModelAndView model = new ModelAndView();
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		search.setSearchId(userId);
+
 		User user = userService.getUser(userId);
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);	 
 		
 		if(user.getRole().equals("parent")) {
 			Map<String, Object> map = userService.listRelationByParent(search, userId);
@@ -148,10 +157,28 @@ public class UserController {
 			model.addObject("list", map.get("list"));
 			model.addObject("resultPage", resultPage);
 			model.addObject("search", search);
-		
-			return model;	
-		}
+			System.out.println(map.get("list"));
+			System.out.println("parent");
 
+		//	return new ModelAndView("/user/getUser");	
+		}
+		List students = (List) session.getAttribute("students");
+		
+		if(studentId==null || studentId.length() < 1) {
+			studentId = ((User) students.get(0)).getFirstStudentId();			
+		}
+		
+		List<User> studentsInfo = new ArrayList<User> ();
+
+		for(int i = 0; i < students.size(); i++) { 
+			String temp = ((User) students.get(i)).getFirstStudentId(); 
+		//	User student = userService.getUser(temp);
+		//	studentsInfo.add(student); 
+		}
+		
+		System.out.println("======students========="+students);
+		System.out.println("======studentsInfo========="+studentsInfo);
+		
 		model.addObject("user", user);
 		model.setViewName("/user/getUser");
 		return model;
