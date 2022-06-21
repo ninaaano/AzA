@@ -52,7 +52,7 @@
 $(function () {
 	$('#characterCode').on('change', function() {
 		var characterCode = $('option:selected').val().trim();
-		alert("선택된 characterCode => "+characterCode);
+/* 		alert("선택된 characterCode => "+characterCode); */
 		
 		$.ajax(
 				{url : "/students/rest/getStudentsCharacter/"+characterCode ,
@@ -62,7 +62,7 @@ $(function () {
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					},success : function(JSONData , status) {
-						alert("선택된 cName => "+JSONData.studentName);
+						/* alert("선택된 cName => "+JSONData.studentName); */
 						$('#studentName').text(JSONData.studentName+"의 특징");
 						$('#studentName').val(JSONData.studentName);
 						
@@ -123,14 +123,14 @@ function updateStudentsCharacter() {
 </head>
 <body>
 <form>
- <h3>GET Students Character ! </h3>
+
 <br/>
 
 
 
 <div align="center" class="character">
-
-<%-- <input type="hidden" name="characterCode" value="${students.characterCode }"> --%>
+ <h3> 학생 특징 조회</h3>
+<input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
 <input type="hidden" name="characterContent"  value="${students.characterContent }">

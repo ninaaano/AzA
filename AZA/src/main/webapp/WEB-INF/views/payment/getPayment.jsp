@@ -77,8 +77,7 @@ function requestPay(){
         pay_method : 'card',
         merchant_uid : payCode, // 주문 번호
 		name : lessonName,
-		amount : price,
-		buyer_tel : '010-1111-2222'
+		amount : price
 		
 
     }, function(rsp) {
@@ -90,23 +89,7 @@ function requestPay(){
 	    			msg += '\n결제 금액 : ' + rsp.paid_amount;
 	    			msg += '카드 승인번호 : ' + rsp.apply_num;
 	    			// 넘겨줄 정보..
-	    			
-/* 	    		$.ajax({
-	    			url : "/payment/rest/complete",
-	    			type : "POST",
-	    			data:JSON.stringify({
-  		  				payCode : rsp.imp_uid,
 
-  		  			}),
-  		  			headers : {
-  		  				"Accept" : "application/json",
-  		  				"Content-Type" : "application/json"
-  		  			},
-  		  			dataType : "json",
-		  			success : function(data){
-		  			}
-	    			
-	    		})//ajax */
  	    		let payment = {
 						payCode: rsp.merchant_uid,
 						impUid: rsp.imp_uid,

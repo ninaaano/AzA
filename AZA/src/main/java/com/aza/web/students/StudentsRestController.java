@@ -366,47 +366,4 @@ public class StudentsRestController {
 		return result;			
 	}
 
-	@RequestMapping(value = "getCheckStudentsCharacter")
-	public ModelAndView getCheckStudentsCharacter
-		(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{
-		String teacherId = ((User) session.getAttribute("user")).getUserId();
-		search.setSearchId(teacherId);
-		search.setSearchKeyword(studentId);
-		if(search.getCurrentPage() == 0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		System.out.println("teacherId => " + teacherId + " / ");
-		System.out.println("studentId => " + studentId);
-
-		// empty character
-		if(studentsService.checkCharacterTotalCount(search) < 1) {
-			// add list
-			Map<String, Object> listMap = studentsService.listStudentsRecord(search, teacherId);
-			System.out.println("check search Keyword=> " + search.getSearchKeyword() + "teacherId => " + teacherId);
-			Page resultPage = new Page( search.getCurrentPage(), ((Integer)listMap.get("totalCount")).intValue(), pageUnit, pageSize);
-			User userStudent = userService.getUser(studentId);
-			mv.addObject("list", listMap.get("list"));
-			mv.addObject("resultPage", resultPage);
-			mv.addObject("search", search);
-			mv.addObject("userStudent", userStudent);
-			
-		}else {
-			// !empty character
-			students = studentsService.getCheckStudentsCharacter(search);
-			// get list
-			Map<String, Object> list = studentsService.listStudentsCharacter(search);
-			System.out.println("update list ==>> " + list);
-			Page resultPage = new Page( search.getCurrentPage(), ((Integer)list.get("totalCount")).intValue(), pageUnit, pageSize);
-
-			mv.addObject("list", list.get("list"));
-			mv.addObject("resultPage", resultPage);
-			mv.addObject("search", search);
-			mv.addObject("students",students);
-			System.out.println("student Character ==> " + students);
-			mv.setViewName("/students/getStudentsCharacter");
-		}
-		
-		return mv;
-	}
 }
