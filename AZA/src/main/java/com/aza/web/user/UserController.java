@@ -1,7 +1,7 @@
 package com.aza.web.user;
 
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
-import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.user.UserService;
 
@@ -111,7 +109,14 @@ public class UserController {
 				search.setPageSize(pageSize);
 				search.setCurrentPage(1);
 				List<User> students = (List) userService.listRelationByParent(search, dbUser.getUserId()).get("list");
+				List<User> studentsInfo  = new ArrayList<User>();
 				session.setAttribute("students", students);
+				
+				for(User student : students) {
+					User studentInfo = userService.getUser(student.getFirstStudentId());
+					studentsInfo.add(studentInfo);
+				}
+				session.setAttribute("studentsInfo", studentsInfo);
 				mv.setViewName("/index_parent");
 			}
 			System.out.println(session.getAttribute("user"));

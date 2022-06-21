@@ -223,15 +223,34 @@ public class StudentsRestController {
 	 */
 	
 	// Exam ===========================================
-	@RequestMapping(value="listStudentsExam/subject")
-	public List<String> listExamSubject(HttpSession session) throws Exception {
+	@RequestMapping(value={"listStudentsExam/subject" , "listStudentsExam/subject/{studentId}"})
+	public List<String> listExamSubject(HttpSession session, @PathVariable(value = "studentId", required = false) String kidId) throws Exception {
 		System.out.println("listStudentsExam/subject Start...");
 		
 		User user = (User) session.getAttribute("user");
+		String studentId = "";
+		
+		if(user.getRole().equals("parent")) {
+			
+			if(kidId == null || kidId.length() < 1) {				
+				List students = (List) session.getAttribute("students");				
+				studentId = ((User) students.get(0)).getFirstStudentId();						
+			} else {
+				studentId = kidId;
+			}
+			
+		} else {
+			
+			studentId = user.getUserId();
+			
+		}
+		
+		
+		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(1);
-		search.setSearchId(user.getUserId());
+		search.setSearchId(studentId);
 		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
 		int totalCount = (int) temp1.get("totalCount");
 		search.setPageSize(totalCount);
@@ -251,16 +270,36 @@ public class StudentsRestController {
 	}
 	
 	
-	@RequestMapping(value = "listStudentsExam")
-	public Map<String, Object> listStudentsExam(HttpSession session, @RequestBody(required = false) Students students) throws Exception{
+	@RequestMapping(value = {"listStudentsExam", "listStudentsExam/{studentId}"})
+	public Map<String, Object> listStudentsExam(HttpSession session, @RequestBody(required = false) Students students, @PathVariable(value = "studentId", required = false) String kidId) throws Exception{
 		
 		System.out.println("listExam RestController Start...");
 
 		User user = (User) session.getAttribute("user");
+		
+		String studentId = "";
+		
+		if(user.getRole().equals("parent")) {
+			System.out.println("parent can only view : exam");
+			
+			if(kidId == null || kidId.length() < 1) {				
+				List tempList = (List) session.getAttribute("students");				
+				studentId = ((User) tempList.get(0)).getFirstStudentId();	
+				System.out.println("parent firstKid :" + studentId);
+			} else {
+				studentId = kidId;
+				System.out.println(studentId + "???anjdla");
+			}
+			
+		} else {
+			
+			studentId = user.getUserId();
+			
+		}
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(1);
-		search.setSearchId(user.getUserId());
+		search.setSearchId(studentId);
 		//search.setPageSize(pageSize);
 		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
 		int totalCount = (int) temp1.get("totalCount");
@@ -273,18 +312,7 @@ public class StudentsRestController {
 			search.setSearchKeyword(students.getExamSubject());
 		}
 		
-		/*
-		 * Map<String, Object> temp2 = studentsService.listStudentsExam(search);
-		 * List<Students> examList = (List<Students>) temp2.get("list"); List<String>
-		 * subjectList = new ArrayList<String>(); for(Students data : examList) { String
-		 * subject = data.getExamSubject(); if(!subjectList.contains(subject)) {
-		 * subjectList.add(subject); } }
-		 * 
-		 * Map<String, Object> map = new HashMap<>();
-		 */
-		/*
-		 * map.put("examList", examList); map.put("subjectList", subjectList);
-		 */
+
 		return studentsService.listStudentsExam(search);
 	}
 

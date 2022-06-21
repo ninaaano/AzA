@@ -37,6 +37,11 @@ public class UserRestController {
 			System.out.println(this.getClass());
 		}
 		
+		@RequestMapping(value="getUser", method=RequestMethod.POST)
+		public User getUser(HttpSession session) throws Exception {
+			return (User) session.getAttribute("user");
+		}
+		
 		@RequestMapping(value="addUser", method=RequestMethod.POST)
 		public User addUser(@ModelAttribute User user) throws Exception {
 			userService.addUser(user);
