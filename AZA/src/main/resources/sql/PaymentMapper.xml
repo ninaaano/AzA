@@ -17,7 +17,6 @@
 		<result property="payDay" 			 column="pay_day" 				jdbcType="DATE" />
 		<result property="checkPay" 		 column="check_pay" 			jdbcType="CHAR" />
 		<result property="impUid" 			 column="imp_uid" 				jdbcType="VARCHAR" />
-		<result property="merchantUid" 		 column="merchant_uid" 			jdbcType="VARCHAR" />	
 		
 		<association property="payLessonName"  javaType="lesson">
 			<id property="lessonName" column="lesson_name" jdbcType="VARCHAR"/>
@@ -41,7 +40,7 @@
 	(SELECT user_name FROM users WHERE user_id = #{studentId}), #{payer:VARCHAR},
 	(SELECT fees FROM students_record WHERE record_code = #{studentRecordNo}), 
 	TO_CHAR(SYSDATE,'yyyy/mm')||'/'||(SELECT pay_due_date FROM students_record WHERE record_code = #{studentRecordNo}), 
-	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR}, #{merchantUid:VARCHAR})	 
+	#{payDay:DATE}, #{checkPay:CHAR}, #{impUid:VARCHAR})	 
 	 </insert>
 	 
 
@@ -251,7 +250,6 @@
 	TO_CHAR(TO_DATE(pay_due_date, 'yyyy/mm/dd') + INTERVAL '1' MONTH, 'yyyy/mm/dd') ,
 	null , 
 	'N', 
-	null, 
 	null) 
 	SELECT student_record_no,student_id,student_name,amount,pay_due_date FROM payment
 	</insert>
