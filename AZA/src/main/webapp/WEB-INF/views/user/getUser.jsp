@@ -95,9 +95,25 @@
 	  		<div class="col-xs-4 col-md-2 "><strong>학년</strong></div>
 			<div class="col-xs-8 col-md-4">${user.grade}</div>
 		</div>
+		
 		</c:if>
 		
+		
 		<c:if test="${user.role eq 'parent'}">
+			
+	<input type="hidden" name="relationCode" value="${user.relationCode}">
+	<input type="hidden" name="firstStudentId" value="${user.firstStudentId}">
+			
+			<select id="relationCode" name="relationCode" >
+
+
+				<c:forEach var="students" items="${list}">
+  
+						<option align="center" value="${user.relationCode}">${user.firstStudentId}
+	
+				 </c:forEach>
+			</select>
+			<hr/>
 			
 			<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 학교</strong></div>

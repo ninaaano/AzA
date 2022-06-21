@@ -16,7 +16,7 @@
 
 
 	<!-- PaperQuestion :: INSERT -->
-	<insert id="addPaperQuestion">
+<!-- 	<insert id="addPaperQuestion">
 	INSERT INTO question
 	VALUES(
 		seq_question_question_code.NEXTVAL,
@@ -28,7 +28,30 @@
 		#{feedBackContent:VARCHAR},
 		#{answerCheck:CHAR}
 	)
+	<selectKey keyProperty="questionCode" resultType="int" order="AFTER" >
+		SELECT seq_question_question_code.CURRVAL FROM dual
+	</selectKey>
+	</insert> -->
+	
+	<insert id="addPaperQuestion">
+		INSERT INTO question(question_code, quiz_code, question_no, question_content, teacher_answer, student_answer, feedback_content, answer_check)
+		SELECT seq_question_question_code.NEXTVAL, #{quizCode}, A.* FROM(
+		<foreach collection="list" item="paper" separator="UNION ALL">
+			SELECT #{paper.questionNo:INTEGER} as question_no,
+			#{paper.questionContent:VARCHAR} as question_content,
+			#{paper.teacherAnswer:VARCHAR} as teacher_answer,
+			#{paper.studentAnswer:VARCHAR} as student_answer,
+			#{paper.feedBackContent:VARCHAR} as feedback_content,
+			#{paper.answerCheck:CHAR} as answer_check
+			from dual
+		</foreach>
+		)A
+
+	<selectKey keyProperty="questionCode" resultType="int" order="AFTER" >
+		SELECT seq_question_question_code.CURRVAL FROM dual
+	</selectKey>
 	</insert>
+	
 	
 	<!-- PaperQuestion :: SELECT -->
 	<select id="getPaperQuestion" parameterType="int" resultMap="questionSelectMap">

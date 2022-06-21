@@ -241,7 +241,7 @@
             type:'POST',
             url: '/schedule/rest/listLessonSchedule',
             data: {},
-            dataType: 'JSON',   //가지고 올때의 데이터 타입
+            dataType: 'JSON',  //가지고 올때의 데이터 타입
             async: false //==>동기
           })
           .done(function(result){
@@ -259,7 +259,7 @@
              /* alert(JSON.stringify(result)); */
              alert(return_value);
              return return_value;
-          })          
+          })
           .fail(function(request, status, error){
              alert("에러 발생:"+error)   
           });
@@ -291,6 +291,32 @@
              alert("에러 발생:"+error)   
           });
       }
+      
+      function fncSelectTeacher(e){
+    	  const p = [];
+    	  p.push('hi')
+    	  const select = $(".schedule");
+    	  for(let i=0; i<select.length; i++){
+    		  p.push($(select[i]).data('value'))
+    	  }
+    	  
+    	  console.log(p)
+    	  
+    	  var a = $(e).parent().find(".form-select").val();
+    	  
+    	  console.log(a)
+    	  var teacherId = p[a];
+    	  
+    	  console.log(teacherId)
+    		  
+    	  $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherID="+teacherId).submit();
+      }
+      
+      $(function(){
+    	  $("button.btn01").on("click",function(){
+    		  fncSelectTeacher(this);
+    	  });
+      });
     </script>
 
 <style>
@@ -330,10 +356,36 @@ body {
    <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
    <div style="width:60%; float:left; text-align:right">일정 현황
    </div><div style="width:40%; float:left;text-align:right"></div>
+   
+   <c:if test="${user.role eq 'teacher' }">
    <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-   cursor:poointer" onclick="javascript:allSave();">전체저장</button></div>
+   cursor:poointer" onclick="javascript:allSave();">전체저장</button>
+   </c:if>
+   </div>
+   
+      <!-- book -->
+      <form id = "selectTeacher" class="d-flex"	> 
+		<div class="form-group">
+			<label for="lessonCode" class="col-sm-2 control-label">선생님이름</label>
+			<select class="form-select" aria-label="Disabled select example">
+					<c:set var="i" value="0"/>
+							<c:forEach var="schedule" items="${list}">
+						 		<c:set var="i" value ="${i+1}"/>
+								<option class="schedule" value="${i}" data-value="${schedule.teacherId}">${schedule.teacherName.userName}</option>
+							</c:forEach>
+						</select>
+			   <!-- <div class="col-sm-10">
+		   <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+		 </div> -->
+	 	</div>
+	 	<button type="button" class="btn01" id="btn01">검색</button>
+ 	</form>
+	<!-- book -->
+	
+	
    <div id='calendar'></div>
    <!-- modal 추가 -->
+   <c:if test="${user.role eq 'teacher'}">
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -359,11 +411,11 @@ body {
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose">취소</button>
                         <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-   cursor:poointer" onclick="javascript:allSave();">전체저장</button>
-                </div>
-    
+   						cursor:poointer" onclick="javascript:allSave();">전체저장</button>
+                </div>    
             </div>
         </div>
     </div>
+    </c:if>
 </body>
 </html>

@@ -45,6 +45,8 @@ public interface LessonService {
 	
 	public Map<String, Object> listBookTeacher(Search search, String teacherId) throws Exception;
 	
+	public Map<String, Object> listLessonBookStudetns(Search search, String studentsId) throws Exception;
+	
 //	==============================================
 
 	// schedule : add
@@ -68,5 +70,6 @@ public interface LessonService {
 	//schedule : all delete
 	public void deteteLessonScheduleAll() throws Exception;
 
+	public Map<String, Object> listLessonSelectTeacher(Search search, String studentId) throws Exception;
 
 }

@@ -124,12 +124,25 @@
 		  <div class="form-group">
 		    <label for="phone" class="col-sm-offset-1 col-sm-3 control-label">휴대전화번호</label>
 		  
-		    <div class="col-sm-2">
+		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  placeholder="변경번호">
 		    </div>
 	
 		    <input type="hidden" name="phone"  />
 		  </div>
+		  
+		  <c:if test="${user.role eq 'student'}">
+			
+			<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>학교</strong></div>
+			<div class="col-xs-8 col-md-4">${user.school}</div>
+		</div>
+		<hr/>
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>학년</strong></div>
+			<div class="col-xs-8 col-md-4">${user.grade}</div>
+		</div>
+		</c:if>
 
 		  
 		  <div class="form-group">

@@ -1,59 +1,78 @@
 window.addEventListener('DOMContentLoaded', event => {
-	getSubject();
+	var temp = document.location.href.split("/");
+	var studentId = temp[temp.length-1];
+
+	if(studentId !== 'manageStudentsExam') {
+		getSubject(studentId);
+	} else {
+		
+		if(sessionStorage.getItem("role") == 'parent') {
+			var li =  $('#studentsDropDown').children().first();
+			
+			studentId = li.dataset.id;
+			console.log(studentId);
+			getSubject(studentId);
+		} else{
+			getSubject();
+		}
+		
+		
+		
+		
+	}
+
+
 });
 
 $(function() {
-	$("#studentsExamFormOpenBtn").on("click", function() {
+	$("#addExamFormHandler").on("click", function() {
 		examFormHandler();
 	})
-})
+	
+	$("#addStudentsExamBtn").on("click", function() {
+		
+		var valFlag = false;
+		const examYear = document.addStudentsExamForm.examYear.value;
+		const examSemester = document.addStudentsExamForm.examSemester.value;
+		const examTerm = document.addStudentsExamForm.examTerm.value;
+		const examSubject = document.addStudentsExamForm.examSubject.value;
+		const examScore = document.addStudentsExamForm.examScore.value;
+		
+		document.addStudentsExamForm.action = "/students/addStudentsExam";
+		document.addStudentsExamForm.method = "POST";
+		document.addStudentsExamForm.submit();		
 
-var formDiv = `<div class="list-group-item d-flex justify-content-between px-0 hidden">
-							<form name="addStudentsExamForm" action="/students/addStudentsExam">
-		          				<div class="form-group">
-						            <label for="examYear" class="col-form-label">년도 : </label>
-						            <input type="text" class="form-control" id="examYear" name="examYear">
-						          </div>
-						          <div class="form-group">
-						            <label for="examSemester" class="col-form-label">학기</label>
-						            <input type="text" class="form-control" id="examSemester" name="examSemester">
-						          </div>
-						          <div class="form-group">
-									<select class="form-select form-select-sm" name="examTerm" aria-label="Small select example">
-									    <option selected>중간 / 기말</option>
-									    <option value="1">중간고사</option>
-									    <option value="2">기말고사</option>
-									</select>
-						          </div>
-						          <div class="form-group">
-						            <label for="examSubject" class="col-form-label">과목:</label>
-						            <input type="text" class="form-control" id="examSubject" name="examSubject">
-						          </div>
-						          <div class="form-group">
-						            <label for="examScore" class="col-form-label">점수:</label>
-						            <input type="text" class="form-control" id="examScore" name="examScore">
-						          </div>
-						          <p class="valCheck text-danger hidden">모든 정보를 입력해주세요(⊙x⊙;)</p>
-						          <p class="valCheck text-danger hidden">숫자만 입력해주세요(⊙x⊙;)</p>
-						          <div class="d-flex justify-content-end">
-					              	<button class="btn btn-text-primary mdc-ripple-upgraded" type="submit" id="addStudentsExamBtn">등록</button>
-					              </div>
-					        </form>
-                        </div>`;
+		
+	})
+	
+})
 
 // 성적 추가 폼 활성화
 function examFormHandler() {
-	$("#examDetailList").append(formDiv);
-	$("#studentsExamFormOpenBtn").addClass('hidden');
-	$("#studentsExamFormCloseBtn").removeClass('hidden');
-}
+	
+	if($("#studentsExamFormOpenBtn").hasClass('hidden') == false) {
+		$("#studentsExamFormOpenBtn").addClass('hidden');
+		$("#addStudentsExamForm").removeClass('hidden');
+		$("#studentsExamFormCloseBtn").removeClass('hidden');
+		
+	} else {
+	$("#studentsExamFormCloseBtn").addClass('hidden');
+	$("#addStudentsExamForm").addClass('hidden');
+	$("#studentsExamFormOpenBtn").removeClass('hidden');
+		
+	}
+	
 
+}
 
 
 // 과목 리스트 가져오기
 function getSubject() {
-		$.ajax({
-		url:"/students/rest/listStudentsExam/subject",
+
+	var url = arguments.length > 0 ? "/students/rest/listStudentsExam/subject/" + arguments[0] :  "/students/rest/listStudentsExam/subject";
+	
+	$.ajax({
+		url: url,
 		type:"POST",
 		headers : {
                 "Accept" : "application/json",
@@ -64,7 +83,7 @@ function getSubject() {
 				console.log(result);
 				var subjectList = result;
 				
-				listExamBySubject(result[0]);
+				listExamBySubject(result[0], arguments[0]);
 				
 			} else {
 				console.log("정보 없음");
@@ -73,13 +92,23 @@ function getSubject() {
 	})
 }
 
-function makeExamDetailList(time, score) {
+function makeExamDetailList(examCode, time, score, subject) {
 
                     
-    var scoreDiv = `<div class="list-group-item d-flex justify-content-between px-0">
-                     ${time}
-                    <div class="ms-2"> ${score}</div>
-					</div>`;
+    var scoreDiv = `<div id="examDetail-${examCode}" name="examDetail" onclick="return updateFormHandler('${examCode}')" class="">
+    					<div class="list-group-item d-flex justify-content-between px-0">
+                     		${time}                  
+                    		<div class="ms-2"> ${score}</div>	
+						</div>
+					</div>
+					<div class="hidden" id="updateForm-${examCode}" name="updateForm">
+						<form id='form${examCode}' name='updateForm${examCode}' action="/students/updateStudentsExam" method="POST">
+							<input type="hidden" name="examCode" value="${examCode}"/>
+							 <input type="text" name="examScore" placeholder="점수"/>
+							 <button id="updateStudentsExamBtn" type="button" class="fst-button btn-outline-primary text-white" onclick="return updateStudentsExam('${examCode}')">등록</button>
+							 <button id="deleteStudentsExamBtn" type="button" class="fst-button btn-outline-primary text-white" onclick="return deleteExamDetail('${examCode}')">삭제</button>
+						</form>
+						</div>`;
 					
 
                     
@@ -88,19 +117,52 @@ function makeExamDetailList(time, score) {
 	
 }
 
+function updateStudentsExam(examCode) {
+
+	$(`#form${examCode}`).submit();	
+
+}
+
+function deleteExamDetail(examCode) {
+	console.log(examCode);
+	self.location.href = "/students/deleteStudentsExam?examCode="+examCode;
+}
+
+
+// updateForm 활성화
+function updateFormHandler(examCode) {
+
+	if($(`#examDetail-${examCode}`).hasClass('update') == false) {
+		$(`#updateForm-${examCode}`).removeClass('hidden');	
+		$(`#examDetail-${examCode}`).addClass("update");
+		console.log("click");
+	} else {
+		$(`#updateForm-${examCode}`).addClass('hidden');	
+		$(`#examDetail-${examCode}`).removeClass("update");
+	}
+	
+	
+	
+}
+
 
 
 
 // 과목별 점수 가져오기
-function listExamBySubject(subject) {
+function listExamBySubject(subject, studentId) {
 	
 	var data = {
 		examSubject : subject
 	}
 	
+	var url = arguments.length > 1 ? "/students/rest/listStudentsExam/"+studentId : "/students/rest/listStudentsExam";
+
+	if(arguments.length < 2 && sessionStorage.getItem("role") == 'parent') {
+		url += "/" + $('#studentsDropDown').children().first().dataset.studentid;
+	}
 	
 	$.ajax({
-		url:"/students/rest/listStudentsExam",
+		url:url,
 		type:"POST",
 		headers : {
                 "Accept" : "application/json",
@@ -132,7 +194,7 @@ function listExamBySubject(subject) {
 					times.push(tempLabel);
 					scores.push(exam.examScore);
 					
-					makeExamDetailList(tempLabel, exam.examScore)
+					makeExamDetailList(exam.examCode, tempLabel, exam.examScore, subject);
 					
 				})
 				
@@ -146,7 +208,7 @@ function listExamBySubject(subject) {
 								    data: scores,
 								    fill: true,
 								    borderColor: '#7b68EE',
-								    tension: 5
+								    tension: 0.25
 								  }]
 								};
 								
@@ -176,9 +238,12 @@ const setMyLineChart = (subject) => {
 		examSubject : subject
 	}
 	
+	var temp = document.location.href.split("/");
+	var studentId = temp[temp.length-1];
+	var url = studentId !== 'manageStudentsExam' ? "/students/rest/listStudentsExam/" + studentId : "/students/rest/listStudentsExam/";
 	
 	$.ajax({
-		url:"/students/rest/listStudentsExam",
+		url:url,
 		type:"POST",
 		headers : {
                 "Accept" : "application/json",
@@ -207,10 +272,9 @@ const setMyLineChart = (subject) => {
 					times.push(tempLabel);
 					scores.push(exam.examScore);
 					
-					makeExamDetailList(tempLabel, exam.examScore)
+					makeExamDetailList(exam.examCode, tempLabel, exam.examScore, subject);
 					
-				})
-				$("#examDetailList").append(formDiv);    
+				})   
 				
 				console.log(times);
 				console.log(scores);
@@ -223,7 +287,7 @@ const setMyLineChart = (subject) => {
 								    data: scores,
 								    fill: true,
 								    borderColor: '#7b68EE',
-								    tension: 5
+								    tension: 0.25
 								  }]
 								};
 	

@@ -18,7 +18,7 @@
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
-<script defer src="/resources/javascript/common/indexUI.js"></script>
+<script defer src="/resources/javascript/students/teacherHome.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -49,14 +49,34 @@
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
 	
+	
+<!-- schedule -->
+<link type="text/css" href="/resources/css/schedule.css" rel="stylesheet" />
+<script defer type="text/javascript"	src="/resources/javascript/schedule/main.js"></script>
+<!-- <script src='../lib/main.min.js'></script> -->
+<script defer type="text/javascript"	src="/resources/javascript/schedule/ko.js"></script>
+<script defer type="text/javascript"	src="/resources/javascript/schedule/schedule.js"></script>
+<script defer src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- bootstrap 4 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
+
+
 <style>
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
-<link href="/resources/css/index_UI.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
 
 function resetForm() {
@@ -80,7 +100,7 @@ $(function() {
 			$('.valCheck').addClass('show');
 		} else {
 			$.ajax({
-				 url: "/lesson/rest/checkLessonCode/"+lessonCode,
+				 url: "http://localhost:8080/lesson/rest/checkLessonCode/"+lessonCode,
 		            type: "GET",
 		            headers : {
 		                    "Accept" : "application/json",
@@ -119,11 +139,11 @@ $(function() {
 	})
 })
 
-/* 
 
+/* 
 function deleteAlert(alertCode) {
 	$.ajax({
-		url:"/alert/rest/deleteAlert/"+alertCode,
+		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -182,17 +202,13 @@ function deleteAlert(alertCode) {
             }
        }
 	})
-	
-	
-	
-	
 }
 
 
 
 function listAlert() {
 	$.ajax({
-		url:"/alert/rest/listAlert",
+		url:"http://localhost:8080/alert/rest/listAlert",
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -255,7 +271,7 @@ function listAlert() {
 
 function readAlert(alertCode) {
 	$.ajax({
-		url:"/alert/rest/readAlert/"+alertCode,
+		url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
 		type:"GET",
 		headers : {
                 "Accept" : "application/json",
@@ -322,20 +338,18 @@ function readAlert(alertCode) {
  */
 
 $(function() {
-
 	// Alert
 	 $('#dropdownMenuNotifications').on('click', function() {
 		console.log("알림 버튼 눌림");
 		listAlert();
-
 	})
 
 	// Message
 	$("#open-messagePopup").on("click", function() {
-console.log("메시지 버튼 눌림");
+		console.log("메시지 버튼 눌림");
 		
         $.ajax({
-            url: "/message/rest/listMessage",
+            url: "http://localhost:8080/message/rest/listMessage",
             type: "GET",
             headers : {
                     "Accept" : "application/json",
@@ -344,26 +358,30 @@ console.log("메시지 버튼 눌림");
             success: function(result) {
                 if(result) {
                 	console.log(result);
-                	sessionStorage.clear();
+                	
                 	sessionStorage.setItem('userId', result[0].userId);
                 	
                 	result.shift();
                 	
-                	console.log("message/listmessage : "+result);
+                	console.log(result);
                 	
                 	var listOtherView = "";
                 	
                 	result.map((other,i) => {
-                		var userId = other.userId;
-                		var userName = other.relationName ? other.firstStudentName + "  " + other.relationName : other.userName;
+               			
+                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
+                		let studentName = other.studentId ? other.studentName : "학생이룸";
+                		let relationName = other.relationName ? other.relationName : "";
+                		let userId = other.userId ? other.userId : studentId;
+                		let userName = studentName + " " + relationName;
+                		//console.log(i, studentId);
                 		
-            
                 		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
                 		<li class='p-2 border-bottom' data-id=`+userId+`>
                             	<a class="d-flex justify-content-between">
                                     <div class="d-flex flex-row">
                                         <div class="pt-1">
-                                            <p class="fw-bold mb-0">`+userName+`</p>
+                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
                                             <p class="small text-muted">최근메시지</p>
                                         </div>
                                     </div>
@@ -381,10 +399,13 @@ console.log("메시지 버튼 눌림");
             } 
         })
 	})
+})
 	
 
 
-})	
+
+
+
 </script>
 
 
@@ -392,184 +413,97 @@ console.log("메시지 버튼 눌림");
 </head>
 
 <body class="nav-fixed bg-light">
-<div class="nav-fixed bg-light">
-	<!-- Top app bar navigation menu-->
 
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
-		<div class="container-fluid px-4">
-			<!-- Drawer toggle button-->
-			<button class="btn btn-lg btn-icon order-1 order-lg-0"
-				id="drawerToggle" href="javascript:void(0);">
-				<i class="material-icons text-primary">menu</i>
-			</button>
-			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index" data-url=''>
-			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
-			</a>
-			<!-- Navbar items-->
-			<div class="d-flex align-items-center mx-3 me-lg-0">
-				<!-- Navbar buttons-->
-				<div class="d-flex">
-					<!-- Messages dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">mail_outline</i>
-						</button>
-					</div>				
-					<!-- Notifications and alerts dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuNotifications" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary position-relative">notifications</i> 
-							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
-						</button>
-						<ul id="alertDropDown"
-							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
-							aria-labelledby="dropdownMenuNotifications">
-						</ul>
-					</div>
-					
-					
-					<!-- User profile dropdown-->
-					<div class="dropdown">
-						<button class="btn btn-lg btn-icon dropdown-toggle"
-							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">person</i>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end mt-3"
-							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
-									class="material-icons leading-icon text-primary">person</i>
-									<div class="me-3">Profile</div>
-							</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/user/logout" > <i
-									class="material-icons leading-icon text-primary">logout</i>
-									<div class="me-3">Logout</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<!-- Layout wrapper-->
-	<div id="layoutDrawer">
-		<!-- Layout navigation-->
-		<div id="layoutDrawer_nav">
-			<!-- Drawer navigation-->
-			<nav class="drawer accordion drawer-light bg-white"
-				id="drawerAccordion">
-				<div class="drawer-menu">
-					<div class="nav">
-						<!-- Drawer section heading (Account)-->
-						<div class="drawer-menu-heading d-sm-none titleFont text-primary fs-4">Account</div>
-						<!-- Drawer link (Notifications)-->
-						<a class="nav-link d-sm-none" href="#!">
-							<div class="nav-link-icon">
-								<i class="material-icons text-primary text-primary">notifications</i>
-							</div> Notifications
-						</a>
-						<!-- Drawer link (Messages)-->
-						<a class="nav-link d-sm-none" href="#!">
-							<div class="nav-link-icon">
-								<i class="material-icons text-primary text-primary">mail</i>
-							</div> Messages
-						</a>
-						<!-- Divider-->
-						<div class="drawer-menu-divider d-sm-none"></div>
-						<!-- Drawer section heading (Interface)-->
-						<div class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
-						<!-- Drawer link (Overview)-->
-						<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 자녀관리
-						</a>
-						<a class="nav-link left_nav" href="#" data-url='/payment/listPayment'>
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> 수납
-						</a>
-						<a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-							<div class="nav-link-icon">
-								<i class="material-icons">language</i>
-							</div> Q&A
-						</a>
-					</div>
-						<!-- Divider-->
-					<div class="drawer-menu-divider"></div>
-					<!-- Drawer footer        -->
-					<div class="drawer-footer border-top">
-						<div class="d-flex justify-content-center">
-						<!-- 수업 추가 버튼 -->
-							<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentsRecord">수업 추가<i class="trailing-icon material-icons">launch</i></button>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
-</div>
 	<!-- Layout content-->
 	<div id="layoutDrawer_content">
-	
-		<!-- Main page content-->
-		<main class="mt-12">
-			<header class="main-header" style="height:0px;">
-				<!-- page header -->
-					<div class="row justify-content-center gx-5">
-	                  </div>
-					<!-- 수업 추가 Modal-->
-					<div class="modal fade" id="addStudentsRecord" tabindex="-1" aria-labelledby="addStudentsRecordLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-					    <div class="modal-dialog modal-dialog-centered">
-					        <div class="modal-content">
-					            <div class="modal-header">
-					                <h5 class="modal-title" id="addStudentsRecordLabel">수업 코드 등록</h5>
-					                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
-					            </div>
-					            <div class="modal-body">
-					             <c:url var="add_record" value="/students/listStudentsRecord"/>
-						            <form name="addStudentsRecordForm" action="${add_record}">
-							          <div class="form-group">
-							            <label for="lessonCode" class="col-form-label">수업 코드:</label>
-							            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
-							          </div>
-							          <div class="form-group">
-							            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
-							            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
-							          </div>
-							          <div class="form-group">
-							            <label for="fees" class="col-form-label">수업료:</label>
-							            <input type="text" class="form-control" id="fees" name="fees"/>
-							          </div>
-							          <div class="form-group">
-							            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
-							            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
-							          </div>
-							          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
-							          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
-							          <div class="d-flex justify-content-end">
-						              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
-						              </div>
-						        </form>
-					            </div>
-					        </div>
-					    </div>
-					</div>
-				</header>
+
+
+			<div class="container-xl px-5"> 
+			
+				<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
+				<div id="calendar" style="margin: 0 30% 0 30%">
+						
+						<div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
+					   <div style="width:60%; float:left; text-align:right">일정 현황
+					   </div><div style="width:40%; float:left;text-align:right"></div>
+					 </div>
+				</div>
+				</div>
+							 <!-- == -->
+				<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				        aria-hidden="true">
+				        <div class="modal-dialog" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header">
+				                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+				                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                        <span aria-hidden="true">&times;</span>
+				                    </button>
+				                </div>
+				                <div class="modal-body">
+				                    <div class="form-group">
+				                        <label for="taskId" class="col-form-label">일정 내용</label>
+				                        <input type="text" class="form-control" id="calendar_content" name="calendar_content">
+				                        <label for="taskId" class="col-form-label">시작 날짜</label>
+				                        <input type="datetime-local" class="form-control" id="calendar_start_date" name="calendar_start_date">
+				                        <label for="taskId" class="col-form-label">종료 날짜</label>
+				                        <input type="datetime-local" class="form-control" id="calendar_end_date" name="calendar_end_date">
+				                    </div>
+				                </div>
+				                <div class="modal-footer">
+				                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
+				                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+				                        id="sprintSettingModalClose">취소</button>
+				                          <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
+					   cursor:poointer" onclick="javascript:allSave();">전체저장</button>
+				                </div>
+				    
+				            </div>
+				        </div>
+				    </div>	
+				    <!-- == -->
+			</div>
 				
-			
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-					<iframe id="mainFrame" src="" style="display:block; width:100vw; height: 100vh; z-index:9999;" allowfullscreen></iframe>
-			<!-- /////////////////////////////////////////////////////////////////////////////// -->
-			
-			
-		    <div class="messagePopup hidden" id="messagePopup">
+				
+				 <hr class="my-5">
+				
+				<div class="row d-flex justify-content-around">
+				     <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
+	                          <div class="card card-raised overflow-hidden h-100">
+	                              <div class="card-header bg-primary text-white">
+	                                  <div id="curDate" class="d-flex justify-content-between align-items-center"></div>
+	                              </div>
+	                              <div class="card-body bg-transparent p-0">
+	                                  <div class="list-group list-group-flush">
+	                                      <div class="list-group-item d-flex justify-content-between align-items-center">
+	                                          <div class="col-6 caption font-monospace text-muted">Time</div>
+	                                          <div class="col-6 caption text-muted ms-2">수업명</div>
+	                                      </div>
+	                                      <div id="curLessonList"></div>
+	                                 </div>
+	                           	  </div>
+	                          </div>
+	                     </div>
+	                
+                     
+				     <div id="addStudentsAttendance" class="col-lg-8 mb-5">
+				    	
+                         <div class="card card-raised h-100 overflow-hidden">
+                             <div id="curLessonName" class="card-header bg-white">
+                             	<div>출석 체크</div>
+                             </div>
+                             <div id="curAttendanceList" class="card-body bg-transparent p-0">
+                                 
+                             </div>
+                         </div>
+	                            
+				     
+				     </div>
+			     </div>
+			                           
+							
+			</div>
+		        <div class="messagePopup hidden" id="messagePopup">
             <section style="background-color: #eee;">
                 
                 <!-- list -->
@@ -631,16 +565,13 @@ console.log("메시지 버튼 눌림");
             </section>
         </div>
 		</main>
-
-        		
 	<!-- Footer-->
 	<footer>
-		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script src="/resources/javascript/students/studentsUI.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
@@ -651,6 +582,6 @@ console.log("메시지 버튼 눌림");
 	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
 <!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
 	<script type="text/javascript">
-	</script>
+</script>
 </body>
 </html>
