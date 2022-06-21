@@ -84,23 +84,15 @@ public class UserController {
 		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 			
-			/*
-			 * if(dbUser.getRole().equals("parent")) { Search search = new Search();
-			 * search.setPageSize(pageSize); search.setCurrentPage(1); List<User> students =
-			 * (List) userService.listRelationByParent(search,
-			 * dbUser.getUserId()).get("list"); session.setAttribute("students", students);
-			 * }
-			 */
-			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
 				//rttr.setAttribute("user", dbUser);
-				mv.setViewName("/index_teacher");
+				mv.setViewName("redirect:/index");
 			}
 			
 			// student 
 			if(dbUser.getRole().equals("student")) {
-				mv.setViewName("/index_student");
+				mv.setViewName("redirect:/index");
 			}
 			
 			// parent 
@@ -117,7 +109,7 @@ public class UserController {
 					studentsInfo.add(studentInfo);
 				}
 				session.setAttribute("studentsInfo", studentsInfo);
-				mv.setViewName("/index_parent");
+				mv.setViewName("redirect:/index");
 			}
 			System.out.println(session.getAttribute("user"));
 			System.out.println("Login okokgoodgood");

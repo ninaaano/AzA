@@ -8,27 +8,19 @@ window.addEventListener('DOMContentLoaded', event => {
             },
        	success: function(result) {
 			if(result) {
-			console.log(result);
+			// console.log(result);
 			sessionStorage.setItem("role", result.role);
 			sessionStorage.setItem("userName", result.userName);
 				
 			} else {
 				console.log("getUser error");
 			}
-			
-			
+
 		} 
-		
-		
-		
+
 	})
 
 });
-
-
-
-
-
 
 function changeIframeUrl(url)
 {
