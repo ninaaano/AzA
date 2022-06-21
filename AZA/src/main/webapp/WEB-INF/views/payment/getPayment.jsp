@@ -92,6 +92,7 @@ function requestPay(){
 						payCode: rsp.merchant_uid,
 						impUid: rsp.imp_uid,
 						checkPay : 'Y'
+						
 						} 
 
 	               			$.ajax({
@@ -109,7 +110,19 @@ function requestPay(){
 							}
 						},
 
-					});	
+					})
+					$.ajax({
+						url : "/payment/rest/getPayment"+${payment.payCode},
+						type : "GET",
+						dataType : "json",
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},success : function(JSONData , status) {
+							alert(JSONData.checkPay);
+							alert(JSONData.payDay);
+						}
+					});
         
                 /*======================================================*/
         } else {
@@ -286,7 +299,7 @@ function requestPay(){
        <c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
 	      <div class="card-footer bg-transparent position-relative ripple-gray" payCode="${payment.payCode}">
 	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
-	              <div class="fst-button">수업료가 납부 완료되었습니다.:) </div>
+	              <div class="fst-button">수업료 납부가 완료되었습니다. :) </div>
 	              <i class="material-icons icon-sm ms-1" ></i>
 	          </a>
 	      </div>
