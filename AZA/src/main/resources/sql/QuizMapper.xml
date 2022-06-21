@@ -36,6 +36,9 @@
 	VALUES(seq_quiz_quiz_code.NEXTVAL, (SELECT lesson_code FROM lesson WHERE lesson_name = #{lessonName:VARCHAR}), #{lessonName:VARCHAR}, 
 	(SELECT user_id FROM users WHERE user_name = #{studentName:VARCHAR}), #{studentName:VARCHAR}, #{quizTitle:VARCHAR}, TO_DATE(sysdate, 'yyyy/mm/dd HH24:MI:SS'), 
 	#{quizSubmitDate:DATE}, #{quizScore:NUMERIC})
+	<selectKey keyProperty="quizCode" resultType="int" order="AFTER" >
+		SELECT seq_quiz_quiz_code.CURRVAL FROM dual
+	</selectKey>
 	</insert>
 	
 	<!-- SQL : SELECT ONE -->

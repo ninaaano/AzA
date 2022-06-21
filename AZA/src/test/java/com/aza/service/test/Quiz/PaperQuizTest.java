@@ -27,16 +27,17 @@ public class PaperQuizTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	//@Test // add test OK
+	@Test // add test OK
 	void testAddQuiz() throws Exception{
 		Paper paper = new Paper();
 		paper.setLessonName("bit1 java");
 		paper.setStudentName("student3");
-		paper.setQuizTitle("minus");
+		paper.setQuizTitle("minuss3");
 		
 		
-		System.out.println("==>> "+paper);
+		System.out.println("==>> BeforeAddPaperQuiz"+paper);
 		paperService.addPaperQuiz(paper);
+		System.out.println("=======>>AfterAddPaperQuiz"+paper);
 		
 	}
 	//@Test // get test OK
