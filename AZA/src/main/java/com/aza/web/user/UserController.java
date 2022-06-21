@@ -159,28 +159,30 @@ public class UserController {
 			model.addObject("search", search);
 			System.out.println(map.get("list"));
 			System.out.println("parent");
+			
+			List students = (List) session.getAttribute("students");
+			
+			if(studentId==null || studentId.length() < 1) {
+				studentId = ((User) students.get(0)).getFirstStudentId();			
+			}
+			
+			List<User> studentsInfo = new ArrayList<User> ();
 
-		//	return new ModelAndView("/user/getUser");	
-		}
-		List students = (List) session.getAttribute("students");
-		
-		if(studentId==null || studentId.length() < 1) {
-			studentId = ((User) students.get(0)).getFirstStudentId();			
-		}
-		
-		List<User> studentsInfo = new ArrayList<User> ();
+			for(int i = 0; i < students.size(); i++) { 
+				String temp = ((User) students.get(i)).getFirstStudentId(); 
+				User student = userService.getUser(temp);
+				studentsInfo.add(student);
+				
+				
+			}
+			model.addObject("studentsInfo",studentsInfo);
+			System.out.println("======students========="+students);
+			System.out.println("======studentsInfo========="+studentsInfo);
 
-		for(int i = 0; i < students.size(); i++) { 
-			String temp = ((User) students.get(i)).getFirstStudentId(); 
-		//	User student = userService.getUser(temp);
-		//	studentsInfo.add(student); 
-		}
-		
-		System.out.println("======students========="+students);
-		System.out.println("======studentsInfo========="+studentsInfo);
+		}	
 		
 		model.addObject("user", user);
-		model.setViewName("/user/getUser");
+		
 		return model;
 	}
 	

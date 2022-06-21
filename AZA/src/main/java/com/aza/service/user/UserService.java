@@ -1,5 +1,6 @@
 package com.aza.service.user;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -67,6 +68,5 @@ public interface UserService {
 	int confirmCode(String code) throws Exception;
 
 	public User checkPhone(User user)throws Exception;
-
 
 }
