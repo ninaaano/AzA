@@ -89,6 +89,7 @@ $(function() {
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
+	
 }
 
 	//°Ë»ö
@@ -96,7 +97,9 @@ function fncGetList(currentPage) {
 		 	$( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
-
+			$('input[name=searchKeyword]').val(""); 
+			$('input[name=searchStartDate]').val(""); 
+			$('input[name=searchEndDate]').val(""); 
 			});
 		 
 		});
