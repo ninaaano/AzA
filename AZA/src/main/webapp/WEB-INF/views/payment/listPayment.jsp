@@ -50,7 +50,7 @@
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <style>
 	body {
-    padding-top : 10px;
+    padding-top : 50px;
     margin : 50px;
     font-family: Pretendard, 'Noto Sans KR';
     }
@@ -59,6 +59,36 @@
 
 
 <script type="text/javascript">
+$(function myFunction() {
+	  document.getElementById("searchDate").style.display = "none";
+	  document.getElementById("searchKeyword").style.display = "none";
+
+	});
+	
+// 검색조건에 따른 검색창 출력
+$(function() {
+	$('#searchCondition').on('change', function() {	
+
+			if($('option:selected').val() == "1"){
+			//기간 검색일 때
+			document.getElementById("searchDate").style.display = "";
+			  document.getElementById("searchKeyword").style.display = "none";
+
+/* 				$('#searchDate').show();
+				$('#searchKeyword').hide(); */
+			}else{
+				  document.getElementById("searchDate").style.display = "none";
+				  document.getElementById("searchKeyword").style.display = "";
+
+/* 				$('#searchDate').hide();
+				$('#searchKeyword').show(); */
+			}
+			
+	})
+});
+
+
+
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
@@ -88,46 +118,6 @@ function fncGetList(currentPage) {
 				}); 
 			 });				
 
-/* 테스트 
-$(function() {
-	$("td:nth-child(3)").on("click" , function() {
-		alert("hi!");
-
-		var payCode = $(this).attr("payCode");
-		alert(payCode);
-		
-	    var amonut = $("#amount").text().trim();
-	    alert("test 금액 => " + amonut);
-
-		$.ajax(
-			{
-				url: "/payment/rest/getPayment/"+payCode,
-				method : "GET",
-				dataType : "JSON",
-					headers : {
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					success : function(JSONData , status){
-						
-						//alert("JSONData : \n"+JSONData);
-						//alert("JSONData 이름 : \n"+JSONData.studentName);
-						//alert("JSONData 수업명 : \n"+(String)JSONObejct.get("lessonName");
-						//alert("JSONData 금액 : \n"+JSONData.amount);
-						//
-						var name = JSONData.studentName
-						var amount = JSONData.amount
-						//alert("amount?" + amount);
-						
-							//payLessonName.getJSONArray("payLessonName");
-						//getJSONObject("payLessonName").get("lessonName");
-					}
-				
-			});
-
-	});
-});
- */
 
 </script>
 </head>
@@ -136,53 +126,37 @@ $(function() {
 
 
 
-<h3>PAYMENT LIST <a href="http://127.0.0.1:8080/payment/listPayment"> 1 </a> </h3> 
+<h3>PAYMENT LIST</h3> 
 
 <form>				
 				
 				<table>
 				<tr>
-				
-<!-- 				<td>
-				  <div class="dropdown">
-				  <button class="btn btn-raised-primary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                    검색 조건
-	                    <i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i>
-	              </button>
-	                    수정해야함.
-             	           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                           <li><a class="dropdown-item" href="#!">학생이름</a></li>
-                           <li><a class="dropdown-item" href="#!">기간</a></li>
-                           <li><a class="dropdown-item" href="#!">수납여부</a></li>
-                       </ul>
-
-                   </div>
-	               </td> -->
 	               
 					<td align="right">
-						<select name="searchCondition" class="btn btn-raised-primary dropdown-toggle" style="width: 120px">
+						<select id="searchCondition" name="searchCondition" class="form-select" aria-label="Default select example" style="width: 130px;font-size=15px;">
 							<option selected="" disabled=""> 검색 조건 </option>
 							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>학생이름</option>
 							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>기간</option>
 							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>수납여부</option>
-					</select> 
+						</select> 
 					</td>
-					<td>
 
+					<td id="searchDate">
 							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
 							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
 					<td>
 					
 					<td>
-							<input class="dataTable-input" placeholder="검색어를 입력해주세요 :)" type="text" name="searchKeyword" 
+							<input class="dataTable-input" placeholder="검색어를 입력해주세요:)" type="text" name="searchKeyword" id="searchKeyword"
 							value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
-									
-						
-						 </td>
-
+					</td>
+					
+					
 					<td align="right" width="70">
 					<button class="btn btn-raised-light" type="submit" id="searchPayment">검색</button>
 				</td>
+
 				
 				</tr>
 				<tr> <td height="20"></td> </tr>
