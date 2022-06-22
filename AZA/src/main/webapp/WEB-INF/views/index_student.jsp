@@ -16,10 +16,10 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
+<script defer src="/resources/javascript/common/indexUI.js"></script>
 <script defer src="/resources/javascript/message/asserts/ui.js"></script>
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <script defer src="/resources/javascript/students/teacherHome.js"></script>
-<script defer src="/resources/javascript/common/indexUI.js"></script>
 
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
@@ -39,6 +39,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
 	rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -49,6 +50,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 	
 <style>
 *, body { 
@@ -59,135 +61,7 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/common.css" rel="stylesheet">
 <link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
-
-function resetForm() {
-	document.addStudentsRecordForm.reset();
-	$('.lessonCheck').removeClass('show');
-	$('.valCheck').removeClass('show');	
-}
-
-$(function() {
-	$('#addStudentsRecordBtn').on("click", function() {
-
-		var valFlag = false;
-		const lessonCode = document.addStudentsRecordForm.lessonCode.value;
-		const lessonStartDate = document.addStudentsRecordForm.lessonStartDate.value;
-		const fees = document.addStudentsRecordForm.fees.value;
-		const payDueDate = document.addStudentsRecordForm.payDueDate.value;
-		
-		// 유효성 check
-		if(lessonCode.length < 8 || lessonCode == null || lessonStartDate.length < 1 || lessonStartDate.length == null || fees.length < 1 || fees == null || payDueDate < 1 || payDueDate == null) {
-			$('.valCheck').addClass('show');
-		} else {
-			$.ajax({
-				 url: "/lesson/rest/checkLessonCode/"+lessonCode,
-		            type: "GET",
-		            headers : {
-		                    "Accept" : "application/json",
-		                    "Content-Type" : "application/json",                                    
-		                },
-		            success: function(result) {
-		                if(result) {
-		                	console.log(result);
-		                	
-		                	if(result == true) {
-		                		valFlag = true;
-		                	}
-		                	
-		                	if(!valFlag) {
-		                		$('.lessonCheck').addClass('show');
-		                		return;
-		                	}
-		                	
-		                	console.log(valFlag);
-		                	
-		                	if(valFlag) {
-		            			document.addStudentsRecordForm.action = "/students/addStudentsRecord";
-		            			document.addStudentsRecordForm.method = "POST";
-		            			document.addStudentsRecordForm.submit();		
-		            		}
-		                } else {
-		                	console.log("lesson/rest/checkLessonCode :: error || null");			                	
-		                	$('.lessonCheck').addClass('show');
-		                }
-		            }
-			})
-		}
-		
-    	
-
-	})
-})
-
-
-
-$(function() {
-	// Alert
-	 $('#dropdownMenuNotifications').on('click', function() {
-		console.log("알림 버튼 눌림");
-		listAlert();
-	})
-
-	// Message
-	$("#open-messagePopup").on("click", function() {
-		console.log("메시지 버튼 눌림");
-		
-        $.ajax({
-            url: "/message/rest/listMessage",
-            type: "GET",
-            headers : {
-                    "Accept" : "application/json",
-                    "Content-Type" : "application/json",                                    
-                },
-            success: function(result) {
-                if(result) {
-                	console.log(result);
-                	sessionStorage.clear();
-                	sessionStorage.setItem('userId', result[0].userId);
-                	
-                	result.shift();
-                	
-                	console.log("message/listmessage : "+result);
-                	
-                	var listOtherView = "";
-                	
-                	result.map((other,i) => {
-                		var userId = other.userId;
-                		var userName = other.relationName ? other.firstStudentName + "  " + other.relationName : other.userName;
-                		
-            
-                		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
-                		<li class='p-2 border-bottom' data-id=`+userId+`>
-                            	<a class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row">
-                                        <div class="pt-1">
-                                            <p class="fw-bold mb-0">`+userName+`</p>
-                                            <p class="small text-muted">최근메시지</p>
-                                        </div>
-                                    </div>
-                            	</a>
-                        	</li>
-                    	</ul>`;
-                	});
-                	
-                	$('#getOtherMessage').remove();
-                	$('#listOther').append(listOtherView);
-
-                } else {
-                    console.log("실패");
-                }
-            } 
-        })
-	})
-})
-	
-
-
-
 </script>
-
-
-
 </head>
 
 <body class="nav-fixed bg-light">
@@ -348,24 +222,66 @@ $(function() {
 					            <div class="modal-body">
 					             <c:url var="add_record" value="/students/listStudentsRecord"/>
 						            <form name="addStudentsRecordForm" action="${add_record}">
-							          <div class="form-group">
-							            <label for="lessonCode" class="col-form-label">수업 코드:</label>
-							            <input type="text" class="form-control" id="recipient-name" name="lessonCode"/>
+							          <div class="form-group row">
+							          	<div class="col-8">
+								            <label for="lessonCode" class="col-form-label">수업 코드:</label>
+								            <input type="text" class="form-control" id="recipient-name" name="lessonCode" required/>
+										</div>
+										<div class="col-4">
+								            <label for="lessonStartDate" class="col-form-label">수업 시작일:</label>
+								            <input type="date" class="form-control" id="lessonStartDate" name="lessonStartDate" required>
+							            </div>
 							          </div>
-							          <div class="form-group">
-							            <label for="lessonStartDate" class="col-form-label">수업 등록일:</label>
-							            <input type="text" class="form-control" id="lessonStartDate" name="lessonStartDate"/>
+							          <div class="form-group row">
+							          	<div class="col-8">
+								            <label for="fees" class="col-form-label">수업료:</label>
+								            <input type="text" class="form-control" id="fees" name="fees" placeholder="숫자만 입력하세요:D" required/>
+							          	</div>
+							          	<div class="col-4">
+								            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
+								            <select class="form-select" id="payDueDate" name="payDueDate" required>
+		      									<option selected disabled value="">매월</option>
+		      									<option value="1">1일</option>
+		      									<option value="2">2일</option>
+		      									<option value="3">3일</option>
+		      									<option value="4">4일</option>
+		      									<option value="5">5일</option>
+		      									<option value="6">6일</option>
+		      									<option value="7">7일</option>
+		      									<option value="8">8일</option>
+		      									<option value="9">9일</option>
+		      									<option value="10">10일</option>
+		      									<option value="11">11일</option>
+		      									<option value="12">12일</option>
+		      									<option value="13">13일</option>
+		      									<option value="14">14일</option>
+		      									<option value="15">15일</option>
+		      									<option value="16">16일</option>
+		      									<option value="17">17일</option>
+		      									<option value="18">18일</option>
+		      									<option value="19">19일</option>
+		      									<option value="20">20일</option>
+		      									<option value="21">21일</option>
+		      									<option value="22">22일</option>
+		      									<option value="23">23일</option>
+		      									<option value="24">24일</option>
+		      									<option value="25">25일</option>
+		      									<option value="26">26일</option>
+		      									<option value="27">27일</option>
+		      									<option value="28">28일</option>
+		      									<option value="29">29일</option>
+		      									<option value="30">30일</option>
+		      									<option value="31">31일</option>
+	    									</select>
+    									</div>
 							          </div>
-							          <div class="form-group">
-							            <label for="fees" class="col-form-label">수업료:</label>
-							            <input type="text" class="form-control" id="fees" name="fees"/>
-							          </div>
-							          <div class="form-group">
-							            <label for="payDueDate" class="col-form-label">수업료 납입일:</label>
-							            <input type="text" class="form-control" id="payDueDate" name="payDueDate"/>
-							          </div>
-							          <p class="lessonCheck text-danger hidden">잘못된 수업코드입니다(ToT)/></p>
-							          <p class="valCheck text-danger hidden">바른 정보를 입력해주세요(⊙x⊙;)</p>
+							          
+							          <p class="valCount text-primary hidden justify-content-end align-items-center">
+							          <i class="bi bi-emoji-expressionless p-1"></i>숫자만 입력하세요<i class="bi bi-emoji-expressionless p-1"></i>
+							          </p>
+							          <p class="lessonCheck text-primary hidden justify-content-end align-items-center">
+							          <i class="bi bi-emoji-neutral p-1"></i>잘못된 수업코드입니다<i class="bi bi-emoji-neutral p-1"></i>
+							          </p>
 							          <div class="d-flex justify-content-end">
 						              	<button class="btn btn-text-primary " type="submit" id="addStudentsRecordBtn">등록</button>
 						              </div>
@@ -410,9 +326,8 @@ $(function() {
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="basic-addon1">@</span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input id="messageSearchKeyword" type="text" class="form-control" placeholder="선생님 이름으로 검색" aria-label="Username" aria-describedby="basic-addon1">
                                   </div>
-                                <button id="getMessageBtn" type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">임시 getMessageContainer</button>
                             </div>
 
                             <div id="listOther" class="card-body scroll" style="height: 500px;">

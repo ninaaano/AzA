@@ -15,6 +15,7 @@ public class User {
 	private String stopAlertEndTime;
 	private char alertState;
 	private String firstStudentId;
+	private String firstStudentName;
 	private int relationCode;
 	private String relationName;
 	private char check;
@@ -129,6 +130,14 @@ public class User {
 		this.firstStudentId = firstStudentId;
 	}
 
+	public String getFirstStudentName() {
+		return firstStudentName;
+	}
+
+	public void setFirstStudentName(String firstStudentName) {
+		this.firstStudentName = firstStudentName;
+	}
+
 	public int getRelationCode() {
 		return relationCode;
 	}
@@ -155,11 +164,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", role=" + role + ", userName=" + userName + ", phone=" + phone
-				+ ", school=" + school + ", grade=" + grade + ", birth=" + birth + ", parentPhone=" + parentPhone
-				+ ", password=" + password + ", stopAlertStartTime=" + stopAlertStartTime + ", stopAlertEndTime="
-				+ stopAlertEndTime + ", alertState=" + alertState + ", firstStudentId=" + firstStudentId
-				+ ", relationCode=" + relationCode + ", relationName=" + relationName + "]";
+		return "User [userId=" + userId + ", role=" + role + ", userName=" + userName + ", phone=" + phone + ", school="
+				+ school + ", grade=" + grade + ", birth=" + birth + ", parentPhone=" + parentPhone + ", password="
+				+ password + ", stopAlertStartTime=" + stopAlertStartTime + ", stopAlertEndTime=" + stopAlertEndTime
+				+ ", alertState=" + alertState + ", firstStudentId=" + firstStudentId + ", firstStudentName="
+				+ firstStudentName + ", relationCode=" + relationCode + ", relationName=" + relationName + ", check="
+				+ check + "]";
 	}
 	
 	

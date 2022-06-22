@@ -111,7 +111,7 @@
 	                      AND v.student_name LIKE '%' || #{searchKeyword} || '%'
 	                    </if>
 	                    <if test="searchCondition == 2 and searchKeyword != ''">
-	                       AND v.lesson_code LIKE '%' || #{searchKeyword} || '%'
+	                       AND v.lesson_code LIKE #{searchKeyword}
 	                    </if>
 	                    <if test="searchCondition == 3 and searchKeyword != ''">
 	                      AND v.lesson_name LIKE '%' || #{searchKeyword} || '%'

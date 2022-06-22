@@ -144,7 +144,7 @@
 				ORDER BY L.lesson_create_at desc)inner_table
 				WHERE ROWNUM &lt; = #{endRowNum} )
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
-	</select>	
+	</select>
 	
 	<select id ="listLessonParent" resultMap = "lessonSelectMap">
 		SELECT L.*, B.SRI, B.SRN

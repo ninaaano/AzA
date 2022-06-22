@@ -44,11 +44,26 @@ public class CustomErrorController implements ErrorController{
 			
 			logger.info("httpStatus : "+statusCode);
 			
+			if(statusCode == HttpStatus.BAD_REQUEST.value()) {
+				
+				errorPath = "/error/error400";
+			}
+			
+			if(statusCode == HttpStatus.UNAUTHORIZED.value()) {
+				
+				errorPath = "/error/error401";
+			}
+			
+			if(statusCode == HttpStatus.FORBIDDEN.value()) {
+				
+				errorPath = "/error/error403";
+			}
+			
 			if(statusCode == HttpStatus.NOT_FOUND.value()) {
 				
 				errorPath = "/error/error404";
 			}
-			
+
 			if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
 				
 				errorPath = "/error/error500";

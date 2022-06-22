@@ -39,6 +39,7 @@ public class UserRestController {
 		
 		@RequestMapping(value="getUser", method=RequestMethod.POST)
 		public User getUser(HttpSession session) throws Exception {
+			System.out.println("/user/rest/getUser : 인자 없음");
 			return (User) session.getAttribute("user");
 		}
 		

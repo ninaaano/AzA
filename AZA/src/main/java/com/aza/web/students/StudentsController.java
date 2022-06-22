@@ -106,7 +106,7 @@ public class StudentsController {
 
 		ModelAndView mv = new ModelAndView();
 
-		mv.setViewName("/index_teacher");
+		mv.setViewName("redirect:/");
 
 		return mv;
 	}
