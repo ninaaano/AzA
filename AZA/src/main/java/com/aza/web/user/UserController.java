@@ -162,6 +162,8 @@ public class UserController {
 			
 			List students = (List) session.getAttribute("students");
 			
+			
+			
 			if(studentId==null || studentId.length() < 1) {
 				studentId = ((User) students.get(0)).getFirstStudentId();			
 			}
@@ -214,7 +216,7 @@ public class UserController {
 
 	}
 	
-	@RequestMapping( value="quit", method=RequestMethod.POST )
+	@RequestMapping( value="/", method=RequestMethod.POST )
 	public String deleteUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception{
 		
 		User member = (User)session.getAttribute("User");
@@ -229,7 +231,7 @@ public class UserController {
 		session.invalidate();
 
 		System.out.println("[Controller] => delete okok");
-		return "/";
+		return "redirect:/";
 		
 
 	}

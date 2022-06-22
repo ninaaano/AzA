@@ -1,57 +1,95 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html;" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
 
-<html lang="ko">
-<title>°³ÀÎÁ¤º¸¼öÁ¤</title>
+<meta charset="UTF-8">
+<title>ê°œì¸ì •ë³´ìˆ˜ì •</title>
 <head>
-	<meta charset="EUC-KR">
-	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<script defer src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
+<script defer src="/resources/javascript/alert/alertUI.js"></script>
+<script defer src="/resources/javascript/common/indexUI.js"></script>
+
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
    
+   <!-- Load Favicon-->
+<link href="assets/img/favicon.ico" rel="shortcut icon"
+	type="image/x-icon">
+   
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
-		body {
-            padding-top : 50px;
-        }
-    </style>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+	
+	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+<!-- Load Favicon-->
+<link href="assets/img/favicon.ico" rel="shortcut icon"
+	type="image/x-icon">
+<!-- Load Material Icons from Google Fonts-->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
+<!-- Load Simple DataTables Stylesheet-->
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+	rel="stylesheet">
+<!-- Roboto and Roboto Mono fonts from Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+	
+<style>
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
+</style>
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/index_UI.css" rel="stylesheet">
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//============= "¼öÁ¤"  Event ¿¬°á =============
+		//============= "ìˆ˜ì •"  Event ì—°ê²° =============
 		 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
 				fncUpdateUser();
 			});
 		});	
 		
 		
-		//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+		//============= "ì·¨ì†Œ"  Event ì²˜ë¦¬ ë°  ì—°ê²° =============
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("a[href='#' ]").on("click" , function() {
-				$("form")[0].reset();
+				history.go(-1);
 			});
 		});	
 		
@@ -61,7 +99,7 @@
 			var name=$("input[name='userName']").val();
 			
 			if(name == null || name.length <1){
-				alert("ÀÌ¸§Àº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ì´ë¦„ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 				
@@ -75,57 +113,250 @@
 	
 	</script>
 	
+	<script type="text/javascript">
+
+function resetForm() {
+	document.addStudentsRecordForm.reset();
+	$('.lessonCheck').removeClass('show');
+	$('.valCheck').removeClass('show');	
+}
+
+$(function() {
+	// addStudentsRecord
+	$('#addStudentsRecordBtn').on("click", function() {
+
+		var valFlag = false;
+		const lessonCode = document.addStudentsRecordForm.lessonCode.value;
+		const lessonStartDate = document.addStudentsRecordForm.lessonStartDate.value;
+		const fees = document.addStudentsRecordForm.fees.value;
+		const payDueDate = document.addStudentsRecordForm.payDueDate.value;
+		
+		// ìœ íš¨ì„± check
+		if(lessonCode.length < 8 || lessonCode == null || lessonStartDate.length < 1 || lessonStartDate.length == null || fees.length < 1 || fees == null || payDueDate < 1 || payDueDate == null) {
+			$('.valCheck').addClass('show');
+		} else {
+			$.ajax({
+				 url: "/lesson/rest/checkLessonCode/"+lessonCode,
+		            type: "GET",
+		            headers : {
+		                    "Accept" : "application/json",
+		                    "Content-Type" : "application/json",                                    
+		                },
+		            success: function(result) {
+		                if(result) {
+		                	console.log(result);
+		                	
+		                	if(result == true) {
+		                		valFlag = true;
+		                	}
+		                	
+		                	if(!valFlag) {
+		                		$('.lessonCheck').addClass('show');
+		                		return;
+		                	}
+		                	
+		                	console.log(valFlag);
+		                	
+		                	if(valFlag) {
+		            			document.addStudentsRecordForm.action = "/students/addStudentsRecord";
+		            			document.addStudentsRecordForm.method = "POST";
+		            			document.addStudentsRecordForm.submit();		
+		            		}
+		                } else {
+		                	console.log("lesson/rest/checkLessonCode :: error || null");			                	
+		                	$('.lessonCheck').addClass('show');
+		                }
+		            }
+			})
+		}
+		
+    	
+
+	})
+})
+
+
+$(function() {
+	// Alert
+	 $('#dropdownMenuNotifications').on('click', function() {
+		console.log("ì•Œë¦¼ ë²„íŠ¼ ëˆŒë¦¼");
+		listAlert();
+	})
+
+	// Message
+	$("#open-messagePopup").on("click", function() {
+		console.log("ë©”ì‹œì§€ ë²„íŠ¼ ëˆŒë¦¼");
+		
+        $.ajax({
+            url: "/message/rest/listMessage",
+            type: "GET",
+            headers : {
+                    "Accept" : "application/json",
+                    "Content-Type" : "application/json",                                    
+                },
+            success: function(result) {
+                if(result) {
+                	console.log(result);
+                	sessionStorage.clear();
+                	sessionStorage.setItem('userId', result[0].userId);
+                	
+                	result.shift();
+                	
+                	console.log(result);
+                	
+                	var listOtherView = "";
+                	
+                	result.map((other,i) => {
+               			
+                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
+                		let studentName = other.studentId ? other.studentName : "í•™ìƒì´ë£¸";
+                		let relationName = other.relationName ? other.relationName : "";
+                		let userId = other.userId ? other.userId : studentId;
+                		let userName = studentName + " " + relationName;
+                		//console.log(i, studentId);
+                		
+                		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
+                		<li class='p-2 border-bottom' data-id=`+userId+`>
+                            	<a class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
+                                            <p class="small text-muted">ìµœê·¼ë©”ì‹œì§€</p>
+                                        </div>
+                                    </div>
+                            	</a>
+                        	</li>
+                    	</ul>`;
+                	});
+                	
+                	$('#getOtherMessage').remove();
+                	$('#listOther').append(listOtherView);
+
+                } else {
+                    console.log("ì‹¤íŒ¨");
+                }
+            } 
+        })
+	})
+
+
+
+
+</script>
+	
+	
 </head>
 
 <body>
-	
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
+		<div class="container-fluid px-4">
+			<!-- Drawer toggle button-->
+			<button class="btn btn-lg btn-icon order-1 order-lg-0"
+				id="drawerToggle" href="javascript:void(0);">
+				<i class="material-icons text-primary">menu</i>
+			</button>
+			<!-- Navbar brand-->
+			<a class="navbar-brand me-auto" href="/index" data-url=''>
+			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
+			</a>
+			<!-- Navbar items-->
+			<div class="d-flex align-items-center mx-3 me-lg-0">
+				<!-- Navbar buttons-->
+				<div class="d-flex">
+					<!-- Messages dropdown-->
+					<div class="dropdown dropdown-notifications d-none d-sm-block">
+						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
+							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							<i class="material-icons text-primary">mail_outline</i>
+						</button>
+					</div>				
+					<!-- Notifications and alerts dropdown-->
+					<div class="dropdown dropdown-notifications d-none d-sm-block">
+						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
+							id="dropdownMenuNotifications" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="material-icons text-primary position-relative">notifications</i> 
+							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
+						</button>
+						<ul id="alertDropDown"
+							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
+							aria-labelledby="dropdownMenuNotifications">
+						</ul>
+					</div>
+					
+					
+					<!-- User profile dropdown-->
+					<div class="dropdown">
+						<button class="btn btn-lg btn-icon dropdown-toggle"
+							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							<i class="material-icons text-primary">person</i>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-end mt-3"
+							aria-labelledby="dropdownMenuProfile">
+							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
+									class="material-icons leading-icon text-primary">person</i>
+									<div class="me-3">Profile</div>
+							</a></li>
+							<li><hr class="dropdown-divider" /></li>
+							<li><a class="dropdown-item" href="/user/logout" > <i
+									class="material-icons leading-icon text-primary">logout</i>
+									<div class="me-3">Logout</div>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h3 class=" text-info">È¸¿øÁ¤º¸¼öÁ¤</h3>
-	       <h5 class="text-muted">³» Á¤º¸¸¦ <strong class="text-danger">ÃÖ½ÅÁ¤º¸·Î °ü¸®</strong>ÇØ ÁÖ¼¼¿ä.</h5>
+	       <h3 class=" text-info">íšŒì›ì •ë³´ìˆ˜ì •</h3>
+	       <h5 class="text-muted">íšŒì›ì •ë³´ë¥¼<strong class="text-danger"> ë³€ê²½</strong>í•´ì£¼ì„¸ìš”.</h5>
 	    </div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 		
 		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">¾Æ ÀÌ µğ</label>
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">ì•„ ì´ ë””</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" placeholder="Áßº¹È®ÀÎÇÏ¼¼¿ä"  readonly>
+		      <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" placeholder="ì¤‘ë³µí™•ì¸í•˜ì„¸ìš”"  readonly>
 		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">¾ÆÀÌµğ´Â ¼öÁ¤ºÒ°¡</strong>
+		      	<strong class="text-danger">ì•„ì´ë””ëŠ” ìˆ˜ì •ë¶ˆê°€</strong>
 		      </span>
 		    </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£</label>
+		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ë¹„ë°€ë²ˆí˜¸</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" value="${user.password}" placeholder="º¯°æºñ¹Ğ¹øÈ£">
+		      <input type="password" class="form-control" id="password" name="password" value="${user.password}" placeholder="ë³€ê²½ë¹„ë°€ë²ˆí˜¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£ È®ÀÎ</label>
+		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="º¯°æºñ¹Ğ¹øÈ£ È®ÀÎ">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="ë³€ê²½ë¹„ë°€ë²ˆí˜¸ í™•ì¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">ÀÌ¸§</label>
+		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">ì´ë¦„</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userName" name="userName" value="${user.userName}" placeholder="º¯°æÈ¸¿øÀÌ¸§">
+		      <input type="text" class="form-control" id="userName" name="userName" value="${user.userName}" placeholder="ë³€ê²½íšŒì›ì´ë¦„">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="phone" class="col-sm-offset-1 col-sm-3 control-label">ÈŞ´ëÀüÈ­¹øÈ£</label>
+		    <label for="phone" class="col-sm-offset-1 col-sm-3 control-label">íœ´ëŒ€ì „í™”ë²ˆí˜¸</label>
 		  
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  placeholder="º¯°æ¹øÈ£">
+		      <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  placeholder="ë³€ê²½ë²ˆí˜¸">
 		    </div>
 	
 		    <input type="hidden" name="phone"  />
@@ -133,30 +364,52 @@
 		  
 		  <c:if test="${user.role eq 'student'}">
 			
-			<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÇĞ±³</strong></div>
-			<div class="col-xs-8 col-md-4">${user.school}</div>
-		</div>
+			<div class="form-group">
+		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">í•™êµ</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="school" name="school" value="${user.school}" >
+		    </div>
+		  </div>
 		<hr/>
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÇĞ³â</strong></div>
-			<div class="col-xs-8 col-md-4">${user.grade}</div>
-		</div>
+		<div class="form-group">
+		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">í•™ë…„</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="grade" name="grade" value="${user.grade}" >
+		    </div>
+		  </div>
 		</c:if>
 
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >¼ö &nbsp;Á¤</button>
-			  <a class="btn btn-primary btn" href="#" role="button">Ãë &nbsp;¼Ò</a>
+		      <button type="button" class="btn btn-primary"  >ìˆ˜ &nbsp;ì •</button>
+			  <a class="btn btn-primary btn" href="#" role="button">ì·¨ &nbsp;ì†Œ</a>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 	    
  	</div>
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
  	
-</body>
+<!-- Footer-->
+	<footer>
+		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+	</footer>
 
+	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+	<script src="/resources/javascript/students/studentsUI.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="https://kit.fontawesome.com/57ea3feb1d.js" crossorigin="anonymous"></script>
+<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
+	<script type="text/javascript">
+	</script>
+</body>
 </html>
