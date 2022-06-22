@@ -62,7 +62,10 @@ function requestPay(){
 	
 	var price = $("#amount").text().trim();
 	var lessonName = $("#lessonName").text().trim();
-	var payCode = $(this).attr("payCode");
+	var payCode = $("#payCode").val();
+	alert(payCode);
+	
+	
 	
     var IMP = window.IMP;
     IMP.init('imp15771574');
@@ -91,38 +94,22 @@ function requestPay(){
  	    		let payment = {
 						payCode: rsp.merchant_uid,
 						impUid: rsp.imp_uid,
-						checkPay : 'Y'
-						
+						checkPay : 'Y'						
 						} 
 
-	               			$.ajax({
+	           $.ajax({
 						url : "/payment/rest/complete",
 						type : "post",
 						data : payment,
 						dataType : "text",
-						success : function(result){
-							if(result == "y") {
-								alert(msg);
- 								location.href = "/payment/rest/updatePaymet";  
-							}else{
-								var msg = '결제에 실패하였습니다.';
-						         msg += '에러내용 : ' + rsp.error_msg;
-							}
+						success : function(data){
+
+								window.location.href = "/payment/getPayment/"+payCode; 
+
 						},
 
 					})
-					$.ajax({
-						url : "/payment/rest/getPayment"+${payment.payCode},
-						type : "GET",
-						dataType : "json",
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},success : function(JSONData , status) {
-							alert(JSONData.checkPay);
-							alert(JSONData.payDay);
-						}
-					});
+					 
         
                 /*======================================================*/
         } else {
@@ -238,6 +225,7 @@ function requestPay(){
 </table>	
   -->
 <!-- 폼 변경 -->
+<form>
 <div class="card card-raised border-top border-4 border-primary h-100" align="center" style="width:600px;height:10%;">
       <div class="card-body p-5">
           <div class="overline text-muted mb-4">Get Payment</div>
@@ -272,15 +260,15 @@ function requestPay(){
                   <tr>
 
                       <td>수납완료일</td>
-                       <td class="text-end">
+                       <td class="text-end"  id="payDay">
                     	  <fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
-						  <fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 	
+						  <fmt:formatDate value="${payday}" pattern="yyyy/MM/dd"/> 	
 					  </td>                     
                   </tr>                  
                   <tr>
 
                       <td>수납여부</td>
-                      <td class="text-end" value="${payment.checkPay }">${payment.checkPay }</td>
+                      <td class="text-end" id="checkPay" value="${payment.checkPay }">${payment.checkPay }</td>
                   </tr>                
                   
               </tbody>
@@ -288,7 +276,7 @@ function requestPay(){
       </div>
       <!-- 결제 미완료 -->
       <c:if test="${payment.checkPay eq 'N'.charAt(0) }">
-	      <div class="card-footer bg-transparent position-relative ripple-gray" onclick="requestPay()"   id="realPayment" payCode="${payment.payCode}">
+	      <div class="card-footer bg-transparent position-relative ripple-gray" onclick="requestPay()">
 	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
 	              <div class="fst-button">결제하기</div>
 	              <i class="material-icons icon-sm ms-1" ></i>
@@ -297,7 +285,7 @@ function requestPay(){
       </c:if>
      <!-- 결제완료 --> 
        <c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
-	      <div class="card-footer bg-transparent position-relative ripple-gray" payCode="${payment.payCode}">
+	      <div class="card-footer bg-transparent position-relative ripple-gray">
 	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
 	              <div class="fst-button">수업료 납부가 완료되었습니다. :) </div>
 	              <i class="material-icons icon-sm ms-1" ></i>
@@ -306,9 +294,8 @@ function requestPay(){
       </c:if>    
      
   </div>
-
 <!--  -->
-
+</form>
 
 </body>
 </html>
