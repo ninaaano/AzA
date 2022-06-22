@@ -1,28 +1,53 @@
+var studentId = "";
+
+
 window.addEventListener('DOMContentLoaded', event => {
-	var temp = document.location.href.split("/");
-	var studentId = temp[temp.length-1];
-
-	if(studentId !== 'manageStudentsExam') {
-		getSubject(studentId);
-	} else {
-		
-		if(sessionStorage.getItem("role") == 'parent') {
-			var li =  $('#studentsDropDown').children().first();
-			
-			studentId = li.dataset.id;
-			console.log(studentId);
-			getSubject(studentId);
-		} else{
-			getSubject();
-		}
-		
-		
-		
-		
-	}
-
-
+	//var studentId = hasSearchStudentId();
+	console.log(studentId);
+	
+	getSubject(studentId);
 });
+
+// role == parent -> 자녀 아이디
+function hasSearchStudentId() {
+	
+	var temp = document.location.href.split("/");
+	var param = temp[temp.length-1];
+	
+	if(sessionStorage.getItem("role") !== 'parent') {
+		return;
+	}
+	
+	if(param !== 'manageStudentsExam') {
+		studentId = param;
+	} 
+	
+	if(sessionStorage.getItem("role") == 'parent' && param == 'manageStudentsExam') {
+		
+		$.ajax({
+			url: "/user/rest/listRelationByParent/"+sessionStorage.getItem("userId"),
+			type:"POST",
+			headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+            async: false,
+            success: function(result) {
+						if(result) {
+							var list = result.list;
+							param = list[0].firstStudentId;
+							console.log(param);
+							studentId = param;
+							console.log(studentId);
+						} else {
+							console.log("relation 없음!");
+						}					
+			}			
+		})
+	}	
+}
+
+var varFlag = true;
 
 $(function() {
 	$("#addExamFormHandler").on("click", function() {
@@ -31,18 +56,32 @@ $(function() {
 	
 	$("#addStudentsExamBtn").on("click", function() {
 		
-		var valFlag = false;
+		//var valFlag = true;
 		const examYear = document.addStudentsExamForm.examYear.value;
 		const examSemester = document.addStudentsExamForm.examSemester.value;
 		const examTerm = document.addStudentsExamForm.examTerm.value;
 		const examSubject = document.addStudentsExamForm.examSubject.value;
 		const examScore = document.addStudentsExamForm.examScore.value;
 		
-		document.addStudentsExamForm.action = "/students/addStudentsExam";
-		document.addStudentsExamForm.method = "POST";
-		document.addStudentsExamForm.submit();		
-
+		if(isNaN(examYear) || examYear == "" || examYear.length < 1) valFlag = false;
+		if(isNaN(examSemester) || examSemester == "" || examSemester.length < 1) valFlag = false;
+		if(isNaN(examScore) || examScore == "" || examYear.examScore < 1) valFlag = false;
+		if(examTerm == "" || examTerm.length < 1) valFlag = false;
+		if(examSubject == "" || examSubject.length < 1) valFlag = false;
 		
+		if(!valFlag) {
+			$('.valCheck').removeClass('hidden');
+			$("#addStudentsExamForm")[0].reset();
+		} else {
+			//document.addStudentsExamForm.action = "/students/addStudentsExam";
+			document.addStudentsExamForm.method = "POST";
+			document.addStudentsExamForm.submit();	
+		}
+		
+	})
+	
+	$('input').on('focus', function() {
+		$('.valCheck').addClass('hidden');
 	})
 	
 })
@@ -59,7 +98,7 @@ function examFormHandler() {
 	$("#studentsExamFormCloseBtn").addClass('hidden');
 	$("#addStudentsExamForm").addClass('hidden');
 	$("#studentsExamFormOpenBtn").removeClass('hidden');
-		
+	$('.valCheck').addClass('hidden');	
 	}
 	
 
@@ -67,9 +106,11 @@ function examFormHandler() {
 
 
 // 과목 리스트 가져오기
-function getSubject() {
+function getSubject(studentId) {
 
-	var url = arguments.length > 0 ? "/students/rest/listStudentsExam/subject/" + arguments[0] :  "/students/rest/listStudentsExam/subject";
+	var url = arguments.length > 0 ? "/students/rest/listStudentsExam/subject/" + studentId :  "/students/rest/listStudentsExam/subject";
+	console.log(url);
+	
 	
 	$.ajax({
 		url: url,
@@ -78,12 +119,12 @@ function getSubject() {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
+        async: false,
         success: function(result) {
 			if(result) {
 				console.log(result);
 				var subjectList = result;
-				
-				listExamBySubject(result[0], arguments[0]);
+				listExamBySubject(result[0], studentId);
 				
 			} else {
 				console.log("정보 없음");
@@ -101,14 +142,14 @@ function makeExamDetailList(examCode, time, score, subject) {
                     		<div class="ms-2"> ${score}</div>	
 						</div>
 					</div>
-					<div class="hidden" id="updateForm-${examCode}" name="updateForm">
-						<form id='form${examCode}' name='updateForm${examCode}' action="/students/updateStudentsExam" method="POST">
+					<div class="hidden text-end mt-2 mb-2" id="updateForm-${examCode}" name="updateForm">
+						<form id='form${examCode}' name='updateForm${examCode}'action="/students/updateStudentsExam" method="POST">
 							<input type="hidden" name="examCode" value="${examCode}"/>
-							 <input type="text" name="examScore" placeholder="점수"/>
-							 <button id="updateStudentsExamBtn" type="button" class="fst-button btn-outline-primary text-white" onclick="return updateStudentsExam('${examCode}')">등록</button>
-							 <button id="deleteStudentsExamBtn" type="button" class="fst-button btn-outline-primary text-white" onclick="return deleteExamDetail('${examCode}')">삭제</button>
+							<button id="updateStudentsExamBtn" type="button" class="btn btn-outline-light btn-sm p-1" onclick="return updateStudentsExam('${examCode}')"><i class="bi bi-check-all"></i></button>
+							<button id="deleteStudentsExamBtn" type="button" class="btn btn-outline-danger btn-sm p-1" onclick="return deleteExamDetail('${examCode}')"><i class="bi bi-trash"></i></button>
+							<input class="col-3 p-1" type="text" name="examScore" placeholder="숫자만  :-)"/>
 						</form>
-						</div>`;
+					</div>`;
 					
 
                     
@@ -118,8 +159,15 @@ function makeExamDetailList(examCode, time, score, subject) {
 }
 
 function updateStudentsExam(examCode) {
+	
+	if(isNaN($("input[name='examScore']").val())) {
+		$("input[name='examScore']").val("");
+		return;
+	} else {
+		$(`#form${examCode}`).submit();	
+		
+	}
 
-	$(`#form${examCode}`).submit();	
 
 }
 
@@ -155,7 +203,7 @@ function listExamBySubject(subject, studentId) {
 		examSubject : subject
 	}
 	
-	var url = arguments.length > 1 ? "/students/rest/listStudentsExam/"+studentId : "/students/rest/listStudentsExam";
+	var url = arguments.length > 0 ? "/students/rest/listStudentsExam/"+studentId : "/students/rest/listStudentsExam";
 
 	if(arguments.length < 2 && sessionStorage.getItem("role") == 'parent') {
 		url += "/" + $('#studentsDropDown').children().first().dataset.studentid;
@@ -169,6 +217,7 @@ function listExamBySubject(subject, studentId) {
                 "Content-Type" : "application/json",                                    
             },
     	data: JSON.stringify(data),
+    	async: false,
         success: function(result) {
 			if(result) {
 				console.log(result);
@@ -181,7 +230,7 @@ function listExamBySubject(subject, studentId) {
 				
 				$("#examDetailList").empty();
 				var titleDiv = `<div class="list-group-item d-flex justify-content-between px-0">
-                    <div class="caption text-white-50">년도/학기</div>
+                    <div class="caption text-white-50">년도 - 학기</div>
                     <div class="caption text-white-50 ms-2">점수</div>
                     </div>` ;
 				$("#examDetailList").append(titleDiv);
@@ -249,6 +298,7 @@ const setMyLineChart = (subject) => {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
+            async: false,
     	data: JSON.stringify(data),
         success: function(result) {
 			if(result) {
@@ -261,7 +311,7 @@ const setMyLineChart = (subject) => {
 				
 				$("#examDetailList").empty();
 				var titleDiv = `<div class="list-group-item d-flex justify-content-between px-0">
-                    <div class="caption text-white-50">년도/학기</div>
+                    <div class="caption text-white-50">년도 - 학기</div>
                     <div class="caption text-white-50 ms-2">점수</div>
                     </div>` ;
 				$("#examDetailList").append(titleDiv);

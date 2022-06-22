@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +43,6 @@
 <link
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
 	rel="stylesheet">
-<!-- Load main stylesheet-->
-
-
-
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -77,6 +73,7 @@
 	font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 <script type="text/javascript">
@@ -97,27 +94,34 @@
 		<!-- Main page content-->
 		<main>
 			<header class="mb-5">
-			<c:if test="${user.role == 'parent'}">
-			<div class="row justify-content-center gx-5">
-                      <div class="row justify-content-end col-md-8 col-lg-6">
-                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                              <div class="nav-item dropdown pt-3" id="myDropdown">
-						      <a class="nav-link dropdown-toggle pb-0" href="#" data-bs-toggle="dropdown">  자녀 선택  </a>
-						      <ul id="studentsDropDown" class="dropdown-menu">
-							  		<c:forEach var="student" items="${studentsInfo}">
-							  			<li data-id="${student.userId}"><a class="dropdown-item" href="/students/manageStudentsExam/${student.userId}">${student.userName}</a>
-							  			</li>	
-							  	</c:forEach>
-						      </ul>
-                          </div>
+				<c:if test="${user.role == 'parent'}">
+					<div class="row justify-content-center gx-5">
+						<div id="selectStudentName" class="row justify-content-end col-md-8 col-lg-6"></div>
+						<div class="row justify-content-end col-md-8 col-lg-6">
+							<div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
+								<div class="nav-item dropdown pt-3" id="myDropdown">
+									<a class="nav-link dropdown-toggle pb-0" href="#"
+										data-bs-toggle="dropdown"> 자녀 선택 </a>
+									<ul id="studentsDropDown" class="dropdown-menu">
+										<c:forEach var="student" items="${studentsInfo}">
+											<li data-id="${student.userId}"><a class="dropdown-item"
+												href="/students/manageStudentsExam/${student.userId}">${student.userName}</a>
+											</li>
+										</c:forEach>
+									</ul>
+								</div>
 
-							
-						    </div>
 
-                      </div>
-                  </div>
-			
-			</c:if>
+							</div>
+
+						</div>
+						
+						
+						
+						
+					</div>
+
+				</c:if>
 			</header>
 
 
@@ -156,20 +160,19 @@
 								<div class="card-footer p-0">
 									<form class="hidden" id="addStudentsExamForm"
 										name="addStudentsExamForm" action="/students/addStudentsExam">
-
 										<div class="form-group">
 											<!-- label for="examYear" class="col-form-label">년도 : </label> -->
 											<input type="text" class="form-control" id="examYear"
-												name="examYear" placeholder="년도">
+												name="examYear" placeholder="년도 : 숫자만 입력하세요:D" >
 										</div>
 										<div class="form-group">
 											<!-- <label for="examSemester" class="col-form-label">학기</label> -->
 											<input type="text" class="form-control" id="examSemester"
-												name="examSemester" placeholder="학기">
+												name="examSemester" placeholder="학기 : 숫자만 입력하세요:D">
 										</div>
 										<div class="form-group">
 											<select class="form-select form-select-sm" name="examTerm"
-												aria-label="Small select example">
+												aria-label="Small select example" required>
 												<option selected>중간 / 기말</option>
 												<option value="1">중간고사</option>
 												<option value="2">기말고사</option>
@@ -183,24 +186,29 @@
 										<div class="form-group">
 											<!-- <label for="examScore" class="col-form-label">점수:</label> -->
 											<input type="text" class="form-control" id="examScore"
-												name="examScore" placeholder="점수">
+												name="examScore" placeholder="점수 : 숫자만 입력하세요:D">
 										</div>
-											<button id="addStudentsExamBtn" type="button"
-												class="fst-button btn-outline-primary text-white">추가</button>
-										<p class="valCheck text-danger hidden">모든 정보를 입력해주세요(⊙x⊙;)</p>
-										<p class="valCheck text-danger hidden">숫자만 입력해주세요(⊙x⊙;)</p>
-
-										<div class="d-flex justify-content-end"></div>
+										<p class="valCheck text-white hidden justify-content-end align-items-center text-end">
+										<i class="bi bi-emoji-expressionless"></i>
+										바른 정보를 입력해주세요
+										<i class="bi bi-emoji-expressionless"></i>
+										</p>
+										<div class="d-flex justify-content-end">
+										<button id="addStudentsExamBtn" type="submit"
+											class="fst-button btn-outline-primary text-white">추가</button>
+										
+										</div>
 									</form>
-									<div id="addExamFormHandler"
-										class="d-flex justify-content-end ripple-white px-3 py-2">
-										<div class="d-flex align-items-center p-2 text-white">
-											<div id="studentsExamFormOpenBtn" class="fst-button">더
-												입력하기 +</div>
-											<div id="studentsExamFormCloseBtn" class="fst-button hidden">닫기</div>
+									<c:if test="${user.role == 'student'}">
+										<div id="addExamFormHandler"
+											class="d-flex justify-content-end ripple-white px-3 py-2">
+											<div class="d-flex align-items-center p-2 text-white">
+												<div id="studentsExamFormOpenBtn" class="fst-button">더
+													입력하기 +</div>
+												<div id="studentsExamFormCloseBtn" class="fst-button hidden">닫기</div>
+											</div>
 										</div>
-									</div>
-
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -210,8 +218,7 @@
 			</div>
 		</main>
 		<!-- Footer-->
-		<footer>
-		</footer>
+		<footer> </footer>
 	</div>
 
 	<script

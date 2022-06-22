@@ -1,3 +1,21 @@
+var now = new Date();
+var curYear = ""
+var curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
+var curDate = ''
+var curDay = ''
+
+
+function calSysdate() {
+	now = new Date();
+	curYear = now.getFullYear();
+	curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
+	curDate = ('0' + now.getDate()).slice(-2);
+	curDay = now.getDay();
+}
+
+
+
+
 
 
 // 출석
@@ -30,7 +48,7 @@ function attendanceHandler(lessonCode) {
 
 function makeAddAttendanceView(result) {
 
-
+	calSysdate();
 	
 	$('#curLessonName').empty();
 	$('#curAttendanceList').empty();
@@ -67,6 +85,7 @@ function makeAddAttendanceView(result) {
 
 
 function checkAttendanceValue(student) {
+	calSysdate();
 	
 	$.ajax({
 		url: 'students/rest/listStudentsAttendance/'+curMonth+"/"+curYear+"/"+curDate+"?studentId="+student.studentId+"&lessonCode="+student.lessonCode,
@@ -204,14 +223,9 @@ window.addEventListener('DOMContentLoaded', event => {
    
 })
 
-var now = new Date();
-var curYear = now.getFullYear();
-var curMonth = ('0' + (now.getMonth() + 1)).slice(-2);
-var curDate = ('0' + now.getDate()).slice(-2);
-var curDay = now.getDay();
-
 // AJAX : studentsAttendance 
 function attendanceLoad() {
+	calSysdate()
 
 
 	$.ajax({
@@ -219,13 +233,6 @@ function attendanceLoad() {
 
 		type:"GET",
 		headers : {
-
-//MY 충돌 주석처리함
-//   $.ajax({
-//      url:"http://localhost:8080/lesson/rest/listLessonTime?lessonDay="+curDay,
-//      type:"GET",
-//      headers : {
-
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
@@ -245,6 +252,7 @@ function attendanceLoad() {
 
 
 function makeTimeTable(result) {
+   calSysdate()
    
    $('#curDate').empty();
    $('#curLessonList').empty();
@@ -280,6 +288,7 @@ function loadEvent(month) {
    var studentId = urlParam.has("studentId") ? urlParam.get("studentId") : "";
    var lessonCode = urlParam.has("lessonCode") ? urlParam.get("lessonCode") : "";
    
+   calSysdate();
    console.log(month, urlParam, studentId,lessonCode);
 
 

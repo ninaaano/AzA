@@ -126,7 +126,7 @@ public class StudentsRestController {
 	@RequestMapping(value={"listStudentsAttendance/{month}/{year}/{date}", "listStudentsAttendance/{month}/{year}"},method= {RequestMethod.POST, RequestMethod.GET})
 	public Map<String, Object> listStudentsAttendance(	@PathVariable("month") int month, 
 														@PathVariable(required = false, value="year") String year,
-														@RequestParam(required=false, value="date") Integer date,
+														@PathVariable(required=false, value="date") Integer date,
 														HttpSession session,
 														@RequestParam(required = false, value="studentId") String studentId,
 														@RequestParam(required = false, value="lessonCode") String lessonCode														
@@ -136,13 +136,15 @@ public class StudentsRestController {
 		search.setCurrentPage(1);
 		search.setPageSize(31);
 		
-		if(date != null)  {
+		User user = (User)session.getAttribute("user");
+		
+		if(date != null || user.getRole().equals("teacher"))  {
 			
 			System.out.println("/students/rest/listStudentsAttendance : teacherHome.js -> attendace 유무 체크");
 			
-			int prevDate = date -1;
-			String searchStartDate = year + "/" + month + "/" + prevDate;
-			String searchEndDate = year + "/" + month + "/" + date;
+			int prevDate = date.intValue() -1;
+			String searchStartDate = year + "/0" + month + "/" + prevDate;
+			String searchEndDate = year + "/0" + month + "/" + date;
 			
 			return studentsService.listStudentsAttendance(search, studentId, lessonCode, searchStartDate, searchEndDate);	
 		}
