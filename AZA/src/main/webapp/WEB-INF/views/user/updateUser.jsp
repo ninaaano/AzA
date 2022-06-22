@@ -248,68 +248,7 @@ $(function() {
 </head>
 
 <body>
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
-		<div class="container-fluid px-4">
-			<!-- Drawer toggle button-->
-			<button class="btn btn-lg btn-icon order-1 order-lg-0"
-				id="drawerToggle" href="javascript:void(0);">
-				<i class="material-icons text-primary">menu</i>
-			</button>
-			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index" data-url=''>
-			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
-			</a>
-			<!-- Navbar items-->
-			<div class="d-flex align-items-center mx-3 me-lg-0">
-				<!-- Navbar buttons-->
-				<div class="d-flex">
-					<!-- Messages dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">mail_outline</i>
-						</button>
-					</div>				
-					<!-- Notifications and alerts dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuNotifications" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary position-relative">notifications</i> 
-							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
-						</button>
-						<ul id="alertDropDown"
-							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
-							aria-labelledby="dropdownMenuNotifications">
-						</ul>
-					</div>
-					
-					
-					<!-- User profile dropdown-->
-					<div class="dropdown">
-						<button class="btn btn-lg btn-icon dropdown-toggle"
-							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">person</i>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end mt-3"
-							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
-									class="material-icons leading-icon text-primary">person</i>
-									<div class="me-3">Profile</div>
-							</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/user/logout" > <i
-									class="material-icons leading-icon text-primary">logout</i>
-									<div class="me-3">Logout</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
+	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
