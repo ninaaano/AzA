@@ -10,8 +10,6 @@ public class Payment {
 	private String payer; // 
 	private String payDueDate; // 
 	private String impUid; // 
-	private String merchantUid; // 
-	private int payOption; // 
 	private String receiver; // 
 	private String studentId; // 
 	private String studentName; // 
@@ -135,22 +133,6 @@ public class Payment {
 		this.impUid = impUid;
 	}
 
-	public String getMerchantUid() {
-		return merchantUid;
-	}
-
-	public void setMerchantUid(String merchantUid) {
-		this.merchantUid = merchantUid;
-	}
-
-	
-	public int getPayOption() {
-		return payOption;
-	}
-
-	public void setPayOption(int payOption) {
-		this.payOption = payOption;
-	}
 
 	public String getReceiver() {
 		return receiver;
@@ -164,10 +146,12 @@ public class Payment {
 	public String toString() {
 		return "Payment [payCode=" + payCode + ", studentRecordNo=" + studentRecordNo + ", checkPay=" + checkPay
 				+ ", amount=" + amount + ", payDay=" + payDay + ", payer=" + payer + ", payDueDate=" + payDueDate
-				+ ", impUid=" + impUid + ", merchantUid=" + merchantUid + ", payOption=" + payOption + ", receiver="
-				+ receiver + ", studentId=" + studentId + ", studentName=" + studentName + ", payLessonName=" + payLessonName
-				+ ", imp_key=" + imp_key + ", imp_secret=" + imp_secret + "]";
+				+ ", impUid=" + impUid + ", receiver=" + receiver + ", studentId=" + studentId + ", studentName="
+				+ studentName + ", payLessonName=" + payLessonName + ", imp_key=" + imp_key + ", imp_secret="
+				+ imp_secret + "]";
 	}
+
+
 
 	
 	

@@ -22,8 +22,11 @@ encoding//src/main/webapp/WEB-INF/views/paper/addPaperHomework.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/paper/listPaperHomework.jsp=EUC_KR
 encoding//src/main/webapp/WEB-INF/views/payment/listPayment.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/students/addStudentsCharacter.jsp=euc-kr
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/students/getStudentsCharacter.jsp=euc-kr
 encoding//src/main/webapp/WEB-INF/views/user/getUser.jsp=UTF-8
+=======
+>>>>>>> refs/heads/MY
 encoding//src/test/java=UTF-8
 <<<<<<< HEAD
 encoding/<project>=EUC-KR

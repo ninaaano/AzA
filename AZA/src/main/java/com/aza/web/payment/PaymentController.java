@@ -75,6 +75,7 @@ public class PaymentController {
 
 			Map<String, Object> map =paymentService.listPaymentBystudent(search);
 			Page resultPage =  new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			
 			mv.addObject("list", map.get("list"));
 			mv.addObject("resultPage", resultPage);
 			mv.addObject("search", search);
@@ -106,12 +107,18 @@ public class PaymentController {
 	}
 	
 	@RequestMapping(value = "getPayment/{payCode}")
-	public ModelAndView getPayment(@PathVariable int payCode, Payment payment) throws Exception{
+	public ModelAndView getPayment(@PathVariable int payCode, Payment payment, HttpSession session) throws Exception{
+		
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		User user = userService.getUser(userId);
 		
 		payment = paymentService.getPayment(payCode);
 		
+		
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("payment", payment);
+		mv.addObject("user", user);
 		mv.setViewName("/payment/getPayment");
 		
 		return mv;

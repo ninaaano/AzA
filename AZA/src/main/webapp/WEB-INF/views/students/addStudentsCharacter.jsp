@@ -72,7 +72,7 @@ $(function() {
 $(function () {
 	$('#studentName').on('change', function() {
 				
-		$("form").attr("method" , "POST").attr("action" , "/students/rest/getCheckStudentsCharacter").submit();
+		$("form").attr("method" , "POST").attr("action" , "/students/getCheckStudentsCharacter").submit();
 		
 	})
 	
@@ -141,15 +141,14 @@ function addStudentsCharacter() {
 	<button class="btn btn-raised-danger" type="button">취소</button>  --%>
 
 <!-- ==================================================== 	-->
+<c:if test="${!empty userStudent.userName}">
 			<div class="card card-raised border-top border-4 border-primary h-100"  style="width:600px;">
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
-                                        <c:if test="${!empty userStudent.userName}">
+                                        		<input type="hidden" name="userId" value="${userStudent.userId}">
                                                <h2 name="studentName" value="${userStudent.userName}">${userStudent.userName}의 특징 등록 페이지</h2>
         									   <p class="card-text mb-4" style="font-size: 10px;">학생 특징은 1개만 등록 가능합니다. :)</p>
-                                        </c:if>
-                                       
-                                       
+                                   
                                         <table class="table table-sm mb-0">
                                             <tbody>
                                                 <tr>
@@ -158,7 +157,7 @@ function addStudentsCharacter() {
                                                      
                                                      <textarea class="dataTable-input" placeholder="특징을 입력해주세요 :)" 
 														type="text" style="width:500px;height:400px;"
-														name="characterContent" value="${students.characterContent}"></textarea>
+														name="characterContent"></textarea>
                                                      
                                                      </td>
                                                 </tr>
@@ -170,6 +169,7 @@ function addStudentsCharacter() {
 											<button class="btn btn-raised-danger" type="button">취소</button>
                                     </div>  
               </div>
+</c:if>
 <!-- ==================================================== -->	
 	
 	
