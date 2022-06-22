@@ -149,6 +149,12 @@ public class UserRestController {
 			return userService.getUser(userId);
 		}
 		
+		@RequestMapping(value = "getUser/{userId}", method = RequestMethod.GET)
+		public User getUser (@PathVariable String userId) throws Exception {
+			
+			return userService.getUser(userId);
+		}
+		
 //		@RequestMapping(value="updateUser", method = RequestMethod.GET)
 //		public User updateUser (@PathVariable String userId) throws Exception {
 //			

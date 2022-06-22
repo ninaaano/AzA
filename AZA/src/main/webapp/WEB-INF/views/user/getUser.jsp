@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ page language="java" contentType="text/html;" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+   
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-<title>¸¶ÀÌÆäÀÌÁö</title>
+<title>ë§ˆì´í˜ì´ì§€</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"></script>
@@ -26,30 +26,297 @@
 <!-- Roboto and Roboto Mono fonts from Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
-    <link href="/resources/css/styles.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
-<style>
+<link href="css/styles.css" rel="stylesheet" />
+<script type="text/javascript">
 
-</style>
+function deleteAlert(alertCode) {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
+            	
+            	console.log("deleteAlert");
+            	
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(!alertReadAt) {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">ì½ìŒ</p>
+            			</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
+						<p class="text-danger">ì‚­ì œ</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}              		
+            	})
+            	
+            	$('.alertLi').remove();
+	        	$("#alertDropDown").html("");
+	        	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">ì•Œë¦¼</h6></li>
+						<li><hr class="dropdown-divider my-0" /></li>`);
+	        	$("#alertDropDown").append(listAlertView);
+	        	$("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
+
+            } else {
+            	console.log("faile");
+            }
+       }
+	})
+	
+	
+	
+	
+}
+
+
+
+function listAlert() {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/listAlert",
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
+            	
+            	console.log("listAlert");
+            	
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(!alertReadAt) {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">ì½ìŒ</p>
+            			</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
+						<p class="text-danger">ì‚­ì œ</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}              		
+            	})
+            	
+            	$('.alertLi').remove();
+            	$("#alertDropDown").html("");
+            	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">ì•Œë¦¼</h6></li>
+    					<li><hr class="dropdown-divider my-0" /></li>`);
+            	$("#alertDropDown").append(listAlertView);
+
+            } else {
+            	console.log("faile");
+            }
+       }
+	})
+	
+}
+
+function readAlert(alertCode) {
+	$.ajax({
+		url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
+		type:"GET",
+		headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",                                    
+            },
+        success: function(result) {         	
+            if(result) {
+            	
+            	console.log("readAlert");
+            	
+        	var listAlertView = "";
+            var list = result.list
+            	
+            	list.map(alert => {
+            		
+            		let alertCode = alert.alertCode;
+            		let alertContent = alert.alertContent;
+            		let alertCreateAt = alert.alertCreateAt;
+            		let alertReadAt = alert.alertReadAt;
+            		
+            		if(alertReadAt == "") {
+            			listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
+            			<div>
+            			<span class="material-icons text-primary">done</span>
+            			<p class="text-primary">ì½ìŒ</p>
+            			</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;
+            			
+            		} else {
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
+						<div>
+						<span class="material-icons text-danger">delete</span>
+						<p class="text-danger">ì‚­ì œ</p>
+						</div>
+						<div class="dropdown-item-content me-2">
+							<div class="dropdown-item-content-text">`+alertContent+`</div>
+							<div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
+						</div>
+						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
+            		}
+            		
+            		
+            		
+            	})
+            	
+            	$('.alertLi').remove();
+            	$("#alertDropDown").html("");
+            	$("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">ì•Œë¦¼</h6></li>
+    					<li><hr class="dropdown-divider my-0" /></li>`);
+            	$("#alertDropDown").append(listAlertView);
+            	$("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
+            	
+            } else {
+            	console.log("faile");
+            }
+       }
+	})
+}
+
+
+
+$(function() {
+
+	// Alert
+	 $('#dropdownMenuNotifications').on('click', function() {
+		console.log("ì•Œë¦¼ ë²„íŠ¼ ëˆŒë¦¼");
+		listAlert();
+
+	})
+	
+	
+	
+	// Message
+	$("#open-messagePopup").on("click", function() {
+		console.log("ë©”ì‹œì§€ ë²„íŠ¼ ëˆŒë¦¼");
+		
+        $.ajax({
+            url: "http://localhost:8080/message/rest/listMessage",
+            type: "GET",
+            headers : {
+                    "Accept" : "application/json",
+                    "Content-Type" : "application/json",                                    
+                },
+            success: function(result) {
+                if(result) {
+                	console.log(result);
+                	
+                	sessionStorage.setItem('userId', result[0].userId);
+                	
+                	result.shift();
+                	
+                	console.log(result);
+                	
+                	var listOtherView = "";
+                	
+                	result.map((other,i) => {
+               			
+                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
+                		let studentName = other.studentId ? other.studentName : "í•™ìƒì´ë£¸";
+                		let relationName = other.relationName ? other.relationName : "";
+                		let userId = other.userId ? other.userId : studentId;
+                		let userName = studentName + " " + relationName;
+                		//console.log(i, studentId);
+                		
+                		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
+                		<li class='p-2 border-bottom' data-id=`+userId+`>
+                            	<a class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
+                                            <p class="small text-muted">ìµœê·¼ë©”ì‹œì§€</p>
+                                        </div>
+                                    </div>
+                            	</a>
+                        	</li>
+                    	</ul>`;
+                	});
+                	
+                	$('#getOtherMessage').remove();
+                	$('#listOther').append(listOtherView);
+
+                } else {
+                    console.log("ì‹¤íŒ¨");
+                }
+            } 
+        })
+		
+	})
+
+})
+	
+
+</script>
+
 <script
 		src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript">
 		
-	// ¼ö¾÷Ãß°¡ Âü°íÇÏ±â
-		//============= È¸¿øÁ¤º¸¼öÁ¤ Event  Ã³¸® =============	
+	// ìˆ˜ì—…ì¶”ê°€ ì°¸ê³ í•˜ê¸°
+		//============= íšŒì›ì •ë³´ìˆ˜ì • Event  ì²˜ë¦¬ =============	
 		 $(function(){
 			 $( "button.btn.btn-primary" ).on("click" , function() {
 				self.location="/user/updateUser?userId=${user.userId}"
 			});
 		});	
 	
-	//ÇĞ»ı ¾ÆÀÌµğ À¯È¿¼º °Ë»ç
+	//í•™ìƒ ì•„ì´ë”” ìœ íš¨ì„± ê²€ì‚¬
 			const checkStudent = _.debounce(async (id) => {
 		    	
 		    	var id = $("#firstStudentId").val();
@@ -60,12 +327,12 @@
 		    		data:{id},
 		    		success : function(cnt) {
 		    			if(cnt == 1) {
-		    				$('#certCheck2').text("È®ÀÎÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+		    				$('#certCheck2').text("í™•ì¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		    				$('#certCheck2').css('color','blue');	
 		    				
 		    			}
 		    			else {
-		    				$('#certCheck2').text("È®ÀÎµÇÁö ¾ÊÀº Á¤º¸ÀÔ´Ï´Ù.");
+		    				$('#certCheck2').text("í™•ì¸ë˜ì§€ ì•Šì€ ì •ë³´ì…ë‹ˆë‹¤.");
 		    				$('#certCheck2').css('color','red');
 		    				
 		    			}
@@ -73,60 +340,77 @@
 		    	});
 		    },2000);
 			
-		// ÀÚ³à Ãß°¡ ÀÌº¥Æ®
+		// ìë…€ ì¶”ê°€ ì´ë²¤íŠ¸
 		$(function(){
 			$("input[name=addStudentBtn]").click(function(){
-				if ($(this).val()=="ÀÚ³àÃß°¡"){
+				if ($(this).val()=="ìë…€ì¶”ê°€"){
 					$("#addStudentInput").show();
 				}
 		});
 		
 	});
 		
-
+		function getStudentInfo(studentId){
+			console.log("ì¹˜ã…‘ì°¨");
+			
+			
+			$.ajax({
+				url : "/user/rest/getUser/"+studentId,
+				type : "GET",
+				headers : {
+	                "Accept" : "application/json",
+	                "Content-Type" : "application/json",                                    
+	        	},
+	        	success : function(result) {
+	        		if(result) {
+	        			console.log(result);
+	        			
+	        			
+	        		} else {
+	        			console.log("ì •ë³´ ì—†ìŒ");
+	        		}
+	        	}
+			})
+			
+			
+		}
 		
-			function addStudent(){
-				document.findform.action="addRelation";
-				document.findform.submit();
-				
-			}
-	
 
 	</script>
 	
 
 </head>
 <body>
-<!-- ---------- °³ÀÎÁ¤º¸ ¼öÁ¤ -------------->
+<!-- ---------- ê°œì¸ì •ë³´ ìˆ˜ì • -------------->
 
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">È¸¿øÁ¤º¸Á¶È¸</h3>
+	       <h3 class=" text-info">íšŒì›ì •ë³´ì¡°íšŒ</h3>
 	    </div>
 	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>¾Æ ÀÌ µğ</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ì•„ ì´ ë””</strong></div>
 			<div class="col-xs-8 col-md-4">${user.userId}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÀÌ ¸§</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ì´ ë¦„</strong></div>
 			<div class="col-xs-8 col-md-4">${user.userName}</div>
 		</div>
 		
 		<hr/>
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ºñ¹Ğ¹øÈ£</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ë¹„ë°€ë²ˆí˜¸</strong></div>
 			<div class="col-xs-8 col-md-4"></div>
 		</div>
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÈŞ´ëÀüÈ­¹øÈ£</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>íœ´ëŒ€ì „í™”ë²ˆí˜¸</strong></div>
 			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
 		</div>
 		
@@ -135,12 +419,12 @@
 		<c:if test="${user.role eq 'student'}">
 			
 			<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÇĞ±³</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>í•™êµ</strong></div>
 			<div class="col-xs-8 col-md-4">${user.school}</div>
 		</div>
 		<hr/>
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÇĞ³â</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>í•™ë…„</strong></div>
 			<div class="col-xs-8 col-md-4">${user.grade}</div>
 		</div>
 		
@@ -156,54 +440,57 @@
 
 				<c:forEach var="user" items="${list}">
   
-						<option align="center" value="${user.relationCode}">${user.firstStudentId}
-	
-				 </c:forEach>
-			</select>
-			
+						<a href="#" align="center" value="${user.relationCode}" onclick="return getStudentInfo('${user.firstStudentId}')">${user.firstStudentId}</a>
 
-			<input type="button" name="addStudentBtn" class="btn btn-primary" value="ÀÚ³àÃß°¡" onclick='addStudentBtn()' />
+				 </c:forEach>
+			
+			</select>
+
+			<input type="button" name="addStudentBtn" class="btn btn-primary" value="ìë…€ì¶”ê°€" onclick='addStudentBtn()' />
 			
 			
 			<div></div>
-							
+			<form action="/user/addRelation" method="POST" enctype="multipart/form-data">		
 			<div id="addStudentInput" style="display :none">
-			<input type="hidden" id="userId" name="addRelation" value="${addRelation}">
 			
-			<input type="text" id="firstStudentId" name="firstStudentId" placeholder="ÀÚ³à ¾ÆÀÌµğ" oninput="checkStudent()" />
+			<input type="hidden" name="userId" value="${user.userId}">
+			
+			
+			<input type="text" id="firstStudentId" name="firstStudentId" placeholder="ìë…€ ì•„ì´ë””" oninput="checkStudent()" />
 			<div class="form-group" id="certCheck2"></div>
-			<input type="text" id="relationName" name="relationName" placeholder="ÇĞ»ı°úÀÇ °ü°è" />
-			<input type="submit" value="µî·Ï" onclick="addStudent();"/>
-			<input type="button" value="Ãë¼Ò" onclick="deleteInput();"/>
+			<input type="text" id="relationName" name="relationName" placeholder="í•™ìƒê³¼ì˜ ê´€ê³„" />
+			<input type="submit" value="ë“±ë¡" />
+			<input type="button" value="ì·¨ì†Œ" />
 			</div>
-			
+			</form>
 
 			<hr/>
 			
-			<c:forEach var="studentsInfo" items="${studentsInfo}">
+			<c:forEach var="studentsInfo" items="${studentsInfo}" varStatus="status">
   
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÀÚ³à ÀÌ¸§</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ ì´ë¦„</strong></div>
 			<div class="col-xs-8 col-md-4">${studentsInfo.userName}</div>
 		</div>
 			
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÀÚ³à ÇĞ±³</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ í•™êµ</strong></div>
 			<div class="col-xs-8 col-md-4">${studentsInfo.school}</div>
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÀÚ³à ÇĞ³â</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ í•™ë…„</strong></div>
 			<div class="col-xs-8 col-md-4">${studentsInfo.grade}</div>
 		</div>
-	</c:forEach>
+	
 	<c:forEach var="user" items="${list}">
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÇĞ»ı°úÀÇ °ü°è</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>í•™ìƒê³¼ì˜ ê´€ê³„</strong></div>
 			<div class="col-xs-8 col-md-4">${user.relationName}</div>
 		</div>
-		</hr>
+	</c:forEach>	
 		
+	
 		 </c:forEach>
 		</c:if>
 		
@@ -211,7 +498,7 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary">È¸¿øÁ¤º¸¼öÁ¤</button>
+	  			<button type="button" class="btn btn-primary">íšŒì›ì •ë³´ìˆ˜ì •</button>
 	  		</div>
 		</div>
 		

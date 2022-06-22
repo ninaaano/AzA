@@ -132,7 +132,7 @@ public class UserController {
 		return new ModelAndView("redirect:/");
 	}
 	
-	@RequestMapping(value="getUser",method=RequestMethod.GET)
+	@RequestMapping(value={"getUser/{userId}","getUser"},method=RequestMethod.GET)
 	public ModelAndView getUser (@ModelAttribute("search") Search search, HttpSession session,@RequestParam(required = false) String studentId) throws Exception{
 		System.out.println("==========");
 		System.out.println("getUser start.....");
@@ -176,6 +176,7 @@ public class UserController {
 				
 			}
 			model.addObject("studentsInfo",studentsInfo);
+			model.addObject("students",students);
 			System.out.println("======students========="+students);
 			System.out.println("======studentsInfo========="+studentsInfo);
 
@@ -246,11 +247,14 @@ public class UserController {
 	
 	@RequestMapping( value="addRelation", method=RequestMethod.POST )
 	public ModelAndView addRelation( @ModelAttribute("user") User user ) throws Exception{
-	
+		
+		ModelAndView model = new ModelAndView();
+
 		System.out.println("/user/addRelation : POST");
 		userService.addRelation(user);
+		model.addObject("user",user);
 		
-		return new ModelAndView("addRelation");
+		return new ModelAndView("redirect:/user/getUser");
 
 	}	
 	
@@ -258,18 +262,7 @@ public class UserController {
 	public ModelAndView getRelation (@RequestParam("relationCode")int relationCode) throws Exception{
 		return new ModelAndView("/user/getRelation","user",userService.getRelation(relationCode));
 	}
-	
-//	@RequestMapping( value="updateUser", method=RequestMethod.GET )
-//	public String updateUser( @RequestParam("userId") String userId , Model model ) throws Exception{
-//
-//		System.out.println("/user/updateUser : GET");
-//		//Business Logic
-//		User user = userService.getUser(userId);
 
-//		model.addAttribute("user", user);
-//		
-//		return "forward:/user/updateUser.jsp";
-//	}
 
 	@RequestMapping( value="updateRelation", method=RequestMethod.POST )
 	public ModelAndView updateRelation(@RequestParam("currentPage") int currentPage,@RequestParam("relationCode")int relationCode) throws Exception{
