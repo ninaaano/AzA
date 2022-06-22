@@ -56,22 +56,26 @@ public class PaymentRestController {
 		
 	}
 
-	@RequestMapping(value = "updatePayment", method = RequestMethod.GET)
-	public void updatePayment(@ModelAttribute("payment") Payment payment) throws Exception{
-		System.out.println("rest/getPayment : GET");
-		
-		 payment = paymentService.getPayment(payment.getPayCode());
-		 payment.setCheckPay('Y');		
-		 payment.setImpUid(payment.getImpUid());		
-	}	
+//	@RequestMapping(value = "updatePayment", method = RequestMethod.GET)
+//	public void updatePayment(@ModelAttribute("payment") Payment payment) throws Exception{
+//		System.out.println("rest/getPayment : GET");
+//		
+//		 payment = paymentService.getPayment(payment.getPayCode());
+//		 payment.setCheckPay('Y');		
+//		 payment.setImpUid(payment.getImpUid());		
+//		 payment.setPayer(payment.getPayer());		
+//	}	
 	
 	@RequestMapping("complete")
 	public ResponseEntity<String> completePayment
 	(HttpSession session, Payment payment)throws Exception{
 		System.out.println("rest Payment Complete");
+		System.out.println("comlete payment 시작 => " + payment);
+		
 		String token = paymentService.getToken();
 		System.out.println("토큰 ==> " + token);
 		String impUid = payment.getImpUid();
+		String payer = payment.getPayer();
 		
 		payment = paymentService.getPayment(payment.getPayCode());
 		int amount = paymentService.paymentInfo(impUid, token);
@@ -90,6 +94,7 @@ public class PaymentRestController {
 			System.out.println("checkPrice = amount check OK");
 			System.out.println("checkPrice = amount payment value=>" + payment);
 			payment.setPayCode(payment.getPayCode());
+			payment.setPayer(payer);
 			System.out.println("getpayCode => => " + payment.getPayCode());
 			payment.setCheckPay('Y');
 			payment.setImpUid(impUid);

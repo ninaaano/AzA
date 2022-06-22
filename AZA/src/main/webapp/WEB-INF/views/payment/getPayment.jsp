@@ -48,9 +48,8 @@
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
+	body {   
+    margin : 150px;
 }
 </style>
 </head>
@@ -63,6 +62,8 @@ function requestPay(){
 	var price = $("#amount").text().trim();
 	var lessonName = $("#lessonName").text().trim();
 	var payCode = $("#payCode").val();
+	var payer = $("#payer").val();
+	var phone = $("#phone").val();
 	alert(payCode);
 	
 	
@@ -78,8 +79,9 @@ function requestPay(){
         pay_method : 'card',
         merchant_uid : payCode, // 주문 번호
 		name : lessonName,
-		amount : price
-		
+		amount : price,
+		buyer_name : payer,
+		buyer_tel : phone
 
     }, function(rsp) {
          console.log(rsp); 
@@ -88,13 +90,15 @@ function requestPay(){
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 	    			msg += '\n결제 금액 : ' + rsp.paid_amount;
-	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+	    			msg += '결제자 : ' + rsp.buyer_name;
 	    			// 넘겨줄 정보..
 
  	    		let payment = {
 						payCode: rsp.merchant_uid,
 						impUid: rsp.imp_uid,
-						checkPay : 'Y'						
+						checkPay : 'Y',
+						payer : rsp.buyer_name
+						
 						} 
 
 	           $.ajax({
@@ -109,9 +113,7 @@ function requestPay(){
 						},
 
 					})
-					 
-        
-                /*======================================================*/
+
         } else {
 			var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
@@ -231,6 +233,8 @@ function requestPay(){
           <div class="overline text-muted mb-4">Get Payment</div>
           <h1>수업료 상세 내역</h1>
           <input type="hidden" id="payCode" value="${payment.payCode}">
+          <input type="hidden" id="payer" name="userName" value="${user.userName}">
+          <input type="hidden" id="phone" name="phone" value="${user.phone}">
           <br/>
           <table class="table mb-0">
               <tbody>
@@ -287,7 +291,7 @@ function requestPay(){
        <c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
 	      <div class="card-footer bg-transparent position-relative ripple-gray">
 	          <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary">
-	              <div class="fst-button">수업료 납부가 완료되었습니다. :) </div>
+	              <div class="fst-button">수업료 납부가 완료되었습니다. :) [결제자 : ${payment.payer} ] </div>
 	              <i class="material-icons icon-sm ms-1" ></i>
 	          </a>
 	      </div>
