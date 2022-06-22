@@ -132,7 +132,7 @@ public class UserController {
 		return new ModelAndView("redirect:/");
 	}
 	
-	@RequestMapping(value={"getUser/{userId}","getUser"},method=RequestMethod.GET)
+	@RequestMapping(value={"getUser"},method=RequestMethod.GET)
 	public ModelAndView getUser (@ModelAttribute("search") Search search, HttpSession session,@RequestParam(required = false) String studentId) throws Exception{
 		System.out.println("==========");
 		System.out.println("getUser start.....");
