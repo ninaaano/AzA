@@ -33,9 +33,6 @@ import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
 
-
-
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/students/rest/*")
