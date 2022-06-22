@@ -74,14 +74,11 @@ $(function() {
 			document.getElementById("searchDate").style.display = "";
 			  document.getElementById("searchKeyword").style.display = "none";
 
-/* 				$('#searchDate').show();
-				$('#searchKeyword').hide(); */
+
 			}else{
 				  document.getElementById("searchDate").style.display = "none";
 				  document.getElementById("searchKeyword").style.display = "";
 
-/* 				$('#searchDate').hide();
-				$('#searchKeyword').show(); */
 			}
 			
 	})
@@ -247,8 +244,43 @@ function fncGetList(currentPage) {
 				
 				</tr>
 	 </c:forEach>
-</table>	
-       
+</table>
+<input type="hidden" id="currentPage" name="currentPage" value=""/>
+<div align="center">
+		<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
+				<span class="material-icons">
+				arrow_circle_left
+				</span>
+		</c:if>
+		
+		
+		<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
+				<a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
+					<span class="material-icons">
+					arrow_circle_left
+					</span>				
+				</a>
+		</c:if>
+		
+		<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+			<a href="javascript:fncGetList('${ i }');">${ i }</a>
+		</c:forEach>
+		
+		<c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
+				<span class="material-icons">
+				arrow_circle_right
+				</span>
+		</c:if>
+		
+		<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
+				<a href="javascript:fncGetList('${resultPage.endUnitPage+1}')">
+					<span class="material-icons">
+					arrow_circle_right
+					</span>	
+				</a>
+		</c:if> 
+
+ </div>     
 </form>
 </body>
 </html>
