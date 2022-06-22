@@ -52,6 +52,9 @@
 	<update id = "updatePaperQuiz" parameterType ="paper">
 	UPDATE quiz 
 	<set>
+	lesson_name = #{lessonName:VARCHAR},
+	student_name = #{studentName:VARCHAR},
+	quiz_title = #{quizTitle:VARCHAR},
 	quiz_submit_date = #{quizSubmitDate:DATE}, 
 	quiz_score = #{quizScore:NUMERIC} 
 	</set>

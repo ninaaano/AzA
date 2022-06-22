@@ -1,5 +1,6 @@
 package com.aza.service.paper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aza.common.Search;
@@ -25,13 +26,16 @@ public interface PaperService {
 
 	
 	//PaperQuestion :: INSERT
-	public void addPaperQuestion(Paper paper) throws Exception;
+//	public void addPaperQuestion(Paper paper) throws Exception;
+	public void addPaperQuestion(List<Paper> questionList) throws Exception;
 	
 	//PaperQuestion :: SELECT
 	public Paper getPaperQuestion(int questionCode) throws Exception;
+	//public Map<String,Object> getPaperQuestion(int quizCode) throws Exception;
 	
 	//PaperQuestion :: UPDATE
-	public void updatePaperQuestion(Paper paper) throws Exception;
+	//public void updatePaperQuestion(Paper paper) throws Exception;
+	public void updatePaperQuestion(List<Paper> updateQuestionList) throws Exception;
 	
 	//PaperQuestion :: DELETE
 	public void deletePaperQuestion(int questionCode) throws Exception;
@@ -82,6 +86,9 @@ public interface PaperService {
 	//PaperHomework :: LIST
 //	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String LessonCode) throws Exception;
 	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String teacherId) throws Exception;
+	
+	//PaperHomework :: LIST 
+	public Map<String, Object> listPaperHomeworkByParent(Search search, String parentId) throws Exception;
 	
 	//PaperHomeworkCheck :: UPDATE
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;

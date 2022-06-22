@@ -92,23 +92,23 @@ font-family: Pretendard, 'Noto Sans KR';
 		$("form").attr("method","POST").attr("action" , "/paper/addPaperQuiz").submit();
 	}
 	
-	function addNonSubjective() {
+/* 	function addNonSubjective() {
 		alert("눌렸다!!");
-	}
+	} */
 	
 	$(document).ready(function() {
 		var maxFields = 6;
 		var wrapper = $(".input_fields_wrap");
 		var addNonSubjectiveButton = $("#addNonSubjectiveBtn");
 		var addSubjectiveButton = $("#addSubjectiveBtn");
-		
+			
 		var x=1;
 		$(addNonSubjectiveButton).click(function(e){
 			e.preventDefault();
 			if(x < maxFields){
 				x++;
 				/* $(wrapper).append('<div><input type="text" name="questionNo"><button id="deleteSubQuestionBtn" class="btn btn-text-primary" type="button">삭제</button></div>') */
-				$(wrapper).append('<div><table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">정답</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td></tr><tr><td><div class="form-check"><input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1번보기 입력" id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2번보기 입력" id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3번보기 입력" id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4번보기 입력" id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5번보기 입력" id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example"></div></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td></tr><tr><td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td></tr><tr><td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="피드백 입력란"></textarea></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button></div>')
+				$(wrapper).append('<div><table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">정답</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td></tr><tr><td><div class="form-check"><input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1번보기 입력" id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2번보기 입력" id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3번보기 입력" id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4번보기 입력" id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5번보기 입력" id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example"></div></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button></div>')
 			}
 		});
 		
@@ -116,7 +116,7 @@ font-family: Pretendard, 'Noto Sans KR';
 			e.preventDefault();
 			if(x < maxFields){
 				x++;
-				$(wrapper).append('<div><table class="table table-bordered" name="subjectiveQuestion" id="subjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">정답</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td></tr><tr><td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td></tr><tr><td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button></div>')
+				$(wrapper).append('<div><table class="table table-bordered" name="subjectiveQuestion" id="subjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">정답</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="문제내용을 입력하세요"></textarea></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button></div>')
 			}
 		});
 		
@@ -170,13 +170,12 @@ font-family: Pretendard, 'Noto Sans KR';
 		<div class="input_fields_wrap">
 			<button id="addSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>주관식 문제 추가</button>	
 			<button id="addNonSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>객관식 문제 추가</button>	
-				<div>
-					<!-- <table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion">
+				<%-- <div>
+					<table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion">
 		     			<tr>
 		     				<td colspan="4">
 		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
-                                	<input id="quizCode" name="quizCode" value="${paper.quizCode}">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">
@@ -229,10 +228,10 @@ font-family: Pretendard, 'Noto Sans KR';
 		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
+		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="학생정답입력란"></textarea></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
+		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
 		     			</tr>
 		    		</table>
 		    		
@@ -241,7 +240,6 @@ font-family: Pretendard, 'Noto Sans KR';
 		     				<td colspan="4">
 		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
-		                            <input id="quizCode" name="quizCode" value="${paper.quizCode}">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">
@@ -257,14 +255,14 @@ font-family: Pretendard, 'Noto Sans KR';
 		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="문제 정답을 입력하세요"></input></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="정답입력란"></textarea></td>
+		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="학생정답입력란"></textarea></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="feedbackContent" id="feedbackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
+		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="피드백 입력란"></textarea></td>
 		     			</tr>
 		    		</table>
-				<button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button> -->
-				</div>
+				<button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">삭제</button>
+				</div> --%>
 		</div>
 		
 </form>			

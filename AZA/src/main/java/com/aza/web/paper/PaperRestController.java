@@ -94,6 +94,12 @@ public class PaperRestController {
 				search.setPageSize(totalCount);
 				
 				result = paperService.listPaperHomeworkByTeacher(search, userId);
+			}else {
+				totalCount = (int) paperService.listPaperHomeworkByParent(search, userId).get("totalCount");
+				search.setCurrentPage(1);
+				search.setPageSize(totalCount);
+				
+				result = paperService.listPaperHomeworkByParent(search, userId);
 			}
 			
 			return result;			

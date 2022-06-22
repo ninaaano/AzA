@@ -101,25 +101,58 @@ public class PaperServiceImpl implements PaperService {
 		
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> listPaperHomeworkByParent(Search search, String parentId) throws Exception {
+		List<Paper> list = paperDao.listPaperHomeworkByParent(search, parentId);
+		int totalCount = paperDao.getListPaperHomeworkByParentTotalCount(search, parentId);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 	@Override
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception {
 		paperDao.updatePaperHomeworkCheck(homeworkCode);
 	}
 
+//	@Override
+//	public void addPaperQuestion(Paper paper) throws Exception {
+//		paperDao.addPaperQuestion(paper);
+//	}
+	
 	@Override
-	public void addPaperQuestion(Paper paper) throws Exception {
-		paperDao.addPaperQuestion(paper);
+	public void addPaperQuestion(List<Paper> questionList) throws Exception {
+		paperDao.addPaperQuestion(questionList);
 	}
 
 	@Override
 	public Paper getPaperQuestion(int questionCode) throws Exception {
 		return paperDao.getPaperQuestion(questionCode);
 	}
+	
+//	@Override
+//	public Map<String, Object> getPaperQuestion(int quizCode) throws Exception {
+//		
+//		List<Paper> listQuestion = paperDao.getPaperQuestion(quizCode);
+//		
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("listQuestion", listQuestion);
+//		
+//		return map;
+//	}
 
+//	@Override
+//	public void updatePaperQuestion(Paper paper) throws Exception {
+//		paperDao.updatePaperQuestion(paper);
+//	}
+	
 	@Override
-	public void updatePaperQuestion(Paper paper) throws Exception {
-		paperDao.updatePaperQuestion(paper);
+	public void updatePaperQuestion(List<Paper> updateQuestionList) throws Exception {
+		paperDao.updatePaperQuestion(updateQuestionList);
 	}
 
 	@Override
@@ -130,10 +163,10 @@ public class PaperServiceImpl implements PaperService {
 	@Override
 	public Map<String, Object> listPaperQuestion(int quizCode) throws Exception {
 		
-		List<Paper> list = paperDao.listPaperQuestion(quizCode);
+		List<Paper> listQuestion = paperDao.listPaperQuestion(quizCode);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("list", list);
+		map.put("listQuestion", listQuestion);
 		
 		return map;
 	}
@@ -221,6 +254,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		return map;
 	}
+	
 
 
 	

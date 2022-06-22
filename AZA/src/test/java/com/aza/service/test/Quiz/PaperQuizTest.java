@@ -27,7 +27,7 @@ public class PaperQuizTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test // add test OK
+	//@Test // add test OK
 	void testAddQuiz() throws Exception{
 		Paper paper = new Paper();
 		paper.setLessonName("bit1 java");
@@ -111,18 +111,18 @@ public class PaperQuizTest {
 	
 	//=== ===================================================================
 	//@Test
-	public void testAddQuestion() throws Exception{
-		Paper paper = new Paper();
-		paper.setQuizCode(1001);
-		paper.setQuestionNo(3);
-		paper.setQuestionContent("123+321 =???");
-		paper.setTeacherAnswer("list Test");
-		paper.setAnswerCheck('0');
-		
-		System.out.println("==>> "+paper);
-		
-		paperService.addPaperQuestion(paper);
-	}
+//	public void testAddQuestion() throws Exception{
+//		Paper paper = new Paper();
+//		paper.setQuizCode(1001);
+//		paper.setQuestionNo(3);
+//		paper.setQuestionContent("123+321 =???");
+//		paper.setTeacherAnswer("list Test");
+//		paper.setAnswerCheck('0');
+//		
+//		System.out.println("==>> "+paper);
+//		
+//		paperService.addPaperQuestion(paper);
+//	}
 	
 	//@Test
 	public void testGetQuestion() throws Exception {

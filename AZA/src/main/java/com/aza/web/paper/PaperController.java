@@ -1,6 +1,8 @@
 package com.aza.web.paper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -74,7 +76,7 @@ public class PaperController {
 		Map<String,Object> map = new HashMap();
 		System.out.println("====>=>=>"+user.getRole());
 		
-		if(user.getRole().equals("student")) {
+		if(user.getRole().equals("student") || user.getRole().equals("parent")) {
 			map = paperService.listPaperQuizStudent(search, userId);
 		}else if(user.getRole().equals("teacher")) {
 			map = paperService.listPaperQuizTeacher(search, userId);
@@ -127,7 +129,10 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="addPaperQuiz", method=RequestMethod.POST)
-	public ModelAndView addPaperQuiz(@ModelAttribute("paper") Paper paper) throws Exception {
+	public ModelAndView addPaperQuiz(@ModelAttribute("paper") Paper paper, String questionContent, String teacherAnswer, String feedBackContent, String studentAnswer) throws Exception {
+
+		
+		List<Paper> questionList = new ArrayList<Paper>();
 		
 		System.out.println("/paper/addPaperQuiz : POST");
 		
@@ -135,7 +140,23 @@ public class PaperController {
 		
 		paperService.addPaperQuiz(paper);
 		System.out.println("===afterAddPaperQuiz"+paper);
-		paperService.addPaperQuestion(paper);
+		
+		String[] q = questionContent.split(",");
+		String[] t = teacherAnswer.split(",");
+//		String[] s = studentAnswer.split(",");
+//		String[] f = feedBackContent.split(",");
+		for(int i=0; i<q.length; i++) {
+			Paper p = new Paper();
+			p.setQuizCode(paper.getQuizCode());
+			p.setQuestionNo(i+1);
+			p.setQuestionContent(q[i]);
+			p.setTeacherAnswer(t[i]);
+//			p.setStudentAnswer(s[i]);
+//			p.setFeedBackContent(f[i]);
+			questionList.add(p);
+		}
+		System.out.println("questionList=====>>>>=============>>>>>"+questionList);
+		paperService.addPaperQuestion(questionList);
 //		paperService.addPaperChoice(paper);
 		
 		
@@ -169,17 +190,118 @@ public class PaperController {
 		System.out.println("paper/managePaperQuiz : GET");
 		
 		Paper paper = paperService.getPaperQuiz(quizCode);
-
+		
+		Map<String,Object> mapQuestion = paperService.listPaperQuestion(quizCode);
+		
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("paper/managePaperQuiz");
 		modelAndView.addObject("paper", paper);
 		modelAndView.addObject("user", dbUser);
 		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("listQuestion", mapQuestion.get("listQuestion"));
 		
 		System.out.println("===="+paper);
+		System.out.println("=============>>>>>>>>>>>>>>>>>>>>>>>>>>>"+map.get("list"));
+		System.out.println("=============>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mapQuestion.get("listQuestion"));
  
 		return modelAndView;
 
+	}
+	
+//	@RequestMapping(value="updatePaperQuiz", method=RequestMethod.POST)
+//	public ModelAndView updatePaperQuiz(@ModelAttribute("paper") Paper paper) throws Exception {
+//		
+//		System.out.println("/paper/updatePaperQuiz : POST");
+//		// Business Logic
+//		paperService.updatePaperQuiz(paper);
+//		//paperService.updatePaperQuestion(paper);
+//		//paperService.updatePaperChoice(paper);
+//		
+//		System.out.println("=========>>>>>>>>>>"+paper);
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("redirect:/paper/managePaperQuiz?quizCode="+paper.getQuizCode());
+//		
+//		return modelAndView;
+//						
+//	}
+	
+	@RequestMapping(value="updatePaperQuiz", method=RequestMethod.POST)
+	public ModelAndView updatePaperQuiz(@ModelAttribute("paper") Paper paper, String questionContent, String teacherAnswer, String feedBackContent, String studentAnswer) throws Exception {
+		
+		System.out.println("/paper/updatePaperQuiz : POST");
+		
+		List<Paper> updateQuestionList = new ArrayList<Paper>();	
+		
+		// Business Logic
+		paperService.updatePaperQuiz(paper);
+		
+		System.out.println("===afterAddPaperQuiz"+paper);
+		
+		String[] q = questionContent.split(",");
+		String[] t = teacherAnswer.split(",");
+		String[] s = null;
+		if(studentAnswer != null) {
+			s = studentAnswer.split(",");
+		}
+		String[] f = null;
+		if(feedBackContent != null) {
+			f = feedBackContent.split(",");
+		}
+		
+		for(int i=0; i<q.length; i++) {
+			Paper p = new Paper();
+			p.setQuizCode(paper.getQuizCode());
+			p.setQuestionNo(i+1);
+			p.setQuestionContent(q[i]);
+			p.setTeacherAnswer(t[i]);
+			updateQuestionList.add(p);
+		}
+		System.out.println("questionList=====>>>>=============>>>>>"+updateQuestionList);
+		
+		paperService.updatePaperQuestion(updateQuestionList);
+		
+		//paperService.updatePaperChoice(paper);
+		
+		System.out.println("=========>>>>>>>>>>"+paper);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/paper/managePaperQuiz?quizCode="+paper.getQuizCode());
+		
+		return modelAndView;
+		
+	}
+	
+//	@RequestMapping(value="updatePaperQuestion", method=RequestMethod.POST)
+//	public ModelAndView updatePaperQuestion(@ModelAttribute("paper") Paper paper) throws Exception {
+//		
+//		System.out.println("/paper/updatePaperQuestion : POST");
+//		// Business Logic
+//		paperService.updatePaperQuestion(paper);
+//		//paperService.updatePaperChoice(paper);
+//		
+//		System.out.println("=========>>>>>>>>>>"+paper);
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("redirect:/paper/managePaperQuiz?quizCode="+paper.getQuizCode());
+//		
+//		return modelAndView;
+//						
+//	}
+	
+	@RequestMapping(value="deletePaperQuiz")
+	public ModelAndView deletePaperQuiz(@RequestParam("quizCode") int quizCode, int questionCode, int choiceCode, HttpSession session) throws Exception {
+		
+		System.out.println("/deletePaperQuiz");
+		String studentId = ((User) session.getAttribute("user")).getUserId();
+		
+		paperService.deletePaperQuiz(quizCode);
+		//paperService.deletePaperQuestion(questionCode);
+		//paperService.deletePaperChoice(choiceCode);
+		
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/paper/listPaperQuiz");
+		
+		return modelAndView;
 	}
 	
 	
@@ -202,10 +324,12 @@ public class PaperController {
 		Map<String, Object> map = new HashMap();
 		System.out.println("====>=>=>"+user.getRole());
 		
-		if(user.getRole().equals("student") || user.getRole().equals("parent")) {
+		if(user.getRole().equals("student")) {
 			map = paperService.listPaperHomeworkByStudent(search, userId);
 		}else if(user.getRole().equals("teacher")) {
 			map = paperService.listPaperHomeworkByTeacher(search, userId);
+		}else {
+			map = paperService.listPaperHomeworkByParent(search, userId);
 		}
 
 		
