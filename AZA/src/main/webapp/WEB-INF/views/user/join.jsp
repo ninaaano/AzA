@@ -181,7 +181,7 @@ body>div.container {
 													<div class="form-row">
 														<div class="form-group col-md-8">
 															<input type="text" class="form-control"
-																id="certification" placeholder="인증번호를 입력해주세요" required>
+																id="certification" name="auth" placeholder="인증번호를 입력해주세요" required>
 															<div class="form-group" id="certCheck"></div>
 														</div>
 
@@ -524,6 +524,17 @@ body>div.container {
 			var pw_confirm=$("input[name='password2']").val();
 			var name=$("input[name='userName']").val();
 			var phone=$("input[name='phone']").val();
+			var auth=$("input[name='auth']").val();
+			
+			var agree = false;
+			var arr_agree = document.getElementsByName("agreecheck");
+			for(var i=2;i<arr_agree.length;i++){
+				if(arr_agree[i].checked==true){
+					agree=true;
+					break;
+				}
+			}
+
 			
 			if(id == null || id.length <1){
 				alert("아이디는 반드시 입력하셔야 합니다.");
@@ -558,7 +569,15 @@ body>div.container {
 				alert("핸드폰 인증은 필수입니다.");
 				return;
 			}
-				
+			
+			if(auth == null || auth.length <1){
+				alert("핸드폰 인증은 필수입니다.");
+				return;
+			}
+			if(!agree){
+				alert("사용자 약관에 전체 동의해주세요.");
+				return false;
+			}
 			
 			
 			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
@@ -695,6 +714,7 @@ body>div.container {
 							    selectAll.checked = true;
 							  } else {
 							    selectAll.checked = false;
+
 							  }
 							}
 						</script>

@@ -43,11 +43,11 @@
 		
 	// 수업추가 참고하기
 		//============= 회원정보수정 Event  처리 =============	
-		 $(function(){
-			 $( "button.btn.btn-primary" ).on("click" , function() {
-				self.location="/user/updateUser?userId=${user.userId}"
+		 $( function() {
+				$("button:contains('회원정보수정')").on("click" , function() {
+					self.location="/user/updateUser?userId=${user.userId}"
+				});
 			});
-		});	
 	
 	//학생 아이디 유효성 검사
 			const checkStudent = _.debounce(async (id) => {
@@ -82,6 +82,12 @@
 		});
 		
 	});
+		
+// 탈퇴
+		
+		function quit(){
+			location.href = "/user/quit";
+		}
 		
 
 	</script>
@@ -140,19 +146,6 @@
 		
 		
 		<c:if test="${user.role eq 'parent'}">
-			
-	<input type="hidden" name="relationCode" value="${user.relationCode}">
-	<input type="hidden" name="firstStudentId" value="${user.firstStudentId}">
-			
-			<select id="relationCode" name="relationCode" >
-
-				<c:forEach var="user" items="${list}">
-  
-						<optionalign="center"  value="${user.relationCode}">${user.firstStudentId}
-	
-				 </c:forEach>
-			
-			</select>
 
 			<input type="button" name="addStudentBtn" class="btn btn-primary" value="자녀추가" onclick='addStudentBtn()' />
 			
@@ -175,6 +168,11 @@
 			<hr/>
 			
 			<c:forEach var="studentsInfo" items="${studentsInfo}" varStatus="status">
+  		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>자녀 아이디</strong></div>
+			<div class="col-xs-8 col-md-4">${studentsInfo.userId}</div>
+		</div>
+  
   
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>자녀 이름</strong></div>
@@ -207,6 +205,8 @@
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-primary">회원정보수정</button>
+	  			<button type="button" class="btn btn-primary" onclick="quit()">탈퇴</button>
+	  			
 	  		</div>
 		</div>
 		

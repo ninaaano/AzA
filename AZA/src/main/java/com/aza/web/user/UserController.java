@@ -117,6 +117,7 @@ public class UserController {
 			return mv; // 
 		} else {
 			System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
+			mv.addObject("msg","nope");
 			return new ModelAndView("/login"); // 
 		}
 	
@@ -217,22 +218,25 @@ public class UserController {
 
 	}
 	
-	@RequestMapping( value="/", method=RequestMethod.POST )
-	public String deleteUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception{
+	@RequestMapping( value="quit", method=RequestMethod.POST )
+	public ModelAndView deleteUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception{
 		
-		User member = (User)session.getAttribute("User");
+		User member = (User)session.getAttribute("user");
+		ModelAndView mv = new ModelAndView();
 		
 		String dbpwd=member.getPassword();
 		String pwd=user.getPassword();
 		if(!(dbpwd.equals(pwd))) {
 			rttr.addFlashAttribute("msg", false);
-			return "redirect:/user/quit";
+			mv.setViewName("/user/quit");
+			return mv;
 		}
 		userService.deleteUser(user);
 		session.invalidate();
+		mv.setViewName("/login");
 
 		System.out.println("[Controller] => delete okok");
-		return "redirect:/";
+		return mv;
 		
 
 	}
