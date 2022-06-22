@@ -28,6 +28,7 @@ window.addEventListener('DOMContentLoaded', event => {
 					temp.push(record.quizCreateAt);
 					temp.push(record.quizSubmitDate);
 					temp.push(record.quizScore);
+					temp.push(record.quizCode);
 
 					console.log(temp);
 					
@@ -44,15 +45,27 @@ window.addEventListener('DOMContentLoaded', event => {
 						"시험 등록일",
 						"시험 제출일",
 						"시험 점수",
+						"시험 코드",
 					],					
 					"data" : quizData,
 
+				}
+				
+				var getQuizCode = function(data, type, row) {
+					var quizCode = row.lastElementChild.textContent
+                     return `<a href="/paper/managePaperQuiz?quizCode=`+quizCode+`">`+data+`</a>`;
 				}
 						
 				
 				
          new simpleDatatables.DataTable(datatablesSimpleQuizList, {
 			data,
+			columns:[
+				{
+					select: 2,
+					render: getQuizCode
+				},
+			],
 			columnDefs: [
 	            {
 	                targets: [0],

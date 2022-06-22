@@ -36,9 +36,11 @@ public interface PaperDao {
 		
 		//PaperQuestion :: SELECT
 		public Paper getPaperQuestion(int questionCode) throws Exception;
+		//public List<Paper> getPaperQuestion(int quizCode) throws Exception;
 		
 		//PaperQuestion :: UPDATE
-		public void updatePaperQuestion(Paper paper) throws Exception;
+		//public void updatePaperQuestion(Paper paper) throws Exception;
+		public void updatePaperQuestion(List<Paper> updateQuestionList) throws Exception;
 		
 		//PaperQuestion :: DELETE
 		public void deletePaperQuestion(int questionCode) throws Exception;
@@ -92,6 +94,9 @@ public interface PaperDao {
 		//PaperHomework :: LIST
 //		public List<Paper> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception;
 		public List<Paper> listPaperHomeworkByTeacher(Search search, String teacherId) throws Exception;
+		
+		//PaperHomework :: LIST
+		public List<Paper> listPaperHomeworkByParent(Search search, String parentId) throws Exception;
 	
 		//PaperHomework :: TOTAL COUNT
 //		public int getListPaperHomeworkByStudentTotalCount(Search search, String lessonCode, String studentId) throws Exception;
@@ -100,6 +105,9 @@ public interface PaperDao {
 		//PaperHomework :: TOTAL COUNT
 //		public int getListPaperHomeworkByTeacherTotalCount(Search search, String studentId) throws Exception;
 		public int getListPaperHomeworkByTeacherTotalCount(Search search, String teacherId) throws Exception;
+		
+		//PaperHomework :: TOTAL COUNT
+		public int getListPaperHomeworkByParentTotalCount(Search search, String parentId) throws Exception;
 		
 		//PaperHomeworkCheck :: UPDATE
 		public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;

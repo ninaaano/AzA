@@ -126,7 +126,11 @@ font-family: Pretendard, 'Noto Sans KR';
 		}
 		
 		function cancelBtn() {
-			history.go(-1);
+			if(${user.role eq 'teacher'}){
+				history.go(-1);				
+			}else{
+				self.location = "/paper/listPaperHomework"
+			}
 		}
 		
 		$(document).ready(function(){

@@ -176,7 +176,6 @@ font-family: Pretendard, 'Noto Sans KR';
 		     				<td colspan="4">
 		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
-                                	<input id="quizCode" name="quizCode" value="${paper.quizCode}">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">
@@ -241,7 +240,6 @@ font-family: Pretendard, 'Noto Sans KR';
 		     				<td colspan="4">
 		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="문제번호" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
-		                            <input id="quizCode" name="quizCode" value="${paper.quizCode}">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">

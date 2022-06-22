@@ -37,8 +37,8 @@
 		INSERT INTO question(question_code, quiz_code, question_no, question_content, teacher_answer, student_answer, feedback_content, answer_check)
 		SELECT seq_question_question_code.NEXTVAL, A.* FROM(
 		<foreach collection="list" item="paper" separator="UNION ALL">
-			SELECT #{paper.questionNo:INTEGER} as question_no,
-			#{paper.quizCode:INTEGER} as quiz_code,
+			SELECT #{paper.quizCode:INTEGER} as quiz_code,
+			#{paper.questionNo:INTEGER} as question_no,
 			#{paper.questionContent:VARCHAR} as question_content,
 			#{paper.teacherAnswer:VARCHAR} as teacher_answer,
 			#{paper.studentAnswer:VARCHAR} as student_answer,
@@ -63,7 +63,7 @@
 	</select>
 	
 	<!-- PaperQuestion :: UPDATE -->
-	<update id="updatePaperQuestion" parameterType="paper">
+<!-- 	<update id="updatePaperQuestion" parameterType="paper">
 		UPDATE question
 		<set>
 			question_content = #{questionContent},
@@ -74,6 +74,20 @@
 		</set>
 		WHERE question_code = #{questionCode}
 		
+	</update> -->
+	
+	<update id="updatePaperQuestion">
+		<foreach collection="list" item="paper">
+			UPDATE question
+			<set>
+				question_content = #{questionContent},
+				teacher_answer = #{teacherAnswer},
+				student_answer = #{studentAnswer},
+				answer_check = #{answerCheck},
+				feedback_content = #{feedBackContent}
+			</set>
+			WHERE question_code = #{questionCode}
+		</foreach>	
 	</update>
 	
 	<!-- PaperQuestion :: DELETE -->

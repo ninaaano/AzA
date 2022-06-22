@@ -81,6 +81,16 @@ font-family: Pretendard, 'Noto Sans KR';
 	})
 }); */
 
+window.onload = function () { 
+	
+	if(${user.role eq 'teacher'}){
+		//$("#addBtn").show();
+	}else{
+		$("#addBtn").hide();
+	}
+
+}
+
 $(function(){
 	$("td:nth-child(3)").on("click", function() {
  		//alert($(this).attr('homeworkCode'));

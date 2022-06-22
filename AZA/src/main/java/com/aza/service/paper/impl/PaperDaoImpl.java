@@ -109,6 +109,13 @@ public class PaperDaoImpl implements PaperDao {
 		
 		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByTeacher", search);
 	}
+	
+	@Override
+	public List<Paper> listPaperHomeworkByParent(Search search, String parentId) throws Exception {
+		
+		search.setSearchId(parentId);
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByParent", search);
+	}
 
 	@Override
 	public int getListPaperHomeworkByStudentTotalCount(Search search, String studentId) throws Exception {
@@ -124,6 +131,14 @@ public class PaperDaoImpl implements PaperDao {
 		search.setSearchId(teacherId);
 		
 		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByTeacherTotalCount", search);
+	}
+	
+	@Override
+	public int getListPaperHomeworkByParentTotalCount(Search search, String parentId) throws Exception {
+		
+		search.setSearchId(parentId);
+		
+		return sqlSession.selectOne("HomeworkMapper.getListPaperHomeworkByParentTotalCount", search); 
 	}
 
 
@@ -141,10 +156,20 @@ public class PaperDaoImpl implements PaperDao {
 	public Paper getPaperQuestion(int questionCode) throws Exception {
 		return sqlSession.selectOne("QuestionMapper.getPaperQuestion",questionCode);
 	}
+	
+//	@Override
+//	public List<Paper> getPaperQuestion(int quizCode) throws Exception {
+//		return sqlSession.selectList("QuestionMapper.getPaperQuestion", quizCode);
+//	}
 
+//	@Override
+//	public void updatePaperQuestion(Paper paper) throws Exception {
+//		sqlSession.update("QuestionMapper.updatePaperQuestion",paper);
+//	}
+	
 	@Override
-	public void updatePaperQuestion(Paper paper) throws Exception {
-		sqlSession.update("QuestionMapper.updatePaperQuestion",paper);
+	public void updatePaperQuestion(List<Paper> updateQuestionList) throws Exception {
+		sqlSession.update("QuestionMapper.updatePaperQuestion", updateQuestionList);
 	}
 
 	@Override

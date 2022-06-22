@@ -259,5 +259,26 @@
 				ORDER BY h.homework_create_at desc ) countTable	
 	</select>
 	
+	<select id="listPaperHomeworkByParent" parameterType="search" resultMap="homeworkSelectMap"> 
+		SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM (	SELECT h.student_id, h.student_name, h.lesson_code, h.lesson_name, h.homework_title,
+							h.homework_contents, h.homework_due_date, h.homework_check, h.homework_create_at, h.homework_code
+						FROM relation r, students_record sr, homework h
+						WHERE h.student_id = sr.student_id AND r.student_id = sr.student_id AND r.parent_id = #{searchId}
+						ORDER BY h.homework_create_at desc ) inner_table
+					WHERE ROWNUM &lt;= #{endRowNum}
+				)			
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+
+	<select id="getListPaperHomeworkByParentTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM (  SELECT h.student_id, h.student_name, h.lesson_code, h.lesson_name, h.homework_title,
+						h.homework_contents, h.homework_due_date, h.homework_check, h.homework_create_at, h.homework_code
+						FROM relation r, students_record sr, homework h
+						WHERE h.student_id = sr.student_id AND r.student_id = sr.student_id AND r.parent_id = #{searchId}
+						ORDER BY h.homework_create_at desc ) countTable	
+	</select>	
 
 </mapper>
