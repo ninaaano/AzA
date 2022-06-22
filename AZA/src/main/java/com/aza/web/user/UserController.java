@@ -185,6 +185,7 @@ public class UserController {
 		}	
 		
 		model.addObject("user", user);
+		model.setViewName("/user/getUser");
 		
 		return model;
 	}

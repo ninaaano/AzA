@@ -1,18 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"
-    pageEncoding="euc-kr"%>
+<%@ page language="java" contentType="text/html;"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="euc-kr">
-	<title>°­ÀÇ³ëÆ®</title>
+	<meta charset="utf-8">
+	<title>ê°•ì˜ë…¸íŠ¸</title>
 
-	<!-- ³×ÀÌ¹ö ½º¸¶Æ®¿¡µğÅÍ  -->
-	<!-- <head> ¾È¿¡ Ãß°¡ -->
+	<!-- ë„¤ì´ë²„ ìŠ¤ë§ˆíŠ¸ì—ë””í„°  -->
+	<!-- <head> ì•ˆì— ì¶”ê°€ -->
 	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- 2.10.0 ¹öÀü¿£ js ÆÄÀÏ ÀÏºÎºĞÀÌ ¾ø¾î ¿À·ù ¹ß»ı ! -->
+	<!-- 2.10.0 ë²„ì „ì—” js íŒŒì¼ ì¼ë¶€ë¶„ì´ ì—†ì–´ ì˜¤ë¥˜ ë°œìƒ ! -->
 	
-	<!-- head ¾È¿¡ Ãß°¡ -->
+	<!-- head ì•ˆì— ì¶”ê°€ -->
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport"
@@ -76,21 +76,21 @@
 	
 /* 	function save(){
 		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//½º¸¶Æ® ¿¡µğÅÍ °ªÀ» ÅØ½ºÆ®ÄÁÅÙÃ÷·Î Àü´Ş
+	    		//ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ê°’ì„ í…ìŠ¤íŠ¸ì»¨í…ì¸ ë¡œ ì „ë‹¬
 		var content = document.getElementById("smartEditor").value;
 		alert(document.getElementById("txtContent").value); 
-	    		// °ªÀ» ºÒ·¯¿Ã ¶© document.getÀ¸·Î ¹Ş¾Æ¿À±â
+	    		// ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë• document.getìœ¼ë¡œ ë°›ì•„ì˜¤ê¸°
 		return; 
 	} */
 
     function submitPost() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
-		  //½º¸¶Æ® ¿¡µğÅÍ °ªÀ» ÅØ½ºÆ®ÄÁÅÙÃ÷·Î Àü´Ş
+		  //ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ê°’ì„ í…ìŠ¤íŠ¸ì»¨í…ì¸ ë¡œ ì „ë‹¬
 		  let content = document.getElementById("noteContent").value
 		  let noteTitle = document.getElementById("noteTitle").value
-		  // °ªÀ» ºÒ·¯¿Ã ¶© document.getÀ¸·Î ¹Ş¾Æ¿À±â
+		  // ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë• document.getìœ¼ë¡œ ë°›ì•„ì˜¤ê¸°
 		  if(content == '' || noteTitle == '') {
-		    alert("Á¦¸ñ°ú ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+		    alert("ì œëª©ê³¼ ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 		    oEditors.getById["noteContent"].exec("FOCUS")
 		    return
 		  } else {
@@ -106,7 +106,7 @@
 	
 	$(function() {
 		
-		$( "button.btn.btn-outline-primary:contains('Ãë¼Ò')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('ì·¨ì†Œ')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
@@ -122,12 +122,12 @@
 	<form name="noteForm" action="addStudentsNote" method="post">
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
 		<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-	        <h1 class="display-4 mb-0">³ë Æ® ÀÛ ¼º</h1>
+	        <h1 class="display-4 mb-0">ë…¸ íŠ¸ ì‘ ì„±</h1>
 	        <div class="text-muted">New Note</div>
 	   	</div>
 	      <div id="smarteditor" style="margin: 30px 30px 30px 30px">
     	 	<div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">Á¦ ¸ñ</button>
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ì œ ëª©</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 	             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
         	</div>
@@ -136,13 +136,13 @@
 
 	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
-	                  placeholder="³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä"
+	                  placeholder="ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"
 	                  style="width: 100%"></textarea>
 	      </div>
 	      
 	      <div align="center">			
- 	      	  <input type="button" onclick="submitPost();" value="ÀÛ¼º" class="btn btn-outline-primary"/>
-			  <button id="CalcelBtn" type="button" class="btn btn-outline-primary">Ãë¼Ò</button>
+ 	      	  <input type="button" onclick="submitPost();" value="ì‘ì„±" class="btn btn-outline-primary"/>
+			  <button id="CalcelBtn" type="button" class="btn btn-outline-primary">ì·¨ì†Œ</button>
 		  </div>
 	  </div>
     </form>
@@ -154,8 +154,8 @@
 	      console.log("Naver SmartEditor")
 	      nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: oEditors,
-	        elPlaceHolder: "noteContent",	//textarea ID ÀÔ·Â
-	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html °æ·Î ÀÔ·Â
+	        elPlaceHolder: "noteContent",	//textarea ID ì…ë ¥
+	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html ê²½ë¡œ ì…ë ¥
 	        fCreator: "createSEditor2"
 	      
 	      })

@@ -47,7 +47,7 @@ function hasSearchStudentId() {
 	}	
 }
 
-var varFlag = true;
+var valFlag = true;
 
 $(function() {
 	$("#addExamFormHandler").on("click", function() {

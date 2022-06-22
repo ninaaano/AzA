@@ -67,27 +67,31 @@ public class ScheduleController {
 		search.setPageSize(pageSize);;
 		String userRole = ((User)session.getAttribute("user")).getRole();
 		
-		if(userRole.equals("teacher")) {
-			ModelAndView model = new ModelAndView();
-			model.setViewName("/schedule/manageLessonSchedule");
-			return model;
-		} else {
-			
-			String studentId = ((User)session.getAttribute("user")).getUserId();
-			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
-			System.out.println("===============");
-			System.out.println(map);
-			System.out.println("===============");
-			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
-			
-			ModelAndView model = new ModelAndView();
-			model.setViewName("/schedule/manageLessonSchedule");
-			model.addObject("list",map.get("list"));
-			model.addObject("resultPage",resultPage);
-			model.addObject("search",search);
-			
-			return model;
-		}	 
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/schedule/manageLessonSchedule");
+		return model;
+		
+//		if(userRole.equals("teacher")) {
+//			ModelAndView model = new ModelAndView();
+//			model.setViewName("/schedule/manageLessonSchedule");
+//			return model;
+//		} else {
+//			
+//			String studentId = ((User)session.getAttribute("user")).getUserId();
+//			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
+//			System.out.println("===============");
+//			System.out.println(map);
+//			System.out.println("===============");
+//			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+//			
+//			ModelAndView model = new ModelAndView();
+//			model.setViewName("/schedule/manageLessonSchedule");
+//			model.addObject("list",map.get("list"));
+//			model.addObject("resultPage",resultPage);
+//			model.addObject("search",search);
+//			
+//			return model;
+//		}	 
 	}
 	
 	
