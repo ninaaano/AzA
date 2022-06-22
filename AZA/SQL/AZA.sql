@@ -49,6 +49,9 @@ INSERT
 INTO BOOK 
 VALUES('99','援�媛�濡�','�뿬湲�','20000','�뵆�씪�넠','2010/03/01','IMG');
 
+insert
+INTO BOOK
+VALUES('11',',TEST1','TEST','TEST','TEST','TEST','TEST');
 
 -- test lesson delete and book --
 

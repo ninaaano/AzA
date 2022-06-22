@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
+    <meta charset="UTF-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>addLessonView</title>
@@ -11,29 +11,31 @@
 	<script type="text/javascript">
 		function fncAddLesson(){
 			var lessonName = $("input[name='lessonName']").val();
-			var lessonDay = $("input[name='lessonDay']").val();
 			var lessonPlace = $("input[name='lessonPlace']").val();
 			var fees = $("input[name='fees']").val();
 			var subject = $("input[name='subject']").val();
 			
+			var start_time = $("#lessonStartTime").val();
+			var end_time = $("#lessonEndTime").val();
+			
 			if(lessonName == null || lessonName.length <1){
-				alert("¼ö¾÷¸íÀº ÇÊ¼ö ÀÔ·Â»çÇ×ÀÔ´Ï´Ù..");
+				alert("ê°•ì˜ëª…ì€ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
+				
 				return;
 			}
-			if(lessonDay == null || lessonDay.length <1){
-				alert("¼ö¾÷¿äÀÏÀº ÇÊ¼öÀÔ·Â»çÇ×ÀÔ´Ï´Ù..");
-				return;
+			if(new Date(end_time) - new Date(start_date)<0){
+				alert("ì¢…ë£Œì‹œê°„ì´ ì‹œì‘ì‹œê°„ë³´ë‹¤ ë¨¼ì €ì…ë‹ˆë‹¤.");
 			}
 			if(lessonPlace == null || lessonPlace.length <1){
-				alert("¼ö¾÷Àå¼Ò´Â ÇÊ¼öÀÔ·Â»çÇ×ÀÔ´Ï´Ù..");
+				alert("ìˆ˜ì—…ì¥ì†ŒëŠ” ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(fees ==null || fees.length <1){
-				alert("¼ö¾÷·á´Â ÇÊ¼öÀÔ·Â»çÇ×ÀÔ´Ï´Ù..");
+				alert("ìˆ˜ì—…ë£ŒëŠ” ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(subject ==null || subject.length <1){
-				alert("°­ÀÇ¸íÀº ÇÊ¼öÀÔ·Â»çÇ×ÀÔ´Ï´Ù..");
+				alert("ìˆ˜ì—…ëª…ì€ ì…ë ¥í•´ì•¼í•©ë‹ˆë‹¤.");
 				return;
 			}
 			$("form").attr("method","POST").attr("action","/lesson/addLesson").submit();
@@ -54,63 +56,73 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="bg-primary text-center">¼ö¾÷µî·Ï</h1>
+        <h1 class="bg-primary text-center">ìˆ˜ì—…ì¶”ê°€</h1>
         
         <!-- form start/// -->
     <form class="form-horizontal">
        <div class="form-group">
-         <label for="lessonName" class="col-sm-2 control-label">¼ö¾÷¸í</label>
+         <label for="lessonName" class="col-sm-2 control-label">ê°•ì˜ëª…</label>
          <div class="col-sm-10">
-           <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="¼ö¾÷¸í">
+           <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="ê°•ì˜ëª…">
+         </div>
+         <span class="error_next_box" id="idMsg" style="color:red" aria-live="assertive">í•„ìˆ˜ ì •ë³´ì…ë‹ˆë‹¤.</span>
+       </div>
+       <div class="form-group">
+         <label for="lessonDay" class="col-sm-2 control-label">ìˆ˜ì—…ìš”ì¼</label>
+         <div class="col-sm-10">
+           <!-- <input type="text" class="form-control" id="lessonDay" name="lessonDay" placeholder="ìˆ˜ì—…ìš”ì¼"> -->
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="ì¼"/>ì¼
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="ì›”"/>ì›”
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="í™”"/>í™”
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="ìˆ˜"/>ìˆ˜
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="ëª©"/>ëª©
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="ê¸ˆ"/>ê¸ˆ
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="í† "/>í† 
+           <input type="hidden" class="form-control" id="hiddenValue" name="hiddenValue" value=""/>
          </div>
        </div>
        <div class="form-group">
-         <label for="lessonDay" class="col-sm-2 control-label">¼ö¾÷¿äÀÏ</label>
-         <div class="col-sm-10">
-           <input type="text" class="form-control" id="lessonDay" name="lessonDay" placeholder="¼ö¾÷¿äÀÏ">
-         </div>
-       </div>
-       <div class="form-group">
-        <label for="lessonStartTime" class="col-sm-2 control-label">¼ö¾÷½ÃÀÛ½Ã°£</label>
+        <label for="lessonStartTime" class="col-sm-2 control-label">ìˆ˜ì—…ì‹œì‘ì‹œê°„</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="¼ö¾÷½ÃÀÛ½Ã°£">
+          <!-- <input type="text" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="ìˆ˜ì—…ì‹œì‘ì‹œê°„"> -->
+          <input type="time" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="ìˆ˜ì—…ì‹œì‘ì‹œê°„">
         </div>
       </div>
       <div class="form-group">
-        <label for="lessonEndTime" class="col-sm-2 control-label">¼ö¾÷Á¾·á½Ã°£</label>
+        <label for="lessonEndTime" class="col-sm-2 control-label">ìˆ˜ì—…ì¢…ë£Œì‹œê°„</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="¼ö¾÷Á¾·á½Ã°£">
+          <input type="time" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="ìˆ˜ì—…ì¢…ë£Œì‹œê°„">
         </div>
        </div>
         <div class="form-group">
-            <label for="lessonPlace" class="col-sm-2 control-label">¼ö¾÷Àå¼Ò</label>
+            <label for="lessonPlace" class="col-sm-2 control-label">ìˆ˜ì—…ì¥ì†Œ</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="¼ö¾÷Àå¼Ò">
+              <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="ìˆ˜ì—…ì¥ì†Œ">
         </div>
         </div>
         <div class="form-group">
-            <label for="fees" class="col-sm-2 control-label">¼ö¾÷·á</label>
+            <label for="fees" class="col-sm-2 control-label">ìˆ˜ì—…ë£Œ</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="fees" name="fees" placeholder="¼ö¾÷·á">
+              <input type="text" class="form-control" id="fees" name="fees" placeholder="ìˆ˜ì—…ë£Œ">
         	</div>
         </div>
         <div class="form-group">
-            <label for="subject" class="col-sm-2 control-label">°­ÀÇ¸í</label>
+            <label for="subject" class="col-sm-2 control-label">ìˆ˜ì—…ëª…</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="subject" name="subject" placeholder="°­ÀÇ¸í">
+              <input type="text" class="form-control" id="subject" name="subject" placeholder="ìˆ˜ì—…ëª…">
         </div>
         </div>
         <div class="form-group">
-            <label for="lessonContent" class="col-sm-2 control-label">Ä¿¸®Å§·³</label>
+            <label for="lessonContent" class="col-sm-2 control-label">ì»¤ë¦¬í˜ëŸ¼</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="Ä¿¸®Å§·³">
+              <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="ì»¤ë¦¬í˜ëŸ¼">
         </div>
         </div>
 
        <div class="form-group">
 	         <div class="col-sm-offset-4  col-sm-4 text-center">
-	           <button type="button" class="btn btn-primary" >Àú&nbsp;Àå</button>
-	           <a class="btn btn-primary btn" href="#" role="button">Ãë&nbsp;¼Ò</a>
+	           <button type="button" class="btn btn-primary" >ì €&nbsp;ì¥</button>
+	           <a class="btn btn-primary btn" href="#" role="button">ì·¨&nbsp;ì†Œ</a>
 	         </div>
        </div>
        

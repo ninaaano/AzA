@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="EUC-KR" ?>
 
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -83,8 +83,13 @@
 		WHERE lesson_code = #{lessonCode}
 	</update>
 	
+	<delete id = "lessonDeleteLessonBook">
+		DELETE FROM lesson_book
+		WHERE lesson_code = #{lessonCode}
+	</delete>
+	
 	<delete id = "deleteLesson">
-		DELETE FROM lesson
+		DELETE FROM lesson 
 		WHERE lesson_code = #{lessonCode}
 	</delete>
 	
@@ -120,7 +125,7 @@
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
 
-<!-- ì„ ìƒë‹˜ ì•„ì´ë”” í•„ìš”í•´ì„œ ë„£ì—ˆì–´ìš”~~ -->
+<!-- ¼±»ý´Ô ¾ÆÀÌµð ÇÊ¿äÇØ¼­ ³Ö¾ú¾î¿ä~~ -->
 	<select id = "listLessonStuents" resultMap="lessonSelectMap">			
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
@@ -131,6 +136,9 @@
 				<if test='searchCondition !=null'>
 					<if test="searchCondition == 3 and searchKeyword!=''">
 						AND L.lesson_name like '%${searchKeyword}%'
+					</if>
+					<if test="searchCondition == 5 and searchKeyword!=''">
+						AND U.user_name like '%${searchKeyword}%'
 					</if>
 				</if>
 				ORDER BY L.lesson_create_at desc)inner_table
@@ -158,7 +166,10 @@
 				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}
 	 		<if test="searchCondition != null">
 					<if test="searchCondition == 3 and searchKeyword !='' ">
-	 					AND lesson_name like '%${searchKeyword}%'
+	 					AND L.lesson_name like '%${searchKeyword}%'
+	 				</if>
+	 				<if test="searchCondition == 5 and searchKeyword !='' ">
+	 					AND U.user_name like '%${searchKeyword}%'
 	 				</if>
 	 		</if> ) countTable
 	 </select>
@@ -170,6 +181,14 @@
 				(SELECT lesson_code FROM LESSON WHERE lesson_code = #{lessonCode}),#{isbn})
 		SELECT*FROM DUAL
 	</insert>
+	
+	<!-- conroller ¿¡¼­ °ª ¹è±³ÇØ¼­ db¿¡ ÀÖÀ¸¸é lessonCode¿¡¸¸ ÀúÀåÇÏÀÚ -->
+	<insert id = "addSameLessonBook">
+		INSERT
+		INTO LESSON_BOOK
+		VALUES (SEQ_LESSON_BOOK_BOOK_CODE.nextVal,(SELECT lesson_vode FROM LESSON WHERE lesson_code = #{lessonCode}),#{isbn})
+	</insert>
+	
 	
 	<select id = "listLessonBook" resultMap ="lessonBookSelectMap">
 		select *

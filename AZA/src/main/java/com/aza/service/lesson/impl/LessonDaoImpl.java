@@ -63,8 +63,9 @@ public class LessonDaoImpl implements LessonDao {
 	@Override
 	public void deleteLesson(String lessonCode) throws Exception {
 		// TODO Auto-generated method stub
+		sqlSessionTemplate.delete("LessonMapper.lessonDeleteLessonBook", lessonCode);
 		sqlSessionTemplate.delete("LessonMapper.deleteLesson", lessonCode);
-//		sqlSessionTemplate.delete("BookMapper.deleteLessonBook", isbn);
+		
 	}
 
 	@Override

@@ -61,6 +61,12 @@ public class LessonController {
 	@RequestMapping(value="addLesson", method=RequestMethod.POST)
 	public ModelAndView addLesson(@ModelAttribute("lesson") Lesson lesson, HttpSession session) throws Exception{
 		ModelAndView model = new ModelAndView();
+	
+		String day = lesson.getLessonDay();
+		String[] splitDay = day.split(",");
+		String lessonDay = String.join("", splitDay);
+		
+		lesson.setLessonDay(lessonDay);		
 		String teacherId = ((User)session.getAttribute("user")).getUserId();
 		
 		lesson.setTeacherId(teacherId);
@@ -146,10 +152,8 @@ public class LessonController {
 	@RequestMapping(value="deleteLesson")
 	public ModelAndView deleteLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
 		ModelAndView model = new ModelAndView();
-		System.out.println("===========");
-		System.out.println("deleteLesson Ω√¿€");
-		System.out.println("===========");
 		lessonService.deleteLesson(lessonCode);
+		
 		model.setViewName("redirect:/lesson/listLesson");
 		return model;
 	}

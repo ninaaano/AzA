@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>¼ö¾÷ ¼öÁ¤</title>
-<meta charset="EUC-KR">
+<title>ìˆ˜ì—… ìˆ˜ì •</title>
+<meta charset="UTF-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -30,75 +30,76 @@
 <body>
 	<div class="container">
 		<div class="page-header text-center">
-			<h3 class="text-info">¼ö¾÷ ¼öÁ¤</h3>
+			<h3 class="text-info">ìˆ˜ì—… ìˆ˜ì •</h3>
 		</div>
-	<form class="form-horizontal" accept-charset="euc-kr">
+		<!-- accept-charset="utf-8" -->
+	<form class="form-horizontal">
 	<input type="hidden" name="lessonName" value="${lesson.lessonName}" />
 	  <div class="form-group">
-	    <label for="lessonName" class="col-sm-offset-1 col-sm-3 control-label">°­ÀÇ¸í</label>
+	    <label for="lessonName" class="col-sm-offset-1 col-sm-3 control-label">ê°•ì˜ëª…</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="°­ÀÇ¸í" value="${lesson.lessonName}">
+	      <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="ê°•ì˜ëª…" value="${lesson.lessonName}">
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lessonDay" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷½ºÄÉÁì</label>
+	    <label for="lessonDay" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—… ìŠ¤ì¼€ì¥´</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonDay" name="lessonDay" placeholder="¼ö¾÷½ºÄÉÁì" value="${lesson.lessonDay}">	    
+	      <input type="text" class="form-control" id="lessonDay" name="lessonDay" placeholder="ìˆ˜ì—… ìŠ¤ì¼€ì¥´" value="${lesson.lessonDay}">	    
 	     </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lessonStartTime" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷ ½ÃÀÛ½Ã°£</label>
+	    <label for="lessonStartTime" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—… ì‹œìž‘ ì‹œê°„</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="¼ö¾÷½ÃÀÛ½Ã°£" value="${lesson.lessonStartTime}">	    
+	      <input type="text" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="ìˆ˜ì—… ì‹œìž‘ ì‹œê°„" value="${lesson.lessonStartTime}">	    
 	     </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lessonEndTime" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷ Á¾·á½Ã°£</label>
+	    <label for="lessonEndTime" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—… ì¢…ë£Œ ì‹œê°„</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="¼ö¾÷Á¾·á½Ã°£" value="${lesson.lessonStartTime}">	    
+	      <input type="text" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="ìˆ˜ì—… ì¢…ë£Œ ì‹œê°„" value="${lesson.lessonStartTime}">	    
 	     </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lessonPlace" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷ Àå¼Ò</label>
+	    <label for="lessonPlace" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—…ìž¥ì†Œ</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="¼ö¾÷Àå¼Ò" value="${lesson.lessonPlace}">	    
+	      <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="ìˆ˜ì—…ìž¥ì†Œ" value="${lesson.lessonPlace}">	    
 	     </div>
 	  </div>	  
 	  <div class="form-group">
-	    <label for="lessonCreateAt" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷ ½ÃÀÛÀÏ</label>
+	    <label for="lessonCreateAt" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—… ì‹œìž‘ì¼</label>
 	    <div class="col-sm-5">
 	    <div align="left">${lesson.lessonCreateAt}</div>  
 	     </div>
 	  </div>	
 	  <div class="form-group">
-	    <label for="subject" class="col-sm-offset-1 col-sm-3 control-label">°ú¸ñ¸í</label>
+	    <label for="subject" class="col-sm-offset-1 col-sm-3 control-label">ê³¼ëª©ëª…</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="subject" name="subject" placeholder="°ú¸ñ¸í" value="${lesson.subject}">	    
+	      <input type="text" class="form-control" id="subject" name="subject" placeholder="ê³¼ëª©ëª…" value="${lesson.subject}">	    
 	     </div>
 	  </div>	
 	  <div class="form-group">
-	    <label for="lessonCode" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷ÄÚµå</label>
+	    <label for="lessonCode" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—…ì½”ë“œ</label>
 	    <div class="col-sm-5">
-	     	<input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="¼ö¾÷ÄÚµå" value="${lesson.lessonCode}" readonly/>
+	     	<input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="ìˆ˜ì—…ì½”ë“œ" value="${lesson.lessonCode}" readonly/>
 	     </div>
 	  </div>	  
 	  <div class="form-group">
-	    <label for="fees" class="col-sm-offset-1 col-sm-3 control-label">¼ö¾÷·á</label>
+	    <label for="fees" class="col-sm-offset-1 col-sm-3 control-label">ìˆ˜ì—…ë£Œ</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="fees" name="fees" placeholder="¼ö¾÷·á" value="${lesson.fees}">	    
+	      <input type="text" class="form-control" id="fees" name="fees" placeholder="ìˆ˜ì—…ë£Œ" value="${lesson.fees}">	    
 	     </div>
 	  </div>	
 	  <div class="form-group">
-	    <label for="lessonContent" class="col-sm-offset-1 col-sm-3 control-label">Ä¿¸®Å§·³</label>
+	    <label for="lessonContent" class="col-sm-offset-1 col-sm-3 control-label">ì»¤ë¦¬í˜ëŸ¼</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="Ä¿¸®Å§·³" value="${lesson.lessonContent}">	    
+	      <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="ì»¤ë¦¬í˜ëŸ¼" value="${lesson.lessonContent}">	    
 	     </div>
 	  </div>
 	  
 	  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">¼ö &nbsp;Á¤</button>
-			  <a class="btn btn-primary btn" href="#" role="button">Ãë &nbsp;¼Ò</a>
+		      <button type="button" class="btn btn-primary">ìˆ˜&nbsp;ì • </button>
+			  <a class="btn btn-primary btn" href="#" role="button">ì·¨ &nbsp;ì†Œ</a>
 		    </div>
 	  </div>
 		  
