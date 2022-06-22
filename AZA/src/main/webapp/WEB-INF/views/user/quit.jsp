@@ -30,11 +30,7 @@
 	</div>
 	</form>
 	
-		<div>
-			<c:if test="${msg == false}">
-				비밀번호가 맞지 않습니다.
-			</c:if>
-		</div>
+	
 
 	
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -51,7 +47,7 @@ function deleteUser() {
 			return false;
 		}	
 
-	$("form").attr("method" , "POST").attr("action" , "/quit").submit();
+	$("form").attr("method" , "POST").attr("action" , "/").submit();
 };
 
 // 수정하고 쓸거임

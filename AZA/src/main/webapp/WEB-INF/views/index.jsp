@@ -442,7 +442,7 @@ $(function() {
 						<ul class="dropdown-menu dropdown-menu-end mt-3"
 							aria-labelledby="dropdownMenuProfile">
 							<li><a class="dropdown-item" href="#!"> <i
-									class="material-icons leading-icon">person</i>
+									class="material-icons leading-icon" href="/user/getUser">person</i>
 									<div class="me-3">Profile</div>
 							</a></li>
 							<li><a class="dropdown-item" href="#!"> <i

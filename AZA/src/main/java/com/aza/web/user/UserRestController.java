@@ -1,5 +1,7 @@
 package com.aza.web.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -118,6 +120,36 @@ public class UserRestController {
 		}
 		
 		
+		@RequestMapping("getUser")
+		public User getUser (@PathVariable String userId,HttpSession session) throws Exception {
+			
+			User dbUser = (User) session.getAttribute("user");
+			User user = userService.getUser(userId);
+
+			if(user.getRole().equals("parent")) {
+				
+				String parentId = dbUser.getUserId();
+				String studentId = dbUser.getUserId();
+				Search search = new Search();
+				search.setCurrentPage(1);
+				search.setPageSize(30);
+				List<User> studentList = (List)userService.listRelationByParent(search, parentId).get("list");
+				
+				for(User student : studentList) {
+					User parentInfo = userService.getUser(student.getUserId());
+					parentInfo.setRelationName(student.getRelationName());
+					parentInfo.setFirstStudentId(studentId);
+					String userName = dbUser.getUserName();
+					parentInfo.setUserName(userName);
+					
+					System.out.println(studentList);
+					System.out.println(parentInfo);
+					
+				}
+			}
+			return userService.getUser(userId);
+		}
+		
 		@RequestMapping(value = "getUser/{userId}", method = RequestMethod.GET)
 		public User getUser (@PathVariable String userId) throws Exception {
 			
@@ -167,6 +199,12 @@ public class UserRestController {
 //		userService.deleteUser(user);
 //					return user;
 //		}
+		
+		@RequestMapping(value="/addRelation", method=RequestMethod.POST)
+		public User addRelation(@ModelAttribute User user) throws Exception {
+			userService.addRelation(user);
+			return user;
+		}
 
 		@RequestMapping(value = "/deleteRelation/{relationCode}",method = RequestMethod.POST)
 		public User deleteRelation(@ModelAttribute User user, @PathVariable int relationCode) throws Exception {
