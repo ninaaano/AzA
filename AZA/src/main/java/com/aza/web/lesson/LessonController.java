@@ -98,7 +98,7 @@ public class LessonController {
 			model.addObject("search",search);
 		
 			return model;
-		} else {
+		} else if(role.equals("student")){
 			String userId = ((User) session.getAttribute("user")).getUserId();
 			Map<String, Object> map = lessonService.listLessonStudent(search, userId);
 			
@@ -110,6 +110,19 @@ public class LessonController {
 			model.addObject("resultPage",resultPage);
 			model.addObject("search",search);
 		
+			return model;
+		} else {
+			String userId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonParent(search,userId);
+			
+			Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/listLesson");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			
 			return model;
 		}
 	}
@@ -133,6 +146,8 @@ public class LessonController {
 	public ModelAndView updateLessonView(@RequestParam("lessonCode") String lessonCode) throws Exception {
 		ModelAndView model = new ModelAndView();
 		Lesson lesson = lessonService.getLesson(lessonCode);
+		String day = lesson.getLessonDay();
+		
 		
 		model.addObject("lesson",lesson);
 		model.setViewName("/lesson/updateLessonView");
@@ -143,6 +158,13 @@ public class LessonController {
 	@RequestMapping(value="udpateLesson", method=RequestMethod.POST)
 	public ModelAndView updateLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
 		ModelAndView model = new ModelAndView();
+		
+		String day = lesson.getLessonDay();
+		String[] splitDay = day.split(",");
+		String lessonDay = String.join("", splitDay);
+		
+		lesson.setLessonDay(lessonDay);		
+		
 		lessonService.updateLesson(lesson);
 		model.setViewName("redirect:/lesson/getLesson?lessonCode="+lesson.getLessonCode());
 		return model;
@@ -193,7 +215,7 @@ public class LessonController {
 			System.out.println(model);
 
 			return model;
-		}else {
+		} else if(role.equals("student")) {
 			String userId = ((User) session.getAttribute("user")).getUserId();
 			Map<String, Object> map = lessonService.listLessonBookStudetns(search, userId);
 			
@@ -208,6 +230,23 @@ public class LessonController {
 			System.out.println(model);
 			
 			return model;
+		} else {
+			String userId = ((User) session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonBookParent(search, userId);
+			System.out.println(map);
+			System.out.println("==============");
+			Page resultPage = new Page(search.getCurrentPage(),
+					((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/lesson/manageLessonBook");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			System.out.println(model);
+			
+			return model;
+			
 		}
 	}
 	

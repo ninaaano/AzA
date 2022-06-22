@@ -90,9 +90,8 @@
 	} */
 
 
-	window.addEventListener('DOMContentLoaded', event => {
+/* 	window.addEventListener('DOMContentLoaded', event => {
 		const bookDataSimple = document.getElementById('bookDataSimple');
-		/* alert("실행") */
 		if(bookDataSimple){
 			$.ajax({
 				url:"/lesson/rest/manageLessonBook",
@@ -124,7 +123,7 @@
 				}
 			})
 		}
-	});	
+	});	 */
 </script>
 
 
@@ -142,8 +141,8 @@
            		<!-- <option value=''> 선택</option> -->
 		    	<c:set var="i" value="0"/>	
 		    	<c:forEach var="book" items="${book}">
-		    		<%-- <c:set var="i" value ="${i+1}"/> --%>
-					  <option class="lessonbook" value="${i+1}" data-value="${book.lessonCode}">${book.lessonName}</option>
+		    		<c:set var="i" value ="${i+1}"/>
+					  <option class="lessonbook" value="${i}" data-value="${book.lessonCode}">${book.lessonName}</option>
 				</c:forEach>
 			</select>
          <!-- <div class="col-sm-10">
@@ -182,13 +181,13 @@
 		</c:forEach>
 	</div>
 	
-	<div id = "bookDataSimple">
-	</div>
+	<!-- <div id = "bookDataSimple">
+	</div> -->
 </form>
 
-<form id = "result">
+<!-- <form id = "result">
 	
-</form>
+</form> -->
 
 <%-- <c:set var="i" value="0"/>
 	<c:forEach var="lesson" items="${list}">

@@ -64,14 +64,21 @@ public class LessonRestController {
 			System.out.println(lessonService.listLessonTeacher(search, teacherId));
 			System.out.println("===========>");
 			return lessonService.listLessonTeacher(search, teacherId);
-		} else {
-			String userId = ((User)session.getAttribute("user")).getUserId();
+		} else if(role.equals("student")){
+			String studentId = ((User)session.getAttribute("user")).getUserId();
 			Search search = new Search();
-			int totalCount = (int)lessonService.listLessonStudent(search, userId).get("totalCount");
+			int totalCount = (int)lessonService.listLessonStudent(search, studentId).get("totalCount");
 			search.setCurrentPage(1);
 			search.setPageSize(totalCount);
 			
-			return lessonService.listLessonStudent(search, userId);
+			return lessonService.listLessonStudent(search, studentId);
+		} else {
+			String parentId = ((User)session.getAttribute("user")).getUserId();
+			Search search = new Search();
+			int totalCount =(int)lessonService.listLessonParent(search, parentId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			return lessonService.listLessonParent(search, parentId);
 		}
 	}
 	

@@ -10,7 +10,7 @@ VALUES('teacher52','teacher52','teacher5','teacher5','5252',null,null,null,null,
 
 INSERT
 INTO USERS
-VALUES('student5','student5','student5','stduent5','525252','鍮꾪듃怨�1',null,null,null,0,null,null);
+VALUES('student5','student5','student5','stduent5','525252','고등학교',null,null,null,0,null,null);
 
 INSERT
 INTO USERS
@@ -95,7 +95,7 @@ SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
 --//STUDENTS_RECORD
 INSERT
 INTO STUDENTS_RECORD
-VALUES(seq_students_record.nextVal,'80RNVO0J',(SELECT lesson_name FROM lesson WHERE lesson_code = '80RNVO0J'),'student5','student',1,TO_CHAR(sysdate),40000,0);
+VALUES(seq_students_record.nextVal,'W5MFIVX7',(SELECT lesson_name FROM lesson WHERE lesson_code = 'W5MFIVX7'),'student1','금쪽이',1,TO_CHAR(sysdate),40000,0);
 
 INSERT
 INTO STUDENTS_RECORD
@@ -176,6 +176,17 @@ SELECT L.lesson_name, L.teacher_id, U.user_name, L.lesson_day, L.lesson_start_ti
 		
 		
 select user_name from users where user_id='teacher52')
+
+
+--list lesson parent
+SELECT L.*
+FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI
+    FROM students_record SR, (SELECT student_id SI
+            FROM users U, relation R
+            WHERE U.user_id = R.parent_id AND U.user_id = 'parent5') A
+    WHERE SR.student_id = A.SI) B
+WHERE L.lesson_code = B.SRL
+
 --insert
 INSERT 
 INTO LESSON	

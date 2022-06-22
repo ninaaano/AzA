@@ -105,7 +105,7 @@ public class LessonServiceTest {
 	}	
 	
 	//OK
-	@Test
+	//@Test
 	public void testlistLessonStudent() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -122,6 +122,23 @@ public class LessonServiceTest {
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);	
 	}
+	
+	//OK
+	//@Test
+	public void testlistLessonParent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(9);
+//		Map<String, Object> map = lessonService.listLessonParent("parent5", "student5");
+//		System.out.println(map);
+//		
+//		List<Object> list = (List<Object>)map.get("list");
+//		
+//		System.out.println(list);
+//		
+//		Integer totalCount = (Integer)map.get("totalCount");
+//		System.out.println(totalCount);
+	}	
 
 	//@Test
 	public void testLessonTime() throws Exception{
@@ -198,6 +215,22 @@ public class LessonServiceTest {
 		search.setCurrentPage(1);
 		search.setPageSize(9);
 		Map<String, Object> map = lessonService.listLessonBookStudetns(search, "student5");
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println(list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);
+	}
+	
+	//@Test
+	public void testListLessonBookParent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(9);
+		Map<String, Object> map = lessonService.listLessonBookParent(search, "parent5");
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");

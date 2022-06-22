@@ -34,29 +34,38 @@
 		</div>
 		<!-- accept-charset="utf-8" -->
 	<form class="form-horizontal">
-	<input type="hidden" name="lessonName" value="${lesson.lessonName}" />
+	<%-- <input type="hidden" name="lessonName" value="${lesson.lessonName}" /> --%>
+	  
 	  <div class="form-group">
 	    <label for="lessonName" class="col-sm-offset-1 col-sm-3 control-label">강의명</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="강의명" value="${lesson.lessonName}">
+	      <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="강의명" value="${lesson.lessonName}" readonly>
 	    </div>
 	  </div>
+	  
 	  <div class="form-group">
-	    <label for="lessonDay" class="col-sm-offset-1 col-sm-3 control-label">수업 스케쥴</label>
+	    <label for="lessonDay" class="col-sm-offset-1 col-sm-3 control-label">수업 요일</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonDay" name="lessonDay" placeholder="수업 스케쥴" value="${lesson.lessonDay}">	    
+	      <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="일"/>일
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="월"/>월
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="화"/>화
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="수"/>수
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="목"/>목
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="금"/>금
+           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="토"/>토
+           <input type="hidden" class="form-control" id="hiddenValue" name="hiddenValue" value=""/>	    
 	     </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="lessonStartTime" class="col-sm-offset-1 col-sm-3 control-label">수업 시작 시간</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="수업 시작 시간" value="${lesson.lessonStartTime}">	    
+	      <input type="time" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="수업 시작 시간" value="${lesson.lessonStartTime}">	    
 	     </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="lessonEndTime" class="col-sm-offset-1 col-sm-3 control-label">수업 종료 시간</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="수업 종료 시간" value="${lesson.lessonStartTime}">	    
+	      <input type="time" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="수업 종료 시간" value="${lesson.lessonStartTime}">	    
 	     </div>
 	  </div>
 	  <div class="form-group">

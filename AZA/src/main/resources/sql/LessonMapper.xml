@@ -146,6 +146,28 @@
 			WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>	
 	
+	<select id ="listLessonParent" resultMap = "lessonSelectMap">
+		SELECT L.*, B.SRI, B.SRN
+		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
+		    FROM students_record SR, (SELECT student_id SI
+		            FROM users U, relation R
+		            WHERE U.user_id = R.parent_id AND U.user_id = #{searchId}) A
+		    WHERE SR.student_id = A.SI) B
+		WHERE L.lesson_code = B.SRL
+	</select>
+	
+	 <select id = "getlistLessonParent" resultType="int">
+	 	SELECT COUNT(*)
+	 	FROM(SELECT L.*, B.SRI, B.SRN
+		FROM LESSON L, ( SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
+			    FROM students_record SR, (SELECT student_id SI
+			            FROM users U, relation R
+			            WHERE U.user_id = R.parent_id AND U.user_id = #{searchKeyword}) A
+			    WHERE SR.student_id = A.SI) B
+			WHERE L.lesson_code = B.SRL
+	 	)countTable
+	 </select>
+	
 	<!-- SQL : SELECT ROW Count -->
 	 <select id = "getLessonTeacherTotalCount" resultType="int">
 	 		SELECT COUNT(*)
@@ -212,6 +234,32 @@
 		        FROM LESSON L, STUDENTS_RECORD SR, USERS U
 		        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}) A
 		WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn
+	</select>
+	
+	<select id = "listLessonBookParent" resultMap="lessonBookSelectMap">
+		SELECT B.*, C.LLN
+		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME LLN, B.SRN BS
+		    FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
+		        FROM students_record SR, (SELECT student_id SI
+		                FROM users U, relation R
+		                WHERE U.user_id = R.parent_id AND U.user_id = #{searchId}) A
+		        WHERE SR.student_id = A.SI) B
+		    WHERE L.lesson_code = B.SRL) C
+		WHERE LB.LESSON_CODE = C.LL AND B.ISBN = LB.ISBN
+	</select>
+	
+	<select id = "getLessonBookParentTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT B.*, C.LLN
+		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME LLN, B.SRN BS
+		    FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
+		        FROM students_record SR, (SELECT student_id SI
+		                FROM users U, relation R
+		                WHERE U.user_id = R.parent_id AND U.user_id = #{searchKeyword}) A
+		        WHERE SR.student_id = A.SI) B
+		    WHERE L.lesson_code = B.SRL) C
+		WHERE LB.LESSON_CODE = C.LL AND B.ISBN = LB.ISBN
+		)countTable
 	</select>
 	
 	<select id = "listBookTeacher" resultMap="lessonSelectMap">

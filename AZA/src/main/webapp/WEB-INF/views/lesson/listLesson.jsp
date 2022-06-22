@@ -96,7 +96,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		});
 	} */
 	
-window.addEventListener('DOMContentLoaded', event => {
+/*  window.addEventListener('DOMContentLoaded', event => {
 	const lessonDataSimple = document.getElementById('lessonDataSimple');
 	
 	if(lessonDataSimple){
@@ -107,6 +107,7 @@ window.addEventListener('DOMContentLoaded', event => {
             success:function(result){
             	if(result){
             		var lesson = result.list;
+            		console.log(lesson)
             		var lessonData = [];
             		
             		lesson.map((lesson, i) =>{            			
@@ -120,12 +121,9 @@ window.addEventListener('DOMContentLoaded', event => {
             			temp.push(lesson.lessonPlace);
             			temp.push(lesson.subject);            			
             			temp.push(lesson.lessonCode);
-            			/* alert(temp) */
             			
             			lessonData.push(temp);
             		})
-            		/* alert("=======")
-            		alert(lessonData) */
             		
             		var data ={
             			"headings" : [
@@ -192,17 +190,13 @@ window.addEventListener('DOMContentLoaded', event => {
             	                targets: [8],
             	                orderData: [0, 1],
             	            },
-            	            {
-            	                targets: [9],
-            	                orderData: [0, 1],
-            	            },
             			],            			
             		});
             	}
             }
 		})
 	}
-});
+}); */
 
 </script>
 </head>
@@ -220,7 +214,7 @@ window.addEventListener('DOMContentLoaded', event => {
 				</td>
 			</tr>
 		</c:if>
-				 <%-- <tr>
+				 <tr>
 					  <td>
 					   <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
 							<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>수업명</option>
@@ -238,13 +232,13 @@ window.addEventListener('DOMContentLoaded', event => {
 				  <!--  선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-			   	</tr> --%>	
+			   	</tr>	
 		</table>
 	</div>
 	
 		<div class="dataTable-container">
 			<!-- <table border="1" cellspacing = "0" cellpadding = "10px"> -->
-			<%-- <table id="datatablesSimple" class="dataTable-table">
+			<table id="datatablesSimple" class="dataTable-table">
 				<thead>
 					<tr>
 						<th data-sortable="" style="width: 5%;">number</th>
@@ -309,11 +303,13 @@ window.addEventListener('DOMContentLoaded', event => {
 						</tr>
 					</c:forEach>
 				</tbody>
-			</table> --%>
+			</table>
 			
-			<table id="lessonDataSimple">
+			
+			 <table id="lessonDataSimple">
 						
 			</table>
+			
 		</div>
 		</div>
 	</div>

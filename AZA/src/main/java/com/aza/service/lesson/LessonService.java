@@ -29,6 +29,8 @@ public interface LessonService {
 	
 	public Map<String, Object> listLessonStudent(Search search, String userID) throws Exception;
 	
+	public Map<String, Object> listLessonParent(Search search, String parentId) throws Exception;
+	
 	public Map<String, Object> listLessonTime(String teacherId, String lessonDay) throws Exception;
 	
 	
@@ -46,6 +48,8 @@ public interface LessonService {
 	public Map<String, Object> listBookTeacher(Search search, String teacherId) throws Exception;
 	
 	public Map<String, Object> listLessonBookStudetns(Search search, String studentsId) throws Exception;
+	
+	public Map<String, Object> listLessonBookParent(Search search, String parentId) throws Exception;
 	
 //	==============================================
 

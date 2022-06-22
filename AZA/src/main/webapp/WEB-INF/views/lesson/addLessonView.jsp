@@ -20,11 +20,7 @@
 			
 			if(lessonName == null || lessonName.length <1){
 				alert("강의명은 입력해야 합니다.");
-				
 				return;
-			}
-			if(new Date(end_time) - new Date(start_date)<0){
-				alert("종료시간이 시작시간보다 먼저입니다.");
 			}
 			if(lessonPlace == null || lessonPlace.length <1){
 				alert("수업장소는 입력해야 합니다.");

@@ -30,6 +30,8 @@ public interface LessonDao {
 	
 	public List<Lesson> listLessonStudent(Search search, String userID) throws Exception;
 	
+	public List<Lesson> listLessonParent(Search seearch, String userID) throws Exception;
+	
 	public List<Lesson>	listLessonTime(String teacherId, String lessonDay) throws Exception;
 	
 	public int getLessonTeacherTotalCount(Search search, String searchKeyword) throws Exception;
@@ -37,6 +39,8 @@ public interface LessonDao {
 	public int getLessonStudentTotalCount(Search search, String searchKeyword) throws Exception;
 	
 	public int getLessontimeTotalCount(String teacherId, String lessonDay) throws Exception;
+	
+	public int getLessonParentTotalCount(Search search, String searchKeyword) throws Exception;
 	
 //=======================================================
 	
@@ -55,7 +59,11 @@ public interface LessonDao {
 	
 	public List<Lesson> listLessonBookStudents(Search search, String studentsId) throws Exception;
 	
+	public List<Lesson> listLessonBookParents(Search search, String parentId) throws Exception;
+	
 	public int getLessonBookStudentsTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public int getLessonBookParentTotalCount(Search serach, String searchKeyword) throws Exception;
 	
 	//=======================================================	
 	
