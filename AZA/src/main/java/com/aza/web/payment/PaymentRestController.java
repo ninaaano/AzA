@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Payment;
+import com.aza.service.domain.User;
 import com.aza.service.payment.PaymentService;
+import com.aza.service.user.UserService;
 
 
 @RestController
@@ -29,23 +34,59 @@ public class PaymentRestController {
 	@Autowired
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
+
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;		
 	public PaymentRestController() {
 		System.out.println(this.getClass());
 	}
 	
 	@RequestMapping(value = "listPayment")
 	public Map<String,Object> listPayment
-	(HttpServletRequest request) throws Exception{
+	(HttpSession session) throws Exception{
 		
-		System.out.println("listPayment RestController Start...");
+		System.out.println("listPayment Start...");
+		
+		Map result = null;
+		User dbUser = (User) session.getAttribute("user");	
+		String role = ((User) session.getAttribute("user")).getRole();
+		
+		String userId = dbUser.getUserId();
+		User user = userService.getUser(userId);
 		
 		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(3);	
+		search.setSearchId(userId);
+		int totalCount;
+		if(user.getRole().equals("student")) {
+			totalCount = (int) paymentService.listPaymentBystudent(search).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			result = paymentService.listPaymentBystudent(search);
+			
+		}else if(user.getRole().equals("teacher")) {
+			totalCount = (int) paymentService.listPayment(search).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			result = paymentService.listPayment(search);
+		}else if (user.getRole().equals("parent")) {
+
+			totalCount = (int) paymentService.listPaymentByParent(search).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			result = paymentService.listPaymentByParent(search);
 		
-		Map<String, Object> map = paymentService.listPayment(search);
-		return map;
+		}
+		session.setAttribute("role",role);
+		return result;
 	}
 
 	@RequestMapping(value = "getPayment/{payCode}", method = RequestMethod.GET)

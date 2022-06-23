@@ -125,105 +125,6 @@ function requestPay(){
 
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<h3>GET PAYMENT</h3>
-<table id="datatablesSimple" class="dataTable-table">
-	
-	
-	<thead>
-		<tr>
-		
-		<th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: 7%;">
-		<a href="#" class="dataTable-sorter">No</a>
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수업명</a>
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">학생 이름</a>
-		</th>
-		
-		<th data-sortable="" style="width: 12%;">
-		<a href="#" class="dataTable-sorter" align="center">수납료</a>
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납예정일</a>
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납완료일</a>
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납여부</a>
-		</th>
-
-		<th data-sortable="" style="width: 10%;">
-		<a href="#" class="dataTable-sorter" align="center">납부하기</a>
-		</th>				
-
-		</tr>
-	</thead>
-	
-	<tbody>
-
-					  
-				<tr>				
-				<td align="center">
-
-				<input type="hidden" id="payCode" value="${payment.payCode}">
-				${payment.payCode}
-				</td>
-				<td align="center"  id="lessonName" value="${payment.payLessonName.getLessonName()}" >${payment.payLessonName.getLessonName()}</td>
-				<td align="center" id="studentName" payCode="${payment.payCode}">${payment.studentName}</td>
-				
-				<td align="center" value="${payment.amount}" id="amount" >
-					${payment.amount}
-				</td>
-				
-				<td align="center">${payment.payDueDate }</td>
-				
-				<td align="center">
-					<fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
-					<fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 		
-				</td>
-				
-				<td align="center" value="${payment.checkPay }">${payment.checkPay }</td>
-				
-				<c:if test="${payment.checkPay eq 'N'.charAt(0) }">
-				<td align="center">
-				<button class="btn btn-raised-warning" type="button" onclick="requestPay()" id="realPayment" payCode="${payment.payCode}" style="width:70%;height:35px;">결제하기　</button>
-				</td>
- 				</c:if> 
- 				
- 				<c:if test="${payment.checkPay eq 'Y'.charAt(0) }">
-				<td align="center">
-				결제 완료 :)
-				</td>
- 				</c:if> 	
- 							
-				</tr>
-
-</table>	
-  -->
 <!-- 폼 변경 -->
 <form>
 <div class="card card-raised border-top border-4 border-primary h-100" align="center" style="width:600px;height:10%;">
@@ -263,7 +164,7 @@ function requestPay(){
 
                       <td>수납완료일</td>
                        <td class="text-end"  id="payDay">
-                    	  <fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
+                    	  <fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd" />
 						  <fmt:formatDate value="${payday}" pattern="yyyy/MM/dd"/> 	
 					  </td>                     
                   </tr>                  

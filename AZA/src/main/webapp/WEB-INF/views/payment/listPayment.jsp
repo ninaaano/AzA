@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  날짜 ,금액 포맷 lib-->
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR"> 
+<meta charset="EUC-KR">
 <title>listPayment</title>
 
 
@@ -67,73 +66,68 @@
 
 </style>
 
-
-<script type="text/javascript">
-/* $(function myFunction() {
-	  document.getElementById("searchDate").style.display = "none";
-	  document.getElementById("searchKeyword").style.display = "none";
-
-	});
-	
-// 검색조건에 따른 검색창 출력
-$(function() {
-	$('#searchCondition').on('change', function() {	
-
-			if($('option:selected').val() == "1"){
-			//기간 검색일 때
-			document.getElementById("searchDate").style.display = "";
-			  document.getElementById("searchKeyword").style.display = "none";
-
-
-			}else{
-				  document.getElementById("searchDate").style.display = "none";
-				  document.getElementById("searchKeyword").style.display = "";
-
-			}
-			
-	})
-});
-
-
-
-function fncGetList(currentPage) {
-	$("#currentPage").val(currentPage);
-	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
-}
-
-	//검색
-		$(function() {
-		 	$( "button.btn.btn-raised-light").on("click" , function() {
-			  
-			fncGetList(1);
-
-			});
-		 
-		});
-	
-	
-		 $(function() {
-
-			 	$("td:contains('상세보기')").on("click" , function() {
-					
-					 var payCode = $(this).attr("payCode");
-					 alert("payCode ==> "+payCode);
-					 
-					 
-			 		self.location ="/payment/getPayment/"+payCode;
-
-				}); 
-			 });				
- */
-
-</script>
 </head>
-<body>
+<body class="nav-fixed bg-light">
+	<!-- Layout content-->
+	 <!-- Layout content-->
+            <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">수납 목록</h2>
+                                        <div class="card-text">Payment List</div>
+                                    </div>
+<!--                                     <div class="d-flex gap-2">
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+
+
+                        <!-- Simple DataTables example-->
+                        <table id="datatablesSimplePaymentList">
+                        
+                        </table>
+                      </div>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
+	<!-- Footer-->
+	<footer>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+	</footer>
+	</div>
+	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
+<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
+	<script type="text/javascript">
+</script>
+</body>
+<%-- <body>
 
 
 
 
-<h3>PAYMENT LIST</h3> 
+<h3>PAYMENT LIST</h3>
 <form>				
 ${user.role }
 
@@ -146,13 +140,18 @@ ${user.role }
                </table> 
 
 </form>
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+ 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-</body>
+
+	<script type="text/javascript">
+</script>
+</body> --%>
 </html>

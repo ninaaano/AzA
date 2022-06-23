@@ -48,7 +48,7 @@
     margin : 50px;
 }
 </style>
-<script type="text/javascript">
+<script type="text/javascript" charset="euc-kr">
 $(function() {
 	$( "button.btn.btn-raised-info:contains('등록')" ).on("click" , function() {
 		alert("등록 click");
@@ -85,8 +85,6 @@ function addStudentsCharacter() {
 	var characterContent = $("textarea[name='characterContent']").val();
 	var studentName = $('option:selected').text().trim()
 	var studentId =$('option:selected').val().trim();
-	alert("id=>"+studentId);
-	alert("name=>"+studentName); 
 		
 	if(characterContent == null || characterContent.length < 1){
 		

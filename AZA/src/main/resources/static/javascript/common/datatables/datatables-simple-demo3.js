@@ -1,123 +1,180 @@
+//link href= cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js
+
+window.addEventListener('DOMContentLoaded', event => {  
     const datatablesSimplePaymentList = document.getElementById('datatablesSimplePaymentList');
 
     if (datatablesSimplePaymentList) {
-	    	$.ajax({
-		url:"/payment/rest/listPayment",
-		type:"POST",
-		headers : {
+          $.ajax({
+      url:"/payment/rest/listPayment",
+      type:"POST",
+      headers : {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
-        success: function(result) {         	
+        success: function(result) {            
             if(result) {
-	
-				console.log("js : rest/listPayment");
-				var payments = result.list;
-				var paymentData = [];
-				var role = sessionStorage.getItem('role');
-				
-				
-				payments.map((payment, i) => {
-					console.log(payment);
-					
-					var temp = [];
-					temp.push(i+1);
-					temp.push(payment.payLessonName.lessonName);
-					temp.push(payment.studentName);
-					temp.push(payment.amount);
-					temp.push(payment.payDueDate);
-					temp.push(payment.payDay);
-					temp.push(payment.checkPay);
-					temp.push(payment.payCode);
+   
+            console.log("js : rest/listPayment");
+            var payments = result.list;
+            var paymentData = [];
+            var role = sessionStorage.getItem('role');
+            
+            
+            payments.map((payment, i) => {
+               console.log(payment);
+               
+               var temp = [];
+               temp.push(i+1);
+               temp.push(payment.payLessonName.lessonName);
+               temp.push(payment.studentName);
+               temp.push(payment.amount);
+               temp.push(payment.payDueDate);
+               temp.push(payment.payDay);
+               temp.push(payment.checkPay);
+               temp.push(payment.payCode);
 
-					
-					console.log(temp);
-					
-					paymentData.push(temp);
-				})
-				console.log(paymentData);
-				
-				var data = {
-				
-					"headings" : [
-						"NO",
-						"¼ö¾÷¸í",
-						"ÇĞ»ı ÀÌ¸§",
-						"¼ö³³·á",
-						"¼ö³³¿¹Á¤ÀÏ",
-						"¿Ï·áÀÏ",
-						"¼ö³³¿©ºÎ",
-						
-						"°áÁ¦ÇÏ±â",
+               
+               console.log(temp);
+               
+               paymentData.push(temp);
+            })
+            console.log(paymentData);
+            
+            var data = {
+            
+               "headings" : [
+                  "NO",
+                  "ìˆ˜ì—…ëª…",
+                  "í•™ìƒ ì´ë¦„",
+                  "ìˆ˜ë‚©ë£Œ",
+                  "ìˆ˜ë‚©ì˜ˆì •ì¼",
+                  "ì™„ë£Œì¼",
+                  "ìˆ˜ë‚©ì—¬ë¶€",
+                  "ê²°ì œí•˜ê¸°",
 
-					],					
-					"data" : paymentData,
+               ],               
+               "data" : paymentData,
 
-				}
-				
-				var role = sessionStorage.getItem("role");
-        			
-        		if(role == 'student'){
-        			console.log("³ª¿Í¶ó");
-				}
-				
-        		var realPayment = function(data, type, row){
-        		
-        			var payCode = row.lastElementChild.textContent
+            }
 
-        			return `<a href="/payment/getPayment/`+payCode+`">
-        			<button class="btn btn-raised-warning" type="button"> »ó¼¼º¸±â </button>
-        			</a>`;
-        			
-        		}
-            									
-				
-         new simpleDatatables.DataTable(datatablesSimplePaymentList, {
-			data,
-			columns:[
-				{
-					select: 7,
-            		render: realPayment,
+                 var realPayment = function(data, type, row){
+              
+                    var payCode = row.lastElementChild.textContent
+   
+                    return `<a href="/payment/getPayment/`+payCode+`">
+                    <button class="btn btn-raised-warning" type="button"> ìƒì„¸ë³´ê¸° </button>
+                    </a>`;
+                 
+                 }
+                                       
+            if(sessionStorage.getItem("role") == 'teacher') {
+             var columns = [{
+               select: 7,
+                  render: realPayment,
+               hidden: true,
+            }];
+            
+                     new simpleDatatables.DataTable(datatablesSimplePaymentList, {
+         data,
+         columns: columns,
+         columnDefs: [
+               {
+                   targets: [0],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [1],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [2],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [3],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [4],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [5],
+                   orderData: [0, 1],
 
-			}
-            		
-			
-			],
-			columnDefs: [
-	            {
-	                targets: [0],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [1],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [2],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [3],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [4],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [5],
-	                orderData: [0, 1],
-	            },
-	            {
-	                targets: [6],
-	                orderData: [0, 1],
-	            },
-            ],	
-		});
-			}}
-		})
-    };
+               },
+               {
+                   targets: [6],
+                   orderData: [0, 1],
+               },
+            ],   
+      });
+            
+            
+            
+            
+            
+            
+         }else {
+         
+          new simpleDatatables.DataTable(datatablesSimplePaymentList, {
+         data,
+         columns:[
+            {
+               select: 7,
+                  render: realPayment,
+               
+         }
+                  
+         
+         ],
+         columnDefs: [
+               {
+                   targets: [0],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [1],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [2],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [3],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [4],
+                   orderData: [0, 1],
+               },
+               {
+                   targets: [5],
+                   orderData: [0, 1],
+
+               },
+               {
+                   targets: [6],
+                   orderData: [0, 1],
+               },
+            ],   
+      });
+         
+         
+         
+         }
+            
+            
+            
+        
+         }
+      }
+   })
+   }
+});
 
 
 
-				
+
+            
