@@ -82,8 +82,14 @@ public class UserController {
 		User dbUser=userService.getUser(user.getUserId());
 		System.out.println(dbUser);
 		session = request.getSession();
-		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
+		if(dbUser!=null && user.getUserId() != null){
 			session.setAttribute("user", dbUser);
+			
+			if(!user.getPassword().equals(dbUser.getPassword())) {
+				System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
+				mv.addObject("msg","nope");
+				return new ModelAndView("/login");
+			}
 			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
@@ -117,7 +123,6 @@ public class UserController {
 			return mv; // 
 		} else {
 			System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
-			mv.addObject("msg","nope");
 			return new ModelAndView("/login"); // 
 		}
 	

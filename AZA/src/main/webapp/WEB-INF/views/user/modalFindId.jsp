@@ -156,8 +156,13 @@ body {
 	            <input type="phone" class="form-control rounded-4" id="floatingPassword" placeholder="핸드폰번호">
 	            <label for="phone">핸드폰번호</label>
 	          </div>
-	          <button class="w-10 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" value="check">check</button>
-	          <button class="w-10 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">취소</button>
+	   
+		<div class="form-label-group">
+			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
+				type="submit" value="check">
+			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+					type="button">취소</button>
+		</div>
 	          <hr class="my-4">
 	       
 	        </form>

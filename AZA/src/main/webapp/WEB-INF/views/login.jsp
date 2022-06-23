@@ -115,11 +115,7 @@
 										 <div class="mb-2" align="center">	
                                                 <div class="btn-group" role="group">
                                                     <button class="btn btn-outline-primary" type="button" onclick="login()">로그인</button>
-                                                    <c:if test="${msg=='nope'}">
-                                                    <div style="color: red">
-                                                    아이디 또는 비밀번호가 일치하지 않습니다.
-                                                    </div>
-                                                    </c:if>
+                                                 
                                                 </div>
                                             </div>
                                             

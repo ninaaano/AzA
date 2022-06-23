@@ -68,6 +68,17 @@
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
+
+
+.form-horizontal{
+ padding-left: 20px;
+ margin-top: 20px;
+ margin-bottom: 30px;
+ margin-left : 300px;
+ line-height : 50px;
+}
+
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -171,7 +182,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		      <input type="text" class="form-control" id="school" name="school" value="${user.school}" >
 		    </div>
 		  </div>
-		<hr/>
+		
 		<div class="form-group">
 		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">학년</label>
 		    <div class="col-sm-4">

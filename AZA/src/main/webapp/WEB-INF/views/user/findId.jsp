@@ -135,17 +135,23 @@ body {
 </head>
 <body>
 <form method="post" class="form-signin" action="find_id" name="findform">
-		
-		<div class="form-label-group">
-			이름 : <input type="text" id="userName" name="userName" class="form-control"/>
-			<label for="name"></label>
-		</div>
-		
-		<div class="form-label-group">
-			핸드폰 번호 : <input type="text" id="phone" name="phone" class="form-control"/>
-			<label for="phone"></label>
-		</div>
 
+
+
+ <div class="row mb-3">
+    <label for="name" class="col-sm-2 col-form-label">이름</label>
+    <div class="col-auto">
+      <input type="text" class="form-control" id="userName" name="userName">
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="phone" class="col-sm-2 col-form-label">핸드폰번호</label>
+    <div class="col-auto">
+      <input type="text" class="form-control" id="phone" name="phone">
+    </div>
+  </div>
+		
+		
 		<div class="form-label-group">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="submit" value="check">
@@ -187,7 +193,7 @@ body {
 	
 	$( function() {
 		$("button:contains('로그인 화면으로')").on("click" , function() {
-			self.location = "/user/login"
+			self.location = "http://127.0.0.1:8080/"
 		});
 	});
 	
