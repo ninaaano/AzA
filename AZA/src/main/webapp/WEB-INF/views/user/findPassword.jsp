@@ -3,14 +3,61 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
+   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Reset Password - Material Admin Pro</title>
+        <!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <!-- Load Material Icons from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        <!-- Roboto and Roboto Mono fonts from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
+        <!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+<link href="/resources/css/common.css" rel="stylesheet" />
+<link href="/resources/css/main.css" rel="stylesheet" />    
+ 
+ <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<!-- Roboto and Roboto Mono fonts from Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet" />
+<!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+
+
+<!-- Load Material Icons from Google Fonts-->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
+
+    
+
+
 <meta charset="UTF-8">
-<title>Find Password</title>
+<title>FIND PASSWORD</title>
 <style>
 :root { -
 	-input-padding-x: 1.5rem; -
 	-input-padding-y: .75rem;
 }
+
+*, body {
+   font-family: Pretendard, 'Noto Sans KR';
+
+  
+}
+
 
 body {
 	background-color: white;
@@ -23,23 +70,10 @@ body {
 	overflow: hidden;
 }
 
-.card-signin .card-title {
-	margin-bottom: 2rem;
-	font-weight: 300;
-	font-size: 1.5rem;
-}
-
-.card-signin .card-body {
-	padding: 2rem;
-}
-
-.form-signin {
-	width: 100%;
-}
 
 .form-signin .btn {
-	font-size: 80%;
-	border-radius: 5rem;
+	font-size: 100%;
+	
 	letter-spacing: .1rem;
 	font-weight: bold;
 	padding: 1rem;
@@ -49,11 +83,13 @@ body {
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
+	
 }
 
 .form-label-group input {
 	height: auto;
-	border-radius: 2rem;
+	
+	
 }
 
 .form-label-group>input, .form-label-group>label {
@@ -103,71 +139,62 @@ body {
 .form-label-group input:not(:placeholder-shown) ~label {
 	padding-top: calc(var(- -input-padding-y)/3);
 	padding-bottom: calc(var(- -input-padding-y)/3);
-	font-size: 12px;
+	font-size: 15px;
 	color: #777;
 }
+
 </style>
-<!-- Load Favicon-->
-        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet" />
-<!-- Roboto and Roboto Mono fonts from Google Fonts-->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-	rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
-	rel="stylesheet" />
-<!-- Load main stylesheet-->
-<link href="/resources/css/template.css" rel="stylesheet" />
 
 
-<link href="assets/img/favicon.ico" rel="shortcut icon"
-	type="image/x-icon">
-<!-- Load Material Icons from Google Fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet">
-
-
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+
+		<body class="bg-primary">
+        <!-- Layout wrapper-->
+        <div id="layoutAuthentication">
+            <!-- Layout content-->
+            <div id="layoutAuthentication_content">
+                <!-- Main page content-->
+                <main>
+                    <!-- Main content container-->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8">
+                                <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+                                    <div class="card-body p-5">
+                                        <!-- Auth header with logo image-->
+                                        <div class="text-center">
+                                           <img class="mb-3" src="/resources/img/logo2.png" alt="..."
+                                 style="height: 100px">
+                                            <h1 class="display-5 mb-4">비밀번호 재설정</h1>
+                                        </div>
+                                        <!-- Reset password submission form-->
 <form method="post" class="form-signin" action="find_password" name="findform">
+                                        
+
+                                           
+<div class="row mb-4">
+    <label for="userId" class="col-sm-4 col-form-label">아이디</label>
+    <div class="col-auto">
+      <input type="text" class="form-control" id="userId" name="userId">
+    </div>
+  </div>
+  
+
+  
+
+  <div class="input-group mb-4">
+  <input type="text" class="form-control" placeholder="ex)01012345678" aria-label="phone" id="phone" name="phone" aria-describedby="button-addon2" required>
+  <button class="btn btn-outline-secondary" type="button" id="phoneBtn" onclick="cert();" disabled="disabled">인증번호 받기</button>
+  <div id="phoneCheck"></div>
+</div>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" id="certification" name="auth" placeholder="인증번호를 입력하세요" aria-label="auth" aria-describedby="button-addon2">
+  <button class="btn btn-outline-secondary" type="button" id="sms_AuthBtn" onclick="smsAuthBtn();">인증번호 입력</button>
+</div>
+<div id="certCheck"></div>
 
 
-		<div class="form-label-group col-md-4">
-			<input type="text" id="userId" name="userId" class="form-control" />
-			<label for="userId">아이디</label>
-		</div>
-
-			<div class="form-label-group col-md-4">
-			<input type="text" id="phone" name="phone" class="form-control" /> 
-			<label for="phone">핸드폰번호</label>
-			<div id="phoneCheck"></div>
-		</div>
-
-		<div class="form-label-group">
-			<button type="button"
-				class="btn btn-lg btn-secondary btn-block text-uppercase"
-				onclick="cert();">인증번호 받기</button>
-		</div>
-
-
-
-		<div class="form-row">
-			<div class="form-label-group col-md-4">
-				<input type="text" class="form-control" id="certification"
-					placeholder="인증번호를 입력해주세요" required>
-				<div class="form-group" id="certCheck"></div>
-			</div>
-			<div class="form-group col-md-4">
-				<button type="button"
-					class="btn btn-lg btn-secondary btn-block text-uppercase"
-					id="sms_AuthBtn" onclick="smsAuthBtn();">확인</button>
-			</div>
-		</div>
 
 
 		<div class="form-label-group">
@@ -210,6 +237,29 @@ body {
 		</c:if>
 
 	</form>
+                                    </div>
+                                </div>
+                                <!-- Auth card message-->
+                                <div class="text-center mb-5"><a class="small fw-500 text-decoration-none link-white" href="/user/addUser">가입된 정보가 없으신가용? 회원가입하세요!</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <!-- Layout footer-->
+            <div id="layoutAuthentication_footer">
+                <!-- Auth footer-->
+             
+            </div>
+        </div>
+        <!-- Load Bootstrap JS bundle-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Load global scripts-->
+ 
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">
 		function updatePassword(){
@@ -235,7 +285,17 @@ body {
 			});
 		});
 		
-		
+		   // 핸드폰 유효성 체크   
+		   $("#phone").on("keyup",()=>{
+		      const phonNum = $("#phone").val();
+		      const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		      if (regPhone.test(phonNum) === true) {
+		         $("#phoneBtn").removeAttr("disabled");
+		      } else {
+		         $("#phoneBtn").attr("disabled","disabled");
+		      }
+		   })
+		   
 		<!--휴대폰 인증 / SMS SENS API -->
 
 		function cert() {
@@ -269,5 +329,7 @@ body {
 		};
 		
 	</script>
+	 <script type="module" src="/resources/javascript/common/material.js"></script>
+         <script type="module" src="/resources/javascript/common/scripts.js"></script>
 </body>
 </html>

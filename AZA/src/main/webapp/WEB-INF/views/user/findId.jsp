@@ -3,7 +3,47 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
+   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Reset Password - Material Admin Pro</title>
+        <!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <!-- Load Material Icons from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        <!-- Roboto and Roboto Mono fonts from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
+        <!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+<link href="/resources/css/common.css" rel="stylesheet" />
+<link href="/resources/css/main.css" rel="stylesheet" />    
+ 
+ <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<!-- Roboto and Roboto Mono fonts from Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet" />
+<!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+
+
+<!-- Load Material Icons from Google Fonts-->
+<link
+	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+	rel="stylesheet">
+
+    
+
+
 <meta charset="UTF-8">
 <title>Find ID</title>
 <style>
@@ -11,6 +51,13 @@
 	-input-padding-x: 1.5rem; -
 	-input-padding-y: .75rem;
 }
+
+*, body {
+   font-family: Pretendard, 'Noto Sans KR';
+
+  
+}
+
 
 body {
 	background-color: white;
@@ -23,23 +70,10 @@ body {
 	overflow: hidden;
 }
 
-.card-signin .card-title {
-	margin-bottom: 2rem;
-	font-weight: 300;
-	font-size: 1.5rem;
-}
-
-.card-signin .card-body {
-	padding: 2rem;
-}
-
-.form-signin {
-	width: 100%;
-}
 
 .form-signin .btn {
-	font-size: 80%;
-	border-radius: 5rem;
+	font-size: 100%;
+	
 	letter-spacing: .1rem;
 	font-weight: bold;
 	padding: 1rem;
@@ -54,7 +88,7 @@ body {
 
 .form-label-group input {
 	height: auto;
-	border-radius: 2rem;
+	
 	
 }
 
@@ -108,58 +142,67 @@ body {
 	font-size: 15px;
 	color: #777;
 }
+
+
 </style>
 <!-- Load Favicon-->
-        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet" />
-<!-- Roboto and Roboto Mono fonts from Google Fonts-->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-	rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
-	rel="stylesheet" />
-<!-- Load main stylesheet-->
-<link href="/resources/css/template.css" rel="stylesheet" />
-
-
-<link href="assets/img/favicon.ico" rel="shortcut icon"
-	type="image/x-icon">
-<!-- Load Material Icons from Google Fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet">
-
 
 
 </head>
-<body>
-<form method="post" class="form-signin" action="find_id" name="findform">
 
-
-
- <div class="row mb-3">
-    <label for="name" class="col-sm-2 col-form-label">이름</label>
+		<body class="bg-primary">
+        <!-- Layout wrapper-->
+        <div id="layoutAuthentication">
+            <!-- Layout content-->
+            <div id="layoutAuthentication_content">
+                <!-- Main page content-->
+                <main>
+                    <!-- Main content container-->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8">
+                                <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+                                    <div class="card-body p-5">
+                                        <!-- Auth header with logo image-->
+                                        <div class="text-center">
+                                           <img class="mb-3" src="/resources/img/logo2.png" alt="..."
+                                 style="height: 100px">
+                                            <h1 class="display-5 mb-4">비밀번호 재설정</h1>
+                                        </div>
+                                        <!-- Reset password submission form-->
+                                        <form method="post" class="form-signin" action="find_id" name="findform">
+                                        
+                                        
+                                        
+                                        
+                                        
+                             
+                                            
+<div class="row mb-4">
+    <label for="name" class="col-sm-4 col-form-label">이름</label>
     <div class="col-auto">
       <input type="text" class="form-control" id="userName" name="userName">
     </div>
   </div>
-  <div class="row mb-3">
-    <label for="phone" class="col-sm-2 col-form-label">핸드폰번호</label>
+  
+  
+  <div class="row mb-4">
+    <label for="phone" class="col-sm-4 col-form-label">핸드폰번호</label>
     <div class="col-auto">
       <input type="text" class="form-control" id="phone" name="phone">
     </div>
   </div>
-		
-		
-		<div class="form-label-group">
+                                            
+                                            
+<div class="form-label-group d-flex align-items-center justify-content-between">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="submit" value="check">
 			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
 					type="button">취소</button>
-		</div>
-
-		<!-- 이름과 전화번호가 일치하지 않을 때-->
+		</div>           
+		
+		
+				<!-- 이름과 전화번호가 일치하지 않을 때-->
 		<c:if test="${check == 1}">
 			<script>
 				opener.document.findform.userName.value = "";
@@ -171,15 +214,36 @@ body {
 		<!-- 이름과 비밀번호가 일치하지 않을 때 -->
 		<c:if test="${check == 0 }">
 		<label>찾으시는 아이디는 '${id}' 입니다.</label>
-		<div class="form-label-group">
+		<div class="form-label-group d-flex align-items-center justify-content-between my-8">
 					<button class="btn btn-lg btn-secondary btn-block text-uppercase"
 					type="button">비밀번호 재설정</button>
 					<button class="btn btn-lg btn-secondary btn-block text-uppercase"
 					type="button">로그인 화면으로</button>
 			</div>
-		</c:if>
+		</c:if>                               
+                                        
+                                            
+                                 </form>
+                                    </div>
+                                </div>
+                                <!-- Auth card message-->
+                                <div class="text-center mb-5"><a class="small fw-500 text-decoration-none link-white" href="/user/addUser">가입된 정보가 없으신가용? 회원가입하세요!</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <!-- Layout footer-->
+            <div id="layoutAuthentication_footer">
+                <!-- Auth footer-->
+             
+            </div>
+        </div>
+        <!-- Load Bootstrap JS bundle-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Load global scripts-->
+ 
 
-	</form>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
