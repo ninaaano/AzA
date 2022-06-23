@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -114,6 +115,7 @@
 										 <div class="mb-2" align="center">	
                                                 <div class="btn-group" role="group">
                                                     <button class="btn btn-outline-primary" type="button" onclick="login()">로그인</button>
+                                                 
                                                 </div>
                                             </div>
                                             
@@ -152,8 +154,9 @@ function login()	{
 	var userId = loginForm.userId.value;
 	var password = loginForm.password.value;
 	
+	
 	if(!userId || !password ){
-		alert ("아이디와 비밀번호를 모두 입력해주세요.")
+		alert ("아이디와 비밀번호를 모두 입력해주세요.");
 	}else{
 		$("form").attr("method" , "POST").attr("action" , "/user/login").submit();
 	}

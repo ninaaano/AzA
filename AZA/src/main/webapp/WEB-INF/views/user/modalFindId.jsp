@@ -108,6 +108,8 @@ body {
 	font-size: 15px;
 	color: #777;
 }
+
+
 </style>
 <!-- Load Favicon-->
         <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -136,28 +138,39 @@ body {
 <body>
 <form method="post" class="form-signin" action="find_id" name="findform">
 
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content rounded-5 shadow">
+	      <div class="modal-header p-5 pb-4 border-bottom-0">
+	        <!-- <h5 class="modal-title">Modal title</h5> -->
+	        <h2 class="fw-bold mb-0">아이디 찾기</h2>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
 
-
- <div class="row mb-3">
-    <label for="name" class="col-sm-2 col-form-label">이름</label>
-    <div class="col-auto">
-      <input type="text" class="form-control" id="userName" name="userName">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <label for="phone" class="col-sm-2 col-form-label">핸드폰번호</label>
-    <div class="col-auto">
-      <input type="text" class="form-control" id="phone" name="phone">
-    </div>
-  </div>
-		
-		
+	      <div class="modal-body p-5 pt-0">
+	        <form class="">
+	          <div class="form-floating mb-3">
+	            <input type="userName" class="form-control rounded-4" id="floatingInput" placeholder="이름">
+	            <label for="name">이름</label>
+	          </div>
+	          <div class="form-floating mb-3">
+	            <input type="phone" class="form-control rounded-4" id="floatingPassword" placeholder="핸드폰번호">
+	            <label for="phone">핸드폰번호</label>
+	          </div>
+	   
 		<div class="form-label-group">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 				type="submit" value="check">
 			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
 					type="button">취소</button>
 		</div>
+	          <hr class="my-4">
+	       
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+
+
 
 		<!-- 이름과 전화번호가 일치하지 않을 때-->
 		<c:if test="${check == 1}">
@@ -179,6 +192,8 @@ body {
 			</div>
 		</c:if>
 
+
+
 	</form>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script
@@ -193,7 +208,7 @@ body {
 	
 	$( function() {
 		$("button:contains('로그인 화면으로')").on("click" , function() {
-			self.location = "http://127.0.0.1:8080/"
+			self.location = "/user/login"
 		});
 	});
 	
@@ -204,6 +219,8 @@ body {
 	});
 
 		
+
+	
 	</script>
 </body>
 </html>

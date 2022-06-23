@@ -68,6 +68,17 @@
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
+
+
+.form-horizontal{
+ padding-left: 20px;
+ margin-top: 20px;
+ margin-bottom: 30px;
+ margin-left : 300px;
+ line-height : 50px;
+}
+
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -96,220 +107,18 @@ font-family: Pretendard, 'Noto Sans KR';
 		
 		///////////////////////////////////////////////////////////////////////
 		function fncUpdateUser() {
-			var name=$("input[name='userName']").val();
-			
-			if(name == null || name.length <1){
-				alert("이름은  반드시 입력하셔야 합니다.");
-				return;
-			}
-				
-			
-			//Debug...
-			//alert("phone : "+value);
-	//		$("input:hidden[name='phone']").val( value );
+
 				
 			$("form").attr("method" , "POST").attr("action" ,"/user/getUserView").submit();
 		}
 	
 	</script>
-	
-	<script type="text/javascript">
-
-function resetForm() {
-	document.addStudentsRecordForm.reset();
-	$('.lessonCheck').removeClass('show');
-	$('.valCheck').removeClass('show');	
-}
-
-$(function() {
-	// addStudentsRecord
-	$('#addStudentsRecordBtn').on("click", function() {
-
-		var valFlag = false;
-		const lessonCode = document.addStudentsRecordForm.lessonCode.value;
-		const lessonStartDate = document.addStudentsRecordForm.lessonStartDate.value;
-		const fees = document.addStudentsRecordForm.fees.value;
-		const payDueDate = document.addStudentsRecordForm.payDueDate.value;
 		
-		// 유효성 check
-		if(lessonCode.length < 8 || lessonCode == null || lessonStartDate.length < 1 || lessonStartDate.length == null || fees.length < 1 || fees == null || payDueDate < 1 || payDueDate == null) {
-			$('.valCheck').addClass('show');
-		} else {
-			$.ajax({
-				 url: "/lesson/rest/checkLessonCode/"+lessonCode,
-		            type: "GET",
-		            headers : {
-		                    "Accept" : "application/json",
-		                    "Content-Type" : "application/json",                                    
-		                },
-		            success: function(result) {
-		                if(result) {
-		                	console.log(result);
-		                	
-		                	if(result == true) {
-		                		valFlag = true;
-		                	}
-		                	
-		                	if(!valFlag) {
-		                		$('.lessonCheck').addClass('show');
-		                		return;
-		                	}
-		                	
-		                	console.log(valFlag);
-		                	
-		                	if(valFlag) {
-		            			document.addStudentsRecordForm.action = "/students/addStudentsRecord";
-		            			document.addStudentsRecordForm.method = "POST";
-		            			document.addStudentsRecordForm.submit();		
-		            		}
-		                } else {
-		                	console.log("lesson/rest/checkLessonCode :: error || null");			                	
-		                	$('.lessonCheck').addClass('show');
-		                }
-		            }
-			})
-		}
-		
-    	
-
-	})
-})
-
-
-$(function() {
-	// Alert
-	 $('#dropdownMenuNotifications').on('click', function() {
-		console.log("알림 버튼 눌림");
-		listAlert();
-	})
-
-	// Message
-	$("#open-messagePopup").on("click", function() {
-		console.log("메시지 버튼 눌림");
-		
-        $.ajax({
-            url: "/message/rest/listMessage",
-            type: "GET",
-            headers : {
-                    "Accept" : "application/json",
-                    "Content-Type" : "application/json",                                    
-                },
-            success: function(result) {
-                if(result) {
-                	console.log(result);
-                	sessionStorage.clear();
-                	sessionStorage.setItem('userId', result[0].userId);
-                	
-                	result.shift();
-                	
-                	console.log(result);
-                	
-                	var listOtherView = "";
-                	
-                	result.map((other,i) => {
-               			
-                		let studentId = other.studentId ? other.studentId : other.firstStudentId;
-                		let studentName = other.studentId ? other.studentName : "학생이룸";
-                		let relationName = other.relationName ? other.relationName : "";
-                		let userId = other.userId ? other.userId : studentId;
-                		let userName = studentName + " " + relationName;
-                		//console.log(i, studentId);
-                		
-                		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
-                		<li class='p-2 border-bottom' data-id=`+userId+`>
-                            	<a class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row">
-                                        <div class="pt-1">
-                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
-                                            <p class="small text-muted">최근메시지</p>
-                                        </div>
-                                    </div>
-                            	</a>
-                        	</li>
-                    	</ul>`;
-                	});
-                	
-                	$('#getOtherMessage').remove();
-                	$('#listOther').append(listOtherView);
-
-                } else {
-                    console.log("실패");
-                }
-            } 
-        })
-	})
-
-
-
-
-</script>
-	
 	
 </head>
 
 <body>
-	<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
-		<div class="container-fluid px-4">
-			<!-- Drawer toggle button-->
-			<button class="btn btn-lg btn-icon order-1 order-lg-0"
-				id="drawerToggle" href="javascript:void(0);">
-				<i class="material-icons text-primary">menu</i>
-			</button>
-			<!-- Navbar brand-->
-			<a class="navbar-brand me-auto" href="/index" data-url=''>
-			<img class="px-0 mx-0" alt="" src="/resources/img/logo.png" style="height:45px;">
-			</a>
-			<!-- Navbar items-->
-			<div class="d-flex align-items-center mx-3 me-lg-0">
-				<!-- Navbar buttons-->
-				<div class="d-flex">
-					<!-- Messages dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuMessages" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">mail_outline</i>
-						</button>
-					</div>				
-					<!-- Notifications and alerts dropdown-->
-					<div class="dropdown dropdown-notifications d-none d-sm-block">
-						<button class="btn btn-lg btn-icon dropdown-toggle me-3"
-							id="dropdownMenuNotifications" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="material-icons text-primary position-relative">notifications</i> 
-							<span id="alertCntBadge" class="position-absolute translate-middle badge rounded-pill bg-danger align-middle text-center" style="top:30%; left:63%; font-size:0.5rem;"></span>
-						</button>
-						<ul id="alertDropDown"
-							class="dropdown-menu dropdown-menu-end me-3 mt-3 py-0 overflow-hidden"
-							aria-labelledby="dropdownMenuNotifications">
-						</ul>
-					</div>
-					
-					
-					<!-- User profile dropdown-->
-					<div class="dropdown">
-						<button class="btn btn-lg btn-icon dropdown-toggle"
-							id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="material-icons text-primary">person</i>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end mt-3"
-							aria-labelledby="dropdownMenuProfile">
-							<li><a class="dropdown-item" href="/user/getUser?userId="${userId} data-url='/user/getUser'> <i
-									class="material-icons leading-icon text-primary">person</i>
-									<div class="me-3">Profile</div>
-							</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/user/logout" > <i
-									class="material-icons leading-icon text-primary">logout</i>
-									<div class="me-3">Logout</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
+	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
@@ -348,7 +157,10 @@ $(function() {
 		  <div class="form-group">
 		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userName" name="userName" value="${user.userName}" placeholder="변경회원이름">
+		      <input type="text" class="form-control" id="userName" name="userName" value="${user.userName}" placeholder="변경회원이름" readonly>
+		      <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">이름 수정불가</strong>
+		      	</span>
 		    </div>
 		  </div>
 		  
@@ -370,7 +182,7 @@ $(function() {
 		      <input type="text" class="form-control" id="school" name="school" value="${user.school}" >
 		    </div>
 		  </div>
-		<hr/>
+		
 		<div class="form-group">
 		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">학년</label>
 		    <div class="col-sm-4">
