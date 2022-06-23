@@ -30,6 +30,9 @@
     	#{fees}, 
     	#{payDueDate : CHAR}
 	)
+     <selectKey keyProperty="recordCode" resultType="int" order="AFTER">
+        SELECT seq_students_record.CURRVAL FROM DUAL
+     </selectKey>	
 	</insert>
 	
 	

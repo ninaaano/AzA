@@ -82,8 +82,14 @@ public class UserController {
 		User dbUser=userService.getUser(user.getUserId());
 		System.out.println(dbUser);
 		session = request.getSession();
-		if(dbUser!=null && user.getPassword().equals(dbUser.getPassword())){
+		if(dbUser!=null && user.getUserId() != null){
 			session.setAttribute("user", dbUser);
+			
+			if(!user.getPassword().equals(dbUser.getPassword())) {
+				System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
+				mv.addObject("msg","nope");
+				return new ModelAndView("/login");
+			}
 			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
@@ -132,7 +138,7 @@ public class UserController {
 		return new ModelAndView("redirect:/");
 	}
 	
-	@RequestMapping(value={"getUser/{userId}","getUser"},method=RequestMethod.GET)
+	@RequestMapping(value={"getUser"},method=RequestMethod.GET)
 	public ModelAndView getUser (@ModelAttribute("search") Search search, HttpSession session,@RequestParam(required = false) String studentId) throws Exception{
 		System.out.println("==========");
 		System.out.println("getUser start.....");
@@ -217,22 +223,25 @@ public class UserController {
 
 	}
 	
-	@RequestMapping( value="/", method=RequestMethod.POST )
-	public String deleteUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception{
+	@RequestMapping( value="quit", method=RequestMethod.POST )
+	public ModelAndView deleteUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception{
 		
-		User member = (User)session.getAttribute("User");
+		User member = (User)session.getAttribute("user");
+		ModelAndView mv = new ModelAndView();
 		
 		String dbpwd=member.getPassword();
 		String pwd=user.getPassword();
 		if(!(dbpwd.equals(pwd))) {
 			rttr.addFlashAttribute("msg", false);
-			return "redirect:/user/quit";
+			mv.setViewName("/user/quit");
+			return mv;
 		}
 		userService.deleteUser(user);
 		session.invalidate();
+		mv.setViewName("/login");
 
 		System.out.println("[Controller] => delete okok");
-		return "redirect:/";
+		return mv;
 		
 
 	}

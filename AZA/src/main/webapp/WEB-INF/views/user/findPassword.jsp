@@ -169,9 +169,6 @@ body {
 			</div>
 		</div>
 
-		<input type="hidden" id="randomVal" value="" />
-
-
 
 		<div class="form-label-group">
 			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
@@ -243,7 +240,6 @@ body {
 
 		function cert() {
 			 var phone = $("#phone").val();	
-			
 				$.ajax({
 					type : 'POST',
 					url :'/user/rest/sendSMS/' + phone,
@@ -254,11 +250,11 @@ body {
 						if(data.result  == "success"){
 							$('#certCheck').text("인증 번호가 전송되었습니다.");
 							$('#certCheck').css('color','blue');
-							$("#signup_btn").attr("disabled",true);
+							$("#sms_AuthBtn").attr("disabled",true);
 						}else {
 							$('#certCheck').text("입력한 번호를 다시 확인해주세요.");
 							$('#certCheck').css('color','red');
-							$("#signup_btn").attr("disabled",true);
+							$("#sms_AuthBtn").attr("disabled",true);
 						}
 					}
 				});
@@ -267,7 +263,7 @@ body {
 		function smsAuthBtn() {
 					$('#certCheck').text("인증이 완료되었습니다.");
 					$('#certCheck').css('color','blue');	
-					$("#signup_btn").attr("disabled",false);
+					$("#sms_AuthBtn").attr("disabled",false);
 				
 			
 		};

@@ -19,6 +19,9 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+	<link href="/resources/css/styles.css" rel="stylesheet">
+	<link href="/resources/css/common.css" rel="stylesheet">
+	
 <script type ="text/javascript">
 	function fncAddLessonBook(e) {
 		const p = [];
@@ -29,7 +32,7 @@
 		}
 		console.log(p)
 		
-		var a = $(e).parent().find(".form-select").val();
+		var a = $(e).parent().find(".select").val();
 		console.log(a)
 		var lessonCode = p[a];
 		console.log(lessonCode)
@@ -66,7 +69,7 @@
 	}); */
 	
  	$(function(){
-		$("button.ct_btn01:contains('삭제')").on("click",function(){
+		$("button.btn.btn-outline-primary:contains('삭제')").on("click",function(){
 			var isbn = $(this).data("value");
 			self.location="/lesson/deleteLessonBook?isbn="+isbn;
 		});
@@ -126,65 +129,130 @@
 	});	 */
 </script>
 
+<style>
+img {display: block; margin: 0px auto;
+	-webkit-perspective: 1;
+	image-rendering: -webkit-optimize-contrast;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+.form-control{
+	right:0;
+}
 
+/* .right-items {
+  margin-left: auto;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+} */
+</style>
 
 </head>
-<body>
+<body style="background-color:#f5f5f5">
 
 
-<form id="lessonbook"class="d-flex">	
-<c:if test="${user.role eq 'teacher'}">
-	책 검색(isbn 입력)
-	<div class="form-group">
-         <label for="lessonCode" class="col-sm-2 control-label">수업명</label>
-           <select class="form-select" aria-label="Disabled select example">
-           		<!-- <option value=''> 선택</option> -->
-		    	<c:set var="i" value="0"/>	
-		    	<c:forEach var="book" items="${book}">
-		    		<c:set var="i" value ="${i+1}"/>
-					  <option class="lessonbook" value="${i}" data-value="${book.lessonCode}">${book.lessonName}</option>
+		<div class="mb-3 mr-5 pr-5">
+			<form id="lessonbook">
+			<c:if test="${user.role eq 'teacher'}">
+				<div class="form-group" style="float:right">
+			          <label for="lessonCode">수 업 명</label>
+			          <select class="select" aria-label="Disabled select example" style="width:180px">
+			           		<!-- <option value=''> 선택</option> -->
+					    	<c:set var="i" value="0"/>
+					    	<c:forEach var="book" items="${book}">
+					    		<c:set var="i" value ="${i+1}"/>
+								  <option class="lessonbook" value="${i}" data-value="${book.lessonCode}">${book.lessonName}</option>
+							</c:forEach>
+						</select>
+			         <!-- <div class="col-sm-10">
+			           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+			         </div> -->
+			        	<!-- <div style="float:right"> -->
+							<input name = "isbn" type="search" placeholder="isbn 입력" aria-label="Search">
+							<button class="btn btn-outline-success" type="button" >검색</button>
+						<!-- </div> -->
+			   	 </div>
+				</c:if>
+			</form>
+		</div>
+<br>		
+<div class="mx-5 px-5">
+	<div class="mx-5 px-5">
+		<form id="book" class="book">
+			<div class="row row-cols-1 row-cols-md-4 mt-5 g-4" id="book">
+					<c:set var="i" value="0"/>
+						<c:forEach var="lesson" items="${list}">
+							<c:set var="i" value="${i+1}"/>
+						<div class="col">
+					    <div class="card h-100" align="center" >
+					    	 <div class="embed-responsive embed-responsive-4by3">
+					    	 <!-- class="card-img-top" style="width:240px; height:240px;" -->
+					      	<img src="${lesson.bookImg}" class="card-img-top embed-responsive-item">
+					      </div>
+					      <div class="card-body">
+					        <h5 class="card-title">교재 정보</h5>
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">isbn : 
+				                <input type="text" name="isbn" id="isbn" value="${lesson.isbn}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;"aria-describedby="button-addon1" readOnly="true"></p>
+					        </div>
+					        <div class="input-group">	
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">책제목 : 
+				                <input type="text" value="${lesson.bookTitle}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0; width:300px"aria-describedby="button-addon1" readOnly="true"></p>
+					        </div>
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">출판사 : 
+				                <input type="text" value="${lesson.publisher}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
+					        </div> 
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">가격 : 
+				                <input type="text" value="${lesson.bookPrice}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
+					        </div>
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">저자 : 
+				                <input type="text" value="${lesson.author}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
+					        </div> 
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">발행년도 : 
+				                <input  type="text" value="${lesson.bookYear}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
+					        </div>
+					        <div class="input-group">
+					            <p class="btn btn-outline-primary" style="font-size:15px; border:0;">수업명 : 
+				                <input type="text" value="${lesson.lessonName}" aria-label="Example text with button addon" 
+					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
+					        </div>
+					        <c:if test="${user.role eq 'teacher'}">
+								<button type="button" class="btn btn-outline-primary" id="ct_btn01" data-value="${lesson.isbn}">삭제</button>
+								<%-- <p class="card-text"><button type="button" class="ct_btn01" id="ct_btn01" isbn="${lesson.isbn}">삭제</button></p> --%>
+							</c:if>
+					        
+					        <%-- <p class="card-text" name="isbn" id="isbn">isbn = ${lesson.isbn}</p>
+							<p class="card-text">책제목 = ${lesson.bookTitle}</p>
+							<p class="card-text">출판사 = ${lesson.publisher}</p>
+							<p class="card-text">가격 = ${lesson.bookPrice}</p>
+							<p class="card-text">저자 = ${lesson.author}</p>
+							<p class="card-text">발행년도 = ${lesson.bookYear}</p>
+							<p class="card-text">수업명 = ${lesson.lessonName}</p>
+							<c:if test="${user.role eq 'teacher'}">
+								<button type="button" class="ct_btn01" id="ct_btn01" data-value="${lesson.isbn}">삭제</button>
+							</c:if> --%>
+					      </div>
+					    </div>
+					  </div>
 				</c:forEach>
-			</select>
-         <!-- <div class="col-sm-10">
-           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
-         </div> -->
-    </div>
-	<input name = "isbn" class="form-control me-2" type="search" placeholder="isbn 입력" aria-label="Search">
-	<button class="btn btn-outline-success" type="button">검색</button>
-	</c:if>
-</form>
-
-<form id="book" class="book">
-	<div class="row row-cols-1 row-cols-md-3 g-4" id="book" >
-			<c:set var="i" value="0"/>
-				<c:forEach var="lesson" items="${list}">
-					<c:set var="i" value = "${i+1}"/>
-				<div class="col">
-			    <div class="card h-100">
-			      <img src="${lesson.bookImg}" class="card-img-top" style="width:200px; height:200px">
-			      <div class="card-body">
-			        <h5 class="card-title">교재 정보</h5>
-			        <p class="card-text" name="isbn" id="isbn">isbn = ${lesson.isbn}</p>
-					<p class="card-text">책제목 = ${lesson.bookTitle}</p>
-					<p class="card-text">출판사 = ${lesson.publisher}</p>
-					<p class="card-text">가격 = ${lesson.bookPrice}</p>
-					<p class="card-text">저자 = ${lesson.author}</p>
-					<p class="card-text">발행년도 = ${lesson.bookYear}</p>
-					<p class="card-text">수업명 = ${lesson.lessonName}</p>
-					<c:if test="${user.role eq 'teacher'}">
-						<button type="button" class="ct_btn01" id="ct_btn01" data-value="${lesson.isbn}">삭제</button>
-						<%-- <p class="card-text"><button type="button" class="ct_btn01" id="ct_btn01" isbn="${lesson.isbn}">삭제</button></p> --%>
-					</c:if>
-			      </div>
-			    </div>
-			  </div>
-		</c:forEach>
+			</div>
+			
+			<!-- <div id = "bookDataSimple">
+			</div> -->
+		</form>
 	</div>
-	
-	<!-- <div id = "bookDataSimple">
-	</div> -->
-</form>
-
+</div>
 <!-- <form id = "result">
 	
 </form> -->

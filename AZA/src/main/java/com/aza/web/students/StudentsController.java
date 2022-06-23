@@ -25,9 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aza.common.Page;
 import com.aza.common.Search;
 import com.aza.service.domain.Lesson;
+import com.aza.service.domain.Payment;
 import com.aza.service.domain.Students;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
+import com.aza.service.payment.PaymentService;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
 
@@ -47,6 +49,10 @@ public class StudentsController {
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
 
+	@Autowired
+	@Qualifier("paymentServiceImpl")
+	private PaymentService paymentService;	
+	
 	@Value("${pageUnit}")
 	int pageUnit;
 
@@ -92,7 +98,7 @@ public class StudentsController {
 	}
 
 	@RequestMapping(value="/addStudentsRecord", method=RequestMethod.POST)
-	public ModelAndView addStudentsRecord(@ModelAttribute("students") Students students, HttpSession session) throws Exception {
+	public ModelAndView addStudentsRecord(@ModelAttribute("students") Students students, HttpSession session, @ModelAttribute("payment") Payment payment) throws Exception {
 
 		System.out.println("/students/addStudentsRecord");
 
@@ -100,10 +106,22 @@ public class StudentsController {
 		String studentId = student.getUserId();
 
 		students.setStudentId(studentId);
+		
+		String startDate = students.getLessonStartDate().replace("-", "/");
+		students.setLessonStartDate(startDate);
 
 		System.out.println(students);
 		studentsService.addStudentsRecord(students);
-
+		System.out.println("insert Code Test ==> "+students.getRecordCode());
+		
+		Students students2 = studentsService.getStudentsRecord(students.getRecordCode());
+		System.out.println("students2 ?? => " + students2);
+		payment.setStudentRecordNo(students2.getRecordCode());
+		payment.setStudentId(studentId);
+		payment.setCheckPay('N');	
+		
+		paymentService.addPayment(payment);
+		System.out.println("add studentsRecord payment =>" + payment);
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("redirect:/");
@@ -451,7 +469,7 @@ public class StudentsController {
 		System.out.println("/students/addStudentsCharacter :: POST :: ");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
-		//Ãß°¡..
+		//ï¿½ß°ï¿½..
 		students.setStudentId(user2.getUserId());
 		
 		studentsService.addStudentsCharacter(students);
@@ -565,7 +583,7 @@ public class StudentsController {
 
 		return mv;
 	}
-	//========= Test ÀÖÀ»¶§ get, ¾øÀ»¶§ insert view
+	//========= Test ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ get, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ insert view
 	@RequestMapping(value = "getCheckStudentsCharacter")
 	public ModelAndView getCheckStudentsCharacter
 		(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{

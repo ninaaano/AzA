@@ -63,10 +63,13 @@ public class PaymentController {
 		
 		//session => getUserId(role)
 		String userId = ((User) session.getAttribute("user")).getUserId();
+		String role = ((User) session.getAttribute("user")).getRole();
+		
+		System.out.println("role???????????????" + role);
+		
 		User user = userService.getUser(userId);
 		search.setSearchId(userId);
-		
-		System.out.println("userRole => " + user.getRole());
+
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
@@ -101,6 +104,7 @@ public class PaymentController {
 
 
 		mv.addObject("user", user);
+		mv.addObject("role", role);
 		mv.setViewName("/payment/listPayment");
 		
 		return mv;

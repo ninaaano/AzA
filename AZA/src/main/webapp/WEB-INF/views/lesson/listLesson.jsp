@@ -76,7 +76,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	})
 	
 	$(function(){
-		$("td.btn01:contains('수업추가')").on("click",function(){
+		$("button.btn.btn-text-primary").on("click",function(){
 			self.location = "/lesson/addLessonView"
 		});
 	});
@@ -96,7 +96,7 @@ font-family: Pretendard, 'Noto Sans KR';
 		});
 	} */
 	
-/*  window.addEventListener('DOMContentLoaded', event => {
+window.addEventListener('DOMContentLoaded', event => {
 	const lessonDataSimple = document.getElementById('lessonDataSimple');
 	
 	if(lessonDataSimple){
@@ -196,11 +196,75 @@ font-family: Pretendard, 'Noto Sans KR';
             }
 		})
 	}
-}); */
+});
 
 </script>
 </head>
-<body>
+
+<body class="nav-fixed bg-light">
+	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">수업 목록</h2>
+                                        <div class="card-text">lesson List</div>
+                                    </div>
+<!--                                     <div class="d-flex gap-2">
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
+                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <br/>
+<%--                             	<c:if test="${user.role eq 'teacher'}">
+									<tr>
+										<td class="btn01">
+											수업추가
+										</td>
+									</tr>
+								</c:if> --%>
+							<c:if test="${user.role eq 'teacher'}">
+	                            <div align="right" style="margin-right: 30px">
+		      						<button id="btn btn-text-primary" type="button" class="btn btn-text-primary">수업 등록</button>
+		      					</div>
+                            </c:if>
+		                    <div class="card-body p-4">		
+		                        <!-- Simple DataTables example-->
+		                        <table id="lessonDataSimple">
+						
+								</table>				
+		                    </div>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
+	<!-- Footer-->
+	<footer>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+	</footer>
+	</div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
+</body>
+
+
+<%-- <body>
 	<h1 align="center">수업 목록</h1>
 <form>
 <div class="card-body p-4">
@@ -304,15 +368,12 @@ font-family: Pretendard, 'Noto Sans KR';
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			
+		</div>		
 			 <table id="lessonDataSimple">
 						
 			</table>
-			
-		</div>
 		</div>
 	</div>
 	</form>
-	</body>
+	</body> --%>
 </html>

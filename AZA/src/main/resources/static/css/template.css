@@ -9136,7 +9136,10 @@ div.code-toolbar > .toolbar span.placeholder::before {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  /* background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important; */
+  /* background: linear-gradient(red blue); */
+  background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);  
 }
 
 .bg-secondary {
@@ -26093,4 +26096,8 @@ pre[class*=language-] {
   clear: both;
   content: " ";
   display: table;
+}
+
+#id_text input{
+	background-image: url(file:///C:/Users/akh98/Downloads/emoji-kiss.svg);
 }
