@@ -14,6 +14,26 @@ window.addEventListener('DOMContentLoaded', event => {
 			sessionStorage.setItem("userId", result.userId);
 			sessionStorage.setItem("role", result.role);
 			sessionStorage.setItem("userName", result.userName);
+			
+			var roleStr = "";
+			
+			switch(result.role) {
+				case "teacher" : 
+					roleStr = "선생님";
+					break;
+				case "parent":
+					roleStr = "학부모님";
+					break;
+				case "student":
+					roleStr = "학생"
+					break;
+				default : 
+					break;				
+			}
+			
+			var str = `${result.userName}  ${roleStr} 오늘도 AZA:D`;
+			
+			$('.greetingMsg').append(str);
 				
 			} else {
 				console.log("getUser error");
@@ -47,7 +67,7 @@ function makeOthersList(result) {
                 		
             
                 		listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
-                		<li class='p-2 border-bottom' data-id=`+userId+`>
+                		<li class='p-2 pb-0 border-bottom' data-id=`+userId+`>
                             	<a class="d-flex justify-content-between">
                                     <div class="d-flex flex-row">
                                         <div class="pt-1">
@@ -150,6 +170,13 @@ $(function() {
 		$("#mainFrame").attr('src',url)
 	})
 	
+	// 탑 네비
+	$('.top_nav').on('click', function(e) {
+		var url = e.target.dataset.url;
+		console.log(url);
+		$("#mainFrame").attr('src',url)
+	})
+	
 	// 서브탭 
 	$('.subframe_nav').on('click', function(e) {
 		var url = e.target.dataset.url;
@@ -240,6 +267,66 @@ $(function() {
 })
 
 
+// index_student : 수업 추가
+function resetForm() {
+	document.addStudentsRecordForm.reset();
+	$('.lessonCheck').removeClass('show');
+	$('.valCheck').removeClass('show');	
+}
+
+$(function() {
+	// addStudentsRecord
+	$('#addStudentsRecordBtn').on("click", function() {
+
+		var valFlag = false;
+		const lessonCode = document.addStudentsRecordForm.lessonCode.value;
+		const lessonStartDate = document.addStudentsRecordForm.lessonStartDate.value;
+		const fees = document.addStudentsRecordForm.fees.value;
+		const payDueDate = document.addStudentsRecordForm.payDueDate.value;
+		
+		// 유효성 check
+		if(lessonCode.length < 8 || lessonCode == null || lessonStartDate.length < 1 || lessonStartDate.length == null || fees.length < 1 || fees == null || payDueDate < 1 || payDueDate == null) {
+			$('.valCheck').addClass('show');
+		} else {
+			$.ajax({
+				 url: "http://localhost:8080/lesson/rest/checkLessonCode/"+lessonCode,
+		            type: "GET",
+		            headers : {
+		                    "Accept" : "application/json",
+		                    "Content-Type" : "application/json",                                    
+		                },
+		            success: function(result) {
+		                if(result) {
+		                	console.log(result);
+		                	
+		                	if(result == true) {
+		                		valFlag = true;
+		                	}
+		                	
+		                	if(!valFlag) {
+		                		$('.lessonCheck').addClass('show');
+		                		return;
+		                	}
+		                	
+		                	console.log(valFlag);
+		                	
+		                	if(valFlag) {
+		            			document.addStudentsRecordForm.action = "/students/addStudentsRecord";
+		            			document.addStudentsRecordForm.method = "POST";
+		            			document.addStudentsRecordForm.submit();		
+		            		}
+		                } else {
+		                	console.log("lesson/rest/checkLessonCode :: error || null");			                	
+		                	$('.lessonCheck').addClass('show');
+		                }
+		            }
+			})
+		}
+		
+    	
+
+	})
+})
 
 
 

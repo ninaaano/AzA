@@ -100,6 +100,9 @@ public class StudentsController {
 		String studentId = student.getUserId();
 
 		students.setStudentId(studentId);
+		
+		String startDate = students.getLessonStartDate().replace("-", "/");
+		students.setLessonStartDate(startDate);
 
 		System.out.println(students);
 		studentsService.addStudentsRecord(students);
@@ -451,7 +454,7 @@ public class StudentsController {
 		System.out.println("/students/addStudentsCharacter :: POST :: ");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
-		//Ãß°¡..
+		//ï¿½ß°ï¿½..
 		students.setStudentId(user2.getUserId());
 		
 		studentsService.addStudentsCharacter(students);
@@ -565,7 +568,7 @@ public class StudentsController {
 
 		return mv;
 	}
-	//========= Test ÀÖÀ»¶§ get, ¾øÀ»¶§ insert view
+	//========= Test ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ get, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ insert view
 	@RequestMapping(value = "getCheckStudentsCharacter")
 	public ModelAndView getCheckStudentsCharacter
 		(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{

@@ -13,11 +13,6 @@ function calSysdate() {
 	curDay = now.getDay();
 }
 
-
-
-
-
-
 // 출석
 function attendanceHandler(lessonCode) {
 
@@ -46,6 +41,15 @@ function attendanceHandler(lessonCode) {
    })
 }
 
+function closeAttendanceView() {
+	$('#curLessonName').empty();
+	$('#curAttendanceList').empty();
+	
+	var div = `<div class="fw-bold text-primary">출석 체크</div>`;
+	$('#curLessonName').append(div);
+	
+}
+
 function makeAddAttendanceView(result) {
 
 	calSysdate();
@@ -53,7 +57,7 @@ function makeAddAttendanceView(result) {
 	$('#curLessonName').empty();
 	$('#curAttendanceList').empty();
 	
-	$('#curLessonName').append(`<div class="fw-bold">${result[0].lessonName}</div>`)
+	$('#curLessonName').append(`<div class="fw-bold text-primary">${result[0].lessonName}</div><span onclick="return closeAttendanceView()"><i class="bi bi-x-square fw-bold text-primary"></i></span>`)
 	
 	var attendanceDate = curYear+"/"+curMonth+"/"+curDate;
 	
@@ -125,9 +129,9 @@ function makeUpdateAttendanceView(student) {
 	} else if(student.attendanceState == '지각') {
 		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}🙄</div>`;
 	} else if(student.attendanceState == '도망') {
-		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}🏃‍♀️</div>`;
+		stateStr = `<div class='text-primary fw-bolder'>${student.attendanceState}🏃‍♀️</div>`;
 	} else if(student.attendanceState == '조퇴') {
-		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}👋</div>`;
+		stateStr = `<div class='text-secondary fw-bolder'>${student.attendanceState}👋</div>`;
 	}
 	
 

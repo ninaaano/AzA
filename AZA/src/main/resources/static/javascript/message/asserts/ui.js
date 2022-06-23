@@ -12,14 +12,25 @@ otherListBtn.on("click", getMessageHandler);
 getMessageBtn.on("click", otherListHandler);
 
 function popupHandler() {
-	messagePopup.removeClass("hidden");
-	messagePopup.addClass("show");
-	connect();
+	
+	if(messagePopupBtn.hasClass("opened")) {
+		messagePopup.removeClass("show");
+		messagePopup.addClass("hidden");
+		messagePopupBtn.removeClass("opened");
+		disconnect();
+	} else{
+		
+		messagePopup.removeClass("hidden");
+		messagePopup.addClass("show");
+		messagePopupBtn.addClass("opened")
+		connect();
+	}
 }
 
 function getMessageHandler() {
 	otherListContainer.removeClass("hidden");
 	getMessageContainer.addClass("hidden");
+	$("#messages").empty();
 }
 
 function otherListHandler(otherId) {	
@@ -31,7 +42,9 @@ function getOtherMessage(otherId, otherName) {
 	console.log(otherId);
 	otherListHandler(otherId);
 	getMessage(sessionStorage.userId , otherId);
-	let otherInfo = `<input type="hidden" id="otherId" value="${otherId}"></input><h5 id="otherName" class="mb-0">${otherName}</h5>`;
+	let otherInfo = `<input type="hidden" id="otherId" value="${otherId}"></input>
+	<h5 id="otherName" class="mb-0">${otherName}</h5>
+	<h6 class="caption small text-gray m-0">@${otherId}</h6>`;
 	$("#otherInfo").html("");	
 	$("#otherInfo").html(otherInfo);
 }
@@ -101,10 +114,13 @@ function getMessage(userId,otherId) {
 function addMessage() {
 	console.log(stompClient);
 	console.log("/app/addMessage");
+	
+	var now = getLocalDateTime();
+	
 	stompClient.send("/app/addMessage", {}, JSON.stringify({'senderId': sessionStorage.userId,
 															'receiverId': $("#otherId").val(),
 															'messageContent': $("#messageContent").val(),
-															'messageCreateAt': new Date(),		
+															'messageCreateAt': now,		
 	}));
 	$("#messageContent").val("");
 }
@@ -122,25 +138,36 @@ function deleteBtnHandler(ele) {
 
 
 function showMessages(userId, message) {
+	
+	var createAt = message.messageCreateAt.split("년");
+	if(createAt[0] == new Date().getFullYear()) {
+		var timeForm = createAt[1];
+	} else {
+		var timeForm = createAt.join("년 ");
+	}
+	
 
 	if (userId == message.senderId) {
 		
 		console.log(message);
-		msgHtml += `<ul class='messageList'>
+		msgHtml += `<ul class='messageList pl-3'>
 		<div class="pt-1 pb-1 d-flex flex-row justify-content-end">
         <div class="messageContent" name="${message._id}">
-            <div>
+            <div class="d-flex justify-content-end align-items-end">
+	            <i class="deleteBtn bi bi-x m-0 pb-0 mr-1 fs-6 text-primary" onclick="return deleteBtnHandler(this)" data-id="${message._id}"></i>
 	            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">${message.messageContent}</p>
-	            <i class="deleteBtn fa-solid fa-trash" onclick="return deleteBtnHandler(this)" data-id="${message._id}"></i>
             </div>
-                <p class="small me-3 mb-1 rounded-3 text-muted d-flex justify-content-end">${message.messageCreateAt}</p>
+                <p class="small caption me-3 mb-1 rounded-3 text-muted d-flex justify-content-end">${timeForm}</p>
         </div>
         </div></ul>`;
 	} else {
-		msgHtml += `<ul><div class="pt-1 pb-1 d-flex flex-row justify-content-start">
+		msgHtml += `<ul class='messageList pl-3'>
+		<div class="pt-1 pb-1 d-flex flex-row justify-content-start">
         <span class="messageContent" name="${message._id}">
-        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${message.messageContent}</p>
-        <p class="small text-muted mb-1">${message.messageCreateAt}</p>
+        <div class="d-flex justify-content-start align-items-end">
+        <p class="small p-2 mb-1 rounded-3" style="background-color: #f5f6f7;">${timeForm}</p>
+        </div>
+        <p class="small caption text-muted mb-1 text-start">${message.messageCreateAt}</p>
         </span>
         </div></ul>`;	
 	}	
@@ -149,7 +176,15 @@ function showMessages(userId, message) {
     $("#messages").html(msgHtml);
 }
 
+function getLocalDateTime() {
+	var now = new Date().toLocaleString();
+	var x = now.replaceAll(".", "");
+	var temp = x.split(" ");
 
+	var nowForm = temp[0] + "년" + temp[1] +"월 "+temp[2]+"일 "+temp[3]+" "+temp[4].substring(0, temp[4].length-3); 
+
+	return nowForm;
+}
 
 
 
