@@ -45,6 +45,70 @@
 
 </head>
 <body class="nav-fixed">
+<form class="form-horizontal">
+		<div class="border border-top-0 p-3 p-sm-10 bg-light">
+			<div class="px-10 mx-10">
+			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
+		        <h1 class="display-4 mb-0">수업 상세 조회</h1>
+		        <div class="text-muted">Lesson</div>
+	    	</div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary"  style="width:120px;">강의명</p>
+	            <input class="form-control" type="text" placeholder="강의명을 입력하세요" aria-label="Example text with button addon" 
+	             id="lessonName" name="lessonName" aria-describedby="button-addon1" style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 요일</p>&nbsp;&nbsp;
+		        월&nbsp;<input type="checkbox"  id="lessonDay" name="lessonDay" value="월"/>&nbsp;&nbsp;
+		        화&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="화"/>&nbsp;&nbsp;
+		        수&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="수"/>&nbsp;&nbsp;
+		        목&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="목"/>&nbsp;&nbsp;
+		        금&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="금"/>&nbsp;&nbsp;
+		        토&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="토"/>&nbsp;&nbsp;
+		         일&nbsp;<input type="checkbox"  id="lessonDay" name="lessonDay" value="일"/>&nbsp;&nbsp;
+		        <input type="hidden" id="hiddenValue" name="hiddenValue" value=""/>
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 시작 시간</p>
+	            <input class="form-control" type="time" aria-label="Example text with button addon" 
+	            id="lessonStartTime" name="lessonStartTime" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 종료 시간</p>
+	            <input class="form-control" type="time" aria-label="Example text with button addon" 
+	            id="lessonEndTime" name="lessonEndTime" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 장소</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="lessonPlace" name="lessonPlace" aria-describedby="button-addon1" placeholder="수업장소을 입력하세요"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업료</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" placeholder="수업료를 입력하세요"
+	            id="fees" name="fees" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업명</p>
+	            <input class="form-control" type="text" placeholder="수업을 입력하세요" aria-label="Example text with button addon" 
+	            id="subject" name="subject" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>       
+	        	        
+	        <div class="mb-0">
+	            <p class="btn btn-outline-primary" style="width:120px; margin:0px 0px 15px 0px;" >커리큘럼</p>
+	            <textarea class="form-control"  id="lessonContent" name="lessonContent" placeholder="수업 커리큘럽 입력하세요" rows="12"></textarea>
+	        </div>
+	        </div>
+	    </div>
+		
+	       <div class="form-group" align="center">
+		         <div class="col-sm-offset-4  col-sm-4 text-center">
+		           <button type="button" class="btn btn-primary" >저&nbsp;장</button>&nbsp;&nbsp;&nbsp;
+		           <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		         </div>
+	       </div>		
+	</form>	
+
 
 		<div class="d-flex mt-10 mb-4 align-items-center">
 		        <h1 class="page-header mb-0">수업상세정보</h1>

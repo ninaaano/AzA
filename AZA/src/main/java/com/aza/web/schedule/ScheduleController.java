@@ -177,7 +177,7 @@ public class ScheduleController {
 		}else {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
 			
-			Map<String, Object> map = lessonService.listLessonScheduleStudent(studentId, teacherID);
+			Map<String, Object> map = lessonService.listLessonScheduleStudent(search, studentId);
 			
 			JSONObject json = new JSONObject();
 			try {

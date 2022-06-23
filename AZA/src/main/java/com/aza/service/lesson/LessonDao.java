@@ -83,7 +83,7 @@ public interface LessonDao {
 	public List<Schedule> listLessonScheduleTeacher(Search search, String teacherId) throws Exception;
 	
 	//schdule : studnet
-	public List<Schedule> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
+	public List<Schedule> listLessonScheduleStudent(Search search, String studentId) throws Exception;
 	
 	public List<Schedule> listLessonSelectTeacher(Search search, String studentId) throws Exception;
 	
@@ -92,7 +92,7 @@ public interface LessonDao {
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 	
-	public int getLessonScheduleStudentTotalCount(String studentId, String teacherId) throws Exception;
+	public int getLessonScheduleStudentTotalCount(Search search, String studentId) throws Exception;
 
 	public int getlistLessonSelectTeacherTotalCount(Search search, String searchKeyword) throws Exception;
 }

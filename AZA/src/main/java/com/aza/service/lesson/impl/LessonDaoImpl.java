@@ -250,23 +250,25 @@ public class LessonDaoImpl implements LessonDao {
 	
 
 	@Override
-	public List<Schedule> listLessonScheduleStudent(String studentId, String teacherId) throws Exception {
+	public List<Schedule> listLessonScheduleStudent(Search search, String studentId) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("studentId", studentId);
-		map.put("teacherId", teacherId);
-		
-		return sqlSessionTemplate.selectList("ScheduleMapper.listLessonScheduleStudents",map);
+		search.setSearchId(studentId);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		map.put("studentId", studentId);
+////		map.put("teacherId", teacherId);
+//		
+		return sqlSessionTemplate.selectList("ScheduleMapper.listLessonScheduleStudents",search);
 	}
 	
 	@Override
-	public int getLessonScheduleStudentTotalCount(String studentId, String teacherId) throws Exception {
+	public int getLessonScheduleStudentTotalCount(Search search, String serachKeyword) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentId", studentId);
-		map.put("teacherId",teacherId);
-		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonScheduleStudentsTotalCount",map);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("studentId", studentId);
+//		map.put("teacherId",teacherId);
+		search.setSearchKeyword(serachKeyword);
+		return sqlSessionTemplate.selectOne("ScheduleMapper.getLessonScheduleStudentsTotalCount",search);
 	}
 	
 	@Override
