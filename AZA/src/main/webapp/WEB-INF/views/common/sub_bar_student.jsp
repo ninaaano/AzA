@@ -419,7 +419,7 @@ $(function() {
 							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">			  	
 							    <button class="subframe_nav nav-link active" data-url="/lesson/listLesson" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-parent-kids-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="true">수업목록</button>
 							    <button class="subframe_nav nav-link" data-url="/paper/listPaperHomework" id="nav-studentsAttendance-tab" data-bs-target="#nav-parent-kids-tab" data-bs-toggle="tab"type="button" role="tab" aria-controls="nav-profile" aria-selected="false">과제</button>
-							    <button class="subframe_nav nav-link" data-url="/paper/listPaperQuiz"  id="nav-studentsExam-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
+							    <!-- <button class="subframe_nav nav-link" data-url="/paper/listPaperQuiz"  id="nav-studentsExam-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button> -->
 							    <button class="subframe_nav nav-link" data-url="" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">자료</button>
 							    <button class="subframe_nav nav-link" data-url="/lesson/manageLessonBook" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">교재</button>
 							  </div>

@@ -134,11 +134,11 @@ $(function() {
                                 </div>
                             </div>
                             <br/>
-                            <div>
-	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">과제 등록</button>
-	      					</div>
                             
 		                    <div class="card-body p-4">		
+	                            <div style="margin: 0px 0px 20px 0px">
+		      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">과제 등록</button>
+		      					</div>
 		                        <!-- Simple DataTables example-->
 		                        <table id="datatablesSimpleHomeworkList">
 		                        

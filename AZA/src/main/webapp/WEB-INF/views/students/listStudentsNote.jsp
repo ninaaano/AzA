@@ -57,7 +57,7 @@
 	rel="stylesheet">
 <style>
 *, body { 
-font-family: Pretendard, 'Noto Sans KR';
+	font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
@@ -88,60 +88,6 @@ $(function() {
 
 
 </script>
-
-
-<%-- 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-        <h1 class="display-4 mb-0">강의 노트</h1>
-        <div class="text-muted">Students Note</div>
-    </div>
-	<div style="margin: 30px 30px 30px 30px">
-		<button id="addBtn" type="button" class="btn btn-outline-primary">노트 작성</button>
-	</div>
-
-	<div class="dataTable-container" style="margin: 30px 30px 30px 30px">
-      		<table id="datatablesSimple" class="dataTable-table">
-	                <thead>
-	                    <tr>
-	                    	
-	                    	<th data-sortable="" style="width: 5%;">
-	                    		<a href="#" class="dataTable-sorter">No.</a>
-                    		</th>
-                    		<th data-sortable="" style="width: 16%;">
-                    			<a href="#" class="dataTable-sorter">제목</a>
-                   			</th>
-                   			<th data-sortable="" style="width: 15%;">
-                   				<a href="#" class="dataTable-sorter">작성 날짜</a>
-                  			</th>
-               			</tr>
-	                </thead>
-	                
-                	<tbody>
-           				<c:set var="i" value="0"/>			
-							<c:forEach var="students" items="${list}">			
-							<c:set var="i" value="${i+1}" />
-							<tr>
-								<td >${i}</td>
-								<td id="noteTitlee" noteCode="${students.noteCode }">${students.noteTitle}</td>
-								<td >${students.noteCreateAt}</td>				
-							</tr>
-						</c:forEach>
-              			</tbody>
-              </table>
-    </div>
-
-
-	
-	
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
-
-	<script src="/resources/javascript/common/prism.js"></script>
-	<script src="/resources/javascript/common/material.js"></script>
-	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script> --%>
 <!-- //////////////////////////////////////////////////////////////// -->
       <div id="layoutDrawer_content">
                 <!-- Main page content-->
@@ -163,11 +109,11 @@ $(function() {
                                 </div>
                             </div>
                             <br/>
-                            <div>
-	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">노트 작성</button>
-	      					</div>
                             
 		                    <div class="card-body p-4">		
+	                            <div style="margin: 0px 0px 20px 0px">
+		      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">노트 작성</button>
+		      					</div>
 		                        <!-- Simple DataTables example-->
 		                        <table id="datatablesSimpleNoteList">
 		                        

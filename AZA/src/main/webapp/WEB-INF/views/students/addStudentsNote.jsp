@@ -118,35 +118,53 @@
 	
 
 </head>
-<body>
-	<form name="noteForm" action="addStudentsNote" method="post">
-		<div class="border border-top-0 p-3 p-sm-5 bg-light">
-		<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-	        <h1 class="display-4 mb-0">노 트 작 성</h1>
-	        <div class="text-muted">New Note</div>
-	   	</div>
-	      <div id="smarteditor" style="margin: 30px 30px 30px 30px">
-    	 	<div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
-        	</div>
-            <input type="hidden" class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-            	name="studentId" id="studentId" value="${user.userId}" <%-- value="${students.studentId}" --%> aria-describedby="button-addon1"/>
-
-	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
-	                  rows="30" cols="10" 
-	                  placeholder="내용을 입력해주세요"
-	                  style="width: 100%"></textarea>
-	      </div>
-	      
-	      <div align="center">			
- 	      	  <input type="button" onclick="submitPost();" value="작성" class="btn btn-outline-primary"/>
-			  <button id="CalcelBtn" type="button" class="btn btn-outline-primary">취소</button>
-		  </div>
-	  </div>
-    </form>
-    
+<body class="nav-fixed bg-light">
+	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">노트 작성</h2>
+                                        <div class="card-text">New Note</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form name="noteForm" action="addStudentsNote" method="post">
+			                    <div class="card-body p-4">		
+									<div id="smarteditor" style="margin: 30px 30px 30px 30px">
+							    	 	<div class="input-group mb-3">
+								            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
+								            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+								             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
+							        	</div>
+							            <input type="hidden" class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+							            	name="studentId" id="studentId" value="${user.userId}" value="${students.studentId}" aria-describedby="button-addon1"/>
+							
+								        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
+								                  rows="30" cols="10" 
+								                  placeholder="내용을 입력해주세요"
+								                  style="width: 100%"></textarea>
+								      </div>
+								      
+								      <div align="center">			
+							 	      	  <input type="button" onclick="submitPost();" value="작성" class="btn btn-outline-primary"/>
+										  <button id="CalcelBtn" type="button" class="btn btn-outline-primary">취소</button>
+									  </div>
+			                    </div>                      
+                            </form>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
+	</div>
+	
     <script>
 	    let oEditors = []
 	
@@ -168,17 +186,13 @@
 
 	 </script>
 	
-	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
-	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo.js"></script>
-<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
-	
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
 </body>
 </html>

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    %>
+<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>∞˙¡¶ µÓ∑œ</title>
+<meta charset="UTF-8">
+<title>Í≥ºÏ†ú Îì±Î°ù</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,15 +70,15 @@
 			var homeworkContent = $("textarea[name='homeworkContent']").val();
 			
 			if(homeworkTitle == null || homeworkTitle.length<1){
-				alert("¡¶∏Ò¿∫ π›µÂΩ√ ¿‘∑¬«ÿæﬂ «’¥œ¥Ÿ.");
+				alert("Ï†úÎ™©ÏùÄ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥Ïïº Ìï©ÎãàÎã§.");
 				return;
 			}
-			if(studentName == null || studentName.length<1){
-				alert("«–ª˝¿Ã∏ß¿∫ π›µÂΩ√ ¿‘∑¬«ÿæﬂ «’¥œ¥Ÿ.");
+			/* if(studentName == null || studentName.length<1){
+				alert("ÌïôÏÉùÏù¥Î¶ÑÏùÄ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥Ïïº Ìï©ÎãàÎã§.");
 				return;
-			}
+			} */
 			if(homeworkContent == null || homeworkContent.length<1){
-				alert("∞˙¡¶ ≥ªøÎ¿ª π›µÂΩ√ ¿‘∑¬«ÿæﬂ«’¥œ¥Ÿ.");
+				alert("Í≥ºÏ†ú ÎÇ¥Ïö©ÏùÑ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥ÏïºÌï©ÎãàÎã§.");
 				return;
 			}
 
@@ -87,13 +86,13 @@
 		}
 		
 /*  		$(function() {
-			$("button.btn.btn-outline-primary:contains('µÓ∑œ')").on("click", function() {
+			$("button.btn.btn-outline-primary:contains('Îì±Î°ù')").on("click", function() {
 				fncAddHomework();
 			});
 		});
 		
  		$(function() {
-			$("button.btn.btn-outline-primary:contains('√Îº“')").on("click", function() {
+			$("button.btn.btn-outline-primary:contains('Ï∑®ÏÜå')").on("click", function() {
 				history.go(-1);
 			});
 		}); */
@@ -110,54 +109,88 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 </head>
-<body>
-
-	<form>
-		
-		<div class="border border-top-0 p-3 p-sm-5 bg-light">
-			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
-		        <h1 class="display-4 mb-0">∞˙ ¡¶ µÓ ∑œ</h1>
-		        <div class="text-muted">Add Homework</div>
-	    	</div>
-	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ºˆæ˜∏Ì</button>
-	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
-	            	<c:set var="i" value="0"/>
-	            	<c:forEach var="lesson" items="${list }">
-	            	<c:set var="i" value="${i+1 }"/>
-	            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
-	            	</c:forEach>
-                </select>
-                
-                <%-- <input class="form-control" type="text" placeholder="ºˆæ˜∏Ì¿ª ¿‘∑¬«œººø‰" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1"> --%>
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">∞˙¡¶ ¡¶∏Ò</button>
-	            <input class="form-control" type="text" placeholder="∞˙¡¶ ¡¶∏Ò¿ª ¿‘∑¬«œººø‰" aria-label="Example text with button addon" 
-	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">«–ª˝ ¿Ã∏ß</button>
-	            <input class="form-control" type="text" placeholder="«–ª˝ ¿Ã∏ß¿ª ¿‘∑¬«œººø‰" aria-label="Example text with button addon" 
-	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">∞˙¡¶ ∏∂∞® ≥Ø¬•</button>
-	            <input class="form-control" type="date" placeholder="∞˙¡¶ ∏∂∞® ≥Ø¬•∏¶ ¿‘∑¬«œººø‰" aria-label="Example text with button addon" 
-	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
-	        </div>
-	        <div class="mb-0">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >∞˙¡¶ ≥ªøÎ</button>
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="∞˙¡¶ ≥ªøÎ¿ª ¿‘∑¬«œººø‰" value="${paper.homeworkContent}" rows="12"></textarea>
-	        </div>
-	    </div>
-		
-	</form>	
-	    <div align="center">			
-		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">µÓ∑œ</button>
-		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">√Îº“</button>
-		</div>
+<body class="nav-fixed bg-light">
 	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">Í≥º Ï†ú Îì± Î°ù</h2>
+                                        <div class="card-text">Add Homework</div>
+                                    </div>
+                                </div>
+                            </div>
+                   		 <div class="card-body p-4">		
+                           	 <form>
+						        	<div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÏàòÏóÖÎ™Ö</button>
+							            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+							            	<c:set var="i" value="0"/>
+							            	<c:forEach var="lesson" items="${list }">
+							            	<c:set var="i" value="${i+1 }"/>
+							            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+							            	</c:forEach>
+						                </select>
+							        </div>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">Í≥ºÏ†ú Ï†úÎ™©</button>
+							            <input class="form-control" type="text" placeholder="Í≥ºÏ†ú Ï†úÎ™©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî" aria-label="Example text with button addon" 
+							             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
+							        </div>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÌïôÏÉù Ïù¥Î¶Ñ</button>
+							            <select class="form-select" aria-label="Default select example" id="studentName" name="studentName">
+							            	<c:set var="i" value="0"/>
+							            	<c:forEach var="students" items="${listStudents }">
+							            	<c:set var="i" value="${i+1 }"/>
+							            		<option align="center" value="${students.studentName }">${students.studentName }
+							            	</c:forEach>
+						                </select>
+							        </div>
+							        <%-- <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÌïôÏÉù Ïù¥Î¶Ñ</button>
+							            <input class="form-control" type="text" placeholder="ÌïôÏÉù Ïù¥Î¶ÑÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî" aria-label="Example text with button addon" 
+							            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
+							        </div> --%>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">Í≥ºÏ†ú ÎßàÍ∞ê ÎÇ†Ïßú</button>
+							            <input class="form-control" type="date" placeholder="Í≥ºÏ†ú ÎßàÍ∞ê ÎÇ†ÏßúÎ•º ÏûÖÎ†•ÌïòÏÑ∏Ïöî" aria-label="Example text with button addon" 
+							            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1">
+							        </div>
+							        <div class="mb-0">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >Í≥ºÏ†ú ÎÇ¥Ïö©</button>
+							            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="Í≥ºÏ†ú ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî" value="${paper.homeworkContent}" rows="12"></textarea>
+							        </div>
+								</form>	
+						    </div>
+							    <div align="center" style="margin:0px 10px 20px 10px;">			
+								 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary" style="margin:0px 10px 0px 10px;">Îì±Î°ù</button>
+								 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary" style="margin:0px 10px 0px 10px;">Ï∑®ÏÜå</button>
+								</div>
+		                    </div>                                                     
+                        </div>
+                    </div>
+                </main>
+	<!-- Footer-->
+	<footer>
+		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
+		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
+	</footer>
+	</div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
 </body>
 </html>

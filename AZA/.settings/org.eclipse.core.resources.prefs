@@ -19,7 +19,6 @@ encoding//src/main/webapp/WEB-INF/views/chatbot/chatbot.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/lesson/getLesson.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/lesson/listLesson.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/lesson/manageLessonBook.jsp=EUC-KR
-encoding//src/main/webapp/WEB-INF/views/paper/addPaperHomework.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/paper/listPaperHomework.jsp=EUC_KR
 encoding//src/main/webapp/WEB-INF/views/payment/listPayment.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/students/addStudentsCharacter.jsp=euc-kr
@@ -27,7 +26,13 @@ encoding//src/main/webapp/WEB-INF/views/students/getStudentsCharacter.jsp=euc-kr
 encoding//src/main/webapp/WEB-INF/views/user/getUser.jsp=UTF-8
 encoding//src/test/java=UTF-8
 <<<<<<< HEAD
+<<<<<<< HEAD
 encoding/<project>=UTF-8
 =======
+=======
+>>>>>>> refs/heads/YS
 encoding/<project>=EUC_KR
+<<<<<<< HEAD
 >>>>>>> refs/heads/MY
+=======
+>>>>>>> refs/heads/YS

@@ -437,7 +437,7 @@ $(function() {
 							    <button class="subframe_nav nav-link" data-url="/schedule/manageLessonSchedule" id="nav-studentsAttendance-tab" data-bs-target="#nav-parent-kids-tab" data-bs-toggle="tab"type="button" role="tab" aria-controls="nav-profile" aria-selected="false">일정</button>
 							    <button class="subframe_nav nav-link" data-url="/lesson/manageLessonBook"  id="nav-studentsExam-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">교재</button>
 							    <button class="subframe_nav nav-link" data-url="" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">자료</button>
-							    <button class="subframe_nav nav-link" data-url="/paper/listPaperQuiz" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
+							    <!-- <button class="subframe_nav nav-link" data-url="/paper/listPaperQuiz" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button> -->
 							    <button class="subframe_nav nav-link" data-url="/paper/listPaperHomework" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">과제</button>
 							  </div>
 							</nav>
