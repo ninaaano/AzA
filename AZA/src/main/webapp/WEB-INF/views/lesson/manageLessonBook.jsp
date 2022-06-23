@@ -178,7 +178,7 @@ img {display: block; margin: 0px auto;
 		</div>
 		
 <div class="mx-5 px-5">
-	<div class="mx-5 px-5">>
+	<div class="mx-5 px-5">
 		<form id="book" class="book">
 			<div class="row row-cols-1 row-cols-md-4 mt-5 g-4" id="book">
 					<c:set var="i" value="0"/>
