@@ -58,6 +58,9 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+
 <style>
    body {
     padding-top : 50px;
@@ -85,10 +88,6 @@
 
                                         <div class="card-text">Payment List</div>
                                     </div>
-<!--                                     <div class="d-flex gap-2">
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="card-body p-4">
@@ -106,13 +105,12 @@
                 </main>
 	<!-- Footer-->
 	<footer>
-		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-
+<!--  -->
+<script src= cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
@@ -121,67 +119,78 @@
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
+
 	<script type="text/javascript">
+/* 	
+	  $('#datatablesSimplePaymentList').DataTable( {
+		    columnDefs: [ {
+		      targets: 5,
+		      render: $.fn.dataTable.render.moment( 'Do MMM YYYY' )
+		    } ]
+		  } ); */
+	  
+	  (function( factory ) {
+		    "use strict";
+		 
+		    if ( typeof define === 'function' && define.amd ) {
+		        // AMD
+		        define( ['jquery'], function ( $ ) {
+		            return factory( $, window, document );
+		        } );
+		    }
+		    else if ( typeof exports === 'object' ) {
+		        // CommonJS
+		        module.exports = function (root, $) {
+		            if ( ! root ) {
+		                root = window;
+		            }
+		 
+		            if ( ! $ ) {
+		                $ = typeof window !== 'undefined' ?
+		                    require('jquery') :
+		                    require('jquery')( root );
+		            }
+		 
+		            return factory( $, root, root.document );
+		        };
+		    }
+		    else {
+		        // Browser
+		        factory( jQuery, window, document );
+		    }
+		}
+		(function( $, window, document ) {
+		 
+		 
+		$.fn.dataTable.render.moment = function ( from, to, locale ) {
+		    // Argument shifting
+		    if ( arguments.length === 1 ) {
+		        locale = 'en';
+		        to = from;
+		        from = 'YYYY-MM-DD';
+		    }
+		    else if ( arguments.length === 2 ) {
+		        locale = 'en';
+		    }
+		 
+		    return function ( d, type, row ) {
+		        if (! d) {
+		            return type === 'sort' || type === 'type' ? 0 : d;
+		        }
+		 
+		        var m = window.moment( d, from, locale, true );
+		 
+		        // Order and type get a number value from Moment, everything else
+		        // sees the rendered value
+		        return m.format( type === 'sort' || type === 'type' ? 'x' : to );
+		    };
+		};
+		 
+		 
+		}));
+	
+	
 </script>
 </body>
-<%-- <body>
 
-
-
-
-<h3>PAYMENT LIST</h3>
-<<<<<<< HEAD
-<form>				
-${user.role }
-
-
-
-
-               
-               <table id="datatablesSimplePaymentList">
-               
-               </table> 
-
-</form>
- 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
-	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-	<script src="/resources/javascript/common/prism.js"></script>
-	<script src="/resources/javascript/common/material.js"></script>
-	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-
-	<script type="text/javascript">
-=======
-<form>            
-${user.role }
-
-
-
-
-               
-               <table id="datatablesSimplePaymentList">
-               
-               </table> 
-
-</form>
-      <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-      crossorigin="anonymous"></script>
-   <!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-   <script src="/resources/javascript/common/prism.js"></script>
-   <script src="/resources/javascript/common/material.js"></script>
-   <script src="/resources/javascript/common/scripts.js"></script>
-   <script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-
-   <script type="text/javascript">
->>>>>>> refs/heads/HMHM
-</script>
-</body> --%>
 </html>

@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', event => {
             if(sessionStorage.getItem("role") == 'teacher') {
              var columns = [{
                select: 7,
-                  render: realPayment,
+               render: realPayment,
                hidden: true,
             }];
             
@@ -122,9 +122,17 @@ window.addEventListener('DOMContentLoaded', event => {
          columns:[
             {
                select: 7,
-                  render: realPayment,
+               render: realPayment,
                
-         }
+           },{
+				select : 5,
+				data : "payday",
+				render : function(data){
+					return moment(data).format("DD/MM/YYYY");
+				}
+			
+		
+			}
                   
          
          ],
