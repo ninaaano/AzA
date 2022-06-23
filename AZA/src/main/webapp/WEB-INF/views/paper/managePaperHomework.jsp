@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>∞˙¡¶</title>
+<meta charset="UTF-8">
+<title>Í≥ºÏ†ú</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -69,6 +69,11 @@ font-family: Pretendard, 'Noto Sans KR';
 		window.onload = function () { 
 			$("#updateBtn").hide();
 			$("#lessonNameList").hide();
+			$("#cancelBtn").hide();
+			
+			if(${paper.homeworkCheck} == 1){
+				$("#homeworkCheck").prop("disabled",true);
+			}
 			
 			if(${user.role eq 'teacher'}){
 				$("#checkDiv").hide();
@@ -79,17 +84,14 @@ font-family: Pretendard, 'Noto Sans KR';
 			}else{
 				$("#checkDiv").hide();
 				$("#goUpdateBtn").hide();
-				$("#deleteeBtn").hide();
+				$("#deleteBtn").hide();
 			}
 			
-			if(${paper.homeworkCheck} == 1){
-				$("#homeworkCheck").prop("disabled",true);
-			}
 		}
 		
  		$(function() {
 			
-			$( "button.btn.btn-outline-primary:contains('ºˆ¡§')").on("click" , function() {
+			$( "button.btn.btn-outline-primary:contains('ÏàòÏ†ï')").on("click" , function() {
 				
 				document.getElementById("homeworkTitle").readOnly=false;
 				document.getElementById("studentName").readOnly=false;
@@ -100,15 +102,38 @@ font-family: Pretendard, 'Noto Sans KR';
 				$("#updateBtn").show();
 				$("#lessonNameList").show();
 				$("#lessonNameListInput").hide();
+				$("#cancelBtn").show();
+				$("#goBackBtn").hide();
 				
-			    const homeworkDueDate = document.getElementById('homeworkDueDate');
+				
+ 			    const homeworkDueDate = document.getElementById('homeworkDueDate');
 			    homeworkDueDate.type = "date";
 			});
 		});
  		
  		$(function() {
  			
-			$( "button.btn.btn-outline-primary:contains('»Æ¿Œ')").on("click" , function() {
+			$( "button.btn.btn-outline-primary:contains('ÌôïÏù∏')").on("click" , function() {
+				
+				var lessonName = $('option:selected').text().trim();
+				var homeworkTitle = $("input[name='homeworkTitle']").val();
+				var studentName = $("input[name='studentName']").val();
+				var homeworkDueDate = $("input[name='homeworkDueDate']").val();
+				var homeworkContent = $("textarea[name='homeworkContent']").val();
+				
+				if(homeworkTitle == null || homeworkTitle.length<1){
+					alert("Ï†úÎ™©ÏùÄ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥Ïïº Ìï©ÎãàÎã§.");
+					return;
+				}
+				if(studentName == null || studentName.length<1){
+					alert("ÌïôÏÉùÏù¥Î¶ÑÏùÄ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥Ïïº Ìï©ÎãàÎã§.");
+					return;
+				}
+				if(homeworkContent == null || homeworkContent.length<1){
+					alert("Í≥ºÏ†ú ÎÇ¥Ïö©ÏùÑ Î∞òÎìúÏãú ÏûÖÎ†•Ìï¥ÏïºÌï©ÎãàÎã§.");
+					return;
+				}
+				
 				$("form").attr("method", "POST").attr("action","/paper/updatePaperHomework").submit();
 				$("#lessonNameList").hide();
 				$("#lessonNameListInput").show();
@@ -116,13 +141,21 @@ font-family: Pretendard, 'Noto Sans KR';
  		});
  		
 		function deleteBtn() {
-			if(window.confirm("¡§∏ª ªË¡¶«œΩ√∞⁄Ω¿¥œ±Ó?")){
+			if(window.confirm("Ï†ïÎßê ÏÇ≠Ï†úÌïòÏãúÍ≤†ÏäµÎãàÍπå?")){
 				if(true){
 					$("form").attr("method", "POST").attr("action","/paper/deletePaperHomework").submit();
 				}else{
-					alert('ªË¡¶∞° √Îº“µ«æ˙Ω¿¥œ¥Ÿ.');
+					alert('ÏÇ≠Ï†úÍ∞Ä Ï∑®ÏÜåÎêòÏóàÏäµÎãàÎã§.');
 				}
 			}	
+		}
+		
+		function goBackBtn() {
+			if(${user.role eq 'teacher'}){
+				history.go(-1);				
+			}else{
+				self.location = "/paper/listPaperHomework"
+			}
 		}
 		
 		function cancelBtn() {
@@ -145,65 +178,89 @@ font-family: Pretendard, 'Noto Sans KR';
 </script>
 
 </head>
-<body>
-	<div class="border border-top-0 p-3 p-sm-5 bg-light">
-		<form>
-		
-			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
-		        <h1 class="display-4 mb-0">∞˙ ¡¶ ¡∂ »∏</h1>
-		        <div class="text-muted">Homework</div>
-	    	</div>
-			
-			<input type="hidden" name="homeworkCode" id="homeworkCode" value="${paper.homeworkCode }"/>
-			
-	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameList">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ºˆæ˜∏Ì</button>
-	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
-	            	<c:set var="i" value="0"/>
-	            	<c:forEach var="lesson" items="${list }">
-	            	<c:set var="i" value="${i+1 }"/>
-	            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
-	            	</c:forEach>
-                </select>
-	        </div>
-	        
-	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameListInput">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ºˆæ˜∏Ì</button>
-                <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1" readOnly="true">
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">∞˙¡¶ ¡¶∏Ò</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1" readOnly="true">
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">«–ª˝ ¿Ã∏ß</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1" readOnly="true">
-	        </div>
-	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">∞˙¡¶ ∏∂∞® ≥Ø¬•</button>
-	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-	            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1" readOnly="true">
-	        </div>
-	        <div class="mb-0">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >∞˙¡¶ ≥ªøÎ</button>
-	            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="∞˙¡¶ ≥ªøÎ¿ª ¿‘∑¬«œººø‰" value="${paper.homeworkContent}" rows="12" readonly>${paper.homeworkContent}</textarea>
-	        </div>
-	         <div id="checkDiv" class="form-check" align="center" style="margin:20px 0px 0px 0px; font-size:20px;" >
-                 <input class="form-check-input" id="homeworkCheck" name="homeworkCheck" type="checkbox" value="">
-                 <label class="form-check-label" for="flexCheckDefault">∞˙¡¶ øœ∑· √º≈©</label>
-            </div>    
-		
-		</form>
-			<br/>	
-		    <div align="center">			
-			 	 <button id="goUpdateBtn"  class="btn btn-outline-primary">ºˆ¡§</button>
-			 	 <button id="updateBtn" class="btn btn-outline-primary">»Æ¿Œ</button>
-			 	 <button id="deleteBtn" onclick="deleteBtn();" class="btn btn-outline-primary">ªË¡¶</button>
-			 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">√Îº“</button>
-			</div>
+
+<body class="nav-fixed bg-light">
+	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">Í≥º Ï†ú Ï°∞ Ìöå</h2>
+                                        <div class="card-text">View Homework</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form>
+			                    <div class="card-body p-4">		
+									<input type="hidden" name="homeworkCode" id="homeworkCode" value="${paper.homeworkCode }"/>			
+							        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameList" >
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÏàòÏóÖÎ™Ö</button>
+							            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+							            	<c:set var="i" value="0"/>
+							            	<c:forEach var="lesson" items="${list }">
+							            	<c:set var="i" value="${i+1 }"/>
+							            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+							            	</c:forEach>
+						                </select>
+							        </div>
+							        
+							        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameListInput">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÏàòÏóÖÎ™Ö</button>
+						                <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+							             id="lessonName" name="lessonName" value="${paper.lessonName}" aria-describedby="button-addon1" readOnly="true">
+							        </div>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">Í≥ºÏ†ú Ï†úÎ™©</button>
+							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+							             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1" readOnly="true">
+							        </div>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÌïôÏÉù Ïù¥Î¶Ñ</button>
+							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+							            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1" readOnly="true">
+							        </div>
+							        <div class="input-group mb-3">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">Í≥ºÏ†ú ÎßàÍ∞ê ÎÇ†Ïßú</button>
+							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+							            id="homeworkDueDate" name="homeworkDueDate" value="${paper.homeworkDueDate}" aria-describedby="button-addon1" readOnly="true">
+							        </div>
+							        <div class="mb-0">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px; margin:0px 0px 15px 0px;" >Í≥ºÏ†ú ÎÇ¥Ïö©</button>
+							            <textarea class="form-control"  id="homeworkContent" name="homeworkContent" placeholder="Í≥ºÏ†ú ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî" value="${paper.homeworkContent}" rows="12" readonly>${paper.homeworkContent}</textarea>
+							        </div>
+							         <div id="checkDiv" class="form-check" align="center" style="margin:20px 0px 0px 0px; font-size:20px;" >
+						                 <input class="form-check-input" id="homeworkCheck" name="homeworkCheck" type="checkbox" value="">
+						                 <label class="form-check-label" for="flexCheckDefault">Í≥ºÏ†ú ÏôÑÎ£å Ï≤¥ÌÅ¨</label>
+						            </div> 
+			                    </div>                      
+                            </form>
+                                <div align="center" style="margin: 0px 0px 20px 0px">			
+								 	 <button id="goUpdateBtn"  class="btn btn-outline-primary">ÏàòÏ†ï</button>
+								 	 <button id="updateBtn" class="btn btn-outline-primary">ÌôïÏù∏</button>
+								 	 <button id="deleteBtn" onclick="deleteBtn();" class="btn btn-outline-primary">ÏÇ≠Ï†ú</button>
+								 	 <button id="goBackBtn" onclick="goBackBtn();" class="btn btn-outline-primary">Ïù¥Ï†Ñ</button>
+								 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">Ï∑®ÏÜå</button>
+								</div>
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
 	</div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
 </body>
+
 </html>

@@ -20,6 +20,9 @@
 <script defer src="/resources/javascript/alert/alertUI.js"></script>
 <script defer src="/resources/javascript/students/teacherHome.js"></script>
 
+<!-- ¿ë½ÂÃß°¡ -->
+<!-- <script defer src="/resources/javascript/students/teacherHome2.js"></script> -->
+
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 <!-- Load Favicon-->
 <link href="assets/img/favicon.ico" rel="shortcut icon"
@@ -499,6 +502,24 @@ $(function() {
 	                            
 				     
 				     </div>
+				     <!-- ¿ë½ÂÃß°¡//////////////////////////////////////////////////////////// -->
+    				 <div id="homeworkTable"  class="col-xl-4 col-md-6 mb-5">
+                          <div class="card card-raised overflow-hidden h-100">
+                              <div class="card-header bg-primary text-white">
+                                  <div id="currentDate" class="d-flex justify-content-between align-items-center"></div>
+                              </div>
+                              <div class="card-body bg-transparent p-0">
+                                  <div class="list-group list-group-flush">
+                                      <div class="list-group-item d-flex justify-content-between align-items-center">
+                                          <div class="col-6 caption font-monospace text-muted">Ã¼Å©</div>
+                                          <div class="col-6 caption text-muted ms-2">¿À´ÃÀÇ °úÁ¦</div>
+                                      </div>
+                                      <div id="currentHomeworkList"></div>
+                                 </div>
+                           	  </div>
+                          </div>
+                     </div>
+                    <!-- ¿ë½ÂÃß°¡////////////////////////////////////////////////////////// --> 
 			     </div>
 			                           
 							

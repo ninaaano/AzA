@@ -153,6 +153,10 @@ window.addEventListener('DOMContentLoaded', event => {
 					select: 1,
 					render: getNoteCode
 				},
+				{
+					select: 3,
+					hidden:true,
+				}
 			],
 			columnDefs: [
 	            {
@@ -250,6 +254,10 @@ window.addEventListener('DOMContentLoaded', event => {
 				{
 					select: 6,
 					render: homeworkCheckIcon
+				},
+				{
+					select: 7,
+					hidden:true,
 				}
 			],
 			columnDefs: [

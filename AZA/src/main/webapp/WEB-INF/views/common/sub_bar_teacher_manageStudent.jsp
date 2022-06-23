@@ -419,7 +419,7 @@ $(function() {
 						   
                       <nav>
 							  <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">			  	
-							    <button class="subframe_nav nav-link active" data-url="/paper/listPaperQuiz" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button>
+							    <!-- <button class="subframe_nav nav-link active" data-url="/paper/listPaperQuiz" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button> -->
 							    <button class="subframe_nav nav-link" data-url="/paper/listPaperHomework" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-parent-kids-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="true">과제</button>
 							    <button class="subframe_nav nav-link" data-url="/students/addStudentsCharacter" id="nav-lessonList-tab" data-bs-toggle="tab" data-bs-target="#nav-parent-kids-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="true">특징</button>
 							  </div>

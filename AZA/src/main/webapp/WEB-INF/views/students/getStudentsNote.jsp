@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"
-    pageEncoding="euc-kr"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="euc-kr">
-	<title>°­ÀÇ³ëÆ®</title>
+	<meta charset="UTF-8">
+	<title>ê°•ì˜ë…¸íŠ¸</title>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- ³×ÀÌ¹ö ½º¸¶Æ®¿¡µğÅÍ  -->
-	<!-- <head> ¾È¿¡ Ãß°¡ -->
+	<!-- ë„¤ì´ë²„ ìŠ¤ë§ˆíŠ¸ì—ë””í„°  -->
+	<!-- <head> ì•ˆì— ì¶”ê°€ -->
 	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- 2.10.0 ¹öÀü¿£ js ÆÄÀÏ ÀÏºÎºĞÀÌ ¾ø¾î ¿À·ù ¹ß»ı ! -->
+	<!-- 2.10.0 ë²„ì „ì—” js íŒŒì¼ ì¼ë¶€ë¶„ì´ ì—†ì–´ ì˜¤ë¥˜ ë°œìƒ ! -->
 	
-	<!-- head ¾È¿¡ Ãß°¡ -->
+	<!-- head ì•ˆì— ì¶”ê°€ -->
 	
 	<!-- //////////////////////////////////////////////////// -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,10 +80,10 @@
 	
 /* 	function save(){
 		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//½º¸¶Æ® ¿¡µğÅÍ °ªÀ» ÅØ½ºÆ®ÄÁÅÙÃ÷·Î Àü´Ş
+	    		//ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ê°’ì„ í…ìŠ¤íŠ¸ì»¨í…ì¸ ë¡œ ì „ë‹¬
 		var content = document.getElementById("smartEditor").value;
 		alert(document.getElementById("txtContent").value); 
-	    		// °ªÀ» ºÒ·¯¿Ã ¶© document.getÀ¸·Î ¹Ş¾Æ¿À±â
+	    		// ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë• document.getìœ¼ë¡œ ë°›ì•„ì˜¤ê¸°
 		return; 
 	} */
 
@@ -93,7 +93,7 @@
 	
 	$(function() {
 		
-		$( "button.btn.btn-outline-primary:contains('µÚ·Î')").on("click" , function() {
+		$( "button.btn.btn-outline-primary:contains('ë’¤ë¡œ')").on("click" , function() {
 			history.go(-1);
 		});
 	});	
@@ -121,69 +121,61 @@
 	
 
 </head>
-<body>    
-    
-    <form>
-    <div class="border border-top-0 p-3 p-sm-5 bg-light" >
-	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-	        <h1 class="display-4 mb-0">°­ ÀÇ ³ë Æ®</h1>
-	        <div class="text-muted">Students Note</div>
-   	</div>
-    <div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
-    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
-	    	<div class="input-group mb-3">
-		            <button class="btn btn-outline-primary" type="button" style="width:120px;">Á¦ ¸ñ</button>
-		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
-		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1" readOnly>
-	        </div>
-	        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-	                	name="studentId" id="studentId" value="${students.studentId}"></input>
-	      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
-	        <div name="noteContent" id="noteContent" value="${students.noteContent}"
-			           rows="30" cols="10" readOnly 
-			           style="width: 100%">${students.noteContent}
-           </div>
-        </div>
-        <div align="center">
-              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="¼öÁ¤"/>
-              <button id="backBtn" type="button" class="btn btn-outline-primary">µÚ·Î</button>
-		</div>
+<body class="nav-fixed bg-light">
+	
+      <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                <header class="mb-5"> 
+                    </header>
+                    <div class="container-xl px-5">
+                        <div class="card card-raised mb-5">
+                            <div class="card-header bg-transparent px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="me-4">
+                                        <h2 class="display-6 mb-0">ê°•ì˜ë…¸íŠ¸</h2>
+                                        <div class="card-text">Students Note</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form>
+			                    <div class="card-body p-4">		
+									<div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
+								    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
+									    	<div class="input-group mb-3">
+										            <button class="btn btn-outline-primary" type="button" style="width:120px;">ì œ ëª©</button>
+										            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
+										             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1" readOnly>
+									        </div>
+									        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+									                	name="studentId" id="studentId" value="${students.studentId}"></input>
+									      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
+									        <div name="noteContent" id="noteContent" value="${students.noteContent}"
+											           rows="30" cols="10" readOnly 
+											           style="width: 100%">${students.noteContent}
+								           </div>
+								        </div>
+								        <div align="center">
+								              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="ìˆ˜ì •"/>
+								              <button id="backBtn" type="button" class="btn btn-outline-primary">ë’¤ë¡œ</button>
+										</div>
+			                    </div>                      
+                            </form>
+                                
+                        </div>
+                        <hr class="my-5" />
+                    </div>
+                </main>
 	</div>
-    </form>
-    
-    <!-- <script>
-	    let oEditors = []
-	
-	    smartEditor = function() {
-	      console.log("Naver SmartEditor")
-	      nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: oEditors,
-	        elPlaceHolder: "noteContent",	//textarea ID ÀÔ·Â
-	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html °æ·Î ÀÔ·Â
-	        fCreator: "createSEditor2"
-	      
-	      })
-	    }
-		
-	    $(document).ready(function() {
-	      smartEditor()
-	    })
-	    	    
 
-	 </script> -->
-	
-	
-	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
-	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
-<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
-
 </body>
+
 </html>

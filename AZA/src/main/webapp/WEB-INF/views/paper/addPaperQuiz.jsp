@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ÂÊÁö½ÃÇè µî·Ï</title>
+<meta charset="UTF-8">
+<title>ìª½ì§€ì‹œí—˜ ë“±ë¡</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,21 +71,21 @@ font-family: Pretendard, 'Noto Sans KR';
 	}
 	
 	function addBtn() {
-		alert("´­·È´Ù!!");
+		alert("ëˆŒë ¸ë‹¤!!");
 		var lessonName = $('option:selected').text().trim();
 		var quizTitle = $("input[name='quizTitle']").val();
 		var studentName = $("input[name='studentName']").val();
 		
 		if(lessonName == null || lessonName.length<1){
-			alert("¼ö¾÷¸íÀ» ¹İµå½Ã ÀÔ·ÂÇØ¾ßÇÕ´Ï´Ù.");
+			alert("ìˆ˜ì—…ëª…ì„ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼í•©ë‹ˆë‹¤.");
 			return;
 		}
 		if(quizTitle == null || quizTitle.length<1){
-			alert("Á¦¸ñÀº ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+			alert("ì œëª©ì€ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		}
 		if(studentName == null || studentName.length<1){
-			alert("ÇĞ»ıÀÌ¸§Àº ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+			alert("í•™ìƒì´ë¦„ì€ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		}
 
@@ -93,7 +93,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	}
 	
 /* 	function addNonSubjective() {
-		alert("´­·È´Ù!!");
+		alert("ëˆŒë ¸ë‹¤!!");
 	} */
 	
 	$(document).ready(function() {
@@ -107,8 +107,8 @@ font-family: Pretendard, 'Noto Sans KR';
 			e.preventDefault();
 			if(x < maxFields){
 				x++;
-				/* $(wrapper).append('<div><input type="text" name="questionNo"><button id="deleteSubQuestionBtn" class="btn btn-text-primary" type="button">»èÁ¦</button></div>') */
-				$(wrapper).append('<div><table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="¹®Á¦¹øÈ£" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">Á¤´ä</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="¹®Á¦³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea></td></tr><tr><td><div class="form-check"><input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1¹øº¸±â ÀÔ·Â" id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2¹øº¸±â ÀÔ·Â" id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3¹øº¸±â ÀÔ·Â" id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4¹øº¸±â ÀÔ·Â" id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5¹øº¸±â ÀÔ·Â" id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example"></div></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="¹®Á¦ Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">»èÁ¦</button></div>')
+				/* $(wrapper).append('<div><input type="text" name="questionNo"><button id="deleteSubQuestionBtn" class="btn btn-text-primary" type="button">ì‚­ì œ</button></div>') */
+				$(wrapper).append('<div><table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="ë¬¸ì œë²ˆí˜¸" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">ì •ë‹µ</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="ë¬¸ì œë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea></td></tr><tr><td><div class="form-check"><input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1ë²ˆë³´ê¸° ì…ë ¥" id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2ë²ˆë³´ê¸° ì…ë ¥" id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3ë²ˆë³´ê¸° ì…ë ¥" id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4ë²ˆë³´ê¸° ì…ë ¥" id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example"></div></td><td><div class="form-check"><input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo"><input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5ë²ˆë³´ê¸° ì…ë ¥" id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example"></div></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="ë¬¸ì œ ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">ì‚­ì œ</button></div>')
 			}
 		});
 		
@@ -116,7 +116,7 @@ font-family: Pretendard, 'Noto Sans KR';
 			e.preventDefault();
 			if(x < maxFields){
 				x++;
-				$(wrapper).append('<div><table class="table table-bordered" name="subjectiveQuestion" id="subjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="¹®Á¦¹øÈ£" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">Á¤´ä</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="¹®Á¦³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="¹®Á¦ Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">»èÁ¦</button></div>')
+				$(wrapper).append('<div><table class="table table-bordered" name="subjectiveQuestion" id="subjectiveQuestion"><tr><td colspan="4"><input class="form-control form-control-sm" style="width:60px" type="text" placeholder="ë¬¸ì œë²ˆí˜¸" id="questionNo" name="questionNo"aria-label=".form-control-sm example"></td><td colspan="1"><div class="form-check" align="right"><input class="form-check-input" id="answerCheck" type="checkbox" value="" checked=""><label class="form-check-label" for="flexCheckChecked">ì •ë‹µ</label></div></td></tr><tr><td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="ë¬¸ì œë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea></td></tr><tr><td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="ë¬¸ì œ ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”"></input></td></tr></table><button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">ì‚­ì œ</button></div>')
 			}
 		});
 		
@@ -137,11 +137,11 @@ font-family: Pretendard, 'Noto Sans KR';
 		
 		<div class="border border-top-0 p-3 p-sm-5 bg-light">
 			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
-		        <h1 class="display-4 mb-0">½Ã Çè µî ·Ï</h1>
+		        <h1 class="display-4 mb-0">ì‹œ í—˜ ë“± ë¡</h1>
 		        <div class="text-muted">Add Quiz</div>
 	    	</div>
 	        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">¼ö¾÷¸í</button>
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ìˆ˜ì—…ëª…</button>
 	            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
 	            	<c:set var="i" value="0"/>
 	            	<c:forEach var="lesson" items="${list }">
@@ -151,133 +151,133 @@ font-family: Pretendard, 'Noto Sans KR';
                 </select>
 	        </div>
 	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">½ÃÇè¸í</button>
-	            <input class="form-control" type="text" placeholder="½ÃÇè¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä" aria-label="Example text with button addon" 
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ì‹œí—˜ëª…</button>
+	            <input class="form-control" type="text" placeholder="ì‹œí—˜ëª…ì„ ì…ë ¥í•˜ì„¸ìš”" aria-label="Example text with button addon" 
 	             id="quizTitle" name="quizTitle" value="${paper.quizTitle}" aria-describedby="button-addon1">
 	        </div>
 	        <div class="input-group mb-3">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ÇĞ»ı ÀÌ¸§</button>
-	            <input class="form-control" type="text" placeholder="ÇĞ»ı ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä" aria-label="Example text with button addon" 
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">í•™ìƒ ì´ë¦„</button>
+	            <input class="form-control" type="text" placeholder="í•™ìƒ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”" aria-label="Example text with button addon" 
 	            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
 	        </div>
 <%-- 	        <div class="input-group mb-3" id="scoreDiv">
-	            <button class="btn btn-outline-primary" type="button" style="width:120px;">Á¡¼ö</button>
+	            <button class="btn btn-outline-primary" type="button" style="width:120px;">ì ìˆ˜</button>
 	            <input class="form-control" type="number" placeholder="" aria-label="Example text with button addon" 
 	            id="quizScore" name="quizScore" value="${paper.quizScore}" aria-describedby="button-addon1">
 	        </div> --%>
 		</div>
 		
 		<div class="input_fields_wrap">
-			<button id="addSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>ÁÖ°ü½Ä ¹®Á¦ Ãß°¡</button>	
-			<button id="addNonSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>°´°ü½Ä ¹®Á¦ Ãß°¡</button>	
+			<button id="addSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>ì£¼ê´€ì‹ ë¬¸ì œ ì¶”ê°€</button>	
+			<button id="addNonSubjectiveBtn" class="btn btn-text-primary" type="button"><i class="bi bi-plus-square"></i>ê°ê´€ì‹ ë¬¸ì œ ì¶”ê°€</button>	
 				<%-- <div>
 					<table class="table table-bordered" name="nonSubjectiveQuestion" id="nonSubjectiveQuestion">
 		     			<tr>
 		     				<td colspan="4">
-		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="¹®Á¦¹øÈ£" 
+		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="ë¬¸ì œë²ˆí˜¸" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">
 		                             <input class="form-check-input" id="answerCheck" type="checkbox" value="" checked="">
-		                             <label class="form-check-label" for="flexCheckChecked">Á¤´ä</label>
+		                             <label class="form-check-label" for="flexCheckChecked">ì •ë‹µ</label>
 		                        </div>
 		                   </td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="¹®Á¦³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea></td>
+		     				<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="ë¬¸ì œë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea></td>
 		     			</tr>
 		     			<tr>
 		     				<td>
 		     					<div class="form-check">
 		                                <input class="form-check-input" id="choiceNo1" type="radio" name="choiceNo">
-		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1¹øº¸±â ÀÔ·Â" 
+		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="1ë²ˆë³´ê¸° ì…ë ¥" 
 		                                	id="choiceContent1" name="choiceContent"aria-label=".form-control-sm example">
 		                            </div>
 		     				</td>
 		     				<td>
 		     					<div class="form-check">
 		                                <input class="form-check-input" id="choiceNo2" type="radio" name="choiceNo">
-		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2¹øº¸±â ÀÔ·Â" 
+		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="2ë²ˆë³´ê¸° ì…ë ¥" 
 		                                	id="choiceContent2" name="choiceContent"aria-label=".form-control-sm example">
 		                            </div>
 		     				</td>
 		     				<td>
 		     					<div class="form-check">
 		                                <input class="form-check-input" id="choiceNo3" type="radio" name="choiceNo">
-		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3¹øº¸±â ÀÔ·Â" 
+		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="3ë²ˆë³´ê¸° ì…ë ¥" 
 		                                	id="choiceContent3" name="choiceContent"aria-label=".form-control-sm example">
 		                            </div>
 		     				</td>
 		     				<td>
 		     					<div class="form-check">
 		                                <input class="form-check-input" id="choiceNo4" type="radio" name="choiceNo">
-		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4¹øº¸±â ÀÔ·Â" 
+		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="4ë²ˆë³´ê¸° ì…ë ¥" 
 		                                	id="choiceContent4" name="choiceContent"aria-label=".form-control-sm example">
 		                            </div>
 		     				</td>
 		     				<td>
 		     					<div class="form-check">
 		                                <input class="form-check-input" id="choiceNo5" type="radio" name="choiceNo">
-		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5¹øº¸±â ÀÔ·Â" 
+		                                <input class="form-control form-control-sm" style="width:100px" type="text" placeholder="5ë²ˆë³´ê¸° ì…ë ¥" 
 		                                	id="choiceContent5" name="choiceContent"aria-label=".form-control-sm example">
 		                            </div>
 		     				</td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="¹®Á¦ Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä"></input></td>
+		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="ë¬¸ì œ ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”"></input></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="ÇĞ»ıÁ¤´äÀÔ·Â¶õ"></textarea></td>
+		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="í•™ìƒì •ë‹µì…ë ¥ë€"></textarea></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="ÇÇµå¹é ÀÔ·Â¶õ"></textarea></td>
+		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="í”¼ë“œë°± ì…ë ¥ë€"></textarea></td>
 		     			</tr>
 		    		</table>
 		    		
 		    		<table class="table table-bordered" name="subjectiveQuestion" id="subjectiveQuestion">
 		     			<tr>
 		     				<td colspan="4">
-		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="¹®Á¦¹øÈ£" 
+		     						<input class="form-control form-control-sm" style="width:60px" type="text" placeholder="ë¬¸ì œë²ˆí˜¸" 
 		                                	id="questionNo" name="questionNo"aria-label=".form-control-sm example">
 		     				</td>
 		     				<td colspan="1">
 		     					<div class="form-check" align="right">
 		                             <input class="form-check-input" id="answerCheck" type="checkbox" value="" checked="">
-		                             <label class="form-check-label" for="flexCheckChecked">Á¤´ä</label>
+		                             <label class="form-check-label" for="flexCheckChecked">ì •ë‹µ</label>
 		                        </div>
 		                   </td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="¹®Á¦³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea></td>
+		     				<td colspan="5"><textarea type="text" name="questionContent" id="questionContent" class="form-control" placeholder="ë¬¸ì œë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="¹®Á¦ Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä"></input></td>
+		     				<td colspan="5"><input type="text" name="teacherAnswer" id="teacherAnswer" class="form-control" placeholder="ë¬¸ì œ ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”"></input></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="ÇĞ»ıÁ¤´äÀÔ·Â¶õ"></textarea></td>
+		     				<td colspan="5"><textarea name="studentAnswer" id="studentAnswer" class="form-control" placeholder="í•™ìƒì •ë‹µì…ë ¥ë€"></textarea></td>
 		     			</tr>
 		     			<tr>
-		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="ÇÇµå¹é ÀÔ·Â¶õ"></textarea></td>
+		     				<td colspan="5"><textarea name="feedBackContent" id="feedBackContent" class="form-control" placeholder="í”¼ë“œë°± ì…ë ¥ë€"></textarea></td>
 		     			</tr>
 		    		</table>
-				<button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">»èÁ¦</button>
+				<button id="deleteQuestionBtn" class="btn btn-text-primary" type="button">ì‚­ì œ</button>
 				</div> --%>
 		</div>
 		
 </form>			
 	    <div align="center">			
-		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">µî·Ï</button>
-		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">Ãë¼Ò</button>
+		 	 <button id="addBtn" onclick="addBtn();" class="btn btn-outline-primary">ë“±ë¡</button>
+		 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">ì·¨ì†Œ</button>
 		</div>
  
 		        
 
-<!-- 		<button id="addSubjective" class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>ÁÖ°ü½Ä ¹®Á¦ Ãß°¡</button>
-	    <button id="addNonSubjective" class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>°´°ü½Ä ¹®Á¦ Ãß°¡</button>	 -->
+<!-- 		<button id="addSubjective" class="btn btn-text-primary" onclick="addSubjective();" type="button"><i class="bi bi-plus-square"></i>ì£¼ê´€ì‹ ë¬¸ì œ ì¶”ê°€</button>
+	    <button id="addNonSubjective" class="btn btn-text-primary" onclick="addNonSubjective();" type="button"><i class="bi bi-plus-square"></i>ê°ê´€ì‹ ë¬¸ì œ ì¶”ê°€</button>	 -->
 
-	        <!-- <button id="deleteSubjective" class="btn btn-text-primary" type="button">ÁÖ°ü½Ä ¹®Á¦ »èÁ¦</button>
-	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">°´°ü½Ä ¹®Á¦ »èÁ¦</button> -->
+	        <!-- <button id="deleteSubjective" class="btn btn-text-primary" type="button">ì£¼ê´€ì‹ ë¬¸ì œ ì‚­ì œ</button>
+	        <button id="deleteNonSubjective" class="btn btn-text-primary" type="button">ê°ê´€ì‹ ë¬¸ì œ ì‚­ì œ</button> -->
 
 
 </body>
