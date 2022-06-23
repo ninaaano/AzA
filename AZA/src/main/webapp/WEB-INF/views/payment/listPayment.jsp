@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
     <!-- Load main stylesheet-->
     <link href="/resources/css/styles.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="/resources/css/payment.css"/>
         
         
         
@@ -40,22 +40,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
+        
         
 <!--  -->
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<style>
-	body {
-    padding-top : 50px;
-    margin : 50px;
-    font-family: Pretendard, 'Noto Sans KR';
-    }
-
-</style>
 
 
 <script type="text/javascript">
@@ -171,31 +160,31 @@ function fncGetList(currentPage) {
 		<tr>
 		
 		<th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: 7%;">
-		<a href="#" class="dataTable-sorter">No</a>
+		No
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수업명</a>
+		수업명
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">학생 이름</a>
+		학생 이름
 		</th>
 		
 		<th data-sortable="" style="width: 12%;">
-		<a href="#" class="dataTable-sorter" align="center">수납료</a>
+		수납료
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납예정일</a>
+		수납예정일
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납완료일</a>
+		수납완료일
 		</th>
 		
 		<th data-sortable="" style="width: 13%;">
-		<a href="#" class="dataTable-sorter" align="center">수납여부</a>
+		수납여부
 		</th>
 		
 

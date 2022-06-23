@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  날짜 ,금액 포맷 lib-->
+<!--  포맷 lib-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 
@@ -39,7 +39,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
+        <link rel="stylesheet" href="/resources/css/payment.css"/>
         
 <!--  -->
 
@@ -48,9 +48,7 @@
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <style>
-	body {   
-    margin : 150px;
-}
+
 </style>
 </head>
 <body>
