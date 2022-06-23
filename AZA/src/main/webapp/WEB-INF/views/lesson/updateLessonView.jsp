@@ -8,8 +8,42 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"	rel="stylesheet">
+	
+	<link href="/resources/css/styles.css" rel="stylesheet">
+	<link href="/resources/css/common.css" rel="stylesheet">
+
 <script type="text/javascript">
 	function fncUpdateLesson(){
+		$(".checkbox[name='lessonDay']:checked").length
+		var lessonDay ="";
+		$(":checkbox[name='lessonDay']:checked").each(function(i,e){
+			if(lessonDay ==""){
+				lessonDay=e.value;
+			}else{
+				lessonDay +="^"+e.value;
+			}
+		});
+		
+		if($("input:checkbox[id='lessonDay']").is(":checked")==false){
+			alert("수업요일을 선택하셔야 합니다.")
+			return;
+		}
 		$("form").attr("method","POST").attr("action","/lesson/udpateLesson").submit();
 	}
 	
@@ -28,93 +62,84 @@
 
 </head>
 <body>
-	<div class="container">
-		<div class="page-header text-center">
-			<h3 class="text-info">수업 수정</h3>
-		</div>
-		<!-- accept-charset="utf-8" -->
-	<form class="form-horizontal">
-	<%-- <input type="hidden" name="lessonName" value="${lesson.lessonName}" /> --%>
-	  
-	  <div class="form-group">
-	    <label for="lessonName" class="col-sm-offset-1 col-sm-3 control-label">강의명</label>
-	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonName" name="lessonName" placeholder="강의명" value="${lesson.lessonName}" readonly>
+
+<form class="form-horizontal">
+		<div class="border border-top-0 p-3 p-sm-10 bg-light">
+			<div class="px-10 mx-10">
+			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 10px 0px 10px 0px">
+		        <h1 class="display-4 mb-0">수 업 수 정</h1>
+		        <div class="text-muted">Update Lesson</div>
+	    	</div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary"  style="width:120px;">강의명</p>
+	            <input class="form-control" type="text" placeholder="강의명을 입력하세요" aria-label="Example text with button addon" 
+	             id="lessonName" name="lessonName" value="${lesson.lessonName }" aria-describedby="button-addon1" style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 요일</p>&nbsp;&nbsp;
+		        월&nbsp;<input type="checkbox"  id="lessonDay" name="lessonDay" value="월"/>&nbsp;&nbsp;
+		        화&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="화"/>&nbsp;&nbsp;
+		        수&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="수"/>&nbsp;&nbsp;
+		        목&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="목"/>&nbsp;&nbsp;
+		        금&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="금"/>&nbsp;&nbsp;
+		        토&nbsp;<input type="checkbox" id="lessonDay" name="lessonDay" value="토"/>&nbsp;&nbsp;
+		        일&nbsp;<input type="checkbox"  id="lessonDay" name="lessonDay" value="일"/>&nbsp;&nbsp;
+		        <input type="hidden" id="hiddenValue" name="hiddenValue" value=""/>
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 시작 시간</p>
+	            <input class="form-control" type="time" aria-label="Example text with button addon" 
+	            id="lessonStartTime" name="lessonStartTime" value="${lesson.lessonStartTime}" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 종료 시간</p>
+	            <input class="form-control" type="time" aria-label="Example text with button addon" 
+	            id="lessonEndTime" name="lessonEndTime" value="${lesson.lessonEndTime}"aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업 장소</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="lessonPlace" name="lessonPlace" aria-describedby="button-addon1" value="${lesson.lessonPlace }" style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업료</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon"
+	            id="fees" value="${lesson.fees }"name="fees" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        	        
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업시작일</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="lessonCreateAt" value="${lesson.lessonCreateAt}"name="lessonCreateAt" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">과목명</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="subject" value="${lesson.subject}" name="subject" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업코드</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="lessonCode" value="${lesson.lessonCode}" name="lessonCode" aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>
+	        <div class="input-group mb-3">
+	            <p class="btn btn-outline-primary" style="width:120px;">수업료</p>
+	            <input class="form-control" type="text" aria-label="Example text with button addon" 
+	            id="fees" name="fees" value="${lesson.fees}"aria-describedby="button-addon1"style="height:36.5px;">
+	        </div>   
+	        <div class="mb-0">
+	            <p class="btn btn-outline-primary" style="width:120px; margin:0px 0px 15px 0px;" >커리큘럼</p>
+	            <textarea class="form-control" name="lessonContent" value="${lesson.lessonContent}"  id="lessonContent" rows="12">${lesson.lessonContent}</textarea>
+	        </div>
+	        </div>
 	    </div>
-	  </div>
-	  
-	  <div class="form-group">
-	    <label for="lessonDay" class="col-sm-offset-1 col-sm-3 control-label">수업 요일</label>
-	    <div class="col-sm-5">
-	      <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="일"/>일
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="월"/>월
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="화"/>화
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="수"/>수
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="목"/>목
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="금"/>금
-           <input type="checkbox" class="form-control" id="lessonDay" name="lessonDay" value="토"/>토
-           <input type="hidden" class="form-control" id="hiddenValue" name="hiddenValue" value=""/>	    
-	     </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="lessonStartTime" class="col-sm-offset-1 col-sm-3 control-label">수업 시작 시간</label>
-	    <div class="col-sm-5">
-	      <input type="time" class="form-control" id="lessonStartTime" name="lessonStartTime" placeholder="수업 시작 시간" value="${lesson.lessonStartTime}">	    
-	     </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="lessonEndTime" class="col-sm-offset-1 col-sm-3 control-label">수업 종료 시간</label>
-	    <div class="col-sm-5">
-	      <input type="time" class="form-control" id="lessonEndTime" name="lessonEndTime" placeholder="수업 종료 시간" value="${lesson.lessonStartTime}">	    
-	     </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="lessonPlace" class="col-sm-offset-1 col-sm-3 control-label">수업장소</label>
-	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonPlace" name="lessonPlace" placeholder="수업장소" value="${lesson.lessonPlace}">	    
-	     </div>
-	  </div>	  
-	  <div class="form-group">
-	    <label for="lessonCreateAt" class="col-sm-offset-1 col-sm-3 control-label">수업 시작일</label>
-	    <div class="col-sm-5">
-	    <div align="left">${lesson.lessonCreateAt}</div>  
-	     </div>
-	  </div>	
-	  <div class="form-group">
-	    <label for="subject" class="col-sm-offset-1 col-sm-3 control-label">과목명</label>
-	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="subject" name="subject" placeholder="과목명" value="${lesson.subject}">	    
-	     </div>
-	  </div>	
-	  <div class="form-group">
-	    <label for="lessonCode" class="col-sm-offset-1 col-sm-3 control-label">수업코드</label>
-	    <div class="col-sm-5">
-	     	<input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드" value="${lesson.lessonCode}" readonly/>
-	     </div>
-	  </div>	  
-	  <div class="form-group">
-	    <label for="fees" class="col-sm-offset-1 col-sm-3 control-label">수업료</label>
-	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="fees" name="fees" placeholder="수업료" value="${lesson.fees}">	    
-	     </div>
-	  </div>	
-	  <div class="form-group">
-	    <label for="lessonContent" class="col-sm-offset-1 col-sm-3 control-label">커리큘럼</label>
-	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="lessonContent" name="lessonContent" placeholder="커리큘럼" value="${lesson.lessonContent}">	    
-	     </div>
-	  </div>
-	  
-	  <div class="form-group">
+	       
+	       <div class="form-group" aligin="cetner">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary">수&nbsp;정 </button>
 			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
-	  </div>
-		  
-	</form>
-	
-	</div>
-	
+	 	 </div>		
+	</form>		
 </body>
 </html>

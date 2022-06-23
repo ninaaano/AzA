@@ -76,7 +76,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	})
 	
 	$(function(){
-		$("button.btn01").on("click",function(){
+		$("button.btn.btn-text-primary").on("click",function(){
 			self.location = "/lesson/addLessonView"
 		});
 	});
@@ -232,7 +232,7 @@ window.addEventListener('DOMContentLoaded', event => {
 								</c:if> --%>
 							<c:if test="${user.role eq 'teacher'}">
 	                            <div align="right" style="margin-right: 30px">
-		      						<button id="btn01" type="button" class="btn01">수업 등록</button>
+		      						<button id="btn btn-text-primary" type="button" class="btn btn-text-primary">수업 등록</button>
 		      					</div>
                             </c:if>
 		                    <div class="card-body p-4">		

@@ -113,7 +113,7 @@
                                       ,end:data[i].end
                                 }); 
                                 }
-                             }else if(data.pValue!=null&&data.pValue ==='public'){
+                             }else if(data.pValue!=null && data.pValue ==='public'){
                                 for(var i=0; i<data.length; i++){
                                 events.push({
                                       title:data[i].title
@@ -325,6 +325,7 @@ body {
    padding: 0;
    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
    font-size: 14px;
+   background-color: #f5f5f5;
 }
 
 #calendar {
@@ -351,7 +352,6 @@ body {
 
 </head>
 <body>
-   <h2>ScheduleTest</h2>
    <div id='loading'>loading...</div>
    <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
    <div style="width:60%; float:left; text-align:right">일정 현황
@@ -362,8 +362,7 @@ body {
    cursor:poointer" onclick="javascript:allSave();">전체저장</button>
    </c:if>
    </div>
-   
-      <!-- book -->
+   <c:if test="${user.role eq 'student' }">
       <form id = "selectTeacher" class="d-flex"	> 
 		<div class="form-group">
 			<label for="lessonCode" class="col-sm-2 control-label">선생님이름</label>
@@ -380,6 +379,7 @@ body {
 	 	</div>
 	 	<button type="button" class="btn01" id="btn01">검색</button>
  	</form>
+ 	</c:if>
 	<!-- book -->
 	
 	
