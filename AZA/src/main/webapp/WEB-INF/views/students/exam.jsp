@@ -158,36 +158,44 @@
 
 								</div>
 								<div class="card-footer p-0">
-									<form class="hidden" id="addStudentsExamForm"
+									<form class="hidden pt-2" id="addStudentsExamForm"
 										name="addStudentsExamForm" action="/students/addStudentsExam">
-										<div class="form-group">
-											<!-- label for="examYear" class="col-form-label">년도 : </label> -->
+										<div class="form-group row">
+										<div class="col-12">
 											<input type="text" class="form-control" id="examYear"
-												name="examYear" placeholder="년도 : 숫자만 입력하세요:D" >
+												name="examYear" placeholder="년도 : 숫자 입력:D" >
+										
 										</div>
-										<div class="form-group">
-											<!-- <label for="examSemester" class="col-form-label">학기</label> -->
+										</div>
+										<div class="form-group row">
+											<div class="col-6">
+											<!-- label for="examYear" class="col-form-label">년도 : </label> -->
 											<input type="text" class="form-control" id="examSemester"
-												name="examSemester" placeholder="학기 : 숫자만 입력하세요:D">
-										</div>
-										<div class="form-group">
-											<select class="form-select form-select-sm" name="examTerm"
+												name="examSemester" placeholder="학기 : 숫자 입력:D">
+											</div>
+											<div class="col-6">
+											<select class="form-select p-1 text-center" name="examTerm"
 												aria-label="Small select example" required>
-												<option selected>중간 / 기말</option>
+												<option selected>  중간 / 기말</option>
 												<option value="1">중간고사</option>
 												<option value="2">기말고사</option>
 											</select>
+											</div>
 										</div>
-										<div class="form-group">
-											<!-- <label for="examSubject" class="col-form-label">과목:</label> -->
+										<div class="form-group row">
+
+											<div class="col-6">
 											<input type="text" class="form-control" id="examSubject"
 												name="examSubject" placeholder="과목">
-										</div>
-										<div class="form-group">
-											<!-- <label for="examScore" class="col-form-label">점수:</label> -->
+											</div>
+											<div class="col-6">
 											<input type="text" class="form-control" id="examScore"
-												name="examScore" placeholder="점수 : 숫자만 입력하세요:D">
+												name="examScore" placeholder="점수 : 숫자 입력:D">
+											
+											
+											</div>
 										</div>
+
 										<p class="valCheck text-white hidden justify-content-end align-items-center text-end">
 										<i class="bi bi-emoji-expressionless"></i>
 										바른 정보를 입력해주세요
@@ -195,13 +203,13 @@
 										</p>
 										<div class="d-flex justify-content-end">
 										<button id="addStudentsExamBtn" type="submit"
-											class="fst-button btn-outline-primary text-white">추가</button>
+											class="btn btn-outline-white text-white mr-2 btn-sm">추가<i class="bi bi-clipboard-plus pl-1"></i></button>
 										
 										</div>
 									</form>
 									<c:if test="${user.role == 'student'}">
 										<div id="addExamFormHandler"
-											class="d-flex justify-content-end ripple-white px-3 py-2">
+											class="d-flex justify-content-end ripple-white px-0 py-2">
 											<div class="d-flex align-items-center p-2 text-white">
 												<div id="studentsExamFormOpenBtn" class="fst-button">더
 													입력하기 +</div>

@@ -411,8 +411,8 @@ $(function() {
 				<!-- page header -->
 				<div class="row justify-content-center gx-5">
                       <div class="row justify-content-end col-md-8 col-lg-6">
-                          <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                              <div class="nav-item dropdown pt-3" id="myDropdown">
+                          <div class="pt-0 pb-2 mt-3 col-6 col-sm-3">
+                              <div class="nav-item dropdown pt-3 col" id="myDropdown">
 						      <a class="nav-link dropdown-toggle pb-0" href="#" data-bs-toggle="dropdown">  ÀÚ³à ¼±ÅÃ  </a>
 						      <ul class="dropdown-menu">
 							  		<c:forEach var="student" items="${studentInfo}">
@@ -433,7 +433,7 @@ $(function() {
                       </div>
                   </div>
 			</header>
-			<div class="container-xl px-5"> 
+			<div class="container-xl px-5 mt-2"> 
 
 
 								  <div class="hbContainer">

@@ -39,8 +39,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- <link
+<<<<<<< HEAD
    href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
    rel="stylesheet">
+=======
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+>>>>>>> refs/heads/HMHM
  -->
 
 <script
@@ -143,7 +148,6 @@ body>div.container {
                                        outlined="" icontrailing="visibility_off" type="비밀번호 확인"></mwc-textfield>
                                  </div>
                               </div>
-
   <div class="input-group mb-4">
   <input type="text" class="form-control" placeholder="ex)01012345678" aria-label="phone" id="phone" name="phone" aria-describedby="button-addon2" required>
   <button class="btn btn-outline-secondary" type="button" id="phoneBtn" onclick="cert();" disabled="disabled">인증번호 받기</button>
@@ -155,6 +159,7 @@ body>div.container {
   <button class="btn btn-outline-secondary" type="button" id="sms_AuthBtn" onclick="smsAuthBtn();">인증번호 입력</button>
 </div>
 <div id="certCheck"></div>
+
 
 
 							<div class="student" style="display: none;">
@@ -189,11 +194,12 @@ body>div.container {
                               </div>
 
 
+
 										<div class="agree__box my-3" >
 											<input type="checkbox" id="check_above" name="agreecheck" />
 											<label for="check_above">사용자 약관 전체 동의 (필수)</label>
-										</div>
 
+										</div>
 
 
 										<div align="center" class="accordion" id="accordionExample"
@@ -281,13 +287,13 @@ body>div.container {
 
 
 
-
                               <div class="form-group my-3" align="center">
                                  <div class="col-sm-offset-4  col-sm-4" >
                                     <button type="button" class="btn btn-primary">가&nbsp;입</button>
                                     <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
                                  </div>
                               </div>
+
 
 
 
@@ -445,6 +451,7 @@ body>div.container {
 				alert("사용자 약관에 전체 동의해주세요.");
 				return false;
 			}
+
          
          
          $("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
@@ -495,6 +502,7 @@ body>div.container {
                if(data.result  == "success"){
                   $('#certCheck').text("인증 번호가 전송되었습니다.");
                   $('#certCheck').css('color','blue');
+
                   $("#sms_AuthBtn").attr("disabled",true);
                }else {
                   $('#certCheck').text("입력한 번호를 다시 확인해주세요.");
@@ -569,7 +577,7 @@ body>div.container {
 
          <script type="module" src="/resources/javascript/common/material.js"></script>
          <script type="module" src="/resources/javascript/common/scripts.js"></script>
+
 </body>
 
 </html>
-

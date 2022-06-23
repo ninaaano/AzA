@@ -1,6 +1,6 @@
 package com.aza.web.user;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,8 +119,8 @@ public class UserRestController {
 		}
 		
 		
-		@RequestMapping("getUser")
-		public User getUser (@PathVariable String userId,HttpSession session) throws Exception {
+		@RequestMapping(value={"getUser"}, method = RequestMethod.GET)
+		public User getUser (@PathVariable(required = false) String userId,HttpSession session) throws Exception {
 			
 			User dbUser = (User) session.getAttribute("user");
 			User user = userService.getUser(userId);
@@ -144,6 +143,7 @@ public class UserRestController {
 					
 					System.out.println(studentList);
 					System.out.println(parentInfo);
+					return parentInfo;
 					
 				}
 			}

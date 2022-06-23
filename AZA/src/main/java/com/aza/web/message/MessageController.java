@@ -52,7 +52,7 @@ public class MessageController {
 	@MessageMapping("/getMessage/{userId}/{otherId}")
 	@SendTo("/topic/getMessage")
 	public List getMessage(@DestinationVariable("userId") String userId,@DestinationVariable("otherId") String otherId) throws Exception {
-		Thread.sleep(1000);
+		Thread.sleep(150);
 
 		List list = messageServiceImpl.getMessage(userId, otherId);
 		  
@@ -65,7 +65,7 @@ public class MessageController {
 	@MessageMapping("/addMessage")
 	@SendTo("/topic/showAddMessage")
 	public Message addMessage(Message message) throws Exception {
-		Thread.sleep(1000);
+		Thread.sleep(150);
 		System.out.println("showAddMessage : "+message);
 		messageServiceImpl.addMessage(message.getReceiverId(), message.getSenderId(), message.getMessageContent(), message.getMessageCreateAt());
 	
@@ -77,7 +77,7 @@ public class MessageController {
 	@MessageMapping("/deleteMessage/{_id}")
 	@SendTo("/topic/getMessage")
 	public List deleteMessage(@DestinationVariable String _id, @Payload(required= false)Message message) throws Exception {
-		Thread.sleep(1000);
+		Thread.sleep(150);
 		System.out.println("deleteMessage : "+message);
 				
 		Message deleted = messageServiceImpl.deleteMessage(_id);

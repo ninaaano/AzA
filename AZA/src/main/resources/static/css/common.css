@@ -1,5 +1,11 @@
 @charset "EUC-KR";
 
+@font-face {
+    font-family: 'UhBeecharming';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeecharming.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 @font-face {
     font-family: 'CookieRunOTF-Bold';
@@ -8,9 +14,24 @@
     font-style: normal;
 }
 
-.titleFont{
-	font-family: 'CookieRunOTF-Bold';
+@font-face {
+    font-family: 'ChosunBg';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunBg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
+
+
+.titleFont{
+	font-family: 'ChosunBg';
+}
+
+.subFont {
+	font-family: 'UhBeecharming';
+	color: #9966FF;
+}
+
+
 .float{
 	position:fixed;
 	width:60px;
