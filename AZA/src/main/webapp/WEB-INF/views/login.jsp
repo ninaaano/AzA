@@ -85,33 +85,34 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8">
-							<div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+							<!-- <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4"> -->
+							<div>
 								<div class="card-body p-5">
 									<!-- Auth header with logo image-->
 									<div class="text-center">
 
 
-										<h1 class="display-5 mb-0">Login</h1>
-										<div class="subheading-1 mb-5">AZA에 오신걸 환영합니다!</div>
+										<h1 class="display-5 mb-0">AZA</h1>
+										<!-- <div class="subheading-1 mb-5">AZA에 오신걸 환영합니다!</div> -->
 									</div>
+									<br><br>
 									<form name = "loginForm" >
-										<div class="mb-4">
+										<div class="mb-4" align="center" id = "id_text">
 											<mwc-textfield class="w-100" label="userId" outlined>
-											아이디 : <input type="text" name="userId" id="userId"></input> </mwc-textfield>
-
-										</div>
-										<div class="mb-4">
+											<!-- <input type="text" name="userId" id="userId"></input> -->
+											<input type="text" name="userId" id="userId" style="border:1px solid #e3e4ed; background-color:transparent; background-image:url(file:///C:/Users/akh98/Downloads/emoji-kiss.svg)" value="" placeholder="아이디" ></input> </mwc-textfield>
+										</div>										
+										<div class="mb-4" align="center">
 											<mwc-textfield class="w-100" label="Password" outlined
 												icontrailing="visibility_off" type="password">
-											비밀번호 : <input type="password" name="password" id="password"></input>
+											<input type="password" name="password" id="password" style="border:1px solid #e3e4ed; background-color:transparent;" value="" placeholder="비밀번호"></input>
 
 											</mwc-textfield>
 										</div>
-									
 										<mwc-tab-bar class="nav nav-tabs" role="tablist">
                                 </mwc-tab-bar>
 										
-										 <div class="mb-2">
+										 <div class="mb-2" align="center">	
                                                 <div class="btn-group" role="group">
                                                     <button class="btn btn-outline-primary" type="button" onclick="login()">로그인</button>
                                                     <c:if test="${msg=='nope'}">

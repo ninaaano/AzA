@@ -83,8 +83,8 @@
 		SELECT S.*, U.user_name
 		FROM schedule S, users U, (SELECT L.teacher_id LT
 		        FROM students_record SR, lesson L
-		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId} AND ROWNUM &lt; 2) A
-		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT  AND S.teacher_Id = #{teacherId}
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{searchId} AND ROWNUM &lt; 2) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT  <!-- AND S.teacher_Id = #{teacherId} -->
 		        <!-- <if test="searchCondition != null">
 						<if test="searchCondition == 0 and searchKeyword !='' ">
 							
@@ -119,8 +119,8 @@
 		FROM(SELECT S.*, U.user_name
 		FROM schedule S, users U, (SELECT L.teacher_id LT
 		        FROM students_record SR, lesson L
-		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{studentId} AND ROWNUM &lt; 2) A
-		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT  AND S.teacher_Id = #{teacherId}
+		        WHERE SR.lesson_code = L.lesson_code AND SR.student_id = #{searchKeyword} AND ROWNUM &lt; 2) A
+		WHERE S.teacher_id = U.user_id AND U.user_id = A.LT
 		        ) countTable
 	</select>
 	

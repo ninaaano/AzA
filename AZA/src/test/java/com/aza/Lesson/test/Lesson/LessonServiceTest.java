@@ -312,7 +312,7 @@ public class LessonServiceTest {
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(9);
-		Map<String, Object> map = lessonService.listLessonScheduleStudent("student5", "teacher52");
+		Map<String, Object> map = lessonService.listLessonScheduleStudent(search, "student01");
 		System.out.println(map);
 		
 		List<Object> list = (List<Object>)map.get("list");
@@ -323,7 +323,7 @@ public class LessonServiceTest {
 		System.out.println(totalCount);
 	}
 	
-	@Test
+	//@Test
 	public void testlistSelectTesacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);

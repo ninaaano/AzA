@@ -69,7 +69,7 @@ public interface LessonService {
 	public Map<String, Object> listLessonScheduleTeacher(Search search, String teacherId) throws Exception;
 	
 	//schedule : lsit students
-	public Map<String, Object> listLessonScheduleStudent(String studentId, String teacherId) throws Exception;
+	public Map<String, Object> listLessonScheduleStudent(Search search, String studentId) throws Exception;
 	
 	//schedule : all delete
 	public void deteteLessonScheduleAll() throws Exception;
