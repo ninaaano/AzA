@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
     <!-- Load main stylesheet-->
     <link href="/resources/css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/css/payment.css"/>
+    
         
         
         
@@ -40,15 +40,36 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        
+        <link rel="stylesheet" href="/resources/css/message.css"/>
         
 <!--  -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.js"></script>
+
+
+<!--  -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<style>
+	body {
+    padding-top : 50px;
+    margin : 50px;
+    font-family: Pretendard, 'Noto Sans KR';
+    }
+
+</style>
 
 
 <script type="text/javascript">
-$(function myFunction() {
+/* $(function myFunction() {
 	  document.getElementById("searchDate").style.display = "none";
 	  document.getElementById("searchKeyword").style.display = "none";
 
@@ -78,7 +99,6 @@ $(function() {
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/payment/listPayment").submit();
-	
 }
 
 	//검색
@@ -86,9 +106,7 @@ function fncGetList(currentPage) {
 		 	$( "button.btn.btn-raised-light").on("click" , function() {
 			  
 			fncGetList(1);
-			$('input[name=searchKeyword]').val(""); 
-			$('input[name=searchStartDate]').val(""); 
-			$('input[name=searchEndDate]').val(""); 
+
 			});
 		 
 		});
@@ -106,7 +124,7 @@ function fncGetList(currentPage) {
 
 				}); 
 			 });				
-
+ */
 
 </script>
 </head>
@@ -116,163 +134,25 @@ function fncGetList(currentPage) {
 
 
 <h3>PAYMENT LIST</h3> 
-
 <form>				
-				
-				<table>
-				<tr>
-	               
-					<td align="right">
-						<select id="searchCondition" name="searchCondition" class="form-select" aria-label="Default select example" style="width: 130px;font-size=15px;">
-							<option selected="" disabled=""> 검색 조건 </option>
-							<option value="0"${!empty search.searchCondition&&search.searchCondition==0 ? "selected":"" }>학생이름</option>
-							<option value="1"${!empty search.searchCondition&&search.searchCondition==1 ? "selected":"" }>기간</option>
-							<option value="2"${!empty search.searchCondition&&search.searchCondition==2 ? "selected":"" }>수납여부</option>
-						</select> 
-					</td>
-
-					<td id="searchDate">
-							<input type="date" name="searchStartDate" value="${search.searchStartDate}">
-							<input type="date" name="searchEndDate" value="${search.searchEndDate}">
-					<td>
-					
-					<td>
-							<input class="dataTable-input" placeholder="검색어를 입력해주세요:)" type="text" name="searchKeyword" id="searchKeyword"
-							value="${! empty search.searchKeyword ? search.searchKeyword : "" }" >
-					</td>
-					
-					
-					<td align="right" width="70">
-					<button class="btn btn-raised-light" type="submit" id="searchPayment">검색</button>
-				</td>
-
-				
-				</tr>
-				<tr> <td height="20"></td> </tr>
-				</table>
+${user.role }
 
 
 
-<table id="datatablesSimple" class="dataTable-table">
-	
-	
-	<thead>
-		<tr>
-		
-		<th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: 7%;">
-		No
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		수업명
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		학생 이름
-		</th>
-		
-		<th data-sortable="" style="width: 12%;">
-		수납료
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		수납예정일
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		수납완료일
-		</th>
-		
-		<th data-sortable="" style="width: 13%;">
-		수납여부
-		</th>
-		
 
-		<c:if test="${user.role eq 'student' || user.role eq 'parent'}">
-		<th data-sortable="" style="width: 10%;">
-		<a href="#" class="dataTable-sorter" align="center">납부하기</a>
-		</th>				
-		</c:if>
-		
-		</tr>
-		
-	</thead>
-	
-	<tbody>
-	<c:set var="i" value="0" />
-	  <c:forEach var="payment" items="${list}">
- 	  <c:set var="i" value="${ i+1 }" />
-					  
-				<tr>				
-				<td align="center">
-				${ i }
-				<input type="hidden" id="payCode" value="${payment.payCode}">
-				<input type="hidden" id="studentId" value="${payment.studentId}">
-				
-				</td>
-				<td align="center">${payment.payLessonName.getLessonName()}</td>
-				<td align="center">${payment.studentName}</td>
-				
-				<td align="center" id="amount" >
-					${payment.amount}
-				</td>
-				
-				<td align="center">${payment.payDueDate }</td>
-				
-				<td align="center">
-					<fmt:parseDate value="${payment.payDay}" var="payday" pattern="yyyy-MM-dd HH:mm:ss" />
-					<fmt:formatDate value="${payday}" pattern="yyyy/MM/dd" /> 		
-				</td>
-				
-				<td align="center">${payment.checkPay }</td>
-				
-				<c:if test="${user.role eq 'student' || user.role eq 'parent'}">
-				<td align="center" payCode="${payment.payCode}">
-					<button class="btn btn-raised-warning" type="button" id="realPayment" style="width:70%;height:35px;">
-						상세보기
-				　</button>			
-				</td>
-				</c:if>
-				
-				</tr>
-	 </c:forEach>
-</table>
-<input type="hidden" id="currentPage" name="currentPage" value=""/>
-<div align="center">
-		<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
-				<span class="material-icons">
-				arrow_circle_left
-				</span>
-		</c:if>
-		
-		
-		<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
-				<a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
-					<span class="material-icons">
-					arrow_circle_left
-					</span>				
-				</a>
-		</c:if>
-		
-		<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
-			<a href="javascript:fncGetList('${ i }');">${ i }</a>
-		</c:forEach>
-		
-		<c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
-				<span class="material-icons">
-				arrow_circle_right
-				</span>
-		</c:if>
-		
-		<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
-				<a href="javascript:fncGetList('${resultPage.endUnitPage+1}')">
-					<span class="material-icons">
-					arrow_circle_right
-					</span>	
-				</a>
-		</c:if> 
+               
+               <table id="datatablesSimplePaymentList">
+               
+               </table> 
 
- </div>     
 </form>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
 </body>
 </html>
