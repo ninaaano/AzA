@@ -112,7 +112,7 @@ font-family: Pretendard, 'Noto Sans KR';
             </div>
             </div>
                       <!-- == -->
-            <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!--             <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -142,14 +142,14 @@ font-family: Pretendard, 'Noto Sans KR';
                 
                         </div>
                     </div>
-                </div>   
+                </div>    -->
                 <!-- == -->
          </div>
             
             
              <hr class="my-5">
             
-            <div class="row d-flex justify-content-around">
+            <!-- <div class="row d-flex justify-content-around">
                  <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
                              <div class="card card-raised overflow-hidden h-100">
                                  <div class="card-header bg-primary text-white">
@@ -181,7 +181,7 @@ font-family: Pretendard, 'Noto Sans KR';
                                
                  
                  </div>
-              </div>
+              </div> -->
                                     
                      
          </div>
