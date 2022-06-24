@@ -124,16 +124,7 @@ window.addEventListener('DOMContentLoaded', event => {
                select: 7,
                render: realPayment,
                
-           },{
-				select : 5,
-				data : "payday",
-				render : function(data){
-					return moment(data).format("DD/MM/YYYY");
-				}
-			
-		
-			}
-                  
+           }                  
          
          ],
          columnDefs: [
@@ -165,7 +156,8 @@ window.addEventListener('DOMContentLoaded', event => {
                {
                    targets: [6],
                    orderData: [0, 1],
-               },
+               }
+                    
             ],   
       });
          
@@ -181,7 +173,6 @@ window.addEventListener('DOMContentLoaded', event => {
    })
    }
 });
-
 
 
 

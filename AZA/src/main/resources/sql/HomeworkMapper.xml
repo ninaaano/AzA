@@ -159,7 +159,7 @@
 		SELECT *
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
 				FROM (	SELECT
-						h.homework_code, sr.lesson_name, h.homework_title, sr.student_name,
+						h.homework_code, h.lesson_name, h.homework_title, sr.student_name,
 						h.homework_create_at, h.homework_due_date, h.homework_check
 						FROM homework h, students_record sr						
 							<where>
