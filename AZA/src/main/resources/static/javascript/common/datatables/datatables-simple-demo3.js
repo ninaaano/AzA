@@ -23,7 +23,10 @@ window.addEventListener('DOMContentLoaded', event => {
             payments.map((payment, i) => {
                console.log(payment);
                
+               
                var temp = [];
+               
+               
                temp.push(i+1);
                temp.push(payment.payLessonName.lessonName);
                temp.push(payment.studentName);

@@ -60,19 +60,20 @@ $(function () {
 						"Content-Type" : "application/json"
 					},success : function(JSONData , status) {
 						/* alert("선택된 cName => "+JSONData.studentName); */
-						$('#studentName').text(JSONData.studentName+"의 특징");
-						$('#studentName').val(JSONData.studentName);
-						
-						$('#studentId').text(JSONData.studentId);
-						$('#studentId').val(JSONData.studentId);
-						
+						//text값 변경
+						$('#studentName').text(JSONData.studentName+"의 특징");						
+						$('#studentId').text(JSONData.studentId);						
 						$('#characterContent').text(JSONData.characterContent);
-						$('#characterContent').val(JSONData.characterContent);
-						
 						$('#characterCode2').text(JSONData.characterCode);
 						$('#characterCode2').val(JSONData.characterCode);
 						
-						$('#characterCode').val(JSONData.characterCode);
+						// value값 변경
+						$('input[name=characterCode]').val(JSONData.characterCode);
+						$('input[name=studentId]]').val(JSONData.studentId);
+						$('input[name=studentName]').val(JSONData.studentName);
+						$('input[name=characterContent]').val(JSONData.characterCode);
+						
+						
 					}
 	
 				}		

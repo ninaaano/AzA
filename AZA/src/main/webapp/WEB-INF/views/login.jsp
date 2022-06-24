@@ -51,6 +51,7 @@
    
    $( function() {
       $("button:contains('아이디 찾기')").on("click" , function() {
+    	  alert("??");
          self.location = "/user/findId"
       });
    });
