@@ -138,19 +138,19 @@ function makeAlert(result) {
             			</div>
 						<div class="dropdown-item-content me-2">
 							<div class="dropdown-item-content-text small">`+alertContent+`</div>
-							<div class="dropdown-item-content-subtext text-muted caption p-1">`+time+`</div>
+							<div class="dropdown-item-content-subtext text-muted caption p-0">`+time+`</div>
 						</div>
 						</li><li><hr class="dropdown-divider my-0" /></li>`;
             			
             		} else {
-						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3 onclick="return deleteAlert(`+alertCode+`)"">
+						listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return deleteAlert(`+alertCode+`)"">
 						<div class="row">
 						<span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
 						<p class="text-danger">삭제</p>
 						</div>
 						<div class="dropdown-item-content me-2" onclick="return deleteAlert(`+alertCode+`)">
 							<div class="dropdown-item-content-text small">`+alertContent+`</div>
-							<div class="dropdown-item-content-subtext text-muted caption p-1">`+time+`</div>
+							<div class="dropdown-item-content-subtext text-muted caption p-0">`+time+`</div>
 						</div>
 						</li><li><hr class="dropdown-divider my-0" /></li>`;               		
             		}              		

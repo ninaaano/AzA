@@ -76,6 +76,15 @@
 font-family: Pretendard, 'Noto Sans KR';
 }
 
+
+*-ms-overflow-style: {none;
+	
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">

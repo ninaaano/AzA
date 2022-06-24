@@ -68,6 +68,14 @@
 *, body {
 	font-family: Pretendard, 'Noto Sans KR';
 }
+
+ *-ms-overflow-style: {
+	none;
+ }
+ 
+*::-webkit-scrollbar {
+  display: none;
+} 
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -337,7 +345,7 @@
 
 			<div
 				class="messagePopup hidden position-absolute end-0 mr-3 none-scroll"
-				id="messagePopup" style="z-index: 9999; top: 30px;">
+				id="messagePopup" style="z-index: 9999; top: 5px;">
 				<!-- list -->
 				<div id="otherListContainer" class="container p-0"
 					style="width: 25rem; height: 30rem;">
@@ -383,7 +391,7 @@
 									class="btn btn-outline-primary btn-sm"
 									data-mdb-ripple-color="dark">¸ñ·Ï</button>
 							</div>
-							<div class="card-body overflow-auto position-relative p-1">
+							<div class="card-body overflow-auto position-relative p-1" id="messageScroll">
 								<div id="messages" class="m-0 p-0 pb-5" style=""></div>
 							</div>
 							<form id="msgForm"
