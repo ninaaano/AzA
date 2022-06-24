@@ -55,7 +55,7 @@ public class PaymentController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listPayment")
+	@RequestMapping(value = "listPayment",method = RequestMethod.GET)
 	public ModelAndView listPayment
 	(HttpServletRequest request, @ModelAttribute("search") Search search, ModelAndView mv, HttpSession session) throws Exception{
 		
@@ -63,9 +63,6 @@ public class PaymentController {
 		
 		//session => getUserId(role)
 		String userId = ((User) session.getAttribute("user")).getUserId();
-		String role = ((User) session.getAttribute("user")).getRole();
-		
-		System.out.println("role???????????????" + role);
 		
 		User user = userService.getUser(userId);
 		search.setSearchId(userId);
@@ -104,13 +101,12 @@ public class PaymentController {
 
 
 		mv.addObject("user", user);
-		mv.addObject("role", role);
 		mv.setViewName("/payment/listPayment");
 		
 		return mv;
 	}
 	
-	@RequestMapping(value = "getPayment/{payCode}")
+	@RequestMapping(value = "getPayment/{payCode}",method = RequestMethod.GET)
 	public ModelAndView getPayment(@PathVariable int payCode, Payment payment, HttpSession session) throws Exception{
 		
 		String userId = ((User) session.getAttribute("user")).getUserId();

@@ -62,10 +62,10 @@ $(function () {
 						/* alert("선택된 cName => "+JSONData.studentName); */
 						//text값 변경
 						$('#studentName').text(JSONData.studentName+"의 특징");						
-						$('#studentId').text(JSONData.studentId);						
+						/* $('#studentId').text(JSONData.studentId); */						
 						$('#characterContent').text(JSONData.characterContent);
-						$('#characterCode2').text(JSONData.characterCode);
-						$('#characterCode2').val(JSONData.characterCode);
+						/* $('#characterCode2').text(JSONData.characterCode);
+						$('#characterCode2').val(JSONData.characterCode); */
 						
 						// value값 변경
 						$('input[name=characterCode]').val(JSONData.characterCode);
@@ -90,14 +90,12 @@ $(function () {
 
 $(function() {
 	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
-		alert("삭제....");
 		deleteStudentsCharacter();
 	});
 });
 
 $(function() {
 	$( "button.btn.btn-raised-primary:contains('수정')" ).on("click" , function() {
-		alert("수정 화면으로 이동");
 		updateStudentsCharacter();
 	});
 });
@@ -148,8 +146,8 @@ function updateStudentsCharacter() {
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
                                         <h1 id="studentName"> ${students.studentName}의 특징 </h1>
-                                        <p class="card-text mb-4" id="characterCode2">character Code : ${students.characterCode }</p>
-                                        <p class="card-text mb-4" id="studentId">studentId : ${students.studentId }</p>
+                                        <%-- <p class="card-text mb-4" id="characterCode2">character Code : ${students.characterCode }</p>
+                                        <p class="card-text mb-4" id="studentId">studentId : ${students.studentId }</p> --%>
                                         <table class="table table-sm mb-0">
                                             <tbody>
                                                 <tr>
