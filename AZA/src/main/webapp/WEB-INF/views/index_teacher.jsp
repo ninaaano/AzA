@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생관리 시스템</title>
+<link rel="shortcut icon" href="/resources/img/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -85,8 +86,8 @@ iframe {
 
 
 </head>
-
 <body class="nav-fixed bg-light">
+
 	<div class="nav-fixed bg-light">
 		<!-- Top app bar navigation menu-->
 		<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
@@ -170,7 +171,7 @@ iframe {
 							<!-- Drawer link (Messages)-->
 							<a class="nav-link d-sm-none" href="#!">
 								<div class="nav-link-icon">
-									<i class="material-icons text-primary text-primary">mail</i>
+									<i class="bi bi-journal"></i>
 								</div> Messages
 							</a>
 							<!-- Divider-->
@@ -181,13 +182,13 @@ iframe {
 							<!-- Drawer link (Overview)-->
 							<a class="nav-link left_nav" href="#"
 								data-url='/teacher/manageLesson'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-person-video3 text-primary"></i>
 								</div> 수업관리
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/students/listStudentsRecord'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary" href="#">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-person-fill text-primary"></i>
 								</div> 전체 학생 목록
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/teacher/manageStudent'>
@@ -201,19 +202,19 @@ iframe {
 							</a> 
 							<a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-piggy-bank text-primary"></i>
 								</div> 수납
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/lesson/manageLessonBook'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-journal text-primary"></i>
 								</div> 교재
-							</a> <!--<a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
-								</div> Q&A
-							</a> -->
+							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-emoji-smile-upside-down text-primary"></i>
+								</div> 금쪽이
+							</a>
 
 							<!-- Divider-->
 							<div class="drawer-menu-divider"></div>

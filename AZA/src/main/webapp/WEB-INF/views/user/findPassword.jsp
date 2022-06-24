@@ -47,10 +47,6 @@
 <meta charset="UTF-8">
 <title>FIND PASSWORD</title>
 <style>
-:root { -
-	-input-padding-x: 1.5rem; -
-	-input-padding-y: .75rem;
-}
 
 *, body {
    font-family: Pretendard, 'Noto Sans KR';
@@ -58,90 +54,6 @@
   
 }
 
-
-body {
-	background-color: white;
-}
-
-.card-signin {
-	border: 0;
-	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-	overflow: hidden;
-}
-
-
-.form-signin .btn {
-	font-size: 100%;
-	
-	letter-spacing: .1rem;
-	font-weight: bold;
-	padding: 1rem;
-	transition: all 0.2s;
-}
-
-.form-label-group {
-	position: relative;
-	margin-bottom: 1rem;
-	
-}
-
-.form-label-group input {
-	height: auto;
-	
-	
-}
-
-.form-label-group>input, .form-label-group>label {
-	padding: var(- -input-padding-y) var(- -input-padding-x);
-}
-
-.form-label-group>label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: inline_block;
-	width: 100%;
-	margin-bottom: 0;
-	/* Override default `<label>` margin */
-	line-height: 1.5;
-	color: #495057;
-	border: 1px solid transparent;
-	border-radius: .25rem;
-	transition: all .1s ease-in-out;
-}
-
-.form-label-group input::-webkit-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::placeholder {
-	color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-	padding-top: calc(var(- -input-padding-y)+ var(- -input-padding-y)* (2/3));
-	padding-bottom: calc(var(- -input-padding-y)/3);
-}
-
-.form-label-group input:not(:placeholder-shown) ~label {
-	padding-top: calc(var(- -input-padding-y)/3);
-	padding-bottom: calc(var(- -input-padding-y)/3);
-	font-size: 15px;
-	color: #777;
-}
 
 </style>
 
@@ -157,25 +69,24 @@ body {
                 <main>
                     <!-- Main content container-->
                     <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8">
-                                <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+                        <div class="row justify-content-center m-0">
+                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 m-0">
+                                <div class="card mt-2 mt-xl-3 mb-0 " style="border:none; background-color: transparent;">
                                     <div class="card-body p-5">
                                         <!-- Auth header with logo image-->
                                         <div class="text-center">
                                            <img class="mb-3" src="/resources/img/logo2.png" alt="..."
                                  style="height: 100px">
-                                            <h1 class="display-5 mb-4">비밀번호 재설정</h1>
+                                            <h1 class="display-5 mb-4 text-white subFont">비밀번호 재설정</h1>
                                         </div>
                                         <!-- Reset password submission form-->
-<form method="post" class="form-signin" action="find_password" name="findform">
+<form method="post" class="form-signin p-3" action="find_password" name="findform" style="background: rgba(51, 170, 51, .1)">
                                         
 
                                            
 <div class="row mb-4">
-    <label for="userId" class="col-sm-4 col-form-label">아이디</label>
     <div class="col-auto">
-      <input type="text" class="form-control" id="userId" name="userId">
+      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디">
     </div>
   </div>
   
@@ -198,9 +109,9 @@ body {
 
 
 		<div class="form-label-group">
-			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
+			<input class="btn btn-secondary btn-block text-uppercase btn-sm"
 				type="submit" value="check">
-			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+			<button class="btn btn-secondary btn-block text-uppercase btn-sm"
 				type="button">취소</button>
 		</div>
 

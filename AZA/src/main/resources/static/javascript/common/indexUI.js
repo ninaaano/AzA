@@ -7,7 +7,6 @@ window.addEventListener('DOMContentLoaded', event => {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",                                    
             },
-
        	success: function(result) {
 			if(result) {
 			console.log(result);

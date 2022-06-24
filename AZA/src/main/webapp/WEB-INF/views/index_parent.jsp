@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생관리 시스템</title>
+<link rel="shortcut icon" href="/resources/img/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -56,6 +57,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 <style>
 *, body {
@@ -168,18 +171,18 @@
 								class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 							<!-- Drawer link (Overview)-->
 							<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-balloon-heart text-primary"></i>
 								</div> 자녀관리
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-piggy-bank text-primary"></i>
 								</div> 수납
 							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
-								</div> Q&A
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-emoji-smile-upside-down text-primary"></i>
+								</div> 금쪽이
 							</a>
 						</div>
 						<!-- Divider-->
