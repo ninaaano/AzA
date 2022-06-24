@@ -68,14 +68,50 @@
 		});
 	}); */
 	
- 	$(function(){
+/*   	$(function(){
 		$("button.btn.btn-outline-primary:contains('昏力')").on("click",function(){
 			var isbn = $(this).data("value");
 			self.location="/lesson/deleteLessonBook?isbn="+isbn;
 		});
+	}); */
+	
+	
+/*   	$(function(){
+		$("#booklist").on("click",function(){
+			var isbn = $(this).data("value");
+			self.location="/lesson/deleteLessonBook";
+		});
+	}); */
+	function fncdeleteBook(){
+		let lessonCode = $(this).data("tttt");
+		let lessonCode3 = $(this).data("ttta");
+		alert(lessonCode);
+		alert(lessonCode3);
+		let code = $(this).attr('lessonCode1');
+		alert(code);
+		$("#booklist").attr("method","GET").attr("action","/lesson/deleteLessonBook=").submit();
+	}
+	$(function(){
+		$("button.btn.btn-outline-primary:contains('昏力')").on("click",function(){
+			fncdeleteBook();
+		});
 	});
 	
-/*  	function listLessonBook(){
+	
+/* 	function fncdeleteBook(){
+		alert("ok")
+		${"#booklist"}.attr("method","POST").attr("action","/lesson/rest/deleteLessonBook").submit();
+	}
+	
+	$(function(){
+		alert("ok2")
+		$("button.btn.btn-outline-primary:contains('昏力')").on("click",function(){
+			alert("ok2")
+			fncdeleteBook();
+		});
+	});
+	 */
+	/*  	function listLessonBook(){
 		$.ajax({
 			url:"lesson/rest/listLessonBook",
 			type:"GET",
@@ -176,14 +212,16 @@ img {display: block; margin: 0px auto;
 				</c:if>
 			</form>
 		</div>
-<br>		
+
+<br>
 <div class="mx-5 px-5">
 	<div class="mx-5 px-5">
-		<form id="book" class="book">
+		
 			<div class="row row-cols-1 row-cols-md-4 mt-5 g-4" id="book">
 					<c:set var="i" value="0"/>
 						<c:forEach var="lesson" items="${list}">
 							<c:set var="i" value="${i+1}"/>
+							<form id="booklist" class="booklist">
 						<div class="col">
 					    <div class="card h-100" align="center" >
 					    	 <div class="embed-responsive embed-responsive-4by3">
@@ -227,8 +265,11 @@ img {display: block; margin: 0px auto;
 				                <input type="text" value="${lesson.lessonName}" aria-label="Example text with button addon" 
 					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
 					        </div>
+					        	<p data-tttt="${lesson.lessonCode}">
+				                <input type="hidden" value="${lesson.lessonCode}" readOnly="true">
+				                
 					        <c:if test="${user.role eq 'teacher'}">
-								<button type="button" class="btn btn-outline-primary" id="ct_btn01" data-value="${lesson.isbn}">昏力</button>
+								<button type="button" class="btn btn-outline-primary" id="btn05" lessonCode1="${lesson.lessonCode}" data-ttta="${lesson.lessonCode}">昏力</button>
 								<%-- <p class="card-text"><button type="button" class="ct_btn01" id="ct_btn01" isbn="${lesson.isbn}">昏力</button></p> --%>
 							</c:if>
 					        
@@ -245,12 +286,13 @@ img {display: block; margin: 0px auto;
 					      </div>
 					    </div>
 					  </div>
+					  </form>
 				</c:forEach>
 			</div>
 			
 			<!-- <div id = "bookDataSimple">
 			</div> -->
-		</form>
+		
 	</div>
 </div>
 <!-- <form id = "result">

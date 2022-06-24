@@ -48,36 +48,44 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listLesson")
+	@RequestMapping(value = "listLesson", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listLesson(HttpSession session) throws Exception{
 		System.out.println("rest/listLesson -> 시작");
 		String role = ((User)session.getAttribute("user")).getRole();
+		Search search = new Search();
 		
 		if(role.equals("teacher")) {
 			String teacherId = ((User) session.getAttribute("user")).getUserId();
-			Search search = new Search();
+			
 			int totalCount = (int)lessonService.listLessonTeacher(search, teacherId).get("totalCount");
 			search.setCurrentPage(1);
 			search.setPageSize(totalCount);
 			System.out.println("<===========");
 			System.out.println(lessonService.listLessonTeacher(search, teacherId));
 			System.out.println("===========>");
+			
+			session.setAttribute("role", role);
+			
 			return lessonService.listLessonTeacher(search, teacherId);
+			
 		} else if(role.equals("student")){
 			String studentId = ((User)session.getAttribute("user")).getUserId();
-			Search search = new Search();
+			
 			int totalCount = (int)lessonService.listLessonStudent(search, studentId).get("totalCount");
 			search.setCurrentPage(1);
 			search.setPageSize(totalCount);
 			
+			session.setAttribute("role", role);
 			return lessonService.listLessonStudent(search, studentId);
 		} else {
 			String parentId = ((User)session.getAttribute("user")).getUserId();
-			Search search = new Search();
+			
 			int totalCount =(int)lessonService.listLessonParent(search, parentId).get("totalCount");
 			search.setCurrentPage(1);
 			search.setPageSize(totalCount);
+			
+			session.setAttribute("role", role);
 			return lessonService.listLessonParent(search, parentId);
 		}
 	}
@@ -157,8 +165,14 @@ public class LessonRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		lessonService.addLessonBook(lesson);
 		
+		try {
+			lessonService.addLessonBook(lesson);
+		} catch (Exception e){
+			System.out.println("<<<<<<<<>>>>>>>>");
+			System.out.println("lesson_book 에 저장");
+			lessonService.addSameLessonBook(lessonCode, isbn);
+		}
 		model.setViewName("redirect:/lesson/manageLessonBook");
 		return model;
 	}
@@ -211,17 +225,18 @@ public class LessonRestController {
 //		return null;
 //	}
 
-	@RequestMapping(value = "deleteLessonBook", method = RequestMethod.POST)
-	public void deleteLessonBook(@RequestParam(value="isbn", required=false) String isbn, HttpServletRequest request) throws Exception{
+	@RequestMapping(value = "deleteLessonBook", method = RequestMethod.GET)
+	public void deleteLessonBook(@RequestParam(value="isbn", required=false) String isbn, @RequestParam(value="lessonCode",required=false) String lessonCode, HttpServletRequest request) throws Exception{
 		System.out.println("===========");
 		System.out.println("deleteLessonBook restController");
 		System.out.println("===========");
 		String is = request.getParameter("isbn");
 		System.out.println(is);
 		System.out.println("===========");
-		System.out.println(isbn);
+//		String lessonCode = request.getParameter("lessonCode");
+//		System.out.println(isbn);
 		
-		lessonService.deleteLessonBook(isbn);
+		lessonService.deleteLessonBook(is, lessonCode);
 	}
 	
 //	@RequestMapping(value = "deleteLessonBook")

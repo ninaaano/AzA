@@ -72,337 +72,20 @@
 font-family: Pretendard, 'Noto Sans KR';
 }
 
+
+*-ms-overflow-style: {none;
+	
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
 <link href="/resources/css/attendance.css" rel="stylesheet">
 <script type="text/javascript">
-
-function resetForm() {
-   document.addStudentsRecordForm.reset();
-   $('.lessonCheck').removeClass('show');
-   $('.valCheck').removeClass('show');   
-}
-
-$(function() {
-   // addStudentsRecord
-   $('#addStudentsRecordBtn').on("click", function() {
-
-      var valFlag = false;
-      const lessonCode = document.addStudentsRecordForm.lessonCode.value;
-      const lessonStartDate = document.addStudentsRecordForm.lessonStartDate.value;
-      const fees = document.addStudentsRecordForm.fees.value;
-      const payDueDate = document.addStudentsRecordForm.payDueDate.value;
-      
-      // 유효성 check
-      if(lessonCode.length < 8 || lessonCode == null || lessonStartDate.length < 1 || lessonStartDate.length == null || fees.length < 1 || fees == null || payDueDate < 1 || payDueDate == null) {
-         $('.valCheck').addClass('show');
-      } else {
-         $.ajax({
-             url: "http://localhost:8080/lesson/rest/checkLessonCode/"+lessonCode,
-                  type: "GET",
-                  headers : {
-                          "Accept" : "application/json",
-                          "Content-Type" : "application/json",                                    
-                      },
-                  success: function(result) {
-                      if(result) {
-                         console.log(result);
-                         
-                         if(result == true) {
-                            valFlag = true;
-                         }
-                         
-                         if(!valFlag) {
-                            $('.lessonCheck').addClass('show');
-                            return;
-                         }
-                         
-                         console.log(valFlag);
-                         
-                         if(valFlag) {
-                           document.addStudentsRecordForm.action = "/students/addStudentsRecord";
-                           document.addStudentsRecordForm.method = "POST";
-                           document.addStudentsRecordForm.submit();      
-                        }
-                      } else {
-                         console.log("lesson/rest/checkLessonCode :: error || null");                            
-                         $('.lessonCheck').addClass('show');
-                      }
-                  }
-         })
-      }
-      
-       
-
-   })
-})
-
-
-/* 
-function deleteAlert(alertCode) {
-   $.ajax({
-      url:"http://localhost:8080/alert/rest/deleteAlert/"+alertCode,
-      type:"GET",
-      headers : {
-                "Accept" : "application/json",
-                "Content-Type" : "application/json",                                    
-            },
-        success: function(result) {            
-            if(result) {
-               
-               console.log("deleteAlert");
-               
-           var listAlertView = "";
-            var list = result.list
-               
-               list.map(alert => {
-                  
-                  let alertCode = alert.alertCode;
-                  let alertContent = alert.alertContent;
-                  let alertCreateAt = alert.alertCreateAt;
-                  let alertReadAt = alert.alertReadAt;
-                  
-                  if(!alertReadAt) {
-                     listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
-                     <div>
-                     <span class="material-icons text-primary">done</span>
-                     <p class="text-primary">읽음</p>
-                     </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;
-                     
-                  } else {
-                  listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
-                  <div>
-                  <span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
-                  <p class="text-danger">삭제</p>
-                  </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;                     
-                  }                    
-               })
-               
-               $('.alertLi').remove();
-              $("#alertDropDown").html("");
-              $("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
-                  <li><hr class="dropdown-divider my-0" /></li>`);
-              $("#alertDropDown").append(listAlertView);
-              $("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
-
-            } else {
-               console.log("faile");
-            }
-       }
-   })
-}
-
-
-
-function listAlert() {
-   $.ajax({
-      url:"http://localhost:8080/alert/rest/listAlert",
-      type:"GET",
-      headers : {
-                "Accept" : "application/json",
-                "Content-Type" : "application/json",                                    
-            },
-        success: function(result) {            
-            if(result) {
-               
-               console.log("listAlert");
-               
-           var listAlertView = "";
-            var list = result.list
-               
-               list.map(alert => {
-                  
-                  let alertCode = alert.alertCode;
-                  let alertContent = alert.alertContent;
-                  let alertCreateAt = alert.alertCreateAt;
-                  let alertReadAt = alert.alertReadAt;
-                  
-                  if(!alertReadAt) {
-                     listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
-                     <div>
-                     <span class="material-icons text-primary">done</span>
-                     <p class="text-primary">읽음</p>
-                     </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;
-                     
-                  } else {
-                  listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
-                  <div>
-                  <span class="material-icons text-danger" onclick="return deleteAlert(`+alertCode+`)">delete</span>
-                  <p class="text-danger">삭제</p>
-                  </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;                     
-                  }                    
-               })
-               
-               $('.alertLi').remove();
-               $("#alertDropDown").html("");
-               $("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
-                   <li><hr class="dropdown-divider my-0" /></li>`);
-               $("#alertDropDown").append(listAlertView);
-
-            } else {
-               console.log("faile");
-            }
-       }
-   })
-   
-}
-
-function readAlert(alertCode) {
-   $.ajax({
-      url:"http://localhost:8080/alert/rest/readAlert/"+alertCode,
-      type:"GET",
-      headers : {
-                "Accept" : "application/json",
-                "Content-Type" : "application/json",                                    
-            },
-        success: function(result) {            
-            if(result) {
-               
-               console.log("readAlert");
-               
-           var listAlertView = "";
-            var list = result.list
-               
-               list.map(alert => {
-                  
-                  let alertCode = alert.alertCode;
-                  let alertContent = alert.alertContent;
-                  let alertCreateAt = alert.alertCreateAt;
-                  let alertReadAt = alert.alertReadAt;
-                  
-                  if(alertReadAt == "") {
-                     listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3" onclick="return readAlert(`+alertCode+`)">
-                     <div>
-                     <span class="material-icons text-primary">done</span>
-                     <p class="text-primary">읽음</p>
-                     </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;
-                     
-                  } else {
-                  listAlertView += `<li class="alertLi d-flex justify-content-between pt-3 px-3">
-                  <div>
-                  <span class="material-icons text-danger">delete</span>
-                  <p class="text-danger">삭제</p>
-                  </div>
-                  <div class="dropdown-item-content me-2">
-                     <div class="dropdown-item-content-text">`+alertContent+`</div>
-                     <div class="dropdown-item-content-subtext">`+alertCreateAt+`</div>
-                  </div>
-                  </li><li><hr class="dropdown-divider my-0" /></li>`;                     
-                  }
-                  
-                  
-                  
-               })
-               
-               $('.alertLi').remove();
-               $("#alertDropDown").html("");
-               $("#alertDropDown").append(`<li><h6 class="dropdown-header bg-primary text-white fw-500 py-3">알림</h6></li>
-                   <li><hr class="dropdown-divider my-0" /></li>`);
-               $("#alertDropDown").append(listAlertView);
-               $("#alertDropDown").addClass("show").attr("data-bs-popper", "static");
-               
-            } else {
-               console.log("faile");
-            }
-       }
-   })
-}
-
- */
-
-$(function() {
-   // Alert
-    $('#dropdownMenuNotifications').on('click', function() {
-      console.log("알림 버튼 눌림");
-      listAlert();
-   })
-
-   // Message
-   $("#open-messagePopup").on("click", function() {
-      console.log("메시지 버튼 눌림");
-      
-        $.ajax({
-            url: "http://localhost:8080/message/rest/listMessage",
-            type: "GET",
-            headers : {
-                    "Accept" : "application/json",
-                    "Content-Type" : "application/json",                                    
-                },
-            success: function(result) {
-                if(result) {
-                   console.log(result);
-                   
-                   sessionStorage.setItem('userId', result[0].userId);
-                   
-                   result.shift();
-                   
-                   console.log(result);
-                   
-                   var listOtherView = "";
-                   
-                   result.map((other,i) => {
-                        
-                      let studentId = other.studentId ? other.studentId : other.firstStudentId;
-                      let studentName = other.studentId ? other.studentName : "학생이룸";
-                      let relationName = other.relationName ? other.relationName : "";
-                      let userId = other.userId ? other.userId : studentId;
-                      let userName = studentName + " " + relationName;
-                      //console.log(i, studentId);
-                      
-                      listOtherView += `<ul id='getOtherMessage' class='list-unstyled mb-0' onclick="getOtherMessage('`+userId+`','`+userName+`')">
-                      <li class='p-2 border-bottom' data-id=`+userId+`>
-                               <a class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row">
-                                        <div class="pt-1">
-                                            <p class="fw-bold mb-0">`+studentName+" "+relationName+`</p>
-                                            <p class="small text-muted">최근메시지</p>
-                                        </div>
-                                    </div>
-                               </a>
-                           </li>
-                       </ul>`;
-                   });
-                   
-                   $('#getOtherMessage').remove();
-                   $('#listOther').append(listOtherView);
-
-                } else {
-                    console.log("실패");
-                }
-            } 
-        })
-   })
-})
-   
-
-
-
 
 
 </script>
@@ -429,7 +112,7 @@ $(function() {
             </div>
             </div>
                       <!-- == -->
-            <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!--             <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -459,14 +142,14 @@ $(function() {
                 
                         </div>
                     </div>
-                </div>   
+                </div>    -->
                 <!-- == -->
          </div>
             
             
              <hr class="my-5">
             
-            <div class="row d-flex justify-content-around">
+            <!-- <div class="row d-flex justify-content-around">
                  <div id="lessonTimeTable"  class="col-xl-4 col-md-6 mb-5">
                              <div class="card card-raised overflow-hidden h-100">
                                  <div class="card-header bg-primary text-white">
@@ -498,7 +181,7 @@ $(function() {
                                
                  
                  </div>
-              </div>
+              </div> -->
                                     
                      
          </div>

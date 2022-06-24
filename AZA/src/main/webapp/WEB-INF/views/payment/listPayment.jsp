@@ -1,8 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+<!-- Æ÷¸Ë lib -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <!DOCTYPE html>
 <html>
@@ -58,6 +58,9 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+
 <style>
    body {
     padding-top : 50px;
@@ -85,10 +88,6 @@
 
                                         <div class="card-text">Payment List</div>
                                     </div>
-<!--                                     <div class="d-flex gap-2">
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
-                                        <button class="btn btn-lg btn-text-primary btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="card-body p-4">
@@ -106,82 +105,20 @@
                 </main>
 	<!-- Footer-->
 	<footer>
-		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
+<!--  -->
+<script src= cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js>
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js" crossorigin="anonymous"></script> -->
 	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
-	<script type="text/javascript">
-</script>
+
+
 </body>
-<%-- <body>
 
-
-
-
-<h3>PAYMENT LIST</h3>
-<<<<<<< HEAD
-<form>				
-${user.role }
-
-
-
-
-               
-               <table id="datatablesSimplePaymentList">
-               
-               </table> 
-
-</form>
- 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
-	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-	<script src="/resources/javascript/common/prism.js"></script>
-	<script src="/resources/javascript/common/material.js"></script>
-	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-
-	<script type="text/javascript">
-=======
-<form>            
-${user.role }
-
-
-
-
-               
-               <table id="datatablesSimplePaymentList">
-               
-               </table> 
-
-</form>
-      <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-      crossorigin="anonymous"></script>
-   <!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-   <script src="/resources/javascript/common/prism.js"></script>
-   <script src="/resources/javascript/common/material.js"></script>
-   <script src="/resources/javascript/common/scripts.js"></script>
-   <script src="/resources/javascript/common/datatables/datatables-simple-demo3.js"></script>
-
-   <script type="text/javascript">
->>>>>>> refs/heads/HMHM
-</script>
-</body> --%>
 </html>

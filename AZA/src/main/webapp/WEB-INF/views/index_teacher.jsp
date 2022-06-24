@@ -67,13 +67,13 @@
 iframe {
 	overflow: hidden;
 }
-*-ms-overflow-style: {
+ *-ms-overflow-style: {
 	none;
  }
  
 *::-webkit-scrollbar {
   display: none;
-}
+} 
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -135,7 +135,7 @@ iframe {
 								<li><a class="dropdown-item" href="#"
 									data-url='/user/getUser'> <i
 										class="material-icons leading-icon text-primary">person</i>
-										<div class="me-3">Profile</div>
+										<div class="me-3">마이페이지</div>
 								</a></li>
 								<li><hr class="dropdown-divider" /></li>
 								<li><a class="dropdown-item" href="/user/logout"> <i
@@ -194,11 +194,12 @@ iframe {
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
 								</div> 학생 관리
-							</a> <a class="nav-link left_nav" href="#">
+							</a> <!-- <a class="nav-link left_nav" href="#">
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
-								</div> 클라우드
-							</a> <a class="nav-link left_nav" href="#"
+								</div> 클라우드 -->
+							</a> 
+							<a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
@@ -208,11 +209,11 @@ iframe {
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
 								</div> 교재
-							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
+							</a> <!--<a class="nav-link left_nav" href="#" data-url='/lesson/1'>
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
 								</div> Q&A
-							</a>
+							</a> -->
 
 							<!-- Divider-->
 							<div class="drawer-menu-divider"></div>
@@ -240,7 +241,7 @@ iframe {
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
 
 
-			<div class="messagePopup hidden position-absolute end-0 mr-3 none-scroll" id="messagePopup" style="z-index: 9999; top: 30px;">
+			<div class="messagePopup hidden position-absolute end-0 mr-3" id="messagePopup" style="z-index: 9999; top: 5px;">
 					<!-- list -->
 					<div id="otherListContainer" class="container p-0" style="width: 25rem; height:30rem;">
 						<div class="row mr-0">
@@ -277,7 +278,7 @@ iframe {
 									<button id="otherListBtn" type="button"
 										class="btn btn-outline-primary btn-sm" data-mdb-ripple-color="dark">목록</button>
 								</div>
-								<div class="card-body overflow-auto position-relative p-1">
+								<div class="card-body overflow-auto position-relative p-1" id="messageScroll">
 								<div id="messages" class="m-0 p-0 pb-5"
 									style=""></div>
 								</div>	

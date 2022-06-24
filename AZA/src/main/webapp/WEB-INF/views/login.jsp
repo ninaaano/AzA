@@ -126,10 +126,8 @@
 
 										<div class="mb-1">
 											<div class="btn-group" role="group">
-												<button class="btn btn-text-primary" type="button">아이디
-													찾기</button>
-												<button class="btn btn-text-primary" type="button">비밀번호
-													재설정</button>
+												<button class="btn btn-text-primary" type="button">아이디 찾기</button>
+												<button class="btn btn-text-primary" type="button">비밀번호 재설정</button>
 												<button class="btn btn-text-primary" type="button">회원가입</button>
 											</div>
 										</div>

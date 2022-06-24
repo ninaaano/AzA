@@ -397,8 +397,8 @@ body>div.container {
          var pw=$("mwc-textfield[name='password']").val();
          var pw_confirm=$("mwc-textfield[name='password2']").val();
          var name=$("mwc-textfield[name='userName']").val();
-         var phone=$("mwc-textfield[name='phone']").val();
-         var auth=$("mwc-textfield[name='auth']").val();
+         var phone=$("input[name='phone']").val();
+         var auth=$("input[name='auth']").val();
          var agree = false;
 			var arr_agree = document.getElementsByName("agreecheck");
 			for(var i=0;i<arr_agree.length;i++){

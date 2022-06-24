@@ -47,11 +47,13 @@ public interface LessonDao {
 	//lessonBook : insert
 	public void addLessonBook(Lesson lesson) throws Exception;
 	
+	public void addSameLessonbook(String lessonCode, String isbn) throws Exception;
+	
 	//lessonBook : list
 	public List<Lesson> listLessonBook(Search search, String lessonCode) throws Exception;
 	
 	//lessonBook : delete
-	public void deleteLessonBook(String isbn) throws Exception;
+	public void deleteLessonBook(String isbn, String lessonCode) throws Exception;
 	
 	public List<Lesson> listBookTeacher(Search search, String teacherId) throws Exception;
 	
@@ -87,12 +89,18 @@ public interface LessonDao {
 	
 	public List<Schedule> listLessonSelectTeacher(Search search, String studentId) throws Exception;
 	
+	public List<Schedule> listLessonScheduleParent(Search search, String parentId) throws Exception;
+	
 	//schedule : delete all
-	public void deteteLessonScheduleAll() throws Exception;
+	public void deteteLessonScheduleAll(String teacherId) throws Exception;
 	
 	public int getLessonScheduleTotalCount(Search search, String searchKeyword) throws Exception;
 	
 	public int getLessonScheduleStudentTotalCount(Search search, String studentId) throws Exception;
 
 	public int getlistLessonSelectTeacherTotalCount(Search search, String searchKeyword) throws Exception;
+	
+	public int getlistLessonScheduleParentTotalCount(Search search, String parentId)throws Exception;
+	
+	
 }

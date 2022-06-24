@@ -23,7 +23,10 @@ window.addEventListener('DOMContentLoaded', event => {
             payments.map((payment, i) => {
                console.log(payment);
                
+               
                var temp = [];
+               
+               
                temp.push(i+1);
                temp.push(payment.payLessonName.lessonName);
                temp.push(payment.studentName);
@@ -62,10 +65,12 @@ window.addEventListener('DOMContentLoaded', event => {
                     var payCode = row.lastElementChild.textContent
    
                     return `<a href="/payment/getPayment/`+payCode+`">
-                    <button class="btn btn-raised-warning" type="button"> 상세보기 </button>
+                    <button class="btn btn-raised-warning type="button"> 상세보기 </button>
                     </a>`;
                  
                  }
+                 
+                 
                                        
             if(sessionStorage.getItem("role") == 'teacher') {
              var columns = [{

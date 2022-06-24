@@ -76,6 +76,15 @@
 font-family: Pretendard, 'Noto Sans KR';
 }
 
+
+*-ms-overflow-style: {none;
+	
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -99,13 +108,13 @@ font-family: Pretendard, 'Noto Sans KR';
 		<div class="container-xl px-5">
 
 			<div class="row" style="">
-				<div class="col-6">
+				<div class="col">
 					<div id="calendar" class="m-0"></div>
 				</div>
 
 
 
-				<div class="col">
+<!-- 				<div class="col">
 					<div>
 						<div id="lessonTimeTable" class="col-12 mb-5 mt-2">
 							<div class="card card-raised overflow-hidden h-100">
@@ -138,11 +147,11 @@ font-family: Pretendard, 'Noto Sans KR';
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 
-			<div class="modal fade" id="calendarModal" tabindex="-1"
+<!-- 			<div class="modal fade" id="calendarModal" tabindex="-1"
 				role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -177,7 +186,7 @@ font-family: Pretendard, 'Noto Sans KR';
 
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- == -->
 		</div>
 		<!-- 				

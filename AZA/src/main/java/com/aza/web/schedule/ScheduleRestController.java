@@ -76,8 +76,12 @@ public class ScheduleRestController {
 	
 	@RequestMapping(value="deleteSchedule/{scheduleCode}",method=RequestMethod.POST)
 	public Schedule deleteSchedule(@RequestBody Schedule schedule, @PathVariable int scheduleCode) throws Exception{
-		lessonService.deleteLessonSchedule(scheduleCode);
+		String teacherId = schedule.getTeacherId();
+		System.out.println("============");
+		System.out.println(teacherId);
+		System.out.println("============");
 		
+		lessonService.deleteLessonSchedule(scheduleCode);
 		return schedule;
 	}
 	
@@ -109,7 +113,7 @@ public class ScheduleRestController {
 			System.out.println(json.toString());
 //			return json;
 			return lessonService.listLessonScheduleTeacher(search, teacherId);
-		}else {
+		}else if(role.equals("student")) {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
 			System.out.println("================");
 			System.out.println(teacherID);
@@ -127,7 +131,25 @@ public class ScheduleRestController {
 				System.out.println("error임");
 			}
 			System.out.println(json.toString());
-			return json;
+			return lessonService.listLessonScheduleStudent(search, studentId);
+		} else {
+			String parentId = ((User)session.getAttribute("user")).getUserId();
+			System.out.println("parent schedule !!!!!!!");
+			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry:map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("schedule parent error");
+			}
+			System.out.println(json.toString());
+			return lessonService.listLessonScheduleParent(search, parentId);
 		}
 	}
 	

@@ -49,13 +49,13 @@ function getOtherMessage(otherId, otherName) {
 	$("#otherInfo").html(otherInfo);
 }
 
-$(document).mouseup(function (e){
+/*$(document).mouseup(function (e){
 	if(messagePopup.has(e.target).length === 0){
 		messagePopup.removeClass("show");
 		messagePopup.addClass("hidden");
 		disconnect();
 	}
-});
+});*/
 
 var stompClient =""
 
@@ -171,9 +171,11 @@ function showMessages(userId, message) {
         </span>
         </div></ul>`;	
 	}	
-	console.log(msgHtml);
-	
+	//console.log(msgHtml);
+	console.log("내려감");
     $("#messages").html(msgHtml);
+    scrollToBottom("messageScroll");
+    
 }
 
 function getLocalDateTime() {
@@ -187,8 +189,11 @@ function getLocalDateTime() {
 }
 
 
-
-
+// 자동 스크롤
+function scrollToBottom (id) {
+   var div = document.getElementById(id);
+   div.scrollTop = div.scrollHeight - div.clientHeight;
+}
 
 
 
