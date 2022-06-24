@@ -130,10 +130,10 @@ public class LessonController {
 		}
 	}
 	
-//	@RequestMapping(value="getLesson/{lessonCode}")
-	@RequestMapping(value="getLesson")
-//	public ModelAndView getLesson(@PathVariable String lessonCode) throws Exception{
-	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
+	@RequestMapping(value="getLesson/{lessonCode}")
+//	@RequestMapping(value="getLesson")
+	public ModelAndView getLesson(@PathVariable String lessonCode) throws Exception{
+//	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
 		System.out.println("==========");
 		System.out.println("getLesson start.....");
 		System.out.println("==========");
