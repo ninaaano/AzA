@@ -32,16 +32,7 @@
 	rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
 	rel="stylesheet" />
-<!-- Load main stylesheet-->
-<link href="/resources/css/template.css" rel="stylesheet" />
 
-
-<!-- Load Material Icons from Google Fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet">
-
-    
 
 
 <meta charset="UTF-8">
@@ -167,7 +158,7 @@ body {
                                         <div class="text-center">
                                            <img class="mb-3" src="/resources/img/logo2.png" alt="..."
                                  style="height: 100px">
-                                            <h1 class="display-5 mb-4">비밀번호 재설정</h1>
+                                            <h1 class="display-5 mb-4">아이디 찾기</h1>
                                         </div>
                                         <!-- Reset password submission form-->
                                         <form method="post" class="form-signin" action="find_id" name="findform">
