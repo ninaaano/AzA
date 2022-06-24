@@ -438,7 +438,7 @@ $(function() {
 							    <button class="subframe_nav nav-link" data-url="/students/manageStudentsExam"  id="nav-studentsExam-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">성적</button>
 							    <button class="subframe_nav nav-link" data-url="/paper/listPaperHomework"  id="nav-paperHomework-tab" data-bs-toggle="tab"type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">과제</button>
 							    <!-- <button class="subframe_nav nav-link" id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button> -->
-							    <button class="subframe_nav nav-link" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">교재</button>
+							    <button class="subframe_nav nav-link" data-url="/lesson/manageLessonBook" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">교재</button>
 							  </div>
 							</nav>
                       </div>

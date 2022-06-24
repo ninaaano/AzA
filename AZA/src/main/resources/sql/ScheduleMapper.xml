@@ -60,7 +60,7 @@
 	</delete>
 	
 	<delete id ="deleteAll">
-		DELETE FROM schedule
+		DELETE FROM schedule where teacher_id = #{teacherId}
 	</delete>
 	
 <!-- 	<select id ="listLessonSchedule" resultMap="scheduleSelectMap">
@@ -90,6 +90,38 @@
 							
 						</if>
 				</if> -->
+	</select>
+	
+	<select id = "listLessonScheduleParent" resultMap="scheduleSelectMap">
+		select S.*
+		FROM SCHEDULE S, (select L.teacher_id teacher_id, SR.student_id
+		        FROM LESSON L, STUDENTS_RECORD SR, (select R.student_id RSI
+		                FROM relation R, users U
+		                where U.user_id = R.parent_id and U.user_id = #{searchId}) A
+		        WHERE L.lesson_code = SR.lesson_code AND SR.student_id = A.RSI) B
+		WHERE S.teacher_id = B.teacher_id 
+		<if test="searchCondition != null">
+					<if test="searchCondition == 5 and searchKeyword !='' ">
+	 					AND S.teacher_id like '%${searchKeyword}%'
+	 				</if>
+	 	</if>
+	</select>
+	
+	<select id = "getlistLessonScheduleParentTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM(select S.*
+			FROM SCHEDULE S, (select L.teacher_id teacher_id, SR.student_id
+			        FROM LESSON L, STUDENTS_RECORD SR, (select R.student_id RSI
+			                FROM relation R, users U
+			                where U.user_id = R.parent_id and U.user_id = #{searchId}) A
+			        WHERE L.lesson_code = SR.lesson_code AND SR.student_id = A.RSI) B
+			WHERE S.teacher_id = B.teacher_id 
+			<if test="searchCondition != null">
+					<if test="searchCondition == 5 and searchKeyword !='' ">
+	 					AND S.teacher_id like '%${searchKeyword}%'
+	 				</if>
+	 		</if>
+		)countTable
 	</select>
 	
 	<select id = "listLessonSelectTeacher" resultMap="scheduleSelectMap">

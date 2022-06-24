@@ -62,10 +62,12 @@ window.addEventListener('DOMContentLoaded', event => {
                     var payCode = row.lastElementChild.textContent
    
                     return `<a href="/payment/getPayment/`+payCode+`">
-                    <button class="btn btn-raised-warning" type="button"> 상세보기 </button>
+                    <button class="btn btn-raised-warning type="button"> 상세보기 </button>
                     </a>`;
                  
                  }
+                 
+                 
                                        
             if(sessionStorage.getItem("role") == 'teacher') {
              var columns = [{
