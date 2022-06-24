@@ -29,7 +29,6 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
 
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 @RequestMapping("/lesson/*")
