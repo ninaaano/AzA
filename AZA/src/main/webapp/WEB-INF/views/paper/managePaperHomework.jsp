@@ -70,6 +70,7 @@ font-family: Pretendard, 'Noto Sans KR';
 			$("#updateBtn").hide();
 			$("#lessonNameList").hide();
 			$("#cancelBtn").hide();
+			$("#studentNameList").hide();
 			
 			if(${paper.homeworkCheck} == 1){
 				$("#homeworkCheck").prop("disabled",true);
@@ -104,6 +105,8 @@ font-family: Pretendard, 'Noto Sans KR';
 				$("#lessonNameListInput").hide();
 				$("#cancelBtn").show();
 				$("#goBackBtn").hide();
+				$("#studentNameList").show();
+				$("#studentNameInput").hide();
 				
 				
  			    const homeworkDueDate = document.getElementById('homeworkDueDate');
@@ -205,7 +208,7 @@ font-family: Pretendard, 'Noto Sans KR';
 							            	<c:set var="i" value="0"/>
 							            	<c:forEach var="lesson" items="${list }">
 							            	<c:set var="i" value="${i+1 }"/>
-							            		<option align="center" value="${lesson.lessonName }">${lesson.lessonName }
+							            		<option align="left" value="${lesson.lessonName }">${lesson.lessonName }
 							            	</c:forEach>
 						                </select>
 							        </div>
@@ -220,11 +223,23 @@ font-family: Pretendard, 'Noto Sans KR';
 							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 							             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1" readOnly="true">
 							        </div>
-							        <div class="input-group mb-3">
+							        <div class="input-group mb-3" id="studentNameInput">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
 							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 							            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1" readOnly="true">
 							        </div>
+							        <!-- 추가 -->
+							        <div class="input-group mb-3" id="studentNameList">
+							            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
+							            <select class="form-select" aria-label="Default select example" id="studentName" name="studentName">
+							            	<c:set var="i" value="0"/>
+							            	<c:forEach var="students" items="${listStudents }">
+							            	<c:set var="i" value="${i+1 }"/>
+							            		<option align="left" value="${students.studentName }">${students.studentName }
+							            	</c:forEach>
+						                </select>
+							        </div>
+							        <!-- 추가 -->
 							        <div class="input-group mb-3">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
 							            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
