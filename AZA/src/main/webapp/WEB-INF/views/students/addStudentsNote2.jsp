@@ -5,17 +5,24 @@
 	<meta charset="utf-8">
 	<title>강의노트</title>
 
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 	<!-- 네이버 스마트에디터  -->
 	<!-- <head> 안에 추가 -->
 	<script type="text/javascript" src="/resources/smarteditor/js/HuskyEZCreator.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<!-- 2.10.0 버전엔 js 파일 일부분이 없어 오류 발생 ! -->
-	
 	<!-- head 안에 추가 -->
 	
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- summernote -->
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+	
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -81,7 +88,20 @@
 	    		// 값을 불러올 땐 document.get으로 받아오기
 		return; 
 	} */
-
+	
+	$(document).ready(function() {
+		//여기 아래 부분
+		$('#noteContent').summernote({
+			  height: 300,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+	          
+		});
+	});
+	
     function submitPost() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
 		  //스마트 에디터 값을 텍스트컨텐츠로 전달
@@ -124,7 +144,7 @@
 	        <h1 class="display-4 mb-0">노 트 작 성</h1>
 	        <div class="text-muted">New Note</div>
 	   	</div>
-	      <div id="smarteditor" style="margin: 30px 30px 30px 30px">
+	      <div id="summernote" style="margin: 30px 30px 30px 30px">
     	 	<div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
@@ -146,7 +166,7 @@
 	  </div>
     </form>
     
-    <script>
+<!--     <script>
 	    let oEditors = []
 	
 	    smartEditor = function() {
@@ -165,7 +185,7 @@
 	    })
 	    	    
 
-	 </script>
+	 </script> -->
 	
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 

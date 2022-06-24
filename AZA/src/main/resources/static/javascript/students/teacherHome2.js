@@ -1,4 +1,3 @@
-/*
 var now = new Date();
 var curYear = ""
 var curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
@@ -309,22 +308,20 @@ function makeHomeworkTimeTable(resultHomework) {
 	$('#currentHomeworkList').empty();
 	
 	$('currentDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 과제 🙃</div>`);
+		
+	var homeworkTitle = resultHomework.homeworkTitle;
+	console.log(homeworkTitle);
+	var homeworkCode = resultHomework.homeworkCode;
+	var homeworkCheck = resultHomework.homeworkCheck;
 	
-	resultHomework.map((paper, idx) => {
-		
-		var homeworkTitle = paper.homeworkTitle;
-		console.log(homeworkTitle);
-		var homeworkCode = paper.homeworkCode;
-		var homeworkCheck = paper.homeworkCheck;
-		
-		var newDiv = `<div>
-					  <input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled="">
-					  <input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked="" disabled="">
-					  <div class="col-6 me-2 text-muted">${homeworkTitle}</div>
-					  </div>`;
-		
-		$('#currentHomeworkList').append(newDiv);				
-	})
+	var newDiv = `<div>
+				  <input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled="">
+				  <input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked="" disabled="">
+				  <div class="col-6 me-2 text-muted">${homeworkTitle}</div>
+				  </div>`;
+	
+	$('#currentHomeworkList').append(newDiv);				
+
 	
 }
 
@@ -494,4 +491,5 @@ function prevMonth() {
 
     loadEvent(currentMonth);
 }
-*/
+
+///////////////////////////////////////////////////////////////

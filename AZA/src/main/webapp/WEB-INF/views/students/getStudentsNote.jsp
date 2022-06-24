@@ -150,9 +150,11 @@
 									        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
 									                	name="studentId" id="studentId" value="${students.studentId}"></input>
 									      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
-									        <div name="noteContent" id="noteContent" value="${students.noteContent}"
-											           rows="30" cols="10" readOnly 
-											           style="width: 100%">${students.noteContent}
+									      	<div class="card card-raised border-top border-4 border-primary h-100">
+										        <div name="noteContent" id="noteContent" value="${students.noteContent}"
+												           rows="30" cols="10" readOnly 
+												           style="width: 100%; height: 500px; padding: 20px 20px 20px 20px;" >${students.noteContent}
+									           </div>
 								           </div>
 								        </div>
 								        <div align="center">

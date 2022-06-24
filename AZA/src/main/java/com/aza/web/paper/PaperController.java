@@ -423,6 +423,7 @@ public class PaperController {
 		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = lessonService.listLessonTeacher(search, ((User) session.getAttribute("user")).getUserId());
+		Map<String, Object> map2 = studentsService.listStudentsRecord(search, ((User) session.getAttribute("user")).getUserId());
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
@@ -440,6 +441,7 @@ public class PaperController {
 		modelAndView.addObject("paper", paper);
 		modelAndView.addObject("user", dbUser);
 		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("listStudents", map2.get("list"));
 		
 		System.out.println("===="+paper);
  
