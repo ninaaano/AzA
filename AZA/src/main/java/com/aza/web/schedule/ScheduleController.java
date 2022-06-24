@@ -94,8 +94,6 @@ public class ScheduleController {
 //		}	 
 	}
 	
-	
-	
 	@RequestMapping(value="addLessonSchedule", method=RequestMethod.POST)
 	public ModelAndView addLessonSchedule(@ModelAttribute("search") Search search, HttpSession session, HttpServletRequest req) throws Exception{
 		ModelAndView model = new ModelAndView();
@@ -111,7 +109,7 @@ public class ScheduleController {
 		
 		String[] alldata = req.getParameterValues("alldata");
 		
-		lessonService.deteteLessonScheduleAll();
+		lessonService.deteteLessonScheduleAll(userId);
 		for(int i=0; i<alldata.length; i++) {
 //			Object obj = parser.parse(req.getParameterValues("alldata")[0]);
 			Object obj = parser.parse(alldata[i]);

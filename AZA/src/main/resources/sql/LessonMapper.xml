@@ -17,6 +17,14 @@
 		<result property="subject" column="subject" jdbcType="VARCHAR"/>
 		<result property="lessonContent" column="lesson_content" jdbcType="VARCHAR"/>
 		<result property="lessonCreateAt" column="lesson_create_at" jdbcType="VARCHAR"/>
+		
+		<result property ="isbn" column="isbn" jdbcType="VARCHAR"/>
+		<result property ="bookTitle" column="book_title" jdbcType="VARCHAR"/>
+		<result property ="publisher" column="publisher" jdbcType="VARCHAR"/>
+		<result property ="bookPrice" column="book_price" jdbcType="VARCHAR"/>
+		<result property ="author" column="author" jdbcType="VARCHAR"/>
+		<result property ="bookYear" column="book_year" jdbcType="VARCHAR"/>
+		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>
 		<!-- <result property="teacherName" column="teacher_name" jdbcType="VARCHAR"/> -->
 		
 		<association property="studentId"  javaType="students">
@@ -36,8 +44,13 @@
 		<result property ="bookPrice" column="book_price" jdbcType="VARCHAR"/>
 		<result property ="author" column="author" jdbcType="VARCHAR"/>
 		<result property ="bookYear" column="book_year" jdbcType="VARCHAR"/>
-		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>		
+		<result property ="bookImg" column="book_Img" jdbcType="VARCHAR"/>
 		<result property="lessonName" column="lesson_name" jdbcType="VARCHAR" />
+		
+		<association property="lessonName" javaType="lesson">
+			<id property="lessonName" column="lesson_name" jdbcType="VARCHAR"/>
+			<result property="lessonCode" column="lesson_code" jdbcType="VARCHAR"/>
+		</association>
 	</resultMap>	
 
 	<!-- LESSON :: INSERT -->
@@ -204,6 +217,14 @@
 		SELECT*FROM DUAL
 	</insert>
 	
+	<insert id = "addsameLessonBook">
+		INSERT
+		INTO LESSON_BOOK
+		VALUES (SEQ_LESSON_BOOK_BOOK_CODE.nextVal,
+		        (SELECT lesson_code from lesson where lesson_code = #{lessonCode}),
+		        (SELECT ISBN FROM book where isbn = #{isbn}))
+	</insert>
+	
 	<!-- conroller 에서 값 배교해서 db에 있으면 lessonCode에만 저장하자 -->
 	<insert id = "addSameLessonBook">
 		INSERT
@@ -212,10 +233,10 @@
 	</insert>
 	
 	
-	<select id = "listLessonBook" resultMap ="lessonBookSelectMap">
+	<select id = "listLessonBook" resultMap ="lessonSelectMap">
 		select *
 		from (select inner_table.*, ROWNUM AS row_seq
-			FROM (SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+			FROM (SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name, L.lesson_code
 				FROM BOOK B, LESSON_BOOK LB, LESSON L
 				WHERE B.isbn=LB.isbn AND LB.lesson_code = L.lesson_code and	L.teacher_id = #{searchId}
 				<if test='searchCondition !=null'>
@@ -228,17 +249,17 @@
 	</select>
 	<!-- and L.lesson_code = 'agho1216' -->
 	
-	<select id = "listLessonBookStudents" resultMap="lessonBookSelectMap">
-		SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.LN
-		FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name LN
+	<select id = "listLessonBookStudents" resultMap="lessonSelectMap">
+		SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.lesson_name
+		FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name lesson_name
 		        FROM LESSON L, STUDENTS_RECORD SR, USERS U
 		        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}) A
 		WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn
 	</select>
 	
-	<select id = "listLessonBookParent" resultMap="lessonBookSelectMap">
-		SELECT B.*, C.LLN
-		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME LLN, B.SRN BS
+	<select id = "listLessonBookParent" resultMap="lessonSelectMap">
+		SELECT B.*, C.lesson_name
+		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME lesson_name, B.SRN student_name
 		    FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
 		        FROM students_record SR, (SELECT student_id SI
 		                FROM users U, relation R
@@ -250,8 +271,8 @@
 	
 	<select id = "getLessonBookParentTotalCount" resultType="int">
 		SELECT COUNT(*)
-		FROM( SELECT B.*, C.LLN
-		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME LLN, B.SRN BS
+		FROM( SELECT B.*, C.lesson_name
+		FROM LESSON_BOOK LB, BOOK B, (SELECT L.lesson_code LL, L.LESSON_NAME lesson_name, B.SRN BS
 		    FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
 		        FROM students_record SR, (SELECT student_id SI
 		                FROM users U, relation R
@@ -269,7 +290,7 @@
 	
 	<delete id="deleteLessonBook">
 		DELETE lesson_book
-		WHERE isbn = #{isbn}
+		WHERE isbn = #{isbn} and lesson_code = #{lessonCode}
 	</delete>
 	<delete id="deleteBook">
 		DELETE book
@@ -278,7 +299,7 @@
 	
 	<select id = "getLessonBookTotalCount" resultType="int">
 	 		SELECT COUNT(*)
-	 		FROM(SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name
+	 		FROM(SELECT B.isbn, B.book_Img, B.book_title, B.author, B.publisher, B.book_year, B.book_price, L.lesson_name, L.lesson_code
 				FROM BOOK B, LESSON_BOOK LB, LESSON L
 				WHERE B.isbn=LB.isbn AND LB.lesson_code = L.lesson_code and	L.teacher_id = #{searchId}
 	 		<if test="searchCondition != null">
@@ -296,8 +317,8 @@
 	
 	<select id = "getLessonBookStudentsTotalCount" resultType ="int">
 		SELECT COUNT(*)
-		FROM(SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.LN
-			FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name LN
+		FROM(SELECT B.book_title, B.author, B.publisher, B.book_year, B.book_price, A.lesson_name
+			FROM  LESSON_BOOK LB, BOOK B ,(SELECT L.lesson_code LC, L.lesson_name lesson_name
 			        FROM LESSON L, STUDENTS_RECORD SR, USERS U
 			        WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchKeyword}) A
 			WHERE A.LC = LB.lesson_code AND LB.isbn = B.isbn

@@ -109,6 +109,7 @@ window.addEventListener('DOMContentLoaded', event => {
             		var lesson = result.list;
             		console.log(lesson)
             		var lessonData = [];
+            		var role = sessionStorage.getItem('role');
             		
             		lesson.map((lesson, i) =>{            			
             			var temp = [];
@@ -121,7 +122,7 @@ window.addEventListener('DOMContentLoaded', event => {
             			temp.push(lesson.lessonPlace);
             			temp.push(lesson.subject);            			
             			temp.push(lesson.lessonCode);
-            			
+            			temp.push(lesson.studentId.proposal)
             			lessonData.push(temp);
             		})
             		
@@ -136,6 +137,7 @@ window.addEventListener('DOMContentLoaded', event => {
 	            			"수업장소",
 	            			"과목명",
 	            			"수업코드",
+	            			"proposal",
             			],
             			"data" : lessonData,
             		}
@@ -144,6 +146,21 @@ window.addEventListener('DOMContentLoaded', event => {
             			var lessonCode = row.lastElementChild.textContent
             			return `<a href="/lesson/getLesson?lessonCode=`+lessonCode+`">`+data+`</a>`;
             		}
+            		
+            		var getProposal = function(data, type, row){
+            			var lessonCode = row.lastElementChild.textContent
+            			
+            			return '<a href="/lesson/getLesson/`+lessonCode+`">
+            			<button class="btn btn-raised-warning type="button">상세보기</button>
+            			</a>`;
+            		}
+            		
+            		if(sessionStorage.getItem("role") == 'teacher'){
+            			var columns = [{
+            				select:10,
+            					render: getProposal,
+            					hidden: true,
+            			}];          		
             		
             		new simpleDatatables.DataTable(lessonDataSimple,{
             			data,
@@ -190,7 +207,61 @@ window.addEventListener('DOMContentLoaded', event => {
             	                targets: [8],
             	                orderData: [0, 1],
             	            },
-            			],            			
+            	            {
+            	            	targets:[9],
+            	            	orderData: [0,1],
+            					            			
+            	            },
+            	         ],
+            		});
+            	} else{
+            		new SimpleDatatables.DataTable(lessonDataSimple,{
+            		data,
+            		columns: [
+            			{
+            				select: 10,
+            				render:getProposal,
+            			}
+            			],
+            		columndefs:[
+            		{
+            			targets:[0],
+            			orderData: [0,1],
+            		},
+            		{
+            			targets:[1],
+            			orderData: [0,1],
+            		},
+            		{
+            			targets:[3],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets: [4],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets: [5],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets: [6],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets: [7],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets:[8],
+            			orderData:[0,1],
+            		},
+            		{
+            			targets:[9],
+            			orderData:[0,1],
+            		},
+            			
+            		],
             		});
             	}
             }

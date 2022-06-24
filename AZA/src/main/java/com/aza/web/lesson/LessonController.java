@@ -231,6 +231,7 @@ public class LessonController {
 			
 			return model;
 		} else {
+			System.out.println("listbook parent ½ÇÇà");
 			String userId = ((User) session.getAttribute("user")).getUserId();
 			Map<String, Object> map = lessonService.listLessonBookParent(search, userId);
 			System.out.println(map);
@@ -251,21 +252,55 @@ public class LessonController {
 	}
 	
 	@RequestMapping(value="deleteLessonBook",method = RequestMethod.GET)
-	public ModelAndView deleteLessonBook(@RequestParam(value="isbn",required=false) String isbn, HttpServletRequest request) throws Exception{
+	public ModelAndView deleteLessonBook(@RequestParam("lessonCode") String lessonCode,@RequestParam("isbn") String isbn,HttpServletRequest request) throws Exception{
+		
+		System.out.println(isbn);
+		System.out.println(lessonCode);
+		System.out.println("===========");
+		System.out.println("===========");System.out.println("===========");
+		
+		
 		System.out.println("===========");
 		System.out.println("deleteLessonBook Controller");
-		System.out.println("===========");
-		System.out.println("isbn="+isbn);
-		System.out.println("===========");
 		String is = request.getParameter("isbn");
+//		String lessonCode = request.getParameter("lessonCode");
 		System.out.println(is);
+		String isbn1 = request.getParameter("isbn");
+		String lessonCode1 = request.getParameter("lessonCode");
+		System.out.println(lessonCode1);
 		
-		lessonService.deleteLessonBook(isbn);
+		lessonService.deleteLessonBook(isbn1, lessonCode1);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("redirect:/lesson/manageLessonBook");
 		
 		return model;
 	}
+	
+//	@RequestMapping(value="deleteLessonBook",method = RequestMethod.POST)
+//	public ModelAndView deleteLessonBook(@ModelAttribute("lesson") Lesson lesson,HttpServletRequest request) throws Exception{
+//		String isb = lesson.getIsbn();
+//		String lessonC = lesson.getLessonCode();
+//		System.out.println(isb);
+//		System.out.println(lessonC);
+//		System.out.println("===========");
+//		System.out.println("===========");System.out.println("===========");
+//		
+//		
+//		System.out.println("===========");
+//		System.out.println("deleteLessonBook Controller");
+//		String is = request.getParameter("isbn");
+////		String lessonCode = request.getParameter("lessonCode");
+//		System.out.println(is);
+//		String isbn1 = request.getParameter("isbn");
+//		String lessonCode1 = request.getParameter("lessonCode");
+//		System.out.println(lessonCode1);
+//		
+//		lessonService.deleteLessonBook(isbn1, lessonCode1);
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("redirect:/lesson/manageLessonBook");
+//		
+//		return model;
+//	}
 	
 	@RequestMapping("1")
 	public ModelAndView chatbot() throws Exception{

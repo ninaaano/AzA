@@ -39,11 +39,13 @@ public interface LessonService {
 	// book : add
 	public void addLessonBook(Lesson lesson) throws Exception;
 	
+	public void addSameLessonBook(String lessonCode, String isbn) throws Exception;
+	
 	// book : list
 	public Map<String, Object> listLessonBook(Search search, String teacherId) throws Exception;
 	
 	// book : delete
-	public void deleteLessonBook(String isbn) throws Exception;	
+	public void deleteLessonBook(String isbn, String lessonCode) throws Exception;	
 	
 	public Map<String, Object> listBookTeacher(Search search, String teacherId) throws Exception;
 	
@@ -71,8 +73,10 @@ public interface LessonService {
 	//schedule : lsit students
 	public Map<String, Object> listLessonScheduleStudent(Search search, String studentId) throws Exception;
 	
+	public Map<String, Object> listLessonScheduleParent(Search search, String parentId) throws Exception; 
+	
 	//schedule : all delete
-	public void deteteLessonScheduleAll() throws Exception;
+	public void deteteLessonScheduleAll(String teacherId) throws Exception;
 
 	public Map<String, Object> listLessonSelectTeacher(Search search, String studentId) throws Exception;
 
