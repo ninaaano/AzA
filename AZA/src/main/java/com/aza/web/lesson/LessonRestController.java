@@ -48,7 +48,7 @@ public class LessonRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listLesson")
+	@RequestMapping(value = "listLesson", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listLesson(HttpSession session) throws Exception{
 		System.out.println("rest/listLesson -> ½ÃÀÛ");
@@ -66,7 +66,9 @@ public class LessonRestController {
 			System.out.println("===========>");
 			
 			session.setAttribute("role", role);
+			
 			return lessonService.listLessonTeacher(search, teacherId);
+			
 		} else if(role.equals("student")){
 			String studentId = ((User)session.getAttribute("user")).getUserId();
 			

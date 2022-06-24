@@ -63,6 +63,7 @@ font-family: Pretendard, 'Noto Sans KR';
 <link href="/resources/css/common.css" rel="stylesheet">   
 
 
+
 <script type="text/javascript">
 	/* function fncGetUserList(currentPage){
 		$("#currentPage").val(currentPage)
@@ -80,194 +81,7 @@ font-family: Pretendard, 'Noto Sans KR';
 			self.location = "/lesson/addLessonView"
 		});
 	});
-	
-/* 	function listLesson(){
-		$.ajax({
-			url:"lesson/rest/listLesson",
-			type:"GET",
-			headers : {
-	                "Accept" : "application/json",
-	                "Content-Type" : "application/json",                                    
-	            },
-            success: function(JSONData, status){
-            	console.log(JSONData);
-            	alert(JSONData);
-            }
-		});
-	} */
-	
-window.addEventListener('DOMContentLoaded', event => {
-	const lessonDataSimple = document.getElementById('lessonDataSimple');
-	
-	if(lessonDataSimple){
-		$.ajax({
-			url:"/lesson/rest/listLesson",
-			type:"GET",
-			dataType:"json",
-            success:function(result){
-            	if(result){
-            		var lesson = result.list;
-            		console.log(lesson)
-            		var lessonData = [];
-            		var role = sessionStorage.getItem('role');
-            		
-            		lesson.map((lesson, i) =>{            			
-            			var temp = [];
-            			temp.push(i+1);
-            			temp.push(lesson.lessonName);
-            			temp.push(lesson.teacherName.userName);
-            			temp.push(lesson.lessonDay);
-            			temp.push(lesson.lessonStartTime);
-            			temp.push(lesson.lessonEndTime);
-            			temp.push(lesson.lessonPlace);
-            			temp.push(lesson.subject);            			
-            			temp.push(lesson.lessonCode);
-            			temp.push(lesson.studentId.proposal)
-            			lessonData.push(temp);
-            		})
-            		
-            		var data ={
-            			"headings" : [
-	            			"No",
-	            			"수업명",
-	            			"선생님 이름",
-	            			"수업 요일",
-	            			"수업시작시간",
-	            			"수업종료시간",
-	            			"수업장소",
-	            			"과목명",
-	            			"수업코드",
-	            			"proposal",
-            			],
-            			"data" : lessonData,
-            		}
-            		
-            		var getLesson = function(data, type, row){
-            			var lessonCode = row.lastElementChild.textContent
-            			return `<a href="/lesson/getLesson?lessonCode=`+lessonCode+`">`+data+`</a>`;
-            		}
-            		
-            		var getProposal = function(data, type, row){
-            			var lessonCode = row.lastElementChild.textContent
-            			
-            			return '<a href="/lesson/getLesson/`+lessonCode+`">
-            			<button class="btn btn-raised-warning type="button">상세보기</button>
-            			</a>`;
-            		}
-            		
-            		if(sessionStorage.getItem("role") == 'teacher'){
-            			var columns = [{
-            				select:10,
-            					render: getProposal,
-            					hidden: true,
-            			}];          		
-            		
-            		new simpleDatatables.DataTable(lessonDataSimple,{
-            			data,
-            			columns:[
-            				{
-            					select: 1,
-            					render: getLesson
-            				},
-            			],
-            			columnDefs:[
-            				{
-            	                targets: [0],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [1],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [2],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [3],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [4],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [5],
-            	                orderData: [0, 1],
-            	            },                        
-            	            {
-            	                targets: [6],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [7],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	                targets: [8],
-            	                orderData: [0, 1],
-            	            },
-            	            {
-            	            	targets:[9],
-            	            	orderData: [0,1],
-            					            			
-            	            },
-            	         ],
-            		});
-            	} else{
-            		new SimpleDatatables.DataTable(lessonDataSimple,{
-            		data,
-            		columns: [
-            			{
-            				select: 10,
-            				render:getProposal,
-            			}
-            			],
-            		columndefs:[
-            		{
-            			targets:[0],
-            			orderData: [0,1],
-            		},
-            		{
-            			targets:[1],
-            			orderData: [0,1],
-            		},
-            		{
-            			targets:[3],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [4],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [5],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [6],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [7],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets:[8],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets:[9],
-            			orderData:[0,1],
-            		},
-            			
-            		],
-            		});
-            	}
-            }
-		})
-	}
-});
+
 
 </script>
 </head>
@@ -331,7 +145,9 @@ window.addEventListener('DOMContentLoaded', event => {
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
+	<script src="/resources/javascript/common/datatables/datatables-simple-lesson.js"></script>
+	
+	
 </body>
 
 

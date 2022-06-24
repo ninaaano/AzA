@@ -27,6 +27,7 @@ import com.aza.common.Search;
 import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
+import com.aza.service.students.StudentsService;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -37,6 +38,8 @@ public class LessonController {
 	@Autowired
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
+	
+	private StudentsService studentService;
 	
 	public LessonController() {
 		// TODO Auto-generated constructor stub
@@ -127,7 +130,9 @@ public class LessonController {
 		}
 	}
 	
-	@RequestMapping(value="getLesson", method=RequestMethod.GET)
+//	@RequestMapping(value="getLesson/{lessonCode}")
+	@RequestMapping(value="getLesson")
+//	public ModelAndView getLesson(@PathVariable String lessonCode) throws Exception{
 	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
 		System.out.println("==========");
 		System.out.println("getLesson start.....");
