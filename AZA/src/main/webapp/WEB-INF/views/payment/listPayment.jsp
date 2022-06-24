@@ -1,8 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+<!-- Æ÷¸Ë lib -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <!DOCTYPE html>
 <html>
@@ -111,9 +111,7 @@
 
 <!--  -->
 <script src= cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js" crossorigin="anonymous"></script> -->
 	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>

@@ -68,6 +68,7 @@ public class PaymentRestController {
 			search.setPageSize(totalCount);
 			
 			result = paymentService.listPaymentBystudent(search);
+			System.out.println("student list => " + result);
 			
 		}else if(user.getRole().equals("teacher")) {
 			totalCount = (int) paymentService.listPayment(search).get("totalCount");

@@ -23,7 +23,10 @@ window.addEventListener('DOMContentLoaded', event => {
             payments.map((payment, i) => {
                console.log(payment);
                
+               
                var temp = [];
+               
+               
                temp.push(i+1);
                temp.push(payment.payLessonName.lessonName);
                temp.push(payment.studentName);
@@ -70,7 +73,7 @@ window.addEventListener('DOMContentLoaded', event => {
             if(sessionStorage.getItem("role") == 'teacher') {
              var columns = [{
                select: 7,
-               render: realPayment,
+                  render: realPayment,
                hidden: true,
             }];
             
@@ -122,9 +125,10 @@ window.addEventListener('DOMContentLoaded', event => {
          columns:[
             {
                select: 7,
-               render: realPayment,
+                  render: realPayment,
                
-           }                  
+         }
+                  
          
          ],
          columnDefs: [
@@ -156,8 +160,7 @@ window.addEventListener('DOMContentLoaded', event => {
                {
                    targets: [6],
                    orderData: [0, 1],
-               }
-                    
+               },
             ],   
       });
          
@@ -173,6 +176,7 @@ window.addEventListener('DOMContentLoaded', event => {
    })
    }
 });
+
 
 
 
