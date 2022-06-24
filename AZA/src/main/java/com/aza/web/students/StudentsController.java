@@ -321,7 +321,7 @@ public class StudentsController {
 		System.out.println("/students/addStudentsNote : GET");
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/students/addStudentsNote");
+		modelAndView.setViewName("/students/addStudentsNote2");
 
 		return modelAndView;
 	}
@@ -351,7 +351,7 @@ public class StudentsController {
 		students= studentsService.getStudentsNote(noteCode);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/students/updateStudentsNote");
+		modelAndView.setViewName("/students/updateStudentsNote2");
 		modelAndView.addObject("students", students);
 
 		return modelAndView;		
