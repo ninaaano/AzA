@@ -80,35 +80,12 @@
 	<!-- //////////////////////////////////////////////////// -->
 	<script>
 	
-/* 	function save(){
-		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//스마트 에디터 값을 텍스트컨텐츠로 전달
-		var content = document.getElementById("smartEditor").value;
-		alert(document.getElementById("txtContent").value); 
-	    		// 값을 불러올 땐 document.get으로 받아오기
-		return; 
-	} */
-	
-	$(document).ready(function() {
-		//여기 아래 부분
-		$('#noteContent').summernote({
-			  height: 300,                 // 에디터 높이
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-	          
-		});
-	});
-	
     function submitPost() {
-		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
-		  //스마트 에디터 값을 텍스트컨텐츠로 전달
-		  let content = document.getElementById("noteContent").value
-		  let noteTitle = document.getElementById("noteTitle").value
+
+		  let noteContent = document.getElementById("noteContent").val()
+		  let noteTitle = document.getElementById("noteTitle").val()
 		  // 값을 불러올 땐 document.get으로 받아오기
-		  if(content == '' || noteTitle == '') {
+		  if(noteContent == '' || noteTitle == '') {
 		    alert("제목과 내용을 입력해주세요.")
 		    oEditors.getById["noteContent"].exec("FOCUS")
 		    return
@@ -144,7 +121,7 @@
 	        <h1 class="display-4 mb-0">노 트 작 성</h1>
 	        <div class="text-muted">New Note</div>
 	   	</div>
-	      <div id="summernote" style="margin: 30px 30px 30px 30px">
+	      <div id="noteDiv" style="margin: 30px 30px 30px 30px">
     	 	<div class="input-group mb-3">
 	            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
 	            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
@@ -153,7 +130,7 @@
             <input type="hidden" class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
             	name="studentId" id="studentId" value="${user.userId}" <%-- value="${students.studentId}" --%> aria-describedby="button-addon1"/>
 
-	        <textarea name="noteContent" id="noteContent" value="${students.noteContent}"
+	        <textarea name="summernote" id="noteContent" value="${students.noteContent}"
 	                  rows="30" cols="10" 
 	                  placeholder="내용을 입력해주세요"
 	                  style="width: 100%"></textarea>
@@ -186,6 +163,20 @@
 	    	    
 
 	 </script> -->
+	<script>
+		$(document).ready(function() {
+			//여기 아래 부분
+			$('#summernote').summernote({
+				  height: 300,                 // 에디터 높이
+				  minHeight: null,             // 최소 높이
+				  maxHeight: null,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+		          
+			});
+		});	
+	</script>
 	
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
