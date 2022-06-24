@@ -265,7 +265,7 @@ img {display: block; margin: 0px auto;
 					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
 					        </div>
 					        	<p data-tttt="${lesson.lessonCode}">
-				                <input type="text" value="${lesson.lessonCode}" readOnly="true">
+				                <input type="hidden" value="${lesson.lessonCode}" readOnly="true">
 				                
 					        <c:if test="${user.role eq 'teacher'}">
 								<button type="button" class="btn btn-outline-primary" id="btn05" lessonCode1="${lesson.lessonCode}" data-ttta="${lesson.lessonCode}">ªË¡¶</button>
