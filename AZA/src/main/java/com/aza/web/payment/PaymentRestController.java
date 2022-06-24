@@ -47,11 +47,11 @@ public class PaymentRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listPayment")
+	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
 	public Map<String,Object> listPayment
 	(HttpSession session) throws Exception{
 		
-		System.out.println("listPayment Start...");
+		System.out.println("rest/listPayment Start...");
 		
 		Map result = null;
 		User dbUser = (User) session.getAttribute("user");	

@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', event => {
                   "학생 이름",
                   "수납료",
                   "수납예정일",
-                  "완료일",
+                  "수납완료일",
                   "수납여부",
                   "결제하기",
 
