@@ -20,7 +20,11 @@
 	<meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- summernote -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<!-- JavaScript Bundle with Popper -->
@@ -47,7 +51,7 @@
 	<!-- Load main stylesheet-->
 	
 	
-	
+		
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -87,25 +91,23 @@
 		return; 
 	} */
     function updateBtn() {
-		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
-		  //스마트 에디터 값을 텍스트컨텐츠로 전달
-		  let noteContent = document.getElementById("noteContent").value
-		  let noteTitle = document.getElementById("noteTitle").value
-		  let noteCode = document.getElementById("noteCode").value
+		
+		  const noteContent = $("#noteContent").val()
+		  const noteTitle = $("#noteTitle").val()
 		  // 값을 불러올 땐 document.get으로 받아오기
-		  if(noteContent == '' || noteTitle == '') {
-		    alert("제목과 내용을 입력해주세요.")
-		    oEditors.getById["noteContent"].exec("FOCUS")
-		    return
-		  } else {
-			/* alert(document.getElementById("noteContent").value) */
-		    console.log(noteContent)
-/* 		    document.noteForm.action='students/updateStudentsNote';
-		    document.noteForm.submit(); */
-		    $("form").attr("method" , "POST").attr("action" , "/students/updateStudentsNote").submit();
+		  if(noteTitle == ""){
+			  alert("제목을 입력해주세요")
+			  return;
 		  }
-		  
-		  
+		  if(noteContent == "") {
+			  alert("내용을 입력해주세요.")
+			  return;
+		  }
+	    
+		  console.log(noteContent)
+
+	      $("form").attr("method","POST").attr("action" , "/students/updateStudentsNote").submit();
+		 		  
 	}
 	
 	function deleteBtn() {
@@ -150,7 +152,7 @@
                             </div>
                             <form>
 			                    <div class="card-body p-4">		
-							    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
+							    	<div style="margin: 0px 30px 30px 30px">
 								    	<div class="input-group mb-3">
 									            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
 									            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
@@ -159,7 +161,7 @@
 								        <input type="hidden" class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
 								                	name="studentId" id="studentId" value="${students.studentId}"></input>
 								      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
-								        <textarea name="noteContent" id="noteContent"
+								        <textarea name="noteContent" id="summernote"
 										           rows="30" cols="10" 
 										           style="width: 100%">${students.noteContent}</textarea>
 							        </div>
@@ -177,34 +179,21 @@
                 </main>
 	</div>
 	
-    <script>
-	    let oEditors = []
-	
-	    smartEditor = function() {
-	      console.log("Naver SmartEditor")
-	      nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: oEditors,
-	        elPlaceHolder: "noteContent",	//textarea ID 입력
-	        sSkinURI: "/resources/smarteditor/SmartEditor2Skin.html",	//smartEditor2Skin.html 경로 입력
-	        fCreator: "createSEditor2"
-	      
-	      })
-	    }
-		
-	    $(document).ready(function() {
-	      smartEditor()
-	    })
-	    	    
-	 </script>
-	 
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="/resources/javascript/common/prism.js"></script>
-	<script src="/resources/javascript/common/material.js"></script>
-	<script src="/resources/javascript/common/scripts.js"></script>
-	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
+	<script>
+		$(document).ready(function() {
+			//여기 아래 부분
+			console.log("나오라라라");
+			$('#summernote').summernote({
+				  height: 300,                 // 에디터 높이
+				  minHeight: null,             // 최소 높이
+				  maxHeight: null,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '노트 작성란'	//placeholder 설정
+		          
+			});
+		});	
+	</script>
 </body>
 
 </html>

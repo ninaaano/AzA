@@ -86,8 +86,8 @@
     function submitPost() {
 		  oEditors.getById["noteContent"].exec("UPDATE_CONTENTS_FIELD", [])
 		  //스마트 에디터 값을 텍스트컨텐츠로 전달
-		  let content = document.getElementById("noteContent").val();
-		  let noteTitle = document.getElementById("noteTitle").val();
+		  let content = document.getElementById("noteContent").value;
+		  let noteTitle = document.getElementById("noteTitle").value;
 		  // 값을 불러올 땐 document.get으로 받아오기
 		  if(content == '' || noteTitle == '') {
 		    alert("제목과 내용을 입력해주세요.")
