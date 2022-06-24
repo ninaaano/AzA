@@ -51,8 +51,6 @@
 <script type="text/javascript" charset="euc-kr">
 $(function() {
 	$( "button.btn.btn-raised-info:contains('등록')" ).on("click" , function() {
-		alert("등록 click");
-
 		addStudentsCharacter();
 	});
 });
