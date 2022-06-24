@@ -10,7 +10,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생관리 시스템</title>
+<link rel="shortcut icon" href="/resources/img/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -181,34 +182,33 @@
 								class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 							<!-- Drawer link (Overview)-->
 							<a class="nav-link left_nav" href="#" data-url='/student/lesson'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-easel2 text-primary"></i>
 								</div> 수업관리
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/paper/listPaperHomework'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary" href="#">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-journals text-primary"></i>
 								</div> 과제
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/students/manageStudentsExam'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-clipboard-pulse text-primary"></i>
 								</div> 성적
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/students/listStudentsNote'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-journal-arrow-down text-primary"></i>
 								</div> 강의노트
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-piggy-bank text-primary"></i>
 								</div> 수납
 							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-								<div class="nav-link-icon">
-
-									<i class="material-icons text-primary">language</i>
-								</div> Q&A
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-emoji-smile-upside-down text-primary"></i>
+								</div> 금쪽이
 							</a>
 							<!-- Divider-->
 							<div class="drawer-menu-divider"></div>

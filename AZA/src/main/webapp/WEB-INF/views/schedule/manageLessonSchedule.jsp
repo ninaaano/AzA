@@ -72,6 +72,7 @@
         var calendar = null;
         $(document).ready(function(){
         var calendarEl = document.getElementById('calendar');
+        aspectRatio: 1.35,
         calendar = new FullCalendar.Calendar(calendarEl, {
           headerToolbar: {
             left: 'prev,next today',
@@ -87,6 +88,7 @@
           selectable: true, //날짜 선택시 표시
           dayMaxEvents: true, //이벤트가 많을 시 +표시로 보여줌 ㅎㅎ
           selectMirror: true,
+          
           events: function(info, successCallback, failureCallback){
              // ajax 처리로 데이터를 로딩 시킨다.
              /* var datalist = []; */
@@ -130,6 +132,7 @@
                                       }); 
                                    }                           
                              }
+                          
                            /*} */
                       })                      
                       /* datalist.push({
@@ -317,6 +320,46 @@
     		  fncSelectTeacher(this);
     	  });
       });
+      
+      $(function(){
+    	  $("#success").on("click",function(){
+    		  Swal.fire({
+    			  title: 'Custom width, padding, color, background.',
+    	        		  width: 600,
+    	        		  padding: '3em',
+    	        		  color: '#716add',
+    	        		  background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+    	        		  backdrop: `
+    	        		    rgba(0,0,123,0.4)
+    	        		    url("https://sweetalert2.github.io/images/nyan-cat.gif")
+    	        		    left top
+    	        		    no-repeat`
+    	        		})
+    	  });
+      });
+      
+      
+      /* $(document).on('click', '#success', function(e) {
+          swal(
+            'Success',
+            'You clicked the <b style="color:green;">Success</b> button!',
+            'success'
+          ) */
+        
+      $(document).on('click', '#success', function(e) {
+      Swal.fire({
+		  title: 'Custom width, padding, color, background.',
+        		  width: 600,
+        		  padding: '3em',
+        		  color: '#716add',
+        		  background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+        		  backdrop: `
+        		    rgba(0,0,123,0.4)
+        		    url("https://sweetalert2.github.io/images/nyan-cat.gif")
+        		    left top
+        		    no-repeat`
+        		})
+      });
     </script>
 
 <style>
@@ -326,7 +369,14 @@ body {
    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
    font-size: 14px;
    background-color: #f5f5f5;
+   
+     
 }
+
+.success{
+font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 
 #calendar {
    max-width: 1100px;
@@ -349,14 +399,17 @@ body {
 }
 </style>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
 
+
+</style>
 </head>
 <body>
    <div id='loading'>loading...</div>
    <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
    <div style="width:60%; float:left; text-align:right">일정 현황
    </div><div style="width:40%; float:left;text-align:right"></div>
-   
    <c:if test="${user.role eq 'teacher' }">
    <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
    cursor:poointer" onclick="javascript:allSave();">전체저장</button>

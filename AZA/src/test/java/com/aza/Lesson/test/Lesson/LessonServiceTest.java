@@ -86,12 +86,12 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	//@Test
+	@Test
 	public void testlistLessonTeacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher51");
+		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher1");
 //		Map<String, Object> map = lessonService.listLesson(search,"student5");
 		System.out.println(map);
 		

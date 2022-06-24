@@ -73,7 +73,7 @@
 	        <div class="input-group mb-3">
 	            <p class="btn btn-outline-primary"  style="width:120px;">강의명</p>
 	            <input class="form-control" type="text" placeholder="강의명을 입력하세요" aria-label="Example text with button addon" 
-	             id="lessonName" name="lessonName" value="${lesson.lessonName }" aria-describedby="button-addon1" style="height:36.5px;">
+	             id="lessonName" name="lessonName" value="${lesson.lessonName }" aria-describedby="button-addon1" style="height:36.5px;" readonly>
 	        </div>
 	        <div class="input-group mb-3">
 	            <p class="btn btn-outline-primary" style="width:120px;">수업 요일</p>&nbsp;&nbsp;

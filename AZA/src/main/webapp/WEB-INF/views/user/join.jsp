@@ -86,7 +86,7 @@ body>div.container {
 
 </head>
 
-<body>
+<body class="">
    <!-- Layout wrapper-->
    <div id="layoutAuthentication">
       <!-- Layout content-->

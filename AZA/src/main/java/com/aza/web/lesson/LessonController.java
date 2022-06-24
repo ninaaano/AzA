@@ -29,7 +29,6 @@ import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
 import com.aza.service.students.StudentsService;
 
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 @RequestMapping("/lesson/*")
@@ -130,10 +129,10 @@ public class LessonController {
 		}
 	}
 	
-//	@RequestMapping(value="getLesson/{lessonCode}")
-	@RequestMapping(value="getLesson")
-//	public ModelAndView getLesson(@PathVariable String lessonCode) throws Exception{
-	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
+	@RequestMapping(value="getLesson/{lessonCode}")
+//	@RequestMapping(value="getLesson")
+	public ModelAndView getLesson(@PathVariable String lessonCode) throws Exception{
+//	public ModelAndView getLesson(@RequestParam("lessonCode") String lessonCode) throws Exception{
 		System.out.println("==========");
 		System.out.println("getLesson start.....");
 		System.out.println("==========");
