@@ -54,6 +54,9 @@ public interface UserService {
 	//Relation :: LIST By parent
 	public Map<String, Object> listRelationByParent(Search search, String parentId) throws Exception;
 	
+	//Relation :: LIST BY parent studentname
+	public Map<String, Object> listStudentRelationByParent(Search search, String parentId) throws Exception;
+	
 	// private phoneAuth
 	public void sendSMS(String phone,String message) throws Exception;
 
