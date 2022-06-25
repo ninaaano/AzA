@@ -47,14 +47,12 @@
 
 $(function() {
 	$( "button.btn.btn-raised-light:contains('수정하기')" ).on("click" , function() {
-		alert("수정 버튼 클릭");
 		updateStudentsCharacter();
 	});
 });
 
 $(function() {
 	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
-		alert("삭제....");
 		deleteStudentsCharacter();
 	});
 });
@@ -80,8 +78,6 @@ function updateStudentsCharacter() {
 <br/>
 <form>
 <div align="center" class="character">
-<h3>Students Character Update! </h3>
-<h3> ${students.studentName}의 특징 </h3>
 
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
@@ -92,7 +88,7 @@ function updateStudentsCharacter() {
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
 
-                                               <h2>${students.studentName}의 특징 수정 페이지</h2>
+                                               <h2>${students.studentName}의 특징</h2>
         									   <p class="card-text mb-4" style="font-size: 10px;">학생 특징 수정 페이지입니다. :)</p>
                                    
                                         <table class="table table-sm mb-0">

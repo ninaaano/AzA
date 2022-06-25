@@ -28,6 +28,7 @@ window.addEventListener('DOMContentLoaded', event => {
             			temp.push(lesson.lessonPlace);
             			temp.push(lesson.subject);
             			temp.push(lesson.lessonCode);
+            			temp.push(lesson.studentId.proposal);
             			
             			lessonData.push(temp);
             		})
@@ -43,30 +44,44 @@ window.addEventListener('DOMContentLoaded', event => {
 	            			"수업장소",
 	            			"과목명",
 	            			"수업코드",
+	            			"proposal",
             			],
             			"data" : lessonData,
-            		}      
-                            		
-            		var getLesson = function(data, type, row){
-            			var lessonCode = row.lastElementChild.textContent
-            			return `<a href="/lesson/getLesson?lessonCode=`+lessonCode+`">`+data+`</a>`;
+            		}
+            		
+            		var getproposal = function(data, type, row){
+	
+            			var proposal =  row.lastElementChild.textContent
+            			
+	            			return `<a href="/lesson/getLesson/`+proposal+`">
+	            			<button class="btn btn-raised-warning type="button"> 상세보기 </button>
+	                        </a>`;
+                        }
+                        
+           			var getLesson = function(data, type, row){
+            			var lessonCode = row.childNodes[8].textContent
+            			return `<a href="/lesson/getLesson/`+lessonCode+`">`+data+`</a>`;
             		}
             		
             		if(sessionStorage.getItem("role") == 'teacher'){
             			var columns = [{
-            				select:1,
-            					render: getLesson,
-            			}];          		
+            					select: 9,
+            					render: getproposal,
+            			}];
             		
             		new simpleDatatables.DataTable(lessonDataSimple,{
             			data,
             			columns:[
             				{
-            					select: 1,
-            					render: getLesson
+            					select: 8,
+            					render: getLesson,
             				},
+            				{
+								select:9,
+								hidden: true,
+							},
             			],
-            			columnDefs:[
+            			columnDefs: [
             				{
             	                targets: [0],
             	                orderData: [0, 1],
@@ -103,51 +118,58 @@ window.addEventListener('DOMContentLoaded', event => {
             	                targets: [8],
             	                orderData: [0, 1],
             	            },
+            	            {
+            	            	targets:[9],
+            	            	orderData: [0,1],     			
+            	            },
             	         ],
             		});
-            	} else {
-            		new simpleDatatables.DataTable(lessonDataSimple,{
-            		data,
-            		columns: [
-            			{
-            				select: 1,
-            				render:getLesson,
-            			},
-            			],
-            		columnDefs:[
-            		{
-            			targets:[0],
-            			orderData: [0,1],
-            		},
-            		{
-            			targets:[1],
-            			orderData: [0,1],
-            		},
-            		{
-            			targets:[3],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [4],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [5],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [6],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets: [7],
-            			orderData:[0,1],
-            		},
-            		{
-            			targets:[8],
-            			orderData:[0,1],
-            		},
-            			
+	            	} else {
+	            		new simpleDatatables.DataTable(lessonDataSimple,{
+	            		data,
+	            		columns: [
+	            			{
+								select: 8,
+								render:getLesson,
+							},
+	            			],
+	            		columnDefs:[
+	            		{
+	            			targets:[0],
+	            			orderData: [0,1],
+	            		},
+	            		{
+	            			targets:[1],
+	            			orderData: [0,1],
+	            		},
+	            		{
+	            			targets:[3],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets: [4],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets: [5],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets: [6],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets: [7],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets:[8],
+	            			orderData:[0,1],
+	            		},
+	            		{
+	            			targets:[9],
+	            			orderData:[0,1],
+	            		},
             		],
             		});
             		}

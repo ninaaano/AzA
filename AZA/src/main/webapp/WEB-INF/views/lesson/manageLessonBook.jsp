@@ -89,7 +89,7 @@
 		alert(lessonCode3);
 		let code = $(this).attr('lessonCode1');
 		alert(code);
-		$("#booklist").attr("method","GET").attr("action","/lesson/deleteLessonBook=").submit();
+		$("#booklist").attr("method","GET").attr("action","/lesson/deleteLessonBook").submit();
 	}
 	$(function(){
 		$("button.btn.btn-outline-primary:contains('삭제')").on("click",function(){
@@ -266,7 +266,7 @@ img {display: block; margin: 0px auto;
 					              style="font-size:15px; background-color:white;border:0;" aria-describedby="button-addon1" readOnly="true"></p>
 					        </div>
 					        	<p data-tttt="${lesson.lessonCode}">
-				                <input type="hidden" value="${lesson.lessonCode}" readOnly="true">
+				                <input type="hidden" value="${lesson.lessonCode}" name="lessonCode" readOnly="true">
 				                
 					        <c:if test="${user.role eq 'teacher'}">
 								<button type="button" class="btn btn-outline-primary" id="btn05" lessonCode1="${lesson.lessonCode}" data-ttta="${lesson.lessonCode}">삭제</button>

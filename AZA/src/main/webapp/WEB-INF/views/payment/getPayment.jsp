@@ -129,7 +129,7 @@ function requestPay(){
 <form>
 <div class="card card-raised border-top border-4 border-primary h-100" align="center" style="width:600px;height:10%;">
       <div class="card-body p-5">
-          <div class="overline text-muted mb-4">Get Payment</div>
+          <div class="overline text-muted mb-4"></div>
           <h1>수업료 상세 내역</h1>
           <input type="hidden" id="payCode" value="${payment.payCode}">
           <input type="hidden" id="payer" name="userName" value="${user.userName}">
