@@ -172,6 +172,7 @@
   						"start":start_date,
   						"end":end_date
   					}//전송할 객체 생성
+  					
   					console.log(obj); //서버로 해당 객체를 전달해서 DB연동 가능
   					calendar.addEvent({
   						title: obj.title,
