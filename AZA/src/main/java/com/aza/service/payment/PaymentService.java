@@ -23,8 +23,6 @@ public interface PaymentService {
 	// LIST
 	public Map<String, Object> listPayment(Search search) throws Exception;
 	
-	public void requestPay(String impUid) throws Exception;
-	
 	//students List
 	public Map<String, Object> listPaymentBystudent(Search search) throws Exception;
 	//parent List

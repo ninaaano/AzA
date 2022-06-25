@@ -55,17 +55,6 @@ $(function() {
 	});
 });
 
-/*    $(function() {
-	$( '#studentName' ).on('change' , function() {
-		
-		var studentName = $('option:selected').text().trim()
-		var studentId =$('option:selected').val().trim();
-		
-		alert("id=>"+studentId);
-		alert("name=>"+studentName); 
-
-	});
-});    */
 
 $(function () {
 	$('#studentName').on('change', function() {

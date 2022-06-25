@@ -146,27 +146,6 @@ public class PaymentServiceImpl implements PaymentService {
 	}	
 	
 //======================================================================================	
-	@Override
-	public void requestPay(String impUid) throws Exception {
-		// TODO Auto-generated method stub
-		
-		RestTemplate restTemplate = new RestTemplate();
-		String url = "https://api.iamport.kr/users/getToken";
-		String imp_key = "1382659815177138";
-		String imp_secret = "b4ed387e2dddc2215f36f73dd4d5d629989345453969f937d7cec4792813c76ef9459616ca548ef3";
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		JSONObject body = new JSONObject();
-		body.put("imp_key",imp_key);
-		body.put("imp_secret",imp_secret);
-		
-	
-		HttpEntity<JSONObject>entity = new HttpEntity<>(body,headers);
-		ResponseEntity<JSONObject> token  = restTemplate.postForEntity(url, entity, JSONObject.class);
-	
-	}
 // API method
 	@Override
 	public String getToken() throws IOException {

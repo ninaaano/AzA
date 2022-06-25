@@ -59,13 +59,11 @@ $(function () {
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					},success : function(JSONData , status) {
-						/* alert("선택된 cName => "+JSONData.studentName); */
+
 						//text값 변경
-						$('#studentName').text(JSONData.studentName+"의 특징");						
-						/* $('#studentId').text(JSONData.studentId); */						
+						$('#studentName').text(JSONData.studentName+"의 특징");											
 						$('#characterContent').text(JSONData.characterContent);
-						/* $('#characterCode2').text(JSONData.characterCode);
-						$('#characterCode2').val(JSONData.characterCode); */
+
 						
 						// value값 변경
 						$('input[name=characterCode]').val(JSONData.characterCode);
@@ -158,13 +156,9 @@ function updateStudentsCharacter() {
                                         </table>
                                     </div>
                                     <div class="card-footer bg-transparent position-relative ripple-gray">
-<!--                                         <a class="d-flex align-items-center justify-content-end text-decoration-none stretched-link text-primary" href="#!">
-                                            <div class="fst-button">View More</div>
-                                            <i class="material-icons icon-sm ms-1">chevron_right</i> -->
-                                      <!--   </a> -->
                                       		<button class="btn btn-raised-primary" type="button">수정</button>
 											<button class="btn btn-raised-danger" type="button">삭제</button>
-											<!-- <button class="btn btn-raised-light" type="button">확인</button> -->
+											
                                     </div>  
               </div>
 
