@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR"> 
+<meta charset="UTF-8"> 
 <title> Character Update </title>
 <!--  -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,10 +27,7 @@
     <link href="/resources/css/styles.css" rel="stylesheet">
     
         
-        
-        
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
@@ -49,15 +46,13 @@
 <script type="text/javascript">
 
 $(function() {
-	$( "button.btn.btn-raised-light:contains('¼öÁ¤ÇÏ±â')" ).on("click" , function() {
-		alert("¼öÁ¤ ¹öÆ° Å¬¸¯");
+	$( "button.btn.btn-raised-light:contains('ìˆ˜ì •í•˜ê¸°')" ).on("click" , function() {
 		updateStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('»èÁ¦')" ).on("click" , function() {
-		alert("»èÁ¦....");
+	$( "button.btn.btn-raised-danger:contains('ì‚­ì œ')" ).on("click" , function() {
 		deleteStudentsCharacter();
 	});
 });
@@ -79,27 +74,43 @@ function updateStudentsCharacter() {
 </head>
 <body>
 
-<h3>Students Character Update! </h3>
+
 <br/>
 <form>
 <div align="center" class="character">
-<h3> ${students.studentName}ÀÇ Æ¯Â¡ </h3>
 
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName}">
 
-<textarea class="dataTable-input" name="characterContent" 
-style="width:600px;height:500px;"> ${students.characterContent} </textarea>
-<br/>
-<br/>
+<!-- í¼ ë³€ê²½ -->
+			<div class="card card-raised border-top border-4 border-primary h-100"  style="width:600px;">
+                                    <div class="card-body p-5">
+                                        <div class="overline text-muted mb-4"></div>
 
-	<button class="btn btn-raised-light" type="button">¼öÁ¤ÇÏ±â</button>
-	<button class="btn btn-raised-danger" type="button">»èÁ¦</button>
-	
-
-</div>
-
+                                               <h2>${students.studentName}ì˜ íŠ¹ì§•</h2>
+        									   <p class="card-text mb-4" style="font-size: 10px;">í•™ìƒ íŠ¹ì§• ìˆ˜ì • í˜ì´ì§€ì…ë‹ˆë‹¤. :)</p>
+                                   
+                                        <table class="table table-sm mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td><div class="text-muted fst-italic"></div></td>
+                                                     <td>
+                                                     
+                                                     <textarea class="dataTable-input" placeholder="íŠ¹ì§•ì„ ì…ë ¥í•´ì£¼ì„¸ìš” :)" 
+														type="text" style="width:500px;height:400px;"
+														name="characterContent">${students.characterContent}</textarea>
+                                                     
+                                                     </td>
+                                                </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="card-footer bg-transparent position-relative ripple-gray">
+											<button class="btn btn-raised-light" type="button">ìˆ˜ì •í•˜ê¸°</button>
+											<button class="btn btn-raised-danger" type="button">ì‚­ì œ</button>
+                                    </div>  
+              </div>
 </form>
 
 </body>

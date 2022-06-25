@@ -107,5 +107,19 @@
 			student_id = #{searchKeyword}
 		</if>) countTable
 	</select>
+	
+	<select id="listStudentRelationByParent" parameterType="search">
+		SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+		FROM (SELECT u.user_name
+				FROM RELATION R, USERS U
+				WHERE U.user_Id = R.student_id and R.parent_id = #{parentId}
+		<if test="searchCondition == 0 and searchKeyword !='' ">
+			student_id = #{searchKeyword}
+		</if>
+		)inner_table
+		WHERE ROWNUM &lt; = #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
 
 </mapper>

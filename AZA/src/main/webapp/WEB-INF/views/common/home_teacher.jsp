@@ -91,13 +91,6 @@
 	font-family: Pretendard, 'Noto Sans KR';
 }
 
-* -ms-overflow-style: {
-	none;
- }
- 
-*::-webkit-scrollbar {
-  display: none;
-}
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -126,8 +119,8 @@
 
 
 
-				<div class="col">
-					<div>
+				<div class="col-6">
+					<div class="">
 						<div id="lessonTimeTable" class="col-12 mb-5 mt-2">
 							<div class="card card-raised overflow-hidden h-100">
 								<div class="card-header bg-primary text-white">

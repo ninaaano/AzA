@@ -206,6 +206,7 @@ img {display: block; margin: 0px auto;
 				</c:if>
 			</form>
 		</div>
+
 <br>
 <div class="mx-5 px-5">
 	<div class="mx-5 px-5">

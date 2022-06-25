@@ -93,13 +93,13 @@
 	<div id="layoutDrawer_content">
 		<!-- Main page content-->
 		<main>
-			<header class="mb-5">
+			<header class="mb-2 mt-5">
 				<c:if test="${user.role == 'parent'}">
 					<div class="row justify-content-center gx-5">
-						<div id="selectStudentName" class="row justify-content-end col-md-8 col-lg-6"></div>
-						<div class="row justify-content-end col-md-8 col-lg-6">
-							<div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-								<div class="nav-item dropdown pt-3" id="myDropdown">
+						<div id="selectStudentName" class="row justify-content-evenly col-md-8 col-lg-6"></div>
+						<div class="row justify-content-evenly col-md-8 col-lg-6">
+							<div class="pt-0 pb-2 mt-1 col-6 col-sm-3">
+								<div class="nav-item dropdown p-0" id="myDropdown">
 									<a class="nav-link dropdown-toggle pb-0" href="#"
 										data-bs-toggle="dropdown"> 자녀 선택 </a>
 									<ul id="studentsDropDown" class="dropdown-menu">

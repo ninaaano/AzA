@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생관리 시스템</title>
+<link rel="shortcut icon" href="/resources/img/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -56,6 +57,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 <style>
 *, body {
@@ -124,7 +127,7 @@
 								<li><a class="dropdown-item" href="#"
 									data-url='/user/getUser'> <i
 										class="material-icons leading-icon text-primary">person</i>
-										<div class="me-3">Profile</div>
+										<div class="me-3">마이페이지</div>
 								</a></li>
 								<li><hr class="dropdown-divider" /></li>
 								<li><a class="dropdown-item" href="/user/logout"> <i
@@ -168,18 +171,18 @@
 								class="drawer-menu-heading text-primary fw-bold titleFont fs-4">MENU</div>
 							<!-- Drawer link (Overview)-->
 							<a class="nav-link left_nav" href="#" data-url='/parent/kids'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-balloon-heart text-primary"></i>
 								</div> 자녀관리
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-piggy-bank text-primary"></i>
 								</div> 수납
 							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-								<div class="nav-link-icon">
-									<i class="material-icons">language</i>
-								</div> Q&A
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-emoji-smile-upside-down text-primary"></i>
+								</div> 금쪽이
 							</a>
 						</div>
 						<!-- Divider-->
@@ -213,7 +216,7 @@
 
 			<div
 				class="messagePopup hidden position-absolute end-0 mr-3 none-scroll"
-				id="messagePopup" style="z-index: 9999; top: 30px;">
+				id="messagePopup" style="z-index: 9999; top: 5px;">
 				<!-- list -->
 				<div id="otherListContainer" class="container p-0"
 					style="width: 25rem; height: 30rem;">
@@ -258,7 +261,7 @@
 									class="btn btn-outline-primary btn-sm"
 									data-mdb-ripple-color="dark">목록</button>
 							</div>
-							<div class="card-body overflow-auto position-relative p-1">
+							<div class="card-body overflow-auto position-relative p-1" id="messageScroll">
 								<div id="messages" class="m-0 p-0 pb-5" style=""></div>
 							</div>
 							<form id="msgForm"

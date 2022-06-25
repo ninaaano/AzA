@@ -133,6 +133,12 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
+	public List<User> listStudentRelationByParent(Search search, String parentId) throws Exception {
+		search.setSearchId(parentId);
+		return sqlSession.selectList("RelationMapper.listStudentRelationByParent", search);
+	}
+	
+	@Override
 	public int getListRelationByStudentTotalCount(Search search, String studentId) throws Exception {
 		search.setSearchId(studentId);
 		return  sqlSession.selectOne("RelationMapper.getListRelationByStudentTotalCount", search);

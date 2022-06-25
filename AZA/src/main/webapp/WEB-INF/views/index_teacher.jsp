@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생관리 시스템</title>
+<link rel="shortcut icon" href="/resources/img/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -67,13 +68,13 @@
 iframe {
 	overflow: hidden;
 }
-*-ms-overflow-style: {
+ *-ms-overflow-style: {
 	none;
  }
  
 *::-webkit-scrollbar {
   display: none;
-}
+} 
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">
@@ -85,8 +86,8 @@ iframe {
 
 
 </head>
-
 <body class="nav-fixed bg-light">
+
 	<div class="nav-fixed bg-light">
 		<!-- Top app bar navigation menu-->
 		<nav class="top-app-bar navbar navbar-expand navbar-dark bg-white">
@@ -135,7 +136,7 @@ iframe {
 								<li><a class="dropdown-item" href="#"
 									data-url='/user/getUser'> <i
 										class="material-icons leading-icon text-primary">person</i>
-										<div class="me-3">Profile</div>
+										<div class="me-3">마이페이지</div>
 								</a></li>
 								<li><hr class="dropdown-divider" /></li>
 								<li><a class="dropdown-item" href="/user/logout"> <i
@@ -170,7 +171,7 @@ iframe {
 							<!-- Drawer link (Messages)-->
 							<a class="nav-link d-sm-none" href="#!">
 								<div class="nav-link-icon">
-									<i class="material-icons text-primary text-primary">mail</i>
+									<i class="bi bi-journal"></i>
 								</div> Messages
 							</a>
 							<!-- Divider-->
@@ -181,37 +182,38 @@ iframe {
 							<!-- Drawer link (Overview)-->
 							<a class="nav-link left_nav" href="#"
 								data-url='/teacher/manageLesson'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-person-video3 text-primary"></i>
 								</div> 수업관리
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/students/listStudentsRecord'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary" href="#">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-person-fill text-primary"></i>
 								</div> 전체 학생 목록
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/teacher/manageStudent'>
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
 								</div> 학생 관리
-							</a> <a class="nav-link left_nav" href="#">
+							</a> <!-- <a class="nav-link left_nav" href="#">
 								<div class="nav-link-icon">
 									<i class="material-icons text-primary">language</i>
-								</div> 클라우드
-							</a> <a class="nav-link left_nav" href="#"
+								</div> 클라우드 -->
+							</a> 
+							<a class="nav-link left_nav" href="#"
 								data-url='/payment/listPayment'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-piggy-bank text-primary"></i>
 								</div> 수납
 							</a> <a class="nav-link left_nav" href="#"
 								data-url='/lesson/manageLessonBook'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-journal text-primary"></i>
 								</div> 교재
 							</a> <a class="nav-link left_nav" href="#" data-url='/lesson/1'>
-								<div class="nav-link-icon">
-									<i class="material-icons text-primary">language</i>
-								</div> Q&A
+								<div class="nav-link-icon fs-5">
+									<i class="bi bi-emoji-smile-upside-down text-primary"></i>
+								</div> 금쪽이
 							</a>
 
 							<!-- Divider-->
@@ -240,7 +242,7 @@ iframe {
 			<!-- /////////////////////////////////////////////////////////////////////////////// -->
 
 
-			<div class="messagePopup hidden position-absolute end-0 mr-3 none-scroll" id="messagePopup" style="z-index: 9999; top: 30px;">
+			<div class="messagePopup hidden position-absolute end-0 mr-3" id="messagePopup" style="z-index: 9999; top: 5px;">
 					<!-- list -->
 					<div id="otherListContainer" class="container p-0" style="width: 25rem; height:30rem;">
 						<div class="row mr-0">
@@ -277,7 +279,7 @@ iframe {
 									<button id="otherListBtn" type="button"
 										class="btn btn-outline-primary btn-sm" data-mdb-ripple-color="dark">목록</button>
 								</div>
-								<div class="card-body overflow-auto position-relative p-1">
+								<div class="card-body overflow-auto position-relative p-1" id="messageScroll">
 								<div id="messages" class="m-0 p-0 pb-5"
 									style=""></div>
 								</div>	

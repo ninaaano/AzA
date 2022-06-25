@@ -63,10 +63,12 @@ function makeAddAttendanceView(result) {
 	
 	result.map((student, idx) => {
 		var div= `<div class="list-group list-group-flush">
-	                 <div class="list-group-item ripple-gray mdc-ripple-upgraded" style="--mdc-ripple-fg-size:488px; --mdc-ripple-fg-scale:1.69072; --mdc-ripple-fg-translate-start:202.606px, -226.656px; --mdc-ripple-fg-translate-end:162.669px, -217.431px;">
-	                     <div class="d-flex align-items-center justify-content-between">
-	                         <div class="me-3">${student.studentName}</div>
-	                         <div id="state-${student.studentId}" class="me-3"></div>
+	                 <div class="row list-group-item ripple-gray mdc-ripple-upgraded" style="--mdc-ripple-fg-size:488px; --mdc-ripple-fg-scale:1.69072; --mdc-ripple-fg-translate-start:202.606px, -226.656px; --mdc-ripple-fg-translate-end:162.669px, -217.431px;">
+	                     <div class="d-flex align-items-center justify-content-between col">
+	                     	<div class="row">
+		                         <div class="me-3 col">${student.studentName}</div>
+		                         <div id="state-${student.studentId}" class="me-3 text-success fw-bolder"></div>
+	                     	</div>
 	                         <div id="attendance-${student.studentId}" class="d-flex align-items-center">
 	                             <div class="btn-group" role="group" aria-label="Mixed styles example">
 								    <button name class="btn btn-raised-success" type="button" onclick="addStudentsAttendance('${student.studentId}','${student.lessonCode}', '${attendanceDate}', '출석')">출석💚</button>
@@ -123,15 +125,15 @@ function makeUpdateAttendanceView(student) {
 	var stateStr = "";
 	
 	if(student.attendanceState == '출석') {
-		stateStr = `<div class='text-success fw-bolder'>${student.attendanceState}💚</div>`;
+		stateStr = `<div class='text-success caption small'>${student.attendanceState}💚</div>`;
 	} else if(student.attendanceState == '결석') {
-		stateStr = `<div class='text-danger fw-bolder'>${student.attendanceState}😢</div>`;
+		stateStr = `<div class='text-danger caption small'>${student.attendanceState}😢</div>`;
 	} else if(student.attendanceState == '지각') {
-		stateStr = `<div class='text-warning fw-bolder'>${student.attendanceState}🙄</div>`;
+		stateStr = `<div class='text-warning caption small'>${student.attendanceState}🙄</div>`;
 	} else if(student.attendanceState == '도망') {
-		stateStr = `<div class='text-primary fw-bolder'>${student.attendanceState}🏃‍♀️</div>`;
+		stateStr = `<div class='text-primary caption small'>${student.attendanceState}🏃‍♀️</div>`;
 	} else if(student.attendanceState == '조퇴') {
-		stateStr = `<div class='text-secondary fw-bolder'>${student.attendanceState}👋</div>`;
+		stateStr = `<div class='text-secondary caption small'>${student.attendanceState}👋</div>`;
 	}
 	
 

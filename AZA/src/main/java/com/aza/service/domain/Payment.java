@@ -1,12 +1,17 @@
 package com.aza.service.domain;
 
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Payment {
 	
 	private int payCode; // 
 	private int studentRecordNo; // 
 	private char checkPay; //
 	private int amount; // 
-	private String payDay; //
+	@DateTimeFormat(pattern = "YYYY/MM/DD")
+	private Date payDay; //
 	private String payer; // 
 	private String payDueDate; // 
 	private String impUid; // 
@@ -101,11 +106,11 @@ public class Payment {
 		this.amount = amount;
 	}
 
-	public String getPayDay() {
+	public Date getPayDay() {
 		return payDay;
 	}
 
-	public void setPayDay(String payDay) {
+	public void setPayDay(Date payDay) {
 		this.payDay = payDay;
 	}
 

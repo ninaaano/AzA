@@ -160,6 +160,16 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> listStudentRelationByParent(Search search, String parentId) throws Exception {
+		List<User> list = userDao.listStudentRelationByParent(search, parentId);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
 
 
 	@Override
@@ -201,35 +211,35 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public void sendSMS(String phone,String message) {
-		String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
-		String requestUrl= "/sms/v2/services/";                   		// 요청 URL
-		String requestUrlType = "/messages";                      		// 요청 URL
-		String accessKey = "pCopjZ18V8WkJ8SWIYkw";                     	// ?꽕?씠踰? ?겢?씪?슦?뱶 ?뵆?옯?뤌 ?쉶?썝?뿉寃? 諛쒓툒?릺?뒗 媛쒖씤 ?씤利앺궎			// Access Key : https://www.ncloud.com/mypage/manage/info > ?씤利앺궎 愿?由? > Access Key ID
-		String secretKey = "mB2GFPQwS5lPvVJlvQMYq6U4NK974amLmg4E3VEt";  // 2李? ?씤利앹쓣 ?쐞?빐 ?꽌鍮꾩뒪留덈떎 ?븷?떦?릺?뒗 service secret key	// Service Key : https://www.ncloud.com/mypage/manage/info > ?씤利앺궎 愿?由? > Access Key ID	
-		String serviceId = "ncp:sms:kr:286287947040:aza";      // 프로젝트에 할당된 SMS 서비스 ID							// service ID : https://console.ncloud.com/sens/project > Simple & ... > Project > 서비스 ID
-		String method = "POST";											// 요청 method
+		String hostNameUrl = "https://sens.apigw.ntruss.com";     		
+		String requestUrl= "/sms/v2/services/";                   		
+		String requestUrlType = "/messages";                      		
+		String accessKey = "pCopjZ18V8WkJ8SWIYkw";                     	
+		String secretKey = "mB2GFPQwS5lPvVJlvQMYq6U4NK974amLmg4E3VEt";  	
+		String serviceId = "ncp:sms:kr:286287947040:aza";    						// service ID : https://console.ncloud.com/sens/project > Simple & ... > Project >
+		String method = "POST";											
 		String timestamp = Long.toString(System.currentTimeMillis()); 	// current timestamp (epoch)
 		requestUrl += serviceId + requestUrlType;
 		//String apiUrl = hostNameUrl + requestUrl;
 		String apiUrl = "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:286287947040:aza/messages";
-		// JSON 을 활용한 body data 생성
+		// JSON 
 		JSONObject bodyJson = new JSONObject();
 		JSONObject toJson = new JSONObject();
 	    JSONArray  toArr = new JSONArray();
 
-	    //toJson.put("subject","");							// Optional, messages.subject	개별 메시지 제목, LMS, MMS에서만 사용 가능
-	    //toJson.put("content","sms test in spring 111");	// Optional, messages.content	개별 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
+	    //toJson.put("subject","");							
+	    //toJson.put("content","sms test in spring 111");	
 	    //toJson.put("to",phone);	
-	    toJson.put("to",phone);						// Mandatory(필수), messages.to	수신번호, -를 제외한 숫자만 입력 가능
+	    toJson.put("to",phone);						
 	    toArr.add(toJson);
 	    
-	    bodyJson.put("type","SMS");							// Madantory, 메시지 Type (SMS | LMS | MMS), (소문자 가능)
-	    //bodyJson.put("contentType","");					// Optional, 메시지 내용 Type (AD | COMM) * AD: 광고용, COMM: 일반용 (default: COMM) * 광고용 메시지 발송 시 불법 스팸 방지를 위한 정보통신망법 (제 50조)가 적용됩니다.
-	    //bodyJson.put("countryCode","82");					// Optional, 국가 전화번호, (default: 82)
-	    bodyJson.put("from","01032030796");					// Mandatory, 발신번호, 사전 등록된 발신번호만 사용 가능		
-	    //bodyJson.put("subject","");						// Optional, 기본 메시지 제목, LMS, MMS에서만 사용 가능
-	    bodyJson.put("content",message);	// Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
-	    bodyJson.put("messages", toArr);					// Mandatory(필수), 아래 항목들 참조 (messages.XXX), 최대 1,000개
+	    bodyJson.put("type","SMS");							
+	    //bodyJson.put("contentType","");					
+	    //bodyJson.put("countryCode","82");					
+	    bodyJson.put("from","01032030796");							
+	    //bodyJson.put("subject","");						
+	    bodyJson.put("content",message);	
+	    bodyJson.put("messages", toArr);					
 	    
 	    //String body = bodyJson.toJSONString();
 	    String body = bodyJson.toString();
@@ -258,9 +268,9 @@ public class UserServiceImpl implements UserService {
             int responseCode = con.getResponseCode();
             BufferedReader br;
             System.out.println("responseCode" +" " + responseCode);
-            if(responseCode == 202) { // 정상 호출
+            if(responseCode == 202) { // 
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else { // 에러 발생
+            } else { // 
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
 

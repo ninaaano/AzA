@@ -70,12 +70,12 @@ font-family: Pretendard, 'Noto Sans KR';
 }
 
 
-.form-horizontal{
- padding-left: 20px;
- margin-top: 20px;
- margin-bottom: 30px;
- margin-left : 300px;
- line-height : 50px;
+.form-horizontal {
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 300px;
+    line-height: 33px;
 }
 
 
@@ -123,7 +123,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h3 class=" text-info">회원정보수정</h3>
+	       <h3 class="text-info">회원정보수정</h3>
 	       <h5 class="text-muted">회원정보를<strong class="text-danger"> 변경</strong>해주세요.</h5>
 	    </div>
 	    
@@ -205,9 +205,7 @@ font-family: Pretendard, 'Noto Sans KR';
 	<!--  화면구성 div Start /////////////////////////////////////-->
  	
 <!-- Footer-->
-	<footer>
-		<button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-	</footer>
+
 
 	  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 

@@ -1,11 +1,15 @@
 package com.aza.web.students;
 
+
+
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aza.common.Page;
@@ -32,6 +37,7 @@ import com.aza.service.lesson.LessonService;
 import com.aza.service.payment.PaymentService;
 import com.aza.service.students.StudentsService;
 import com.aza.service.user.UserService;
+
 
 @Controller
 @RequestMapping("/students/*")
@@ -58,8 +64,8 @@ public class StudentsController {
 
 	@Value("${pageSize}")
 	int pageSize;
-
-
+	
+	
 	public StudentsController() {
 		System.out.println(this.getClass());
 	}
@@ -311,6 +317,9 @@ public class StudentsController {
 	}
 
 	//========================>Note
+	
+	//이미지 업로드
+	
 	@RequestMapping( value="addStudentsNote", method=RequestMethod.GET )
 	public ModelAndView addStudentsNote(HttpSession session) throws Exception{
 
@@ -321,7 +330,7 @@ public class StudentsController {
 		System.out.println("/students/addStudentsNote : GET");
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/students/addStudentsNote");
+		modelAndView.setViewName("/students/addStudentsNote2");
 
 		return modelAndView;
 	}
@@ -351,7 +360,7 @@ public class StudentsController {
 		students= studentsService.getStudentsNote(noteCode);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/students/updateStudentsNote");
+		modelAndView.setViewName("/students/updateStudentsNote2");
 		modelAndView.addObject("students", students);
 
 		return modelAndView;		

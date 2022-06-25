@@ -47,15 +47,14 @@ public class PaymentRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listPayment")
+	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
 	public Map<String,Object> listPayment
 	(HttpSession session) throws Exception{
 		
-		System.out.println("listPayment Start...");
+		System.out.println("rest/listPayment Start...");
 		
 		Map result = null;
 		User dbUser = (User) session.getAttribute("user");	
-		String role = ((User) session.getAttribute("user")).getRole();
 		
 		String userId = dbUser.getUserId();
 		User user = userService.getUser(userId);
@@ -69,6 +68,7 @@ public class PaymentRestController {
 			search.setPageSize(totalCount);
 			
 			result = paymentService.listPaymentBystudent(search);
+			System.out.println("student list => " + result);
 			
 		}else if(user.getRole().equals("teacher")) {
 			totalCount = (int) paymentService.listPayment(search).get("totalCount");
@@ -85,7 +85,7 @@ public class PaymentRestController {
 			result = paymentService.listPaymentByParent(search);
 		
 		}
-		session.setAttribute("role",role);
+
 		return result;
 	}
 

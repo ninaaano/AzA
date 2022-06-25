@@ -3,115 +3,30 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
-<meta charset="UTF-8">
-<title>Find Password</title>
-<style>
-:root { -
-	-input-padding-x: 1.5rem; -
-	-input-padding-y: .75rem;
-}
+   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Reset Password - Material Admin Pro</title>
+        <!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <!-- Load Material Icons from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        <!-- Roboto and Roboto Mono fonts from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
+        <!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+<link href="/resources/css/common.css" rel="stylesheet" />
+<link href="/resources/css/main.css" rel="stylesheet" />    
+ 
+ <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-body {
-	background-color: white;
-}
-
-.card-signin {
-	border: 0;
-	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-	overflow: hidden;
-}
-
-.card-signin .card-title {
-	margin-bottom: 2rem;
-	font-weight: 300;
-	font-size: 1.5rem;
-}
-
-.card-signin .card-body {
-	padding: 2rem;
-}
-
-.form-signin {
-	width: 100%;
-}
-
-.form-signin .btn {
-	font-size: 80%;
-	border-radius: 5rem;
-	letter-spacing: .1rem;
-	font-weight: bold;
-	padding: 1rem;
-	transition: all 0.2s;
-}
-
-.form-label-group {
-	position: relative;
-	margin-bottom: 1rem;
-}
-
-.form-label-group input {
-	height: auto;
-	border-radius: 2rem;
-}
-
-.form-label-group>input, .form-label-group>label {
-	padding: var(- -input-padding-y) var(- -input-padding-x);
-}
-
-.form-label-group>label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: inline_block;
-	width: 100%;
-	margin-bottom: 0;
-	/* Override default `<label>` margin */
-	line-height: 1.5;
-	color: #495057;
-	border: 1px solid transparent;
-	border-radius: .25rem;
-	transition: all .1s ease-in-out;
-}
-
-.form-label-group input::-webkit-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-	color: transparent;
-}
-
-.form-label-group input::placeholder {
-	color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-	padding-top: calc(var(- -input-padding-y)+ var(- -input-padding-y)* (2/3));
-	padding-bottom: calc(var(- -input-padding-y)/3);
-}
-
-.form-label-group input:not(:placeholder-shown) ~label {
-	padding-top: calc(var(- -input-padding-y)/3);
-	padding-bottom: calc(var(- -input-padding-y)/3);
-	font-size: 12px;
-	color: #777;
-}
-</style>
-<!-- Load Favicon-->
-        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-<link
-	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-	rel="stylesheet" />
 <!-- Roboto and Roboto Mono fonts from Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
 	rel="stylesheet" />
@@ -121,59 +36,82 @@ body {
 <link href="/resources/css/template.css" rel="stylesheet" />
 
 
-<link href="assets/img/favicon.ico" rel="shortcut icon"
-	type="image/x-icon">
 <!-- Load Material Icons from Google Fonts-->
 <link
 	href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
 	rel="stylesheet">
 
+    
 
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<title>FIND PASSWORD</title>
+<style>
+
+*, body {
+   font-family: Pretendard, 'Noto Sans KR';
+
+  
+}
+
+
+</style>
+
+
 </head>
-<body>
-<form method="post" class="form-signin" action="find_password" name="findform">
+
+		<body class="bg-primary">
+        <!-- Layout wrapper-->
+        <div id="layoutAuthentication">
+            <!-- Layout content-->
+            <div id="layoutAuthentication_content">
+                <!-- Main page content-->
+                <main>
+                    <!-- Main content container-->
+                    <div class="container">
+                        <div class="row justify-content-center m-0">
+                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 m-0">
+                                <div class="card mt-2 mt-xl-3 mb-0 " style="border:none; background-color: transparent;">
+                                    <div class="card-body p-5">
+                                        <!-- Auth header with logo image-->
+                                        <div class="text-center">
+                                           <img class="mb-3" src="/resources/img/logo2.png" alt="..."
+                                 style="height: 100px">
+                                            <h1 class="display-5 mb-4 text-white subFont">비밀번호 재설정</h1>
+                                        </div>
+                                        <!-- Reset password submission form-->
+<form method="post" class="form-signin p-3" action="find_password" name="findform" style="background: rgba(51, 170, 51, .1)">
+                                        
+
+                                           
+<div class="row mb-4">
+    <div class="col-auto">
+      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디">
+    </div>
+  </div>
+  
+
+  
+
+  <div class="input-group mb-4">
+  <input type="text" class="form-control" placeholder="ex)01012345678" aria-label="phone" id="phone" name="phone" aria-describedby="button-addon2" required>
+  <button class="btn btn-outline-secondary" type="button" id="phoneBtn" onclick="cert();" disabled="disabled">인증번호 받기</button>
+  <div id="phoneCheck"></div>
+</div>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" id="certification" name="auth" placeholder="인증번호를 입력하세요" aria-label="auth" aria-describedby="button-addon2">
+  <button class="btn btn-outline-secondary" type="button" id="sms_AuthBtn" onclick="smsAuthBtn();">인증번호 입력</button>
+</div>
+<div id="certCheck"></div>
 
 
-		<div class="form-label-group col-md-4">
-			<input type="text" id="userId" name="userId" class="form-control" />
-			<label for="userId">아이디</label>
-		</div>
 
-			<div class="form-label-group col-md-4">
-			<input type="text" id="phone" name="phone" class="form-control" /> 
-			<label for="phone">핸드폰번호</label>
-			<div id="phoneCheck"></div>
-		</div>
 
 		<div class="form-label-group">
-			<button type="button"
-				class="btn btn-lg btn-secondary btn-block text-uppercase"
-				onclick="cert();">인증번호 받기</button>
-		</div>
-
-
-
-		<div class="form-row">
-			<div class="form-label-group col-md-4">
-				<input type="text" class="form-control" id="certification"
-					placeholder="인증번호를 입력해주세요" required>
-				<div class="form-group" id="certCheck"></div>
-			</div>
-			<div class="form-group col-md-4">
-				<button type="button"
-					class="btn btn-lg btn-secondary btn-block text-uppercase"
-					id="sms_AuthBtn" onclick="smsAuthBtn();">확인</button>
-			</div>
-		</div>
-
-
-		<div class="form-label-group">
-			<input class="btn btn-lg btn-secondary btn-block text-uppercase"
+			<input class="btn btn-secondary btn-block text-uppercase btn-sm"
 				type="submit" value="check">
-			<button class="btn btn-lg btn-secondary btn-block text-uppercase"
+			<button class="btn btn-secondary btn-block text-uppercase btn-sm"
 				type="button">취소</button>
 		</div>
 
@@ -210,6 +148,29 @@ body {
 		</c:if>
 
 	</form>
+                                    </div>
+                                </div>
+                                <!-- Auth card message-->
+                                <div class="text-center mb-5"><a class="small fw-500 text-decoration-none link-white" href="/user/addUser">가입된 정보가 없으신가용? 회원가입하세요!</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <!-- Layout footer-->
+            <div id="layoutAuthentication_footer">
+                <!-- Auth footer-->
+             
+            </div>
+        </div>
+        <!-- Load Bootstrap JS bundle-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Load global scripts-->
+ 
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">
 		function updatePassword(){
@@ -235,7 +196,17 @@ body {
 			});
 		});
 		
-		
+		   // 핸드폰 유효성 체크   
+		   $("#phone").on("keyup",()=>{
+		      const phonNum = $("#phone").val();
+		      const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		      if (regPhone.test(phonNum) === true) {
+		         $("#phoneBtn").removeAttr("disabled");
+		      } else {
+		         $("#phoneBtn").attr("disabled","disabled");
+		      }
+		   })
+		   
 		<!--휴대폰 인증 / SMS SENS API -->
 
 		function cert() {
@@ -269,5 +240,7 @@ body {
 		};
 		
 	</script>
+	 <script type="module" src="/resources/javascript/common/material.js"></script>
+         <script type="module" src="/resources/javascript/common/scripts.js"></script>
 </body>
 </html>

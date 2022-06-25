@@ -1,79 +1,164 @@
-<%@ page language="java" contentType="text/html;" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="EUC-KR"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<title>°³ÀÎÁ¤º¸Á¶È¸</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-<title>ë§ˆì´í˜ì´ì§€</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> -->
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>Blank Page - Material Admin Pro</title>
+        <!-- Load Favicon-->
+        <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <!-- Load Material Icons from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+        <!-- Roboto and Roboto Mono fonts from Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
+        <!-- Load main stylesheet-->
+<link href="/resources/css/template.css" rel="stylesheet" />
+<link href="/resources/css/common.css" rel="stylesheet" />
+<link href="/resources/css/main.css" rel="stylesheet" />   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script defer src="/resources/javascript/common/indexUI.js"></script>
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Load Favicon-->
-<link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-<!-- Load Material Icons from Google Fonts-->
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
-<!-- Roboto and Roboto Mono fonts from Google Fonts-->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/template.css"/>
+
+
+
+
+
+
+
+
 <style>
 
-*, body {
-padding-top : 40px;
-  margin: 0;
-  font-family: Pretendard, 'Noto Sans KR';
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+header{
+display: flex;
 }
+
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
+
 
 .form-horizontal{
-
-padding-bottom : 40px;
-padding-left : 100px;
-padding-right : 40px;
-padding-top : 40px;
+ padding-left: 20px;
+ margin-top: 20px;
+ margin-bottom: 30px;
  margin-left : 300px;
-  margin-left : 300px;
-  margin-right : 300px;
+ line-height : 50px;
+}
 
+
+.btn-outline-primary, div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
+    color: #6200ea;
+    border-color: #6200ea;
+    --mdc-ripple-fg-size: 0;
+    --mdc-ripple-left: 0;
+    --mdc-ripple-top: 0;
+    --mdc-ripple-fg-scale: 1;
+    --mdc-ripple-fg-translate-end: 0;
+    --mdc-ripple-fg-translate-start: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    will-change: transform, opacity;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.btn-outline-danger {
+    color: #d32f2f;
+    border-color: #d32f2f;
+    --mdc-ripple-fg-size: 0;
+    --mdc-ripple-left: 0;
+    --mdc-ripple-top: 0;
+    --mdc-ripple-fg-scale: 1;
+    --mdc-ripple-fg-translate-end: 0;
+    --mdc-ripple-fg-translate-start: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    will-change: transform, opacity;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #6200ea;
+    border-color: #6200ea;
+    --mdc-ripple-fg-size: 0;
+    --mdc-ripple-left: 0;
+    --mdc-ripple-top: 0;
+    --mdc-ripple-fg-scale: 1;
+    --mdc-ripple-fg-translate-end: 0;
+    --mdc-ripple-fg-translate-start: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    will-change: transform, opacity;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    padding: calc(0.40625rem + 1px) calc(1rem + 1px);
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+th {
+    text-align: center;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.p-5 {
+    
+    padding-top: 4rem !important;
+    padding-right: 20rem !important;
+    padding-bottom: 10rem !important;
+    padding-left: 20rem !important;
+}
+#aa{
+font-size: 30px;
+margin-top: 0px;
 }
 </style>
+
 <script
 		src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<script type="text/javascript">
 		
-	// ìˆ˜ì—…ì¶”ê°€ ì°¸ê³ í•˜ê¸°
-		//============= íšŒì›ì •ë³´ìˆ˜ì • Event  ì²˜ë¦¬ =============	
+	// ¼ö¾÷Ãß°¡ Âü°íÇÏ±â
+		//============= È¸¿øÁ¤º¸¼öÁ¤ Event  Ã³¸® =============	
 		 $( function() {
-				$("button:contains('íšŒì›ì •ë³´ìˆ˜ì •')").on("click" , function() {
+				$("button:contains('È¸¿øÁ¤º¸¼öÁ¤')").on("click" , function() {
 					self.location="/user/updateUser?userId=${user.userId}"
 				});
 			});
 	
-	//í•™ìƒ ì•„ì´ë”” ìœ íš¨ì„± ê²€ì‚¬
+	//ÇĞ»ı ¾ÆÀÌµğ À¯È¿¼º °Ë»ç
 			const checkStudent = _.debounce(async (id) => {
 		    	
 		    	var id = $("#firstStudentId").val();
@@ -84,12 +169,12 @@ padding-top : 40px;
 		    		data:{id},
 		    		success : function(cnt) {
 		    			if(cnt == 1) {
-		    				$('#certCheck2').text("í™•ì¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		    				$('#certCheck2').text("È®ÀÎÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
 		    				$('#certCheck2').css('color','blue');	
 		    				
 		    			}
 		    			else {
-		    				$('#certCheck2').text("í™•ì¸ë˜ì§€ ì•Šì€ ì •ë³´ì…ë‹ˆë‹¤.");
+		    				$('#certCheck2').text("È®ÀÎµÇÁö ¾ÊÀº Á¤º¸ÀÔ´Ï´Ù.");
 		    				$('#certCheck2').css('color','red');
 		    				
 		    			}
@@ -97,17 +182,17 @@ padding-top : 40px;
 		    	});
 		    },2000);
 			
-		// ìë…€ ì¶”ê°€ ì´ë²¤íŠ¸
+		// ÀÚ³à Ãß°¡ ÀÌº¥Æ®
 		$(function(){
 			$("input[name=addStudentBtn]").click(function(){
-				if ($(this).val()=="ìë…€ì¶”ê°€"){
+				if ($(this).val()=="ÀÚ³àÃß°¡"){
 					$("#addStudentInput").show();
 				}
-		});
-		
+
+			});
 	});
 		
-// íƒˆí‡´
+// Å»Åğ
 		
 		function quit(){
 			location.href = "/user/quit";
@@ -115,65 +200,90 @@ padding-top : 40px;
 		
 
 	</script>
-	
 
+
+
+
+        
 </head>
-<body class="nav-fixed bg-light drawer-toggled">
-<!-- ---------- ê°œì¸ì •ë³´ ìˆ˜ì • -------------->
-	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
-	<div class="container-xl px-5">
+<body>
 
-	
-	
-	<form class="form-horizontal">
-		<div class="page-header">
-	       <h3 class=" text-info">íšŒì›ì •ë³´ì¡°íšŒ</h3>
-	    </div>
-	
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ì•„ ì´ ë””</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userId}</div>
-		</div>
+
+
+<main>
+                    <!-- Page header-->
+                    <header class="bg-gray">
+                    <span class="material-icons">
+face_2
+</span>  
+<i class="material-icons icon-xxl">face</i>  
+                        <div class="container-xl px-5 text-center">
+                        <h1 class="text-white py-3 mb-0 display-6" id="aa">°³ÀÎÁ¤º¸¼öÁ¤</h1></div>
+                    </header>
+                    <div class="container-l p-5 text-center" >
+                        <div class="card card-raised">
+                            <div class="card-body text-center p-5">
+                     
+                     <div class="form-group">
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
+    margin-top: 10px;">¾Æ ÀÌ µğ</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" value="${user.userId }" readonly>
+		    </div>
+		  </div>
+                             
+   
 		
-	
+		<br></br>
+
+		  <div class="form-group">
+		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
+    margin-top: 10px;">ÀÌ ¸§</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" value="${user.userName }" readonly>
+		    </div>
+		  </div>
 		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ì´ ë¦„</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userName}</div>
-		</div>
+		<br></br>		
+
+		  <div class="form-group">
+		    <label class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
+    margin-top: 10px;">ÈŞ´ëÀüÈ­¹øÈ£</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" value="${ !empty user.phone ? user.phone : ''}" readonly>
+		    </div>
+		  </div>    
 		
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ë¹„ë°€ë²ˆí˜¸</strong></div>
-			<div class="col-xs-8 col-md-4"></div>
-		</div>
-		
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>íœ´ëŒ€ì „í™”ë²ˆí˜¸</strong></div>
-			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
-		</div>
-		
+		<br></br>    
+                                
+   <!-- ÇĞ»ı -->
 		
 		
 		<c:if test="${user.role eq 'student'}">
 			
-			<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>í•™êµ</strong></div>
-			<div class="col-xs-8 col-md-4">${user.school}</div>
-		</div>
+			<div class="form-group">
+		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ±³</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="school" name="school" value="${user.school}" readonly>
+		    </div>
+		  </div>
 		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>í•™ë…„</strong></div>
-			<div class="col-xs-8 col-md-4">${user.grade}</div>
-		</div>
-		
+		<div class="form-group">
+		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ³â</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="grade" name="grade" value="${user.grade}" readonly>
+		    </div>
+		  </div>
+		<br></br>
 		</c:if>
 		
 		
+		<!-- ºÎ¸ğ -->                             
+                                
 		<c:if test="${user.role eq 'parent'}">
 
-			<input type="button" name="addStudentBtn" class="btn btn-primary" value="ìë…€ì¶”ê°€" onclick='addStudentBtn()' />
+
+			<input type="button" name="addStudentBtn" class="btn btn-outline-primary" value="ÀÚ³àÃß°¡" onclick='addStudentBtn()' />
 			
 			
 			<div></div>
@@ -181,65 +291,87 @@ padding-top : 40px;
 			<div id="addStudentInput" style="display :none">
 			
 			<input type="hidden" name="userId" value="${user.userId}">
-				
+	<br></br>
+		
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="firstStudentId" name="firstStudentId" placeholder="ÀÚ³à ¾ÆÀÌµğ" oninput="checkStudent()">
+  <label for="floatingInput">ÀÚ³à ¾ÆÀÌµğ</label>
+  <div class="form-group" id="certCheck2"></div>
+</div>
+
+<br></br>
+
+
+<div class="form-floating">
+  <input type="text" class="form-control" id="relationName" name="relationName" placeholder="ÇĞ»ı°úÀÇ °ü°è">
+  <label for="floatingInput">ÀÚ³à¿ÍÀÇ °ü°è</label>
+</div>
 			
-			<input type="text" id="firstStudentId" name="firstStudentId" placeholder="ìë…€ ì•„ì´ë””" oninput="checkStudent()" />
-			<div class="form-group" id="certCheck2"></div>
-			<input type="text" id="relationName" name="relationName" placeholder="í•™ìƒê³¼ì˜ ê´€ê³„" />
-			<input type="submit" value="ë“±ë¡" />
-			<input type="button" value="ì·¨ì†Œ" />
+<br></br>
+			<input class="btn btn-outline-primary" type="submit" value="µî·Ï">
+			<input class="btn btn-outline-primary" type="reset" value="Ãë¼Ò" />
 			</div>
 			</form>
 
-			
+<br></br>			
 			
 			<c:forEach var="studentsInfo" items="${studentsInfo}" varStatus="status">
-  		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ ì•„ì´ë””</strong></div>
-			<div class="col-xs-8 col-md-4">${studentsInfo.userId}</div>
-		</div>
-  
-  
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ ì´ë¦„</strong></div>
-			<div class="col-xs-8 col-md-4">${studentsInfo.userName}</div>
-		</div>
-			
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ í•™êµ</strong></div>
-			<div class="col-xs-8 col-md-4">${studentsInfo.school}</div>
-		</div>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ìë…€ í•™ë…„</strong></div>
-			<div class="col-xs-8 col-md-4">${studentsInfo.grade}</div>
-		</div>
-	
-	<c:forEach var="user" items="${list}">
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>í•™ìƒê³¼ì˜ ê´€ê³„</strong></div>
-			<div class="col-xs-8 col-md-4">${user.relationName}</div>
-		</div>
-	</c:forEach>	
-		
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ÀÚ³à ¾ÆÀÌµğ</th>
+      <th scope="col">ÀÚ³à ÀÌ¸§</th>
+      <th scope="col">ÀÚ³à ÇĞ±³</th>
+      <th scope="col">ÀÚ³à ÇĞ³â</th>
+      <th scope="col">ÇĞ»ı°úÀÇ °ü°è</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>${studentsInfo.userId}</td>
+      <td>${studentsInfo.userName}</td>
+      <td>${studentsInfo.school}</td>
+      <td>${studentsInfo.grade}</td>
+ <c:forEach var="user" items="${list}">     
+      <td>${user.relationName}</td>
+</c:forEach>      
+    </tr>
+
+  </tbody>
+</table>
+
+		<br></br>
 	
 		 </c:forEach>
-		</c:if>
-		
-		
-
-		
-		<div class="row">
+		</c:if>       
+		                        
+      	<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary">íšŒì›ì •ë³´ìˆ˜ì •</button>
-	  			<button type="button" class="btn btn-primary" onclick="quit()">íƒˆí‡´</button>
+	  			<button type="button" class="btn btn-primary">È¸¿øÁ¤º¸¼öÁ¤</button>
+	  			<button type="button" class="btn btn-outline-danger btn-sm" onclick="quit()">Å»Åğ</button>
 	  			
 	  		</div>
-		</div>
-		
-		<br/>
-		</div>
- 
- 	</form>       
+		</div>   
+		                       
+                                
+                                
+                              </div>  
+                                
+                                
+                                
+                                
+                                
+                                
+                            </div>
+                        </div>
+           
+                </main>
+
+
+
+
+
+
 </body>
+
 </html>

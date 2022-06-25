@@ -74,20 +74,26 @@ public class UserRestController {
 	    	}
 		
 
-		@RequestMapping( value="/login", method=RequestMethod.POST )
-		public User login(@ModelAttribute User user,
-										HttpSession session ) throws Exception{
+		@RequestMapping( value="/login", method=RequestMethod.GET )
+		public boolean login(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		
-			System.out.println("rest쪽 로그인~~");
-			//Business Logic
-			System.out.println("::"+user);
-			User dbUser=userService.getUser(user.getUserId());
-			
-			if( user.getPassword().equals(dbUser.getPassword())){
-				session.setAttribute("user", dbUser);
+			System.out.println("/user/rest/login");			
+
+			try {
+				User dbUser = userService.getUser(userId);
+				if( dbUser.getPassword().equals(password)){
+					return true;
+				}
+				
+				return false;
+				
+				
+			} catch (Exception e) {
+				return false;
 			}
 			
-			return dbUser;
+			
+			
 		}
 		
 		

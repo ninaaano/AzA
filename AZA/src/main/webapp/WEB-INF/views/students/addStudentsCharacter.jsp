@@ -119,26 +119,6 @@ function addStudentsCharacter() {
 	
 <br/>
 <br/>
-<%--  <c:if test="${!empty userStudent.userName}">
-<div class="card" style="width:600px;height:80px" align="center">
-    <div class="card-body">
-        <h2 class="card-title" name="selectStudentName" value="${userStudent.userName}">${userStudent.userName}의 특징 등록 페이지</h2>
-        <p class="card-text" style="font-size: 10px;">학생 특징은 1개만 등록 가능합니다. :)</p>
-    </div>
-</div>
-
-</c:if>
-
-	<textarea class="dataTable-input" placeholder="특징을 입력해주세요 :)" 
-	type="text" style="width:600px;height:400px;"
-	name="characterContent" value="${students.characterContent}"></textarea>
-	
-	<br/>
-	
-	<button class="btn btn-raised-info" type="button">등록</button>
-	<button class="btn btn-raised-danger" type="button">취소</button>  --%>
-
-<!-- ==================================================== 	-->
 <c:if test="${!empty userStudent.userName}">
 			<div class="card card-raised border-top border-4 border-primary h-100"  style="width:600px;">
                                     <div class="card-body p-5">
