@@ -33,6 +33,7 @@ public interface LessonService {
 	
 	public Map<String, Object> listLessonTime(String teacherId, String lessonDay) throws Exception;
 	
+	public Map<String, Object> listSelectLessonName(Search search, String studentId) throws Exception;
 	
 //	==============================================
 	

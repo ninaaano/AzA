@@ -86,7 +86,7 @@ public class LessonServiceTest {
 	}
 	
 	//OK
-	@Test
+	//@Test
 	public void testlistLessonTeacher() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -105,7 +105,7 @@ public class LessonServiceTest {
 	}	
 	
 	//OK
-	@Test
+	//@Test
 	public void testlistLessonStudent() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -139,6 +139,19 @@ public class LessonServiceTest {
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);
 	}	
+	
+	//@Test
+	public void testlessonNameselect() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(9);
+		Map<String, Object> map = lessonService.listSelectLessonName(search, "student01");
+
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println(list);
+	}
 
 	//@Test
 	public void testLessonTime() throws Exception{
@@ -242,9 +255,9 @@ public class LessonServiceTest {
 	
 	//OK
 	//@Test
-	public void testDeleteLessonBook() throws Exception{
-		lessonService.deleteLessonBook("1");
-	}
+//	public void testDeleteLessonBook() throws Exception{
+//		lessonService.deleteLessonBook("1");
+//	}
 	
 	//OK
 	//@Test

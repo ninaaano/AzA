@@ -1,6 +1,7 @@
        var calendar = null;
         $(document).ready(function(){
         var calendarEl = document.getElementById('calendar');
+        aspectRatio: 1.35,
         calendar = new FullCalendar.Calendar(calendarEl, {
           headerToolbar: {
             left: 'prev,next today',

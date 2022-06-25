@@ -36,40 +36,10 @@
 <script>
       //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
       /* document.addEventListener('DOMContentLoaded', function() { */
-
-      
-      //관리자만 , 주, 일, 옵션 뷰
-      /* var rightm = "";
-      rightm+=',listWeek'; */
-      
-       
-        
-        /* var all_events = null; */
-       /* all_events = loadingEvents();
-        
-
-          var return_value;
-          alert("==============");
-          alert(return_value);ntextPath}" />
-          console.log(return_value); */
-        /* console.log(all_events);
-        alert(JSON.stringify(all_events)); */
-        
-       /*  let json = JSON.stringify(all_events);
-        
-        alert(json);
-        
-        var jsonConverList = JSON.parse(all_events);
-        console.log('--------');
-        console.log(jsonConverList);
-        console.log('--------'); */
-        
-        /* var arr = new Array(all_events);
-        var json = json_encode(arr);
-        console.log(json); */
         
       //new FullCalendar.Calendar(대상 DOM 객체,(속성: 속성값, 속성2: 속성값2..))
         var calendar = null;
+        
         $(document).ready(function(){
         var calendarEl = document.getElementById('calendar');
         aspectRatio: 1.35,
@@ -98,40 +68,21 @@
                dataType: "json",
                  success: function(list) {
                      var events = [];
-                      console.log("^^ 될거지?");
-                      console.log(list);
+                      console.log(list);                      
                       $.each(list, function (index,data){
                          /* for(var i=0; i<data.length; i++){
                             console.log(data[i].title);  
                          } */
                           var datalist = data.list;
-                         
-                          /* for(var i=0; i<data.length; i++){ */
-                             if(data.pValue !=null && data.pValue === 'private'){
-                                for(var i=0; i<data.length; i++){
-                                events.push({
-                                      title:data[i].title
-                                      ,start:data[i].start
-                                      ,end:data[i].end
-                                }); 
-                                }
-                             }else if(data.pValue!=null && data.pValue ==='public'){
-                                for(var i=0; i<data.length; i++){
-                                events.push({
-                                      title:data[i].title
-                                      ,start:data[i].start
-                                      ,end:data[i].end
-                                   }); 
-                                }
-                             }else{
-                                for(var i=0; i<data.length; i++){
-                                   events.push({
-                                         title:data[i].title
-                                         ,start:data[i].start
-                                         ,end:data[i].end
-                                      }); 
-                                   }                           
-                             }
+                         for(var i=0; i<data.length; i++){
+                        	 events.push({
+                        		 title:data[i].title,
+                        		 start:data[i].start,
+                        		 end:data[i].end
+                        	 });
+                         }
+                         /* memo-1-1*/                  
+
                           
                            /*} */
                       })                      
@@ -197,6 +148,30 @@
              eventClick: function(arg){
               if(confirm('이벤트를 지우겠습니까?')){
                 arg.event.remove()
+                
+                
+                var allEvent = calendar.getEvents();
+		         console.log(allEvent);
+		         
+		         var events = new Array(); 
+		         
+		         /* console.log(allEvent); */
+		         for(var i=0; i< allEvent.length; i++)
+		         {
+		           var obj = new Object();
+		            /* alert(allEvent[i]._def.title);//이벤트 명칭 */
+		           obj.title = allEvent[i]._def.title;   //이벤트 명칭
+		           /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
+		           obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
+		           obj.end = allEvent[i]._instance.range.end;
+		           
+		           events.push(obj);
+		         }
+		         var jsondata = JSON.stringify(events);
+		         /* console.log(jsondata); */
+		         
+		         savedata(jsondata)
+		         
               }
             },
             
@@ -216,6 +191,7 @@
       function allSave()
       {
          var allEvent = calendar.getEvents();
+         console.log(allEvent);
          
          var events = new Array(); 
          
@@ -231,44 +207,16 @@
            
            events.push(obj);
          }
+         console.log(events)
          var jsondata = JSON.stringify(events);
          /* console.log(jsondata); */
          
          savedata(jsondata)
       }
       
-      function loadingEvents()   //전체 json data 담김
-      {
-         $.ajax
-         ({
-            type:'POST',
-            url: '/schedule/rest/listLessonSchedule',
-            data: {},
-            dataType: 'JSON',  //가지고 올때의 데이터 타입
-            async: false //==>동기
-          })
-          .done(function(result){
-             /* console.log(result); */
-             /* alert(JSON.stringify(result));*/
-             
-             /* var list = result.list;
-             list.map(schedule => {
-                console.log(schedule.start);
-                console.log(schedule.end);
-                console.log(schedule.title);
-             }) */
-             
-             return_value = JSON.stringify(result);
-             /* alert(JSON.stringify(result)); */
-             alert(return_value);
-             return return_value;
-          })
-          .fail(function(request, status, error){
-             alert("에러 발생:"+error)   
-          });
-         /* 
-          return return_value; */
-      }
+      
+      
+/*memo-1-2*/
       
       function savedata(jsondata)
       {
@@ -321,7 +269,7 @@
     	  });
       });
       
-      $(function(){
+/*       $(function(){
     	  $("#success").on("click",function(){
     		  Swal.fire({
     			  title: 'Custom width, padding, color, background.',
@@ -336,7 +284,7 @@
     	        		    no-repeat`
     	        		})
     	  });
-      });
+      }); */
       
       
       /* $(document).on('click', '#success', function(e) {
@@ -346,7 +294,7 @@
             'success'
           ) */
         
-      $(document).on('click', '#success', function(e) {
+/*       $(document).on('click', '#success', function(e) {
       Swal.fire({
 		  title: 'Custom width, padding, color, background.',
         		  width: 600,
@@ -359,7 +307,7 @@
         		    left top
         		    no-repeat`
         		})
-      });
+      }); */
     </script>
 
 <style>
@@ -405,16 +353,16 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 
 </style>
 </head>
-<body>
+<body class="mt-0">
    <div id='loading'>loading...</div>
-   <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
+<%--    <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
    <div style="width:60%; float:left; text-align:right">일정 현황
    </div><div style="width:40%; float:left;text-align:right"></div>
    <c:if test="${user.role eq 'teacher' }">
    <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
    cursor:poointer" onclick="javascript:allSave();">전체저장</button>
    </c:if>
-   </div>
+   </div> --%>
    <c:if test="${user.role eq 'student' }">
       <form id = "selectTeacher" class="d-flex"	> 
 		<div class="form-group">
@@ -434,9 +382,28 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
  	</form>
  	</c:if>
 	<!-- book -->
+	<c:if test="${user.role eq 'parent'}">
+	      <form id = "selectTeacher" class="d-flex"	> 
+		<div class="form-group">
+			<label for="studentName" class="col-sm-2 control-label">학생이름</label>
+			<select class="form-select" aria-label="Disabled select example">
+			<option class="schedule" value="${i}">선택</option>
+					<c:set var="i" value="0"/>
+							<c:forEach var="schedule" items="${list}">
+						 		<c:set var="i" value ="${i+1}"/>
+								<option class="schedule" value="${i}" data-value="${schedule.studentId.studentId}">${schedule.studentId.studentName}</option>
+							</c:forEach>
+						</select>
+			   <!-- <div class="col-sm-10">
+		   <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+		 </div> -->
+	 	</div>
+	 	<button type="button" class="btn01" id="btn01">검색</button>
+ 	</form>
+	</c:if>
 	
 	
-   <div id='calendar'></div>
+   <div id='calendar' style="width:1020px; height:620px;"></div>
    <!-- modal 추가 -->
    <c:if test="${user.role eq 'teacher'}">
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

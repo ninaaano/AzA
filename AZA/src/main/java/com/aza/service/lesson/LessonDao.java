@@ -42,6 +42,7 @@ public interface LessonDao {
 	
 	public int getLessonParentTotalCount(Search search, String searchKeyword) throws Exception;
 	
+	public List<Lesson> listSelectLessonName(Search search, String studentId) throws Exception;
 //=======================================================
 	
 	//lessonBook : insert

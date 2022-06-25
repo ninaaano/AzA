@@ -160,8 +160,8 @@
 	</select>
 	
 	<select id ="listLessonParent" resultMap = "lessonSelectMap">
-		SELECT L.*, B.SRI, B.SRN, B.user_name
-		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN, A.UU user_name
+		SELECT L.*, B.SRI, B.SRN, B.user_name, B.proposal
+		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN, A.UU user_name,SR.proposal proposal
 		    FROM students_record SR, (SELECT student_id SI, U.user_name UU
 		            FROM users U, relation R
 		            WHERE U.user_id = R.parent_id AND U.user_id = #{searchId}) A
@@ -169,7 +169,7 @@
 		WHERE L.lesson_code = B.SRL
 	</select>
 	
-	 <select id = "getlistLessonParent" resultType="int">
+	 <select id="getlistLessonParent" resultType="int">
 	 	SELECT COUNT(*)
 	 	FROM(SELECT L.*, B.SRI, B.SRN
 		FROM LESSON L, ( SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
@@ -179,6 +179,12 @@
 			    WHERE SR.student_id = A.SI) B
 			WHERE L.lesson_code = B.SRL
 	 	)countTable
+	 </select>
+	 
+	 <select id ="listSelectLessonName" resultMap="lessonSelectMap">
+		select L.*
+		from lesson L, students_record SR
+		where L.lesson_code = SR.lesson_code and SR.student_id = #{searchId}
 	 </select>
 	
 	<!-- SQL : SELECT ROW Count -->

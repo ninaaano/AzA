@@ -417,50 +417,43 @@ $(function() {
    <div id="layoutDrawer_content">
 
 
-         <div class="container-xl px-5"> 
+         <div class="container-xl px-5">
          
-            <div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
+          	<div class="row d-flex justify-content-around" style="margin: 0 15% 10px 15%">
             <div id="calendar" style="margin: 0 30% 0 30%">
+            
                   
-                  <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
+                  <!-- <div style="height:30px; text-align:center; font-size:35px; color:black; margin-bottom:30px; font-weight:bold">
                   <div style="width:60%; float:left; text-align:right">일정 현황
                   </div><div style="width:40%; float:left;text-align:right"></div>
-                </div>
+                </div> -->
             </div>
             </div>
-                      <!-- == -->
-            <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="taskId" class="col-form-label">일정 내용</label>
-                                    <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-                                    <label for="taskId" class="col-form-label">시작 날짜</label>
-                                    <input type="datetime-local" class="form-control" id="calendar_start_date" name="calendar_start_date">
-                                    <label for="taskId" class="col-form-label">종료 날짜</label>
-                                    <input type="datetime-local" class="form-control" id="calendar_end_date" name="calendar_end_date">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    id="sprintSettingModalClose">취소</button>
-                                      <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-                  cursor:poointer" onclick="javascript:allSave();">전체저장</button>
-                            </div>
+            <!-- choice -->
+           <form id="lessonbook">
+			<c:if test="${user.role eq 'parent'}">
+				<div class="form-group" style="float:right">
+			          <label for="lessonCode">학 생 이 름</label>
+			          <select class="select" aria-label="Disabled select example" style="width:180px">
+			           		<!-- <option value=''> 선택</option> -->
+					    	<c:set var="i" value="0"/>
+					    	<c:forEach var="schedule" items="${list}">
+					    		<c:set var="i" value ="${i+1}"/>
+								  <option class="studentName" value="${i}" data-value="${schedule.studentId.studentId}">${schedule.studentId.stduentName}</option>
+							</c:forEach>
+						</select>
+			         <!-- <div class="col-sm-10">
+			           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+			         </div> -->
+			        	<!-- <div style="float:right"> -->
+							<input name = "isbn" type="search" placeholder="isbn 입력" aria-label="Search">
+							<button class="btn btn-outline-success" type="button" >검색</button>
+						<!-- </div> -->
+			   	 </div>
+				</c:if>
+			</form>
+                <!-- choice -->
                 
-                        </div>
-                    </div>
-                </div>   
-                <!-- == -->
          </div>
             
             
