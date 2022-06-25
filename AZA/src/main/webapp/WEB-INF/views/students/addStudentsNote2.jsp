@@ -141,12 +141,21 @@
 	            		}
 	            	}
 	            }
+				onPaste: function (e) {
+					var clipboardData = e.originalEvent.clipboardData;
+					if (clipboardData && clipboardData.items && clipboardData.items.length) {
+						var item = clipboardData.items[0];
+						if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+							e.preventDefault();
+						}
+					}
+				}
 	         };
 	
 	        $('#summernote').summernote(setting);
 	        });
 		
-	        function uploadSummernoteImageFile(file, el) {
+/* 	        function uploadSummernoteImageFile(file, el) {
 				data = new FormData();
 				data.append("file", file);
 				$.ajax({
@@ -158,6 +167,21 @@
 					processData : false,
 					success : function(data) {
 						$(el).summernote('editor.insertImage', data.url);
+					}
+				});
+			} */
+			function uploadSummernoteImageFile(file, editor) {
+				data = new FormData();
+				data.append("file", file);
+				$.ajax({
+					data : data,
+					type : "POST",
+					url : "/uploadSummernoteImageFile",
+					contentType : false,
+					processData : false,
+					success : function(data) {
+		            	//항상 업로드된 파일의 url이 있어야 한다.
+						$(editor).summernote('insertImage', data.url);
 					}
 				});
 			}

@@ -1,8 +1,8 @@
-var now = new Date();
-var curYear = ""
-var curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
-var curDate = ''
-var curDay = ''
+let now = new Date();
+let curYear = ""
+let curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
+let curDate = ''
+let curDay = ''
 
 
 function calSysdate() {
