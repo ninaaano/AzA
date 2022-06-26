@@ -36,6 +36,7 @@ import com.aza.common.Search;
 import com.aza.service.domain.Schedule;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
+import com.aza.service.user.UserService;
 
 
 @Controller
@@ -45,6 +46,10 @@ public class ScheduleController {
 	@Autowired
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userservice;
 	
 	@Value("#{commonProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
@@ -66,32 +71,50 @@ public class ScheduleController {
 		}
 		search.setPageSize(pageSize);;
 		String userRole = ((User)session.getAttribute("user")).getRole();
+//		
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("/schedule/manageLessonSchedule");
+//		return model;
 		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("/schedule/manageLessonSchedule");
-		return model;
-		
-//		if(userRole.equals("teacher")) {
-//			ModelAndView model = new ModelAndView();
-//			model.setViewName("/schedule/manageLessonSchedule");
-//			return model;
-//		} else {
-//			
-//			String studentId = ((User)session.getAttribute("user")).getUserId();
-//			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
-//			System.out.println("===============");
-//			System.out.println(map);
-//			System.out.println("===============");
-//			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
-//			
-//			ModelAndView model = new ModelAndView();
-//			model.setViewName("/schedule/manageLessonSchedule");
-//			model.addObject("list",map.get("list"));
-//			model.addObject("resultPage",resultPage);
-//			model.addObject("search",search);
-//			
-//			return model;
-//		}	 
+		//CHOICE 생성 2022/06/25		
+		if(userRole.equals("teacher")) {
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/schedule/manageLessonSchedule");
+			return model;
+		} else if(userRole.equals("student")) {	
+			String studentId = ((User)session.getAttribute("user")).getUserId();
+			Map<String, Object> map = lessonService.listLessonSelectTeacher(search, studentId);
+			System.out.println("===============");
+			System.out.println(map);
+			System.out.println("===============");
+			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			
+			ModelAndView model = new ModelAndView();
+			model.setViewName("/schedule/manageLessonSchedule");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			
+			return model;
+		} else {
+			String parentId = ((User)session.getAttribute("user")).getUserId();
+			System.out.println("=-====-=-");
+			System.out.println(parentId);
+			System.out.println("=-====-=-");
+//			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
+			Map<String, Object> map = userservice.listStudentRelationByParent(search, parentId);
+			System.out.println("==============");
+			System.out.println(map);
+			System.out.println("==============");
+			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
+			ModelAndView model = new ModelAndView();
+			
+			model.setViewName("/schedule/manageLessonSchedule");
+			model.addObject("list",map.get("list"));
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
+			return model;
+		}
 	}
 	
 	@RequestMapping(value="addLessonSchedule", method=RequestMethod.POST)
@@ -172,7 +195,7 @@ public class ScheduleController {
 			}
 			System.out.println(json.toString());
 			return json;
-		}else {
+		}else if(role.equals("student")) {
 			String studentId = ((User) session.getAttribute("user")).getUserId();
 			
 			Map<String, Object> map = lessonService.listLessonScheduleStudent(search, studentId);
@@ -188,6 +211,25 @@ public class ScheduleController {
 			}catch(Exception e) {
 				System.out.println("error");
 			}
+			System.out.println(json.toString());
+			return json;
+		} else {
+			String parentId = ((User) session.getAttribute("user")).getUserId();
+			
+			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
+			
+			JSONObject json = new JSONObject();
+			try {
+				for(Map.Entry<String, Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					
+					json.put(key, value);
+				}
+			}catch(Exception e) {
+				System.out.println("error");
+			}
+			
 			System.out.println(json.toString());
 			return json;
 		}

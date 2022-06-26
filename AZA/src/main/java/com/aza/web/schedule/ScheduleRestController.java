@@ -50,17 +50,17 @@ public class ScheduleRestController {
 	}
 	
 	
-	@RequestMapping(value="manageLessonSchedule", method=RequestMethod.POST)
-	public Map<String, Object> manageLessonSchedule(HttpSession session, @RequestParam(required=false, value="teacherId") String teacherID) throws Exception{
-		User user = (User)session.getAttribute("user");
-		
-//		int totalCount= (int) lessonService.listLessonSchedule(search, teacherId).get("totalCount");
-//		search.setCurrentPage(1);
-//		search.setPageSize(totalCount);
-		
-//		return lessonService.listLessonSchedule(search, teacherId);
-		return null;
-	}
+//	@RequestMapping(value="manageLessonSchedule", method=RequestMethod.POST)
+//	public Map<String, Object> manageLessonSchedule(HttpSession session, @RequestParam(required=false, value="teacherId") String teacherID) throws Exception{
+//		User user = (User)session.getAttribute("user");
+//		
+////		int totalCount= (int) lessonService.listLessonSchedule(search, teacherId).get("totalCount");
+////		search.setCurrentPage(1);
+////		search.setPageSize(totalCount);
+//		
+////		return lessonService.listLessonSchedule(search, teacherId);
+//		return null;
+//	}
 	
 	@RequestMapping(value="getSchedule/{scheduleCode}",method=RequestMethod.GET)
 	public Schedule getSchedule(@PathVariable int scheduleCode) throws Exception{
@@ -96,7 +96,8 @@ public class ScheduleRestController {
 		
 		if(role.equals("teacher")) {
 			String teacherId = ((User) session.getAttribute("user")).getUserId();
-			
+			//추가			
+			//
 			Map<String, Object> map = lessonService.listLessonScheduleTeacher(search, teacherId);
 			
 			JSONObject json = new JSONObject();
@@ -134,6 +135,13 @@ public class ScheduleRestController {
 			return lessonService.listLessonScheduleStudent(search, studentId);
 		} else {
 			String parentId = ((User)session.getAttribute("user")).getUserId();
+			//추가
+			int totalCount = (int) lessonService.listLessonScheduleParent(search, parentId).get("totalCount");
+			search.setCurrentPage(1);
+			search.setPageSize(totalCount);
+			
+			
+			//
 			System.out.println("parent schedule !!!!!!!");
 			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
 			

@@ -55,6 +55,9 @@ public interface UserDao {
 	//Relation :: LIST By Parent
 	public List<User> listRelationByParent(Search search, String parentId) throws Exception;
 	
+	//Relation :: LIST BY PARENT studentName
+	public List<User> listStudentRelationByParent(Search search, String parentId) throws Exception;
+	
 	//Relation :: Total Count
 	public int getListRelationByStudentTotalCount(Search search, String studentId) throws Exception;
 	

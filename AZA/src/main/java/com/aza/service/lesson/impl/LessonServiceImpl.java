@@ -112,6 +112,16 @@ public class LessonServiceImpl implements LessonService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> listSelectLessonName(Search search , String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Lesson> list = lessonDao.listSelectLessonName(search,studentId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
 	//=================================================
 	
 	@Override
@@ -271,5 +281,6 @@ public class LessonServiceImpl implements LessonService {
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
+
 
 }

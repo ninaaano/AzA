@@ -89,7 +89,7 @@ public class LessonDaoImpl implements LessonDao {
 		// TODO Auto-generated method stub
 		search.setSearchId(userID);
 		
-		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",search);
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonStudents",search);
 	}
 	
 	@Override
@@ -129,6 +129,13 @@ public class LessonDaoImpl implements LessonDao {
 		// TODO Auto-generated method stub
 		search.setSearchKeyword(searchKeyword);
 		return sqlSessionTemplate.selectOne("LessonMapper.getlistLessonParent",searchKeyword);
+	}
+	
+	@Override
+	public List<Lesson> listSelectLessonName(Search search, String studentId) throws Exception {
+		// TODO Auto-generated method stub
+		search.setSearchId(studentId);
+		return sqlSessionTemplate.selectList("LessonMapper.listSelectLessonName",search);
 	}
 	
 //	==================================

@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', event => {
             			temp.push(lesson.subject);
             			temp.push(lesson.lessonCode);
             			temp.push(lesson.studentId.proposal);
+            			temp.push(lesson.studentId.studentName);
             			
             			lessonData.push(temp);
             		})
@@ -45,13 +46,15 @@ window.addEventListener('DOMContentLoaded', event => {
 	            			"과목명",
 	            			"수업코드",
 	            			"proposal",
+	            			"학생이름",
             			],
             			"data" : lessonData,
             		}
             		
             		var getproposal = function(data, type, row){
 	
-            			var proposal =  row.lastElementChild.textContent
+            			//var proposal =  row.lastElementChild.textContent
+            			var proposal = row.childNodes[9].textContent
             			
 	            			return `<a href="/lesson/getLesson/`+proposal+`">
 	            			<button class="btn btn-raised-warning type="button"> 상세보기 </button>
@@ -79,6 +82,10 @@ window.addEventListener('DOMContentLoaded', event => {
             				{
 								select:9,
 								hidden: true,
+							},
+							{
+								select:10,
+								hidden:true,
 							},
             			],
             			columnDefs: [
@@ -122,15 +129,23 @@ window.addEventListener('DOMContentLoaded', event => {
             	            	targets:[9],
             	            	orderData: [0,1],     			
             	            },
+            	            {
+            	            	targets:[10],
+            	            	orderData: [0,1],     			
+            	            },
             	         ],
             		});
-	            	} else {
+	            	} else if(sessionStorage.getItem("role") == 'student'){
 	            		new simpleDatatables.DataTable(lessonDataSimple,{
 	            		data,
 	            		columns: [
 	            			{
 								select: 8,
 								render:getLesson,
+							},
+							{
+								select: 10,
+								hidden:true,
 							},
 	            			],
 	            		columnDefs:[
@@ -170,9 +185,65 @@ window.addEventListener('DOMContentLoaded', event => {
 	            			targets:[9],
 	            			orderData:[0,1],
 	            		},
+	            		{
+	            			targets:[10],
+	            			orderData:[0,1],
+	            		},
             		],
             		});
-            		}
+            		}else if(sessionStorage.getItem("role") == 'parent'){
+						new simpleDatatables.DataTable(lessonDataSimple,{
+							data,
+		            		columns: [
+		            			{
+									select: 8,
+									render:getLesson,
+								},
+		            			],
+		            		columnDefs:[
+		            		{
+		            			targets:[0],
+		            			orderData: [0,1],
+		            		},
+		            		{
+		            			targets:[1],
+		            			orderData: [0,1],
+		            		},
+		            		{
+		            			targets:[3],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets: [4],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets: [5],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets: [6],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets: [7],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets:[8],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets:[9],
+		            			orderData:[0,1],
+		            		},
+		            		{
+		            			targets:[10],
+		            			orderData:[0,1],
+		            		},
+	            		],	
+						})
+					}
             	
             	}
             }

@@ -30,6 +30,7 @@
 		<association property="studentId"  javaType="students">
 			<id property="studentId" column="student_id" jdbcType="VARCHAR"/>
 			<result property="proposal" column="proposal" jdbcType="CHAR"/>
+			<result property="studentName" column="student_name" jdbcType="VARCHAR"/>
 		</association>
 		<association property="teacherName"  javaType="user">
 			<id property="userName" column="user_name" jdbcType="VARCHAR"/>
@@ -125,7 +126,7 @@
 	<select id = "listLessonTeacher" resultMap="lessonSelectMap">
 		SELECT*
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM (SELECT DISTINCT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time,L.lesson_place, L.subject, L.lesson_code, SR.proposal, L.lesson_create_at
+			FROM (SELECT DISTINCT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time,L.lesson_place, L.subject, L.lesson_code, SR.proposal, L.lesson_create_at, SR.student_name 
 				FROM LESSON L, USERS U, students_record SR
 				WHERE L.teacher_id = U.user_id AND teacher_id = #{searchId}
 				<if test='searchCondition !=null'>
@@ -139,11 +140,11 @@
 	</select>
 
 <!-- 선생님 아이디 필요해서 넣었어요~~ -->
-	<select id = "listLessonStuents" resultMap="lessonSelectMap">			
+	<select id = "listLessonStudents" resultMap="lessonSelectMap">			
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq		
 			FROM(
-				SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.lesson_place, L.subject, L.lesson_code, SR.proposal, L.teacher_Id
+				SELECT L.lesson_name, U.user_name, L.lesson_day, L.lesson_start_time, L.lesson_end_time, L.lesson_place, L.subject, L.lesson_code, SR.proposal, L.teacher_Id, SR.student_name
 				FROM LESSON L, STUDENTS_RECORD SR, USERS U
 				WHERE L.lesson_code = SR.lesson_code and L.teacher_id = U.user_id and SR.student_id = #{searchId}
 				<if test='searchCondition !=null'>
@@ -160,25 +161,37 @@
 	</select>
 	
 	<select id ="listLessonParent" resultMap = "lessonSelectMap">
-		SELECT L.*, B.SRI, B.SRN, B.user_name
-		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN, A.UU user_name
+		SELECT L.*, B.student_id, B.student_name, B.user_name, B.proposal
+		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id student_id, SR.student_name student_name, A.UU user_name,SR.proposal proposal
+		    FROM students_record SR, (SELECT student_id SI, U.user_name UU
+		            FROM users U, relation R
+		            WHERE U.user_id = R.parent_id AND U.user_id = #{searchId}) A
+		    WHERE SR.student_id = A.SI
+				<if test='searchCondition !=null'>
+					<if test="searchCondition == 1 and searchKeyword!=''">
+						AND SR.student_name like '%${searchKeyword}%'
+					</if>
+				</if>
+		    ) B
+		WHERE L.lesson_code = B.SRL
+	</select>
+	
+	 <select id="getlistLessonParent" resultType="int">
+	 	SELECT COUNT(*)
+	 	FROM(SELECT L.*, B.student_id, B.student_name, B.user_name, B.proposal
+		FROM LESSON L, (SELECT SR.lesson_code SRL, SR.student_id student_id, SR.student_name student_name, A.UU user_name,SR.proposal proposal
 		    FROM students_record SR, (SELECT student_id SI, U.user_name UU
 		            FROM users U, relation R
 		            WHERE U.user_id = R.parent_id AND U.user_id = #{searchId}) A
 		    WHERE SR.student_id = A.SI) B
-		WHERE L.lesson_code = B.SRL
-	</select>
-	
-	 <select id = "getlistLessonParent" resultType="int">
-	 	SELECT COUNT(*)
-	 	FROM(SELECT L.*, B.SRI, B.SRN
-		FROM LESSON L, ( SELECT SR.lesson_code SRL, SR.student_id SRI, SR.student_name SRN
-			    FROM students_record SR, (SELECT student_id SI
-			            FROM users U, relation R
-			            WHERE U.user_id = R.parent_id AND U.user_id = #{searchKeyword}) A
-			    WHERE SR.student_id = A.SI) B
 			WHERE L.lesson_code = B.SRL
 	 	)countTable
+	 </select>
+	 
+	 <select id ="listSelectLessonName" resultMap="lessonSelectMap">
+		select L.*
+		from lesson L, students_record SR
+		where L.lesson_code = SR.lesson_code and SR.student_id = #{searchId}
 	 </select>
 	
 	<!-- SQL : SELECT ROW Count -->

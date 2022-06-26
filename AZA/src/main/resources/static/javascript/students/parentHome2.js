@@ -1,8 +1,8 @@
-var now = new Date();
-var curYear = ""
-var curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
-var curDate = ''
-var curDay = ''
+let now = new Date();
+let curYear = ""
+let curMonth = '0'.concat(now.getMonth() + 1).slice(-2);
+let curDate = ''
+let curDay = ''
 
 
 function calSysdate() {
@@ -282,7 +282,7 @@ function makeTimeTable(result) {
    $('#curDate').empty();
    $('#curLessonList').empty();
    
-   $('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
+   //$('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 수업 🙃</div>`);
 
    
    result.map((lesson, idx) => {
@@ -304,11 +304,12 @@ function makeTimeTable(result) {
 function makeHomeworkTimeTable(resultHomework) {
 	calSysdate()
 	console.log("찍혀라찍혀라");
-	$('#currentDate').empty();
+	$('#curDate').empty();
 	$('#currentHomeworkList').empty();
 	
-	$('currentDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 과제 🙃</div>`);
-		
+	$('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 과제 🙃</div>`);
+	
+	/*
 	var homeworkTitle = resultHomework.homeworkTitle;
 	console.log(homeworkTitle);
 	var homeworkCode = resultHomework.homeworkCode;
@@ -320,8 +321,21 @@ function makeHomeworkTimeTable(resultHomework) {
 				  <div class="col-6 me-2 text-muted">${homeworkTitle}</div>
 				  </div>`;
 	
-	$('#currentHomeworkList').append(newDiv);				
+	$('#currentHomeworkList').append(newDiv);
+	*/				
+	for(var i=0; i<resultHomework.list.length; i++){
+    
+	var homeworkTitle = resultHomework.list[i].homeworkTitle;
+	var homeworkCheck = resultHomework.list[i].homeworkCheck;
+	console.log(homeworkTitle);
+	var newDiv = `	<div class="list-group-item-action d-flex justify-content-between align-items-center py-2">
+					<div class="col-6 me-2 text-primary">${homeworkTitle}</div>
+					<div class="col-6 me-2 text-muted">${homeworkCheck}</div>
+					</div>`;
 
+	$('#currentHomeworkList').append(newDiv);
+	
+    }
 	
 }
 

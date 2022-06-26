@@ -83,10 +83,6 @@
 		});
 	}); */
 	function fncdeleteBook(){
-		let lessonCode = $(this).data("tttt");
-		let lessonCode3 = $(this).data("ttta");
-		alert(lessonCode);
-		alert(lessonCode3);
 		let code = $(this).attr('lessonCode1');
 		alert(code);
 		$("#booklist").attr("method","GET").attr("action","/lesson/deleteLessonBook").submit();
@@ -186,8 +182,6 @@ img {display: block; margin: 0px auto;
 
 </head>
 <body style="background-color:#f5f5f5">
-
-
 		<div class="mb-3 mr-5 pr-5">
 			<form id="lessonbook">
 			<c:if test="${user.role eq 'teacher'}">

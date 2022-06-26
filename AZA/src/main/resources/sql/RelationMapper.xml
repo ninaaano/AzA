@@ -107,5 +107,11 @@
 			student_id = #{searchKeyword}
 		</if>) countTable
 	</select>
+	
+	<select id="listStudentRelationByParent" resultMap="relationSelectMap">
+		SELECT u.user_name
+				FROM RELATION R, USERS U
+				WHERE U.user_Id = R.student_id and R.parent_id = #{searchId}
+	</select>
 
 </mapper>
