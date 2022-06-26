@@ -36,6 +36,7 @@ import com.aza.common.Search;
 import com.aza.service.domain.Schedule;
 import com.aza.service.domain.User;
 import com.aza.service.lesson.LessonService;
+import com.aza.service.user.UserService;
 
 
 @Controller
@@ -45,6 +46,10 @@ public class ScheduleController {
 	@Autowired
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userservice;
 	
 	@Value("#{commonProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
@@ -93,15 +98,21 @@ public class ScheduleController {
 			return model;
 		} else {
 			String parentId = ((User)session.getAttribute("user")).getUserId();
-			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
+			System.out.println("=-====-=-");
+			System.out.println(parentId);
+			System.out.println("=-====-=-");
+//			Map<String, Object> map = lessonService.listLessonScheduleParent(search, parentId);
+			Map<String, Object> map = userservice.listStudentRelationByParent(search, parentId);
 			System.out.println("==============");
 			System.out.println(map);
 			System.out.println("==============");
+			Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize);
 			ModelAndView model = new ModelAndView();
 			
 			model.setViewName("/schedule/manageLessonSchedule");
 			model.addObject("list",map.get("list"));
-			
+			model.addObject("resultPage",resultPage);
+			model.addObject("search",search);
 			return model;
 		}
 	}

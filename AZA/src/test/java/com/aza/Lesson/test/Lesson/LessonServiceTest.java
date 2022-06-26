@@ -17,6 +17,7 @@ import com.aza.service.domain.Lesson;
 import com.aza.service.domain.LessonBook;
 import com.aza.service.domain.Schedule;
 import com.aza.service.lesson.LessonService;
+import com.aza.service.user.UserService;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +27,10 @@ public class LessonServiceTest {
 	@Autowired
 	@Qualifier("lessonServiceImpl")
 	private LessonService lessonService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	
 	//ok
 //	@Test
@@ -105,7 +110,7 @@ public class LessonServiceTest {
 	}	
 	
 	//OK
-	//@Test
+	@Test
 	public void testlistLessonStudent() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -138,7 +143,7 @@ public class LessonServiceTest {
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println(totalCount);
-	}	
+	}
 	
 	//@Test
 	public void testlessonNameselect() throws Exception{
@@ -368,4 +373,16 @@ public class LessonServiceTest {
 		System.out.println(totalCount);
 	}
 	
+	//@Test
+	public void testlistRelationByParent() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(8);
+		Map<String, Object> map = userService.listStudentRelationByParent(search, "parent01");
+		System.out.println(map);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		System.out.println(list);
+	}
 }

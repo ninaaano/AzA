@@ -33,6 +33,11 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
 <link href="css/styles.css" rel="stylesheet" />
 
+
+<!-- sweet alert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <script>
       //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
       /* document.addEventListener('DOMContentLoaded', function() { */
@@ -250,24 +255,21 @@
     	  for(let i=0; i<select.length; i++){
     		  p.push($(select[i]).data('value'))
     	  }
-    	  
     	  console.log(p)
     	  
     	  var a = $(e).parent().find(".form-select").val();
-    	  
     	  console.log(a)
     	  var teacherId = p[a];
-    	  
     	  console.log(teacherId)
     		  
     	  $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherID="+teacherId).submit();
       }
       
-      $(function(){
+/*      $(function(){
     	  $("button.btn01").on("click",function(){
     		  fncSelectTeacher(this);
     	  });
-      });
+      }); */
       
 /*       $(function(){
     	  $("#success").on("click",function(){
@@ -427,11 +429,10 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="sprintSettingModalClose">취소</button>
+                    <button type="button" class="btn btn-warning" id="addCalendar" style="background-color: #6c757d">추가</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
                         <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-   						cursor:poointer" onclick="javascript:allSave();">전체저장</button>
+   						cursor:poointer" onclick="javascript:allSave();">일정 저장</button>
                 </div>    
             </div>
         </div>

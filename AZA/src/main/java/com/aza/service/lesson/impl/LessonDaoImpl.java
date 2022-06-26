@@ -89,7 +89,7 @@ public class LessonDaoImpl implements LessonDao {
 		// TODO Auto-generated method stub
 		search.setSearchId(userID);
 		
-		return sqlSessionTemplate.selectList("LessonMapper.listLessonStuents",search);
+		return sqlSessionTemplate.selectList("LessonMapper.listLessonStudents",search);
 	}
 	
 	@Override

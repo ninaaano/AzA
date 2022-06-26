@@ -113,10 +113,10 @@
 									data-bs-toggle="tab" type="button" role="tab"
 									data-bs-target="#nav-parent-kids-tab"
 									aria-controls="nav-contact" aria-selected="false">교재</button>
-								<button class="subframe_nav nav-link" data-url=""
+								<!-- <button class="subframe_nav nav-link" data-url=""
 									id="nav-paperQuiz-tab" data-bs-toggle="tab" type="button"
 									role="tab" data-bs-target="#nav-parent-kids-tab"
-									aria-controls="nav-contact" aria-selected="false">자료</button>
+									aria-controls="nav-contact" aria-selected="false">자료</button> -->
 								<!-- <button class="subframe_nav nav-link" data-url="/paper/listPaperQuiz" id="nav-lessonBook-tab" data-bs-toggle="tab" type="button" role="tab" data-bs-target="#nav-parent-kids-tab" aria-controls="nav-contact" aria-selected="false">쪽지시험</button> -->
 								<button class="subframe_nav nav-link"
 									data-url="/paper/listPaperHomework" id="nav-lessonBook-tab"

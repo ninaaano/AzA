@@ -62,6 +62,10 @@
 		$("#ct_btn02").on("click",function(){
 			fncdeleteLesson();
 		});
+		
+		$("#ct_btn03").on("click",function(){
+			self.location="/lesson/listLesson"
+		});
 	});
 	
 	
@@ -192,7 +196,7 @@ body{
 										
 									</c:when>					
 									<c:otherwise>
-										이전					
+									<button type="button" id="ct_btn03" class="btn btn-outline-primary" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">이전</button>				
 									</c:otherwise>
 								</c:choose>
 										</tr>

@@ -231,10 +231,11 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-button-primary {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50);
+    /* background-color: #2C3E50; */
+    background-color: #6200EA;
+    background-color: var(--fc-button-bg-color, #6200EA);
+    border-color: #6200EA;
+    border-color: var(--fc-button-border-color, #6200EA);
   }
 .fc .fc-button-primary:hover {
     color: #fff;
@@ -247,10 +248,10 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-button-primary:disabled { /* not DRY */
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50); /* overrides :hover */
+    background-color: #6200EA;
+    background-color: var(--fc-button-bg-color, #6200EA);
+    border-color: #6200EA;
+    border-color: var(--fc-button-border-color, #6200EA); /* overrides :hover */
   }
 .fc .fc-button-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(76, 91, 106, 0.5);
@@ -259,10 +260,10 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   .fc .fc-button-primary:not(:disabled).fc-button-active {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #1a252f;
-    background-color: var(--fc-button-active-bg-color, #1a252f);
-    border-color: #151e27;
-    border-color: var(--fc-button-active-border-color, #151e27);
+    background-color: #6200EA;
+    background-color: var(--fc-button-active-bg-color, #6200EA);
+    border-color: #6200EA;
+    border-color: var(--fc-button-active-border-color, #6200EA);
   }
 .fc .fc-button-primary:not(:disabled):active:focus,
   .fc .fc-button-primary:not(:disabled).fc-button-active:focus {
@@ -324,7 +325,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     margin-top: 1.5em;
   }
 .fc .fc-toolbar-title {
-    font-size: 1.75em;
+    /* font-size: 1.75em; */
     margin: 0;
   }
 .fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
