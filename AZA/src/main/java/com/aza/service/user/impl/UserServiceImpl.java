@@ -325,4 +325,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.checkPhone(user);
 		}
 	
+	@Override
+	public User firstStudentIdByParent(String parentId) throws Exception {
+		return userDao.firstStudentIdByParent(parentId);
+	}
+	
 }

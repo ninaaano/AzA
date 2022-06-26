@@ -70,5 +70,8 @@ public interface UserDao {
 	public void updatePassword(User user)throws Exception;
 	
 	User checkPhone(User user) throws Exception;
-
+	
+	public User firstStudentIdByParent(String parentId) throws Exception;
+	
+	
 }

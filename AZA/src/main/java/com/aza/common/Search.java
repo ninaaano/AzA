@@ -13,6 +13,7 @@ public class Search {
 	private String searchStartDate;
 	private String searchEndDate;
 	private String content;
+	private String searchLessonName;
 	
 	private int relationCode;
 	
@@ -106,8 +107,17 @@ public class Search {
 		return getCurrentPage()*getPageSize();
 	}
 
+
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
+	}
+
+	public String getSearchLessonName() {
+		return searchLessonName;
+	}
+
+	public void setSearchLessonName(String searchLessonName) {
+		this.searchLessonName = searchLessonName;
 	}
 
 	@Override
@@ -115,8 +125,10 @@ public class Search {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
 				+ searchKeyword + ", pageSize=" + pageSize + ", searchId=" + searchId + ", lessonCode=" + lessonCode
 				+ ", searchStartDate=" + searchStartDate + ", searchEndDate=" + searchEndDate + ", content=" + content
-				+ ", relationCode=" + relationCode + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + "]";
+				+ ", searchLessonName=" + searchLessonName + ", relationCode=" + relationCode + ", endRowNum="
+				+ endRowNum + ", startRowNum=" + startRowNum + "]";
 	}
-
+	
+	
 
 }

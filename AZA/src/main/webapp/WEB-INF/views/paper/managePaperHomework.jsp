@@ -68,9 +68,10 @@ font-family: Pretendard, 'Noto Sans KR';
 		
 		window.onload = function () { 
 			$("#updateBtn").hide();
-			$("#lessonNameList").hide();
+			//$("#lessonNameList").hide();
 			$("#cancelBtn").hide();
-			$("#studentNameList").hide();
+			//$("#studentNameList").hide();
+			
 			
 			if(${paper.homeworkCheck} == 1){
 				$("#homeworkCheck").prop("disabled",true);
@@ -95,18 +96,18 @@ font-family: Pretendard, 'Noto Sans KR';
 			$( "button.btn.btn-outline-primary:contains('수정')").on("click" , function() {
 				
 				document.getElementById("homeworkTitle").readOnly=false;
-				document.getElementById("studentName").readOnly=false;
+				//document.getElementById("studentName").readOnly=false;
 				document.getElementById("homeworkDueDate").readOnly=false;
 				document.getElementById("homeworkContent").readOnly=false;
 				
 				$("#goUpdateBtn").hide();
 				$("#updateBtn").show();
-				$("#lessonNameList").show();
-				$("#lessonNameListInput").hide();
+				//$("#lessonNameList").show();
+				//$("#lessonNameListInput").hide();
 				$("#cancelBtn").show();
 				$("#goBackBtn").hide();
-				$("#studentNameList").show();
-				$("#studentNameInput").hide();
+				//$("#studentNameList").show();
+				//$("#studentNameInput").hide();
 				
 				
  			    const homeworkDueDate = document.getElementById('homeworkDueDate');
@@ -202,7 +203,7 @@ font-family: Pretendard, 'Noto Sans KR';
                             <form>
 			                    <div class="card-body p-4">		
 									<input type="hidden" name="homeworkCode" id="homeworkCode" value="${paper.homeworkCode }"/>			
-							        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameList" >
+							        <%-- <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameList" >
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
 							            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
 							            	<c:set var="i" value="0"/>
@@ -211,7 +212,7 @@ font-family: Pretendard, 'Noto Sans KR';
 							            		<option align="left" value="${lesson.lessonName }">${lesson.lessonName }
 							            	</c:forEach>
 						                </select>
-							        </div>
+							        </div> --%>
 							        
 							        <div class="input-group mb-3" style="margin: 20px 0px 20px 0px" id="lessonNameListInput">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
@@ -229,7 +230,7 @@ font-family: Pretendard, 'Noto Sans KR';
 							            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1" readOnly="true">
 							        </div>
 							        <!-- 추가 -->
-							        <div class="input-group mb-3" id="studentNameList">
+							        <%-- <div class="input-group mb-3" id="studentNameList">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
 							            <select class="form-select" aria-label="Default select example" id="studentName" name="studentName">
 							            	<c:set var="i" value="0"/>
@@ -238,7 +239,7 @@ font-family: Pretendard, 'Noto Sans KR';
 							            		<option align="left" value="${students.studentName }">${students.studentName }
 							            	</c:forEach>
 						                </select>
-							        </div>
+							        </div> --%>
 							        <!-- 추가 -->
 							        <div class="input-group mb-3">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
@@ -261,6 +262,7 @@ font-family: Pretendard, 'Noto Sans KR';
 								 	 <button id="deleteBtn" onclick="deleteBtn();" class="btn btn-outline-primary">삭제</button>
 								 	 <button id="goBackBtn" onclick="goBackBtn();" class="btn btn-outline-primary">이전</button>
 								 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
+								 	 <button id="goListBtn" onclick="goListBtn();" class="btn btn-outline-primary">목록</button>
 								</div>
                         </div>
                         <hr class="my-5" />

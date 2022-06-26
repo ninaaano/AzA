@@ -59,13 +59,49 @@
 	<link href="/resources/css/common.css" rel="stylesheet">
 	
 		<script type="text/javascript">
-	
+///////////////////////////////////////////////////////////////////////////////////////	
+		
+		/* $(function () {
+			$('#lessonName').change(function() {
+				var lessonName = $('option:selected').val().trim();
+				//alert("=====>"+lessonName);
+				 $.ajax(
+						{url : "/students/rest/listStudentsRecordByLessonName/"+lessonName ,
+							method : "GET" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
+								console.log(JSONData);
+								console.log(status);
+								
+								appendLoop();
+								for(var i=0; i<JSONData.list.length; i++){
+									var studentName = JSONData.list[i].studentName;
+									var studentId = JSONData.list[i].studentId;
+									var newSelect = '<option align="left" value="${students.studentName}">'+studentName;
+									
+									$('#studentName').append(newSelect);
+
+		                        }
+
+
+							}
+						}		
+				)			
+			})			
+		}); */
+/////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		
 		function addBtn(){
 
 			//var lessonName = $("input[name='lessonName']").val();
 			var lessonName = $('option:selected').text().trim();
 			var homeworkTitle = $("input[name='homeworkTitle']").val();
-			var studentName = $("input[name='studentName']").val();
+			//var studentName = $("input[name='studentName']").val();
+			var studentName = $('option:selected').text().trim();
 			var homeworkDueDate = $("input[name='homeworkDueDate']").val();
 			var homeworkContent = $("textarea[name='homeworkContent']").val();
 			
@@ -130,11 +166,11 @@ font-family: Pretendard, 'Noto Sans KR';
                            	 <form>
 						        	<div class="input-group mb-3" style="margin: 20px 0px 20px 0px" >
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">수업명</button>
-							            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonName">
+							            <select class="form-select" aria-label="Default select example" id="lessonName" name="lessonCode">
 							            	<c:set var="i" value="0"/>
 							            	<c:forEach var="lesson" items="${list }">
 							            	<c:set var="i" value="${i+1 }"/>
-							            		<option align="left" value="${lesson.lessonName }">${lesson.lessonName }
+							            		<option align="left" value="${lesson.lessonCode }">${lesson.lessonName }
 							            	</c:forEach>
 						                </select>
 							        </div>
@@ -144,20 +180,17 @@ font-family: Pretendard, 'Noto Sans KR';
 							             id="homeworkTitle" name="homeworkTitle" value="${paper.homeworkTitle}" aria-describedby="button-addon1">
 							        </div>
 							        <div class="input-group mb-3">
+							        	
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
-							            <select class="form-select" aria-label="Default select example" id="studentName" name="studentName">
+							            <select class="form-select" aria-label="Default select example" id="studentName" name="studentId">
 							            	<c:set var="i" value="0"/>
 							            	<c:forEach var="students" items="${listStudents }">
 							            	<c:set var="i" value="${i+1 }"/>
-							            		<option align="left" value="${students.studentName }">${students.studentName }
+							            		<option align="left" value="${students.studentId }">${students.studentName }
 							            	</c:forEach>
 						                </select>
 							        </div>
-							        <%-- <div class="input-group mb-3">
-							            <button class="btn btn-outline-primary" type="button" style="width:120px;">학생 이름</button>
-							            <input class="form-control" type="text" placeholder="학생 이름을 입력하세요" aria-label="Example text with button addon" 
-							            id="studentName" name="studentName" value="${paper.studentName}" aria-describedby="button-addon1">
-							        </div> --%>
+
 							        <div class="input-group mb-3">
 							            <button class="btn btn-outline-primary" type="button" style="width:120px;">과제 마감 날짜</button>
 							            <input class="form-control" type="date" placeholder="과제 마감 날짜를 입력하세요" aria-label="Example text with button addon" 

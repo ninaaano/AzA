@@ -111,5 +111,8 @@ public interface PaperDao {
 		
 		//PaperHomeworkCheck :: UPDATE
 		public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;
+		
+		//listPaperHomeworkByLessonName(search, studentId, lessonName)
+		public List<Paper> listPaperHomeworkByLessonName(Search search, String studentId, String lessonName) throws Exception;
 }
 

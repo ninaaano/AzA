@@ -75,6 +75,17 @@ public class PaperServiceImpl implements PaperService {
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> listPaperHomeworkByLessonName(Search search, String studentId, String lessonName) throws Exception {
+		
+		List<Paper> list = paperDao.listPaperHomeworkByLessonName(search, studentId, lessonName);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
 //	@Override
 //	public Map<String, Object> listPaperHomeworkByTeacher(Search search, String lessonCode) throws Exception {
 //		

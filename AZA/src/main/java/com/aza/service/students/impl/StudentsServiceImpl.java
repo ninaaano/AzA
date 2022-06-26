@@ -350,6 +350,26 @@ public class StudentsServiceImpl implements StudentsService {
 		// TODO Auto-generated method stub
 		return studentsDao.getCheckStudentsCharacter(search);
 	}
+	
+	@Override
+	public Map<String, Object> listStudentsRecordByLessonName(Search search, String lessonCode) throws Exception {
+		List<Students> list = studentsDao.listStudentsRecordByLessonName(search, lessonCode);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
+	/*
+	 * @Override public Map<String, Object> listStudentsRecordDistinct(Search
+	 * search, String teacherId) throws Exception { List<Students> list =
+	 * studentsDao.listStudentsRecordDistinct(search, teacherId);
+	 * 
+	 * Map<String,Object> map = new HashMap<String,Object>(); map.put("list", list);
+	 * 
+	 * return map; }
+	 */
 
 
 

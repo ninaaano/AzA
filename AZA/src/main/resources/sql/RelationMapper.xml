@@ -114,12 +114,18 @@
 		FROM (SELECT u.user_name
 				FROM RELATION R, USERS U
 				WHERE U.user_Id = R.student_id and R.parent_id = #{parentId}
-		<if test="searchCondition == 0 and searchKeyword !='' ">
-			student_id = #{searchKeyword}
-		</if>
+				<if test="searchCondition == 0 and searchKeyword !='' ">
+					student_id = #{searchKeyword}
+				</if>
 		)inner_table
 		WHERE ROWNUM &lt; = #{endRowNum})
 		WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<select id="firstStudentIdByParent" parameterType="string" resultMap="relationSelectMap">
+		SELECT student_id FROM relation
+		WHERE parent_id = #{userId} AND ROWNUM = 1
+		ORDER BY student_id
 	</select>
 
 </mapper>

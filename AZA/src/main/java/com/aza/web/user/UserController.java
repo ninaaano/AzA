@@ -24,7 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aza.common.Page;
 import com.aza.common.Search;
+import com.aza.service.domain.Lesson;
 import com.aza.service.domain.User;
+import com.aza.service.lesson.LessonService;
 import com.aza.service.user.UserService;
 
 @Controller
@@ -36,6 +38,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("lessonServiceImpl")
+	private LessonService lessonService;
 
 	
 	@Value("#{commonProperties['pageUnit']}")
@@ -80,6 +86,7 @@ public class UserController {
 		ModelAndView mv= new ModelAndView();
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
+		
 		System.out.println(dbUser);
 		session = request.getSession();
 		if(dbUser!=null && user.getUserId() != null){
@@ -99,11 +106,25 @@ public class UserController {
 			
 			// student 
 			if(dbUser.getRole().equals("student")) {
+				
+				Search search = new Search();
+				search.setPageSize(pageSize);
+				search.setCurrentPage(1);
+				
+				List<Lesson> studentLessons = (List) lessonService.listSelectLessonName(search, dbUser.getUserId()).get("list");
+				session.setAttribute("studentLessons", studentLessons);
+				System.out.println("session check lesson"+session.getAttribute("studentLessons"));
+				
 				mv.setViewName("redirect:/index");
 			}
 			
 			// parent 
 			if(dbUser.getRole().equals("parent")) {
+				
+				//////////////////////////////////////�θ� ù��°�ڳ� �߰�///////////////////////////
+				User getFirstStudentIdByParent = userService.firstStudentIdByParent(dbUser.getUserId());
+				/////////////////////////////////////////////////////////////////////////////////////////
+				
 				Search search = new Search();
 				search.setPageSize(pageSize);
 				search.setCurrentPage(1);
@@ -115,11 +136,16 @@ public class UserController {
 					User studentInfo = userService.getUser(student.getFirstStudentId());
 					studentsInfo.add(studentInfo);
 				}
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				User parentFirstStudent = userService.getUser(getFirstStudentIdByParent.getFirstStudentId());
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				session.setAttribute("studentsInfo", studentsInfo);
+				session.setAttribute("firstStudent", parentFirstStudent);
 				mv.setViewName("redirect:/index");
 			}
 			System.out.println(session.getAttribute("user"));
 			System.out.println("Login okokgoodgood");
+
 			return mv; // 
 		} else {
 			System.out.println("LOGIN NOPE!!!!!!!!!!!!!!");
@@ -196,7 +222,7 @@ public class UserController {
 		return model;
 	}
 	
-	// 수정 후 화면
+	//
 	@RequestMapping(value="getUserView", method=RequestMethod.POST)
 	public ModelAndView updateUser(@ModelAttribute("User") User user) throws Exception {
 		
@@ -206,7 +232,7 @@ public class UserController {
 		return model;
 	}
 	
-	// 마이페이지 수정
+	//
 	@RequestMapping(value="updateUser", method = RequestMethod.GET)
 	public ModelAndView updateUser (@RequestParam("userId")String userId) throws Exception {
 		ModelAndView model = new ModelAndView();

@@ -102,5 +102,10 @@ public interface StudentsService {
 
 	// StudentsNote :: LIST
 	public Map<String, Object> listStudentsNote(Search search, String studentId) throws Exception;
-
+	
+	// listStudentsRecordByLessonName
+	public Map<String, Object> listStudentsRecordByLessonName(Search search, String lessonCode) throws Exception;
+	
+	//listStudentsRecordDistinct
+	//public Map<String, Object> listStudentsRecordDistinct(Search search, String teacherId) throws Exception;
 }

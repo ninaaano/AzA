@@ -182,5 +182,10 @@ public class UserDaoImpl implements UserDao {
 	public User checkPhone(User user) throws Exception {
 		return sqlSession.selectOne("UserMapper.checkPhone", user);
 	}
+	
+	@Override
+	public User firstStudentIdByParent(String parentId) throws Exception {
+		return sqlSession.selectOne("RelationMapper.firstStudentIdByParent", parentId);
+	}
 
 }

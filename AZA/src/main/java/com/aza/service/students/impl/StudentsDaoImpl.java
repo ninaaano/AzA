@@ -285,7 +285,19 @@ public class StudentsDaoImpl implements StudentsDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("CharacterMapper.getCheckStudentsCharacter",search);
 	}
-
+	
+	@Override
+	public List<Students> listStudentsRecordByLessonName(Search search, String lessonCode) throws Exception {
+		search.setLessonCode(lessonCode);
+		return sqlSessionTemplate.selectList("StudentsRecordMapper.listStudentsRecordByLessonName", search);
+	}
+	
+	/*
+	 * @Override public List<Students> listStudentsRecordDistinct(Search search,
+	 * String teacherId) throws Exception { search.setSearchId(teacherId); return
+	 * sqlSessionTemplate.selectList(
+	 * "StudentsRecordMapper.listStudentsRecordDistinct", search); }
+	 */
 
 
 

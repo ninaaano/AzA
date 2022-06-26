@@ -93,4 +93,7 @@ public interface PaperService {
 	//PaperHomeworkCheck :: UPDATE
 	public void updatePaperHomeworkCheck(int homeworkCode) throws Exception;
 	
+	//listPaperHomeworkByLessonName
+	public Map<String, Object> listPaperHomeworkByLessonName(Search search, String studentId, String lessonName) throws Exception;
+	
 }

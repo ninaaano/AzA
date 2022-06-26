@@ -105,4 +105,19 @@ public class PaperRestController {
 			return result;			
 		}
 		
+		@RequestMapping("listPaperHomeworkByLessonName")
+		public Map<String, Object> listPaperHomeworkByLessonName(HttpSession session, @RequestParam(required = false, value = "lessonName") String lessonName) throws Exception {
+			
+			System.out.println("/students/rest/listStudentsRecord");
+			
+			User dbUser = (User) session.getAttribute("user");		
+			String teacherId = dbUser.getUserId();
+			Search search = new Search();
+			search.setSearchId(dbUser.getUserId());
+			search.setSearchLessonName(lessonName);
+			
+			
+			return paperService.listPaperHomeworkByLessonName(search, dbUser.getUserId(), lessonName);			
+		}
+		
 }
