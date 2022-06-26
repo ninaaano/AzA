@@ -160,6 +160,18 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> listRelation(Search search, String parentId) throws Exception {
+		List<User> list = userDao.listRelation(search, parentId);
+		int totalCount = userDao.getListRelationTotalCount(search, parentId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+
 
 
 	@Override

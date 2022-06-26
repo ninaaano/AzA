@@ -69,4 +69,6 @@ public interface UserService {
 
 	public User checkPhone(User user)throws Exception;
 
+	Map<String, Object> listRelation(Search search, String parentId) throws Exception;
+
 }

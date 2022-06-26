@@ -67,5 +67,7 @@ public interface UserDao {
 	public void updatePassword(User user)throws Exception;
 	
 	User checkPhone(User user) throws Exception;
+	List<User> listRelation(Search search, String parentId) throws Exception;
+	int getListRelationTotalCount(Search search, String parentId) throws Exception;
 
 }

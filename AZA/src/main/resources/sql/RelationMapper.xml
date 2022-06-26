@@ -85,6 +85,22 @@
 		WHERE ROWNUM &lt; = #{endRowNum})
 		WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
 	</select>
+	
+	
+	<select id="listRelation" parameterType="search"
+		resultMap="relationSelectMap">
+		SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+		FROM ( SELECT * FROM relation
+		WHERE parent_id = #{searchId}
+		<if test="searchCondition == 0 and searchKeyword !='' ">
+			student_id = #{searchKeyword}
+		</if>
+		)inner_table
+		WHERE ROWNUM &lt; = #{endRowNum})
+		WHERE row_seq BETWEEN #{startRowNum} and #{endRowNum}
+	</select>
+	
 
 	<select id="getListRelationByStudentTotalCount" resultType="int">
 		SELECT COUNT(*)
@@ -100,6 +116,16 @@
 	</select>
 
 	<select id="getListRelationByParentTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT * FROM relation
+		WHERE parent_id = #{searchId}
+		<if test="searchCondition == 0 and searchKeyword !='' ">
+			student_id = #{searchKeyword}
+		</if>) countTable
+	</select>
+	
+	
+	<select id="getListRelationTotalCount" resultType="int">
 		SELECT COUNT(*)
 		FROM (SELECT * FROM relation
 		WHERE parent_id = #{searchId}

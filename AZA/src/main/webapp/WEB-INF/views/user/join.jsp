@@ -79,6 +79,16 @@ body>div.container {
    line-height: 50px;
 }
 
+.is_ok {
+   color: #6A82FB;
+   display: none;
+}
+
+.is_no {
+   color: red;
+   display: none;
+}
+
 </style>
 
 <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -151,14 +161,16 @@ body>div.container {
   <div class="input-group mb-4">
   <input type="text" class="form-control" placeholder="ex)01012345678" aria-label="phone" id="phone" name="phone" aria-describedby="button-addon2" required>
   <button class="btn btn-outline-secondary" type="button" id="phoneBtn" onclick="cert();" disabled="disabled">인증번호 받기</button>
-  <div id="phoneCheck"></div>
+ <!--  <div id="phoneCheck"></div> -->
 </div>
 
 <div class="input-group mb-3">
   <input type="text" class="form-control" id="certification" name="auth" placeholder="인증번호를 입력하세요" aria-label="auth" aria-describedby="button-addon2">
   <button class="btn btn-outline-secondary" type="button" id="sms_AuthBtn" onclick="smsAuthBtn();">인증번호 입력</button>
 </div>
+
 <div id="certCheck"></div>
+<span id="check" ></span>
 
 
 
@@ -492,62 +504,73 @@ body>div.container {
    function cert() {
        var phone = $("#phone").val();   
       
-         $.ajax({
-            type : 'POST',
-            url :'/user/rest/sendSMS/' + phone,
-            dataType : "json",
-                        
-            contentType: "application/json",
-            success : function(data) {
-               if(data.result  == "success"){
-                  $('#certCheck').text("인증 번호가 전송되었습니다.");
-                  $('#certCheck').css('color','blue');
-
-                  $("#sms_AuthBtn").attr("disabled",true);
-               }else {
-                  $('#certCheck').text("입력한 번호를 다시 확인해주세요.");
-                  $('#certCheck').css('color','red');
-                  $("#sms_AuthBtn").attr("disabled",true);
-               }
-            }
-         });
+       $.ajax({
+          type : 'POST',
+          url :'/user/rest/sendSMS/'+phone,
+          dataType : "json",
+                      
+          contentType: "application/json",
+          success : function(data) {
+             if(data.result  == "success"){
+                $('#certCheck').text("인증 번호가 전송되었습니다.");
+                $('#certCheck').css('color','blue');
+                $("#sms_AuthBtn").attr("disabled",true);
+             }else {
+                $('#certCheck').text("입력한 번호를 다시 확인해주세요.");
+                $('#certCheck').css('color','red');
+                $("#sms_AuthBtn").attr("disabled",true);
+             }
+          }
+       });
    }
    
    function smsAuthBtn() {
-/*      const phoneAuth  = $("#certification").val();
+      const phoneAuth  = $("#certification").val();
       const phoneNum = $("#phone").val();
-      console.log(phoneNum)
-      let url = "/user/rest/confirmCode/"+phoneNum+"/"+phoneAuth;
+
       $.ajax({
-         url: url,
+         url: '/user/rest/confirmCode/'+phoneNum+'/'+phoneAuth,//url,
          method: "GET",
          headers : {
                "Accept" : "application/json",
                "Content-Type" : "application/json"
            },
            dataType : "json",
-           success : function(data){
-              alert(data.result);              
-              $("#phone").attr("disabled","disabled");
-              $("#phoneBtn").attr("disabled","disabled");
-              
-           }
-      })
-      var userVal = $('#certification').val();
-      var certVal = $('#phone').val();
-   
-         if(userVal == certVal){ */
+         success : function(data){
+         console.log(data);
+            $("#phone").attr("disabled","disabled");
+            $("#phoneBtn").attr("disabled","disabled");
+         if(data.result == "success" ) {
             $('#certCheck').text("인증이 완료되었습니다.");
             $('#certCheck').css('color','blue');   
             $("#signup_btn").attr("disabled",false);
-/*         }else{
-            $('#certCheck').text("인증번호를 다시 확인해주세요");
-            $('#certCheck').css('color','red');
-            $("#signup_btn").attr("disabled",true);
-         } */
+         }else{
+             $('#certCheck').text("인증번호를 다시 확인해주세요");
+             $('#certCheck').css('color','red');
+             $("#signup_btn").attr("disabled",true);
+          }
+          
+ /*           if(phoneAuth == check){ 
+                $('#certCheck').text("인증이 완료되었습니다.");
+                $('#certCheck').css('color','blue');   
+                $("#signup_btn").attr("disabled",false);
+             }else{
+                $('#certCheck').text("인증번호를 다시 확인해주세요");
+                $('#certCheck').css('color','red');
+                $("#signup_btn").attr("disabled",true);
+             } */ 
+  
+      }
+      });
       
    }
-
+   /*      if(data.result  == "success") { //0이면 사용가능 아이디
+	$('.is_ok').css("display","inline-block");
+	   $('.is_no').css("display", "none");
+}else{
+	   $('.is_ok').css("display","none");
+	   $('.is_no').css("display", "inline-block");
+} */
 
    const checkStudent = _.debounce(async (id) => {
                          

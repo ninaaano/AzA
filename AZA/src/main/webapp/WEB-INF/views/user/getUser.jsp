@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>°³ÀÎÁ¤º¸Á¶È¸</title>
+<title>ê°œì¸ì •ë³´ì¡°íšŒ</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -36,17 +36,12 @@
 
 
 <style>
-
-
 header{
 display: flex;
 }
-
 *, body { 
 font-family: Pretendard, 'Noto Sans KR';
 }
-
-
 .form-horizontal{
  padding-left: 20px;
  margin-top: 20px;
@@ -54,8 +49,6 @@ font-family: Pretendard, 'Noto Sans KR';
  margin-left : 300px;
  line-height : 50px;
 }
-
-
 .btn-outline-primary, div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
     color: #6200ea;
     border-color: #6200ea;
@@ -70,8 +63,6 @@ font-family: Pretendard, 'Noto Sans KR';
     overflow: hidden;
     position: relative;
 }
-
-
 .btn-outline-danger {
     color: #d32f2f;
     border-color: #d32f2f;
@@ -86,8 +77,6 @@ font-family: Pretendard, 'Noto Sans KR';
     overflow: hidden;
     position: relative;
 }
-
-
 .btn-primary {
     color: #fff;
     background-color: #6200ea;
@@ -105,15 +94,12 @@ font-family: Pretendard, 'Noto Sans KR';
     border: none;
     padding: calc(0.40625rem + 1px) calc(1rem + 1px);
 }
-
 .text-center {
     text-align: center !important;
 }
-
 th {
     text-align: center;
 }
-
 .form-control {
     display: block;
     width: 100%;
@@ -150,15 +136,15 @@ margin-top: 0px;
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<script type="text/javascript">
 		
-	// ¼ö¾÷Ãß°¡ Âü°íÇÏ±â
-		//============= È¸¿øÁ¤º¸¼öÁ¤ Event  Ã³¸® =============	
+	// ìˆ˜ì—…ì¶”ê°€ ì°¸ê³ í•˜ê¸°
+		//============= íšŒì›ì •ë³´ìˆ˜ì • Event  ì²˜ë¦¬ =============	
 		 $( function() {
-				$("button:contains('È¸¿øÁ¤º¸¼öÁ¤')").on("click" , function() {
+				$("button:contains('íšŒì›ì •ë³´ìˆ˜ì •')").on("click" , function() {
 					self.location="/user/updateUser?userId=${user.userId}"
 				});
 			});
 	
-	//ÇĞ»ı ¾ÆÀÌµğ À¯È¿¼º °Ë»ç
+	//í•™ìƒ ì•„ì´ë”” ìœ íš¨ì„± ê²€ì‚¬
 			const checkStudent = _.debounce(async (id) => {
 		    	
 		    	var id = $("#firstStudentId").val();
@@ -169,12 +155,12 @@ margin-top: 0px;
 		    		data:{id},
 		    		success : function(cnt) {
 		    			if(cnt == 1) {
-		    				$('#certCheck2').text("È®ÀÎÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+		    				$('#certCheck2').text("í™•ì¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		    				$('#certCheck2').css('color','blue');	
 		    				
 		    			}
 		    			else {
-		    				$('#certCheck2').text("È®ÀÎµÇÁö ¾ÊÀº Á¤º¸ÀÔ´Ï´Ù.");
+		    				$('#certCheck2').text("í™•ì¸ë˜ì§€ ì•Šì€ ì •ë³´ì…ë‹ˆë‹¤.");
 		    				$('#certCheck2').css('color','red');
 		    				
 		    			}
@@ -182,23 +168,21 @@ margin-top: 0px;
 		    	});
 		    },2000);
 			
-		// ÀÚ³à Ãß°¡ ÀÌº¥Æ®
+		// ìë…€ ì¶”ê°€ ì´ë²¤íŠ¸
 		$(function(){
 			$("input[name=addStudentBtn]").click(function(){
-				if ($(this).val()=="ÀÚ³àÃß°¡"){
+				if ($(this).val()=="ìë…€ì¶”ê°€"){
 					$("#addStudentInput").show();
 				}
-
 			});
 	});
 		
-// Å»Åğ
+// íƒˆí‡´
 		
 		function quit(){
 			location.href = "/user/quit";
 		}
 		
-
 	</script>
 
 
@@ -218,7 +202,7 @@ face_2
 </span>  
 <i class="material-icons icon-xxl">face</i>  
                         <div class="container-xl px-5 text-center">
-                        <h1 class="text-white py-3 mb-0 display-6" id="aa">°³ÀÎÁ¤º¸¼öÁ¤</h1></div>
+                        <h1 class="text-white py-3 mb-0 display-6" id="aa">ê°œì¸ì •ë³´ìˆ˜ì •</h1></div>
                     </header>
                     <div class="container-l p-5 text-center" >
                         <div class="card card-raised">
@@ -226,7 +210,7 @@ face_2
                      
                      <div class="form-group">
 		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
-    margin-top: 10px;">¾Æ ÀÌ µğ</label>
+    margin-top: 10px;">ì•„ ì´ ë””</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" value="${user.userId }" readonly>
 		    </div>
@@ -238,7 +222,7 @@ face_2
 
 		  <div class="form-group">
 		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
-    margin-top: 10px;">ÀÌ ¸§</label>
+    margin-top: 10px;">ì´ ë¦„</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" value="${user.userName }" readonly>
 		    </div>
@@ -248,7 +232,7 @@ face_2
 
 		  <div class="form-group">
 		    <label class="col-sm-offset-1 col-sm-3 control-label" style="margin-bottom: 0px;
-    margin-top: 10px;">ÈŞ´ëÀüÈ­¹øÈ£</label>
+    margin-top: 10px;">íœ´ëŒ€ì „í™”ë²ˆí˜¸</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" value="${ !empty user.phone ? user.phone : ''}" readonly>
 		    </div>
@@ -256,20 +240,20 @@ face_2
 		
 		<br></br>    
                                 
-   <!-- ÇĞ»ı -->
+   <!-- í•™ìƒ -->
 		
 		
 		<c:if test="${user.role eq 'student'}">
 			
 			<div class="form-group">
-		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ±³</label>
+		    <label for="school" class="col-sm-offset-1 col-sm-3 control-label">í•™êµ</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="school" name="school" value="${user.school}" readonly>
 		    </div>
 		  </div>
 		
 		<div class="form-group">
-		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">ÇĞ³â</label>
+		    <label for="grade" class="col-sm-offset-1 col-sm-3 control-label">í•™ë…„</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="grade" name="grade" value="${user.grade}" readonly>
 		    </div>
@@ -278,12 +262,12 @@ face_2
 		</c:if>
 		
 		
-		<!-- ºÎ¸ğ -->                             
+		<!-- ë¶€ëª¨ -->                             
                                 
 		<c:if test="${user.role eq 'parent'}">
 
 
-			<input type="button" name="addStudentBtn" class="btn btn-outline-primary" value="ÀÚ³àÃß°¡" onclick='addStudentBtn()' />
+			<input type="button" name="addStudentBtn" class="btn btn-outline-primary" value="ìë…€ì¶”ê°€" onclick='addStudentBtn()' />
 			
 			
 			<div></div>
@@ -294,8 +278,8 @@ face_2
 	<br></br>
 		
 <div class="form-floating mb-3">
-  <input type="text" class="form-control" id="firstStudentId" name="firstStudentId" placeholder="ÀÚ³à ¾ÆÀÌµğ" oninput="checkStudent()">
-  <label for="floatingInput">ÀÚ³à ¾ÆÀÌµğ</label>
+  <input type="text" class="form-control" id="firstStudentId" name="firstStudentId" placeholder="ìë…€ ì•„ì´ë””" oninput="checkStudent()">
+  <label for="floatingInput">ìë…€ ì•„ì´ë””</label>
   <div class="form-group" id="certCheck2"></div>
 </div>
 
@@ -303,13 +287,13 @@ face_2
 
 
 <div class="form-floating">
-  <input type="text" class="form-control" id="relationName" name="relationName" placeholder="ÇĞ»ı°úÀÇ °ü°è">
-  <label for="floatingInput">ÀÚ³à¿ÍÀÇ °ü°è</label>
+  <input type="text" class="form-control" id="relationName" name="relationName" placeholder="í•™ìƒê³¼ì˜ ê´€ê³„">
+  <label for="floatingInput">ìë…€ì™€ì˜ ê´€ê³„</label>
 </div>
 			
 <br></br>
-			<input class="btn btn-outline-primary" type="submit" value="µî·Ï">
-			<input class="btn btn-outline-primary" type="reset" value="Ãë¼Ò" />
+			<input class="btn btn-outline-primary" type="submit" value="ë“±ë¡">
+			<input class="btn btn-outline-primary" type="reset" value="ì·¨ì†Œ" />
 			</div>
 			</form>
 
@@ -319,22 +303,22 @@ face_2
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">ÀÚ³à ¾ÆÀÌµğ</th>
-      <th scope="col">ÀÚ³à ÀÌ¸§</th>
-      <th scope="col">ÀÚ³à ÇĞ±³</th>
-      <th scope="col">ÀÚ³à ÇĞ³â</th>
-      <th scope="col">ÇĞ»ı°úÀÇ °ü°è</th>
+      <th scope="col">ìë…€ ì•„ì´ë””</th>
+      <th scope="col">ìë…€ ì´ë¦„</th>
+      <th scope="col">ìë…€ í•™êµ</th>
+      <th scope="col">ìë…€ í•™ë…„</th>
+      <th scope="col">í•™ìƒê³¼ì˜ ê´€ê³„</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>${studentsInfo.userId}</td>
+    <td>${studentsInfo.userId}</td>
       <td>${studentsInfo.userName}</td>
       <td>${studentsInfo.school}</td>
       <td>${studentsInfo.grade}</td>
- <c:forEach var="user" items="${list}">     
+<!--  <c:forEach var="user" items="${list}"> -->    
       <td>${user.relationName}</td>
-</c:forEach>      
+<!-- </c:forEach>      --> 
     </tr>
 
   </tbody>
@@ -347,8 +331,8 @@ face_2
 		                        
       	<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary">È¸¿øÁ¤º¸¼öÁ¤</button>
-	  			<button type="button" class="btn btn-outline-danger btn-sm" onclick="quit()">Å»Åğ</button>
+	  			<button type="button" class="btn btn-primary">íšŒì›ì •ë³´ìˆ˜ì •</button>
+	  			<button type="button" class="btn btn-outline-danger btn-sm" onclick="quit()">íƒˆí‡´</button>
 	  			
 	  		</div>
 		</div>   

@@ -33,6 +33,8 @@ public class UserRestController {
 		@Qualifier("userServiceImpl")
 		private UserService userService;
 		//setter Method 구현 않음
+		String Amessage;
+		String Aphone;
 			
 		public UserRestController(){
 			System.out.println(this.getClass());
@@ -40,7 +42,7 @@ public class UserRestController {
 		
 		@RequestMapping(value="getUser", method=RequestMethod.POST)
 		public User getUser(HttpSession session) throws Exception {
-			System.out.println("/user/rest/getUser : 인자 없음");
+			System.out.println("/user/rest/getUser");
 			return (User) session.getAttribute("user");
 		}
 		
@@ -225,39 +227,56 @@ public class UserRestController {
 //			int num = userService.phoneAuth();
 //			String message = "AZA에서 보낸 인증번호는 ["+num+"] 입니다."; // 아니 왜 문자열 넣으면 400에러 뜨냐?
 			User user = userService.checkPhone(vo);
+			String message = Integer.toString(userService.phoneAuth());
 
 			if(user == null) { 
 				model.addAttribute("result", "success");
-				String message = Integer.toString(userService.phoneAuth());
+				//String message = Integer.toString(userService.phoneAuth());
 				userService.sendSMS(phone, message);
 				System.out.println("checkPhone");
 			} else { 
 				model.addAttribute("result", "fail");
 				System.out.println("NO CHECK PHONE");
 			}
+			Amessage = message;
+			Aphone = phone;
 			System.out.println("<<CHECK PHONE>>");
 		
 		}
 		
-		@RequestMapping(value="/confirmCode/{confirm}/{phoneAuth}")
-		public JSONObject confirmCode(@PathVariable String confirm,
-								@PathVariable Integer phoneAuth, HttpSession session) throws Exception {
-			
+		@RequestMapping(value="/confirmCode/{phoneNum}/{phoneAuth}")
+		public JSONObject confirmCode(@PathVariable String phoneNum,
+								@PathVariable String phoneAuth,HttpSession session,Model model) throws Exception {
+			System.out.println("폰번 :"+phoneNum);
+			System.out.println("인증 :"+phoneAuth);
+
+			System.out.println("1");
 			JSONObject json = new JSONObject();
-			int num =(Integer)session.getAttribute(confirm);			
-			String userId = (String)session.getAttribute("userId");
-			System.out.println("send : "+phoneAuth);
-			System.out.println("recall : "+num);
-			if(phoneAuth == num) {
-				json.put("result", "인증완료");
-				json.put("userId", userId);
-				session.removeAttribute(confirm);
-			} else {
-				json.put("result", "인증실패");
-			}
+			System.out.println("2"); 
+//			int num = (Integer)session.getAttribute(phoneNum); // 얘가 문제임
+//			int auth = (Integer)session.getAttribute(phoneAuth);
+//			User dbUser = (User) session.getAttribute("user");
+					
+//			message2 = userService.sendSMS(phone, message);
+//			String userId = (String)session.getAttribute("userId");			
+			System.out.println("3");
+			System.out.println("phoneNum: "+ phoneNum);
+			System.out.println("phoneAuth: "+ phoneAuth);
+			System.out.println("Aphone: "+ Aphone);
+			System.out.println("Amessage: "+ Amessage);
+//			System.out.println("recall : "+userId);
+			if(phoneNum.equals(Aphone) && phoneAuth.equals(Amessage)) {
+				System.out.println("성공");
+				json.put("result", "success");
 			
+			} else {
+				System.out.println("phoneNum: "+ phoneNum);
+				System.out.println("Aphone: "+ Aphone);
+				System.out.println("실패");
+				json.put("result", "인증실패");
+			}	
 			return json;
 		}
-	
+
 	}
 

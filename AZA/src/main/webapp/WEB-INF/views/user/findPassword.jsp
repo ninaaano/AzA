@@ -184,8 +184,8 @@
 				document.findform.action="update_password";
 				document.findform.submit();
 				 alert("비밀번호가 변경되었습니다. 로그인 화면으로 이동합니다.");
-				 self.close();
-				 self.location = "http://127.0.0.1:8080/"
+				 //self.close();
+				 //self.location = "http://127.0.0.1:8080/"
 			}
 			
 		}

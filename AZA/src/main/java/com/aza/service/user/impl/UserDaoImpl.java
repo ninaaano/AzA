@@ -150,6 +150,18 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectOne("RelationMapper.getRelationTotalCount",search);
 	}
 	
+	@Override
+	public List<User> listRelation(Search search, String parentId) throws Exception {
+		search.setSearchId(parentId);		
+		return sqlSession.selectList("RelationMapper.listRelation", search);
+	}
+	
+	@Override
+	public int getListRelationTotalCount(Search search, String parentId) throws Exception {
+		search.setSearchId(parentId);
+		return  sqlSession.selectOne("RelationMapper.getListRelationTotalCount", search);
+	}
+	
 	
 
 	@Override
