@@ -95,6 +95,15 @@ public class PaperDaoImpl implements PaperDao {
 //	}
 	
 	@Override
+	public List<Paper> listPaperHomeworkByLessonName(Search search, String studentId, String lessonName) throws Exception {
+		
+		search.setSearchId(studentId);
+		search.setSearchLessonName(lessonName);
+		
+		return sqlSession.selectList("HomeworkMapper.listPaperHomeworkByLessonName",search);
+	}
+	
+	@Override
 	public List<Paper> listPaperHomeworkByStudent(Search search, String studentId) throws Exception {
 		
 		search.setSearchId(studentId);

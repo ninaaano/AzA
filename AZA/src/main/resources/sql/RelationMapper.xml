@@ -113,5 +113,11 @@
 				FROM RELATION R, USERS U
 				WHERE U.user_Id = R.student_id and R.parent_id = #{searchId}
 	</select>
+	
+	<select id="firstStudentIdByParent" parameterType="string" resultMap="relationSelectMap">
+		SELECT student_id FROM relation
+		WHERE parent_id = #{userId} AND ROWNUM = 1
+		ORDER BY student_id
+	</select>
 
 </mapper>

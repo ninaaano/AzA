@@ -71,5 +71,7 @@ public interface UserService {
 	int confirmCode(String code) throws Exception;
 
 	public User checkPhone(User user)throws Exception;
+	
+	public User firstStudentIdByParent(String parentId) throws Exception;
 
 }

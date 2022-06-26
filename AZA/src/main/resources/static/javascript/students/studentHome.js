@@ -275,6 +275,35 @@ function homeworkLoad() {
 	})
 }
 
+/*
+function homeworkChangeLoad(){
+	calSysdate()
+	
+	$(function () {
+	$('#selectLessons').change(function() {
+		var selectedLessonName = $('option:selected').val().trim();
+		//alert("=====>"+lessonName);
+		 $.ajax(
+				{url : "/paper/rest/listPaperHomeworkByLessonName/"+selectedLessonName ,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(resultHomework) {
+						console.log(resultHomework);
+						makeHomeworkTimeTable(resultHomework);
+						
+					}
+					
+				}		
+			)			
+		})			
+	})
+}
+*/
+
 
 function makeTimeTable(result) {
    calSysdate()
@@ -308,21 +337,7 @@ function makeHomeworkTimeTable(resultHomework) {
 	$('#currentHomeworkList').empty();
 	
 	$('#curDate').append(`<div class="fw-bold">🙃 ${curMonth}월  ${curDate}일 과제 🙃</div>`);
-	
-	/*
-	var homeworkTitle = resultHomework.homeworkTitle;
-	console.log(homeworkTitle);
-	var homeworkCode = resultHomework.homeworkCode;
-	var homeworkCheck = resultHomework.homeworkCheck;
-	
-	var newDiv = `<div>
-				  <input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled="">
-				  <input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked="" disabled="">
-				  <div class="col-6 me-2 text-muted">${homeworkTitle}</div>
-				  </div>`;
-	
-	$('#currentHomeworkList').append(newDiv);
-	*/				
+				
 	for(var i=0; i<resultHomework.list.length; i++){
     
 	var homeworkTitle = resultHomework.list[i].homeworkTitle;

@@ -75,11 +75,11 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 *-ms-overflow-style: {none;
-   
+	
 }
 
 *::-webkit-scrollbar {
-   display: none;
+	display: none;
 }
 
 </style>
@@ -91,33 +91,33 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 /* window.onload = function () { 
-   
-   $.ajax(
-         {url : "/paper/rest/listPaperHomework/" ,
-            method : "GET" ,
-            dataType : "json" ,
-            headers : {
-               "Accept" : "application/json",
-               "Content-Type" : "application/json"
-            },success : function(JSONData , status) {
-               console.log(JSONData.list[0].homeworkTitle);
-               console.log(status);
-               alert(JSONData.list.length);
-               
-               for(var i=0; i<JSONData.list.length; i++){
+	
+	$.ajax(
+			{url : "/paper/rest/listPaperHomework/" ,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},success : function(JSONData , status) {
+					console.log(JSONData.list[0].homeworkTitle);
+					console.log(status);
+					alert(JSONData.list.length);
+					
+					for(var i=0; i<JSONData.list.length; i++){
                         
-                  var homeworkTitle = JSONData.list[i].homeworkTitle;
-                  var newDiv = '<div><input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled=""><input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked="" disabled=""><div class="col-6 me-2 text-muted">${homeworkTitle}</div></div>';
-            
-                  $('#currentHomeworkList').append(newDiv);
-                  
+						var homeworkTitle = JSONData.list[i].homeworkTitle;
+						var newDiv = '<div><input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled=""><input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked="" disabled=""><div class="col-6 me-2 text-muted">${homeworkTitle}</div></div>';
+				
+						$('#currentHomeworkList').append(newDiv);
+						
                         }
-               
-            }
+					
+				}
 
-         }      
-   
-   )
+			}		
+	
+	)
 
 } */
 
@@ -132,42 +132,42 @@ font-family: Pretendard, 'Noto Sans KR';
 
 <body class="nav-fixed bg-light mt-5">
 
-   <!-- Layout content-->
-   <div id="layoutDrawer_content">
+	<!-- Layout content-->
+	<div id="layoutDrawer_content">
 
 
-      <div class="container-xl px-5">
+		<div class="container-xl px-5">
 
-         <div class="row" style="">
-            <div class="col-6">
-               <div id="calendar" class="m-0"></div>
-            </div>
+			<div class="row" style="">
+				<div class="col-8">
+					<div id="calendar" class="m-0"></div>
+				</div>
 
 
 
-            <div class="col-6">
-               <div class="">
-                  <div id="lessonTimeTable" class="col-12 mb-5 mt-2">
-                     <div class="card card-raised overflow-hidden h-100">
-                        <div class="card-header bg-primary text-white">
-                           <div id="curDate"
-                              class="d-flex justify-content-between align-items-center"></div>
-                        </div>
-                        <div class="card-body bg-transparent p-0">
-                           <div class="list-group list-group-flush">
-                              <div
-                                 class="list-group-item d-flex justify-content-between align-items-center">
-                                 <div class="col-6 caption font-monospace text-muted">오늘의 과제</div>
-                                 <div class="col-6 caption text-muted ms-2">체크</div>
-                              </div>
-                              <div id="currentHomeworkList"></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+				<div class="col-4">
+					<div class="">
+						<div id="lessonTimeTable" class="col-12 mb-5 mt-2">
+							<div class="card card-raised overflow-hidden h-100">
+								<div class="card-header bg-primary text-white">
+									<div id="curDate"
+										class="d-flex justify-content-between align-items-center"></div>
+								</div>
+								<div class="card-body bg-transparent p-0">
+									<div class="list-group list-group-flush">
+										<div
+											class="list-group-item d-flex justify-content-between align-items-center">
+											<div class="col-6 caption font-monospace text-muted">자녀 과제 목록</div>
+											<div class="col-6 caption text-muted ms-2">체크</div>
+										</div>
+										<div id="currentHomeworkList"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
     <!--       <div class="modal fade" id="calendarModal" tabindex="-1"
@@ -199,6 +199,7 @@ font-family: Pretendard, 'Noto Sans KR';
                         onclick="javascript:allSave();">전체저장</button>
                   </div>
 
+
                </div>
             </div>
          </div> -->
@@ -213,26 +214,27 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 
-   </div>
-   
-   <!-- Footer-->
-   <footer>
-   </footer>
 
-   <script
-      src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
-      crossorigin="anonymous"></script>
-   <!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
-   <script src="/resources/javascript/common/prism.js"></script>
-   <script src="/resources/javascript/common/material.js"></script>
-   <script src="/resources/javascript/common/scripts.js"></script>
-   <script src="https://kit.fontawesome.com/57ea3feb1d.js"
-      crossorigin="anonymous"></script>
-   <!--    <script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
-   <script type="text/javascript">
-      
-   </script>
+	</div>
+	
+	<!-- Footer-->
+	<footer>
+	</footer>
+
+	<script
+		src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
+	<script src="https://kit.fontawesome.com/57ea3feb1d.js"
+		crossorigin="anonymous"></script>
+	<!-- 	<script src="/resources/javascript/common/charts/demos/dashboard-chart-area-light-demo.js"></script> -->
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>

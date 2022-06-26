@@ -63,8 +63,7 @@ public class StudentsRestController {
 
 	public StudentsRestController() {
 		System.out.println(this.getClass());
-	}
-	
+	}	
 	
 	// STUDENTS_RECORD ::
 	@RequestMapping("listStudentsRecord")
@@ -270,6 +269,21 @@ public class StudentsRestController {
 		
 	}
 	
+	//Students record by lessonName
+	@RequestMapping("listStudentsRecordByLessonName/{lessonCode}")
+	public Map<String, Object> listStudentsRecordByLessonName(@PathVariable(required = false, value = "lessonCode") String lessonCode) throws Exception {
+		
+		System.out.println("/students/rest/listStudentsRecordByLessonName");
+		System.out.println("lessonCode=>"+lessonCode);
+		
+		Search search = new Search();
+		search.setSearchLessonName(lessonCode);
+		
+		Map<String, Object> map = studentsService.listStudentsRecordByLessonName(search, lessonCode);
+		System.out.println("=====>======>====>"+map);
+		
+		return map;
+	}
 	
 	@RequestMapping(value = {"listStudentsExam", "listStudentsExam/{studentId}"})
 	public Map<String, Object> listStudentsExam(HttpSession session, @RequestBody(required = false) Students students, @PathVariable(value = "studentId", required = false) String kidId) throws Exception{
@@ -390,7 +404,7 @@ public class StudentsRestController {
 			
 		}
 		
-		return result;			
+		return result;
 	}
 
 }

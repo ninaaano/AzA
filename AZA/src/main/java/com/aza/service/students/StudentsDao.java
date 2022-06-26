@@ -123,5 +123,11 @@ public interface StudentsDao {
 
 	// StudentsNote :: Total Count
 	public int getStudentsNoteTotalCount(Search search, String studentId) throws Exception;
+	
+	// listStudentsRecordByLessonName
+	public List<Students> listStudentsRecordByLessonName(Search search, String lessonCode) throws Exception;
+	
+	//listStudentsRecordDistinct
+	//public List<Students> listStudentsRecordDistinct(Search search, String teacherId) throws Exception;
 
 }
