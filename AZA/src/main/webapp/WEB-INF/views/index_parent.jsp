@@ -122,14 +122,14 @@
 								aria-expanded="false">
 								<i class="material-icons text-primary">person</i>
 							</button>
-							<ul class="dropdown-menu dropdown-menu-end mt-3"
-								aria-labelledby="dropdownMenuProfile">
-								<li><a class="dropdown-item" href="#"
-									data-url='/user/getUser'> <i
-										class="material-icons leading-icon text-primary">person</i>
-										<div class="me-3">마이페이지</div>
-								</a></li>
-								<li><hr class="dropdown-divider" /></li>
+							 <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="dropdownMenuProfile">
+								
+				 <li class="top_nav" data-url='/user/getUser'>
+                     <a class="dropdown-item" href="#" data-url='/user/getUser'> 
+                     <i class="material-icons leading-icon text-primary">person</i>
+                           <div class="me-3">마이페이지</div>
+                     </a></li>
+                     <li><hr class="dropdown-divider" /></li>
 								<li><a class="dropdown-item" href="/user/logout"> <i
 										class="material-icons leading-icon text-primary">logout</i>
 										<div class="me-3">Logout</div>

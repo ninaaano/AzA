@@ -320,6 +320,17 @@ public class UserController {
 		
 		return new ModelAndView("redirect:/user/updateRelation?relationCode="+user.getRelationCode());
 	}
+	
+	@RequestMapping(value="listRelation",method=RequestMethod.GET)
+	public ModelAndView listRelation (@RequestParam("parentId")String parentId,HttpSession session) throws Exception{
+		
+		Search search = new Search();
+		int totalCount = (int) userService.listRelation(search, parentId).get("totalCount");
+		search.setCurrentPage(1);
+		search.setPageSize(totalCount);
+		
+		return new ModelAndView("/user/listRelation","user",userService.listRelation(search, parentId));
+	}
 
 	// ID search start 1. page
 		@RequestMapping(value="findId")
@@ -376,8 +387,8 @@ public class UserController {
 			vo.setUserId(id);
 			System.out.println(vo);
 			userService.updatePassword(vo);
-			System.out.println("WHY AN NA WA");
-			return "user/findPassword";
+			System.out.println("updatePassword good :3");
+			return "/login";
 		}
 
 }

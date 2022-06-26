@@ -74,4 +74,7 @@ public interface UserDao {
 	public User firstStudentIdByParent(String parentId) throws Exception;
 	
 	
+	List<User> listRelation(Search search, String parentId) throws Exception;
+	int getListRelationTotalCount(Search search, String parentId) throws Exception;
+
 }

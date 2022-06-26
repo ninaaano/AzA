@@ -74,4 +74,6 @@ public interface UserService {
 	
 	public User firstStudentIdByParent(String parentId) throws Exception;
 
+	Map<String, Object> listRelation(Search search, String parentId) throws Exception;
+
 }
