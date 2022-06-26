@@ -68,7 +68,6 @@ public class PaymentRestController {
 			search.setPageSize(totalCount);
 			
 			result = paymentService.listPaymentBystudent(search);
-			System.out.println("student list => " + result);
 			
 		}else if(user.getRole().equals("teacher")) {
 			totalCount = (int) paymentService.listPayment(search).get("totalCount");
@@ -97,16 +96,6 @@ public class PaymentRestController {
 		
 	}
 
-//	@RequestMapping(value = "updatePayment", method = RequestMethod.GET)
-//	public void updatePayment(@ModelAttribute("payment") Payment payment) throws Exception{
-//		System.out.println("rest/getPayment : GET");
-//		
-//		 payment = paymentService.getPayment(payment.getPayCode());
-//		 payment.setCheckPay('Y');		
-//		 payment.setImpUid(payment.getImpUid());		
-//		 payment.setPayer(payment.getPayer());		
-//	}	
-	
 	@RequestMapping("complete")
 	public ResponseEntity<String> completePayment
 	(HttpSession session, Payment payment)throws Exception{
@@ -147,7 +136,6 @@ public class PaymentRestController {
 			
 		}catch (Exception e) {
 			paymentService.paymentCancle(token, payment.getImpUid(), amount, "결제 오류");
-			System.out.println("Cencle..?");
 			 return new ResponseEntity<String>("결제 에러", HttpStatus.BAD_REQUEST);
 		}
 		

@@ -51,23 +51,10 @@
 <script type="text/javascript" charset="euc-kr">
 $(function() {
 	$( "button.btn.btn-raised-info:contains('등록')" ).on("click" , function() {
-		alert("등록 click");
-
 		addStudentsCharacter();
 	});
 });
 
-/*    $(function() {
-	$( '#studentName' ).on('change' , function() {
-		
-		var studentName = $('option:selected').text().trim()
-		var studentId =$('option:selected').val().trim();
-		
-		alert("id=>"+studentId);
-		alert("name=>"+studentName); 
-
-	});
-});    */
 
 $(function () {
 	$('#studentName').on('change', function() {

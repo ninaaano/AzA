@@ -18,11 +18,10 @@ window.addEventListener('DOMContentLoaded', event => {
             var payments = result.list;
             var paymentData = [];
             var role = sessionStorage.getItem('role');
-            
+ 
             
             payments.map((payment, i) => {
                console.log(payment);
-               
                
                var temp = [];
                
@@ -75,7 +74,7 @@ window.addEventListener('DOMContentLoaded', event => {
             if(sessionStorage.getItem("role") == 'teacher') {
              var columns = [{
                select: 7,
-                  render: realPayment,
+               render: realPayment,
                hidden: true,
             }];
             
@@ -127,9 +126,9 @@ window.addEventListener('DOMContentLoaded', event => {
          columns:[
             {
                select: 7,
-                  render: realPayment,
+               render: realPayment,
                
-         }
+           }
                   
          
          ],

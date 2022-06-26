@@ -62,7 +62,7 @@ function requestPay(){
 	var payCode = $("#payCode").val();
 	var payer = $("#payer").val();
 	var phone = $("#phone").val();
-	alert(payCode);
+
 	
 	
 	
@@ -117,7 +117,7 @@ function requestPay(){
 	        msg += '에러내용 : ' + rsp.error_msg;
         }
     
-        alert(msg);
+        //alert(msg);
     
     })
 };
