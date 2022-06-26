@@ -262,7 +262,6 @@ font-family: Pretendard, 'Noto Sans KR';
 								 	 <button id="deleteBtn" onclick="deleteBtn();" class="btn btn-outline-primary">삭제</button>
 								 	 <button id="goBackBtn" onclick="goBackBtn();" class="btn btn-outline-primary">이전</button>
 								 	 <button id="cancelBtn" onclick="cancelBtn();" class="btn btn-outline-primary">취소</button>
-								 	 <button id="goListBtn" onclick="goListBtn();" class="btn btn-outline-primary">목록</button>
 								</div>
                         </div>
                         <hr class="my-5" />
