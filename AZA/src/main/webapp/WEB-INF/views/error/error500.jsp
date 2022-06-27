@@ -4,16 +4,18 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ERROR : 403</title>
+<title>ERROR : 500</title>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/main.css" rel="stylesheet">
 </head>
 <style>
-	body { margin: 0; padding-bottom: 3rem; font-family: 'Varela Round', sans-serif; }
+	body { margin: 0; padding-bottom: 3rem; font-family: Pretendard, 'Noto Sans KR'; }
 </style>
-<html>
 <body>
  <!-- Layout wrapper-->
         <div id="layoutError">
@@ -26,11 +28,11 @@
                             <div class="col-lg-6">
                                 <!-- Error message content-->
                                 <div class="text-center my-5 mt-sm-10">
-                                    <img class="img-fluid mb-4" src="/resources/img/eerror-500.svg" alt="500 Error Image by Freepik Storyset" style="max-width: 30rem" />
-                                    <p class="lead">Internal server error.</p>
+                                    <img class="img-fluid mb-4" src="/resources/img/error-500.svg" alt="500 Error Image by Freepik Storyset" style="max-width: 30rem" />
+                                    <p class="lead subFont">!!!네트워크 오류!!!</p>
                                     <a class="btn btn-primary" href="/">
                                         <i class="material-icons leading-icon">arrow_back</i>
-                                        Return to Dashboard
+                                        메인 페이지로
                                     </a>
                                 </div>
                             </div>
@@ -45,12 +47,7 @@
                 <footer class="py-4 mt-auto border-top" style="min-height: 74px">
                     <div class="container-xl px-5">
                         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-sm-between small">
-                            <div class="me-sm-2">Copyright &copy; Your Website 2021</div>
-                            <div class="d-flex ms-sm-2">
-                                <a class="text-decoration-none" href="#!">Privacy Policy</a>
-                                <div class="mx-1">&middot;</div>
-                                <a class="text-decoration-none" href="#!">Terms &amp; Conditions</a>
-                            </div>
+                            <div class="me-sm-2">Copyright &copy; CANLC 2022</div>
                         </div>
                     </div>
                 </footer>

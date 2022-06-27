@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>수업 과제</title>
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AzA : 과제 목록 조회</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -36,7 +36,7 @@
 	rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <!-- Load main stylesheet-->
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 
 <link rel="stylesheet"
@@ -75,12 +75,6 @@ font-family: Pretendard, 'Noto Sans KR';
 
 
 <script type="text/javascript">
-/* $(function(){
-	$('#lessonNamee').on("click", function(){
-		self.location ="/paper/managePaperHomework?homeworkCode="+$(this).attr('homeworkCode');
-	})
-}); */
-
 window.onload = function () { 
 	
 	if(${user.role eq 'teacher'}){
@@ -129,16 +123,15 @@ $(function() {
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="me-4">
                                         <h2 class="display-6 mb-0">과제 목록</h2>
-                                        <div class="card-text">Homework List</div>
+                                        <div class="card-text">ASSGINMENT LIST</div>
                                     </div>
                                 </div>
                             </div>
                             <br/>
-                            
+                            <div align="right"  style="margin-right: 30px">
+	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary btn-sm text-center"><i class="bi bi-plus-lg mr-0"></i>과제 등록</button>
+	      					</div>                           
 		                    <div class="card-body p-4">		
-	                            <div style="margin: 0px 0px 20px 0px">
-		      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">과제 등록</button>
-		      					</div>
 		                        <!-- Simple DataTables example-->
 		                        <table id="datatablesSimpleHomeworkList">
 		                        
@@ -151,8 +144,6 @@ $(function() {
                 </main>
 	<!-- Footer-->
 	<footer>
-		<%-- <button type="button" id="open-messagePopup" class="btn float btn-lg btn-icon"><i class="material-icons">mail_outline</i></button>
-		<jsp:include page="/WEB-INF/views/common/home.jsp" /> --%>
 	</footer>
 	</div>
 
@@ -160,107 +151,11 @@ $(function() {
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
 		crossorigin="anonymous"></script>
+	
 	<script src="/resources/javascript/common/prism.js"></script>
 	<script src="/resources/javascript/common/material.js"></script>
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-demo2.js"></script>
-<%-- 	<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-        <h1 class="display-4 mb-0">과 제 목 록</h1>
-        <div class="text-muted">Homework List</div>
-    </div>
-    
-<form>	
-		<div class="card-body p-4" style="margin: 20px 20px 20px 20px">
-
-            <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-            	<div class="dataTable-top">
-	      			<div>
-	      				<button id="addBtn" type="button" class="btn btn-outline-primary">과제 등록</button>
-	      			</div>
-	      			<table align="right">
-					    <tr>
-							  <td>
-							    <select class="btn btn-outline-primary dropdown-toggle" id="searchCondition" name="searchCondition" >
-									<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>수업명</option>
-									<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>학생 이름</option>
-								</select>
-							  </td>
-							  
-							  <td>
-			    			 	<input class="dataTable-input" type="text" aria-label="Text input with dropdown button" 
-			    			 			id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력하세요"
-			    			 			 value="${! empty search.searchKeyword ? search.searchKeyword : "" }">
-							  </td>
-							  <td>
-							  <button type="button" class="btn btn-outline-primary" type="submit" id="searchHomework">검색</button>
-							  </td>
-							  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-							  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-							  
-				    	</tr>	
-					</table>
-
-      			</div>
-      			<div class="dataTable-container">
-	      			<table id="datatablesSimple" class="dataTable-table">
-		                <thead>
-		                    <tr>
-		                    	
-		                    	<th data-sortable="" style="width: 5%;">
-		                    		<a href="#" class="dataTable-sorter">No.</a>
-	                    		</th>
-	                    		<th data-sortable="" style="width: 16%;">
-	                    			<a href="#" class="dataTable-sorter">수업명</a>
-	                   			</th>
-	                   			<th data-sortable="" style="width: 15%;">
-	                   				<a href="#" class="dataTable-sorter">과제 제목</a>
-	                  			</th>
-	                  			<th data-sortable="" style="width: 15%;">
-	                  				<a href="#" class="dataTable-sorter">학생 이름</a>
-	                 			</th>
-	                 			<th data-sortable="" style="width: 20%;">
-	                 				<a href="#" class="dataTable-sorter">등록 날짜</a>
-	                			</th>
-	                			<th data-sortable="" style="width: 14%;">
-	                 				<a href="#" class="dataTable-sorter">마감 날짜</a>
-	                			</th>
-	                			<th data-sortable="" style="width: 10%;">
-	                 				<a href="#" class="dataTable-sorter">과제 제출</a>
-	                			</th>
-	               			</tr>
-		                </thead>
-		                
-               			<tbody>
-            				<c:set var="i" value="0"/>			
-								<c:forEach var="paper" items="${list}">			
-								<c:set var="i" value="${i+1}" />
-								<tr>
-									<td >${i}</td>
-									<td >${paper.lessonName}</td>
-									<td id="homeworkTitlee" homeworkCode="${paper.homeworkCode}">${paper.homeworkTitle}</td>
-									<td >${paper.studentName}</td>
-									<td >${paper.homeworkCreateAt}</td>
-									<td >
-										<fmt:parseDate value="${paper.homeworkDueDate}" var="homeworkDueDate" pattern="yyyy-MM-dd HH:mm:ss" />
-										<fmt:formatDate value="${homeworkDueDate}" pattern="yyyy/MM/dd" />
-									</td>
-										<c:choose>
-											<c:when test="${paper.homeworkCheck eq '1'}">
-												<td><span class="badge bg-primary"> 완료 </span></td>
-											</c:when>
-											<c:otherwise>
-												<td><span class="badge bg-primary">과제 미완료 ${paper.homeworkCheck}</span></td>
-											</c:otherwise>
-										</c:choose>
-								</tr>
-							</c:forEach>
-               			</tbody>
-	              	</table>
-              	</div>
-         	</div>
-        </div>
-</form>	        
- --%>
 
 </body>
 </html>

@@ -100,8 +100,6 @@ function examFormHandler() {
 	$("#studentsExamFormOpenBtn").removeClass('hidden');
 	$('.valCheck').addClass('hidden');	
 	}
-	
-
 }
 
 
@@ -192,9 +190,6 @@ function updateFormHandler(examCode) {
 	
 	
 }
-
-
-
 
 // 과목별 점수 가져오기
 function listExamBySubject(subject, studentId) {

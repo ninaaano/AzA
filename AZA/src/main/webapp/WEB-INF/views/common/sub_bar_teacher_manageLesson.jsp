@@ -70,6 +70,7 @@
 *::-webkit-scrollbar {
 	display: none;
 }
+::-webkit-scrollbar { display: none !important; }
 </style>
 <link href="/resources/css/styles.css" rel="stylesheet">
 <link href="/resources/css/common.css" rel="stylesheet">

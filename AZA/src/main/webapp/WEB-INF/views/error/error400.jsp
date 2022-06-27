@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ERROR : 404</title>
+<title>ERROR : 400</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
 </style>
 <body>
  <!-- Layout wrapper-->
-        <div id="layoutError">
+<div id="layoutError">
             <!-- Layout content-->
             <div id="layoutError_content">
                 <!-- Main page content-->
@@ -28,10 +28,11 @@
                             <div class="col-lg-6">
                                 <!-- Error message content-->
                                 <div class="text-center my-5 mt-sm-10">
-                                    <img class="img-fluid mb-4" src="/resources/img/error-404.svg" alt="403 Error Image by Freepik Storyset" style="max-width: 30rem" />
-                                    <p class="lead subFont">잘못된 주소를 입력하셨습니다</p>
+                                    <img class="img-fluid mb-4" src="assets/img/illustrations/error-400.svg" alt="400 Error Image by Freepik Storyset" style="max-width: 30rem">
+                                    <p class="lead">잘못된 주소입니다...</p>                                   
                                     <a class="btn btn-primary" href="/">
-                                        메인 페이지로
+                                        <i class="material-icons leading-icon">arrow_back</i>
+                                       	메인 페이지로
                                     </a>
                                 </div>
                             </div>

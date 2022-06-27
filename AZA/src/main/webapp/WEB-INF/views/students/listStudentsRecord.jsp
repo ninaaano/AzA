@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Aza : main</title>
+<title>AzA : 학생 목록 조회</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>

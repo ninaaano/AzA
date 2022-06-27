@@ -18,21 +18,13 @@
 		<association property="teacherId"  javaType="lesson">
 			<id property="teacherId" column="teacher_id" jdbcType="VARCHAR"/>
 		</association>
-		
-<!-- 		<association property = "lessonName" javaType="lesson">
-			<id property = "lessonName" column="lesson_name" jdbcType="VARCHAR"/>
-		</association>
-		
-		<association property = "studentName" javaType="students">
-			<id property = "studentName" column="student_name" jdbcType="VARCHAR"/>
-		</association> -->
 	</resultMap>
 
 
 	<!-- HOMEWORK :: INSERT -->
 	<insert id="addPaperHomework">
 		INSERT INTO homework(homework_code, student_id, student_name, lesson_code, lesson_name, homework_title,
-		homework_contents, homework_due_date, homework_create_at)
+		homework_contents, homework_due_date, homework_create_at, homework_check)
 		VALUES(seq_homework_homework_code.NEXTVAL,
 		 		 <!-- (SELECT user_id FROM users WHERE user_name = #{studentName}), -->
 		 		 #{studentId}, 
@@ -45,7 +37,8 @@
 		 		 #{homeworkTitle},
 		 		 #{homeworkContent},
 		 		 #{homeworkDueDate},
-		 		 TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS')
+		 		 TO_CHAR(sysdate, 'yyyy/mm/dd HH24:MI:SS'),
+		 		 0
 		 )
 	</insert>
 	

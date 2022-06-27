@@ -14,7 +14,6 @@ encoding//src/main/java/com/aza/web/students/StudentsRestController.java=EUC-KR
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/javascript/common/datatables/datatables-simple-demo3.js=UTF-8
 encoding//src/main/resources/static/javascript/students/studentsUI.js=UTF-8
-encoding//src/main/resources/static/smarteditor/SmartEditor2Skin.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/lesson/getLesson.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/lesson/listLesson.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/lesson/manageLessonBook.jsp=EUC-KR
