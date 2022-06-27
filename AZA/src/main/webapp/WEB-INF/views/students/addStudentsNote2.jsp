@@ -4,17 +4,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>강의노트</title>
-	
-	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<!-- summernote -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	
+	<script src="/resources/javascript/students/noteUI.js"></script>	
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<!-- JavaScript Bundle with Popper -->
@@ -69,41 +65,8 @@
 	<link href="/resources/css/common.css" rel="stylesheet">
 	<!-- //////////////////////////////////////////////////// -->
 	<script>
-	
-    function submitPost() {
-
-		  const noteContent = $("#noteContent").val()
-		  const noteTitle = $("#noteTitle").val()
-		  // 값을 불러올 땐 document.get으로 받아오기
-		  if(noteTitle == ""){
-			  alert("제목을 입력해주세요")
-			  return;
-		  }
-		  if(noteContent == "") {
-			  alert("내용을 입력해주세요.")
-			  return;
-		  }
-	    
-		  console.log(noteContent)
-
-	      $("form").attr("method","POST").attr("action" , "/students/addStudentsNote").submit();
-		  
-		  
-	}
-	
-	$(function() {
+	$(document).ready(function() {
 		
-		$( "button.btn.btn-outline-primary:contains('취소')").on("click" , function() {
-			history.go(-1);
-		});
-	});	
-	
-	
-	</script>
-	
-	<script>
-		$(document).ready(function() {
-
 		var toolbar = [
 			    // 글꼴 설정
 			    ['fontname', ['fontname']],
@@ -141,50 +104,10 @@
 	            		}
 	            	}
 	            }
-				onPaste: function (e) {
-					var clipboardData = e.originalEvent.clipboardData;
-					if (clipboardData && clipboardData.items && clipboardData.items.length) {
-						var item = clipboardData.items[0];
-						if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-							e.preventDefault();
-						}
-					}
-				}
 	         };
 	
 	        $('#summernote').summernote(setting);
 	        });
-		
-/* 	        function uploadSummernoteImageFile(file, el) {
-				data = new FormData();
-				data.append("file", file);
-				$.ajax({
-					data : data,
-					type : "POST",
-					url : "uploadSummernoteImageFile",
-					contentType : false,
-					enctype : 'multipart/form-data',
-					processData : false,
-					success : function(data) {
-						$(el).summernote('editor.insertImage', data.url);
-					}
-				});
-			} */
-			function uploadSummernoteImageFile(file, editor) {
-				data = new FormData();
-				data.append("file", file);
-				$.ajax({
-					data : data,
-					type : "POST",
-					url : "/uploadSummernoteImageFile",
-					contentType : false,
-					processData : false,
-					success : function(data) {
-		            	//항상 업로드된 파일의 url이 있어야 한다.
-						$(editor).summernote('insertImage', data.url);
-					}
-				});
-			}
 	</script>
 	
 	
@@ -192,23 +115,23 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container p-5">
 		<form name="noteForm" action="addStudentsNote" method="post">
-			<div class="border border-top-0 p-3 p-sm-5 bg-light">
+			<div class="border border-top-0 p-3 p-sm-5 bg-white">
 			<div class="col flex-shrink-0 mb-5 mb-md-0" style="margin: 20px 20px 20px 20px">
-		        <h1 class="display-4 mb-0">노 트 작 성</h1>
-		        <div class="text-muted">New Note</div>
+		        <h1 class="display-4 mb-0">새 노트 작성</h1>
+		        <div class="text-muted">Create a New Note</div>
 		   	</div>
 		      <div id="noteDiv" style="margin: 30px 30px 30px 30px">
 	    	 	<div class="input-group mb-3">
-		            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
+		            <button class="btn btn-outline-primary" type="button" style="width:120px;" disabled>제 목</button>
 		            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 		             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
 	        	</div>
 	            <input type="hidden" class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 	            	name="studentId" id="studentId" value="${user.userId}" <%-- value="${students.studentId}" --%> aria-describedby="button-addon1"/>
 				
-		        <textarea name="noteContent" id="summernote" value="${students.noteContent}"></textarea>
+		        <textarea name="noteContent" id="summernote" value="${students.noteContent}" class="bt-white"></textarea>
 		      </div>
 		      
 		      <div align="center">			
@@ -219,22 +142,7 @@
 	    </form>
    	</div>
    	
-	<script>
-		$(document).ready(function() {
-			//여기 아래 부분
-			$('#summernote').summernote({
-				  height: 300,                 // 에디터 높이
-				  minHeight: null,             // 최소 높이
-				  maxHeight: null,             // 최대 높이
-				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-				  lang: "ko-KR",					// 한글 설정
-				  placeholder: '노트 작성란'	//placeholder 설정
-
-			});
-		});	
-	</script>
-
 	
-	
+
 </body>
 </html>

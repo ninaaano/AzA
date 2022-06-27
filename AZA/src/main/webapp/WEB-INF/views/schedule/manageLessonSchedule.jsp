@@ -14,13 +14,14 @@
 <script type="text/javascript"   src="/resources/javascript/schedule/ko.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
-<script src="path/jquery-3.3.1.min.js"></script>
+
  <!-- bootstrap 4 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 
 
 <!-- getLesson.jsp -->
@@ -31,13 +32,14 @@
 <!-- Roboto and Roboto Mono fonts from Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
-<link href="css/styles.css" rel="stylesheet" />
 
 
 <!-- sweet alert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
 <script>
       //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
       /* document.addEventListener('DOMContentLoaded', function() { */
@@ -152,7 +154,62 @@
               calendar.unselect()
              },
              eventClick: function(arg){
-              if(confirm('이벤트를 지우겠습니까?')){
+            	 
+            	 Swal.fire({
+            		  title: '일정을 삭제하시겠습니까?',
+            		  icon: 'error',
+            		  showDenyButton: true,
+            		  confirmButtonText: '삭제',
+            		  confirmButtonColor: '#d33',
+            		  denyButtonColor: "#9966FF"
+            		}).then((result) => {
+            	  /* Read more about isConfirmed, isDenied below */
+            	  if (result.isConfirmed) {
+            		  
+            		  arg.event.remove()
+                      
+                      
+                      var allEvent = calendar.getEvents();
+      		         console.log(allEvent);
+      		         
+      		         var events = new Array(); 
+      		         
+      		         /* console.log(allEvent); */
+      		         for(var i=0; i< allEvent.length; i++)
+      		         {
+      		           var obj = new Object();
+      		            /* alert(allEvent[i]._def.title);//이벤트 명칭 */
+      		           obj.title = allEvent[i]._def.title;   //이벤트 명칭
+      		           /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
+      		           obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
+      		           obj.end = allEvent[i]._instance.range.end;
+      		           
+      		           events.push(obj);
+      		         }
+      		         var jsondata = JSON.stringify(events);
+      		         /* console.log(jsondata); */
+      		         
+      		         savedata(jsondata)
+            		  
+            		  
+            		  
+            		  
+            		$("form").attr("method", "POST").attr("action","/paper/deletePaperHomework").submit();
+            	  } else if (result.isDenied) {
+            	    Swal.fire('삭제가 취소되었습니다', '', 'info')
+            	  }
+            	})
+
+            	 
+            	 
+            	 
+            	 
+            	 
+            	 
+            	 
+            	 
+            	 
+              /* if(confirm('이벤트를 지우겠습니까?')){
                 arg.event.remove()
                 
                 
@@ -162,23 +219,23 @@
 		         var events = new Array(); 
 		         
 		         /* console.log(allEvent); */
-		         for(var i=0; i< allEvent.length; i++)
+		      /*   for(var i=0; i< allEvent.length; i++)
 		         {
 		           var obj = new Object();
 		            /* alert(allEvent[i]._def.title);//이벤트 명칭 */
-		           obj.title = allEvent[i]._def.title;   //이벤트 명칭
+		   //        obj.title = allEvent[i]._def.title;   //이벤트 명칭
 		           /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
-		           obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
-		           obj.end = allEvent[i]._instance.range.end;
+		       //    obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
+		      //     obj.end = allEvent[i]._instance.range.end;
 		           
-		           events.push(obj);
-		         }
-		         var jsondata = JSON.stringify(events);
+		       //    events.push(obj);
+		       //  }
+		      //   var jsondata = JSON.stringify(events);
 		         /* console.log(jsondata); */
 		         
-		         savedata(jsondata)
+		      //   savedata(jsondata)
 		         
-              }
+           //   } */
             },
             
             aditable: true,	//false로 변경시 draggable 작동 x
@@ -241,11 +298,15 @@
             } */
           })
           .done(function(result){
-             alert("저장완료");
+        	  /* Swal.fire(
+        			  '저장!',
+        			  '일정이 정상적으로 삭제되었습니다!',
+        			  'success'
+        			) */
           })
           
           .fail(function(request, status, error){
-             alert("에러 발생:"+error)   
+        	  alert("error");
           });
       }
       
