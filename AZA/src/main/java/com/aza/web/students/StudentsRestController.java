@@ -105,7 +105,7 @@ public class StudentsRestController {
 	
 	// STUDENTS_RECORD ::
 	@RequestMapping("listTotalStudentsRecord")
-	public Map<String, Object> listlistTotalStudentsRecord(HttpSession session) throws Exception {
+	public Map<String, Object> listTotalStudentsRecord(HttpSession session) throws Exception {
 		
 		System.out.println("/students/rest/listProposalStudents");
 		

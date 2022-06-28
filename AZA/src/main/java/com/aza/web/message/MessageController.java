@@ -29,12 +29,6 @@ import com.mongodb.client.MongoCollection;
 @Controller
 public class MessageController {
 
-	private SimpMessageSendingOperations messagingTemplate;
-	
-	@Autowired
-	private MongoTemplate mongoTemplate;
-	
-	private MongoCollection<Message> col;
 
 	@Autowired
 	@Qualifier("messageServiceImpl")
