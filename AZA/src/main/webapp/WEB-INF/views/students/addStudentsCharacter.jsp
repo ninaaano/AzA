@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR"> 
+<meta charset="utf-8">
 <title>addCharacter</title>
 
 
@@ -17,6 +17,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
     <link href="/resources/css/message.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <!-- Load Favicon-->
     <link href="assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <!-- Load Material Icons from Google Fonts-->
@@ -28,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
     <!-- Load main stylesheet-->
     <link href="/resources/css/styles.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
         
         
         
@@ -37,7 +38,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
+
         
 <!--  -->
 
@@ -49,12 +50,17 @@ font-family: Pretendard, 'Noto Sans KR';
 </style>
 <script type="text/javascript" charset="euc-kr">
 $(function() {
-	$( "button.btn.btn-raised-info:contains('µî·Ï')" ).on("click" , function() {
+	$( "#addBtn" ).on("click" , function() {
 		addStudentsCharacter();
 	});
 });
 
-
+$(function() {
+	   $( "#cancleBtn" ).on("click" , function() {
+	      history.go(-1);
+	   });
+	});
+	
 $(function () {
 	$('#studentName').on('change', function() {
 				
@@ -74,7 +80,7 @@ function addStudentsCharacter() {
 		
 	if(characterContent == null || characterContent.length < 1){
 		
-		alert("Æ¯Â¡Àº ÇÊ¼ö ÀÔ·Â Ç×¸ñÀÔ´Ï´Ù.");
+		alert("íŠ¹ì§•ì€ í•„ìˆ˜ ì…ë ¥ í•­ëª©ì…ë‹ˆë‹¤.");
 		return;
 	}
 			
@@ -89,15 +95,17 @@ function addStudentsCharacter() {
 
 <form>
 
-<!-- ÇĞ»ı list -->
+<!-- í•™ìƒ list -->
  <div align="center">
- <div class="text-primary fs-5">ÇĞ»ı Æ¯Â¡ µî·Ï</div>
- <div class="text-gray caption fs-6">Add Character</div>
-			<select id="studentName" name="studentId" class="form-select form-select-lg" aria-label="Large select example" style="width: 600px;">
-						<option align="center" selected="" disabled="" > ÇĞ»ı ¼±ÅÃ </option>
+<header class="main-header">
+<div class="text-primary fs-5"><i class="bi bi-twitch"></i>í•™ìƒ íŠ¹ì§• ë“±ë¡</div>
+ <div class="text-gray caption fs-6 mb-3">Add Character</div>
+	</header>
+			<select id="studentName" name="studentId" class="form-select form-select-sm" aria-label="Large select example" style="width: 200px;">
+						<option selected="" disabled="" > í•™ìƒ ì„ íƒ </option>
 				<c:forEach var="students" items="${list}">
 						
-						<option align="center" value="${students.studentId }">${students.studentName}</option>
+						<option value="${students.studentId }">${students.studentName}</option>
 	
 				 </c:forEach>
 				</select>
@@ -111,8 +119,8 @@ function addStudentsCharacter() {
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
                                         		<input type="hidden" name="userId" value="${userStudent.userId}">
-                                               <h2 name="studentName" value="${userStudent.userName}">${userStudent.userName}ÀÇ Æ¯Â¡ µî·Ï ÆäÀÌÁö</h2>
-        									   <p class="card-text mb-4" style="font-size: 10px;">ÇĞ»ı Æ¯Â¡Àº 1°³¸¸ µî·Ï °¡´ÉÇÕ´Ï´Ù. :)</p>
+                                               <h2 name="studentName" value="${userStudent.userName}">${userStudent.userName}ì˜ íŠ¹ì§• ë“±ë¡ í˜ì´ì§€</h2>
+        									   <p class="card-text mb-4 fs-6 text-muted">í•™ìƒ íŠ¹ì§•ì€ 1ê°œë§Œ ë“±ë¡ ê°€ëŠ¥í•©ë‹ˆë‹¤. :)</p>
                                    
                                         <table class="table table-sm mb-0">
                                             <tbody>
@@ -120,7 +128,7 @@ function addStudentsCharacter() {
                                                     <td><div class="text-muted fst-italic"></div></td>
                                                      <td>
                                                      
-                                                     <textarea class="dataTable-input" placeholder="Æ¯Â¡À» ÀÔ·ÂÇØÁÖ¼¼¿ä :)" 
+                                                     <textarea class="dataTable-input" placeholder="íŠ¹ì§•ì„ ì…ë ¥í•´ì£¼ì„¸ìš” :)" 
 														type="text" style="width:500px;height:400px;"
 														name="characterContent"></textarea>
                                                      
@@ -130,8 +138,8 @@ function addStudentsCharacter() {
                                     </div>
                                     
                                     <div class="card-footer bg-transparent position-relative ripple-gray">
-											<button class="btn btn-raised-info" type="button">µî·Ï</button>
-											<button class="btn btn-raised-danger" type="button">Ãë¼Ò</button>
+											<button id="addBtn" class="btn btn-outline-primary" type="button">ë“±ë¡</button>
+											<button id="cancleBtn" class="btn btn-outline-gray" type="button">ì·¨ì†Œ</button>
                                     </div>  
               </div>
 </c:if>

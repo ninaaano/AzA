@@ -26,7 +26,7 @@
     <!-- Load main stylesheet-->
     <link href="/resources/css/styles.css" rel="stylesheet">
     
-        
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">   
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,10 +48,9 @@
 	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
 	rel="stylesheet">
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-	    
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">	    
 <!--  -->
 
 
@@ -102,13 +101,13 @@ $(function () {
 
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
+	$( "#deleteBtn" ).on("click" , function() {
 		deleteStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-primary:contains('수정')" ).on("click" , function() {
+	$( "#updateBtn" ).on("click" , function() {
 		updateStudentsCharacter();
 	});
 });
@@ -138,25 +137,17 @@ font-family: Pretendard, 'Noto Sans KR';
 <form>
 <br/>
 <div align="center" class="character">
-<header class="main-header">
-	<!-- page header -->
-	<div class="row justify-content-center gx-5">
-                   <div class="row justify-content-end col-md-8 col-lg-6">
-                       <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
-                          특징 등록ㄴ
-				
-			    </div>
-                   
-                   </div>
-               </div>
-</header>
+	<header class="main-header">
+<div class="text-primary fs-5"><i class="bi bi-twitch"></i>학생 특징 등록</div>
+ <div class="text-gray caption fs-6 mb-3">Add Character</div>
+	</header>
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
 <input type="hidden" name="characterContent"  value="${students.characterContent }">
 
 
-			<select id="characterCode" name="characterCode" class="form-select form-select-lg" aria-label="Large select example" style="width:600px;">
+			<select id="studentName" name="studentId" class="form-select form-select-sm" aria-label="Large select example" style="width: 200px;">
 						<option align="center" selected="" disabled="" > 학생 선택 </option>
 				<c:forEach var="students" items="${list}">  
 						<option align="center" value="${students.characterCode }">${students.studentName}	
@@ -182,8 +173,8 @@ font-family: Pretendard, 'Noto Sans KR';
                                         </table>
                                     </div>
                                     <div class="card-footer bg-transparent position-relative ripple-gray">
-                                      		<button class="btn btn-raised-primary" type="button">수정</button>
-											<button class="btn btn-raised-danger" type="button">삭제</button>
+                                      		<button id="updateBtn" class="btn btn-outline-primary" type="button">수정</button>
+											<button id="deleteBtn" class="btn btn-outline-danger" type="button">삭제</button>
 											
                                     </div>  
               </div>
