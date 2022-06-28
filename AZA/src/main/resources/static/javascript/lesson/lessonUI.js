@@ -1,3 +1,4 @@
+// addLessionView
 $(function(){		
 	$("td:nth-child(n+1)").on("click",function(){
 		/* var lessonCode = $(this).data("value"); */
@@ -48,5 +49,62 @@ $(function(){
 $(function(){
 	$("#cancleBtn").on("click",function(){
 		$("form")[0].reset();
+	});
+});
+
+// updateLessionView
+function fncUpdateLesson(){
+		$(".checkbox[name='lessonDay']:checked").length
+		var lessonDay ="";
+		$(":checkbox[name='lessonDay']:checked").each(function(i,e){
+			if(lessonDay ==""){
+				lessonDay=e.value;
+			}else{
+				lessonDay +="^"+e.value;
+			}
+		});
+		
+		if($("input:checkbox[id='lessonDay']").is(":checked")==false){
+			alert("수업요일을 선택하셔야 합니다.")
+			return;
+		}
+		$("form").attr("method","POST").attr("action","/lesson/udpateLesson").submit();
+	}
+	
+$(function() {
+	$( "button.btn.btn-primary" ).on("click" , function() {
+		fncUpdateLesson();
+	});
+});	
+
+$(function() {
+	$("a[href='#']").on("click" , function() {
+		$("form")[0].reset();
+	});
+});
+
+// getLesson
+$(function(){
+	$("button.btn.btn-outline-primary:contains('수정')").on("click",function(){
+		self.location="/lesson/updateLessonView?lessonCode=${lesson.lessonCode}"
+	});
+});	
+
+function fncdeleteLesson(){
+	var lessonCode = $("input[name='lessonCode']").val();
+	if(lessonCode != "${lesson.lessonCode}"){
+		alert("수업코드가 일치하지 않습니다..");
+		return;
+	}
+	$("form").attr("method","GET").attr("action","/lesson/deleteLesson").submit();
+}
+
+$(function(){
+	$("#ct_btn02").on("click",function(){
+		fncdeleteLesson();
+	});
+	
+	$("#ct_btn03").on("click",function(){
+		self.location="/lesson/listLesson"
 	});
 });

@@ -43,9 +43,8 @@
 
 
 <style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
 <script type="text/javascript" charset="euc-kr">
@@ -86,13 +85,14 @@ function addStudentsCharacter() {
 </script>
 
 </head>
-<body>
+<body class="nav-fixed bg-light mt-5">
 
 <form>
 
 <!-- 학생 list -->
  <div align="center">
- <h3>학생 특징 등록</h3>
+ <div class="text-primary fs-5">학생 특징 등록</div>
+ <div class="text-gray caption fs-6">Add Character</div>
 			<select id="studentName" name="studentId" class="form-select form-select-lg" aria-label="Large select example" style="width: 600px;">
 						<option align="center" selected="" disabled="" > 학생 선택 </option>
 				<c:forEach var="students" items="${list}">

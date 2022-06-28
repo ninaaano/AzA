@@ -25,7 +25,6 @@
 	href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
 	rel="stylesheet">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 <!-- Load Favicon-->
 <link href="assets/img/favicon.ico" rel="shortcut icon"
 	type="image/x-icon">
@@ -59,7 +58,6 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css" />
 <script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript"
@@ -131,8 +129,8 @@ $(document).ready(function(){
 					<div class="card-header bg-transparent px-4">
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="me-4">
-								<h2 class="display-6 mb-0">과제 목록</h2>
-								<div class="card-text">ASSIGNMENT LIST</div>
+								<h2 class="display-6 mb-0">과제 상세 조회</h2>
+								<div class="card-text">ASSIGNMENT</div>
 							</div>
 						</div>
 					</div>

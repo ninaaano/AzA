@@ -56,7 +56,7 @@ $(function() {
 	
 	$("#addStudentsExamBtn").on("click", function() {
 		
-		//var valFlag = true;
+		var valFlag = true;
 		const examYear = document.addStudentsExamForm.examYear.value;
 		const examSemester = document.addStudentsExamForm.examSemester.value;
 		const examTerm = document.addStudentsExamForm.examTerm.value;
@@ -73,7 +73,7 @@ $(function() {
 			$('.valCheck').removeClass('hidden');
 			$("#addStudentsExamForm")[0].reset();
 		} else {
-			//document.addStudentsExamForm.action = "/students/addStudentsExam";
+			document.addStudentsExamForm.action = "/students/addStudentsExam";
 			document.addStudentsExamForm.method = "POST";
 			document.addStudentsExamForm.submit();	
 		}

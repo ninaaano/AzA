@@ -10,8 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
     <link href="/resources/css/message.css" rel="stylesheet">
@@ -32,16 +31,32 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
-        
+        <link rel="stylesheet" href="/resources/css/common.css"/>
+        <link rel="stylesheet" href="/resources/css/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	    
 <!--  -->
 
 
 <style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
-}
+
 </style>
 
 <script type="text/javascript">
@@ -113,17 +128,28 @@ function updateStudentsCharacter() {
 
 
 </script>
-
+<style>
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
+</style>
 </head>
-<body>
+<body class="nav-fixed bg-light">
 <form>
-
 <br/>
-
-
-
 <div align="center" class="character">
- <h3> 학생 특징 조회</h3>
+<header class="main-header">
+	<!-- page header -->
+	<div class="row justify-content-center gx-5">
+                   <div class="row justify-content-end col-md-8 col-lg-6">
+                       <div class="pt-6 pb-2 mt-3 col-6 col-sm-3">
+                          특징 등록ㄴ
+				
+			    </div>
+                   
+                   </div>
+               </div>
+</header>
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
@@ -166,6 +192,13 @@ function updateStudentsCharacter() {
 <!--  --> 
 </div>
 </form>
-
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
 </body>
 </html>
