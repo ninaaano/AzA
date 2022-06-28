@@ -6,9 +6,13 @@ function setConnected(connected) {
     $("#send").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
+        $("#gold_sleep").addClass("hidden");
+        $("#gold_basic").removeClass("hidden");
     }
     else {
         $("#conversation").hide();
+        $("#gold_basic").addClass("hidden");
+        $("#gold_sleep").removeClass("hidden");
     }
     $("#msg").html("");
 }
@@ -20,7 +24,11 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/public', function (message) {
-            showMessage("받은 메시지: " + message.body); //서버에 메시지 전달 후 리턴받는 메시지
+	
+			var div = `<div class="message">
+		            		<p class="text">${message.body}</p>
+		          		</div>`;
+            showMessage(div); //서버에 메시지 전달 후 리턴받는 메시지
         });
     });
 }
@@ -34,14 +42,20 @@ function disconnect() {
 }
 
 function sendMessage() {
-    let message = $("#msg").val()
-    showMessage("보낸 메시지: " + message);
+    let message = $("#msg").val();
+    var div = `<div class="message text-only">
+					<div class="response">
+	  					<p class="text">${message}</p>
+		            </div>
+				</div>`;
+    showMessage(div);
 
     stompClient.send("/app/sendMessage", {}, JSON.stringify(message)); //서버에 보낼 메시지
+	$("#msg").val("");
 }
 
-function showMessage(message) {
-    $("#communicate").append("<tr><td>" + message + "</td></tr>");
+function showMessage(messageContent) {
+    $("#messages-chat").append(messageContent);
 }
 
 $(function () {
@@ -50,17 +64,16 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendMessage(); });
+    $( "#send" ).click(function() { 
+		sendMessage(); 
+		$("#msg").val("");
+	});
+	$("#msg").on("keyup", function(e) {
+		if(e.keyCode == '13') {
+			sendMessage(); 
+			$("#msg").val("");
+		}
+	});
 });
 
-const chatbotPop = $("#chatbot-pop");
-chatbotPop.on("click",popupHandler);
-function chatbotPopHandler(){
-	chatbotPop.addClass("show");
-}
-function openPop() {
-	    document.getElementById("popup_layer").style.display = "block";
-	    }
-function closePop() {
-	    document.getElementById("popup_layer").style.display = "none";
-	    }
+
