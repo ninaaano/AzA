@@ -331,7 +331,7 @@ function makeHomeworkTimeTable(resultHomework) {
    if(homeworkCheck == "0"){
        homeworkCheck = '<span class="badge bg-warning">미완료</span>';
    }else if(homeworkCheck == "1"){
-       homeworkCheck = '<span class="badge bg-success">미완료</span>';
+       homeworkCheck = '<span class="badge bg-success">완료</span>';
    }
    
    console.log(homeworkTitle);
