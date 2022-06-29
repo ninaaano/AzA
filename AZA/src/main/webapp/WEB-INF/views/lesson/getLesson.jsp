@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 	crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"></script>
+
 <link
 	href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
 	rel="stylesheet">
@@ -145,64 +145,46 @@
 									value="${lesson.lessonContent}" rows="12" readonly>${lesson.lessonContent}</textarea>
 						</div>
 					</div>
-					<div align="center" style="margin: 0px 0px 20px 0px">
-						<button id="goUpdateBtn" class="btn btn-outline-primary">수정</button>
-						<button id="updateBtn" class="btn btn-outline-gray">확인</button>
-					</div>	
+					<c:choose>
+						<c:when test="${user.role eq 'teacher'}">
+							<div align="center" style="margin: 0px 0px 20px 0px">
+								<button id="updateBtn" class="btn btn-outline-primary">수정</button>
+								<button id="deleteBtn" data-toggle="modal" data-target="#myModal" class="btn btn-outline-danger">삭제</button>
+							</div>
+							<form>
+								 <div class="modal fade" id="myModal" role="dialog"> 
+								 <div class="modal-dialog">
+								
+								 <!-- Modal content-->
+								<div class="modal-content">
+								 <div class="modal-header">
+								 <h4 class="modal-title" align="center">수업코드를 입력해주세요</h4> 
+								 </div>
+								 <div class="modal-body" align="center">
+											<div class="form-group">
+									         <label for="lessonCode" class="col-sm-2 control-label">수업코드</label>
+									         <div class="col-sm-10">
+									           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+									         </div>
+									       </div>
+								</div>
+								<div class="modal-footer">
+								 	<button type="button" class="btn btn-outline-primary" id="goDelete" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">삭제</button>
+									<button type="button" class="btn btn-outline-primary" data-dismiss="modal" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">닫기</button>
+								</div>
+								</div>
+								</div>
+								</div>
+							</form>
+						</c:when>
+					</c:choose>
 				</div>
 				<hr class="my-5" />
 			</div>
 		</main>
-	        <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
-			<tr>
-				<td width="53%"></td>
-				<td align="right">
-					<table border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<c:choose>
-								<c:when test="${user.role eq 'teacher'}">
-									<div align="left">
-										<button class="btn btn-outline-primary" style="font-size:18px; margin:0px 0px 15px 0px;">수정</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" style="font-size:18px; margin:0px 0px 15px 0px;">삭제</button>
-									</div>
-										<!-- Modal -->
-										<form>
-											 <div class="modal fade" id="myModal" role="dialog"> 
-											 <div class="modal-dialog">
-											
-											 <!-- Modal content-->
-											<div class="modal-content">
-											 <div class="modal-header">
-											 <h4 class="modal-title" align="center">수업코드를 입력해주세요</h4> 
-											 </div>
-											 <div class="modal-body" align="center">
-														<div class="form-group">
-												         <label for="lessonCode" class="col-sm-2 control-label">수업코드</label>
-												         <div class="col-sm-10">
-												           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
-												         </div>
-												       </div>
-											</div>
-											<div class="modal-footer">
-											 	<button type="button" class="btn btn-outline-primary" id="ct_btn02" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">삭제</button>
-												<button type="button" class="btn btn-outline-primary" data-dismiss="modal" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">닫기</button>
-											</div>
-											</div>
-											</div>
-											</div>
-										</form>
-										
-									</c:when>					
-									<c:otherwise>
-									<button type="button" id="ct_btn03" class="btn btn-outline-primary" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">이전</button>				
-									</c:otherwise>
-								</c:choose>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
+		<!-- Modal -->
+		
+	       
 						
 						
 	        		</div>

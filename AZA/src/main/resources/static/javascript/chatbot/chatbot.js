@@ -5,19 +5,21 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     $("#send").prop("disabled", !connected);
     if (connected) {
-        $("#conversation").show();
         $("#gold_sleep").addClass("hidden");
-        $("#gold_basic").removeClass("hidden");
+        $("#gold_basic").removeClass("hidden");       
     }
     else {
-        $("#conversation").hide();
         $("#gold_basic").addClass("hidden");
         $("#gold_sleep").removeClass("hidden");
+       
     }
     $("#msg").html("");
 }
 
 function connect() {
+	$("#msg").attr("disabled", false);
+	$("#send").attr("disabled", false);
+	
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -38,6 +40,8 @@ function disconnect() {
         stompClient.disconnect();
     }
     setConnected(false);
+     $("#msg").attr("disabled", true);
+     $("#send").attr("disabled", true);
     console.log("Disconnected");
 }
 
@@ -62,16 +66,30 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { 
-		sendMessage(); 
+    $( "#connect" ).click(function() { 
+		connect();
+		$("#msg").val("");
+	  });
+    $( "#disconnect" ).click(function() { 
+		disconnect();
 		$("#msg").val("");
 	});
-	$("#msg").on("keyup", function(e) {
-		if(e.keyCode == '13') {
+    $( "#send" ).click(function() { 
+		if($("#msg").val() !== "" || $("#msg").val().length > 0) {
 			sendMessage(); 
-			$("#msg").val("");
+			$("#msg").val("");			
+		}
+	
+	
+	});
+	$("#msg").on("keyup", function(e) {
+		if($("#msg").val() !== "" || $("#msg").val().length > 0) {
+		
+			
+			if(e.keyCode == '13') {
+				sendMessage(); 
+				$("#msg").val("");
+			}
 		}
 	});
 });

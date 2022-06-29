@@ -22,28 +22,41 @@
 *, body {
 	font-family: Pretendard, 'Noto Sans KR';
 }
+
+ *-ms-overflow-style: {
+	none;
+ }
+ 
+*::-webkit-scrollbar {
+  display: none;
+} 
 </style>
-<body id="chatbot_body">
-<div id="main_container" class="container mt-5">
-    <div class="chat">
+<body id="chatbot_body" class="bg-light">
+<div id="main_container" class="container mt-5 position-relative d-flex align-itmes-center justify-content-center">
+    <div class="chat bg-white p-5 rounded rounded-1 mt-5">
 		<form class="form-inline">
 	       <div class="form-group">
-	           <button id="connect" class="btn btn-default" type="submit" value="0">깨우기</button>
-	           <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">재우기
+	           <button id="connect" class="btn btn-outline-primary btn-sm" type="submit" value="0">깨우기</button>
+	           <button id="disconnect" class="btn btn-outline-gray btn-sm" type="submit" disabled="disabled">재우기
 	           </button>
 	       </div>
     	</form>
+    	<div id="chat-box" class="w-100">
         <div id="messages-chat" class="messages-chat">
 
         </div>
-        <div class="footer-chat">
-          <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
-          <input type="text" id="msg" class="write-message" placeholder="금쪽이와 대화하기"></input>
-          <button id="send" class="btn btn-default" type="submit"><i class="bi bi-send"></i></button>
-        </div>    
+        <div class="d-flex">
+	   <img id="gold_basic" style="width:250px;" src="/resources/img/gold_2.gif" class="mb-5 hidden position-absolute bottom-0 col-3"/>
+	   <img id="gold_sleep" style="width:200px;" src="/resources/img/gold_sleep.gif" class="mb-5 position-absolute bottom-0 col-3"/>
+        </div>
+        
+        </div>
    </div>
-   <img id="gold_basic" style="width:250px;" src="/resources/img/gold_2.gif" class="hidden fixed-bottom"/>
-   <img id="gold_sleep" style="width:200px;" src="/resources/img/gold_sleep.gif" class="fixed-bottom"/>
+        <div id="inputForm" class="p-1 input-group mb-0 position-absolute bottom-0 col-6 bg-white">
+          <input class="form-control input" type="text" id="msg" placeholder="금쪽이와 대화하기" disabled="true"></input>
+          <button id="send" class="btn btn-light btn-lg " type="submit"><i class="bi bi-send" disabled="true"></i></button>
+        </div>
+        	
 </div>
     
 

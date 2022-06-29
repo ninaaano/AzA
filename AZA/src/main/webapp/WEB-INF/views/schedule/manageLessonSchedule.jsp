@@ -20,8 +20,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
+
 
 
 <!-- getLesson.jsp -->
@@ -34,12 +33,9 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet" />
 
 
-<!-- sweet alert -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-<link href="/resources/css/styles.css" rel="stylesheet">
+<!-- 
+<link href="/resources/css/styles.css" rel="stylesheet"> -->
 <link href="/resources/css/common.css" rel="stylesheet">
-<link href="/resources/css/attendance.css" rel="stylesheet">
 <script>
       //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
       /* document.addEventListener('DOMContentLoaded', function() { */
