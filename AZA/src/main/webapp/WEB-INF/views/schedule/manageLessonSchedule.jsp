@@ -37,215 +37,158 @@
 <link href="/resources/css/styles.css" rel="stylesheet"> -->
 <link href="/resources/css/common.css" rel="stylesheet">
 <script>
-      //addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
-      /* document.addEventListener('DOMContentLoaded', function() { */
-        
-      //new FullCalendar.Calendar(대상 DOM 객체,(속성: 속성값, 속성2: 속성값2..))
-        var calendar = null;
-        
-        $(document).ready(function(){
-        var calendarEl = document.getElementById('calendar');
-        aspectRatio: 1.35,
-        calendar = new FullCalendar.Calendar(calendarEl, {
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridDay'
-          },
-          initialView: 'dayGridMonth',
-          locale: 'ko',   //한글설정 나머지 영어빼고 지움
-          buttonIcons: false, //이전달 다음달로 보임 <> == true
-          navLinks: true,  //날짜 누르면 상세 조회.
-          businessHours: true, //상세 시간 표시
-          editable: true,   //수정가능여부
-          selectable: true, //날짜 선택시 표시
-          dayMaxEvents: true, //이벤트가 많을 시 +표시로 보여줌 ㅎㅎ
-          selectMirror: true,
-          
-          events: function(info, successCallback, failureCallback){
-             // ajax 처리로 데이터를 로딩 시킨다.
-             /* var datalist = []; */
-             $.ajax({
-               type:"post",
-               url: '/schedule/rest/listLessonSchedule',
-               dataType: "json",
-                 success: function(list) {
-                     var events = [];
-                      console.log(list);                      
-                      $.each(list, function (index,data){
-                         /* for(var i=0; i<data.length; i++){
-                            console.log(data[i].title);  
-                         } */
-                          var datalist = data.list;
-                         for(var i=0; i<data.length; i++){
-                        	 events.push({
-                        		 title:data[i].title,
-                        		 start:data[i].start,
-                        		 end:data[i].end
-                        	 });
-                         }
-                         /* memo-1-1*/                  
-
-                          
-                           /*} */
-                      })                      
-                      /* datalist.push({
-                          title:result.title,
-                          start:result.start,
-                          end:result.end */
-                          /* title: "오후 회의",
-                          start: "2022-06-06T19:00:00",
-                          end: "2022-06-07T09:30:00" */
-                      /* }); */
-                     successCallback(events);
-                    }
-             });
-          },//json형태의 값
-          eventAdd: function(){//이벤트가 추가되면 발생하는 이벤트
-             console.log()
-          },
-          /* 모달추가로 인한 추석 처리 */ 
-          select: function(arg){
-        	  $("#calendarModal").modal("show");	//modal 나타내기
-  			
-  			$("#addCalendar").on("click",function(){ //modal의 추가 버튼 클릭
-  				var content = $("#calendar_content").val();
-  				var start_date = $("#calendar_start_date").val();
-  				var end_date = $("#calendar_end_date").val();
-  				
-  				//내용 입력 여부 확인
-  				if(content == null || content == ""){
-  					alert("내용을 입력하세요.");
-  				}else if(start_date==""|| end_date==""){
-  					alert("날짜를 입력하세요");
-  				}else if(new Date(end_date)- new Date(start_date)<0){	//date타입으로 변경 후 확인
-  					alert("종료일이 시작일보다 먼저입니다.");
-  				}else { //정상적인 입력 시
-  					var obj = {
-  						"title":content,
-  						"start":start_date,
-  						"end":end_date
-  					}//전송할 객체 생성
-  					
-  					console.log(obj); //서버로 해당 객체를 전달해서 DB연동 가능
-  					calendar.addEvent({
-  						title: obj.title,
-  						start: obj.start,
-  						end: obj.end,
-  						backgroundColor:"primary",
-  						textColor:"black"
-  					})
-	  				}
-	  			});
-           /* var title = prompt('일정 등록: ');  //title값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
-               if(title){
-                 calendar.addEvent({
-                  title: title,
-                   start: arg.start,
-                   end: arg.end,  // allDay: arg.allDay,
-                   backgroundColor:"skyblue",
-                   textColor:"blue"
-                 })
-               } */
-              calendar.unselect()
-             },
-             eventClick: function(arg){
-            	 
-            	 Swal.fire({
-            		  title: '일정을 삭제하시겠습니까?',
-            		  icon: 'error',
-            		  showDenyButton: true,
-            		  confirmButtonText: '삭제',
-            		  confirmButtonColor: '#d33',
-            		  denyButtonColor: "#9966FF"
-            		}).then((result) => {
-            	  /* Read more about isConfirmed, isDenied below */
-            	  if (result.isConfirmed) {
-            		  
-            		  arg.event.remove()
-                      
-                      
-                      var allEvent = calendar.getEvents();
-      		         console.log(allEvent);
-      		         
-      		         var events = new Array(); 
-      		         
-      		         /* console.log(allEvent); */
-      		         for(var i=0; i< allEvent.length; i++)
-      		         {
-      		           var obj = new Object();
-      		            /* alert(allEvent[i]._def.title);//이벤트 명칭 */
-      		           obj.title = allEvent[i]._def.title;   //이벤트 명칭
-      		           /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
-      		           obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
-      		           obj.end = allEvent[i]._instance.range.end;
-      		           
-      		           events.push(obj);
-      		         }
-      		         var jsondata = JSON.stringify(events);
-      		         /* console.log(jsondata); */
-      		         
-      		         savedata(jsondata)
-            		  
-            		  
-            		  
-            		  
-            		$("form").attr("method", "POST").attr("action","/paper/deletePaperHomework").submit();
-            	  } else if (result.isDenied) {
-            	    Swal.fire('삭제가 취소되었습니다', '', 'info')
-            	  }
-            	})
-
-            	 
-            	 
-            	 
-            	 
-            	 
-            	 
-            	 
-            	 
-            	 
-              /* if(confirm('이벤트를 지우겠습니까?')){
-                arg.event.remove()
-                
-                
-                var allEvent = calendar.getEvents();
-		         console.log(allEvent);
-		         
-		         var events = new Array(); 
-		         
-		         /* console.log(allEvent); */
-		      /*   for(var i=0; i< allEvent.length; i++)
-		         {
-		           var obj = new Object();
-		            /* alert(allEvent[i]._def.title);//이벤트 명칭 */
-		   //        obj.title = allEvent[i]._def.title;   //이벤트 명칭
-		           /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
-		       //    obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
-		      //     obj.end = allEvent[i]._instance.range.end;
-		           
-		       //    events.push(obj);
-		       //  }
-		      //   var jsondata = JSON.stringify(events);
-		         /* console.log(jsondata); */
-		         
-		      //   savedata(jsondata)
-		         
-           //   } */
-            },
+//addEventListener => 특정요소(id, class,tag등등)event를 클릭하면 함수를 실행해
+/* document.addEventListener('DOMContentLoaded', function() { */
+  
+//new FullCalendar.Calendar(대상 DOM 객체,(속성: 속성값, 속성2: 속성값2..))
+  var calendar = null;
+  
+  $(document).ready(function(){
+  var calendarEl = document.getElementById('calendar');
+  aspectRatio: 1.35,
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridDay'
+    },
+    initialView: 'dayGridMonth',
+    locale: 'ko',   //한글설정 나머지 영어빼고 지움
+    buttonIcons: false, //이전달 다음달로 보임 <> == true
+    navLinks: true,  //날짜 누르면 상세 조회.
+    businessHours: true, //상세 시간 표시
+    editable: true,   //수정가능여부
+    selectable: true, //날짜 선택시 표시
+    dayMaxEvents: true, //이벤트가 많을 시 +표시로 보여줌 ㅎㅎ
+    selectMirror: true,
+    
+    events: function(info, successCallback, failureCallback){
+       // ajax 처리로 데이터를 로딩 시킨다.
+       /* var datalist = []; */
+       $.ajax({
+         type:"post",
+         url: '/schedule/rest/listLessonSchedule',
+         dataType: "json",
+           success: function(list) {
+               var events = [];
+                console.log(list);                      
+                $.each(list, function (index,data){
+                   /* for(var i=0; i<data.length; i++){
+                      console.log(data[i].title);  
+                   } */
+                    var datalist = data.list;
+                   for(var i=0; i<data.length; i++){
+                      events.push({
+                         title:data[i].title,
+                         start:data[i].start,
+                         end:data[i].end
+                      });
+                   }
+                   /* memo-1-1*/                  
+                    
+                     /*} */
+                })                      
+                /* datalist.push({
+                    title:result.title,
+                    start:result.start,
+                    end:result.end */
+                    /* title: "오후 회의",
+                    start: "2022-06-06T19:00:00",
+                    end: "2022-06-07T09:30:00" */
+                /* }); */
+               successCallback(events);
+              }
+       });
+    },//json형태의 값
+    eventAdd: function(){//이벤트가 추가되면 발생하는 이벤트
+       console.log()
+    },
+    /* 모달추가로 인한 추석 처리 */ 
+    select: function(arg){
+       $("#calendarModal").modal("show");   //modal 나타내기
+      
+      $("#addCalendar").on("click",function(){ //modal의 추가 버튼 클릭
+         var content = $("#calendar_content").val();
+         var start_date = $("#calendar_start_date").val();
+         var end_date = $("#calendar_end_date").val();
+         
+         //내용 입력 여부 확인
+         if(content == null || content == ""){
+            alert("내용을 입력하세요.");
+         }else if(start_date==""|| end_date==""){
+            alert("날짜를 입력하세요");
+         }else if(new Date(end_date)- new Date(start_date)<0){   //date타입으로 변경 후 확인
+            alert("종료일이 시작일보다 먼저입니다.");
+         }else { //정상적인 입력 시
+            var obj = {
+               "title":content,
+               "start":start_date,
+               "end":end_date
+            }//전송할 객체 생성
             
-            aditable: true,	//false로 변경시 draggable 작동 x
-            displayEventTime: false // 시간 표시 x modal 표시로 작성한 부분
-          
-        });
-        calendar.render();       
-        //선택한 옵션이 변경되면 동적으로 일정관리 옵션 변경
-/*         localeSelectorEl.addEventListener('change', function() {
-            if (this.value) {
-              calendar.setOption('locale', this.value);
+            console.log(obj); //서버로 해당 객체를 전달해서 DB연동 가능
+            calendar.addEvent({
+               title: obj.title,
+               start: obj.start,
+               end: obj.end,
+               backgroundColor:"primary",
+               textColor:"black"
+            })
             }
-          });*/
-      });
+         });
+     /* var title = prompt('일정 등록: ');  //title값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
+         if(title){
+           calendar.addEvent({
+            title: title,
+             start: arg.start,
+             end: arg.end,  // allDay: arg.allDay,
+             backgroundColor:"skyblue",
+             textColor:"blue"
+           })
+         } */
+        calendar.unselect()
+       },
+       eventClick: function(arg){
+        if(confirm('이벤트를 지우겠습니까?')){
+          arg.event.remove()
+          
+          
+          var allEvent = calendar.getEvents();
+            console.log(allEvent);
+            
+            var events = new Array(); 
+            
+            /* console.log(allEvent); */
+            for(var i=0; i< allEvent.length; i++)
+            {
+              var obj = new Object();
+               /* alert(allEvent[i]._def.title);//이벤트 명칭 */
+              obj.title = allEvent[i]._def.title;   //이벤트 명칭
+              /* obj.allday = allEvent[i]._def.allDay; //하루종일의 이벤트인지 알려주는 boolean */
+              obj.start = allEvent[i]._instance.range.start; //시작 날짜 및 시간
+              obj.end = allEvent[i]._instance.range.end;
+              
+              events.push(obj);
+            }
+            var jsondata = JSON.stringify(events);
+            /* console.log(jsondata); */
+            savedata(jsondata)
+            
+        }
+      },
+      
+      aditable: true,   //false로 변경시 draggable 작동 x
+      displayEventTime: false // 시간 표시 x modal 표시로 작성한 부분
+    
+  });
+  calendar.render();       
+  //선택한 옵션이 변경되면 동적으로 일정관리 옵션 변경
+/*         localeSelectorEl.addEventListener('change', function() {
+      if (this.value) {
+        calendar.setOption('locale', this.value);
+      }
+    });*/
+});
       
       function allSave()
       {
@@ -269,7 +212,7 @@
          console.log(events)
          var jsondata = JSON.stringify(events);
          /* console.log(jsondata); */
-         
+        alert("저장되었습니다.")
          savedata(jsondata)
       }
       
@@ -294,56 +237,56 @@
             } */
           })
           .done(function(result){
-        	  /* Swal.fire(
-        			  '저장!',
-        			  '일정이 정상적으로 삭제되었습니다!',
-        			  'success'
-        			) */
+             /* Swal.fire(
+                   '저장!',
+                   '일정이 정상적으로 삭제되었습니다!',
+                   'success'
+                 ) */
           })
           
           .fail(function(request, status, error){
-        	  alert("error");
+             alert("error");
           });
       }
       
       function fncSelectTeacher(e){
-    	  const p = [];
-    	  p.push('hi')
-    	  const select = $(".schedule");
-    	  for(let i=0; i<select.length; i++){
-    		  p.push($(select[i]).data('value'))
-    	  }
-    	  console.log(p)
-    	  
-    	  var a = $(e).parent().find(".form-select").val();
-    	  console.log(a)
-    	  var teacherId = p[a];
-    	  console.log(teacherId)
-    		  
-    	  $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherID="+teacherId).submit();
+         const p = [];
+         p.push('hi')
+         const select = $(".schedule");
+         for(let i=0; i<select.length; i++){
+            p.push($(select[i]).data('value'))
+         }
+         console.log(p)
+         
+         var a = $(e).parent().find(".form-select").val();
+         console.log(a)
+         var teacherId = p[a];
+         console.log(teacherId)
+            
+         $("#selectTeacher").attr("method","POST").attr("action","/schedule/manageLessonSchedule?teacherID="+teacherId).submit();
       }
       
 /*      $(function(){
-    	  $("button.btn01").on("click",function(){
-    		  fncSelectTeacher(this);
-    	  });
+         $("button.btn01").on("click",function(){
+            fncSelectTeacher(this);
+         });
       }); */
       
 /*       $(function(){
-    	  $("#success").on("click",function(){
-    		  Swal.fire({
-    			  title: 'Custom width, padding, color, background.',
-    	        		  width: 600,
-    	        		  padding: '3em',
-    	        		  color: '#716add',
-    	        		  background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
-    	        		  backdrop: `
-    	        		    rgba(0,0,123,0.4)
-    	        		    url("https://sweetalert2.github.io/images/nyan-cat.gif")
-    	        		    left top
-    	        		    no-repeat`
-    	        		})
-    	  });
+         $("#success").on("click",function(){
+            Swal.fire({
+               title: 'Custom width, padding, color, background.',
+                       width: 600,
+                       padding: '3em',
+                       color: '#716add',
+                       background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+                       backdrop: `
+                         rgba(0,0,123,0.4)
+                         url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                         left top
+                         no-repeat`
+                     })
+         });
       }); */
       
       
@@ -356,17 +299,17 @@
         
 /*       $(document).on('click', '#success', function(e) {
       Swal.fire({
-		  title: 'Custom width, padding, color, background.',
-        		  width: 600,
-        		  padding: '3em',
-        		  color: '#716add',
-        		  background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
-        		  backdrop: `
-        		    rgba(0,0,123,0.4)
-        		    url("https://sweetalert2.github.io/images/nyan-cat.gif")
-        		    left top
-        		    no-repeat`
-        		})
+        title: 'Custom width, padding, color, background.',
+                width: 600,
+                padding: '3em',
+                color: '#716add',
+                background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+                backdrop: `
+                  rgba(0,0,123,0.4)
+                  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                  left top
+                  no-repeat`
+              })
       }); */
     </script>
 
@@ -407,7 +350,6 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 }
 </style>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 
 
@@ -424,45 +366,45 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
    </c:if>
    </div> --%>
    <c:if test="${user.role eq 'student' }">
-      <form id = "selectTeacher" class="d-flex"	> 
-		<div class="form-group">
-			<label for="lessonCode" class="col-sm-2 control-label">선생님이름</label>
-			<select class="form-select" aria-label="Disabled select example">
-					<c:set var="i" value="0"/>
-							<c:forEach var="schedule" items="${list}">
-						 		<c:set var="i" value ="${i+1}"/>
-								<option class="schedule" value="${i}" data-value="${schedule.teacherId}">${schedule.teacherName.userName}</option>
-							</c:forEach>
-						</select>
-			   <!-- <div class="col-sm-10">
-		   <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
-		 </div> -->
-	 	</div>
-	 	<button type="button" class="btn01" id="btn01">검색</button>
- 	</form>
- 	</c:if>
-	<!-- book -->
-	<c:if test="${user.role eq 'parent'}">
-	      <form id = "selectTeacher" class="d-flex"	> 
-		<div class="form-group">
-			<label for="studentName" class="col-sm-2 control-label">학생이름</label>
-			<select class="form-select" aria-label="Disabled select example">
-			<option class="schedule" value="${i}">선택</option>
-					<c:set var="i" value="0"/>
-							<c:forEach var="schedule" items="${list}">
-						 		<c:set var="i" value ="${i+1}"/>
-								<option class="schedule" value="${i}" data-value="${schedule.studentId.studentId}">${schedule.studentId.studentName}</option>
-							</c:forEach>
-						</select>
-			   <!-- <div class="col-sm-10">
-		   <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
-		 </div> -->
-	 	</div>
-	 	<button type="button" class="btn01" id="btn01">검색</button>
- 	</form>
-	</c:if>
-	
-	
+      <form id = "selectTeacher" class="d-flex"   > 
+      <div class="form-group">
+         <label for="lessonCode" class="col-sm-2 control-label">선생님이름</label>
+         <select class="form-select" aria-label="Disabled select example">
+               <c:set var="i" value="0"/>
+                     <c:forEach var="schedule" items="${list}">
+                         <c:set var="i" value ="${i+1}"/>
+                        <option class="schedule" value="${i}" data-value="${schedule.teacherId}">${schedule.teacherName.userName}</option>
+                     </c:forEach>
+                  </select>
+            <!-- <div class="col-sm-10">
+         <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+       </div> -->
+       </div>
+       <button type="button" class="btn01" id="btn01">검색</button>
+    </form>
+    </c:if>
+   <!-- book -->
+   <c:if test="${user.role eq 'parent'}">
+         <form id = "selectTeacher" class="d-flex"   > 
+      <div class="form-group">
+         <label for="studentName" class="col-sm-2 control-label">학생이름</label>
+         <select class="form-select" aria-label="Disabled select example">
+         <option class="schedule" value="${i}">선택</option>
+               <c:set var="i" value="0"/>
+                     <c:forEach var="schedule" items="${list}">
+                         <c:set var="i" value ="${i+1}"/>
+                        <option class="schedule" value="${i}" data-value="${schedule.studentId.studentId}">${schedule.studentId.studentName}</option>
+                     </c:forEach>
+                  </select>
+            <!-- <div class="col-sm-10">
+         <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+       </div> -->
+       </div>
+       <button type="button" class="btn01" id="btn01">검색</button>
+    </form>
+   </c:if>
+   
+   
    <div id='calendar' style="width:1020px; height:620px;"></div>
    <!-- modal 추가 -->
    <c:if test="${user.role eq 'teacher'}">
@@ -490,7 +432,7 @@ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                     <button type="button" class="btn btn-warning" id="addCalendar" style="background-color: #6c757d">추가</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
                         <button style="width:120px; height:40px; background-color:black; color:white; vertical-align:middle; font-size:17px;
-   						cursor:poointer" onclick="javascript:allSave();">일정 저장</button>
+                     cursor:poointer" onclick="javascript:allSave();">일정 저장</button>
                 </div>    
             </div>
         </div>

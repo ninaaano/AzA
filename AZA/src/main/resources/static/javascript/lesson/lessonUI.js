@@ -68,11 +68,11 @@ function fncUpdateLesson(){
          alert("수업요일을 선택하셔야 합니다.")
          return;
       }
-      $("form").attr("method","POST").attr("action","/lesson/udpateLesson").submit();
+      $("form").attr("method","POST").attr("action","/lesson/updateLesson").submit();
    }
    
 $(function() {
-   $( "button.btn.btn-primary" ).on("click" , function() {
+   $("#updateButton").on("click", function() {
       fncUpdateLesson();
    });
 });   

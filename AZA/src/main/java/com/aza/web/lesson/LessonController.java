@@ -177,7 +177,7 @@ public class LessonController {
    }
    
    // 수업 수정 후 화면
-   @RequestMapping(value="udpateLesson", method=RequestMethod.POST)
+   @RequestMapping(value="updateLesson", method=RequestMethod.POST)
    public ModelAndView updateLesson(@ModelAttribute("lesson") Lesson lesson) throws Exception{
       ModelAndView model = new ModelAndView();
       
@@ -187,7 +187,7 @@ public class LessonController {
       
       lesson.setLessonDay(lessonDay);      
       
-      String lessonCode = lesson.getLessonCode();
+//      String lessonCode = lesson.getLessonCode();
       
       lessonService.updateLesson(lesson);
       

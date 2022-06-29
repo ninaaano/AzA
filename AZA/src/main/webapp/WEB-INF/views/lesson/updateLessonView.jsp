@@ -53,7 +53,13 @@
 							<div class="input-group mb-3 align-middle text-center align-items-center">
 								<span class="text-primary p-1 mr-2"
 									id="inputGroup-sizing-default">강의명</span>
-								<input class="form-control" value="${lesson.lessonName} type="text" placeholder="강의명을 입력하세요" aria-label="Example text with button addon" id="lessonName" name="lessonName" aria-describedby="button-addon1" style="height:36.5px;" readonly="readonly">
+								<input class="form-control" value="${lesson.lessonName}" type="text" placeholder="강의명을 입력하세요" aria-label="Example text with button addon" id="lessonName" name="lessonName" aria-describedby="button-addon1" style="height:36.5px;" readonly="readonly">
+							</div>
+							<div class="input-group mb-3 align-middle text-center align-items-center" >
+								<span class="text-primary p-1 mr-2"
+									id="inputGroup-sizing-default">수업 코드</span>
+								<input class="form-control" type="text" aria-label="Example text with button addon"
+	            					id="lessonCode" name="lessonCode" value="${lesson.lessonCode}" aria-describedby="button-addon1" readonly="readonly"/>
 							</div>
 							<div class="input-group mb-3 align-middle text-center align-items-center">
 								<span class="text-primary p-1 mr-2"
@@ -119,15 +125,15 @@
 								<span class="text-primary p-1 mr-2"
 									id="inputGroup-sizing-default">과목명</span>
 								<input class="form-control" type="text" value="${lesson.subject}" placeholder="과목명을 입력하세요" aria-label="Example text with button addon" 
-	            id="subject" name="subject" aria-describedby="button-addon1"/>
+	            				id="subject" name="subject" aria-describedby="button-addon1"/>
 							</div>
 							<div class="mb-0">
-								<textarea class="form-control"  id="lessonContent" name="lessonContent" placeholder="수업 커리큘럼을 입력하세요" rows="12"></textarea>
+								<textarea class="form-control"  id="lessonContent" name="lessonContent" placeholder="수업 커리큘럼을 입력하세요" rows="12">${lesson.lessonContent}</textarea>
 							</div>
 						</form>
 					</div>
 					<div align="center" style="margin: 0px 10px 20px 10px;">
-						<button id="addBtn"
+						<button id="updateButton"
 							class="btn btn-outline-primary"
 							style="margin: 0px 10px 0px 10px;">등록</button>
 						<button id="cancelBtn"
