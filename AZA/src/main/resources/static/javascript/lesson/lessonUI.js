@@ -91,22 +91,3 @@ $(function(){
       self.location="/lesson/updateLessonView?lessonCode="+lessonCode;
    });
 });   
-
-function fncdeleteLesson(){
-   var lessonCode = $("input[name='lessonCode']").val();
-   if(lessonCode != "${lesson.lessonCode}"){
-      alert("수업코드가 일치하지 않습니다..");
-      return;
-   }
-   $("form").attr("method","GET").attr("action","/lesson/deleteLesson").submit();
-}
-
-$(function(){
-   $("#goDelete").on("click",function(){
-      fncdeleteLesson();
-   });
-   
-   $("#ct_btn03").on("click",function(){
-      self.location="/lesson/listLesson"
-   });
-});

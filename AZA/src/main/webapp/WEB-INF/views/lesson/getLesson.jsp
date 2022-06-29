@@ -34,6 +34,30 @@
 	
 	
 <script type="text/javascript">
+
+
+function fncdeleteLesson(){
+   var lessonCode = $("input[name='lessonCode']").val();
+   console.log(lessonCode);
+   
+   if(lessonCode != "${lesson.lessonCode}"){
+      alert("수업코드가 일치하지 않습니다..");
+      return;
+   } else {
+   $("form").attr("method","GET").attr("action","/lesson/deleteLesson").submit();
+	   
+   }
+}
+
+$(function(){
+   $("#goDelete").on("click",function(){
+      fncdeleteLesson();
+   });
+   
+   $("#ct_btn03").on("click",function(){
+      self.location="/lesson/listLesson"
+   });
+});
 </script>
 
 <style>
@@ -149,7 +173,7 @@
 						<c:when test="${user.role eq 'teacher'}">
 							<div align="center" style="margin: 0px 0px 20px 0px">
 								<button id="updateBtn" class="btn btn-outline-primary">수정</button>
-								<button id="deleteBtn" data-toggle="modal" data-target="#myModal" class="btn btn-outline-danger">삭제</button>
+								<button id="deleteBtn"  data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-outline-danger">삭제</button>
 							</div>
 							<form>
 								 <div class="modal fade" id="myModal" role="dialog"> 
@@ -164,13 +188,12 @@
 											<div class="form-group">
 									         <label for="lessonCode" class="col-sm-2 control-label">수업코드</label>
 									         <div class="col-sm-10">
-									           <input type="text" class="form-control" id="lessonCode" name="lessonCode" placeholder="수업코드">
+									           <input type="text" class="form-control mt-2" id="lessonCode" name="lessonCode" placeholder="수업코드">
 									         </div>
 									       </div>
 								</div>
 								<div class="modal-footer">
-								 	<button type="button" class="btn btn-outline-primary" id="goDelete" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">삭제</button>
-									<button type="button" class="btn btn-outline-primary" data-dismiss="modal" style="font-size:12px;width:120px; margin:0px 0px 15px 0px;">닫기</button>
+								 	<button type="button" class="btn btn-outline-danger btn-sm align-items-center justify-center" id="goDelete">삭제</button>
 								</div>
 								</div>
 								</div>
