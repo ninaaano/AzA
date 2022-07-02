@@ -96,7 +96,7 @@ public class LessonServiceTest {
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-		Map<String, Object> map = lessonService.listLessonTeacher(search,"teacher1");
+		Map<String, Object> map = lessonService.listLessonTeacher(search,"ho1112");
 //		Map<String, Object> map = lessonService.listLesson(search,"student5");
 		System.out.println(map);
 		
