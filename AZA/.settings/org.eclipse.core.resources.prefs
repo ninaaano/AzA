@@ -22,4 +22,4 @@ encoding//src/main/webapp/WEB-INF/views/payment/listPayment.jsp=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/students/addStudentsCharacter.jsp=euc-kr
 encoding//src/main/webapp/WEB-INF/views/user/getUser.jsp=UTF-8
 encoding//src/test/java=UTF-8
-encoding/<project>=EUC_KR
+encoding/<project>=UTF-8
