@@ -36,8 +36,7 @@ public class LessonController {
 
    @Autowired
    @Qualifier("lessonServiceImpl")
-   private LessonService lessonService;
-   
+   private LessonService lessonService;   
    private StudentsService studentService;
    
    public LessonController() {
