@@ -99,18 +99,35 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 
 
 function deleteUser() {
 	
-		if($("#password").val()==""){
-			alert("비밀번호를 입력해주세요.");
-			$("#password").focus();
-			return false;
+		if($("#password").val()=="" || $("#password").val().length < 1){
+			Swal.fire(
+					  '탈퇴할 수 없어요',
+					  '비밀번호를 확인해주세요🙄',
+					  'warning'
+			).then((result) => {
+				$("#password").focus();
+				return false;
+			})			
+		} else {
+			Swal.fire(
+					  '탈퇴 완료!!!',
+					  '잘가요 안녕🥺',
+					  'success'
+			).then((result) => {
+				$("form").attr("method" , "POST").attr("action" , "/user/quit").submit();
+				
+			})			
+			
+			
+			
 		}	
 
-	$("form").attr("method" , "POST").attr("action" , "/user/quit").submit();
 };
 
 

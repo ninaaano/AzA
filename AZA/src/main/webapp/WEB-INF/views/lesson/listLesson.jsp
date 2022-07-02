@@ -111,6 +111,5 @@ font-family: Pretendard, 'Noto Sans KR';
 	<script src="/resources/javascript/common/scripts.js"></script>
 	<script src="/resources/javascript/common/datatables/datatables-simple-lesson.js"></script>
 	
-	
 </body>
 </html>

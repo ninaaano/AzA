@@ -30,8 +30,6 @@
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/79647d7f04.js" crossorigin="anonymous"></script>
-<!-- 	<script defer src="/resources/javascript/message/asserts/ui.js"></script> -->
-	<script defer src="/resources/javascript/alert/alertUI.js"></script>
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 	<!-- Load Favicon-->
 	<link href="assets/img/favicon.ico" rel="shortcut icon"
@@ -49,8 +47,8 @@
 		rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 	<!-- Load main stylesheet-->
-	
-	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 		
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -77,55 +75,13 @@
 	</style>
 	<link href="/resources/css/styles.css" rel="stylesheet">
 	<link href="/resources/css/common.css" rel="stylesheet">
-	
+	<script src="/resources/javascript/students/noteUI.js"></script>
 	
 	<!-- //////////////////////////////////////////////////// -->
 	<script>			
-	
-/* 	function save(){
-		oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []);  
-	    		//스마트 에디터 값을 텍스트컨텐츠로 전달
-		var content = document.getElementById("smartEditor").value;
-		alert(document.getElementById("txtContent").value); 
-	    		// 값을 불러올 땐 document.get으로 받아오기
-		return; 
-	} */
-    function updateBtn() {
-		
-		  const noteContent = $("#noteContent").val()
-		  const noteTitle = $("#noteTitle").val()
-		  // 값을 불러올 땐 document.get으로 받아오기
-		  if(noteTitle == ""){
-			  alert("제목을 입력해주세요")
-			  return;
-		  }
-		  if(noteContent == "") {
-			  alert("내용을 입력해주세요.")
-			  return;
-		  }
-	    
-		  console.log(noteContent)
 
-	      $("form").attr("method","POST").attr("action" , "/students/updateStudentsNote").submit();
-		 		  
-	}
-	
-	function deleteBtn() {
-		if(window.confirm("정말 삭제하시겠습니까?")){
-			if(true){
-				$("form").attr("method", "POST").attr("action","/students/deleteStudentsNote").submit();
-			}else{
-				alert('삭제가 취소되었습니다.');
-			}
-		}	
-	}
-	
-	$(function() {
-		
-		$( "button.btn.btn-outline-primary:contains('뒤로')").on("click" , function() {
-			history.go(-1);
-		});
-	});	
+    
+
 	
 	</script>
 	
@@ -199,7 +155,7 @@
 			                    <div class="card-body p-4">		
 							    	<div style="margin: 0px 30px 30px 30px">
 								    	<div class="input-group mb-3">
-									            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
+									            <button class="btn btn-outline-primary" type="button" style="width:120px;" disabled>제 목</button>
 									            <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" 
 									             name="noteTitle" id="noteTitle" value="${students.noteTitle}" aria-describedby="button-addon1">
 								        </div>
@@ -211,9 +167,9 @@
 										           style="width: 100%">${students.noteContent}</textarea>
 							        </div>
 							        <div align="center">
-							              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="저장"/>
-							              <input type="button" onclick="deleteBtn();" class="btn btn-outline-primary" value="삭제"/>
-							              <button id="backBtn" type="button" class="btn btn-outline-primary">뒤로</button>
+							              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary btn-sm" value="저장"/>
+							              <input type="button" onclick="deleteBtn();" class="btn btn-outline-danger btn-sm" value="삭제"/>
+							              <button id="backBtn" type="button" class="btn btn-outline-gray btn-sm">뒤로</button>
 									</div>
 			                    </div>                      
                             </form>

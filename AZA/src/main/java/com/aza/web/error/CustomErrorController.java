@@ -20,10 +20,6 @@ public class CustomErrorController implements ErrorController{
 
 	// field
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final String ERROR_404_PATH = "";
-	private final String ERROR_500_PATH = "";
-	private final String ERROR_COMMON_PATH = ""; 		
-			
 	
 	// ctor
 	public CustomErrorController() {}
@@ -31,7 +27,7 @@ public class CustomErrorController implements ErrorController{
 	
 	// method
 	@GetMapping(value="/error")
-	public String Error404(HttpServletRequest request) {
+	public String Error(HttpServletRequest request) {
 		
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 		

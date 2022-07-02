@@ -140,7 +140,7 @@
                             </div>
                             <form>
 			                    <div class="card-body p-4">		
-									<div align="right"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i></div>
+									<div align="right" class="text-primary"><i class="material-icons" id="download" style="margin: 0px 30px 5px 30px">download</i>다운로드</div>
 								    	<div id="smarteditor" style="margin: 0px 30px 30px 30px">
 									    	<div class="input-group mb-3">
 										            <button class="btn btn-outline-primary" type="button" style="width:120px;">제 목</button>
@@ -151,15 +151,15 @@
 									                	name="studentId" id="studentId" value="${students.studentId}"></input>
 									      	<input type="hidden" name="noteCode" id="noteCode" value="${students.noteCode }"/>
 									      	<div class="card card-raised border-top border-4 border-primary h-100">
-										        <div name="noteContent" id="noteContent"
+										        <div name="noteContent" id="noteContent" class="p-5"
 												           rows="30" cols="10" readOnly 
-												           style="width: 100%; height: 500px; padding: 20px 20px 20px 20px;">${students.noteContent}
+												           style="width: 100%;">${students.noteContent}
 									           </div>
 								           </div>
 								        </div>
 								        <div align="center">
 								              <input type="button" onclick="updateBtn();" class="btn btn-outline-primary" value="수정"/>
-								              <button id="backBtn" type="button" class="btn btn-outline-primary">뒤로</button>
+								              <button id="backBtn" type="button" class="btn btn-outline-gray">뒤로</button>
 										</div>
 			                    </div>                      
                             </form>

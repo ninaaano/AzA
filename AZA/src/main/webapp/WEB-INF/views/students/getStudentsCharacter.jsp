@@ -10,8 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b209e29beb.js" crossorigin="anonymous"></script>
     <link href="/resources/css/message.css" rel="stylesheet">
@@ -27,21 +26,36 @@
     <!-- Load main stylesheet-->
     <link href="/resources/css/styles.css" rel="stylesheet">
     
-        
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">   
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
-        
+        <link rel="stylesheet" href="/resources/css/common.css"/>
+        <link rel="stylesheet" href="/resources/css/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500"
+	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+	rel="stylesheet">
+
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">	    
 <!--  -->
 
 
 <style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
-}
+
 </style>
 
 <script type="text/javascript">
@@ -87,13 +101,13 @@ $(function () {
 
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
+	$( "#deleteBtn" ).on("click" , function() {
 		deleteStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-primary:contains('수정')" ).on("click" , function() {
+	$( "#updateBtn" ).on("click" , function() {
 		updateStudentsCharacter();
 	});
 });
@@ -113,24 +127,27 @@ function updateStudentsCharacter() {
 
 
 </script>
-
+<style>
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
+}
+</style>
 </head>
-<body>
+<body class="nav-fixed bg-light">
 <form>
-
 <br/>
-
-
-
 <div align="center" class="character">
- <h3> 학생 특징 조회</h3>
+	<header class="main-header">
+<div class="text-primary fs-5"><i class="bi bi-twitch"></i>학생 특징 등록</div>
+ <div class="text-gray caption fs-6 mb-3">Add Character</div>
+	</header>
 <input type="hidden" name="characterCode" value="${students.characterCode }">
 <input type="hidden" name="studentId" value="${students.studentId }">
 <input type="hidden" name="studentName" value="${students.studentName }">
 <input type="hidden" name="characterContent"  value="${students.characterContent }">
 
 
-			<select id="characterCode" name="characterCode" class="form-select form-select-lg" aria-label="Large select example" style="width:600px;">
+			<select id="studentName" name="studentId" class="form-select form-select-sm" aria-label="Large select example" style="width: 200px;">
 						<option align="center" selected="" disabled="" > 학생 선택 </option>
 				<c:forEach var="students" items="${list}">  
 						<option align="center" value="${students.characterCode }">${students.studentName}	
@@ -156,8 +173,8 @@ function updateStudentsCharacter() {
                                         </table>
                                     </div>
                                     <div class="card-footer bg-transparent position-relative ripple-gray">
-                                      		<button class="btn btn-raised-primary" type="button">수정</button>
-											<button class="btn btn-raised-danger" type="button">삭제</button>
+                                      		<button id="updateBtn" class="btn btn-outline-primary" type="button">수정</button>
+											<button id="deleteBtn" class="btn btn-outline-danger" type="button">삭제</button>
 											
                                     </div>  
               </div>
@@ -166,6 +183,13 @@ function updateStudentsCharacter() {
 <!--  --> 
 </div>
 </form>
-
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta.10/chart.min.js"
+		crossorigin="anonymous"></script>
+	<!-- <script src="/resources/javascript/common/charts/chart-defaults.js"></script> -->
+	<script src="/resources/javascript/common/prism.js"></script>
+	<script src="/resources/javascript/common/material.js"></script>
+	<script src="/resources/javascript/common/scripts.js"></script>
 </body>
 </html>

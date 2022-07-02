@@ -165,9 +165,9 @@ function showMessages(userId, message) {
 		<div class="pt-1 pb-1 d-flex flex-row justify-content-start">
         <span class="messageContent" name="${message._id}">
         <div class="d-flex justify-content-start align-items-end">
-        <p class="small p-2 mb-1 rounded-3" style="background-color: #f5f6f7;">${timeForm}</p>
+        <p class="small p-2 mb-1 rounded-3" style="background-color: #f5f6f7;">${message.messageContent}</p>
         </div>
-        <p class="small caption text-muted mb-1 text-start">${message.messageCreateAt}</p>
+        <p class="small caption text-muted mb-1 text-start">${timeForm}</p>
         </span>
         </div></ul>`;	
 	}	

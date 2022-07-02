@@ -10,7 +10,10 @@
           },
           initialView: 'dayGridMonth',
           locale: 'ko',   //한글설정 나머지 영어빼고 지움
-          buttonIcons: false, //이전달 다음달로 보임 <> == true
+          buttonIcons: {
+				prev: 'bi bi-arrow-left',
+				next: 'bi bi-arrow-right',
+			}, //이전달 다음달로 보임 <> == true
           navLinks: true,  //날짜 누르면 상세 조회.
           businessHours: true, //상세 시간 표시
           editable: true,   //수정가능여부

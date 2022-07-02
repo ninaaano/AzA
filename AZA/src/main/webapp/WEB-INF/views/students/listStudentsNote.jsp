@@ -45,6 +45,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/sl-1.4.0/datatables.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
  
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -109,11 +110,11 @@ $(function() {
                                 </div>
                             </div>
                             <br/>
+                            <div align="right" style="margin-right: 30px">
+	      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary btn-sm text-center"><i class="bi bi-plus-lg mr-0"></i>노트 작성</button>
+	      					</div>
                             
 		                    <div class="card-body p-4">		
-	                            <div style="margin: 0px 0px 20px 0px">
-		      						<button id="addBtn" onclick="addBtn();" type="button" class="btn btn-outline-primary">노트 작성</button>
-		      					</div>
 		                        <!-- Simple DataTables example-->
 		                        <table id="datatablesSimpleNoteList">
 		                        

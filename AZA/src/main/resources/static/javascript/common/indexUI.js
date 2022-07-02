@@ -309,15 +309,13 @@ $(function() {
 		                	if(!valFlag) {
 		                		$('.lessonCheck').addClass('show');
 		                		return;
-		                	}
+		                	} else {
+									document.addStudentsRecordForm.action = "/students/addStudentsRecord";
+		            				document.addStudentsRecordForm.method = "POST";
+		            				document.addStudentsRecordForm.submit();	
+
+							}
 		                	
-		                	console.log(valFlag);
-		                	
-		                	if(valFlag) {
-		            			document.addStudentsRecordForm.action = "/students/addStudentsRecord";
-		            			document.addStudentsRecordForm.method = "POST";
-		            			document.addStudentsRecordForm.submit();		
-		            		}
 		                } else {
 		                	console.log("lesson/rest/checkLessonCode :: error || null");			                	
 		                	$('.lessonCheck').addClass('show');

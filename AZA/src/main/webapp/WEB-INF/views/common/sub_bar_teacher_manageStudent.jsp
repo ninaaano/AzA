@@ -105,7 +105,7 @@ font-family: Pretendard, 'Noto Sans KR';
 							  
 							  
 							  
-							  <iframe class="none-scroll" id="subFrame" src="/lesson/listLesson" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
+							  <iframe class="none-scroll" id="subFrame" src="/paper/listPaperHomework" style="display:block; width:100vw; height: 100vh; z-index:9990; opacity: 100%" allowfullscreen></iframe>
 							  
 							  
 							  </div>

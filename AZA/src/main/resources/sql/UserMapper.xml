@@ -33,9 +33,9 @@
 	<!-- USERS : INSERT -->
 	<insert 	id="addUser"		parameterType="user" >							
 		INSERT
-		INTO users(user_id,password,role,user_name,phone,school,grade,birth,parent_phone)
-		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
-		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:CHAR} , #{parentPhone:VARCHAR})
+		INTO users(user_id,password,role,user_name,phone,school)
+		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone:VARCHAR}, 
+		#{school:VARCHAR})
 			
 	</insert>
 	
@@ -43,7 +43,7 @@
 	<insert 	id="addUserbyParent"		parameterType="user" >							
 		INSERT ALL
 		INTO users(user_id,password,role,user_name,phone,school,grade,birth,parent_phone)
-		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone}, 
+		VALUES (#{userId} , #{password}, #{role}, #{userName} ,#{phone:VARCHAR}, 
 		#{school:VARCHAR}, #{grade:VARCHAR}, #{birth:CHAR} , #{parentPhone:VARCHAR})
 		INTO relation VALUES
 		(seq_relation_relation_code.NEXTVAL,

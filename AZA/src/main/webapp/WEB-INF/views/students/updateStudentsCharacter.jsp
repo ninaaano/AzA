@@ -31,28 +31,30 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/resources/css/message.css"/>
+<link href="/resources/css/styles.css" rel="stylesheet">
+<link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/attendance.css" rel="stylesheet">
+
         
 <!--  -->
 
 
 <style>
-	body {
-    padding-top : 20px;
-    margin : 50px;
+*, body { 
+font-family: Pretendard, 'Noto Sans KR';
 }
 </style>
 
 <script type="text/javascript">
 
 $(function() {
-	$( "button.btn.btn-raised-light:contains('수정하기')" ).on("click" , function() {
+	$( "#updateBtn" ).on("click" , function() {
 		updateStudentsCharacter();
 	});
 });
 
 $(function() {
-	$( "button.btn.btn-raised-danger:contains('삭제')" ).on("click" , function() {
+	$( "#deleteBtn" ).on("click" , function() {
 		deleteStudentsCharacter();
 	});
 });
@@ -88,8 +90,8 @@ function updateStudentsCharacter() {
                                     <div class="card-body p-5">
                                         <div class="overline text-muted mb-4"></div>
 
-                                               <h2>${students.studentName}의 특징</h2>
-        									   <p class="card-text mb-4" style="font-size: 10px;">학생 특징 수정 페이지입니다. :)</p>
+                                               <div class="fs-3 pb-1"><span class="text-primary fs-3">${students.studentName}</span>의 특징</div>
+        									   <p class="card-text mb-4 fs-6 text-muted">학생 특징 수정 페이지입니다:)</p>
                                    
                                         <table class="table table-sm mb-0">
                                             <tbody>
@@ -107,8 +109,8 @@ function updateStudentsCharacter() {
                                     </div>
                                     
                                     <div class="card-footer bg-transparent position-relative ripple-gray">
-											<button class="btn btn-raised-light" type="button">수정하기</button>
-											<button class="btn btn-raised-danger" type="button">삭제</button>
+											<button id="updateBtn" class="btn btn-outline-primary" type="button">수정하기</button>
+											<button id="deleteBtn" class="btn btn-outline-danger" type="button">삭제</button>
                                     </div>  
               </div>
 </form>

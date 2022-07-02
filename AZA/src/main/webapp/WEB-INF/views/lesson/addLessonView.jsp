@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>addLessonView</title>
+    <title>AZA : 수업 등록</title>
     
     <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -119,7 +119,7 @@
 	            id="subject" name="subject" aria-describedby="button-addon1"/>
 							</div>
 							<div class="mb-0">
-								<textarea class="form-control"  id="lessonContent" name="lessonContent" placeholder="수업 커리큘럽 입력하세요" rows="12"></textarea>
+								<textarea class="form-control"  id="lessonContent" name="lessonContent" placeholder="수업 커리큘럼을 입력하세요" rows="12"></textarea>
 							</div>
 						</form>
 					</div>
