@@ -51,7 +51,7 @@ public class LessonServiceImpl implements LessonService {
 	public void updateLesson(Lesson lesson) throws Exception {
 		// TODO Auto-generated method stub
 
-		System.out.println("updateLesson DB Á¢¼Ó");
+		System.out.println("updateLesson DB ï¿½ï¿½ï¿½ï¿½");
 
 		System.out.println(lesson);
 		lessonDao.updateLesson(lesson);
@@ -71,7 +71,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -83,7 +83,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 		
@@ -97,7 +97,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 	
@@ -109,7 +109,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list",list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -144,7 +144,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -156,7 +156,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 	
@@ -168,7 +168,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -186,7 +186,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("book",list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -224,7 +224,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -254,7 +254,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -266,7 +266,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 
@@ -278,7 +278,7 @@ public class LessonServiceImpl implements LessonService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list",list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 

@@ -20,7 +20,7 @@ public class LogonCheckInterceptor implements  HandlerInterceptor {
         HttpSession session = request.getSession(true);
 		User user = (User)session.getAttribute("user");
 
-        if (user != null) {    /* 로그인 되어 있는 경우 */
+        if (user != null) {
             response.sendRedirect("/index");
  
         }

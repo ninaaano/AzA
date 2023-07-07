@@ -57,15 +57,15 @@ public class StudentsController {
 
 	@Autowired
 	@Qualifier("paymentServiceImpl")
-	private PaymentService paymentService;	
-	
+	private PaymentService paymentService;
+
 	@Value("${pageUnit}")
 	int pageUnit;
 
 	@Value("${pageSize}")
 	int pageSize;
-	
-	
+
+
 	public StudentsController() {
 		System.out.println(this.getClass());
 	}
@@ -96,11 +96,11 @@ public class StudentsController {
 		mv.addObject("search", search);
 
 		//  0 list
-		search.setPageSize(50);	
+		search.setPageSize(50);
 		Map<String, Object> proposalMap = studentsService.listProposalStudents(search, teacherId);
 		mv.addObject("listProposal", proposalMap.get("list"));
 
-		return mv;			
+		return mv;
 	}
 
 	@RequestMapping(value="/addStudentsRecord", method=RequestMethod.POST)
@@ -112,20 +112,20 @@ public class StudentsController {
 		String studentId = student.getUserId();
 
 		students.setStudentId(studentId);
-		
+
 		String startDate = students.getLessonStartDate().replace("-", "/");
 		students.setLessonStartDate(startDate);
 
 		System.out.println(students);
 		studentsService.addStudentsRecord(students);
 		System.out.println("insert Code Test ==> "+students.getRecordCode());
-		
+
 		Students students2 = studentsService.getStudentsRecord(students.getRecordCode());
 		System.out.println("students2 ?? => " + students2);
 		payment.setStudentRecordNo(students2.getRecordCode());
 		payment.setStudentId(studentId);
-		payment.setCheckPay('N');	
-		
+		payment.setCheckPay('N');
+
 		paymentService.addPayment(payment);
 		System.out.println("add studentsRecord payment =>" + payment);
 		ModelAndView mv = new ModelAndView();
@@ -172,7 +172,7 @@ public class StudentsController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/students/listStudentsRecord");
 
-		return mv;		
+		return mv;
 	}
 
 	@RequestMapping(value="proposalStudents/{recordCode}/{proposal}")
@@ -185,11 +185,11 @@ public class StudentsController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/students/listStudentsRecord");
 
-		return mv;	
+		return mv;
 	}
 
 
-	// ATTENDANCE 
+	// ATTENDANCE
 	@RequestMapping("addStudentsAttendance")
 	public ModelAndView addStudentsAttendance(@RequestBody Students students, ModelAndView mv) throws Exception {
 
@@ -244,16 +244,16 @@ public class StudentsController {
 		System.out.println("/students/listStudentsAttendance");
 
 		String searchStartDate = search.getSearchStartDate();
-		String searchEndDate = search.getSearchEndDate();	
+		String searchEndDate = search.getSearchEndDate();
 
 		System.out.println(search);
 
 		if(search.getSearchStartDate() == null || search.getSearchStartDate().length() < 1) {
 			LocalDate now = LocalDate.now();
-			String prevMonth = Integer.toString(now.getMonthValue() - 1); 
+			String prevMonth = Integer.toString(now.getMonthValue() - 1);
 			prevMonth = prevMonth.length() < 2 ? "0" + prevMonth : prevMonth;
 			searchStartDate = now.format(DateTimeFormatter.ofPattern("yyyy/"+prevMonth+"/31"));
-			searchEndDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/31"));			
+			searchEndDate = now.format(DateTimeFormatter.ofPattern("yyyy/MM/31"));
 		}
 
 
@@ -271,15 +271,15 @@ public class StudentsController {
 		search.setPageSize(pageSize);
 
 		if(studentId==null || studentId.length() < 1) {
-			studentId = ((User) students.get(0)).getFirstStudentId();			
+			studentId = ((User) students.get(0)).getFirstStudentId();
 		}
 
 		List<User> studentsInfo = new ArrayList<User> ();
 
-		for(int i = 0; i < students.size(); i++) { 
-			String temp = ((User) students.get(i)).getFirstStudentId(); 
+		for(int i = 0; i < students.size(); i++) {
+			String temp = ((User) students.get(i)).getFirstStudentId();
 			User student = userService.getUser(temp);
-			studentsInfo.add(student); 
+			studentsInfo.add(student);
 		}
 
 		User student = userService.getUser(studentId);
@@ -313,13 +313,13 @@ public class StudentsController {
 		mv.addObject("studentInfo", studentsInfo);
 		mv.addObject("lessons", lessons);
 
-		return mv;			
+		return mv;
 	}
 
 	//========================>Note
-	
-	//ÀÌ¹ÌÁö ¾÷·Îµå
-	
+
+	//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
+
 	@RequestMapping( value="addStudentsNote", method=RequestMethod.GET )
 	public ModelAndView addStudentsNote(HttpSession session) throws Exception{
 
@@ -343,28 +343,28 @@ public class StudentsController {
 		studentsService.addStudentsNote(students);
 
 		System.out.println("==="+students);
-		ModelAndView modelAndView = new ModelAndView();	
-		modelAndView.setViewName("redirect:/students/listStudentsNote");		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/students/listStudentsNote");
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="updateStudentsNoteView", method=RequestMethod.POST)
 	public ModelAndView updateStudentsNote(@RequestParam("noteCode") int noteCode, Students students, HttpSession session) throws Exception{
-		
+
 		System.out.println("/studentst/updateStudentsNote : GET");
-		
+
 		String studentsId = ((User) session.getAttribute("user")).getUserId();
 
 
 		students= studentsService.getStudentsNote(noteCode);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/students/updateStudentsNote2");
 		modelAndView.addObject("students", students);
 
-		return modelAndView;		
-		
+		return modelAndView;
+
 	}
 
 	@RequestMapping(value="updateStudentsNote", method=RequestMethod.POST)
@@ -434,9 +434,9 @@ public class StudentsController {
 		mv.setViewName("/students/listStudentsNote");
 		mv.addObject("list", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
-		mv.addObject("search", search);		
+		mv.addObject("search", search);
 
-		return mv;			
+		return mv;
 	}
 
 	// CHARACTER testl===================================
@@ -444,7 +444,7 @@ public class StudentsController {
 
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.GET)
 	public ModelAndView addStudentsCharacter
-	(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
+			(ModelAndView mv, HttpSession session, @ModelAttribute("search") Search search) throws Exception {
 
 		System.out.println("/students/addStudentsCharacter :: GET :: ï¿½Ü¼ï¿½ View");
 
@@ -466,21 +466,21 @@ public class StudentsController {
 		mv.setViewName("/students/addStudentsCharacter");
 
 
-		return mv;		
+		return mv;
 	}
 
 	// character add!
 	@RequestMapping(value="addStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView addStudentsCharacter
-	(@ModelAttribute("students") Students students, ModelAndView mv, 
-			HttpSession session,@ModelAttribute("search") Search search,@ModelAttribute("userStudent") User user2) throws Exception {
-		
+	(@ModelAttribute("students") Students students, ModelAndView mv,
+	 HttpSession session,@ModelAttribute("search") Search search,@ModelAttribute("userStudent") User user2) throws Exception {
+
 		System.out.println("/students/addStudentsCharacter :: POST :: ");
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		students.setTeacherId(teacherId);
 		//ï¿½ß°ï¿½..
 		students.setStudentId(user2.getUserId());
-		
+
 		studentsService.addStudentsCharacter(students);
 		System.out.println("add CharacterCode ==> " + students.getCharacterCode());
 		students = studentsService.getStudentsCharacter(students.getCharacterCode());
@@ -504,7 +504,7 @@ public class StudentsController {
 	@RequestMapping(value="updateStudentsCharacterView", method=RequestMethod.POST)
 	public ModelAndView updateStudentsCharacterView(@RequestParam("characterCode") int characterCode,Students students,ModelAndView mv,HttpSession session) throws Exception {
 
-		
+
 		System.out.println("/students/updateStudentsCharacterView :: GET :: VIEW");
 
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
@@ -517,13 +517,13 @@ public class StudentsController {
 		mv.addObject("students",students);
 		mv.setViewName("/students/updateStudentsCharacter");
 
-		return mv;		
+		return mv;
 	}
 
 	@RequestMapping(value="updateStudentsCharacter", method=RequestMethod.POST)
 	public ModelAndView updateStudentsCharacter
 
-	(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
+			(@ModelAttribute("students") Students students,ModelAndView mv,HttpSession session,@ModelAttribute("search") Search search) throws Exception {
 
 		System.out.println("/students/updateStudentsCharacter :: POST :: ");
 
@@ -541,11 +541,11 @@ public class StudentsController {
 
 		studentsService.updateStudentsCharacter(students);
 
-		mv.addObject("students",students);	
+		mv.addObject("students",students);
 
 		mv.setViewName("/students/getStudentsCharacter");
 
-		return mv;		
+		return mv;
 	}
 
 	@RequestMapping(value="deleteStudentsCharacter")
@@ -562,14 +562,14 @@ public class StudentsController {
 
 		mv.setViewName("redirect:/students/addStudentsCharacter");
 
-		return mv;		
+		return mv;
 	}
 
 
 
 	@RequestMapping(value="getStudentsCharacter/{characterCode}")
 	public ModelAndView getStudentCharacter
-	(@PathVariable("characterCode") int characterCode, @RequestParam("studentId") String studentId, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
+			(@PathVariable("characterCode") int characterCode, @RequestParam("studentId") String studentId, ModelAndView mv,@ModelAttribute("search") Search search, HttpSession session) throws Exception{
 
 		System.out.println("getStudentsCharacter ... ");
 
@@ -583,11 +583,11 @@ public class StudentsController {
 		System.out.println("GET Code  ====>> " + characterCode);
 		Students students = studentsService.getStudentsCharacter(characterCode);
 
-		mv.addObject("students",students);		
+		mv.addObject("students",students);
 		mv.addObject("list", listMap.get("list"));
 		mv.addObject("resultPage", resultPage);
 		mv.addObject("search", search);
-		
+
 		mv.setViewName("/students/getStudentsCharacter");
 
 		return mv;
@@ -595,7 +595,7 @@ public class StudentsController {
 	//========= Test ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ get, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ insert view
 	@RequestMapping(value = "getCheckStudentsCharacter")
 	public ModelAndView getCheckStudentsCharacter
-		(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{
+	(@ModelAttribute("search") Search search, Students students, ModelAndView mv, @RequestParam("studentId") String studentId, HttpSession session) throws Exception{
 		String teacherId = ((User) session.getAttribute("user")).getUserId();
 		search.setSearchId(teacherId);
 		search.setSearchKeyword(studentId);
@@ -633,38 +633,38 @@ public class StudentsController {
 			System.out.println("student Character ==> " + students);
 			mv.setViewName("/students/getStudentsCharacter");
 		}
-		
+
 		return mv;
 	}
-//========================
+	//========================
 	// Exam
-	@RequestMapping(value={"manageStudentsExam", "manageStudentsExam/{studentId}"}, method= {RequestMethod.GET, RequestMethod.POST}) 
+	@RequestMapping(value={"manageStudentsExam", "manageStudentsExam/{studentId}"}, method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView manageStudentsExam (HttpSession session, @PathVariable(value = "studentId", required = false) String kidId) throws Exception {
-		
+
 		System.out.println("/students/manageStudentsExam");
-		
+
 		User user = (User) session.getAttribute("user");
 		String studentId = "";
-		
+
 		if(user.getRole().equals("parent")) {
-			
-			if(kidId == null || kidId.length() < 1) {				
-				List students = (List) session.getAttribute("students");				
-				studentId = ((User) students.get(0)).getFirstStudentId();						
+
+			if(kidId == null || kidId.length() < 1) {
+				List students = (List) session.getAttribute("students");
+				studentId = ((User) students.get(0)).getFirstStudentId();
 			} else {
 				studentId = kidId;
 			}
-			
+
 		} else {
-			
+
 			studentId = user.getUserId();
-			
+
 		}
-		
-		
+
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/students/exam");
-		
+
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(1);
@@ -672,7 +672,7 @@ public class StudentsController {
 		Map<String, Object> temp1 = studentsService.listStudentsExamByStudent(search);
 		int totalCount = (int) temp1.get("totalCount");
 		search.setPageSize(totalCount);
-		
+
 		Map<String, Object> temp2 = studentsService.listStudentsExamByStudent(search);
 		List<Students> examList = (List<Students>) temp2.get("list");
 		List<String> subjectList = new ArrayList<String>();
@@ -682,65 +682,65 @@ public class StudentsController {
 				subjectList.add(subject);
 			}
 		}
-		
+
 		mv.addObject("subjectList", subjectList);
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value="addStudentsExam")
 	public ModelAndView addStudentsExam(HttpSession session, ModelAndView mv, @ModelAttribute Students student) throws Exception {
-		
+
 		System.out.println("/students/manageStudentsExam");
 		System.out.println("mv : "+mv);
-		
+
 		User user = (User) session.getAttribute("user");
 		String studentId = user.getUserId();
-		
+
 		student.setStudentId(studentId);
-		
+
 		System.out.println(student);
 		studentsService.addStudentsExam(student);
 
 		mv.setViewName("redirect:/students/manageStudentsExam");
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value="updateStudentsExam")
 	public ModelAndView updateStudentsExam(HttpSession session, ModelAndView mv, @ModelAttribute Students data) throws Exception {
 		System.out.println("/students/updateStudentsExam");
 		System.out.println("mv : "+mv);
-		
+
 		User user = (User) session.getAttribute("user");
 		String studentId = user.getUserId();
 		int examCode = data.getExamCode();
 		int examScore = data.getExamScore();
-		
+
 		Students exam = studentsService.getStudentsExam(examCode);
 		exam.setStudentId(studentId);
 		exam.setExamScore(examScore);
 
 		System.out.println("exam : "+ exam);
-		
+
 		studentsService.updateStudentsExam(exam);
 
 		mv.setViewName("redirect:/students/manageStudentsExam");
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value="deleteStudentsExam")
 	public ModelAndView deleteStudentsExam(ModelAndView mv, @RequestParam("examCode") int examCode) throws Exception {
-		
+
 		System.out.println("/students/deleteStudentsExam");
-		
+
 		studentsService.deleteStudentsExam(examCode);
 
 		mv.setViewName("redirect:/students/manageStudentsExam");
-		
+
 		return mv;
 	}
-	
-	
+
+
 }

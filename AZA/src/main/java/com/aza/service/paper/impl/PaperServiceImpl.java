@@ -70,7 +70,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -108,7 +108,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -120,7 +120,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -245,7 +245,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		
 		return map;
@@ -260,7 +260,7 @@ public class PaperServiceImpl implements PaperService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		
 		return map;

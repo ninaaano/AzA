@@ -73,7 +73,7 @@ public class AlertServiceImpl implements AlertService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}

@@ -81,7 +81,7 @@ public class StudentsServiceImpl implements StudentsService {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 
 		return map;
 	}
@@ -93,7 +93,7 @@ public class StudentsServiceImpl implements StudentsService {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 
 		return map;
 	}
@@ -105,7 +105,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 
 		return map;
 	}
@@ -124,7 +124,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", totalList );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 	
 		return map;
 	}
@@ -139,7 +139,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if(attendanceState.equals("Ãâ¼®")) {
+		if(attendanceState.equals("ï¿½â¼®")) {
 			Search search = new Search();
 			search.setCurrentPage(1);
 			search.setPageSize(pageSize);
@@ -177,7 +177,7 @@ public class StudentsServiceImpl implements StudentsService {
 		String attendanceState = students.getAttendanceState();
 		String studentId = students.getStudentId();
 		
-		if (attendanceState.equals("µµ¸Á") || attendanceState.equals("Á¶Åð") || attendanceState.equals("Ãâ¼®") ) {
+		if (attendanceState.equals("ï¿½ï¿½ï¿½ï¿½") || attendanceState.equals("ï¿½ï¿½ï¿½ï¿½") || attendanceState.equals("ï¿½â¼®") ) {
 			Search search = new Search();
 			search.setCurrentPage(1);
 
@@ -218,7 +218,7 @@ public class StudentsServiceImpl implements StudentsService {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 
 		return map;
 	}
@@ -254,7 +254,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -298,7 +298,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -310,7 +310,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -341,7 +341,7 @@ public class StudentsServiceImpl implements StudentsService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list",list);
-		map.put("totalCount", new Integer(totalCount));
+		map.put("totalCount", totalCount);
 		return map;
 	}
 

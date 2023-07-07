@@ -34,9 +34,9 @@ public interface UserService {
 	public void updateStopAlertEndTime(User user) throws Exception;
 	
 	//User :: updateCheck
-	public void updateCheck(User user) throws Exception; // ÀÚµ¿·Î±×ÀÎ. login¿¡ ºÙÀÌ±â
+	public void updateCheck(User user) throws Exception;
 	
-	//Relation :: INSERT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
+	//Relation :: INSERT
 	public void addRelation(User user) throws Exception;
 	
 	//Relation :: SELECT

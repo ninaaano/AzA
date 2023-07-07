@@ -100,7 +100,6 @@ public class UserController {
 			
 			// teacher 
 			if(dbUser.getRole().equals("teacher")) {
-				//rttr.setAttribute("user", dbUser);
 				mv.setViewName("redirect:/index");
 			}
 			
@@ -121,10 +120,8 @@ public class UserController {
 			// parent 
 			if(dbUser.getRole().equals("parent")) {
 				
-				//////////////////////////////////////부모 첫번째자녀 추가///////////////////////////
 				User getFirstStudentIdByParent = userService.firstStudentIdByParent(dbUser.getUserId());
-				/////////////////////////////////////////////////////////////////////////////////////////
-				
+
 				Search search = new Search();
 				search.setPageSize(pageSize);
 				search.setCurrentPage(1);

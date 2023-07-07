@@ -100,27 +100,27 @@ public class PaymentRestController {
 	public ResponseEntity<String> completePayment
 	(HttpSession session, Payment payment)throws Exception{
 		System.out.println("rest Payment Complete");
-		System.out.println("comlete payment ½ÃÀÛ => " + payment);
+		System.out.println("comlete payment => " + payment);
 		
 		String token = paymentService.getToken();
-		System.out.println("ÅäÅ« ==> " + token);
+		System.out.println("Token ==> " + token);
 		String impUid = payment.getImpUid();
 		String payer = payment.getPayer();
 		
 		payment = paymentService.getPayment(payment.getPayCode());
 		int amount = paymentService.paymentInfo(impUid, token);
 		System.out.println("rest Amount=>" + amount);
-		//½Ç°áÁ¦ ±İ¾×°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ.
+		//ì‹¤ê²°ì œ ê¸ˆì•¡ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸.
 		int checkPrice = payment.getAmount();
 		System.out.println("checkPrice => " + checkPrice);
-		
-		//ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§ °áÁ¦ Ãë¼Ò
+
+		//ì¼ì¹˜í•˜ì§€ ì•Šì„ ë•Œ ê²°ì œ ì·¨ì†Œ
 		try {
 			if(checkPrice != amount) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ±İ¾× ¿À·ù");
-			 return new ResponseEntity<String>("°áÁ¦ ±İ¾× ¿À·ù, °áÁ¦ Ãë¼Ò", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "payment amount error");
+			 return new ResponseEntity<String>("payment amount error, cancel payment", HttpStatus.BAD_REQUEST);
 		}else {
-			//°áÁ¦ ¼º°ø½Ã ¼ö³³¿Ï·á·Î »óÅÂ º¯°æ, impUid°ª ÀúÀå
+				//ê²°ì œ ì„±ê³µì‹œ ìˆ˜ë‚©ì™„ë£Œë¡œ ìƒíƒœ ë³€ê²½, impUidê°’ ì €ì¥
 			System.out.println("checkPrice = amount check OK");
 			System.out.println("checkPrice = amount payment value=>" + payment);
 			payment.setPayCode(payment.getPayCode());
@@ -129,14 +129,14 @@ public class PaymentRestController {
 			payment.setCheckPay('Y');
 			payment.setImpUid(impUid);
 			paymentService.updatePayment(payment);
-			System.out.println("°áÁ¦ ¼º°ø");
+			System.out.println("success");
 			System.out.println("comlete payment => " + payment);
 			
 		}
 			
 		}catch (Exception e) {
-			paymentService.paymentCancle(token, payment.getImpUid(), amount, "°áÁ¦ ¿À·ù");
-			 return new ResponseEntity<String>("°áÁ¦ ¿¡·¯", HttpStatus.BAD_REQUEST);
+			paymentService.paymentCancle(token, payment.getImpUid(), amount, "payment error");
+			 return new ResponseEntity<String>("payment error", HttpStatus.BAD_REQUEST);
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
